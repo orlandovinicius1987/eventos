@@ -31,7 +31,36 @@ class CreateTableEventsAndSubevents extends Migration
             $table->string('name');
             $table->date('date');
             $table->time('time');
-            $table->text('address');
+
+            $table
+                ->string('zipcode')
+                ->nullable()
+                ->index();
+
+            $table
+                ->string('street')
+                ->nullable()
+                ->index();
+
+            $table
+                ->string('complement')
+                ->nullable()
+                ->index();
+
+            $table
+                ->string('neighbourhood')
+                ->nullable()
+                ->index();
+
+            $table
+                ->string('city')
+                ->nullable()
+                ->index();
+
+            $table
+                ->string('state')
+                ->nullable()
+                ->index();
 
             $table->float('latitude');
             $table->float('longitude');
@@ -41,6 +70,8 @@ class CreateTableEventsAndSubevents extends Migration
             $table->text('credential_send_text');
 
             $table->integer('client_id');
+
+            $table->integer('event_id');
 
             $table->timestamps();
         });
