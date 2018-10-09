@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableEventsAndSubevents extends Migration
+class CreateTablePeople extends Migration
 {
     /**
      * Run the migrations.
@@ -13,24 +13,14 @@ class CreateTableEventsAndSubevents extends Migration
      */
     public function up()
     {
-        Schema::create('events', function (Blueprint $table) {
+        Schema::create('people', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
-            $table->integer('confirmed_by');
-            $table->date('confirmed_at');
-
-            $table->integer('client_id');
-
-            $table->timestamps();
-        });
-
-        Schema::create('subevents', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->string('name');
-            $table->date('date');
-            $table->time('time');
+            $table->string('position');
+            $table->string('title');
+            $table->string('phone')->unique();
+            $table->string('email')->unique();
 
             $table
                 ->string('zipcode')
@@ -62,17 +52,6 @@ class CreateTableEventsAndSubevents extends Migration
                 ->nullable()
                 ->index();
 
-            $table->float('latitude');
-            $table->float('longitude');
-
-            $table->text('invitation_text');
-            $table->text('confirmation_text');
-            $table->text('credential_send_text');
-
-            $table->integer('client_id');
-
-            $table->integer('event_id');
-
             $table->timestamps();
         });
     }
@@ -84,7 +63,6 @@ class CreateTableEventsAndSubevents extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
-        Schema::dropIfExists('subevents');
+        Schema::dropIfExists('people');
     }
 }
