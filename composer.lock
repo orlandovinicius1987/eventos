@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "14eb216d87078a475876af9260fabdef",
+    "content-hash": "b9648350d410329d96023b564f12b04f",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -1877,6 +1877,63 @@
                 "string"
             ],
             "time": "2018-08-19T20:21:49+00:00"
+        },
+        {
+            "name": "pragmarx/sqli",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonioribeiro/sqli.git",
+                "reference": "5236b2c65b60b309e9ffb8422a3c0b7c01a0897c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonioribeiro/sqli/zipball/5236b2c65b60b309e9ffb8422a3c0b7c01a0897c",
+                "reference": "5236b2c65b60b309e9ffb8422a3c0b7c01a0897c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.7",
+                "pragmarx/support": "~0.6"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpspec/phpspec": "2.0.*@dev",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "component": "package",
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PragmaRX\\Sqli\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio Carlos Ribeiro",
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A Laravel Artisan SQL Interactive Interface",
+            "keywords": [
+                "REPL",
+                "artisan",
+                "laravel",
+                "query",
+                "sql",
+                "sqli"
+            ],
+            "time": "2015-03-19T22:05:26+00:00"
         },
         {
             "name": "pragmarx/support",
@@ -5496,7 +5553,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "pragmarx/sqli": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
