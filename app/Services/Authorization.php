@@ -3,11 +3,11 @@ namespace App\Services;
 
 use App\Services\Traits\RemoteRequest;
 use App\Data\Repositories\Users as UsersRepository;
-use App\Data\Repositories\UserTypes as UserTypesRepository;
 
 class Authorization
 {
     const PERMISSIONS_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/permissions';
+    const PROFILES_URL = 'http://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/profiles';
 
     const SYSTEM_NAME = 'AloAlerj';
 
@@ -49,7 +49,11 @@ class Authorization
             $usersRepository = app(UsersRepository::class);
             $user = $usersRepository->findByColumn('username', $username);
 
-            return $this->storedPermissions($user);
+            if (is_null($user)) {
+                //Mandar resposta vazia
+            } else {
+                return $this->storedProfiles($user);
+            }
         }
     }
 
@@ -60,22 +64,48 @@ class Authorization
      */
     public function getUserProfiles($username)
     {
+        try {
+            $response = collect(
+                $this->remoteRequest->post(static::PROFILES_URL, [
+                    'username' => $username,
+                    'system' => static::SYSTEM_NAME,
+                ])
+            );
+            return $response;
+        } catch (\Exception $exception) {
+            //Logando com as permissões salvas
+            $usersRepository = app(UsersRepository::class);
+            $user = $usersRepository->findByColumn('username', $username);
+
+            return $this->storedPermissions($user);
+        }
+    }
+
+    /**
+     * @param $username
+     *
+     * @return collect
+     */
+    public function mockedProfiles($username)
+    {
         return collect(['Administrador', 'Usuario']);
     }
 
     private function storedPermissions($user)
     {
-        $userTypesRepostory = app(UserTypesRepository::class);
+        foreach ($user->permissions_array as $item) {
+            $permissionsArray[] = collect([
+                'nomeFuncao' => $item['nomeFuncao'],
+                'evento' => $item['evento'],
+            ]);
+        }
 
-        $userTypesArray = $userTypesRepostory->toArrayWithColumnKey(
-            $userTypesRepostory->all(),
-            'id'
-        );
+        return collect($permissionsArray);
+    }
 
-        $permissionsArray[] = collect([
-            'nomeFuncao' => $userTypesArray[$user->userType->id]->name,
-            'evento' => $userTypesArray[$user->userType->id]->name,
-        ]);
+    private function storedProfiles($user)
+    {
+        $user->profiles;
 
         return collect($permissionsArray);
     }

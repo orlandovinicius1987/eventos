@@ -18,7 +18,10 @@ class CreateUsersTable extends Migration
 
             $table->string('name');
 
-            $table->string('username')->unique()->index();
+            $table
+                ->string('username')
+                ->unique()
+                ->index();
 
             $table->string('email')->unique();
 
@@ -27,7 +30,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->json('permissions')->nullable();
-
             $table->json('profiles')->nullable();
 
             $table->rememberToken();
