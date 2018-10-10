@@ -66,18 +66,11 @@ class Authorization
     private function storedPermissions($user)
     {
         $userTypesRepostory = app(UserTypesRepository::class);
+
         $userTypesArray = $userTypesRepostory->toArrayWithColumnKey(
             $userTypesRepostory->all(),
             'id'
         );
-
-        $permissionsArray = [];
-        foreach ($user->committees as $committee) {
-            $permissionsArray[] = collect([
-                'nomeFuncao' => $committee->name,
-                'evento' => $committee->slug,
-            ]);
-        }
 
         $permissionsArray[] = collect([
             'nomeFuncao' => $userTypesArray[$user->userType->id]->name,

@@ -26,10 +26,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(UserType::class);
     }
-    public function committees()
-    {
-        return $this->belongsToMany(Committee::class, 'user_committees');
-    }
 
     /**
      * Add webhook url for slack.
