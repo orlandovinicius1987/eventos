@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
+import Events from './views/Events'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,11 @@ let routes = [
         path: '/dashboard',
         name: 'dashboard',
         component: Dashboard,
+    },
+    {
+        path: '/events',
+        name: 'events',
+        component: Events,
     },
 ]
 
