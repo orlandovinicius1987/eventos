@@ -6,7 +6,8 @@ class Subevent extends Base
     /**
      * @var array
      */
-    protected $fillable = ['name',
+    protected $fillable = [
+        'name',
         'date',
         'time',
         'zipcode',
@@ -21,5 +22,6 @@ class Subevent extends Base
         'confirmation_text',
         'credential_send_text',
         'client_id',
-        'event_id'];
+        'event_id',
+    ];
 }

@@ -6,7 +6,8 @@ class Person extends Base
     /**
      * @var array
      */
-    protected $fillable = ['name',
+    protected $fillable = [
+        'name',
         'position',
         'title',
         'phone',
@@ -16,5 +17,6 @@ class Person extends Base
         'complement',
         'neighbourhood',
         'city',
-        'state'];
+        'state',
+    ];
 }
