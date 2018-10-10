@@ -13,17 +13,13 @@
 
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
-        <link href="/css/app.css" rel="stylesheet">
+        <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
 
         @include('partials.environment')
     </head>
 
     <body>
-        <div id="vue-app">
-            @include('layouts.partials.heading')
-
-            @yield('content')
-        </div>
+        @yield('html-content')
 
         @include('partials.google-analytics')
 

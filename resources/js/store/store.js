@@ -19,7 +19,7 @@ import * as mutations from './mutations'
 /**
  * Modules
  */
-import businesses from './modules/businesses'
+import events from './modules/events'
 import environment from './modules/environment'
 
 /**
@@ -38,7 +38,7 @@ let store = new Vuex.Store({
     getters,
     mutations,
     modules: {
-        businesses,
+        events,
         environment,
     },
 })

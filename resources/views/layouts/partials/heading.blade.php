@@ -6,6 +6,7 @@
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
                     </a>
+
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -24,6 +25,24 @@
                                     <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                                 </li>
                             @else
+                                <li class="nav-item">
+                                    <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="vl_dashboard"></i>
+                                            <span class="nav-link-text">Painel de Controle</span>
+                                        </a>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
+                                    <router-link id="events-menu" to="/events" tag="li" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="vl_events"></i>
+                                            <span class="nav-link-text">Eventos</span>
+                                        </a>
+                                    </router-link>
+                                </li>
+
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                         {{ Auth::user()->name }} <span class="caret"></span>

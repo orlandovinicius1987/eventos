@@ -2,13 +2,13 @@
     <div>
         <div class="page-title mb-4 d-flex align-items-center">
             <div class="mr-auto">
-                <h4 class="weight500 d-inline-block pr-3 mr-3">{{ $t('messages.Businesses') }}</h4>
+                <h4 class="weight500 d-inline-block pr-3 mr-3">Painel de Controle</h4>
             </div>
         </div>
 
         <div class="row">
             <div class="col-xl-12">
-
+                Eventos
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@ export default {
     },
 
     mounted() {
-        this.boot()
+
     },
 }
 </script>
