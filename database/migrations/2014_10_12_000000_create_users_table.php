@@ -26,7 +26,9 @@ class CreateUsersTable extends Migration
 
             $table->string('password');
 
-            $table->integer('user_type_id')->unsigned();
+            $table->json('permissions')->nullable();
+
+            $table->json('profiles')->nullable();
 
             $table->rememberToken();
 

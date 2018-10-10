@@ -180,17 +180,17 @@ class Users extends Base
 
                 $user->email = $email;
 
-                $userType = $this->getUserTypeFromPermissions(
-                    app(Authorization::class)->getUserPermissions(
-                        $user->username
-                    )
-                );
-
-                if (is_null($userType)) {
-                    return false;
-                } else {
-                    $user->user_type_id = $userType->id;
-                }
+//                $userType = $this->getUserTypeFromPermissions(
+//                    app(Authorization::class)->getUserPermissions(
+//                        $user->username
+//                    )
+//                );
+//
+//                if (is_null($userType)) {
+//                    return false;
+//                } else {
+//                    $user->user_type_id = $userType->id;
+//                }
             }
 
             $user->password = Hash::make($credentials['password']);
