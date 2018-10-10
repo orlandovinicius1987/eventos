@@ -227,31 +227,31 @@ class Users extends Base
 
     public function updateCurrentUserTypeViaPermissions($permissions)
     {
-        $user = Auth::user();
-
-        $userTypesRepository = app(UserTypesRepository::class);
-
-        $userTypesArray = $userTypesRepository->toArrayWithColumnKey(
-            $userTypesRepository->all(),
-            'name'
-        );
-
-        $administrator = false;
-        $userType = null;
-
-        foreach ($permissions as $permission) {
-            if ($permission['nomeFuncao'] == 'Administrador') {
-                $userType = $userTypesArray['Administrador'];
-
-                $administrator = true;
-            }
-        }
-
-        if ($userType) {
-            $user->user_type_id = $userType->id;
-            $user->save();
-        } else {
-            dd('Você não está autorizado a usar o sistema');
-        }
+//        $user = Auth::user();
+//
+//        $userTypesRepository = app(UserTypesRepository::class);
+//
+//        $userTypesArray = $userTypesRepository->toArrayWithColumnKey(
+//            $userTypesRepository->all(),
+//            'name'
+//        );
+//
+//        $administrator = false;
+//        $userType = null;
+//
+//        foreach ($permissions as $permission) {
+//            if ($permission['nomeFuncao'] == 'Administrador') {
+//                $userType = $userTypesArray['Administrador'];
+//
+//                $administrator = true;
+//            }
+//        }
+//
+//        if ($userType) {
+//            $user->user_type_id = $userType->id;
+//            $user->save();
+//        } else {
+//            dd('Você não está autorizado a usar o sistema');
+//        }
     }
 }
