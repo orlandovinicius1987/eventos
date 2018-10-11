@@ -9,7 +9,7 @@ class Authorization
     const PERMISSIONS_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/permissions';
     const PROFILES_URL = 'http://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/profiles';
 
-    const SYSTEM_NAME = 'AloAlerj';
+    const SYSTEM_NAME = 'Eventos';
 
     /**
      * @var RemoteRequest
@@ -49,11 +49,7 @@ class Authorization
             $usersRepository = app(UsersRepository::class);
             $user = $usersRepository->findByColumn('username', $username);
 
-            if (is_null($user)) {
-                //Mandar resposta vazia
-            } else {
-                return $this->storedProfiles($user);
-            }
+            return $this->storedPermissions($user);
         }
     }
 
@@ -77,37 +73,56 @@ class Authorization
             $usersRepository = app(UsersRepository::class);
             $user = $usersRepository->findByColumn('username', $username);
 
-            return $this->storedPermissions($user);
+            return $this->storedProfiles($user);
         }
     }
 
     /**
-     * @param $username
+     * @param $user \App\Data\Models\User
      *
-     * @return collect
+     * @return \Illuminate\Support\Collection
      */
-    public function mockedProfiles($username)
-    {
-        return collect(['Administrador', 'Usuario']);
-    }
-
     private function storedPermissions($user)
     {
-        foreach ($user->permissions_array as $item) {
+        $permissionsArray = [];
+
+        foreach ($user->permissions_array as $key => $item) {
             $permissionsArray[] = collect([
-                'nomeFuncao' => $item['nomeFuncao'],
-                'evento' => $item['evento'],
+                'nomeFuncao' => $key,
+                'evento' => $item,
             ]);
         }
 
         return collect($permissionsArray);
     }
 
+    /**
+     * @param $user \App\Data\Models\User
+     *
+     * @return \Illuminate\Support\Collection
+     */
     private function storedProfiles($user)
     {
-        $user->profiles;
+        $profilesArray = [];
 
-        return collect($permissionsArray);
+        foreach ($user->profiles_array as $key => $item) {
+            $profilesArray[] = collect([
+                'NOME_PERFIL' => $key,
+                'TIPO_PERFIL' => $item,
+            ]);
+        }
+
+        return collect($profilesArray);
+    }
+
+    /**
+     * @param $username
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function mockedProfiles($username)
+    {
+        return collect(['Administrador' => 'S']);
     }
 
     /**

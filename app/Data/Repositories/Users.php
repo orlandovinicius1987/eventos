@@ -120,9 +120,9 @@ class Users extends Base
      * @param $request
      * @param $remember
      *
-     * @return bool
+     * @return User
      */
-    public function loginUser($request, $remember)
+    public function updateLoginUser($request, $remember)
     {
         try {
             $credentials = extract_credentials($request);
@@ -145,20 +145,54 @@ class Users extends Base
 
             $user->password = Hash::make($credentials['password']);
 
-            //Salvar profiles
-
-            //Salvar permissões
-
             $user->save();
-
-            Auth::login($user, $remember);
         } catch (\Exception $exception) {
             report($exception);
 
-            return false;
+            return null;
         }
 
-        return true;
+        return $user;
+    }
+
+    /**
+     * @param $permissions
+     *
+     * @return User
+     */
+    public function updatePermissions($user, $permissions)
+    {
+        $permissionsArray = [];
+        $permissions->each(function ($permission, $key) use (
+            &$permissionsArray
+        ) {
+            $permissionsArray[$permission['nomeFuncao']] =
+                $permission['evento'];
+        });
+
+        $user->permissions = json_encode($permissionsArray);
+        $user->save();
+
+        return $user;
+    }
+
+    /**
+     * @param $permissions
+     *
+     * @return User
+     */
+    public function updateProfiles($user, $profiles)
+    {
+        $profilesArray = [];
+
+        $profiles->each(function ($profile, $key) use (&$profilesArray) {
+            $profilesArray[$profile['NOME_PERFIL']] = $profile['TIPO_PERFIL'];
+        });
+
+        $user->profiles = json_encode($profilesArray);
+        $user->save();
+
+        return $user;
     }
 
     /**

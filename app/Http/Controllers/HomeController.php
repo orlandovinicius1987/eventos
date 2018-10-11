@@ -48,7 +48,7 @@ class HomeController extends Controller
         $user->email = 'breno@alerj.br';
         $user->password = 'sdasdasdasd';
 
-        $user->profiles = json_encode(['Adm' => '', 'Operador' => '']);
+        $user->profiles = json_encode(['Adm' => 'S', 'Operador' => 'N']);
 
         $user->permissions = json_encode([
             'Operar' => 'operar evento',

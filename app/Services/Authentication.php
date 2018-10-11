@@ -4,6 +4,8 @@ namespace App\Services;
 use App\Data\Repositories\Users;
 use App\Services\Traits\RemoteRequest;
 use App\Data\Repositories\Users as UsersRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Authentication
 {
@@ -35,21 +37,32 @@ class Authentication
 
     public function attempt($request, $remember)
     {
-        $permissions = app(Authorization::class)->getUserPermissions(
-            extract_credentials($request)['username']
-        );
+        if ($this->loginRequest($request)['success']) {
+            $user = $this->usersRepository->updateLoginUser(
+                $request,
+                $remember
+            );
 
-        $profiles = app(Authorization::class)->getUserProfiles(
-            extract_credentials($request)['username']
-        );
+            if (!is_null($user)) {
+                //Profiles
+                $profiles = app(Authorization::class)->getUserProfiles(
+                    extract_credentials($request)['username']
+                );
 
-        dd($profiles);
+                $this->usersRepository->updateProfiles($user, $profiles);
 
-        return $this->loginUser(
-            $request,
-            $this->loginRequest($request),
-            $remember
-        );
+                //Permissions
+                $permissions = app(Authorization::class)->getUserPermissions(
+                    extract_credentials($request)['username']
+                );
+
+                $this->usersRepository->updatePermissions($user, $permissions);
+
+                Auth::login($user, $remember);
+                return true;
+            }
+        }
+        return false;
     }
 
     protected function extractUsernameFromEmail($email)
@@ -74,7 +87,7 @@ class Authentication
     protected function loginRequest($request)
     {
         if (config('auth.authentication.mock')) {
-            return $this->mockedAuthentication($request);
+            return $this->successAuthentication($request);
         }
 
         try {
@@ -99,13 +112,13 @@ class Authentication
             } else {
                 //Usuário já cadastrado
                 if (
-                    \Hash::check(
+                    Hash::check(
                         extract_credentials($request)['password'],
                         $user->password
                     )
                 ) {
                     //Credenciais de login conferem com as salvas no banco
-                    return $this->mockedAuthentication($request);
+                    return $this->successAuthentication($request);
                 } else {
                     //Credenciais de login não conferem com as salvas no banco
                     return $this->failedAuthentication();
@@ -149,7 +162,7 @@ class Authentication
      *
      * @return array
      */
-    protected function mockedAuthentication($credentials)
+    protected function successAuthentication($credentials)
     {
         return [
             'success' => true,
