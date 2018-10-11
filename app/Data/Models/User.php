@@ -13,7 +13,13 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'permissions',
+        'profiles',
+    ];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -22,9 +28,14 @@ class User extends Authenticatable
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function userType()
+    public function getProfilesArrayAttribute()
     {
-        return $this->belongsTo(UserType::class);
+        return json_decode($this->profiles, true);
+    }
+
+    public function getPermissionsArrayAttribute()
+    {
+        return json_decode($this->permissions, true);
     }
 
     /**

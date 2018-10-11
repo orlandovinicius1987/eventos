@@ -2,12 +2,10 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\UserType;
 use App\Data\Models\User;
 use App\Services\Authorization;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Data\Repositories\UserTypes as UserTypesRepository;
 
 class Users extends Base
 {
@@ -28,13 +26,9 @@ class Users extends Base
      *
      * @param Authorization $authorization
      */
-    public function __construct(
-        Authorization $authorization,
-        UserTypes $tiposUsuarios
-    ) {
+    public function __construct(Authorization $authorization)
+    {
         $this->authorization = $authorization;
-
-        $this->tiposUsuarios = $tiposUsuarios;
     }
 
     /**
@@ -68,79 +62,12 @@ class Users extends Base
     }
 
     /**
-     * @param $username
-     *
-     * @return mixed
-     */
-    private function getUserType($username)
-    {
-        return
-            // $this->authorization->getUserProfiles($username)->first()
-            UserType::where('name', 'Usuario')->first();
-    }
-
-    private function getUserTypeFromPermissions($permissions)
-    {
-        return UserType::first();
-
-//        $other = '';
-//        $admin = false;
-//        $committeeBool = false;
-//
-//        $userTypesRepository = app(UserTypesRepository::class);
-//        $userTypesArray = $userTypesRepository->toArrayWithColumnKey(
-//            $userTypesRepository->all(),
-//            'name'
-//        );
-//
-//        foreach ($permissions as $permission) {
-//            if (isset($userTypesArray[$permission['nomeFuncao']])) {
-//                if ($permission['nomeFuncao'] == 'Administrador') {
-//                    $admin = true;
-//                } else {
-//                    $other = $permission['nomeFuncao'];
-//                }
-//            }
-//        }
-//
-//        if ($admin) {
-//            return app(UserTypes::class)->findByName('Administrador');
-//        } elseif ($other != '') {
-//            return app(UserTypes::class)->findByName($other);
-//        } elseif ($committeeBool) {
-//            return app(UserTypes::class)->findByName('Comissao');
-//        } else {
-//            return null;
-//        }
-    }
-
-    private function isAdministrador($permissions)
-    {
-        return $this->isType($permissions, 'Administrador');
-    }
-
-    /**
-     * @param $permissions
-     * @param $type
-     *
-     * @return bool
-     */
-    private function isType($permissions, $type)
-    {
-        return $permissions
-            ->filter(function ($user) use ($type) {
-                return starts_with($user['nomeFuncao'], $type);
-            })
-            ->count() > 0;
-    }
-
-    /**
      * @param $request
      * @param $remember
      *
-     * @return bool
+     * @return User
      */
-    public function loginUser($request, $remember)
+    public function updateLoginUser($request, $remember)
     {
         try {
             $credentials = extract_credentials($request);
@@ -159,32 +86,58 @@ class Users extends Base
                 $user->username = $credentials['username'];
 
                 $user->email = $email;
-
-//                $userType = $this->getUserTypeFromPermissions(
-//                    app(Authorization::class)->getUserPermissions(
-//                        $user->username
-//                    )
-//                );
-//
-//                if (is_null($userType)) {
-//                    return false;
-//                } else {
-//                    $user->user_type_id = $userType->id;
-//                }
             }
 
             $user->password = Hash::make($credentials['password']);
 
             $user->save();
-
-            Auth::login($user, $remember);
         } catch (\Exception $exception) {
             report($exception);
 
-            return false;
+            return null;
         }
 
-        return true;
+        return $user;
+    }
+
+    /**
+     * @param $permissions
+     *
+     * @return User
+     */
+    public function updatePermissions($user, $permissions)
+    {
+        $permissionsArray = [];
+        $permissions->each(function ($permission, $key) use (
+            &$permissionsArray
+        ) {
+            $permissionsArray[$permission['nomeFuncao']] =
+                $permission['evento'];
+        });
+
+        $user->permissions = json_encode($permissionsArray);
+        $user->save();
+
+        return $user;
+    }
+
+    /**
+     * @param $permissions
+     *
+     * @return User
+     */
+    public function updateProfiles($user, $profiles)
+    {
+        $profilesArray = [];
+
+        $profiles->each(function ($profile, $key) use (&$profilesArray) {
+            $profilesArray[$profile['NOME_PERFIL']] = $profile['TIPO_PERFIL'];
+        });
+
+        $user->profiles = json_encode($profilesArray);
+        $user->save();
+
+        return $user;
     }
 
     /**
@@ -223,35 +176,5 @@ class Users extends Base
     public function notifiables()
     {
         return User::where('all_notifications', true)->get();
-    }
-
-    public function updateCurrentUserTypeViaPermissions($permissions)
-    {
-//        $user = Auth::user();
-//
-//        $userTypesRepository = app(UserTypesRepository::class);
-//
-//        $userTypesArray = $userTypesRepository->toArrayWithColumnKey(
-//            $userTypesRepository->all(),
-//            'name'
-//        );
-//
-//        $administrator = false;
-//        $userType = null;
-//
-//        foreach ($permissions as $permission) {
-//            if ($permission['nomeFuncao'] == 'Administrador') {
-//                $userType = $userTypesArray['Administrador'];
-//
-//                $administrator = true;
-//            }
-//        }
-//
-//        if ($userType) {
-//            $user->user_type_id = $userType->id;
-//            $user->save();
-//        } else {
-//            dd('Você não está autorizado a usar o sistema');
-//        }
     }
 }
