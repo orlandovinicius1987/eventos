@@ -3,23 +3,30 @@ const state = {
     loaded: false,
 
     currentUser: null,
+
+    permissions: []
 }
 
-const getters = {}
+const getters = {
+
+}
 
 const actions = {
-    load(context) {
-        return axios.get('/api/v1/environment').then(response => {
+    checkPermission(context, payload) {
+        return axios.get('/api/v1/permissions' + payload.permission).then(response => {
             context.commit('setData', response.data)
-
-            context.commit('setCurrentEntity', response.data.currentEntity)
         })
     },
 
-    absorbLaravel(context) {
-        context.commit('setData', window.laravel)
+    can(permission) {
+        // {
+        //     requestUrl: 'checkin-guest',
+        //         can: false,
+        //     lastCheckedAt: null,
+        // }
 
-        context.dispatch('load')
+        // procurar na lista de permissoes
+        // checkPermissions (assincrono)
     },
 }
 

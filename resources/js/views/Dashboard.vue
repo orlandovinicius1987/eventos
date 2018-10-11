@@ -50,7 +50,7 @@
                                     <li>Phone and email support</li>
                                     <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary">Contact us</button>
+                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="!can('write')">Contact us</button>
                             </div>
                         </div>
                     </div>
@@ -94,6 +94,10 @@ export default {
 
         log() {
             dd(...arguments)
+        },
+
+        can(permission) {
+            return contains(this.permissions.permissions, permission)
         },
     },
 
