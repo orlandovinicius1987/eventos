@@ -61,61 +61,6 @@ class Users extends Base
         return User::find($id);
     }
 
-    private function getUserTypeFromPermissions($permissions)
-    {
-        //        return UserType::first();
-        return true;
-        //        $other = '';
-        //        $admin = false;
-        //        $committeeBool = false;
-        //
-        //        $userTypesRepository = app(UserTypesRepository::class);
-        //        $userTypesArray = $userTypesRepository->toArrayWithColumnKey(
-        //            $userTypesRepository->all(),
-        //            'name'
-        //        );
-        //
-        //        foreach ($permissions as $permission) {
-        //            if (isset($userTypesArray[$permission['nomeFuncao']])) {
-        //                if ($permission['nomeFuncao'] == 'Administrador') {
-        //                    $admin = true;
-        //                } else {
-        //                    $other = $permission['nomeFuncao'];
-        //                }
-        //            }
-        //        }
-        //
-        //        if ($admin) {
-        //            return app(UserTypes::class)->findByName('Administrador');
-        //        } elseif ($other != '') {
-        //            return app(UserTypes::class)->findByName($other);
-        //        } elseif ($committeeBool) {
-        //            return app(UserTypes::class)->findByName('Comissao');
-        //        } else {
-        //            return null;
-        //        }
-    }
-
-    private function isAdministrador($permissions)
-    {
-        return $this->isType($permissions, 'Administrador');
-    }
-
-    /**
-     * @param $permissions
-     * @param $type
-     *
-     * @return bool
-     */
-    private function isType($permissions, $type)
-    {
-        return $permissions
-            ->filter(function ($user) use ($type) {
-                return starts_with($user['nomeFuncao'], $type);
-            })
-            ->count() > 0;
-    }
-
     /**
      * @param $request
      * @param $remember
@@ -231,34 +176,5 @@ class Users extends Base
     public function notifiables()
     {
         return User::where('all_notifications', true)->get();
-    }
-
-    public function updateCurrentUserTypeViaPermissions($permissions)
-    {
-        //        $user = Auth::user();
-        //        $userTypesRepository = app(UserTypesRepository::class);
-        //
-        //        $userTypesArray = $userTypesRepository->toArrayWithColumnKey(
-        //            $userTypesRepository->all(),
-        //            'name'
-        //        );
-        //
-        //        $administrator = false;
-        //        $userType = null;
-        //
-        //        foreach ($permissions as $permission) {
-        //            if ($permission['nomeFuncao'] == 'Administrador') {
-        //                $userType = $userTypesArray['Administrador'];
-        //
-        //                $administrator = true;
-        //            }
-        //        }
-        //
-        //        if ($userType) {
-        //            $user->user_type_id = $userType->id;
-        //            $user->save();
-        //        } else {
-        //            dd('Você não está autorizado a usar o sistema');
-        //        }
     }
 }
