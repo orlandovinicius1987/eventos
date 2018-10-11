@@ -38,14 +38,6 @@ const mutations = {
 
         state['loaded'] = true
     },
-
-    setCurrentEntity(state, payload) {
-        state.currentEntity = payload
-    },
-
-    setPageSize(state, payload) {
-        state.pageSize = payload
-    },
 }
 
 export default {

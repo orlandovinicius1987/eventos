@@ -16,12 +16,6 @@ const actions = {
         })
     },
 
-    selectEntity(context, payload) {
-        axios.post('/api/v1/users/entity', { entity: payload })
-
-        context.commit('setCurrentEntity', payload)
-    },
-
     absorbLaravel(context) {
         context.commit('setData', window.laravel)
 
@@ -36,14 +30,6 @@ const mutations = {
         })
 
         state['loaded'] = true
-    },
-
-    setCurrentEntity(state, payload) {
-        state.currentEntity = payload
-    },
-
-    setPageSize(state, payload) {
-        state.pageSize = payload
     },
 }
 
