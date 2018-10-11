@@ -4,14 +4,15 @@ namespace App\Services;
 use App\Data\Repositories\Users;
 use App\Services\Traits\RemoteRequest;
 use App\Data\Repositories\Users as UsersRepository;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class Authentication
 {
     const LOGIN_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/0IYFFiMHuUr1sYo6wEtjUsJQ7Zicg33SMuvtrFk9yEgwrORmblNSMdpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jObK5Uoh/login';
-
     const USER_INFO_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/ldap/d6fFGg5h4jui1k5loFG3p7d6fg5h4j3kDS8HJ/user';
-
     const PERMISSIONS_URL = 'https://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/permissions';
+    const PROFILES_URL = 'http://apiportal.alerj.rj.gov.br/api/v1.0/adm-user/K7k8H95loFpTH0ZTRKX2BhADIusjXHInHW3cspyosOoNrbd5jOG3pd61F4d6fg584Gg5h4DSjui1k/profiles';
 
     /**
      * @var Guzzle
@@ -36,11 +37,32 @@ class Authentication
 
     public function attempt($request, $remember)
     {
-        return $this->loginUser(
-            $request,
-            $this->loginRequest($request),
-            $remember
-        );
+        if ($this->loginRequest($request)['success']) {
+            $user = $this->usersRepository->updateLoginUser(
+                $request,
+                $remember
+            );
+
+            if (!is_null($user)) {
+                //Profiles
+                $profiles = app(Authorization::class)->getUserProfiles(
+                    extract_credentials($request)['username']
+                );
+
+                $this->usersRepository->updateProfiles($user, $profiles);
+
+                //Permissions
+                $permissions = app(Authorization::class)->getUserPermissions(
+                    extract_credentials($request)['username']
+                );
+
+                $this->usersRepository->updatePermissions($user, $permissions);
+
+                Auth::login($user, $remember);
+                return true;
+            }
+        }
+        return false;
     }
 
     protected function extractUsernameFromEmail($email)
@@ -65,7 +87,7 @@ class Authentication
     protected function loginRequest($request)
     {
         if (config('auth.authentication.mock')) {
-            return $this->mockedAuthentication($request);
+            return $this->successAuthentication($request);
         }
 
         try {
@@ -90,13 +112,13 @@ class Authentication
             } else {
                 //Usuário já cadastrado
                 if (
-                    \Hash::check(
+                    Hash::check(
                         extract_credentials($request)['password'],
                         $user->password
                     )
                 ) {
                     //Credenciais de login conferem com as salvas no banco
-                    return $this->mockedAuthentication($request);
+                    return $this->successAuthentication($request);
                 } else {
                     //Credenciais de login não conferem com as salvas no banco
                     return $this->failedAuthentication();
@@ -116,7 +138,7 @@ class Authentication
      */
     protected function loginUser($request, $response, $remember)
     {
-        if ($success = $response['success']) {
+        if (($success = $response['success'])) {
             $success = $this->usersRepository->loginUser($request, $remember);
 
             if (!$success) {
@@ -140,7 +162,7 @@ class Authentication
      *
      * @return array
      */
-    protected function mockedAuthentication($credentials)
+    protected function successAuthentication($credentials)
     {
         return [
             'success' => true,
