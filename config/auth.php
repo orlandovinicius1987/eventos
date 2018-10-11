@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -17,6 +16,8 @@ return [
         'guard' => 'web',
         'passwords' => 'users',
     ],
+
+    'timeout' => env('AUTH_TIMEOUT'),
 
     /*
     |--------------------------------------------------------------------------
@@ -67,7 +68,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\Data\Models\User::class,
         ],
 
         // 'users' => [
@@ -98,5 +99,4 @@ return [
             'expire' => 60,
         ],
     ],
-
 ];
