@@ -1759,6 +1759,9 @@ var serviceName = 'diario';
         },
         log: function log() {
             dd.apply(undefined, arguments);
+        },
+        can: function can(permission) {
+            return contains(this.permissions.permissions, permission);
         }
     }),
 
@@ -24329,7 +24332,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108339,127 +108342,153 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "card-deck mb-3 text-center" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "card mb-4 shadow-sm" }, [
+              _vm._m(3),
+              _vm._v(" "),
+              _c("div", { staticClass: "card-body" }, [
+                _vm._m(4),
+                _vm._v(" "),
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-lg btn-block btn-primary",
+                    attrs: { type: "button", disabled: !_vm.can("write") }
+                  },
+                  [_vm._v("Contact us")]
+                )
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-        _c("h2", [_vm._v("Painel de Controle")])
+    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h2", [_vm._v("Painel de Controle")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card mb-4 shadow-sm" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("h4", { staticClass: "my-0 font-weight-normal" }, [_vm._v("Free")])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "container" }, [
-            _c("div", { staticClass: "card-deck mb-3 text-center" }, [
-              _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("h4", { staticClass: "my-0 font-weight-normal" }, [
-                    _vm._v("Free")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h1", { staticClass: "card-title pricing-card-title" }, [
-                    _vm._v("$0 "),
-                    _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
-                  ]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
-                    _c("li", [_vm._v("10 users included")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("2 GB of storage")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("Email support")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("Help center access")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-lg btn-block btn-outline-primary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Sign up for free")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("h4", { staticClass: "my-0 font-weight-normal" }, [
-                    _vm._v("Pro")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h1", { staticClass: "card-title pricing-card-title" }, [
-                    _vm._v("$15 "),
-                    _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
-                  ]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
-                    _c("li", [_vm._v("20 users included")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("10 GB of storage")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("Priority email support")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("Help center access")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-lg btn-block btn-primary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Get started")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-                _c("div", { staticClass: "card-header" }, [
-                  _c("h4", { staticClass: "my-0 font-weight-normal" }, [
-                    _vm._v("Enterprise")
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "card-body" }, [
-                  _c("h1", { staticClass: "card-title pricing-card-title" }, [
-                    _vm._v("$29 "),
-                    _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
-                  ]),
-                  _vm._v(" "),
-                  _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
-                    _c("li", [_vm._v("30 users included")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("15 GB of storage")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("Phone and email support")]),
-                    _vm._v(" "),
-                    _c("li", [_vm._v("Help center access")])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-lg btn-block btn-primary",
-                      attrs: { type: "button" }
-                    },
-                    [_vm._v("Contact us")]
-                  )
-                ])
-              ])
-            ])
-          ])
-        ])
+      _c("div", { staticClass: "card-body" }, [
+        _c("h1", { staticClass: "card-title pricing-card-title" }, [
+          _vm._v("$0 "),
+          _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
+        ]),
+        _vm._v(" "),
+        _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
+          _c("li", [_vm._v("10 users included")]),
+          _vm._v(" "),
+          _c("li", [_vm._v("2 GB of storage")]),
+          _vm._v(" "),
+          _c("li", [_vm._v("Email support")]),
+          _vm._v(" "),
+          _c("li", [_vm._v("Help center access")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-lg btn-block btn-outline-primary",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Sign up for free")]
+        )
       ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card mb-4 shadow-sm" }, [
+      _c("div", { staticClass: "card-header" }, [
+        _c("h4", { staticClass: "my-0 font-weight-normal" }, [_vm._v("Pro")])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-body" }, [
+        _c("h1", { staticClass: "card-title pricing-card-title" }, [
+          _vm._v("$15 "),
+          _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
+        ]),
+        _vm._v(" "),
+        _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
+          _c("li", [_vm._v("20 users included")]),
+          _vm._v(" "),
+          _c("li", [_vm._v("10 GB of storage")]),
+          _vm._v(" "),
+          _c("li", [_vm._v("Priority email support")]),
+          _vm._v(" "),
+          _c("li", [_vm._v("Help center access")])
+        ]),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-lg btn-block btn-primary",
+            attrs: { type: "button" }
+          },
+          [_vm._v("Get started")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h4", { staticClass: "my-0 font-weight-normal" }, [
+        _vm._v("Enterprise")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("h1", { staticClass: "card-title pricing-card-title" }, [
+      _vm._v("$29 "),
+      _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
+      _c("li", [_vm._v("30 users included")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("15 GB of storage")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Phone and email support")]),
+      _vm._v(" "),
+      _c("li", [_vm._v("Help center access")])
     ])
   }
 ]
