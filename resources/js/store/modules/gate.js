@@ -1,10 +1,9 @@
+import environment from "./environment";
 
 const state = {
     loaded: false,
 
     currentUser: null,
-
-    permissions: []
 }
 
 const getters = {
@@ -12,21 +11,12 @@ const getters = {
 }
 
 const actions = {
-    checkPermission(context, payload) {
-        return axios.get('/api/v1/permissions' + payload.permission).then(response => {
-            context.commit('setData', response.data)
-        })
-    },
-
     can(permission) {
-        // {
-        //     requestUrl: 'checkin-guest',
-        //         can: false,
-        //     lastCheckedAt: null,
-        // }
-
-        // procurar na lista de permissoes
-        // checkPermissions (assincrono)
+        if (typeof JSON.parse(environment.state.user.permissions)[permission] !== 'undefined') {
+            return true
+        }else{
+            return false
+        }
     },
 }
 

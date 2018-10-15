@@ -50,7 +50,7 @@
                                     <li>Phone and email support</li>
                                     <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="!can('write')">Contact us</button>
+                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="!can('Criar')">Contact us</button>
                             </div>
                         </div>
                     </div>
@@ -62,6 +62,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
+import gate from "../store/modules/gate";
 
 const serviceName = 'diario'
 
@@ -97,7 +98,7 @@ export default {
         },
 
         can(permission) {
-            return contains(this.permissions.permissions, permission)
+            return gate.actions.can(permission)
         },
     },
 

@@ -6,13 +6,13 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="btn btn-primary btn-sm m-1 pull-right">
+                <div v-if="can('Criar')" class="btn btn-primary btn-sm m-1 pull-right">
                     <i class="fa fa-plus"></i> novo evento
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div v-if="can('Ver')" class="row">
             <div class="col-12">
                 <div class="card p-4">
                     <table class="table table-sm table-hover table-borderless table-striped">
@@ -52,6 +52,7 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
+import gate from "../store/modules/gate";
 
 const serviceName = 'diario'
 
@@ -84,6 +85,10 @@ export default {
 
         log() {
             dd(...arguments)
+        },
+
+        can(permission) {
+            return gate.actions.can(permission)
         },
     },
 

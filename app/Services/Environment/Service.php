@@ -8,11 +8,15 @@ class Service
 {
     protected function buildEntitiesArray($user)
     {
-        return $user ? collect([$user])->merge($user->businesses)->map(function ($entity) {
-            $entity->class = get_class($entity);
+        return $user
+            ? collect([$user])
+                ->merge($user->businesses)
+                ->map(function ($entity) {
+                    $entity->class = get_class($entity);
 
-            return $entity;
-        }) : [];
+                    return $entity;
+                })
+            : [];
     }
 
     public function data()
@@ -20,10 +24,9 @@ class Service
         return coollect([
             'app' => [
                 'name' => config('app.name'),
-                'key' =>
-                    auth()->user()
-                        ? auth()->user()->client_key
-                        : config('app.client_key'),
+                'key' => auth()->user()
+                    ? auth()->user()->client_key
+                    : config('app.client_key'),
                 'id' => auth()->user() ? auth()->user()->email : csrf_token(),
                 'version' => Version::format('compact'),
             ],
