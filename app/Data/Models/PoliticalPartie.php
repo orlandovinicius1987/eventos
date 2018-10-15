@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Advisor extends Base
+class PoliticalPartie extends Base
 {
     /**
      * @var array
