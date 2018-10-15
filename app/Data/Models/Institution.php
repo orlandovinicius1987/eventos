@@ -1,12 +1,10 @@
 <?php
 namespace App\Data\Models;
 
-class AdvisorType extends Base
+class Institution extends Base
 {
     /**
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
 }
