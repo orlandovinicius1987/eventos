@@ -40,5 +40,8 @@
         "vuetable-2": "^1.7.5",
         "vuex": "^3.0.1",
         "webpack-livereload-plugin": "^1.2.0"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.4.1"
     }
 }

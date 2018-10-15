@@ -1670,7 +1670,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -1738,8 +1737,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-
-var serviceName = 'diario';
+var serviceName = 'events';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: [],
@@ -1755,15 +1753,12 @@ var serviceName = 'diario';
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('gate', ['can']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
         },
         log: function log() {
             dd.apply(undefined, arguments);
-        },
-        can: function can(permission) {
-            return __WEBPACK_IMPORTED_MODULE_1__store_modules_gate__["a" /* default */].actions.can(permission);
         }
     }),
 
@@ -1790,7 +1785,6 @@ var serviceName = 'diario';
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__store_modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -1848,8 +1842,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-
-var serviceName = 'diario';
+var serviceName = 'events';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: [],
@@ -1865,15 +1858,12 @@ var serviceName = 'diario';
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('gate', ['can']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
         },
         log: function log() {
             dd.apply(undefined, arguments);
-        },
-        can: function can(permission) {
-            return __WEBPACK_IMPORTED_MODULE_1__store_modules_gate__["a" /* default */].actions.can(permission);
         }
     }),
 
@@ -24324,7 +24314,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24339,7 +24329,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108362,36 +108352,38 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "card-deck mb-3 text-center" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _vm._m(4),
+    _vm.can("Ver")
+      ? _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "container" }, [
+              _c("div", { staticClass: "card-deck mb-3 text-center" }, [
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(5),
+                _vm._m(2),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-lg btn-block btn-primary",
-                    attrs: { type: "button", disabled: !_vm.can("Criar") }
-                  },
-                  [_vm._v("Contact us")]
-                )
+                _c("div", { staticClass: "card mb-4 shadow-sm" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-lg btn-block btn-primary",
+                        attrs: { type: "button", disabled: !_vm.can("Criar") }
+                      },
+                      [_vm._v("Contact us")]
+                    )
+                  ])
+                ])
               ])
             ])
           ])
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -124546,6 +124538,7 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__("./resources/js/store/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
 /**
  * Imports
  */
@@ -124570,6 +124563,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
+
 /**
  * State
  */
@@ -124586,7 +124580,8 @@ var state = {
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
     events: __WEBPACK_IMPORTED_MODULE_5__modules_events__["a" /* default */],
-    environment: __WEBPACK_IMPORTED_MODULE_6__modules_environment__["a" /* default */]
+    environment: __WEBPACK_IMPORTED_MODULE_6__modules_environment__["a" /* default */],
+    gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */]
   }
 });
 

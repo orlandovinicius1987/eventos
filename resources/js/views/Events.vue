@@ -52,9 +52,8 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
-import gate from "../store/modules/gate";
 
-const serviceName = 'diario'
+const serviceName = 'events'
 
 export default {
     props: [],
@@ -71,6 +70,7 @@ export default {
 
     methods: {
         ...mapActions(serviceName, ['load']),
+        ...mapActions('gate', ['can']),
 
         ...mapMutations(serviceName, [
             'setDataUrl',
@@ -85,10 +85,6 @@ export default {
 
         log() {
             dd(...arguments)
-        },
-
-        can(permission) {
-            return gate.actions.can(permission)
         },
     },
 

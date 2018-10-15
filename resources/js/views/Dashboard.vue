@@ -4,7 +4,7 @@
             <h2>Painel de Controle</h2>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="can('Ver')">
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
@@ -62,9 +62,8 @@
 
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
-import gate from "../store/modules/gate";
 
-const serviceName = 'diario'
+const serviceName = 'events'
 
 export default {
     props: [],
@@ -81,6 +80,7 @@ export default {
 
     methods: {
         ...mapActions(serviceName, ['load']),
+        ...mapActions('gate', ['can']),
 
         ...mapMutations(serviceName, [
             'setDataUrl',
@@ -95,10 +95,6 @@ export default {
 
         log() {
             dd(...arguments)
-        },
-
-        can(permission) {
-            return gate.actions.can(permission)
         },
     },
 
