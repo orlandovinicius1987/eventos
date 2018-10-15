@@ -97,7 +97,7 @@ export default {
         },
 
         can(permission) {
-            return contains(this.permissions.permissions, permission)
+            // return contains(this.permissions.permissions, permission)
         },
     },
 

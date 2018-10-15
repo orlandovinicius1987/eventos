@@ -6,9 +6,9 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="btn btn-primary btn-sm m-1 pull-right">
+                <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
                     <i class="fa fa-plus"></i> novo evento
-                </div>
+                </router-link>
             </div>
         </div>
 

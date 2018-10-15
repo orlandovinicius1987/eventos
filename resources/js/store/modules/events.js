@@ -1,8 +1,11 @@
 import Form from '../../classes/Form'
+
 import {
     load,
+    store,
     setData,
     setDataUrl,
+    setStoreUrl,
     storeFormField,
     setErrors,
     setFormData,
@@ -11,19 +14,12 @@ import {
 const state = {
     dataUrl: '',
 
+    storeUrl: '',
+
     data: {},
 
     form: new Form({
         name: null,
-
-        username: null,
-
-        color: {
-            background: { hex: '#132AD7FF' },
-            foreground: { hex: '#FFDC00FF' },
-        },
-
-        avatar: null,
     }),
 }
 
@@ -31,11 +27,13 @@ const getters = {}
 
 const actions = {
     load,
+    store,
 }
 
 const mutations = {
     setData,
     setDataUrl,
+    setStoreUrl,
     storeFormField,
     setErrors,
     setFormData,
