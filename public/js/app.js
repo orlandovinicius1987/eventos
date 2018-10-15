@@ -1823,22 +1823,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -1853,7 +1837,13 @@ var serviceName = 'events';
         return {
             serviceName: serviceName,
 
-            apiBaseUri: '/api/v1/' + serviceName
+            apiBaseUri: '/api/v1/' + serviceName,
+
+            refreshing: false,
+
+            tables: {
+                events: []
+            }
         };
     },
 
@@ -1864,6 +1854,31 @@ var serviceName = 'events';
         },
         log: function log() {
             dd.apply(undefined, arguments);
+        },
+        refresh: function refresh() {
+            var $this = this;
+
+            $this.refreshing = true;
+
+            $this.errors = null;
+
+            $this.tables.events = null;
+
+            axios.post('/api/v1/events-search', { search: '' }).then(function (response) {
+                $this.tables.events = [];
+                $this.errors = false;
+
+                if (response.data.success) {
+                    $this.tables.events = response.data.data;
+                    $this.errors = response.data.errors;
+                }
+
+                $this.refreshing = false;
+            }).catch(function (error) {
+                console.log(error);
+
+                $this.refreshing = false;
+            });
         }
     }),
 
@@ -1879,7 +1894,9 @@ var serviceName = 'events';
         }
     })),
 
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        this.refresh();
+    }
 });
 
 /***/ }),
@@ -24314,7 +24331,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108257,7 +108274,33 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.can("Ver") ? _c("div", { staticClass: "row" }, [_vm._m(1)]) : _vm._e()
+    _vm.can("Ver")
+      ? _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card p-4" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-striped table-hover",
+                  attrs: { id: "eventsTable", cellspacing: "0", width: "100%" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.tables.events, function(event) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(event.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(event.confirmed_at))])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -108273,60 +108316,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-12" }, [
-      _c("div", { staticClass: "card p-4" }, [
-        _c(
-          "table",
-          {
-            staticClass:
-              "table table-sm table-hover table-borderless table-striped"
-          },
-          [
-            _c("thead", [
-              _c("tr", [
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
-                _vm._v(" "),
-                _c("th", { attrs: { scope: "col" } }, [_vm._v("Handle")])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Mark")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Otto")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("@mdo")])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Jacob")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("Thornton")]),
-                _vm._v(" "),
-                _c("td", [_vm._v("@fat")])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-                _vm._v(" "),
-                _c("td", { attrs: { colspan: "2" } }, [
-                  _vm._v("Larry the Bird")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v("@twitter")])
-              ])
-            ])
-          ]
-        )
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nome")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Confirmado em")])
       ])
     ])
   }
