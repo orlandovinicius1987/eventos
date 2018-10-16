@@ -17,8 +17,10 @@ class CreateTableEventsAndSubevents extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->integer('confirmed_by');
-            $table->date('confirmed_at');
+
+            $table->integer('confirmed_by')->nullable();
+
+            $table->date('confirmed_at')->nullable();
 
             $table->integer('client_id');
 
@@ -84,7 +86,8 @@ class CreateTableEventsAndSubevents extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
         Schema::dropIfExists('subevents');
+
+        Schema::dropIfExists('events');
     }
 }

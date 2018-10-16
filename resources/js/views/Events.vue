@@ -5,29 +5,73 @@
         </div>
 
         <div class="row">
-            <div class="col-12">
-                <div v-if="can('Criar')" class="btn btn-primary btn-sm m-1 pull-right">
-                    <i class="fa fa-plus"></i> novo evento
+            <div class="col-4">
+                <div class="row align-items-end">
+                    <div class="col-6">
+                        <h4 class="mb-0">Eventos</h4>
+                    </div>
+                    <div class="col-6">
+                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
+                            <i class="fa fa-plus"></i> novo evento
+                        </router-link>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card p-4">
+                            <table class="table table-sm table-hover table-borderless table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Confirmado em</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr @click="selectEvent(event)" v-for="event in events" :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selectedEvent)}">
+                                        <td>{{ event.id }}</td>
+                                        <td>{{ event.name }}</td>
+                                        <td>{{ event.confirmed_at }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div v-if="can('Ver')" class="row">
-            <div class="col-12">
-                <div class="card p-4">
-                    <table id="eventsTable" class="table table-striped table-hover" cellspacing="0" width="100%">
-                        <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Confirmado em</th>
-                        </tr>
-                        </thead>
+            <div class="col-8" v-if="selectedEvent.id">
+                <div class="row align-items-end">
+                    <div class="col-10">
+                        <h4 class="mb-0">{{ selectedEvent.name }} (subeventos)</h4>
+                    </div>
+                    <div class="col-2">
+                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
+                            <i class="fa fa-plus"></i> novo subevento
+                        </router-link>
+                    </div>
+                </div>
 
-                        <tr v-for="event in tables.events">
-                            <td>{{ event.name }}</td>
-                            <td>{{ event.confirmed_at }}</td>
-                        </tr>
-                    </table>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card p-4">
+                            <table class="table table-sm table-hover table-borderless table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="subEvent in subEvents" class="cursor-pointer">
+                                        <td>{{ subEvent.id }}</td>
+                                        <td>{{ subEvent.name }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,93 +79,39 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
+import crud from './mixins/crud'
+import events from './mixins/events'
+import permissions from './mixins/permissions'
+import { mapMutations, mapState } from 'vuex'
 
 const serviceName = 'events'
 
 export default {
-    props: [],
-
-    mixins: [],
+    mixins: [crud, events, permissions],
 
     data() {
         return {
             serviceName: serviceName,
-
-            apiBaseUri: '/api/v1/' + serviceName,
-
-            refreshing: false,
-
-            tables: {
-                events: [],
-            }
         }
     },
 
-    methods: {
-        ...mapActions(serviceName, ['load']),
-        ...mapActions('gate', ['can']),
-
-        ...mapMutations(serviceName, [
-            'setDataUrl',
-            'setErrors',
-            'setFormData',
-            'storeFormField',
-        ]),
-
-        isLoading() {
-            return this.loading.environment || this.loading.table
-        },
-
-        log() {
-            dd(...arguments)
-        },
-
-        refresh() {
-            let $this = this
-
-            $this.refreshing = true
-
-            $this.errors = null
-
-            $this.tables.events = null
-
-            axios.post('/api/v1/events-search', {search: ''})
-                .then(function(response) {
-                    $this.tables.events = []
-                    $this.errors = false
-
-                    if (response.data.success) {
-                        $this.tables.events = response.data.data
-                        $this.errors = response.data.errors
-                    }
-
-                    $this.refreshing = false
-                })
-                .catch(function(error) {
-                    console.log(error)
-
-                    $this.refreshing = false
-                })
-        },
+    computed: {
+        ...mapState(serviceName, ['selectedEvent']),
     },
 
+    methods: {
+        ...mapMutations(serviceName, ['selectEvent']),
 
-
-    computed: {
-        ...mapState({
-            diario: state => state.diario.data,
-            form: state => state.diario.form,
-            environment: state => state.environment,
-        }),
+        isCurrent(event, selected) {
+            return event.id === selected.id
+        },
     },
 
     mounted() {
-        this.refresh()
-    },
+        this.boot()
+    }
 }
 </script>
 
 <style>
 </style>
-

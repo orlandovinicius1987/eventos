@@ -1,7 +1,8 @@
 <?php
+
 namespace App\Data\Models;
 
-class Event extends Base
+class Event extends BaseWithClient
 {
     /**
      * @var array

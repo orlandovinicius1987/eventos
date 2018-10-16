@@ -4,7 +4,7 @@
             <h2>Painel de Controle</h2>
         </div>
 
-        <div class="row" v-if="can('Ver')">
+        <div class="row" v-if="can('read')">
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
@@ -50,7 +50,7 @@
                                     <li>Phone and email support</li>
                                     <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="!can('Criar')">Contact us</button>
+                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="cannot('create')">Contact us</button>
                             </div>
                         </div>
                     </div>
@@ -61,57 +61,18 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
-
-const serviceName = 'events'
+import permissions from './mixins/permissions'
 
 export default {
-    props: [],
-
-    mixins: [],
+    mixins: [permissions],
 
     data() {
         return {
-            serviceName: serviceName,
-
-            apiBaseUri: '/api/v1/' + serviceName,
+            serviceName: 'dashboard',
         }
-    },
-
-    methods: {
-        ...mapActions(serviceName, ['load']),
-        ...mapActions('gate', ['can']),
-
-        ...mapMutations(serviceName, [
-            'setDataUrl',
-            'setErrors',
-            'setFormData',
-            'storeFormField',
-        ]),
-
-        isLoading() {
-            return this.loading.environment || this.loading.table
-        },
-
-        log() {
-            dd(...arguments)
-        },
-    },
-
-    computed: {
-        ...mapState({
-            diario: state => state.diario.data,
-            form: state => state.diario.form,
-            environment: state => state.environment,
-        }),
-    },
-
-    mounted() {
-
     },
 }
 </script>
 
 <style>
 </style>
-

@@ -99,8 +99,7 @@ class Authentication
         } catch (\Exception $exception) {
             //Timeout no login
             $usersRepository = app(UsersRepository::class);
-            $user = $usersRepository->findByColumn(
-                'username',
+            $user = $usersRepository->findByUsername(
                 extract_credentials($request)['username']
             );
 
