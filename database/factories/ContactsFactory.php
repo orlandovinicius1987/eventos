@@ -5,6 +5,7 @@ use Faker\Generator as Faker;
 use App\Data\Repositories\People as PeopleRepository;
 use App\Data\Repositories\Advisors as AdvisorsRepository;
 use App\Data\Repositories\ContactsTypes as ContactsTypesRepository;
+use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Data\Repositories\ContactsTypes as ContactsTypesRepository;
 */
 
 $factory->define(App\Data\Models\Contact::class, function (Faker $faker) {
-    $array = ['Person', 'Advisor'];
+    $array = ['Person', 'Advisor', 'PoliticalParty'];
     $randomKey = array_rand($array);
 
     if ($array[$randomKey] == 'Person') {
@@ -27,6 +28,11 @@ $factory->define(App\Data\Models\Contact::class, function (Faker $faker) {
     } elseif ($array[$randomKey] == 'Advisor') {
         $contactable_id = app(AdvisorsRepository::class)->randomElement()->id;
         $contactable_type = App\Data\Models\Advisor::class;
+    } elseif ($array[$randomKey] == 'PoliticalParty') {
+        $contactable_id = app(
+            PoliticalPartiesRepository::class
+        )->randomElement()->id;
+        $contactable_type = App\Data\Models\PoliticalParty::class;
     }
 
     $contactsType = app(ContactsTypesRepository::class)->randomElement();
