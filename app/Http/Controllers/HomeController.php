@@ -39,7 +39,7 @@ class HomeController extends Controller
     public function testRoute()
     {
         app(UsersRepository::class)
-            ->findByColumn('name', 'breno')
+            ->findByName('breno')
             ->delete();
 
         $user = new UserModel();

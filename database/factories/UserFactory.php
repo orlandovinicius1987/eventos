@@ -23,7 +23,7 @@ $factory->define(UserModel::class, function (Faker $faker) {
         $name = preg_replace("/([^a-zA-Z])/", "", $name);
     } while (
         !is_null(
-            $usersRepository->findByColumn('email', $name . '@alerj.rj.gov.br')
+            $usersRepository->findByEmail($name . '@alerj.rj.gov.br')
         )
     );
 

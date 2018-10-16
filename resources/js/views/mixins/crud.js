@@ -6,139 +6,80 @@ export default {
 
                 table: false,
             },
-
-            showForm: false,
-
-            operation: null,
-            currentQuery: null,
         }
     },
 
+    computed: {
+        form() {
+            return this.$store.state[this.serviceName].form
+        },
+
+        environment() {
+            return this.$store.environment
+        },
+    },
+
     methods: {
-        createModel() {
-            this.setModelAndOpenModal('store')
+        load() {
+            this.$store.dispatch(this.serviceName + '/load')
         },
 
-        editModel(model) {
-            this.setModelAndOpenModal('update', model)
+        store() {
+            return this.$store.dispatch(this.serviceName + '/store')
         },
 
-        setModelAndOpenModal(operation, model) {
-            this.configureForm(model)
-
-            this.operation = operation
-
-            this.showModal()
+        setGetUrl(url) {
+            this.$store.commit(this.serviceName + '/setGetUrl', url)
         },
 
-        configureForm(model) {
-            if (typeof model === 'undefined') {
-                model = this.getEmptyFormData()
-            }
-
-            this.setFormData(model)
-
-            this.setErrors({})
+        setStoreUrl(url) {
+            this.$store.commit(this.serviceName + '/setStoreUrl', url)
         },
 
-        cancel() {
-            this.showForm = false
+        setErrors(errors) {
+            this.$store.commit(this.serviceName + '/setErrors', errors)
         },
 
-        showColorPickerModal() {
-            this.$refs.colorPicker.showModal()
+        setFormData(data) {
+            this.$store.commit(this.serviceName + '/setFormData', data)
         },
 
-        updateColor(color) {
-            this.color = color
+        storeFormField(data) {
+            this.$store.commit(this.serviceName + '/storeFormField', data)
         },
 
-        reloadEnvironment: function() {
-            const $this = this
-
-            $this.loading.environment = true
-
-            return this.$store.dispatch('environment/load').then(() => {
-                $this.loading.environment = false
-            })
-        },
-
-        saveModel() {
-            const $this = this
-
-            $this.form
-                .post(this.apiBaseUri + '/' + $this.operation)
-                .then(() => {
-                    $this.hideModal()
-
-                    $this.reload()
-                })
-        },
-
-        deleteModel(model) {
-            const $this = this
-
-            confirm(
-                $this.$t('messages.confirm-delete') + " '" + model.name + "'?",
-                $this,
-            ).then(function(confirmed) {
-                if (confirmed) {
-                    post($this.apiBaseUri + '/' + model.id + '/delete').then(
-                        function() {
-                            $this.reload()
-                        },
-                    )
-                }
-            })
-        },
-
-        reload(query) {
-            this.reloadEnvironment()
-
-            this.reloadTable()
-        },
-
-        showModal() {
-            this.$refs.createUpdateModal.show()
-        },
-
-        hideModal() {
-            this.$refs.createUpdateModal.hide()
+        isLoading() {
+            return this.loading.environment || this.loading.table
         },
 
         boot() {
-            this.setDataUrl(this.apiBaseUri)
+            this.setGetUrl('/api/v1/' + this.serviceName)
 
-            this.setFormData()
+            this.setStoreUrl('/api/v1/' + this.serviceName)
 
-            this.reload()
-
-            this.bootEventListeners()
+            this.load()
         },
 
-        setPageSize(size) {
-            this.$store.dispatch('environment/updateUserPageSize', size)
+        back() {
+            this.$router.back()
         },
 
-        reloadTable(query = null) {
-            const $this = this
+        storeModel() {
+            this.store().then(() => {
+                this.load()
 
-            if (
-                !($this.currentQuery = query =
-                    query == null ? $this.currentQuery : query)
-            ) {
-                return
-            }
+                this.back()
 
-            $this.$nextTick(() => {
-                $this.loading.table = true
-
-                $this.$store
-                    .dispatch(this.serviceName + '/load', query)
-                    .then(() => {
-                        $this.loading.table = false
-                    })
+                this.clearForm()
             })
         },
+
+        can(permission) {
+            return permission && false
+        },
+
+        cannot(permission) {
+            return !can(permission)
+        }
     },
 }

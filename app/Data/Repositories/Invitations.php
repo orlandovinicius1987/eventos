@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation as InvitationModel;
-use Illuminate\Support\Facades\Cache;
 
-class Invitations extends Base
+class Invitations extends Repository
 {
     /**
      * @var string

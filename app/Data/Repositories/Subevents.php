@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Data\Repositories;
 
 use App\Data\Models\Subevent as SubeventModel;
-use Illuminate\Support\Facades\Cache;
 
-class Subevents extends Base
+class Subevents extends Repository
 {
     /**
      * @var string

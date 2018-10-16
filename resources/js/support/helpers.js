@@ -105,3 +105,13 @@ window.logout = () => {
 window.clone = object => {
     return JSON.parse(JSON.stringify(object))
 }
+
+window.set_object_values = (obj, val) => {
+    Object.keys(obj).forEach(function(k) {
+        obj[k] = val
+    })
+}
+
+window.set_null = obj => {
+    set_object_values(obj, null)
+}
