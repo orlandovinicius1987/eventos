@@ -11,7 +11,7 @@
                         <h4 class="mb-0">Eventos</h4>
                     </div>
                     <div class="col-6">
-                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
+                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
                             <i class="fa fa-plus"></i> novo evento
                         </router-link>
                     </div>
@@ -25,12 +25,14 @@
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nome</th>
+                                        <th scope="col">Confirmado em</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr @click="selectEvent(event)" v-for="event in events" :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selectedEvent)}">
                                         <td>{{ event.id }}</td>
                                         <td>{{ event.name }}</td>
+                                        <td>{{ subEvent.confirmed_at }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -63,8 +65,8 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="subEvent in subEvents" class="cursor-pointer">
-                                        <td>{{ event.id }}</td>
-                                        <td>{{ event.name }}</td>
+                                        <td>{{ subEvent.id }}</td>
+                                        <td>{{ subEvent.name }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -77,8 +79,6 @@
 </template>
 
 <script>
-const serviceName = 'events'
-
 import crud from './mixins/crud'
 import events from './mixins/events'
 import { mapMutations, mapState } from 'vuex'
@@ -98,15 +98,11 @@ export default {
 
     methods: {
         ...mapMutations(serviceName, ['selectEvent']),
-
-        isCurrent(event, selected) {
-            return event.id === selected.id
-        },
     },
 
     mounted() {
         this.boot()
-    },
+    }
 }
 </script>
 

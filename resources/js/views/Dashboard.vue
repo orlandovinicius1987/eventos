@@ -4,7 +4,7 @@
             <h2>Painel de Controle</h2>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="can('Ver')">
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
@@ -50,7 +50,7 @@
                                     <li>Phone and email support</li>
                                     <li>Help center access</li>
                                 </ul>
-                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="!can('write')">Contact us</button>
+                                <button type="button" class="btn btn-lg btn-block btn-primary" :disabled="cannot('create')">Contact us</button>
                             </div>
                         </div>
                     </div>
@@ -61,55 +61,12 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
-
-const serviceName = 'diario'
-
 export default {
-    props: [],
-
-    mixins: [],
-
     data() {
         return {
-            serviceName: serviceName,
-
-            apiBaseUri: '/api/v1/' + serviceName,
+            serviceName: 'dashboard',
         }
     },
-
-    methods: {
-        ...mapActions(serviceName, ['load']),
-
-        ...mapMutations(serviceName, [
-            'setGetUrl',
-            'setErrors',
-            'setFormData',
-            'storeFormField',
-        ]),
-
-        isLoading() {
-            return this.loading.environment || this.loading.table
-        },
-
-        log() {
-            dd(...arguments)
-        },
-
-        can(permission) {
-            // return contains(this.permissions.permissions, permission)
-        },
-    },
-
-    computed: {
-        ...mapState({
-            diario: state => state.diario.data,
-            form: state => state.diario.form,
-            environment: state => state.environment,
-        }),
-    },
-
-    mounted() {},
 }
 </script>
 

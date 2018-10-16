@@ -4,7 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Event;
 
-class Events extends Base
+class Events extends Repository
 {
     /**
      * @var string
