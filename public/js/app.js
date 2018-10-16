@@ -1789,6 +1789,9 @@ var serviceName = 'diario';
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_events__ = __webpack_require__("./resources/js/views/mixins/events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -1867,6 +1870,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+var serviceName = 'events';
+
 
 
 
@@ -1879,6 +1885,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             serviceName: 'events'
         };
     },
+
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])(serviceName, ['selectedEvent'])),
+
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapMutations"])(serviceName, ['selectEvent']), {
+        isCurrent: function isCurrent(event, selected) {
+            return event.id === selected.id;
+        }
+    }),
+
     mounted: function mounted() {
         this.boot();
     }
@@ -24377,7 +24393,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108360,11 +108376,28 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.events, function(event) {
-                      return _c("tr", [
-                        _c("td", [_vm._v(_vm._s(event.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(event.name))])
-                      ])
+                      return _c(
+                        "tr",
+                        {
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              event,
+                              _vm.selectedEvent
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.selectEvent(event)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(event.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(event.name))])
+                        ]
+                      )
                     })
                   )
                 ]
@@ -108376,11 +108409,15 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col-8" }, [
         _c("div", { staticClass: "row align-items-end" }, [
-          _vm._m(3),
+          _c("div", { staticClass: "col-10" }, [
+            _c("h4", { staticClass: "mb-0" }, [
+              _vm._v(_vm._s(_vm.selectedEvent.name) + " (subeventos)")
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-6" },
+            { staticClass: "col-2" },
             [
               _c(
                 "router-link",
@@ -108390,7 +108427,7 @@ var render = function() {
                 },
                 [
                   _c("i", { staticClass: "fa fa-plus" }),
-                  _vm._v(" novo evento\n                    ")
+                  _vm._v(" novo subevento\n                    ")
                 ]
               )
             ],
@@ -108408,12 +108445,12 @@ var render = function() {
                     "table table-sm table-hover table-borderless table-striped"
                 },
                 [
-                  _vm._m(4),
+                  _vm._m(3),
                   _vm._v(" "),
                   _c(
                     "tbody",
                     _vm._l(_vm.subEvents, function(subEvent) {
-                      return _c("tr", [
+                      return _c("tr", { staticClass: "cursor-pointer" }, [
                         _c("td", [_vm._v(_vm._s(_vm.event.id))]),
                         _vm._v(" "),
                         _c("td", [_vm._v(_vm._s(_vm.event.name))])
@@ -108456,14 +108493,6 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nome")])
       ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-6" }, [
-      _c("h4", { staticClass: "mb-0" }, [_vm._v("Subeventos de whatever")])
     ])
   },
   function() {
@@ -124670,6 +124699,10 @@ var state = {
 
     subEvents: [],
 
+    selectedEvent: {
+        id: null
+    },
+
     currentEvent: {
         id: null
     },
@@ -124695,7 +124728,11 @@ var mutations = {
     setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setStoreUrl */],
     storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* storeFormField */],
     setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setFormData */]
+    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setFormData */],
+
+    selectEvent: function selectEvent(state, payload) {
+        state.selectedEvent = payload;
+    }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({

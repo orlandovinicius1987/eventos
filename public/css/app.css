@@ -10494,3 +10494,7 @@ html {
   min-width: 220px;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+

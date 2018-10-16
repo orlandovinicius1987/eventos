@@ -21,6 +21,10 @@ const state = {
 
     subEvents: [],
 
+    selectedEvent: {
+        id: null,
+    },
+
     currentEvent: {
         id: null,
     },
@@ -47,6 +51,10 @@ const mutations = {
     storeFormField,
     setErrors,
     setFormData,
+
+    selectEvent(state, payload) {
+        state.selectedEvent = payload
+    },
 }
 
 export default {

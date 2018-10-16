@@ -28,7 +28,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="event in events">
+                                    <tr @click="selectEvent(event)" v-for="event in events" :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selectedEvent)}">
                                         <td>{{ event.id }}</td>
                                         <td>{{ event.name }}</td>
                                     </tr>
@@ -41,12 +41,12 @@
 
             <div class="col-8">
                 <div class="row align-items-end">
-                    <div class="col-6">
-                        <h4 class="mb-0">Subeventos de whatever</h4>
+                    <div class="col-10">
+                        <h4 class="mb-0">{{ selectedEvent.name }} (subeventos)</h4>
                     </div>
-                    <div class="col-6">
+                    <div class="col-2">
                         <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
-                            <i class="fa fa-plus"></i> novo evento
+                            <i class="fa fa-plus"></i> novo subevento
                         </router-link>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="subEvent in subEvents">
+                                    <tr v-for="subEvent in subEvents" class="cursor-pointer">
                                         <td>{{ event.id }}</td>
                                         <td>{{ event.name }}</td>
                                     </tr>
@@ -77,8 +77,11 @@
 </template>
 
 <script>
+const serviceName = 'events'
+
 import crud from './mixins/crud'
 import events from './mixins/events'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
     mixins: [crud, events],
@@ -87,6 +90,18 @@ export default {
         return {
             serviceName: 'events',
         }
+    },
+
+    computed: {
+        ...mapState(serviceName, ['selectedEvent']),
+    },
+
+    methods: {
+        ...mapMutations(serviceName, ['selectEvent']),
+
+        isCurrent(event, selected) {
+            return event.id === selected.id
+        },
     },
 
     mounted() {
