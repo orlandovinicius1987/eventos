@@ -2,7 +2,9 @@
 
 namespace App\Data\Repositories;
 
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 abstract class Repository
 {
@@ -29,6 +31,23 @@ abstract class Repository
         return $model;
     }
 
+    private function findByAnyColumnName($name, $arguments)
+    {
+        return $this->makeQueryByAnyColumnName('findBy', $name, $arguments)->first();
+    }
+
+    private function getByAnyColumnName($name, $arguments)
+    {
+        return $this->makeQueryByAnyColumnName('getBy', $name, $arguments)->get();
+    }
+
+    private function makeQueryByAnyColumnName($startsWith, $name, $arguments)
+    {
+        $columnName = snake_case(Str::after($name, $startsWith));
+
+        return $this->model::where($columnName, $arguments);
+    }
+
     /**
      * @param array $search
      * @param array $attributes
@@ -38,16 +57,6 @@ abstract class Repository
     public function firstOrCreate(array $search, array $attributes = [])
     {
         return $this->model::firstOrCreate($search, $attributes);
-    }
-
-    /**
-     * @param integer $id
-     *
-     * @return mixed
-     */
-    public function findById($id)
-    {
-        return $this->model::find($id);
     }
 
     /**
@@ -89,10 +98,30 @@ abstract class Repository
 
     /**
      * @param $name
+     * @param $arguments
+     * @return mixed
+     * @throws Exception
+     */
+    public function __call($name, $arguments)
+    {
+        if (starts_with($name, 'findBy')) {
+            return $result = $this->findByAnyColumnName($name, $arguments);
+        }
+
+        if (starts_with($name, 'getBy')) {
+            return $result = $this->getByAnyColumnName($name, $arguments);
+        }
+
+        throw new Exception('Method not found: ' . $name);
+    }
+
+    /**
+     * Get a random element.
+     *
      * @return mixed
      */
-    public function findByName($name)
+    public function randomElement()
     {
-        return $this->model::where('name', $name)->first();
+        return $this->model::inRandomOrder()->first();
     }
 }
