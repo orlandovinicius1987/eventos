@@ -19,12 +19,6 @@ const state = {
 
     data: {},
 
-    subEvents: [],
-
-    selectedEvent: {
-        id: null,
-    },
-
     currentEvent: {
         id: null,
     },
@@ -37,8 +31,15 @@ const state = {
 const getters = {}
 
 const actions = {
-    load,
-
+    load(context, query = {}) {
+        return axios
+            .get('/api/v1/' + context.state.currentEvent.id, {
+                params: query,
+            })
+            .then(response => {
+                context.commit('setData', response.data)
+            })
+    },
     store,
 
     clearForm,
@@ -51,10 +52,6 @@ const mutations = {
     storeFormField,
     setErrors,
     setFormData,
-
-    selectEvent(state, payload) {
-        state.selectedEvent = payload
-    },
 }
 
 export default {

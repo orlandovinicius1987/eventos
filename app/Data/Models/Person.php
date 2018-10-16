@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Person extends Base
+class Person extends BaseWithClient
 {
     /**
      * @var array

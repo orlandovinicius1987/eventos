@@ -11,8 +11,6 @@ const actions = {
     load(context) {
         return axios.get('/api/v1/environment').then(response => {
             context.commit('setData', response.data)
-
-            context.commit('setCurrentEntity', response.data.currentEntity)
         })
     },
 
