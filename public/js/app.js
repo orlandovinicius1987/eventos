@@ -1858,7 +1858,11 @@ var serviceName = 'events';
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapState"])(serviceName, ['selectedEvent'])),
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapMutations"])(serviceName, ['selectEvent'])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapMutations"])(serviceName, ['selectEvent']), {
+        isCurrent: function isCurrent(event, selected) {
+            return event.id === selected.id;
+        }
+    }),
 
     mounted: function mounted() {
         this.boot();
@@ -24363,7 +24367,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 

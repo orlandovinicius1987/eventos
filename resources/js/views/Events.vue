@@ -101,6 +101,10 @@ export default {
 
     methods: {
         ...mapMutations(serviceName, ['selectEvent']),
+
+        isCurrent(event, selected) {
+            return event.id === selected.id
+        },
     },
 
     mounted() {
