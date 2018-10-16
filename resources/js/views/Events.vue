@@ -81,14 +81,17 @@
 <script>
 import crud from './mixins/crud'
 import events from './mixins/events'
+import permissions from './mixins/permissions'
 import { mapMutations, mapState } from 'vuex'
 
+const serviceName = 'events'
+
 export default {
-    mixins: [crud, events],
+    mixins: [crud, events, permissions],
 
     data() {
         return {
-            serviceName: 'events',
+            serviceName: serviceName,
         }
     },
 

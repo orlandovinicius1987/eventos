@@ -73,5 +73,13 @@ export default {
                 this.clearForm()
             })
         },
+
+        can(permission) {
+            return permission && false
+        },
+
+        cannot(permission) {
+            return !can(permission)
+        }
     },
 }

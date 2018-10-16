@@ -4,7 +4,7 @@
             <h2>Painel de Controle</h2>
         </div>
 
-        <div class="row" v-if="can('Ver')">
+        <div class="row" v-if="can('read')">
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
@@ -61,7 +61,11 @@
 </template>
 
 <script>
+import permissions from './mixins/permissions'
+
 export default {
+    mixins: [permissions],
+
     data() {
         return {
             serviceName: 'dashboard',
