@@ -108375,7 +108375,7 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [_vm._v(_vm._s(event.name))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(_vm.subEvent.confirmed_at))])
+                          _c("td", [_vm._v(_vm._s(event.confirmed_at))])
                         ]
                       )
                     })

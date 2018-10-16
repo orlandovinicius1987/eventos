@@ -32,7 +32,7 @@
                                     <tr @click="selectEvent(event)" v-for="event in events" :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selectedEvent)}">
                                         <td>{{ event.id }}</td>
                                         <td>{{ event.name }}</td>
-                                        <td>{{ subEvent.confirmed_at }}</td>
+                                        <td>{{ event.confirmed_at }}</td>
                                     </tr>
                                 </tbody>
                             </table>
