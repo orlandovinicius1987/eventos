@@ -18,6 +18,7 @@ class Person extends BaseWithClient
         'neighbourhood',
         'city',
         'state',
+        'client_id',
     ];
 
     public function addresses()
@@ -28,5 +29,10 @@ class Person extends BaseWithClient
     public function contacts()
     {
         return $this->morphMany('App\Data\Models\Contact', 'contactable');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

@@ -56,7 +56,7 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
         'zipcode' => $zipcode,
         'street' => 'street',
         'number' => 40,
-        'complement' => 'Apt 889',
+        'complement' => 'Apt ' . $faker->randomNumber(2),
         'neighbourhood' => 'Copacabana',
         'city' => 'Rio de Janeiro',
         'state' => 'RJ',

@@ -23,10 +23,10 @@ $factory->define(App\Data\Models\Contact::class, function (Faker $faker) {
 
     if ($array[$randomKey] == 'Person') {
         $contactable_id = app(PeopleRepository::class)->randomElement()->id;
-        $contactable_type = 'Person';
+        $contactable_type = App\Data\Models\Person::class;
     } elseif ($array[$randomKey] == 'Advisor') {
         $contactable_id = app(AdvisorsRepository::class)->randomElement()->id;
-        $contactable_type = 'Advisor';
+        $contactable_type = App\Data\Models\Advisor::class;
     }
 
     $contactsType = app(ContactsTypesRepository::class)->randomElement();

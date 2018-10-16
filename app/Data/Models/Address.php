@@ -16,6 +16,7 @@ class Address extends Base
         'state',
         'addressable_id',
         'addressable_type',
+        'client_id',
     ];
 
     public function addressable()

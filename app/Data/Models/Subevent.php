@@ -21,7 +21,6 @@ class Subevent extends Base
         'invitation_text',
         'confirmation_text',
         'credential_send_text',
-        'client_id',
         'event_id',
     ];
 

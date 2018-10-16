@@ -11,6 +11,7 @@ class Contact extends Base
         'contact',
         'contactable_id',
         'contactable_type',
+        'client_id',
     ];
 
     public function contactable()

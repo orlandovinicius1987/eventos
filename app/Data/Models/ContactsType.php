@@ -6,7 +6,7 @@ class ContactsType extends Base
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'code'];
 
     public function contacts()
     {

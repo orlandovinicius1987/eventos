@@ -24,6 +24,11 @@ class CreateTableAddresses extends Migration
             $table->string('city')->nullable();
             $table->string('state')->nullable();
 
+            $table->float('latitude')->nullable();
+            $table->float('longitude')->nullable();
+
+            $table->integer('client_id');
+
             $table
                 ->integer('addressable_id')
                 ->unsigned()
