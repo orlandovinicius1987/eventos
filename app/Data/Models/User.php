@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return config('services.slack.webhook_url');
     }
+
+    public function getClientIdAttribute()
+    {
+        return 1;
+    }
 }

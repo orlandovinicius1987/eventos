@@ -54,8 +54,14 @@ function remove_punctuation($string)
     return preg_replace('/[^a-z0-9]+/i', '', $string);
 }
 
+function request_data()
+{
+    return coollect(request()->all());
+}
+
 class Timer
 {
     public static $starttime;
     public static $endtime;
 }
+

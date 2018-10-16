@@ -47,7 +47,7 @@ class Authorization
         } catch (\Exception $exception) {
             //Logando com as permissões salvas
             $usersRepository = app(UsersRepository::class);
-            $user = $usersRepository->findByColumn('username', $username);
+            $user = $usersRepository->findByUsername($username);
 
             return $this->storedPermissions($user);
         }
@@ -69,9 +69,9 @@ class Authorization
             );
             return $response;
         } catch (\Exception $exception) {
-            //Logando com as permissões salvas
+            //Logando com os perfis salvos
             $usersRepository = app(UsersRepository::class);
-            $user = $usersRepository->findByColumn('username', $username);
+            $user = $usersRepository->findByUsername($username);
 
             return $this->storedProfiles($user);
         }

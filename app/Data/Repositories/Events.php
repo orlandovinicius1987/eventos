@@ -1,13 +1,18 @@
 <?php
+
 namespace App\Data\Repositories;
 
-use App\Data\Models\Event as EventModel;
-use Illuminate\Support\Facades\Cache;
+use App\Data\Models\Event;
 
-class Events extends Base
+class Events extends Repository
 {
     /**
      * @var string
      */
-    protected $model = EventModel::class;
+    protected $model = Event::class;
+
+    public function store($data)
+    {
+        return $this->model::create(['name' => $data->name]);
+    }
 }

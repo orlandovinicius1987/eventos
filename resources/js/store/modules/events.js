@@ -1,29 +1,36 @@
 import Form from '../../classes/Form'
+
 import {
     load,
+    store,
     setData,
-    setDataUrl,
+    setGetUrl,
+    setStoreUrl,
     storeFormField,
     setErrors,
     setFormData,
+    clearForm,
 } from './mixins/data.js'
 
 const state = {
     dataUrl: '',
 
+    storeUrl: '',
+
     data: {},
+
+    subEvents: [],
+
+    selectedEvent: {
+        id: null,
+    },
+
+    currentEvent: {
+        id: null,
+    },
 
     form: new Form({
         name: null,
-
-        username: null,
-
-        color: {
-            background: { hex: '#132AD7FF' },
-            foreground: { hex: '#FFDC00FF' },
-        },
-
-        avatar: null,
     }),
 }
 
@@ -31,14 +38,23 @@ const getters = {}
 
 const actions = {
     load,
+
+    store,
+
+    clearForm,
 }
 
 const mutations = {
     setData,
-    setDataUrl,
+    setGetUrl,
+    setStoreUrl,
     storeFormField,
     setErrors,
     setFormData,
+
+    selectEvent(state, payload) {
+        state.selectedEvent = payload
+    },
 }
 
 export default {

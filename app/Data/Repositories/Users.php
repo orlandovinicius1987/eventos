@@ -4,10 +4,9 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\User;
 use App\Services\Authorization;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class Users extends Base
+class Users extends Repository
 {
     /**
      * @var string
@@ -145,16 +144,9 @@ class Users extends Base
      *
      * @return mixed
      */
-    public function getByType($type)
+    public function findByType($type)
     {
-        $type = $this->tiposUsuarios->findByName($type);
-
-        $model = $this->model;
-
-        return $this->makeResultForSelect(
-            $model::where('user_type_id', $type->id)->get(),
-            'name'
-        );
+        return $this->model::where('user_type_id', $this->tiposUsuarios->findByName($type)->id)->get();
     }
 
     /**
