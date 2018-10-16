@@ -24,4 +24,9 @@ class Subevent extends Base
         'client_id',
         'event_id',
     ];
+
+    public function addresses()
+    {
+        return $this->morphMany('App\Data\Models\Address', 'addressable');
+    }
 }

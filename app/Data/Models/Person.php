@@ -19,4 +19,14 @@ class Person extends Base
         'city',
         'state',
     ];
+
+    public function addresses()
+    {
+        return $this->morphMany('App\Data\Models\Address', 'addressable');
+    }
+
+    public function contacts()
+    {
+        return $this->morphMany('App\Data\Models\Contact', 'contactable');
+    }
 }
