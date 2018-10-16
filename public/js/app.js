@@ -1737,7 +1737,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var serviceName = 'diario';
+var serviceName = 'events';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: [],
@@ -1753,15 +1753,12 @@ var serviceName = 'diario';
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('gate', ['can']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
         },
         log: function log() {
             dd.apply(undefined, arguments);
-        },
-        can: function can(permission) {
-            return contains(this.permissions.permissions, permission);
         }
     }),
 
@@ -1826,26 +1823,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
-var serviceName = 'diario';
+var serviceName = 'events';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: [],
@@ -1856,17 +1837,48 @@ var serviceName = 'diario';
         return {
             serviceName: serviceName,
 
-            apiBaseUri: '/api/v1/' + serviceName
+            apiBaseUri: '/api/v1/' + serviceName,
+
+            refreshing: false,
+
+            tables: {
+                events: []
+            }
         };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])(serviceName, ['load']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('gate', ['can']), Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapMutations"])(serviceName, ['setDataUrl', 'setErrors', 'setFormData', 'storeFormField']), {
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
         },
         log: function log() {
             dd.apply(undefined, arguments);
+        },
+        refresh: function refresh() {
+            var $this = this;
+
+            $this.refreshing = true;
+
+            $this.errors = null;
+
+            $this.tables.events = null;
+
+            axios.post('/api/v1/events-search', { search: '' }).then(function (response) {
+                $this.tables.events = [];
+                $this.errors = false;
+
+                if (response.data.success) {
+                    $this.tables.events = response.data.data;
+                    $this.errors = response.data.errors;
+                }
+
+                $this.refreshing = false;
+            }).catch(function (error) {
+                console.log(error);
+
+                $this.refreshing = false;
+            });
         }
     }),
 
@@ -1882,7 +1894,9 @@ var serviceName = 'diario';
         }
     })),
 
-    mounted: function mounted() {}
+    mounted: function mounted() {
+        this.refresh();
+    }
 });
 
 /***/ }),
@@ -24042,7 +24056,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_args":[["cheerio@1.0.0-rc.2","C:\\code\\alerj\\eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"C:\\code\\alerj\\eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -24317,7 +24331,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24332,7 +24346,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -107622,7 +107636,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).NODE_DEBUG || '';
+    debugEnviron = Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -108242,84 +108256,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [
+        _vm.can("Criar")
+          ? _c(
+              "div",
+              { staticClass: "btn btn-primary btn-sm m-1 pull-right" },
+              [
+                _c("i", { staticClass: "fa fa-plus" }),
+                _vm._v(" novo evento\n            ")
+              ]
+            )
+          : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.can("Ver")
+      ? _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card p-4" }, [
+              _c(
+                "table",
+                {
+                  staticClass: "table table-striped table-hover",
+                  attrs: { id: "eventsTable", cellspacing: "0", width: "100%" }
+                },
+                [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _vm._l(_vm.tables.events, function(event) {
+                    return _c("tr", [
+                      _c("td", [_vm._v(_vm._s(event.name))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(event.confirmed_at))])
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          ])
+        ])
+      : _vm._e()
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-        _c("h2", [_vm._v("Eventos")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "btn btn-primary btn-sm m-1 pull-right" }, [
-            _c("i", { staticClass: "fa fa-plus" }),
-            _vm._v(" novo evento\n            ")
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-12" }, [
-          _c("div", { staticClass: "card p-4" }, [
-            _c(
-              "table",
-              {
-                staticClass:
-                  "table table-sm table-hover table-borderless table-striped"
-              },
-              [
-                _c("thead", [
-                  _c("tr", [
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-                    _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("First")]),
-                    _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("Last")]),
-                    _vm._v(" "),
-                    _c("th", { attrs: { scope: "col" } }, [_vm._v("Handle")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("tbody", [
-                  _c("tr", [
-                    _c("th", { attrs: { scope: "row" } }, [_vm._v("1")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Mark")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Otto")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("@mdo")])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", { attrs: { scope: "row" } }, [_vm._v("2")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Jacob")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("Thornton")]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("@fat")])
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("th", { attrs: { scope: "row" } }, [_vm._v("3")]),
-                    _vm._v(" "),
-                    _c("td", { attrs: { colspan: "2" } }, [
-                      _vm._v("Larry the Bird")
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v("@twitter")])
-                  ])
-                ])
-              ]
-            )
-          ])
-        ])
+    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h2", [_vm._v("Eventos")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Nome")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Confirmado em")])
       ])
     ])
   }
@@ -108345,36 +108346,38 @@ var render = function() {
   return _c("div", [
     _vm._m(0),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "container" }, [
-          _c("div", { staticClass: "card-deck mb-3 text-center" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-              _vm._m(3),
-              _vm._v(" "),
-              _c("div", { staticClass: "card-body" }, [
-                _vm._m(4),
+    _vm.can("Ver")
+      ? _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "container" }, [
+              _c("div", { staticClass: "card-deck mb-3 text-center" }, [
+                _vm._m(1),
                 _vm._v(" "),
-                _vm._m(5),
+                _vm._m(2),
                 _vm._v(" "),
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-lg btn-block btn-primary",
-                    attrs: { type: "button", disabled: !_vm.can("write") }
-                  },
-                  [_vm._v("Contact us")]
-                )
+                _c("div", { staticClass: "card mb-4 shadow-sm" }, [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "card-body" }, [
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _vm._m(5),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-lg btn-block btn-primary",
+                        attrs: { type: "button", disabled: !_vm.can("Criar") }
+                      },
+                      [_vm._v("Contact us")]
+                    )
+                  ])
+                ])
               ])
             ])
           ])
         ])
-      ])
-    ])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -111342,7 +111345,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("40b1c132", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("e10bcdc2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -111369,7 +111372,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("0449a838", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("020b30d7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -111396,7 +111399,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3dfc4c3c", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("2a5fcd70", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -124335,11 +124338,6 @@ var actions = {
             context.commit('setCurrentEntity', response.data.currentEntity);
         });
     },
-    selectEntity: function selectEntity(context, payload) {
-        axios.post('/api/v1/users/entity', { entity: payload });
-
-        context.commit('setCurrentEntity', payload);
-    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('setData', window.laravel);
 
@@ -124354,12 +124352,6 @@ var mutations = {
         });
 
         state['loaded'] = true;
-    },
-    setCurrentEntity: function setCurrentEntity(state, payload) {
-        state.currentEntity = payload;
-    },
-    setPageSize: function setPageSize(state, payload) {
-        state.pageSize = payload;
     }
 };
 
@@ -124413,6 +124405,51 @@ var mutations = {
     storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* storeFormField */],
     setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setErrors */],
     setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setFormData */]
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    getters: getters,
+    actions: actions,
+    mutations: mutations,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/gate.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
+
+
+var state = {
+    loaded: false,
+
+    currentUser: null
+};
+
+var getters = {};
+
+var actions = {
+    can: function can(permission) {
+        if (typeof JSON.parse(__WEBPACK_IMPORTED_MODULE_0__environment__["a" /* default */].state.user.permissions)[permission] !== 'undefined') {
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+var mutations = {
+    setData: function setData(state, payload) {
+        _.forIn(payload, function (val, key) {
+            state[key] = val;
+        });
+
+        state['loaded'] = true;
+    }
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -124495,6 +124532,7 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__("./resources/js/store/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
 /**
  * Imports
  */
@@ -124519,6 +124557,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
+
 /**
  * State
  */
@@ -124535,7 +124574,8 @@ var state = {
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
     events: __WEBPACK_IMPORTED_MODULE_5__modules_events__["a" /* default */],
-    environment: __WEBPACK_IMPORTED_MODULE_6__modules_environment__["a" /* default */]
+    environment: __WEBPACK_IMPORTED_MODULE_6__modules_environment__["a" /* default */],
+    gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */]
   }
 });
 

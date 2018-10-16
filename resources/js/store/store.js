@@ -21,6 +21,7 @@ import * as mutations from './mutations'
  */
 import events from './modules/events'
 import environment from './modules/environment'
+import gate from './modules/gate'
 
 /**
  * State
@@ -40,6 +41,7 @@ let store = new Vuex.Store({
     modules: {
         events,
         environment,
+        gate,
     },
 })
 
