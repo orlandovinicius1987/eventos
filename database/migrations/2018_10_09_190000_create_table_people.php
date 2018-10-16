@@ -17,40 +17,10 @@ class CreateTablePeople extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->string('position');
-            $table->string('title');
-            $table->string('phone')->unique();
-            $table->string('email')->unique();
+            $table->string('role_id')->nullable();
+            $table->string('title')->nullable();
 
-            $table
-                ->string('zipcode')
-                ->nullable()
-                ->index();
-
-            $table
-                ->string('street')
-                ->nullable()
-                ->index();
-
-            $table
-                ->string('complement')
-                ->nullable()
-                ->index();
-
-            $table
-                ->string('neighbourhood')
-                ->nullable()
-                ->index();
-
-            $table
-                ->string('city')
-                ->nullable()
-                ->index();
-
-            $table
-                ->string('state')
-                ->nullable()
-                ->index();
+            $table->integer('client_id');
 
             $table->timestamps();
         });

@@ -146,7 +146,9 @@ class Users extends Repository
      */
     public function findByType($type)
     {
-        return $this->model::where('user_type_id', $this->tiposUsuarios->findByName($type)->id)->get();
+        return $this->model
+            ::where('user_type_id', $this->tiposUsuarios->findByName($type)->id)
+            ->get();
     }
 
     /**

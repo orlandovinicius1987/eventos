@@ -6,7 +6,10 @@ class AdvisorType extends Base
     /**
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
+
+    public function advisors()
+    {
+        return $this->hasMany(Advisor::class);
+    }
 }

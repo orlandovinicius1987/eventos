@@ -1,14 +1,14 @@
 <?php
 namespace App\Data\Models;
 
-class Role extends Base
+class ContactsType extends Base
 {
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'code'];
 
-    public function people()
+    public function contacts()
     {
         return $this->hasMany(Contact::class);
     }
