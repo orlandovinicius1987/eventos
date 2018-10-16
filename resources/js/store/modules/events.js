@@ -4,11 +4,12 @@ import {
     load,
     store,
     setData,
-    setDataUrl,
+    setGetUrl,
     setStoreUrl,
     storeFormField,
     setErrors,
     setFormData,
+    clearForm,
 } from './mixins/data.js'
 
 const state = {
@@ -28,11 +29,12 @@ const getters = {}
 const actions = {
     load,
     store,
+    clearForm,
 }
 
 const mutations = {
     setData,
-    setDataUrl,
+    setGetUrl,
     setStoreUrl,
     storeFormField,
     setErrors,

@@ -82,7 +82,7 @@ export default {
         ...mapActions(serviceName, ['load']),
 
         ...mapMutations(serviceName, [
-            'setDataUrl',
+            'setGetUrl',
             'setErrors',
             'setFormData',
             'storeFormField',
@@ -109,12 +109,9 @@ export default {
         }),
     },
 
-    mounted() {
-
-    },
+    mounted() {},
 }
 </script>
 
 <style>
 </style>
-

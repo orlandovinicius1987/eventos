@@ -19,28 +19,13 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Nome</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
+                            <tr v-for="event in events">
+                                <td>{{ event.id }}</td>
+                                <td>{{ event.name }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -51,56 +36,23 @@
 </template>
 
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
-
-const serviceName = 'diario'
+import crud from './mixins/crud'
+import events from './mixins/events'
 
 export default {
-    props: [],
-
-    mixins: [],
+    mixins: [crud, events],
 
     data() {
         return {
-            serviceName: serviceName,
-
-            apiBaseUri: '/api/v1/' + serviceName,
+            serviceName: 'events',
         }
     },
 
-    methods: {
-        ...mapActions(serviceName, ['load']),
-
-        ...mapMutations(serviceName, [
-            'setDataUrl',
-            'setErrors',
-            'setFormData',
-            'storeFormField',
-        ]),
-
-        isLoading() {
-            return this.loading.environment || this.loading.table
-        },
-
-        log() {
-            dd(...arguments)
-        },
-    },
-
-    computed: {
-        ...mapState({
-            diario: state => state.diario.data,
-            form: state => state.diario.form,
-            environment: state => state.environment,
-        }),
-    },
-
     mounted() {
-
+        this.boot()
     },
 }
 </script>
 
 <style>
 </style>
-

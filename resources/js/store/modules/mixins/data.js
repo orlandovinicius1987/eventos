@@ -1,14 +1,17 @@
 export function load(context, query = {}) {
-    return axios.get(context.state.dataUrl, { params: query }).then(response => {
-        context.commit('setData', response.data)
-    })
+    return axios
+        .get(context.state.dataUrl, { params: query })
+        .then(response => {
+            dd('load ' + context.state.dataUrl)
+            context.commit('setData', response.data)
+        })
 }
 
 export function setData(state, payload) {
     state.data = payload
 }
 
-export function setDataUrl(state, payload) {
+export function setGetUrl(state, payload) {
     state.dataUrl = payload
 }
 
@@ -37,7 +40,13 @@ export function setFormData(state, payload) {
 }
 
 export function store(context) {
-    return axios.post(context.state.storeUrl, context.state.form.fields).then(response => {
-        context.dispatch('load')
-    })
+    return axios
+        .post(context.state.storeUrl, context.state.form.fields)
+        .then(response => {
+            context.dispatch('load')
+        })
+}
+
+export function clearForm(context) {
+    set_null(context.state.form.fields)
 }
