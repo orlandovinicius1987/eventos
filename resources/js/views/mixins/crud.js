@@ -25,7 +25,7 @@ export default {
         },
 
         store() {
-            this.$store.dispatch(this.serviceName + '/store')
+            return this.$store.dispatch(this.serviceName + '/store')
         },
 
         setGetUrl(url) {

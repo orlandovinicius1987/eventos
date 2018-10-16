@@ -39,7 +39,7 @@ export function setFormData(state, payload) {
 }
 
 export function store(context) {
-    return axios
+    return context.state.form
         .post(context.state.storeUrl, context.state.form.fields)
         .then(response => {
             context.dispatch('load')

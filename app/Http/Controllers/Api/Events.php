@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Events as EventsRepository;
+use App\Http\Requests\EventCreate;
 
 class Events extends Controller
 {
@@ -20,9 +21,10 @@ class Events extends Controller
     /**
      * Store
      *
+     * @param EventCreate $request
      * @return \Illuminate\Http\Response|Collection
      */
-    public function store()
+    public function store(EventCreate $request)
     {
         return app(EventsRepository::class)->store(request_data());
     }

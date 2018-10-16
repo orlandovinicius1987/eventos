@@ -1940,6 +1940,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -24423,7 +24428,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108732,7 +108737,17 @@ var render = function() {
                     _vm.$set(_vm.form.fields, "name", $event.target.value)
                   }
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("name")
+                ? _c("small", { staticClass: "text-danger" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.form.errors.get("name")) +
+                        "\n                        "
+                    )
+                  ])
+                : _vm._e()
             ])
           ]),
           _vm._v(" "),
@@ -124407,6 +124422,7 @@ var Form = function () {
             var _this = this;
 
             return post(url, this.fields).catch(function (error) {
+                dd(error.response.data.errors);
                 _this.onFail(error.response.data.errors);
 
                 throw new Error('Higher-level error. ' + error.message);
@@ -124795,7 +124811,7 @@ function setFormData(state, payload) {
 }
 
 function store(context) {
-    return axios.post(context.state.storeUrl, context.state.form.fields).then(function (response) {
+    return context.state.form.post(context.state.storeUrl, context.state.form.fields).then(function (response) {
         context.dispatch('load');
     });
 }
@@ -125251,7 +125267,7 @@ module.exports = Component.exports
             this.$store.dispatch(this.serviceName + '/load');
         },
         store: function store() {
-            this.$store.dispatch(this.serviceName + '/store');
+            return this.$store.dispatch(this.serviceName + '/store');
         },
         setGetUrl: function setGetUrl(url) {
             this.$store.commit(this.serviceName + '/setGetUrl', url);
