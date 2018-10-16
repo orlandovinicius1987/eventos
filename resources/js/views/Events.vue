@@ -6,43 +6,27 @@
 
         <div class="row">
             <div class="col-12">
-                <div class="btn btn-primary btn-sm m-1 pull-right">
+                <div v-if="can('Criar')" class="btn btn-primary btn-sm m-1 pull-right">
                     <i class="fa fa-plus"></i> novo evento
                 </div>
             </div>
         </div>
 
-        <div class="row">
+        <div v-if="can('Ver')" class="row">
             <div class="col-12">
                 <div class="card p-4">
-                    <table class="table table-sm table-hover table-borderless table-striped">
+                    <table id="eventsTable" class="table table-striped table-hover" cellspacing="0" width="100%">
                         <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Confirmado em</th>
+                        </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
+
+                        <tr v-for="event in tables.events">
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.confirmed_at }}</td>
+                        </tr>
                     </table>
                 </div>
             </div>
@@ -53,7 +37,7 @@
 <script>
 import { mapActions, mapMutations, mapState } from 'vuex'
 
-const serviceName = 'diario'
+const serviceName = 'events'
 
 export default {
     props: [],
@@ -65,11 +49,18 @@ export default {
             serviceName: serviceName,
 
             apiBaseUri: '/api/v1/' + serviceName,
+
+            refreshing: false,
+
+            tables: {
+                events: [],
+            }
         }
     },
 
     methods: {
         ...mapActions(serviceName, ['load']),
+        ...mapActions('gate', ['can']),
 
         ...mapMutations(serviceName, [
             'setDataUrl',
@@ -85,7 +76,37 @@ export default {
         log() {
             dd(...arguments)
         },
+
+        refresh() {
+            let $this = this
+
+            $this.refreshing = true
+
+            $this.errors = null
+
+            $this.tables.events = null
+
+            axios.post('/api/v1/events-search', {search: ''})
+                .then(function(response) {
+                    $this.tables.events = []
+                    $this.errors = false
+
+                    if (response.data.success) {
+                        $this.tables.events = response.data.data
+                        $this.errors = response.data.errors
+                    }
+
+                    $this.refreshing = false
+                })
+                .catch(function(error) {
+                    console.log(error)
+
+                    $this.refreshing = false
+                })
+        },
     },
+
+
 
     computed: {
         ...mapState({
@@ -96,7 +117,7 @@ export default {
     },
 
     mounted() {
-
+        this.refresh()
     },
 }
 </script>
