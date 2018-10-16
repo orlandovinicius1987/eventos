@@ -3,7 +3,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\PoliticalParty as PoliticalPartyModel;
 
-class PoliticalParties extends Base
+class PoliticalParties extends Repository
 {
     /**
      * @var string
