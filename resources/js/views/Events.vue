@@ -41,7 +41,7 @@
                 </div>
             </div>
 
-            <div class="col-8">
+            <div class="col-8" v-if="selectedEvent.id">
                 <div class="row align-items-end">
                     <div class="col-10">
                         <h4 class="mb-0">{{ selectedEvent.name }} (subeventos)</h4>

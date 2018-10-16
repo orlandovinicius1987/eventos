@@ -108387,62 +108387,64 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-8" }, [
-        _c("div", { staticClass: "row align-items-end" }, [
-          _c("div", { staticClass: "col-10" }, [
-            _c("h4", { staticClass: "mb-0" }, [
-              _vm._v(_vm._s(_vm.selectedEvent.name) + " (subeventos)")
-            ])
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-2" },
-            [
+      _vm.selectedEvent.id
+        ? _c("div", { staticClass: "col-8" }, [
+            _c("div", { staticClass: "row align-items-end" }, [
+              _c("div", { staticClass: "col-10" }, [
+                _c("h4", { staticClass: "mb-0" }, [
+                  _vm._v(_vm._s(_vm.selectedEvent.name) + " (subeventos)")
+                ])
+              ]),
+              _vm._v(" "),
               _c(
-                "router-link",
-                {
-                  staticClass: "btn btn-primary btn-sm m-1 pull-right",
-                  attrs: { to: "/events/create", tag: "div" }
-                },
+                "div",
+                { staticClass: "col-2" },
                 [
-                  _c("i", { staticClass: "fa fa-plus" }),
-                  _vm._v(" novo subevento\n                    ")
-                ]
-              )
-            ],
-            1
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12" }, [
-            _c("div", { staticClass: "card p-4" }, [
-              _c(
-                "table",
-                {
-                  staticClass:
-                    "table table-sm table-hover table-borderless table-striped"
-                },
-                [
-                  _vm._m(3),
-                  _vm._v(" "),
                   _c(
-                    "tbody",
-                    _vm._l(_vm.subEvents, function(subEvent) {
-                      return _c("tr", { staticClass: "cursor-pointer" }, [
-                        _c("td", [_vm._v(_vm._s(subEvent.id))]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(subEvent.name))])
-                      ])
-                    })
+                    "router-link",
+                    {
+                      staticClass: "btn btn-primary btn-sm m-1 pull-right",
+                      attrs: { to: "/events/create", tag: "div" }
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-plus" }),
+                      _vm._v(" novo subevento\n                    ")
+                    ]
                   )
-                ]
+                ],
+                1
               )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c("div", { staticClass: "card p-4" }, [
+                  _c(
+                    "table",
+                    {
+                      staticClass:
+                        "table table-sm table-hover table-borderless table-striped"
+                    },
+                    [
+                      _vm._m(3),
+                      _vm._v(" "),
+                      _c(
+                        "tbody",
+                        _vm._l(_vm.subEvents, function(subEvent) {
+                          return _c("tr", { staticClass: "cursor-pointer" }, [
+                            _c("td", [_vm._v(_vm._s(subEvent.id))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(subEvent.name))])
+                          ])
+                        })
+                      )
+                    ]
+                  )
+                ])
+              ])
             ])
           ])
-        ])
-      ])
+        : _vm._e()
     ])
   ])
 }
