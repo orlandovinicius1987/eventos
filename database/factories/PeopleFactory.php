@@ -2,6 +2,9 @@
 
 use Faker\Generator as Faker;
 
+use App\Data\Repositories\Clients as ClientsRepository;
+use App\Data\Repositories\Roles as RolesRepository;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -14,5 +17,10 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Data\Models\Person::class, function (Faker $faker) {
-    return [];
+    return [
+        'name' => $faker->name,
+        'role_id' => app(RolesRepository::class)->randomElement()->id,
+        'title' => $faker->title,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id,
+    ];
 });
