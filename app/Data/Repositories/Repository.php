@@ -20,7 +20,7 @@ abstract class Repository
      */
     public function create($data)
     {
-        $model = is_null($id = isset($data['id']) ? $data['id'] : null)
+        $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
             ? new $this->model()
             : $this->model::find($id);
 
@@ -33,12 +33,20 @@ abstract class Repository
 
     private function findByAnyColumnName($name, $arguments)
     {
-        return $this->makeQueryByAnyColumnName('findBy', $name, $arguments)->first();
+        return $this->makeQueryByAnyColumnName(
+            'findBy',
+            $name,
+            $arguments
+        )->first();
     }
 
     private function getByAnyColumnName($name, $arguments)
     {
-        return $this->makeQueryByAnyColumnName('getBy', $name, $arguments)->get();
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            $name,
+            $arguments
+        )->get();
     }
 
     private function makeQueryByAnyColumnName($startsWith, $name, $arguments)

@@ -64,4 +64,3 @@ class Timer
     public static $starttime;
     public static $endtime;
 }
-
