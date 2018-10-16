@@ -1,14 +1,14 @@
 <?php
 namespace App\Data\Models;
 
-class PoliticalParty extends Base
+class Party extends Base
 {
-    protected $table = 'political_parties';
+    protected $table = 'parties';
 
     /**
      * @var array
      */
-    protected $fillable = ['name', 'initials'];
+    protected $fillable = ['name', 'number', 'initials'];
 
     public function addresses()
     {

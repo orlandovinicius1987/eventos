@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Repositories;
 
-use App\Data\Models\PoliticalParty as PoliticalPartyModel;
+use App\Data\Models\Party as PoliticalPartyModel;
 
 class PoliticalParties extends Base
 {

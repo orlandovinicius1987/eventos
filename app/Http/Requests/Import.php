@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class EventCreate extends Request
+class Import extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,7 +12,7 @@ class EventCreate extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'file' => 'required',
         ];
     }
 }
