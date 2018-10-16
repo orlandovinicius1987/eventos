@@ -20,7 +20,7 @@ import * as mutations from './mutations'
  * Modules
  */
 import events from './modules/events'
-import subevents from './modules/subevents'
+import subevents from './modules/sub-events'
 import environment from './modules/environment'
 import gate from './modules/gate'
 

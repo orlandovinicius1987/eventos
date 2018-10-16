@@ -124849,7 +124849,7 @@ function clearForm(context) {
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/subevents.js":
+/***/ "./resources/js/store/modules/sub-events.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124937,7 +124937,7 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__getters__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__("./resources/js/store/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_subevents__ = __webpack_require__("./resources/js/store/modules/subevents.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_sub_events__ = __webpack_require__("./resources/js/store/modules/sub-events.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
 /**
@@ -124982,7 +124982,7 @@ var state = {
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
     events: __WEBPACK_IMPORTED_MODULE_5__modules_events__["a" /* default */],
-    subevents: __WEBPACK_IMPORTED_MODULE_6__modules_subevents__["a" /* default */],
+    subevents: __WEBPACK_IMPORTED_MODULE_6__modules_sub_events__["a" /* default */],
     environment: __WEBPACK_IMPORTED_MODULE_7__modules_environment__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_8__modules_gate__["a" /* default */]
   }
