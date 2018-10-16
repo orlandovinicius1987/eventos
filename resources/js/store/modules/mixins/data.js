@@ -2,7 +2,6 @@ export function load(context, query = {}) {
     return axios
         .get(context.state.dataUrl, { params: query })
         .then(response => {
-            dd('load ' + context.state.dataUrl)
             context.commit('setData', response.data)
         })
 }

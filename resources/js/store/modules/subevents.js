@@ -19,8 +19,6 @@ const state = {
 
     data: {},
 
-    subEvents: [],
-
     currentEvent: {
         id: null,
     },
@@ -33,8 +31,15 @@ const state = {
 const getters = {}
 
 const actions = {
-    load,
-
+    load(context, query = {}) {
+        return axios
+            .get('/api/v1/' + context.state.currentEvent.id, {
+                params: query,
+            })
+            .then(response => {
+                context.commit('setData', response.data)
+            })
+    },
     store,
 
     clearForm,

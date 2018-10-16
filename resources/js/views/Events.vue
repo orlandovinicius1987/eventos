@@ -62,7 +62,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr v-for="event in events">
+                                    <tr v-for="subEvent in subEvents">
                                         <td>{{ event.id }}</td>
                                         <td>{{ event.name }}</td>
                                     </tr>
