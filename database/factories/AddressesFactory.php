@@ -5,6 +5,7 @@ use Faker\Generator as Faker;
 use App\Data\Repositories\People as PeopleRepository;
 use App\Data\Repositories\Subevents as SubeventsRepository;
 use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
+use App\Data\Repositories\Clients as ClientsRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,7 @@ use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
 */
 
 $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
-    $array = ['Person', 'Subevent', 'PoliticalParty'];
+    $array = ['Person'];
     $randomKey = array_rand($array);
 
     if ($array[$randomKey] == 'Person') {
@@ -68,5 +69,6 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
         'state' => 'RJ',
         'addressable_id' => $addressable_id,
         'addressable_type' => $addressable_type,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id,
     ];
 });

@@ -6,7 +6,7 @@ use App\Data\Repositories\People as PeopleRepository;
 use App\Data\Repositories\Advisors as AdvisorsRepository;
 use App\Data\Repositories\ContactsTypes as ContactsTypesRepository;
 use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
-
+use App\Data\Repositories\Clients as ClientsRepository;
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -19,7 +19,7 @@ use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
 */
 
 $factory->define(App\Data\Models\Contact::class, function (Faker $faker) {
-    $array = ['Person', 'Advisor', 'PoliticalParty'];
+    $array = ['Person', 'Advisor'];
     $randomKey = array_rand($array);
 
     if ($array[$randomKey] == 'Person') {
@@ -52,5 +52,6 @@ $factory->define(App\Data\Models\Contact::class, function (Faker $faker) {
         'contact' => $contact,
         'contactable_id' => $contactable_id,
         'contactable_type' => $contactable_type,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id,
     ];
 });
