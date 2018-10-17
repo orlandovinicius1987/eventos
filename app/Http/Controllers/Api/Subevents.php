@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Subevents as SubeventsRepository;
-use App\Http\Requests\SubeventCreate;
+use App\Http\Requests\SubeventStore;
 use Illuminate\Http\Request;
 
 class Subevents extends Controller
@@ -27,10 +27,10 @@ class Subevents extends Controller
     /**
      * Store
      *
-     * @param SubeventCreate $request
+     * @param SubeventStore $request
      * @return \Illuminate\Http\Response|Collection
      */
-    public function store(SubeventCreate $request)
+    public function store(SubeventStore $request)
     {
         return app(SubeventsRepository::class)->storeFromArray($request->all());
     }

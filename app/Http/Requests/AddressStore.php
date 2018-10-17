@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AddressCreate extends BaseCreate
+class AddressStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class ContactCreate extends BaseCreate
+use App\Data\Repositories\ContactTypes as ContactTypesRepository;
+
+class ContactStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

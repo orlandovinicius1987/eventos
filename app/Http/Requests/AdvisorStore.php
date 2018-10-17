@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class EventCreate extends BaseCreate
+class AdvisorStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,6 +13,8 @@ class EventCreate extends BaseCreate
     {
         return [
             'name' => 'required',
+            'advisor_type_id' => 'required|exists:advisor_types,id',
+            'person_id' => 'required|exists:people,id',
         ];
     }
 }

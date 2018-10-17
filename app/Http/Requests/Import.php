@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class ClientCreate extends BaseCreate
+class Import extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,7 +12,7 @@ class ClientCreate extends BaseCreate
     public function rules()
     {
         return [
-            'name' => 'required',
+            'file' => 'required',
         ];
     }
 }

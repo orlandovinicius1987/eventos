@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Subevent extends Base
+class SubEvent extends Base
 {
     /**
      * @var array

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class SubeventCreate extends BaseCreate
+class InstitutionStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,9 +13,6 @@ class SubeventCreate extends BaseCreate
     {
         return [
             'name' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            'event_id' => 'required|exists:events,id',
         ];
     }
 }

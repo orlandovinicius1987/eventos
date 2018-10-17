@@ -26,6 +26,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
             Route::post('/', 'Subevents@store')->name('subevents.store');
         });
+
+        Route::post('/import', 'Import@store')->name('import.store');
     });
 });
 

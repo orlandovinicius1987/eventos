@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Gate;
 
-class BaseCreate extends Request
+class BaseStore extends Request
 {
     /**
      * @return bool

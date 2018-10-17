@@ -6,5 +6,5 @@ class Institution extends Base
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'initials', 'party_number', 'is_party'];
 }
