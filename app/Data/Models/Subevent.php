@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Data\Models;
 
 class SubEvent extends Base
@@ -24,8 +25,15 @@ class SubEvent extends Base
         'event_id',
     ];
 
+    protected $with = ['event'];
+
     public function addresses()
     {
-        return $this->morphMany('App\Data\Models\Address', 'addressable');
+        return $this->morphMany(Address::class, 'addressable');
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 }
