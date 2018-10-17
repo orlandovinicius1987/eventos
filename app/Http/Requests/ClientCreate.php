@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class ClientCreate extends Request
+class ClientCreate extends BaseCreate
 {
     /**
      * Get the validation rules that apply to the request.

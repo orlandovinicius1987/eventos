@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class EventCreate extends Request
+class EventCreate extends BaseCreate
 {
     /**
      * Get the validation rules that apply to the request.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class RoleCreate extends Request
+class RoleCreate extends BaseCreate
 {
     /**
      * Get the validation rules that apply to the request.

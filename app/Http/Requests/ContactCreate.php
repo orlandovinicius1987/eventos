@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class ContactCreate extends Request
+class ContactCreate extends BaseCreate
 {
     /**
      * Get the validation rules that apply to the request.

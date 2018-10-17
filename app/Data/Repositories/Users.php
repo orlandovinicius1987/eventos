@@ -167,8 +167,26 @@ class Users extends Repository
         return $query->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function notifiables()
     {
         return User::where('all_notifications', true)->get();
+    }
+
+    /**
+     * @param $user
+     * @param $permissionString
+     * @return bool
+     */
+    public function userHasPermission($user, $permissionString)
+    {
+        foreach ($user->permissions_array as $key => $item) {
+            if ($key == $permissionString) {
+                return false;
+            }
+        }
+        return false;
     }
 }

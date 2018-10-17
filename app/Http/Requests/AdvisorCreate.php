@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AdvisorCreate extends Request
+class AdvisorCreate extends BaseCreate
 {
     /**
      * Get the validation rules that apply to the request.
