@@ -17,6 +17,7 @@ class CreateTableInvitations extends Migration
             $table->increments('id');
 
             $table->integer('sub_event_id');
+
             $table->integer('person_institution_id');
 
             $table->timestamp('accepted_at')->nullable();

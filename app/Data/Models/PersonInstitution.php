@@ -9,6 +9,8 @@ class PersonInstitution extends Base
      */
     protected $fillable = ['person_id', 'institution_id', 'role_id', 'title'];
 
+    protected $with = ['person', 'institution', 'role'];
+
     public function addresses()
     {
         return $this->morphMany('App\Data\Models\Address', 'addressable');
@@ -22,5 +24,15 @@ class PersonInstitution extends Base
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function person()
+    {
+        return $this->belongsTo(Person::class);
+    }
+
+    public function institution()
+    {
+        return $this->belongsTo(Institution::class);
     }
 }

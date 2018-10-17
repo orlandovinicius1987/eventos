@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Data\Models;
 
 class Invitation extends Base
@@ -15,4 +16,11 @@ class Invitation extends Base
         'received_at',
         'checkin_at',
     ];
+
+    protected $with = ['personInstitution'];
+
+    public function personInstitution()
+    {
+        return $this->belongsTo(PersonInstitution::class);
+    }
 }

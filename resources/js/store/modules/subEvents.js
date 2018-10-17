@@ -1,7 +1,6 @@
 import Form from '../../classes/Form'
 
 import {
-    load,
     store,
     setData,
     setGetUrl,
@@ -13,15 +12,7 @@ import {
 } from './mixins/data.js'
 
 const state = {
-    dataUrl: '',
-
-    storeUrl: '',
-
     data: {},
-
-    currentEvent: {
-        id: null,
-    },
 
     form: new Form({
         name: null,
@@ -31,18 +22,11 @@ const state = {
 const getters = {}
 
 const actions = {
-    load(context, query = {}) {
-        return axios
-            .get('/api/v1/' + context.state.currentEvent.id, {
-                params: query,
-            })
-            .then(response => {
-                context.commit('setData', response.data)
-            })
-    },
     store,
 
     clearForm,
+
+    load() {},
 }
 
 const mutations = {

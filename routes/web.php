@@ -19,12 +19,25 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::get('/', 'Events@all')->name('events.all');
 
             Route::post('/', 'Events@store')->name('events.store');
-        });
 
-        Route::group(['prefix' => '/subevents'], function () {
-            Route::get('/', 'Subevents@all')->name('subevents.all');
+            Route::group(['prefix' => '{eventId}/sub-events'], function () {
+                Route::get('/', 'SubEvents@all')->name('sub-events.all');
 
-            Route::post('/', 'Subevents@store')->name('subevents.store');
+                Route::post('/', 'SubEvents@store')->name('sub-events.store');
+
+                Route::group(
+                    ['prefix' => '{subEventId}/invitations'],
+                    function () {
+                        Route::get('/', 'Invitations@all')->name(
+                            'invitations.all'
+                        );
+
+                        Route::post('/', 'Invitations@store')->name(
+                            'invitations.store'
+                        );
+                    }
+                );
+            });
         });
 
         Route::post('/import', 'Import@store')->name('import.store');

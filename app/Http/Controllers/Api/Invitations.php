@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Data\Repositories\Invitations as InvitationsRepository;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Http\Requests\SubEventStore;
 use Illuminate\Http\Request;
 
-class SubEvents extends Controller
+class Invitations extends Controller
 {
     /**
      * Get all data
      *
      * @return \Illuminate\Http\Response|Collection
      */
-    public function all(Request $request, $eventId)
+    public function all(Request $request, $eventId, $subEventId)
     {
-        return app(SubEventsRepository::class)->getByEventId($eventId);
+        return app(InvitationsRepository::class)->getBySubEventId($subEventId);
     }
 
     /**
