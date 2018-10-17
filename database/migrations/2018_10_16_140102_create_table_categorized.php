@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdvisorsTypesTable extends Migration
+class CreateTableCategorized extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,17 @@ class CreateAdvisorsTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('advisor_types', function (Blueprint $table) {
+        Schema::create('categorized', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
+            $table->integer('category_id')->unsigned();
+
+            $table
+                ->integer('categorizable_id')
+                ->unsigned()
+                ->index();
+
+            $table->string('categorizable_type');
 
             $table->timestamps();
         });
@@ -29,6 +36,7 @@ class CreateAdvisorsTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('advisor_types');
+        Schema::dropIfExists('categorized');
+        Schema::dropIfExists('politicals_parties');
     }
 }

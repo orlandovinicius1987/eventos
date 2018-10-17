@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePoliticalPartiesTable extends Migration
+class CreatePersonInstitutions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,16 @@ class CreatePoliticalPartiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('politicals_parties', function (Blueprint $table) {
+        Schema::create('person_institutions', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->text('name');
-            $table->text('initials')->nullable();
+            $table->integer('person_id')->unsigned();
+
+            $table->integer('institution_id')->unsigned();
+
+            $table->integer('role_id')->unsigned();
+
+            $table->string('title')->nullable();
 
             $table->timestamps();
         });
@@ -30,6 +35,6 @@ class CreatePoliticalPartiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('politicals_parties');
+        Schema::dropIfExists('person_institutions');
     }
 }

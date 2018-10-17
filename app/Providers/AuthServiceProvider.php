@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Data\Repositories\Users as UsersRepository;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +26,25 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('canEdit', function ($user) {
+            return app(UsersRepository::class)->userHasPermission(
+                $user,
+                'edit'
+            );
+        });
+
+        Gate::define('canRead', function ($user) {
+            return app(UsersRepository::class)->userHasPermission(
+                $user,
+                'read'
+            );
+        });
+
+        Gate::define('canCreate', function ($user) {
+            return app(UsersRepository::class)->userHasPermission(
+                $user,
+                'create'
+            );
+        });
     }
 }
