@@ -1925,8 +1925,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
@@ -2098,6 +2096,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 $this.error = error.response.data.errors['field'];
             });
         }
+    }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/SubEventsCreate.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_events__ = __webpack_require__("./resources/js/views/mixins/events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+var serviceName = 'subEvents';
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: [],
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */]],
+
+    data: function data() {
+        return {
+            serviceName: serviceName
+        };
+    },
+
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('events', ['selectedEvent', 'selectedSubEvent'])),
+
+    mounted: function mounted() {
+        this.boot();
     }
 });
 
@@ -24533,7 +24606,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -24609,6 +24682,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c281baf4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/SubEventsCreate.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108600,7 +108688,7 @@ var render = function() {
                     "router-link",
                     {
                       staticClass: "btn btn-primary btn-sm m-1 pull-right",
-                      attrs: { to: "/events/create", tag: "div" }
+                      attrs: { to: "/events/sub-event/create", tag: "div" }
                     },
                     [
                       _c("i", { staticClass: "fa fa-plus" }),
@@ -108741,15 +108829,11 @@ var render = function() {
                               _vm._v(" "),
                               _c("td", [
                                 _vm._v(
-                                  _vm._s(invitation.person_institution.title)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("td", [
-                                _vm._v(
-                                  _vm._s(
-                                    invitation.person_institution.person.name
-                                  )
+                                  _vm._s(invitation.person_institution.title) +
+                                    " " +
+                                    _vm._s(
+                                      invitation.person_institution.person.name
+                                    )
                                 )
                               ]),
                               _vm._v(" "),
@@ -108837,8 +108921,6 @@ var staticRenderFns = [
     return _c("thead", [
       _c("tr", [
         _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-        _vm._v(" "),
-        _c("th", { attrs: { scope: "col" } }, [_vm._v("Tratamento")]),
         _vm._v(" "),
         _c("th", { attrs: { scope: "col" } }, [_vm._v("Nome")]),
         _vm._v(" "),
@@ -109288,6 +109370,122 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4fce688a", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c281baf4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/SubEventsCreate.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h1", [_vm._v(_vm._s(_vm.selectedEvent.name))]),
+      _vm._v(" "),
+      _c("h2", [
+        _vm._v(
+          _vm._s(
+            _vm.form.fields.name ? _vm.form.fields.name : "Novo Sub Evento"
+          )
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("form", [
+          _c("div", { staticClass: "row" }, [
+            _c("div", { staticClass: "col-12 mb-3" }, [
+              _c("label", { attrs: { for: "name" } }, [
+                _vm._v("Nome do sub evento")
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.form.fields.name,
+                    expression: "form.fields.name"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "name", required: "" },
+                domProps: { value: _vm.form.fields.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.form.fields, "name", $event.target.value)
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _vm.form.errors.has("name")
+                ? _c("small", { staticClass: "text-danger" }, [
+                    _vm._v(
+                      "\n                            " +
+                        _vm._s(_vm.form.errors.get("name")) +
+                        "\n                        "
+                    )
+                  ])
+                : _vm._e()
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 text-right mb-3" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.storeModel()
+                      }
+                    }
+                  },
+                  [_vm._v("gravar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: "/events", tag: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            cancelar\n                        "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c281baf4", module.exports)
   }
 }
 
@@ -112245,6 +112443,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fce688a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Panel.vue", function() {
      var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fce688a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Panel.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c281baf4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/SubEventsCreate.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c281baf4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/SubEventsCreate.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("1d016a9a", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c281baf4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SubEventsCreate.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c281baf4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./SubEventsCreate.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -125169,8 +125394,11 @@ __webpack_require__("./resources/js/pages/app.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_Events__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_EventsCreate__ = __webpack_require__("./resources/js/views/EventsCreate.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_EventsCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_EventsCreate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_Import__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_SubEventsCreate__ = __webpack_require__("./resources/js/views/SubEventsCreate.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_SubEventsCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_SubEventsCreate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_Import__);
+
 
 
 
@@ -125196,9 +125424,13 @@ var routes = [{
     name: 'events.create',
     component: __WEBPACK_IMPORTED_MODULE_4__views_EventsCreate___default.a
 }, {
+    path: '/events/sub-event/create',
+    name: 'events.subevent.create',
+    component: __WEBPACK_IMPORTED_MODULE_5__views_SubEventsCreate___default.a
+}, {
     path: '/import',
     name: 'import',
-    component: __WEBPACK_IMPORTED_MODULE_5__views_Import___default.a
+    component: __WEBPACK_IMPORTED_MODULE_6__views_Import___default.a
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
@@ -125486,7 +125718,7 @@ function clearForm(context) {
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/sub-events.js":
+/***/ "./resources/js/store/modules/subEvents.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -125497,15 +125729,7 @@ function clearForm(context) {
 
 
 var state = {
-    dataUrl: '',
-
-    storeUrl: '',
-
     data: {},
-
-    currentEvent: {
-        id: null
-    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -125515,19 +125739,11 @@ var state = {
 var getters = {};
 
 var actions = {
-    load: function load(context) {
-        var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-        return axios.get('/api/v1/' + context.state.currentEvent.id, {
-            params: query
-        }).then(function (response) {
-            context.commit('setData', response.data);
-        });
-    },
-
     store: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* store */],
 
-    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */]
+    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
+
+    load: function load() {}
 };
 
 var mutations = {
@@ -125573,10 +125789,10 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters__ = __webpack_require__("./resources/js/store/getters.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__getters__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__("./resources/js/store/mutations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_sub_events__ = __webpack_require__("./resources/js/store/modules/sub-events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_subEvents__ = __webpack_require__("./resources/js/store/modules/subEvents.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
 /**
  * Imports
  */
@@ -125618,10 +125834,10 @@ var state = {
   getters: __WEBPACK_IMPORTED_MODULE_3__getters__,
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
-    events: __WEBPACK_IMPORTED_MODULE_5__modules_events__["a" /* default */],
-    subevents: __WEBPACK_IMPORTED_MODULE_6__modules_sub_events__["a" /* default */],
-    environment: __WEBPACK_IMPORTED_MODULE_7__modules_environment__["a" /* default */],
-    gate: __WEBPACK_IMPORTED_MODULE_8__modules_gate__["a" /* default */]
+    events: __WEBPACK_IMPORTED_MODULE_6__modules_events__["a" /* default */],
+    subEvents: __WEBPACK_IMPORTED_MODULE_7__modules_subEvents__["a" /* default */],
+    environment: __WEBPACK_IMPORTED_MODULE_8__modules_environment__["a" /* default */],
+    gate: __WEBPACK_IMPORTED_MODULE_5__modules_gate__["a" /* default */]
   }
 });
 
@@ -125946,6 +126162,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-3529d304", Component.options)
   } else {
     hotAPI.reload("data-v-3529d304", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/js/views/SubEventsCreate.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-c281baf4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/SubEventsCreate.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/SubEventsCreate.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c281baf4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/SubEventsCreate.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/views/SubEventsCreate.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c281baf4", Component.options)
+  } else {
+    hotAPI.reload("data-v-c281baf4", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

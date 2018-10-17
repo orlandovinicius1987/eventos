@@ -51,7 +51,7 @@
                         <h4 class="mb-0">{{ selectedEvent.name }} (subeventos)</h4>
                     </div>
                     <div class="col-2">
-                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
+                        <router-link to="/events/sub-event/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
                             <i class="fa fa-plus"></i> novo subevento
                         </router-link>
                     </div>
@@ -108,7 +108,6 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Tratamento</th>
                                         <th scope="col">Nome</th>
                                         <th scope="col">Instituição</th>
                                         <th scope="col">Cargo</th>
@@ -121,8 +120,7 @@
                                         :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, selectedInvitation)}"
                                     >
                                         <td>{{ invitation.id }}</td>
-                                        <td>{{ invitation.person_institution.title }}</td>
-                                        <td>{{ invitation.person_institution.person.name }}</td>
+                                        <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
                                         <td>{{ invitation.person_institution.institution.name }}</td>
                                         <td>{{ invitation.person_institution.role.name }}</td>
                                     </tr>
