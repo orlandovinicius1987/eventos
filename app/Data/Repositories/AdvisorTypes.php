@@ -3,7 +3,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\AdvisorType as AdvisorTypeModel;
 
-class AdvisorTypes extends Base
+class AdvisorTypes extends Repository
 {
     /**
      * @var string

@@ -3,6 +3,8 @@ namespace App\Data\Models;
 
 class Address extends Base
 {
+    protected $table = 'addresses';
+
     /**
      * @var array
      */

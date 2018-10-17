@@ -13,7 +13,7 @@ class CreateAdvisorsTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('advisors_types', function (Blueprint $table) {
+        Schema::create('advisor_types', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
@@ -29,6 +29,6 @@ class CreateAdvisorsTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('advisors_types');
+        Schema::dropIfExists('advisor_types');
     }
 }

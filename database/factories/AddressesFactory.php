@@ -4,6 +4,8 @@ use Faker\Generator as Faker;
 
 use App\Data\Repositories\People as PeopleRepository;
 use App\Data\Repositories\Subevents as SubeventsRepository;
+use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
+use App\Data\Repositories\Clients as ClientsRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,15 +19,20 @@ use App\Data\Repositories\Subevents as SubeventsRepository;
 */
 
 $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
-    $array = ['Person', 'Subevent'];
+    $array = ['Person'];
     $randomKey = array_rand($array);
 
     if ($array[$randomKey] == 'Person') {
         $addressable_id = app(PeopleRepository::class)->randomElement()->id;
-        $addressable_type = 'Person';
+        $addressable_type = App\Data\Models\Person::class;
     } elseif ($array[$randomKey] == 'Subevent') {
         $addressable_id = app(SubeventsRepository::class)->randomElement()->id;
-        $addressable_type = 'Subevent';
+        $addressable_type = App\Data\Models\Subevent::class;
+    } elseif ($array[$randomKey] == 'PoliticalParty') {
+        $addressable_id = app(
+            PoliticalPartiesRepository::class
+        )->randomElement()->id;
+        $addressable_type = App\Data\Models\PoliticalParty::class;
     }
 
     $cepArray[0] = '78994000';
@@ -62,5 +69,6 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
         'state' => 'RJ',
         'addressable_id' => $addressable_id,
         'addressable_type' => $addressable_type,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id,
     ];
 });
