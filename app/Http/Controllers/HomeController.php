@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 //TEST
 use App\Data\Models\User as UserModel;
 use App\Data\Repositories\Users as UsersRepository;
+use Illuminate\Support\Facades\Gate;
 //TEST
 
 class HomeController extends Controller
@@ -38,9 +39,11 @@ class HomeController extends Controller
      */
     public function testRoute()
     {
-        app(UsersRepository::class)
-            ->findByName('breno')
-            ->delete();
+        $user = app(UsersRepository::class)->findByName('breno');
+
+        if (!is_null($user)) {
+            $user->delete();
+        }
 
         $user = new UserModel();
         $user->username = 'breno';
@@ -51,14 +54,19 @@ class HomeController extends Controller
         $user->profiles = json_encode(['Adm' => 'S', 'Operador' => 'N']);
 
         $user->permissions = json_encode([
-            'Operar' => 'operar evento',
-            'Administrar' => 'administrar evento',
+            'edit' => 'edit',
+            'create' => 'create',
         ]);
 
         $user->save();
 
         dump($user->profiles_array);
         dump($user->permissions_array);
+
+        dump(Gate::allows('canCreate'));
+        dump(Gate::allows('canEdit'));
+        dump(Gate::allows('canRead'));
+
         dd('fim');
     }
 }

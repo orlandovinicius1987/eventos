@@ -84,6 +84,10 @@ class Users extends Repository
 
                 $user->username = $credentials['username'];
 
+                $user->permissions = json_encode([]);
+
+                $user->profiles = json_encode([]);
+
                 $user->email = $email;
             }
 
@@ -184,7 +188,7 @@ class Users extends Repository
     {
         foreach ($user->permissions_array as $key => $item) {
             if ($key == $permissionString) {
-                return false;
+                return true;
             }
         }
         return false;
