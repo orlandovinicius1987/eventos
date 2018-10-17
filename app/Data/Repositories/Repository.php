@@ -132,4 +132,16 @@ abstract class Repository
     {
         return $this->model::inRandomOrder()->first();
     }
+
+    /**
+     * @param $array
+     * @return mixed
+     */
+    public function storeFromArray($array)
+    {
+        $model = new $this->model();
+        $model->fill($array);
+        $model->save();
+        return $model;
+    }
 }

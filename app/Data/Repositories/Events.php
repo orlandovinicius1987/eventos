@@ -10,9 +10,4 @@ class Events extends Repository
      * @var string
      */
     protected $model = Event::class;
-
-    public function store($data)
-    {
-        return $this->model::create(['name' => $data->name]);
-    }
 }
