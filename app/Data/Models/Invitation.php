@@ -7,12 +7,12 @@ class Invitation extends Base
      * @var array
      */
     protected $fillable = [
-        'subevent_id',
-        'person_id',
+        'sub_event_id',
+        'person_institution_id',
         'accepted_at',
         'declined_at',
         'sent_at',
         'received_at',
-        'checkin_at',
+        'checkin_at'
     ];
 }

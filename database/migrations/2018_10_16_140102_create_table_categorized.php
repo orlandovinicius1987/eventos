@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableContacts extends Migration
+class CreateTableCategorized extends Migration
 {
     /**
      * Run the migrations.
@@ -13,22 +13,17 @@ class CreateTableContacts extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
+        Schema::create('categorized', function (Blueprint $table) {
             $table->increments('id');
 
-            $table
-                ->integer('contact_type_id')
-                ->unsigned()
-                ->index(); // email, celular, telefone fixo, whatsapp
-
-            $table->string('contact');
+            $table->integer('category_id')->unsigned();
 
             $table
-                ->integer('contactable_id')
+                ->integer('categorizable_id')
                 ->unsigned()
                 ->index();
 
-            $table->string('contactable_type');
+            $table->string('categorizable_type');
 
             $table->timestamps();
         });
@@ -41,6 +36,6 @@ class CreateTableContacts extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        Schema::dropIfExists('categorized');
     }
 }

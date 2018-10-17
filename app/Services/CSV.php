@@ -4,10 +4,39 @@ namespace App\Services;
 
 class CSV
 {
+    /**
+     * @param $string
+     * @return array
+     */
+    private function extractCSV($string): array
+    {
+        $string = str_replace("\n\r", "\n", $string);
+        $string = str_replace("\r", "\n", $string);
+        $string = explode("\n", trim($string));
+
+        $data = collect($string)->map(function ($line) {
+            return str_getcsv($line, ";", '');
+        })->toArray();
+
+        return $data;
+    }
+
+    /**
+     * @param $string
+     * @return \PragmaRX\Coollection\Package\Coollection
+     */
     public function parse($string)
     {
-        return collect(explode("\n", trim($string)))->map(function($line) {
-            return str_getcsv($line, ";", '"');
-        });
+        $data = $this->extractCSV($string);
+
+        $header = array_shift($data);
+
+        $csv = [];
+
+        foreach ($data as $key => $row) {
+            $csv[] = array_combine($header, $row);
+        }
+
+        return coollect($csv);
     }
 }

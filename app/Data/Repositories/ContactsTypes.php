@@ -3,7 +3,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\ContactsType as ContactsTypeModel;
 
-class ContactsTypes extends Base
+class ContactsTypes extends Repository
 {
     /**
      * @var string

@@ -1995,6 +1995,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [],
@@ -2002,7 +2006,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             serviceName: 'import',
-            file: null
+            file: null,
+            error: null
         };
     },
 
@@ -2020,13 +2025,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return _this.sendFile(event);
             };
 
-            reader.readAsstring(this.file);
+            dd(reader);
+
+            reader.readAsText(this.file);
         },
         sendFile: function sendFile(event) {
+            var $this = this;
+
+            $this.error = null;
+
             post('/api/v1/import', { file: event.target.result }).then(function (response) {
                 dd('success', response);
             }).catch(function (error) {
-                dd('error', error);
+                $this.error = error.response.data.errors['field'];
             });
         }
     }
@@ -24509,7 +24520,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108884,6 +108895,18 @@ var render = function() {
                 [_vm._v("Importar")]
               )
             ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.error && _vm.error[0]
+          ? _c(
+              "div",
+              { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+              [
+                _vm._v(
+                  "\n                " + _vm._s(_vm.error[0]) + "\n            "
+                )
+              ]
+            )
           : _vm._e()
       ])
     ])

@@ -1,22 +1,7 @@
 <?php
+
 namespace App\Data\Models;
 
-class Party extends Base
+class Party extends Institution
 {
-    protected $table = 'parties';
-
-    /**
-     * @var array
-     */
-    protected $fillable = ['name', 'number', 'initials'];
-
-    public function addresses()
-    {
-        return $this->morphMany('App\Data\Models\Address', 'addressable');
-    }
-
-    public function contacts()
-    {
-        return $this->morphMany('App\Data\Models\Contact', 'contactable');
-    }
 }

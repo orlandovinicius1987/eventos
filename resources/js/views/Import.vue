@@ -15,6 +15,10 @@
                 <p v-if="file">
                     <button class="btn btn-danger btn-lg" @click="uploadFile()">Importar</button>
                 </p>
+
+                <div v-if="error && error[0]" class="alert alert-danger" role="alert">
+                    {{ error[0] }}
+                </div>
             </div>
         </div>
     </div>
@@ -28,6 +32,7 @@ export default {
         return {
             serviceName: 'import',
             file: null,
+            error: null,
         }
     },
 
@@ -41,14 +46,20 @@ export default {
 
             reader.onload = event => this.sendFile(event);
 
-            reader.readAsstring(this.file);
+            dd(reader)
+
+            reader.readAsText(this.file);
         },
 
         sendFile(event) {
+            const $this = this
+
+            $this.error = null
+
             post('/api/v1/import', {file: event.target.result}).then(response => {
                 dd('success', response)
             }).catch(error => {
-                dd('error', error)
+                $this.error = error.response.data.errors['field']
             })
         },
     }

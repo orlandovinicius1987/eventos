@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAdvisorsTypesTable extends Migration
+class CreatePersonInstitutions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class CreateAdvisorsTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('advisors_types', function (Blueprint $table) {
+        Schema::create('person_institutions', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('name');
+            $table->integer('person_id')->unsigned();
+
+            $table->integer('institution_id')->unsigned();
+
+            $table->integer('role_id')->unsigned();
+
+            $table->string('title')->nullable();
 
             $table->timestamps();
         });
@@ -29,6 +35,6 @@ class CreateAdvisorsTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('advisors_types');
+        Schema::dropIfExists('person_institutions');
     }
 }

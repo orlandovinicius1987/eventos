@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableEventsAndSubevents extends Migration
+class CreateTableEventsAndSubEvents extends Migration
 {
     /**
      * Run the migrations.
@@ -27,7 +27,7 @@ class CreateTableEventsAndSubevents extends Migration
             $table->timestamps();
         });
 
-        Schema::create('subevents', function (Blueprint $table) {
+        Schema::create('sub_events', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
@@ -51,7 +51,7 @@ class CreateTableEventsAndSubevents extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subevents');
+        Schema::dropIfExists('sub_events');
 
         Schema::dropIfExists('events');
     }

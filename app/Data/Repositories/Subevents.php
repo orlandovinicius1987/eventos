@@ -2,12 +2,12 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Subevent as SubeventModel;
+use App\Data\Models\SubEvent as SubeventModel;
 
-class Subevents extends Repository
+class SubEvents extends Repository
 {
     /**
      * @var string
      */
-    protected $model = SubeventModel::class;
+    protected $model = SubEventModel::class;
 }

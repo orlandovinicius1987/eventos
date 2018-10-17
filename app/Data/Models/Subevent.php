@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Subevent extends Base
+class SubEvent extends Base
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ class Subevent extends Base
         'invitation_text',
         'confirmation_text',
         'credential_send_text',
-        'event_id',
+        'event_id'
     ];
 
     public function addresses()
