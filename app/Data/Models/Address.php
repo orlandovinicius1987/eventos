@@ -3,6 +3,8 @@ namespace App\Data\Models;
 
 class Address extends BaseWithClient
 {
+    protected $table = 'addresses';
+
     /**
      * @var array
      */
@@ -16,7 +18,7 @@ class Address extends BaseWithClient
         'state',
         'addressable_id',
         'addressable_type',
-        'client_id',
+        'client_id'
     ];
 
     public function addressable()

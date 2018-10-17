@@ -3,9 +3,11 @@
 use App\Data\Models\Person;
 use App\Data\Models\SubEvent;
 use Faker\Generator as Faker;
+use App\Data\Models\Institution;
 
 use App\Data\Repositories\People as PeopleRepository;
 use App\Data\Repositories\SubEvents as SubEventsRepository;
+use App\Data\Repositories\Clients as ClientsRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +21,9 @@ use App\Data\Repositories\SubEvents as SubEventsRepository;
 */
 
 $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
-    $array = ['Person', 'SubEvent'];
+    $array = ['Person', 'SubEvent', 'Party'];
 
+    $array = ['Person'];
     $randomKey = array_rand($array);
 
     if ($array[$randomKey] == 'Person') {
@@ -29,6 +32,9 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
     } elseif ($array[$randomKey] == 'SubEvent') {
         $addressable_id = app(SubEventsRepository::class)->randomElement()->id;
         $addressable_type = SubEvent::class;
+    } elseif ($array[$randomKey] == 'Party') {
+        $addressable_id = app(Institution::class)->randomElement()->id;
+        $addressable_type = App\Data\Models\Party::class;
     }
 
     $cepArray[0] = '78994000';
@@ -64,6 +70,7 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
         'city' => 'Rio de Janeiro',
         'state' => 'RJ',
         'addressable_id' => $addressable_id,
-        'addressable_type' => $addressable_type
+        'addressable_type' => $addressable_type,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id
     ];
 });
