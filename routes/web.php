@@ -20,6 +20,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
             Route::post('/', 'Events@store')->name('events.store');
         });
+
+        Route::post('/import', 'Import@store')->name('import.store');
     });
 });
 

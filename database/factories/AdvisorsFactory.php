@@ -19,7 +19,7 @@ use App\Data\Repositories\Users as UsersRepository;
 
 $factory->define(App\Data\Models\AdvisorType::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->name
     ];
 });
 
@@ -30,6 +30,6 @@ $factory->define(App\Data\Models\Advisor::class, function (Faker $faker) {
         'name' => $faker->name,
         'advisor_type_id' => app(AdvisorTypesRepository::class)->randomElement()
             ->id,
-        'person_id' => app(PeopleRepository::class)->randomElement()->id,
+        'person_id' => app(PeopleRepository::class)->randomElement()->id
     ];
 });

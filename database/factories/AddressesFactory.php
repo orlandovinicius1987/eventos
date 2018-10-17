@@ -1,10 +1,12 @@
 <?php
 
+use App\Data\Models\Person;
+use App\Data\Models\SubEvent;
 use Faker\Generator as Faker;
+use App\Data\Models\Institution;
 
 use App\Data\Repositories\People as PeopleRepository;
-use App\Data\Repositories\Subevents as SubeventsRepository;
-use App\Data\Repositories\PoliticalParties as PoliticalPartiesRepository;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Data\Repositories\Clients as ClientsRepository;
 
 /*
@@ -19,20 +21,20 @@ use App\Data\Repositories\Clients as ClientsRepository;
 */
 
 $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
+    $array = ['Person', 'SubEvent', 'Party'];
+
     $array = ['Person'];
     $randomKey = array_rand($array);
 
     if ($array[$randomKey] == 'Person') {
         $addressable_id = app(PeopleRepository::class)->randomElement()->id;
-        $addressable_type = App\Data\Models\Person::class;
-    } elseif ($array[$randomKey] == 'Subevent') {
-        $addressable_id = app(SubeventsRepository::class)->randomElement()->id;
-        $addressable_type = App\Data\Models\Subevent::class;
-    } elseif ($array[$randomKey] == 'PoliticalParty') {
-        $addressable_id = app(
-            PoliticalPartiesRepository::class
-        )->randomElement()->id;
-        $addressable_type = App\Data\Models\PoliticalParty::class;
+        $addressable_type = Person::class;
+    } elseif ($array[$randomKey] == 'SubEvent') {
+        $addressable_id = app(SubEventsRepository::class)->randomElement()->id;
+        $addressable_type = SubEvent::class;
+    } elseif ($array[$randomKey] == 'Party') {
+        $addressable_id = app(Institution::class)->randomElement()->id;
+        $addressable_type = App\Data\Models\Party::class;
     }
 
     $cepArray[0] = '78994000';
@@ -69,6 +71,6 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
         'state' => 'RJ',
         'addressable_id' => $addressable_id,
         'addressable_type' => $addressable_type,
-        'client_id' => app(ClientsRepository::class)->randomElement()->id,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id
     ];
 });

@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Address extends Base
+class Address extends BaseWithClient
 {
     protected $table = 'addresses';
 
@@ -18,7 +18,7 @@ class Address extends Base
         'state',
         'addressable_id',
         'addressable_type',
-        'client_id',
+        'client_id'
     ];
 
     public function addressable()

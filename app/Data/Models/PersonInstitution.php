@@ -1,14 +1,13 @@
 <?php
+
 namespace App\Data\Models;
 
-class PoliticalParty extends Base
+class PersonInstitution extends Base
 {
-    protected $table = 'political_parties';
-
     /**
      * @var array
      */
-    protected $fillable = ['name', 'initials'];
+    protected $fillable = ['person_id', 'institution_id', 'role_id', 'title'];
 
     public function addresses()
     {
@@ -18,5 +17,10 @@ class PoliticalParty extends Base
     public function contacts()
     {
         return $this->morphMany('App\Data\Models\Contact', 'contactable');
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

@@ -52,6 +52,6 @@ $factory->define(App\Data\Models\Contact::class, function (Faker $faker) {
         'contact' => $contact,
         'contactable_id' => $contactable_id,
         'contactable_type' => $contactable_type,
-        'client_id' => app(ClientsRepository::class)->randomElement()->id,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id
     ];
 });

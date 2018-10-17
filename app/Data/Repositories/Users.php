@@ -85,6 +85,10 @@ class Users extends Repository
                 $user->username = $credentials['username'];
 
                 $user->email = $email;
+
+                $user->permissions = '[]'; /// fix para poder logar - ACR
+
+                $user->profiles = '[]'; /// fix para poder logar - ACR
             }
 
             $user->password = Hash::make($credentials['password']);

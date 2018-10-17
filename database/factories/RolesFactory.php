@@ -18,6 +18,6 @@ use App\Data\Repositories\Roles as RolesRepository;
 
 $factory->define(App\Data\Models\Role::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
+        'name' => $faker->name
     ];
 });
