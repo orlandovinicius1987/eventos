@@ -2,9 +2,9 @@
 
 use Faker\Generator as Faker;
 
-use App\Data\Repositories\People as PeopleRepository;
-use App\Data\Repositories\AdvisorTypes as AdvisorTypesRepository;
 use App\Data\Repositories\Users as UsersRepository;
+use App\Data\Repositories\Clients as ClientsRepository;
+use App\Data\Repositories\Events as EventsRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,19 +17,16 @@ use App\Data\Repositories\Users as UsersRepository;
 |
 */
 
-$factory->define(App\Data\Models\AdvisorType::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-    ];
-});
-
-$factory->define(App\Data\Models\Advisor::class, function (Faker $faker) {
+$factory->define(App\Data\Models\Subevent::class, function (Faker $faker) {
     Auth::login(app(UsersRepository::class)->randomElement());
 
     return [
         'name' => $faker->name,
-        'advisor_type_id' => app(AdvisorTypesRepository::class)->randomElement()
-            ->id,
-        'person_id' => app(PeopleRepository::class)->randomElement()->id,
+        'date' => $faker->date,
+        'time' => $faker->time,
+        'invitation_text' => $faker->name,
+        'confirmation_text' => $faker->name,
+        'credential_send_text' => $faker->name,
+        'event_id' => app(EventsRepository::class)->randomElement()->id,
     ];
 });

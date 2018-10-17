@@ -71,6 +71,6 @@ $factory->define(App\Data\Models\Address::class, function (Faker $faker) {
         'state' => 'RJ',
         'addressable_id' => $addressable_id,
         'addressable_type' => $addressable_type,
-        'client_id' => app(ClientsRepository::class)->randomElement()->id
+        'client_id' => app(ClientsRepository::class)->randomElement()->id,
     ];
 });

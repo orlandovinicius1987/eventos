@@ -21,6 +21,6 @@ $factory->define(App\Data\Models\Person::class, function (Faker $faker) {
         'name' => $faker->name,
         'role_id' => app(RolesRepository::class)->randomElement()->id,
         'title' => $faker->title,
-        'client_id' => app(ClientsRepository::class)->randomElement()->id
+        'client_id' => app(ClientsRepository::class)->randomElement()->id,
     ];
 });

@@ -56,7 +56,7 @@ class Import extends Controller
         'assessor_funcao' => false,
         'assessor_telefone' => false,
         'assessor_email1' => false,
-        'assessor_email2' => false
+        'assessor_email2' => false,
     ];
 
     protected function checkMandatoryFields($row)
@@ -120,7 +120,7 @@ class Import extends Controller
 
                 'addressable_id' => $personInstitution->id,
 
-                'addressable_type' => PersonInstitution::class
+                'addressable_type' => PersonInstitution::class,
             ]);
         }
     }
@@ -142,7 +142,7 @@ class Import extends Controller
                 coollect(['funcao' => $row->assessor_funcao])
             )->id,
 
-            'person_institution_id' => $personInstitution->id
+            'person_institution_id' => $personInstitution->id,
         ]);
 
         collect([
@@ -157,7 +157,7 @@ class Import extends Controller
             ['contact' => $row->assessor_email ?? null, 'type' => 'email'],
             ['contact' => $row->assessor_email1 ?? null, 'type' => 'email'],
             ['contact' => $row->assessor_email2 ?? null, 'type' => 'email'],
-            ['contact' => $row->assessor_email3 ?? null, 'type' => 'email']
+            ['contact' => $row->assessor_email3 ?? null, 'type' => 'email'],
         ])->each(function ($contact) use ($personInstitution, $advisor) {
             $this->importContact(
                 $contact['contact'],
@@ -176,7 +176,7 @@ class Import extends Controller
     {
         return $row->categoria
             ? Category::firstOrCreate([
-                'name' => $row->categoria
+                'name' => $row->categoria,
             ])
             : null;
     }
@@ -203,13 +203,13 @@ class Import extends Controller
                 'name' =>
                     $party && $row->instituicao == $party->initials
                         ? $party->name
-                        : $row->instituicao
+                        : $row->instituicao,
             ],
             [
                 'initials' =>
                     $party && $row->instituicao == $party->initials
                         ? $party->initials
-                        : $row->sigla ?? null
+                        : $row->sigla ?? null,
             ]
         );
     }
@@ -236,7 +236,7 @@ class Import extends Controller
             'name' => $row->nome,
             'nickname' => isset($row->apelido) ? $row->apelido : $row->nome,
             'party_id' => $party ? $party->id : null,
-            'title' => $row->tratamento
+            'title' => $row->tratamento,
         ]);
     }
 
@@ -257,7 +257,7 @@ class Import extends Controller
             'person_id' => $person->id,
             'institution_id' => $institution->id,
             'role_id' => $role->id,
-            'title' => $row->tratamento
+            'title' => $row->tratamento,
         ]);
     }
 
@@ -278,7 +278,7 @@ class Import extends Controller
             ['contact' => $row->email1 ?? null, 'type' => 'email'],
             ['contact' => $row->email2 ?? null, 'type' => 'email'],
             ['contact' => $row->email3 ?? null, 'type' => 'email'],
-            ['contact' => $row->email4 ?? null, 'type' => 'email']
+            ['contact' => $row->email4 ?? null, 'type' => 'email'],
         ])->each(function ($contact) use ($personInstitution) {
             $this->importContact(
                 $contact['contact'],
@@ -304,7 +304,7 @@ class Import extends Controller
 
                 'contactable_id' => $personInstitution->id,
 
-                'contactable_type' => $contactable_type
+                'contactable_type' => $contactable_type,
             ]);
         }
     }
@@ -320,11 +320,11 @@ class Import extends Controller
         $subEvent = SubEvent::firstOrCreate(
             [
                 'name' => 'Cerimônia',
-                'event_id' => $event->id
+                'event_id' => $event->id,
             ],
             [
                 'date' => now(),
-                'time' => now()
+                'time' => now(),
             ]
         );
 
@@ -350,7 +350,7 @@ class Import extends Controller
 
         $invitation = Invitation::firstOrCreate([
             'sub_event_id' => $subEvent->id,
-            'person_institution_id' => $personInstitution->id
+            'person_institution_id' => $personInstitution->id,
         ]);
 
         $this->importAdvisor($row, $personInstitution);
@@ -383,7 +383,7 @@ class Import extends Controller
     private function throwError(string $string)
     {
         throw ValidationException::withMessages([
-            'field' => $string
+            'field' => $string,
         ]);
     }
 }

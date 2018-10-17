@@ -14,9 +14,11 @@ class CSV
         $string = str_replace("\r", "\n", $string);
         $string = explode("\n", trim($string));
 
-        $data = collect($string)->map(function ($line) {
-            return str_getcsv($line, ";", '');
-        })->toArray();
+        $data = collect($string)
+            ->map(function ($line) {
+                return str_getcsv($line, ";", '');
+            })
+            ->toArray();
 
         return $data;
     }

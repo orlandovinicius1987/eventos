@@ -26,6 +26,6 @@ class Events extends Controller
      */
     public function store(EventStore $request)
     {
-        return app(EventsRepository::class)->store(request_data());
+        return app(EventsRepository::class)->storeFromArray($request->all());
     }
 }

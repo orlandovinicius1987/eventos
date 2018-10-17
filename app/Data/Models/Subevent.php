@@ -21,7 +21,7 @@ class SubEvent extends Base
         'invitation_text',
         'confirmation_text',
         'credential_send_text',
-        'event_id'
+        'event_id',
     ];
 
     public function addresses()

@@ -17,7 +17,7 @@ class CreateInstitutionsTable extends Migration
                     'name' => $party->name,
                     'initials' => $party->initials,
                     'party_number' => $party->number,
-                    'is_party' => true
+                    'is_party' => true,
                 ]);
             });
     }

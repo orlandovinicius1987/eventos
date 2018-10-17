@@ -19,6 +19,6 @@ class Person extends BaseWithClient
         'neighbourhood',
         'city',
         'state',
-        'client_id'
+        'client_id',
     ];
 }

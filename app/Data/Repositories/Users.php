@@ -84,6 +84,10 @@ class Users extends Repository
 
                 $user->username = $credentials['username'];
 
+                $user->permissions = json_encode([]);
+
+                $user->profiles = json_encode([]);
+
                 $user->email = $email;
 
                 $user->permissions = '[]'; /// fix para poder logar - ACR
@@ -171,8 +175,26 @@ class Users extends Repository
         return $query->get();
     }
 
+    /**
+     * @return mixed
+     */
     public function notifiables()
     {
         return User::where('all_notifications', true)->get();
+    }
+
+    /**
+     * @param $user
+     * @param $permissionString
+     * @return bool
+     */
+    public function userHasPermission($user, $permissionString)
+    {
+        foreach ($user->permissions_array as $key => $item) {
+            if ($key == $permissionString) {
+                return true;
+            }
+        }
+        return false;
     }
 }

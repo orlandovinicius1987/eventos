@@ -13,6 +13,6 @@ class Invitation extends Base
         'declined_at',
         'sent_at',
         'received_at',
-        'checkin_at'
+        'checkin_at',
     ];
 }
