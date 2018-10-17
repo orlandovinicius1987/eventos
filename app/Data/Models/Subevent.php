@@ -21,7 +21,11 @@ class Subevent extends Base
         'invitation_text',
         'confirmation_text',
         'credential_send_text',
-        'client_id',
         'event_id',
     ];
+
+    public function addresses()
+    {
+        return $this->morphMany('App\Data\Models\Address', 'addressable');
+    }
 }

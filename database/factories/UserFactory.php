@@ -22,18 +22,17 @@ $factory->define(UserModel::class, function (Faker $faker) {
         $name = strtolower($faker->unique()->firstName);
         $name = preg_replace("/([^a-zA-Z])/", "", $name);
     } while (
-        !is_null(
-            $usersRepository->findByEmail($name . '@alerj.rj.gov.br')
-        )
+        !is_null($usersRepository->findByEmail($name . '@alerj.rj.gov.br'))
     );
 
-    $allPermissions = ['Criar' => true, 'Editar' => true, 'Ver' => true];
+    $allPermissions = ['create' => true, 'edit' => true, 'read' => true];
     $allProfiles = [
         'Administrador' => 'N',
         'Funcionario' => 'N',
         'Gestor de Eventos' => 'N',
         'Mailing' => 'N',
         'Recepcionista' => 'N',
+        'Cerimonial' => 'N',
     ];
 
     return [
