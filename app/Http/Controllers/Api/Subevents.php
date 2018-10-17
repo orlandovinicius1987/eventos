@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Data\Repositories\Subevents as SubeventsRepository;
-use App\Http\Requests\SubeventStore;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
+use App\Http\Requests\SubEventStore;
 use Illuminate\Http\Request;
 
-class Subevents extends Controller
+class SubEvents extends Controller
 {
     /**
      * Get all data
@@ -18,9 +18,9 @@ class Subevents extends Controller
     {
         $event_id = $request->get('event_id');
         if (is_null($event_id)) {
-            return app(SubeventsRepository::class)->all();
+            return app(SubEventsRepository::class)->all();
         } else {
-            return app(SubeventsRepository::class)->getByEventId($event_id);
+            return app(SubEventsRepository::class)->getByEventId($event_id);
         }
     }
 
@@ -30,8 +30,8 @@ class Subevents extends Controller
      * @param SubeventStore $request
      * @return \Illuminate\Http\Response|Collection
      */
-    public function store(SubeventStore $request)
+    public function store(SubEventStore $request)
     {
-        return app(SubeventsRepository::class)->storeFromArray($request->all());
+        return app(SubEventsRepository::class)->storeFromArray($request->all());
     }
 }
