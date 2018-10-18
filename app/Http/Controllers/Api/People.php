@@ -11,7 +11,7 @@ class People extends Controller
     /**
      * Get all data
      *
-     * @return \Illuminate\Http\Response|Collection
+     * @return array
      */
     public function all()
     {
@@ -22,7 +22,7 @@ class People extends Controller
      * Store
      *
      * @param PersonStore $request
-     * @return \Illuminate\Http\Response|Collection
+     * @return mixed
      */
     public function store(PersonStore $request)
     {
