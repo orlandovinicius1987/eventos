@@ -39,6 +39,20 @@ abstract class Repository
         return $query;
     }
 
+    /**
+     * @param $filter
+     * @param $query
+     * @return Builder
+     */
+    private function filterText($filter, $query)
+    {
+        if (($filter = $filter['filter']['text'])) {
+            $this->filterAllColumns($query, $filter);
+        }
+
+        return $query;
+    }
+
     private function findByAnyColumnName($name, $arguments)
     {
         return $this->makeQueryByAnyColumnName(
@@ -93,19 +107,10 @@ abstract class Repository
      */
     public function all()
     {
-        $query = $this->newQuery();
-
-        $filter = $this->getRequestFilter();
-
-        info($filter);
-
-        if (($filter = $filter['filter']['text'])) {
-            $this->filterAllColumns($query, $filter);
-        }
-
-        info($query->toSql());
-
-        return $query->get();
+        return $this->filterText(
+            $this->getRequestFilter(),
+            $this->newQuery()
+        )->get();
     }
 
     /**
