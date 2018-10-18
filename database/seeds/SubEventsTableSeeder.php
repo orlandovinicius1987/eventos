@@ -3,7 +3,7 @@
 use App\Data\Models\Subevent as SubeventModel;
 use Illuminate\Database\Seeder;
 
-class SubeventsTableSeeder extends Seeder
+class SubEventsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
