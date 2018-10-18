@@ -2,7 +2,7 @@ import Form from '../../classes/Form'
 
 import {
     load,
-    store,
+    save,
     setData,
     setGetUrl,
     setStoreUrl,
@@ -18,6 +18,8 @@ const state = {
     dataUrl: '',
 
     storeUrl: '',
+
+    updateUrl: '',
 
     data: {},
 
@@ -45,7 +47,7 @@ const getters = {}
 const actions = {
     load,
 
-    store,
+    save,
 
     clearForm,
 

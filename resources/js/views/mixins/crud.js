@@ -24,8 +24,9 @@ export default {
             this.$store.dispatch(this.serviceName + '/load')
         },
 
-        store() {
-            return this.$store.dispatch(this.serviceName + '/store')
+        save(mode) {
+            this.setUpdateUrl('/api/v1/'+this.serviceName+'/'+this.$route.params.id)
+            return this.$store.dispatch(this.serviceName + '/save', mode)
         },
 
         setGetUrl(url) {
@@ -34,6 +35,10 @@ export default {
 
         setStoreUrl(url) {
             this.$store.commit(this.serviceName + '/setStoreUrl', url)
+        },
+
+        setUpdateUrl(url) {
+            this.$store.commit(this.serviceName + '/setUpdateUrl', url)
         },
 
         setErrors(errors) {
@@ -64,8 +69,8 @@ export default {
             this.$router.back()
         },
 
-        storeModel() {
-            this.store().then(() => {
+        saveModel() {
+            this.save(this.mode).then(() => {
                 this.load()
 
                 this.back()

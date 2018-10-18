@@ -22,6 +22,7 @@ import * as mutations from './mutations'
 import gate from './modules/gate'
 import events from './modules/events'
 import subEvents from './modules/subEvents'
+import people from './modules/people'
 import environment from './modules/environment'
 
 /**
@@ -42,6 +43,7 @@ let store = new Vuex.Store({
     modules: {
         events,
         subEvents,
+        people,
         environment,
         gate,
     },

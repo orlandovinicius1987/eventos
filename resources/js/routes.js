@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
+import PeopleForm from './views/PeopleForm'
+import People from './views/People'
 import Events from './views/Events'
 import Categories from './views/Categories'
 import CategoriesCreate from './views/CategoriesCreate'
@@ -34,6 +36,23 @@ let routes = [
         path: '/events/sub-event/create',
         name: 'events.subevent.create',
         component: SubEventsCreate,
+    },
+    {
+        path: '/people',
+        name: 'people',
+        component: People,
+    },
+    {
+        path: '/people/create',
+        name: 'people.create',
+        component: PeopleForm,
+        props: {mode: 'create'},
+    },
+    {
+        path: '/people/:id/update',
+        name: 'people.update',
+        component: PeopleForm,
+        props: {mode: 'update'},
     },
     {
         path: '/import',

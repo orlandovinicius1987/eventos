@@ -46,8 +46,6 @@ export default {
 
             reader.onload = event => this.sendFile(event);
 
-            dd(reader)
-
             reader.readAsText(this.file);
         },
 
