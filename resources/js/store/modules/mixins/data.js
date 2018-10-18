@@ -7,7 +7,7 @@ const reload = _.debounce(context => {
 // ------------ actions
 
 export function load(context, query = {}) {
-    Object.assign(query, context.state.query);
+    Object.assign(query, context.state.query)
 
     return axios
         .get(context.state.dataUrl, { params: { query: query } })
@@ -17,7 +17,8 @@ export function load(context, query = {}) {
 }
 
 export function save(context, payload) {
-    const url = payload === 'create' ? context.state.storeUrl : context.state.updateUrl
+    const url =
+        payload === 'create' ? context.state.storeUrl : context.state.updateUrl
 
     return context.state.form
         .post(url, context.state.form.fields)
@@ -39,6 +40,16 @@ export function setQueryFilterText(context, payload) {
 
     dd('debouncing...')
     reload(context)
+}
+
+export function setCurrentPage(context, payload) {
+    let query = context.state.query
+
+    query.pagination.current_page = payload
+
+    context.commit('setQuery', query)
+
+    context.dispatch('load')
 }
 
 // ------------ mutations
@@ -82,4 +93,3 @@ export function setFormData(state, payload) {
         state.form.fields[key] = value
     })
 }
-

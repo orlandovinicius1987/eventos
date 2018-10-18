@@ -1683,7 +1683,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
-        value: File
+        value: File,
+        busy: false
     },
 
     methods: {
@@ -2055,6 +2056,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [],
@@ -2063,7 +2071,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             serviceName: 'import',
             file: null,
-            error: null
+            error: null,
+            success: false,
+            busy: false
         };
     },
 
@@ -2088,10 +2098,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             $this.error = null;
 
+            $this.success = false;
+
+            $this.busy = true;
+
             post('/api/v1/import', { file: event.target.result }).then(function (response) {
-                dd('success', response);
+                $this.success = true;
             }).catch(function (error) {
                 $this.error = error.response.data.errors['field'];
+            }).then(function () {
+                $this.busy = false;
             });
         }
     }
@@ -24563,7 +24579,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_args":[["cheerio@1.0.0-rc.2","/Users/antoniocarlos/code/alerj/eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"/Users/antoniocarlos/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -24883,7 +24899,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n.file-select > input[type=\"file\"][data-v-26329576] {\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\n.file-select > input[type='file'][data-v-26329576] {\n    display: none;\n}\n", ""]);
 
 // exports
 
@@ -24898,7 +24914,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108986,70 +109002,75 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("nav", { staticClass: "text-center" }, [
-                _c(
-                  "ul",
-                  { staticClass: "pagination justify-content-center" },
-                  [
+              _vm.pagination.total > 0
+                ? _c("nav", { staticClass: "text-center" }, [
                     _c(
-                      "li",
-                      {
-                        staticClass: "page-item",
-                        on: {
-                          click: function($event) {
-                            _vm.gotoPage(_vm.pagination.current_page - 1)
-                          }
-                        }
-                      },
-                      [_vm._m(3)]
-                    ),
-                    _vm._v(" "),
-                    _vm._l(_vm.pagination.pages, function(page) {
-                      return _c(
-                        "li",
-                        {
-                          class: {
-                            "page-item": true,
-                            active: page === _vm.pagination.current_page
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.gotoPage(page)
+                      "ul",
+                      { staticClass: "pagination justify-content-center" },
+                      [
+                        _c(
+                          "li",
+                          {
+                            staticClass: "page-item",
+                            on: {
+                              click: function($event) {
+                                _vm.gotoPage(_vm.pagination.current_page - 1)
+                              }
                             }
-                          }
-                        },
-                        [
-                          _c(
-                            "a",
-                            { staticClass: "page-link", attrs: { href: "#" } },
+                          },
+                          [_vm._m(3)]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.pagination.pages, function(page) {
+                          return _c(
+                            "li",
+                            {
+                              class: {
+                                "page-item": true,
+                                active: page === _vm.pagination.current_page
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.gotoPage(page)
+                                }
+                              }
+                            },
                             [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(page) +
-                                  "\n                                    "
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "page-link",
+                                  attrs: { href: "#" }
+                                },
+                                [
+                                  _vm._v(
+                                    "\n                                        " +
+                                      _vm._s(page) +
+                                      "\n                                    "
+                                  )
+                                ]
                               )
                             ]
                           )
-                        ]
-                      )
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "li",
-                      {
-                        staticClass: "page-item",
-                        on: {
-                          click: function($event) {
-                            _vm.gotoPage(_vm.pagination.current_page + 1)
-                          }
-                        }
-                      },
-                      [_vm._m(4)]
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "li",
+                          {
+                            staticClass: "page-item",
+                            on: {
+                              click: function($event) {
+                                _vm.gotoPage(_vm.pagination.current_page + 1)
+                              }
+                            }
+                          },
+                          [_vm._m(4)]
+                        )
+                      ],
+                      2
                     )
-                  ],
-                  2
-                )
-              ])
+                  ])
+                : _vm._e()
             ])
           ])
         ])
@@ -109674,11 +109695,20 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("label", { staticClass: "file-select" }, [
-    _c("div", { staticClass: "select-button btn btn-primary btn-lg" }, [
-      _vm.value
-        ? _c("span", [_vm._v("Arquivo selecionado: " + _vm._s(_vm.value.name))])
-        : _c("span", [_vm._v("Selecionar Arquivo")])
-    ]),
+    _c(
+      "div",
+      {
+        staticClass: "select-button btn btn-primary btn-lg",
+        attrs: { disabled: _vm.busy }
+      },
+      [
+        _vm.value
+          ? _c("span", [
+              _vm._v("Arquivo selecionado: " + _vm._s(_vm.value.name))
+            ])
+          : _c("span", [_vm._v("Selecionar Arquivo")])
+      ]
+    ),
     _vm._v(" "),
     _c("input", {
       attrs: { type: "file" },
@@ -109720,6 +109750,7 @@ var render = function() {
           "p",
           [
             _c("upload-file", {
+              attrs: { busy: _vm.busy },
               model: {
                 value: _vm.file,
                 callback: function($$v) {
@@ -109738,13 +109769,19 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn btn-danger btn-lg",
+                  attrs: { disabled: _vm.busy },
                   on: {
                     click: function($event) {
                       _vm.uploadFile()
                     }
                   }
                 },
-                [_vm._v("Importar")]
+                [
+                  _vm.busy
+                    ? _c("i", { staticClass: "fas fa-spinner fa-spin" })
+                    : _vm._e(),
+                  _vm._v("\n                    Importar\n                ")
+                ]
               )
             ])
           : _vm._e(),
@@ -109758,6 +109795,14 @@ var render = function() {
                   "\n                " + _vm._s(_vm.error[0]) + "\n            "
                 )
               ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.success
+          ? _c(
+              "div",
+              { staticClass: "alert alert-success", attrs: { role: "alert" } },
+              [_vm._v("\n                arquivo importado\n            ")]
             )
           : _vm._e()
       ])
@@ -126372,7 +126417,9 @@ var actions = {
         context.dispatch('loadInvitations', payload);
     },
     loadSubEvents: function loadSubEvents(context, event) {
-        return axios.get('/api/v1/events/' + event.id + '/sub-events', { params: this.subEventsQuery }).then(function (response) {
+        return axios.get('/api/v1/events/' + event.id + '/sub-events', {
+            params: this.subEventsQuery
+        }).then(function (response) {
             context.commit('setSubEvents', response.data);
         });
     },
@@ -126384,13 +126431,13 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setData */],
-    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setQuery */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setStoreUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setFormData */],
+    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
+    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* setQuery */],
+    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
+    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* setStoreUrl */],
+    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* storeFormField */],
+    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
+    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */],
 
     selectEvent: function selectEvent(state, payload) {
         state.selectedEvent = payload;
@@ -126477,15 +126524,16 @@ var mutations = {
 /* harmony export (immutable) */ __webpack_exports__["b"] = load;
 /* harmony export (immutable) */ __webpack_exports__["c"] = save;
 /* harmony export (immutable) */ __webpack_exports__["a"] = clearForm;
-/* harmony export (immutable) */ __webpack_exports__["i"] = setQueryFilterText;
-/* harmony export (immutable) */ __webpack_exports__["d"] = setData;
-/* harmony export (immutable) */ __webpack_exports__["h"] = setQuery;
-/* harmony export (immutable) */ __webpack_exports__["g"] = setGetUrl;
-/* harmony export (immutable) */ __webpack_exports__["j"] = setStoreUrl;
-/* harmony export (immutable) */ __webpack_exports__["k"] = setUpdateUrl;
-/* harmony export (immutable) */ __webpack_exports__["l"] = storeFormField;
-/* harmony export (immutable) */ __webpack_exports__["e"] = setErrors;
-/* harmony export (immutable) */ __webpack_exports__["f"] = setFormData;
+/* harmony export (immutable) */ __webpack_exports__["j"] = setQueryFilterText;
+/* harmony export (immutable) */ __webpack_exports__["d"] = setCurrentPage;
+/* harmony export (immutable) */ __webpack_exports__["e"] = setData;
+/* harmony export (immutable) */ __webpack_exports__["i"] = setQuery;
+/* harmony export (immutable) */ __webpack_exports__["h"] = setGetUrl;
+/* harmony export (immutable) */ __webpack_exports__["k"] = setStoreUrl;
+/* harmony export (immutable) */ __webpack_exports__["l"] = setUpdateUrl;
+/* harmony export (immutable) */ __webpack_exports__["m"] = storeFormField;
+/* harmony export (immutable) */ __webpack_exports__["f"] = setErrors;
+/* harmony export (immutable) */ __webpack_exports__["g"] = setFormData;
 // ------------ helpers
 
 var reload = _.debounce(function (context) {
@@ -126525,6 +126573,16 @@ function setQueryFilterText(context, payload) {
 
     dd('debouncing...');
     reload(context);
+}
+
+function setCurrentPage(context, payload) {
+    var query = context.state.query;
+
+    query.pagination.current_page = payload;
+
+    context.commit('setQuery', query);
+
+    context.dispatch('load');
 }
 
 // ------------ mutations
@@ -126626,7 +126684,9 @@ var actions = {
 
     clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
 
-    setQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* setQueryFilterText */],
+    setQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setQueryFilterText */],
+
+    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setCurrentPage */],
 
     selectPerson: function selectPerson(context, payload) {
         context.commit('selectPerson', payload);
@@ -126634,14 +126694,14 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setData */],
-    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setQuery */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setStoreUrl */],
-    setUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* setUpdateUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setFormData */],
+    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
+    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* setQuery */],
+    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
+    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* setStoreUrl */],
+    setUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* setUpdateUrl */],
+    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* storeFormField */],
+    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
+    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */],
 
     selectPerson: function selectPerson(state, payload) {
         state.selectedPerson = payload;
@@ -126687,12 +126747,12 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setData */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setStoreUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setFormData */]
+    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
+    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
+    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* setStoreUrl */],
+    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* storeFormField */],
+    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
+    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */]
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -127373,6 +127433,8 @@ module.exports = Component.exports
             if (page > this.pagination.last_page) {
                 return;
             }
+
+            this.$store.dispatch(this.serviceName + '/setCurrentPage', page);
         }
     }
 });

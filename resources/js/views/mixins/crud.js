@@ -16,8 +16,11 @@ export default {
             },
 
             set(payload) {
-                return this.$store.dispatch(this.serviceName + '/setQueryFilterText', payload)
-            }
+                return this.$store.dispatch(
+                    this.serviceName + '/setQueryFilterText',
+                    payload,
+                )
+            },
         },
 
         form() {
@@ -35,7 +38,9 @@ export default {
         },
 
         save(mode) {
-            this.setUpdateUrl('/api/v1/'+this.serviceName+'/'+this.$route.params.id)
+            this.setUpdateUrl(
+                '/api/v1/' + this.serviceName + '/' + this.$route.params.id,
+            )
             return this.$store.dispatch(this.serviceName + '/save', mode)
         },
 
@@ -107,8 +112,10 @@ export default {
             }
 
             if (page > this.pagination.last_page) {
-                return 
+                return
             }
+
+            this.$store.dispatch(this.serviceName + '/setCurrentPage', page)
         },
     },
 }

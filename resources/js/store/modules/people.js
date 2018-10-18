@@ -13,6 +13,7 @@ import {
     setFormData,
     clearForm,
     setQueryFilterText,
+    setCurrentPage,
 } from './mixins/data.js'
 
 const __emptyModel = { id: null }
@@ -28,7 +29,7 @@ const state = {
 
     query: {
         filter: {
-            text: null
+            text: null,
         },
 
         pagination: {
@@ -65,6 +66,8 @@ const actions = {
     clearForm,
 
     setQueryFilterText,
+
+    setCurrentPage,
 
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)

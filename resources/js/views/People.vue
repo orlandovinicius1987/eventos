@@ -58,7 +58,7 @@
                                 </tbody>
                             </table>
 
-                            <nav class="text-center">
+                            <nav class="text-center" v-if="pagination.total > 0">
                                 <ul class="pagination justify-content-center">
                                     <li class="page-item" @click="gotoPage(pagination.current_page - 1)">
                                         <a class="page-link" href="#" aria-label="Previous">
@@ -128,7 +128,7 @@ export default {
 
     mounted() {
         this.boot()
-    }
+    },
 }
 </script>
 
