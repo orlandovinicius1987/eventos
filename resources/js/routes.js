@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
+import PeopleCreate from './views/PeopleCreate'
+import People from './views/People'
 import Events from './views/Events'
 import EventsCreate from './views/EventsCreate'
 import SubEventsCreate from './views/SubEventsCreate'
@@ -32,6 +34,16 @@ let routes = [
         path: '/events/sub-event/create',
         name: 'events.subevent.create',
         component: SubEventsCreate,
+    },
+    {
+        path: '/people',
+        name: 'people',
+        component: People,
+    },
+    {
+        path: '/people/create',
+        name: 'people.create',
+        component: PeopleCreate,
     },
     {
         path: '/import',

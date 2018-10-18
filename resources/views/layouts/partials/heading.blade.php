@@ -44,6 +44,15 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    <router-link id="people-menu" to="/people" tag="li" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="vl_people"></i>
+                                            <span class="nav-link-text">Pessoas</span>
+                                        </a>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
                                     <router-link id="events-menu" to="/import" tag="li" class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="vl_events"></i>
