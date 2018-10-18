@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
-import PeopleCreate from './views/PeopleCreate'
+import PeopleForm from './views/PeopleForm'
 import People from './views/People'
 import Events from './views/Events'
 import EventsCreate from './views/EventsCreate'
@@ -43,7 +43,14 @@ let routes = [
     {
         path: '/people/create',
         name: 'people.create',
-        component: PeopleCreate,
+        component: PeopleForm,
+        props: {mode: 'create'},
+    },
+    {
+        path: '/people/:id/update',
+        name: 'people.update',
+        component: PeopleForm,
+        props: {mode: 'update'},
     },
     {
         path: '/import',

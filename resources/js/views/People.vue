@@ -15,11 +15,6 @@
                             <i class="fa fa-plus"></i> nova pessoa
                         </router-link>
                     </div>
-                    <!--<div class="col-6">-->
-                        <!--<router-link to="/people/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">-->
-                            <!--<i class="fa fa-plus"></i> nova pessoa-->
-                        <!--</router-link>-->
-                    <!--</div>-->
                 </div>
 
                 <div class="row">
@@ -32,6 +27,7 @@
                                         <th scope="col">Tratamento</th>
                                         <th scope="col">Nome</th>
                                         <th scope="col">Nome público</th>
+                                        <th scope="col"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -44,6 +40,12 @@
                                         <td>{{ person.title }}</td>
                                         <td>{{ person.name }}</td>
                                         <td>{{ person.nickname }}</td>
+                                        <td>
+                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
+                                                <i class="fa fa-plus"></i> editar
+                                            </router-link>
+                                            <!--<button @click="edit(person)" class="btn btn-danger"><i class="fa fa-edit"></i></button>-->
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -78,6 +80,11 @@ export default {
 
     methods: {
         ...mapActions(serviceName, ['selectPerson']),
+
+        edit(person){
+            this.selectPerson(person)
+
+        },
 
         isCurrent(person, selected) {
             return person.id === selected.id

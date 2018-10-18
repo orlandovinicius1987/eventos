@@ -139,9 +139,30 @@ abstract class Repository
      */
     public function storeFromArray($array)
     {
-        $model = new $this->model();
+        return $this->fillAndSave($array, new $this->model());
+    }
+
+    /**
+     * @param $id
+     * @param $array
+     * @return mixed
+     */
+    public function update($id, $array)
+    {
+        return $this->fillAndSave($array, $this->findById($id));
+    }
+
+    /**
+     * @param $array
+     * @param $model
+     * @return mixed
+     */
+    protected function fillAndSave($array, $model)
+    {
         $model->fill($array);
+
         $model->save();
+
         return $model;
     }
 }

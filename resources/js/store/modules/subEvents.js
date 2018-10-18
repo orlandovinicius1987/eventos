@@ -1,7 +1,7 @@
 import Form from '../../classes/Form'
 
 import {
-    store,
+    save,
     setData,
     setGetUrl,
     setStoreUrl,
@@ -22,7 +22,7 @@ const state = {
 const getters = {}
 
 const actions = {
-    store,
+    save,
 
     clearForm,
 

@@ -31,7 +31,7 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="storeModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
                             <router-link to="/people" tag="button" class="btn btn-success">
                                 cancelar
@@ -47,11 +47,12 @@
 <script>
 import crud from './mixins/crud'
 import people from './mixins/people'
+import { mapActions } from 'vuex'
 
 const serviceName = 'people'
 
 export default {
-    props: [],
+    props: ['mode'],
 
     mixins: [crud, people],
 
@@ -61,8 +62,20 @@ export default {
         }
     },
 
+    methods: {
+        ...mapActions(serviceName, ['selectPerson']),
+    },
+
     mounted() {
+
         this.boot()
+        const $this = this
+        if($this.mode == 'update') {
+            const person = _.find(this.people, function (person) {
+                return person.id == $this.$route.params.id
+            })
+            $this.setFormData(person)
+        }
     },
 }
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\People as PeopleRepository;
 use App\Http\Requests\PersonStore;
+use App\Http\Requests\PersonUpdate;
 
 class People extends Controller
 {
@@ -27,5 +28,10 @@ class People extends Controller
     public function store(PersonStore $request)
     {
         return app(PeopleRepository::class)->storeFromArray($request->all());
+    }
+
+    public function update(PersonUpdate $request, $id)
+    {
+        return app(PeopleRepository::class)->update($id, $request->all());
     }
 }

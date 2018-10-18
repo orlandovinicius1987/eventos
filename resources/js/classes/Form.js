@@ -52,7 +52,6 @@ class Form {
      */
     post(url) {
         return post(url, this.fields).catch(error => {
-            dd(error.response.data.errors)
             this.onFail(error.response.data.errors)
 
             throw new Error('Higher-level error. ' + error.message)

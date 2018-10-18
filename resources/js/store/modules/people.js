@@ -2,10 +2,11 @@ import Form from '../../classes/Form'
 
 import {
     load,
-    store,
+    save,
     setData,
     setGetUrl,
     setStoreUrl,
+    setUpdateUrl,
     storeFormField,
     setErrors,
     setFormData,
@@ -19,6 +20,8 @@ const state = {
 
     storeUrl: '',
 
+    updateUrl: '',
+
     data: {},
 
     subPeople: [],
@@ -31,6 +34,8 @@ const state = {
         name: null,
     }),
 
+    mode: null,
+
     subPeopleQuery: {},
 
     invitationsQuery: {},
@@ -41,7 +46,7 @@ const getters = {}
 const actions = {
     load,
 
-    store,
+    save,
 
     clearForm,
 
@@ -54,6 +59,7 @@ const mutations = {
     setData,
     setGetUrl,
     setStoreUrl,
+    setUpdateUrl,
     storeFormField,
     setErrors,
     setFormData,
