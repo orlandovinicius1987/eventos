@@ -1704,18 +1704,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_events__ = __webpack_require__("./resources/js/views/mixins/events.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -1781,6 +1771,21 @@ var serviceName = 'categories';
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
+    data: function data() {
+        return {
+            serviceName: serviceName
+        };
+    },
+
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapState"])(serviceName, ['selectedCategory', 'selectedSubCategory'])),
+
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(serviceName, ['selectCategory']), {
+        isCurrent: function isCurrent(event, selected) {
+            return event.id === selected.id;
+        }
+    }),
+
     mounted: function mounted() {
         this.boot();
     }
@@ -1795,7 +1800,6 @@ var serviceName = 'categories';
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_categories__ = __webpack_require__("./resources/js/views/mixins/categories.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_events__ = __webpack_require__("./resources/js/views/mixins/events.js");
 //
 //
 //
@@ -1832,7 +1836,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
 
 
 
@@ -25008,7 +25011,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25098,7 +25101,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -109767,7 +109770,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         $event.preventDefault()
-                        _vm.storeModel()
+                        _vm.saveModel()
                       }
                     }
                   },
@@ -110286,10 +110289,53 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(2)
-      ]),
-      _vm._v(" "),
-      _vm._m(3)
+        _c("div", { staticClass: "row" }, [
+          _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "card p-4" }, [
+              _c(
+                "table",
+                {
+                  staticClass:
+                    "table table-sm table-hover table-borderless table-striped"
+                },
+                [
+                  _vm._m(2),
+                  _vm._v(" "),
+                  _c("tbody", [
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.categories, function(category) {
+                        return _c(
+                          "tr",
+                          {
+                            class: {
+                              "cursor-pointer": true,
+                              "bg-primary text-white": _vm.isCurrent(
+                                category,
+                                _vm.selectedCategory
+                              )
+                            },
+                            on: {
+                              click: function($event) {
+                                _vm.selectCategory(category)
+                              }
+                            }
+                          },
+                          [
+                            _c("td", [_vm._v(_vm._s(category.id))]),
+                            _vm._v(" "),
+                            _c("td", [_vm._v(_vm._s(category.name))])
+                          ]
+                        )
+                      })
+                    )
+                  ])
+                ]
+              )
+            ])
+          ])
+        ])
+      ])
     ])
   ])
 }
@@ -110299,7 +110345,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Eventos")])
+      _c("h2", [_vm._v("Categoria")])
     ])
   },
   function() {
@@ -110314,61 +110360,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card p-4" }, [
-          _c(
-            "table",
-            {
-              staticClass:
-                "table table-sm table-hover table-borderless table-striped"
-            },
-            [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("Nome")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody")
-            ]
-          )
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "card p-4" }, [
-          _c(
-            "table",
-            {
-              staticClass:
-                "table table-sm table-hover table-borderless table-striped"
-            },
-            [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("Nome")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("Data")]),
-                  _vm._v(" "),
-                  _c("th", { attrs: { scope: "col" } }, [_vm._v("Hora")])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("tbody")
-            ]
-          )
-        ])
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Nome")])
       ])
     ])
   }
@@ -126506,18 +126502,24 @@ __webpack_require__("./resources/js/pages/app.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Dashboard__ = __webpack_require__("./resources/js/views/Dashboard.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_Dashboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Events__ = __webpack_require__("./resources/js/views/Events.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_Events__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_Categories__ = __webpack_require__("./resources/js/views/Categories.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_Categories___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_Categories__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_CategoriesCreate__ = __webpack_require__("./resources/js/views/CategoriesCreate.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_CategoriesCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_CategoriesCreate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_EventsCreate__ = __webpack_require__("./resources/js/views/EventsCreate.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_EventsCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_EventsCreate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_SubEventsCreate__ = __webpack_require__("./resources/js/views/SubEventsCreate.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_SubEventsCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_SubEventsCreate__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__views_Import__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm__ = __webpack_require__("./resources/js/views/PeopleForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_PeopleForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_People__ = __webpack_require__("./resources/js/views/People.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_People___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_People__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_Events__ = __webpack_require__("./resources/js/views/Events.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_Events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_Events__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Categories__ = __webpack_require__("./resources/js/views/Categories.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Categories___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_Categories__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_CategoriesCreate__ = __webpack_require__("./resources/js/views/CategoriesCreate.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_CategoriesCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_CategoriesCreate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_EventsCreate__ = __webpack_require__("./resources/js/views/EventsCreate.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_EventsCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__views_EventsCreate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_SubEventsCreate__ = __webpack_require__("./resources/js/views/SubEventsCreate.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_SubEventsCreate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__views_SubEventsCreate__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__views_Import__);
+
+
 
 
 
@@ -126544,23 +126546,37 @@ var routes = [{
 }, {
     path: '/events/create',
     name: 'events.create',
-    component: __WEBPACK_IMPORTED_MODULE_6__views_EventsCreate___default.a
+    component: __WEBPACK_IMPORTED_MODULE_8__views_EventsCreate___default.a
 }, {
     path: '/events/sub-event/create',
     name: 'events.subevent.create',
-    component: __WEBPACK_IMPORTED_MODULE_7__views_SubEventsCreate___default.a
+    component: __WEBPACK_IMPORTED_MODULE_9__views_SubEventsCreate___default.a
+}, {
+    path: '/people',
+    name: 'people',
+    component: __WEBPACK_IMPORTED_MODULE_4__views_People___default.a
+}, {
+    path: '/people/create',
+    name: 'people.create',
+    component: __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default.a,
+    props: { mode: 'create' }
+}, {
+    path: '/people/:id/update',
+    name: 'people.update',
+    component: __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default.a,
+    props: { mode: 'update' }
 }, {
     path: '/import',
     name: 'import',
-    component: __WEBPACK_IMPORTED_MODULE_8__views_Import___default.a
+    component: __WEBPACK_IMPORTED_MODULE_10__views_Import___default.a
 }, {
     path: '/categories',
     name: 'categories',
-    component: __WEBPACK_IMPORTED_MODULE_4__views_Categories___default.a
+    component: __WEBPACK_IMPORTED_MODULE_6__views_Categories___default.a
 }, {
     path: '/categories/create',
     name: 'categoriesCreate',
-    component: __WEBPACK_IMPORTED_MODULE_5__views_CategoriesCreate___default.a
+    component: __WEBPACK_IMPORTED_MODULE_7__views_CategoriesCreate___default.a
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
@@ -126583,6 +126599,74 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/categories.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__ = __webpack_require__("./resources/js/store/modules/mixins/data.js");
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = {
+    dataUrl: '',
+
+    storeUrl: '',
+
+    updateUrl: '',
+
+    data: {},
+
+    subCategories: [],
+
+    invitations: [],
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        name: null
+    }),
+
+    subCategoriesQuery: {}
+
+};
+
+var getters = {};
+
+var actions = {
+    load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
+
+    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* save */],
+
+    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
+
+    selectCategory: function selectCategory(context, payload) {
+        context.commit('selectCategory' + '', payload);
+
+        context.dispatch('loadSubCategories', payload);
+    }
+};
+
+var mutations = {
+    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setData */],
+    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setGetUrl */],
+    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setStoreUrl */],
+    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* storeFormField */],
+    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setErrors */],
+    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setFormData */]
+};
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    getters: getters,
+    actions: actions,
+    mutations: mutations,
+    namespaced: true
+});
 
 /***/ }),
 
@@ -127006,9 +127090,10 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__("./resources/js/store/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_subEvents__ = __webpack_require__("./resources/js/store/modules/subEvents.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_people__ = __webpack_require__("./resources/js/store/modules/people.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_categories__ = __webpack_require__("./resources/js/store/modules/categories.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_subEvents__ = __webpack_require__("./resources/js/store/modules/subEvents.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_people__ = __webpack_require__("./resources/js/store/modules/people.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
 /**
  * Imports
  */
@@ -127036,6 +127121,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
+
 /**
  * State
  */
@@ -127052,9 +127138,10 @@ var state = {
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
     events: __WEBPACK_IMPORTED_MODULE_6__modules_events__["a" /* default */],
-    subEvents: __WEBPACK_IMPORTED_MODULE_7__modules_subEvents__["a" /* default */],
-    people: __WEBPACK_IMPORTED_MODULE_8__modules_people__["a" /* default */],
-    environment: __WEBPACK_IMPORTED_MODULE_9__modules_environment__["a" /* default */],
+    subEvents: __WEBPACK_IMPORTED_MODULE_8__modules_subEvents__["a" /* default */],
+    people: __WEBPACK_IMPORTED_MODULE_9__modules_people__["a" /* default */],
+    categories: __WEBPACK_IMPORTED_MODULE_7__modules_categories__["a" /* default */],
+    environment: __WEBPACK_IMPORTED_MODULE_10__modules_environment__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_5__modules_gate__["a" /* default */]
   }
 });

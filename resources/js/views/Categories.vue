@@ -1,7 +1,7 @@
 <template>
  <div>
   <div class="py-2 mb-4 text-center">
-   <h2>Eventos</h2>
+   <h2>Categoria</h2>
   </div>
 
   <div class="row">
@@ -28,6 +28,16 @@
         </tr>
         </thead>
         <tbody>
+           <tbody>
+           <tr
+                   @click="selectCategory(category)"
+                   v-for="category in categories"
+                   :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(category, selectedCategory)}"
+           >
+               <td>{{ category.id }}</td>
+               <td>{{ category.name }}</td>
+           </tr>
+           </tbody>
 
         </tbody>
        </table>
@@ -35,28 +45,6 @@
      </div>
     </div>
    </div>
-
-
-
-    <div class="row">
-     <div class="col-12">
-      <div class="card p-4">
-       <table class="table table-sm table-hover table-borderless table-striped">
-        <thead>
-        <tr>
-         <th scope="col">#</th>
-         <th scope="col">Nome</th>
-         <th scope="col">Data</th>
-         <th scope="col">Hora</th>
-        </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-       </table>
-      </div>
-     </div>
-    </div>
    </div>
   </div>
 
@@ -74,6 +62,24 @@
 
     export default {
         mixins: [crud, events, permissions],
+
+        data() {
+            return {
+                serviceName: serviceName,
+            }
+        },
+
+        computed: {
+            ...mapState(serviceName, ['selectedCategory', 'selectedSubCategory']),
+        },
+
+        methods: {
+            ...mapActions(serviceName, ['selectCategory']),
+
+            isCurrent(event, selected) {
+                return event.id === selected.id
+            },
+        },
 
     mounted()
     {

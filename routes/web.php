@@ -48,6 +48,16 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/', 'People@store')->name('people.store');
         });
 
+        Route::group(['prefix' => '/categories'], function () {
+            Route::get('/', 'Categories@all')->name('categories.all');
+
+            Route::post('/{id}', 'Categories@update')->name(
+                'categories.update'
+            );
+
+            Route::post('/', 'Categories@store')->name('categories.store');
+        });
+
         Route::post('/import', 'Import@store')->name('import.store');
     });
 });
