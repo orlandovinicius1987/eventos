@@ -17,10 +17,14 @@ class CreateTablePeople extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->string('role_id')->nullable();
+
+            $table->string('nickname')->nullable();
+
             $table->string('title')->nullable();
 
             $table->integer('client_id');
+
+            $table->integer('party_id')->nullable();
 
             $table->timestamps();
         });

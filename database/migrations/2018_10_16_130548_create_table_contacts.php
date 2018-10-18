@@ -23,8 +23,6 @@ class CreateTableContacts extends Migration
 
             $table->string('contact');
 
-            $table->integer('client_id');
-
             $table
                 ->integer('contactable_id')
                 ->unsigned()

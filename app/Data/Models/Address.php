@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Address extends Base
+class Address extends BaseWithClient
 {
     protected $table = 'addresses';
 

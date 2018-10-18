@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
 import Events from './views/Events'
 import EventsCreate from './views/EventsCreate'
+import SubEventsCreate from './views/SubEventsCreate'
+import Import from './views/Import'
 
 Vue.use(VueRouter)
 
@@ -25,6 +27,16 @@ let routes = [
         path: '/events/create',
         name: 'events.create',
         component: EventsCreate,
+    },
+    {
+        path: '/events/sub-event/create',
+        name: 'events.subevent.create',
+        component: SubEventsCreate,
+    },
+    {
+        path: '/import',
+        name: 'import',
+        component: Import,
     },
 ]
 

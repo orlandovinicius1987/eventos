@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableInvitation extends Migration
+class CreateTableInvitations extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateTableInvitation extends Migration
      */
     public function up()
     {
-        Schema::create('invitation', function (Blueprint $table) {
+        Schema::create('invitations', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('subevent_id');
-            $table->integer('person_id');
+            $table->integer('sub_event_id');
+
+            $table->integer('person_institution_id');
 
             $table->timestamp('accepted_at')->nullable();
             $table->timestamp('declined_at')->nullable();
@@ -38,6 +39,6 @@ class CreateTableInvitation extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invitation');
+        Schema::dropIfExists('invitations');
     }
 }

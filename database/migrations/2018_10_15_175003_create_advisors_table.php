@@ -17,8 +17,10 @@ class CreateAdvisorsTable extends Migration
             $table->increments('id');
 
             $table->string('name');
-            $table->integer('advisor_type_id');
-            $table->integer('person_id');
+
+            $table->integer('role_id');
+
+            $table->integer('person_institution_id');
 
             $table->timestamps();
         });

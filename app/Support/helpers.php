@@ -59,6 +59,12 @@ function request_data()
     return coollect(request()->all());
 }
 
+function ld($info)
+{
+    info($info);
+    die();
+}
+
 class Timer
 {
     public static $starttime;
