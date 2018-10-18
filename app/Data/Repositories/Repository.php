@@ -5,6 +5,7 @@ namespace App\Data\Repositories;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class Repository
 {
@@ -31,6 +32,13 @@ abstract class Repository
         return $model;
     }
 
+    private function filterAllColumns(Builder $query, $text)
+    {
+        $query->where('name', 'ilike', "%{$text}%");
+
+        return $query;
+    }
+
     private function findByAnyColumnName($name, $arguments)
     {
         return $this->makeQueryByAnyColumnName(
@@ -47,6 +55,11 @@ abstract class Repository
             $name,
             $arguments
         )->get();
+    }
+
+    private function getRequestFilter()
+    {
+        return json_decode(request()->get('jsonFilter'), true);
     }
 
     private function makeQueryByAnyColumnName($startsWith, $name, $arguments)
@@ -80,7 +93,44 @@ abstract class Repository
      */
     public function all()
     {
-        return $this->model::all();
+        $query = $this->newQuery();
+
+        $filter = $this->getRequestFilter();
+
+        info($filter);
+
+        if (($filter = $filter['filter']['text'])) {
+            $this->filterAllColumns($query, $filter);
+        }
+
+        info($query->toSql());
+
+        return $query->get();
+    }
+
+    /**
+     * Make pagination data.
+     *
+     * @param LengthAwarePaginator $data
+     * @return array
+     */
+    protected function makePaginationResult(LengthAwarePaginator $data)
+    {
+        return [
+            "links" => [
+                "pagination" => [
+                    "total" => $data->total(),
+                    "per_page" => $data->perPage(),
+                    "current_page" => $data->currentPage(),
+                    "last_page" => $data->lastPage(),
+                    "from" => ($from =
+                        ($data->currentPage() - 1) * $data->perPage() + 1),
+                    "to" => $from + count($data->items()) - 1,
+                ],
+            ],
+
+            "data" => $this->transform($data),
+        ];
     }
 
     /**
@@ -91,6 +141,14 @@ abstract class Repository
     public function cleanString($string)
     {
         return str_replace(["\n"], [''], $string);
+    }
+
+    /**
+     * @return Builder
+     */
+    private function newQuery()
+    {
+        return $this->model::query();
     }
 
     /**

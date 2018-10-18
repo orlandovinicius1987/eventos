@@ -4,6 +4,7 @@ import {
     load,
     save,
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     storeFormField,
@@ -22,6 +23,12 @@ const state = {
     updateUrl: '',
 
     data: {},
+
+    query: {
+        filter: {
+            text: null
+        }
+    },
 
     subEvents: [],
 
@@ -82,6 +89,7 @@ const actions = {
 
 const mutations = {
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     storeFormField,

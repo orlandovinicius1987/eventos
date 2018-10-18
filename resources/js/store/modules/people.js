@@ -4,6 +4,7 @@ import {
     load,
     save,
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     setUpdateUrl,
@@ -11,6 +12,7 @@ import {
     setErrors,
     setFormData,
     clearForm,
+    setQueryFilterText,
 } from './mixins/data.js'
 
 const __emptyModel = { id: null }
@@ -23,6 +25,12 @@ const state = {
     updateUrl: '',
 
     data: {},
+
+    query: {
+        filter: {
+            text: null
+        }
+    },
 
     subPeople: [],
 
@@ -50,6 +58,8 @@ const actions = {
 
     clearForm,
 
+    setQueryFilterText,
+
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)
     },
@@ -57,6 +67,7 @@ const actions = {
 
 const mutations = {
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     setUpdateUrl,

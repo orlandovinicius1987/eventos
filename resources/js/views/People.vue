@@ -7,17 +7,25 @@
         <div class="row">
             <div class="col-4">
                 <div class="row align-items-end">
-                    <div class="col-6">
+                    <div class="col-3">
                         <h4 class="mb-0">Pessoas</h4>
                     </div>
-                    <div class="col-6">
-                        <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> nova pessoa
-                        </router-link>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-6 pr-0">
+                                <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
+                                    <i class="fa fa-plus"></i> nova pessoa
+                                </router-link>
+                            </div>
+
+                            <div class="col-6 pl-0">
+                                <input class="form-control" v-model="filterText">
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-1">
                     <div class="col-12">
                         <div class="card p-4">
                             <table class="table table-sm table-hover table-borderless table-striped">
@@ -30,21 +38,21 @@
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <tr
                                         @click="selectPerson(person)"
                                         v-for="person in people"
                                         :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
                                     >
-                                        <td>{{ person.id }}</td>
-                                        <td>{{ person.title }}</td>
-                                        <td>{{ person.name }}</td>
-                                        <td>{{ person.nickname }}</td>
+                                        <td class="align-middle">{{ person.id }}</td>
+                                        <td class="align-middle">{{ person.title }}</td>
+                                        <td class="align-middle">{{ person.name }}</td>
+                                        <td class="align-middle">{{ person.nickname }}</td>
                                         <td>
-                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                                                <i class="fa fa-plus"></i> editar
+                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-danger btn-sm m-1 pull-right" :disabled="cannot('create')">
+                                                <i class="fa fa-edit"></i>
                                             </router-link>
-                                            <!--<button @click="edit(person)" class="btn btn-danger"><i class="fa fa-edit"></i></button>-->
                                         </td>
                                     </tr>
                                 </tbody>
@@ -81,9 +89,8 @@ export default {
     methods: {
         ...mapActions(serviceName, ['selectPerson']),
 
-        edit(person){
+        edit(person) {
             this.selectPerson(person)
-
         },
 
         isCurrent(person, selected) {

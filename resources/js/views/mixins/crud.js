@@ -10,6 +10,16 @@ export default {
     },
 
     computed: {
+        filterText: {
+            get() {
+                return this.$store.state[this.serviceName].query.filter.text
+            },
+
+            set(payload) {
+                return this.$store.dispatch(this.serviceName + '/setQueryFilterText', payload)
+            }
+        },
+
         form() {
             return this.$store.state[this.serviceName].form
         },
