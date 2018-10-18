@@ -18,6 +18,10 @@ export function setStoreUrl(state, payload) {
     state.storeUrl = payload
 }
 
+export function setUpdateUrl(state, payload) {
+    state.updateUrl = payload
+}
+
 export function storeFormField(state, payload) {
     state.form.fields[payload.field] = payload.value
 }
@@ -38,9 +42,11 @@ export function setFormData(state, payload) {
     })
 }
 
-export function store(context) {
+export function save(context, payload) {
+    const url = payload == 'create' ? context.state.storeUrl : context.state.updateUrl
+
     return context.state.form
-        .post(context.state.storeUrl, context.state.form.fields)
+        .post(url, context.state.form.fields)
         .then(response => {
             context.dispatch('load')
         })

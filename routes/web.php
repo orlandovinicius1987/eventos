@@ -40,6 +40,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             });
         });
 
+        Route::group(['prefix' => '/people'], function () {
+            Route::get('/', 'People@all')->name('people.all');
+
+            Route::post('/{id}', 'People@update')->name('people.update');
+
+            Route::post('/', 'People@store')->name('people.store');
+        });
+
         Route::post('/import', 'Import@store')->name('import.store');
     });
 });
