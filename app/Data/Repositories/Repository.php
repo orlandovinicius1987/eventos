@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
@@ -42,7 +43,7 @@ abstract class Repository
     /**
      * @param $filter
      * @param $query
-     * @return Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     private function filterText($filter, $query)
     {
@@ -62,6 +63,15 @@ abstract class Repository
         )->first();
     }
 
+    private function generatePages(LengthAwarePaginator $data)
+    {
+        $firstPage = max($data->currentPage() - 2, 1);
+
+        $lastPage = min($firstPage + 4, $data->lastPage());
+
+        return range($firstPage, $lastPage);
+    }
+
     private function getByAnyColumnName($name, $arguments)
     {
         return $this->makeQueryByAnyColumnName(
@@ -71,9 +81,9 @@ abstract class Repository
         )->get();
     }
 
-    private function getRequestFilter()
+    private function getQueryFilter()
     {
-        return json_decode(request()->get('jsonFilter'), true);
+        return coollect(json_decode(request()->get('query'), true));
     }
 
     private function makeQueryByAnyColumnName($startsWith, $name, $arguments)
@@ -102,15 +112,26 @@ abstract class Repository
         return new $this->model();
     }
 
+    public function transform($data)
+    {
+        return $data;
+    }
+
     /**
      * @return mixed
      */
     public function all()
     {
-        return $this->filterText(
-            $this->getRequestFilter(),
-            $this->newQuery()
-        )->get();
+        $queryFilter = $this->getQueryFilter();
+
+        return $this->makePaginationResult(
+            $this->filterText($queryFilter, $this->newQuery())->paginate(
+                $queryFilter->pagination->perPage,
+                ['*'],
+                'page',
+                $queryFilter->pagination->currentPage
+            )
+        );
     }
 
     /**
@@ -131,10 +152,13 @@ abstract class Repository
                     "from" => ($from =
                         ($data->currentPage() - 1) * $data->perPage() + 1),
                     "to" => $from + count($data->items()) - 1,
+                    "pages" => $this->generatePages($data),
                 ],
             ],
 
-            "data" => $this->transform($data),
+            "filter" => $this->getQueryFilter()['filter'],
+
+            "rows" => $this->transform($data->items()),
         ];
     }
 

@@ -2177,6 +2177,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24810,7 +24838,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -108956,7 +108984,72 @@ var render = function() {
                     })
                   )
                 ]
-              )
+              ),
+              _vm._v(" "),
+              _c("nav", { staticClass: "text-center" }, [
+                _c(
+                  "ul",
+                  { staticClass: "pagination justify-content-center" },
+                  [
+                    _c(
+                      "li",
+                      {
+                        staticClass: "page-item",
+                        on: {
+                          click: function($event) {
+                            _vm.gotoPage(_vm.pagination.current_page - 1)
+                          }
+                        }
+                      },
+                      [_vm._m(3)]
+                    ),
+                    _vm._v(" "),
+                    _vm._l(_vm.pagination.pages, function(page) {
+                      return _c(
+                        "li",
+                        {
+                          class: {
+                            "page-item": true,
+                            active: page === _vm.pagination.current_page
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.gotoPage(page)
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "a",
+                            { staticClass: "page-link", attrs: { href: "#" } },
+                            [
+                              _vm._v(
+                                "\n                                        " +
+                                  _vm._s(page) +
+                                  "\n                                    "
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      {
+                        staticClass: "page-item",
+                        on: {
+                          click: function($event) {
+                            _vm.gotoPage(_vm.pagination.current_page + 1)
+                          }
+                        }
+                      },
+                      [_vm._m(4)]
+                    )
+                  ],
+                  2
+                )
+              ])
             ])
           ])
         ])
@@ -108998,6 +109091,37 @@ var staticRenderFns = [
         _c("th", { attrs: { scope: "col" } })
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "page-link",
+        attrs: { href: "#", "aria-label": "Previous" }
+      },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("«")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Anterior")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      { staticClass: "page-link", attrs: { href: "#", "aria-label": "Next" } },
+      [
+        _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("»")]),
+        _vm._v(" "),
+        _c("span", { staticClass: "sr-only" }, [_vm._v("Próxima")])
+      ]
+    )
   }
 ]
 render._withStripped = true
@@ -126375,7 +126499,7 @@ function load(context) {
 
     Object.assign(query, context.state.query);
 
-    return axios.get(context.state.dataUrl, { params: { jsonFilter: query } }).then(function (response) {
+    return axios.get(context.state.dataUrl, { params: { query: query } }).then(function (response) {
         context.commit('setData', response.data);
     });
 }
@@ -126467,6 +126591,12 @@ var state = {
     query: {
         filter: {
             text: null
+        },
+
+        pagination: {
+            per_page: 5,
+
+            current_page: 1
         }
     },
 
@@ -127230,6 +127360,19 @@ module.exports = Component.exports
         },
         cannot: function cannot(permission) {
             return !can(permission);
+        },
+        gotoPage: function gotoPage(page) {
+            if (this.pagination.current_page === page) {
+                return;
+            }
+
+            if (page < 1) {
+                return;
+            }
+
+            if (page > this.pagination.last_page) {
+                return;
+            }
         }
     }
 });
@@ -127250,15 +127393,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         events: function events(state) {
-            return state.events.data;
+            return state.events.data.rows;
         },
 
         subEvents: function subEvents(state) {
-            return state.events.subEvents;
+            return state.events.subEvents.rows;
         },
 
         invitations: function invitations(state) {
-            return state.events.invitations;
+            return state.events.invitations.rows;
         }
     }))
 });
@@ -127279,7 +127422,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         people: function people(state) {
-            return state.people.data;
+            return state.people.data.rows;
+        },
+
+        pagination: function pagination(state) {
+            return state.people.data.links ? state.people.data.links.pagination : {};
         }
     }))
 });

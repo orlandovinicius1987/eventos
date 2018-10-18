@@ -57,6 +57,34 @@
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <nav class="text-center">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item" @click="gotoPage(pagination.current_page - 1)">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Anterior</span>
+                                        </a>
+                                    </li>
+
+                                    <li
+                                        :class="{'page-item': true, active: page === pagination.current_page}"
+                                        v-for="page in pagination.pages"
+                                        @click="gotoPage(page)"
+                                    >
+                                        <a class="page-link" href="#">
+                                            {{ page }}
+                                        </a>
+                                    </li>
+
+                                    <li class="page-item" @click="gotoPage(pagination.current_page + 1)">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Próxima</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>

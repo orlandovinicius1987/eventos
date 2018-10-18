@@ -95,6 +95,20 @@ export default {
 
         cannot(permission) {
             return !can(permission)
-        }
+        },
+
+        gotoPage(page) {
+            if (this.pagination.current_page === page) {
+                return
+            }
+
+            if (page < 1) {
+                return
+            }
+
+            if (page > this.pagination.last_page) {
+                return 
+            }
+        },
     },
 }

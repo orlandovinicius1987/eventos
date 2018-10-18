@@ -29,7 +29,13 @@ const state = {
     query: {
         filter: {
             text: null
-        }
+        },
+
+        pagination: {
+            per_page: 5,
+
+            current_page: 1,
+        },
     },
 
     subPeople: [],

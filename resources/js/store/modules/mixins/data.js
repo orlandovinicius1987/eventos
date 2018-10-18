@@ -10,7 +10,7 @@ export function load(context, query = {}) {
     Object.assign(query, context.state.query);
 
     return axios
-        .get(context.state.dataUrl, { params: { jsonFilter: query } })
+        .get(context.state.dataUrl, { params: { query: query } })
         .then(response => {
             context.commit('setData', response.data)
         })
