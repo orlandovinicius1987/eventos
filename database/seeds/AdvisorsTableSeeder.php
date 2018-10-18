@@ -13,7 +13,6 @@ class AdvisorsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(AdvisorTypeModel::class, 50)->create();
         factory(AdvisorModel::class, 50)->create();
     }
 }
