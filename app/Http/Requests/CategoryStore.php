@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class EventStore extends BaseStore
+class CategoryStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

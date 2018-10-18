@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Data\Repositories\Events as EventsRepository;
-use App\Http\Requests\EventStore;
+use App\Data\Repositories\Categories as CategoriesRepository;
+use App\Http\Requests\CategoryStore;
 
-class Events extends Controller
+class Categories extends Controller
 {
     /**
      * Get all data
@@ -15,17 +15,17 @@ class Events extends Controller
      */
     public function all()
     {
-        return app(EventsRepository::class)->all();
+        return app(CategoriesRepository::class)->all();
     }
 
     /**
      * Store
      *
-     * @param EventStore $request
+     * @param CategoryStore $request
      * @return \Illuminate\Http\Response|Collection
      */
-    public function store(EventStore $request)
+    public function store(CategoryStore $request)
     {
-        return app(EventsRepository::class)->storeFromArray($request->all());
+        return app(CategorysRepository::class)->storeFromArray($request->all());
     }
 }

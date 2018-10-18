@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>{{ form.fields.name ? form.fields.name : 'Novo Evento' }}</h2>
+            <h2>{{ form.fields.name ? form.fields.name : 'Nova Categoria' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -9,7 +9,7 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="name">Nome do evento</label>
+                            <label for="name">Nome da categoria</label>
 
                             <input v-model="form.fields.name" class="form-control" id="name" required>
 
@@ -23,7 +23,7 @@
                         <div class="col-12 text-right mb-3">
                             <button @click.prevent="storeModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
-                            <router-link to="/events" tag="button" class="btn btn-success">
+                            <router-link to="/categories" tag="button" class="btn btn-success">
                                 cancelar
                             </router-link>
                         </div>
@@ -36,14 +36,15 @@
 
 <script>
 import crud from './mixins/crud'
+import categories from './mixins/categories'
 import events from './mixins/events'
 
-const serviceName = 'events'
+const serviceName = 'categories'
 
 export default {
     props: [],
 
-    mixins: [crud, events],
+    mixins: [crud, categories],
 
     data() {
         return {

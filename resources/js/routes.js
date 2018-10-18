@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
 import Events from './views/Events'
+import Categories from './views/Categories'
+import CategoriesCreate from './views/CategoriesCreate'
 import EventsCreate from './views/EventsCreate'
 import SubEventsCreate from './views/SubEventsCreate'
 import Import from './views/Import'
@@ -42,6 +44,10 @@ let routes = [
         path: '/categories',
         name: 'categories',
         component: Categories,
+    },    {
+        path: '/categories/create',
+        name: 'categoriesCreate',
+        component: CategoriesCreate,
     },
 ]
 
