@@ -32,6 +32,11 @@ let routes = [
         name: 'import',
         component: Import,
     },
+    {
+        path: '/categories',
+        name: 'categories',
+        component: Categories,
+    },
 ]
 
 let router = new VueRouter({

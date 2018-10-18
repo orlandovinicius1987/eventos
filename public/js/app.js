@@ -124980,6 +124980,10 @@ var routes = [{
     path: '/import',
     name: 'import',
     component: __WEBPACK_IMPORTED_MODULE_5__views_Import___default.a
+}, {
+    path: '/categories',
+    name: 'categories',
+    component: __WEBPACK_IMPORTED_MODULE_3__views_Events___default.a
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
