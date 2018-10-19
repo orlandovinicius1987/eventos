@@ -115,3 +115,7 @@ window.set_object_values = (obj, val) => {
 window.set_null = obj => {
     set_object_values(obj, null)
 }
+
+window.merge_objects = (target, ...sources) => {
+    return Object.assign(target, ...sources)
+}

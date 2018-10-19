@@ -24869,7 +24869,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["cheerio@1.0.0-rc.2","C:\\code\\alerj\\eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"C:\\code\\alerj\\eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -108629,7 +108629,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}).NODE_DEBUG || '';
+    debugEnviron = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -110739,7 +110739,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.pagination.total > 0
+  return _vm.pagination.last_page > 1
     ? _c("nav", { staticClass: "text-center" }, [
         _c(
           "ul",
@@ -113866,7 +113866,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("0b2ccec6", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("8737124e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -113893,7 +113893,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("e10bcdc2", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("40b1c132", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -113920,7 +113920,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("020b30d7", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("0449a838", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -113947,7 +113947,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3c181bbc", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("25c8ab62", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -113974,7 +113974,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("505951c2", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("08975939", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114001,7 +114001,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("8b0dcd2e", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6bb0c17c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114028,7 +114028,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("b949211a", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("534b7d46", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114055,7 +114055,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("72a9d6d8", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("1e4d852a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114082,7 +114082,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("2a5fcd70", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3dfc4c3c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114109,7 +114109,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5d070603", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("499326d4", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114136,7 +114136,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7f23580f", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("197185bc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114163,7 +114163,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("c85129f2", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("f4f00aa6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114190,7 +114190,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("497dda3e", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5d1a590a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114217,7 +114217,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3db2e534", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("1d016a9a", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -114244,7 +114244,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("f055362a", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7e072585", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -127493,84 +127493,40 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__ = __webpack_require__("./resources/js/store/modules/mixins/data.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+
+
 
 
 
 
 var __emptyModel = { id: null };
 
-var state = {
-    dataUrl: '',
-
-    storeUrl: '',
-
-    updateUrl: '',
-
-    data: {},
-
-    query: {
-        filter: {
-            text: null
-        },
-
-        pagination: {
-            perPage: 5,
-
-            current_page: 1
-        }
-    },
-
+var state = merge_objects({
     selectedCategory: __emptyModel,
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
     })
+}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
 
-};
-
-var getters = {};
-
-var actions = {
-    load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
-
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
-
-    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
-
-    mutateQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* mutateQueryFilterText */],
-
-    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* setCurrentPage */],
-
-    setPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["o" /* setPerPage */],
-
-    updateUserPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["p" /* updateUserPerPage */],
-
+var actions = merge_objects({
     selectCategory: function selectCategory(context, payload) {
         context.commit('selectCategory', payload);
     }
-};
+}, __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
-var mutations = {
-    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
-    mutateQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* mutateQuery */],
-    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
-    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
-    mutateUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* mutateUpdateUrl */],
-    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
-    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
-    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */],
-    mutatePerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* mutatePerPage */],
-
+var mutations = merge_objects({
     selectCategory: function selectCategory(state, payload) {
         dd(payload);
         state.selectedCategory = payload;
     }
-};
+}, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
-    getters: getters,
     actions: actions,
     mutations: mutations,
     namespaced: true
@@ -127626,34 +127582,18 @@ var mutations = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__ = __webpack_require__("./resources/js/store/modules/mixins/data.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+
+
 
 
 
 
 var __emptyModel = { id: null };
 
-var state = {
-    dataUrl: '',
-
-    storeUrl: '',
-
-    updateUrl: '',
-
-    data: {},
-
-    query: {
-        filter: {
-            text: null
-        },
-
-        pagination: {
-            per_page: 5,
-
-            current_page: 1
-        }
-    },
-
+var state = merge_objects({
     subEvents: [],
 
     invitations: [],
@@ -127671,16 +127611,12 @@ var state = {
     subEventsQuery: {},
 
     invitationsQuery: {}
-};
+}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
 
-var getters = {};
-
-var actions = {
-    load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
-
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
-
-    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
+var actions = merge_objects({
+    load: __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__["load"],
+    save: __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__["save"],
+    clearForm: __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__["clearForm"],
 
     selectEvent: function selectEvent(context, payload) {
         context.commit('selectEvent', payload);
@@ -127704,17 +127640,9 @@ var actions = {
             context.commit('setInvitations', response.data);
         });
     }
-};
+}, __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
-var mutations = {
-    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
-    mutateQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* mutateQuery */],
-    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
-    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
-    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
-    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
-    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */],
-
+var mutations = merge_objects({
     selectEvent: function selectEvent(state, payload) {
         state.selectedEvent = payload;
 
@@ -127736,11 +127664,10 @@ var mutations = {
     setInvitations: function setInvitations(state, payload) {
         state.invitations = payload;
     }
-};
+}, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
-    getters: getters,
     actions: actions,
     mutations: mutations,
     namespaced: true
@@ -127791,33 +127718,21 @@ var mutations = {
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/mixins/data.js":
+/***/ "./resources/js/store/modules/mixins/actions.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["b"] = load;
-/* harmony export (immutable) */ __webpack_exports__["m"] = save;
-/* harmony export (immutable) */ __webpack_exports__["a"] = clearForm;
-/* harmony export (immutable) */ __webpack_exports__["j"] = mutateQueryFilterText;
-/* harmony export (immutable) */ __webpack_exports__["n"] = setCurrentPage;
-/* harmony export (immutable) */ __webpack_exports__["o"] = setPerPage;
-/* harmony export (immutable) */ __webpack_exports__["p"] = updateUserPerPage;
-/* harmony export (immutable) */ __webpack_exports__["c"] = mutateData;
-/* harmony export (immutable) */ __webpack_exports__["i"] = mutateQuery;
-/* harmony export (immutable) */ __webpack_exports__["g"] = mutateGetUrl;
-/* harmony export (immutable) */ __webpack_exports__["k"] = mutateStoreUrl;
-/* harmony export (immutable) */ __webpack_exports__["l"] = mutateUpdateUrl;
-/* harmony export (immutable) */ __webpack_exports__["f"] = mutateFormField;
-/* harmony export (immutable) */ __webpack_exports__["d"] = mutateErrors;
-/* harmony export (immutable) */ __webpack_exports__["e"] = mutateFormData;
-/* harmony export (immutable) */ __webpack_exports__["h"] = mutatePerPage;
-// ------------ helpers
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["load"] = load;
+/* harmony export (immutable) */ __webpack_exports__["save"] = save;
+/* harmony export (immutable) */ __webpack_exports__["clearForm"] = clearForm;
+/* harmony export (immutable) */ __webpack_exports__["mutateQueryFilterText"] = mutateQueryFilterText;
+/* harmony export (immutable) */ __webpack_exports__["setCurrentPage"] = setCurrentPage;
+/* harmony export (immutable) */ __webpack_exports__["setPerPage"] = setPerPage;
+/* harmony export (immutable) */ __webpack_exports__["updateUserPerPage"] = updateUserPerPage;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/store/modules/mixins/helpers.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__helpers_js__);
 
-var reload = _.debounce(function (context) {
-    context.dispatch('load');
-}, 650);
-
-// ------------ actions
 
 function load(context) {
     var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -127848,7 +127763,7 @@ function mutateQueryFilterText(context, payload) {
 
     context.commit('mutateQuery', query);
 
-    reload(context);
+    __WEBPACK_IMPORTED_MODULE_0__helpers_js__["reload"](context);
 }
 
 function setCurrentPage(context, payload) {
@@ -127873,8 +127788,31 @@ function updateUserPerPage(context, payload) {
     post('/api/v1/users/per-page/' + payload);
 }
 
-// ------------ mutations
+/***/ }),
 
+/***/ "./resources/js/store/modules/mixins/helpers.js":
+/***/ (function(module, exports) {
+
+var reload = _.debounce(function (context) {
+    context.dispatch('load');
+}, 650);
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/mixins/mutations.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["mutateData"] = mutateData;
+/* harmony export (immutable) */ __webpack_exports__["mutateQuery"] = mutateQuery;
+/* harmony export (immutable) */ __webpack_exports__["mutateGetUrl"] = mutateGetUrl;
+/* harmony export (immutable) */ __webpack_exports__["mutateStoreUrl"] = mutateStoreUrl;
+/* harmony export (immutable) */ __webpack_exports__["mutateUpdateUrl"] = mutateUpdateUrl;
+/* harmony export (immutable) */ __webpack_exports__["mutateFormField"] = mutateFormField;
+/* harmony export (immutable) */ __webpack_exports__["mutateErrors"] = mutateErrors;
+/* harmony export (immutable) */ __webpack_exports__["mutateFormData"] = mutateFormData;
+/* harmony export (immutable) */ __webpack_exports__["mutatePerPage"] = mutatePerPage;
 function mutateData(state, payload) {
     state.data = payload;
 }
@@ -127917,19 +127855,12 @@ function mutatePerPage(state, payload) {
 
 /***/ }),
 
-/***/ "./resources/js/store/modules/people.js":
+/***/ "./resources/js/store/modules/mixins/states.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__ = __webpack_require__("./resources/js/store/modules/mixins/data.js");
-
-
-
-
-var __emptyModel = { id: null };
-
-var state = {
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return common; });
+var common = {
     dataUrl: '',
 
     storeUrl: '',
@@ -127944,12 +127875,32 @@ var state = {
         },
 
         pagination: {
-            perPage: 5,
+            per_page: 5,
 
             current_page: 1
         }
-    },
+    }
+};
 
+/***/ }),
+
+/***/ "./resources/js/store/modules/people.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects({
     invitations: [],
 
     selectedPerson: __emptyModel,
@@ -127963,49 +127914,22 @@ var state = {
     subPeopleQuery: {},
 
     invitationsQuery: {}
-};
+}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
 
-var getters = {};
-
-var actions = {
-    load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
-
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
-
-    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
-
-    mutateQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* mutateQueryFilterText */],
-
-    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* setCurrentPage */],
-
-    setPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["o" /* setPerPage */],
-
-    updateUserPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["p" /* updateUserPerPage */],
-
+var actions = merge_objects({
     selectPerson: function selectPerson(context, payload) {
         context.commit('selectPerson', payload);
     }
-};
+}, __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
-var mutations = {
-    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
-    mutateQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* mutateQuery */],
-    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
-    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
-    mutateUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* mutateUpdateUrl */],
-    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
-    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
-    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */],
-    mutatePerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* mutatePerPage */],
-
+var mutations = merge_objects({
     selectPerson: function selectPerson(state, payload) {
         state.selectedPerson = payload;
     }
-};
+}, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
-    getters: getters,
     actions: actions,
     mutations: mutations,
     namespaced: true
@@ -128018,41 +127942,31 @@ var mutations = {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__ = __webpack_require__("./resources/js/store/modules/mixins/data.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
 
 
 
 
-var state = {
+
+
+var state = merge_objects({
     data: {},
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
     })
-};
+}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
 
-var getters = {};
-
-var actions = {
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
-
-    clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
-
+var actions = merge_objects({
     load: function load() {}
-};
+}, __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
-var mutations = {
-    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
-    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
-    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
-    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
-    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
-    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */]
-};
+var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
-    getters: getters,
     actions: actions,
     mutations: mutations,
     namespaced: true
@@ -128262,6 +128176,14 @@ window.set_object_values = function (obj, val) {
 
 window.set_null = function (obj) {
     set_object_values(obj, null);
+};
+
+window.merge_objects = function (target) {
+    for (var _len2 = arguments.length, sources = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        sources[_key2 - 1] = arguments[_key2];
+    }
+
+    return Object.assign.apply(Object, [target].concat(sources));
 };
 
 /***/ }),

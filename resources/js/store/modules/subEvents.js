@@ -1,46 +1,25 @@
 import Form from '../../classes/Form'
 
-import {
-    save,
-    mutateData,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    clearForm,
-} from './mixins/data.js'
+import * as mutationsMixin from './mixins/mutations.js'
+import * as actionsMixin from './mixins/actions.js'
+import * as statesMixin from './mixins/states.js'
 
-const state = {
+let state = merge_objects({
     data: {},
 
     form: new Form({
         name: null,
     }),
-}
+}, statesMixin.common)
 
-const getters = {}
-
-const actions = {
-    save,
-
-    clearForm,
-
+let actions = merge_objects({
     load() {},
-}
+}, actionsMixin)
 
-const mutations = {
-    mutateData,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-}
+const mutations = mutationsMixin
 
 export default {
     state,
-    getters,
     actions,
     mutations,
     namespaced: true,
