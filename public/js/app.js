@@ -128386,9 +128386,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["setCurrentPage"] = setCurrentPage;
 /* harmony export (immutable) */ __webpack_exports__["setPerPage"] = setPerPage;
 /* harmony export (immutable) */ __webpack_exports__["updateUserPerPage"] = updateUserPerPage;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js__ = __webpack_require__("./resources/js/store/modules/mixins/helpers.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helpers_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__helpers_js__);
-
+var loadDebounced = _.debounce(function (context) {
+    context.dispatch('load');
+}, 650);
 
 function load(context) {
     var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -128419,7 +128419,7 @@ function mutateQueryFilterText(context, payload) {
 
     context.commit('mutateQuery', query);
 
-    __WEBPACK_IMPORTED_MODULE_0__helpers_js__["reload"](context);
+    loadDebounced(context);
 }
 
 function setCurrentPage(context, payload) {
@@ -128443,15 +128443,6 @@ function setPerPage(context, payload) {
 function updateUserPerPage(context, payload) {
     post('/api/v1/users/per-page/' + payload);
 }
-
-/***/ }),
-
-/***/ "./resources/js/store/modules/mixins/helpers.js":
-/***/ (function(module, exports) {
-
-var reload = _.debounce(function (context) {
-    context.dispatch('load');
-}, 650);
 
 /***/ }),
 
