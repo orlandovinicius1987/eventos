@@ -50,7 +50,7 @@ export default {
 
     methods: {
         load() {
-            this.$store.dispatch(this.serviceName + '/load')
+            return this.$store.dispatch(this.serviceName + '/load')
         },
 
         save(mode) {
@@ -89,13 +89,15 @@ export default {
         },
 
         boot() {
-            this.setGetUrl('/api/v1/' + this.serviceName)
+            const $this = this
 
-            this.setStoreUrl('/api/v1/' + this.serviceName)
+            $this.setGetUrl('/api/v1/' + $this.serviceName)
 
-            this.load()
+            $this.setStoreUrl('/api/v1/' + $this.serviceName)
 
-            this.fillFormWhenEditing()
+            $this.load().then(function() {
+                $this.fillFormWhenEditing()
+            })
         },
 
         fillFormWhenEditing() {
