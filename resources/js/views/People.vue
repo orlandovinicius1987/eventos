@@ -56,7 +56,7 @@
                                 <tbody>
                                     <tr
                                         @click="selectPerson(person)"
-                                        v-for="person in people"
+                                        v-for="person in rows"
                                         :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
                                     >
                                         <td class="align-middle">{{ person.id }}</td>
@@ -126,16 +126,6 @@ export default {
 
     computed: {
         ...mapState(serviceName, ['selectedPerson']),
-
-        pageSize: {
-            get() {
-                return this.pagination.per_page
-            },
-
-            set(value) {
-                this.$store.dispatch(this.serviceName + '/setPerPage', value)
-            },
-        },
     },
 
     methods: {
@@ -143,10 +133,6 @@ export default {
 
         edit(person) {
             this.selectPerson(person)
-        },
-
-        isCurrent(person, selected) {
-            return person.id === selected.id
         },
     },
 

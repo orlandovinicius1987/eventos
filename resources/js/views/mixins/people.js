@@ -7,9 +7,7 @@ export default {
 
     computed: {
         ...mapState({
-            people: state => state.people.data.rows,
-
-            pagination: state => state.people.data.links ? state.people.data.links.pagination : {},
+            rows: state => state.people.data.rows,
         }),
     },
 }

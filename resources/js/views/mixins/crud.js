@@ -30,6 +30,22 @@ export default {
         environment() {
             return this.$store.environment
         },
+
+        pagination() {
+            return this.$store.state[this.serviceName].data.links
+                ? this.$store.state[this.serviceName].data.links.pagination
+                : {}
+        },
+
+        pageSize: {
+            get() {
+                return this.pagination.per_page
+            },
+
+            set(value) {
+                this.$store.dispatch(this.serviceName + '/setPerPage', value)
+            },
+        },
     },
 
     methods: {
@@ -78,6 +94,20 @@ export default {
             this.setStoreUrl('/api/v1/' + this.serviceName)
 
             this.load()
+
+            this.fillFormWhenEditing()
+        },
+
+        fillFormWhenEditing() {
+            const $this = this
+
+            if ($this.mode === 'update') {
+                const model = _.find(this.rows, function(model) {
+                    return model.id == $this.$route.params.id
+                })
+
+                $this.setFormData(model)
+            }
         },
 
         back() {
@@ -116,6 +146,10 @@ export default {
             }
 
             this.$store.dispatch(this.serviceName + '/setCurrentPage', page)
+        },
+
+        isCurrent(model, selected) {
+            return model.id === selected.id
         },
     },
 }
