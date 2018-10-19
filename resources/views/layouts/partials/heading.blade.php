@@ -53,6 +53,15 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    <router-link id="categories-menu" to="/categories" tag="li" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="vl_categories"></i>
+                                            <span class="nav-link-text">Categorias</span>
+                                        </a>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
                                     <router-link id="events-menu" to="/import" tag="li" class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="vl_events"></i>

@@ -4,6 +4,8 @@ import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
 import People from './views/People'
 import Events from './views/Events'
+import Categories from './views/Categories'
+import CategoriesForm from './views/CategoriesForm'
 import EventsCreate from './views/EventsCreate'
 import SubEventsCreate from './views/SubEventsCreate'
 import Import from './views/Import'
@@ -56,6 +58,23 @@ let routes = [
         path: '/import',
         name: 'import',
         component: Import,
+    },
+    {
+        path: '/categories',
+        name: 'categories',
+        component: Categories,
+    },
+    {
+        path: '/categories/create',
+        name: 'categories.create',
+        component: CategoriesForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/categories/:id/update',
+        name: 'categories.update',
+        component: CategoriesForm,
+        props: { mode: 'update' },
     },
 ]
 

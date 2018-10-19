@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableCategorized extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,10 @@ class CreateTableCategorized extends Migration
      */
     public function up()
     {
-        Schema::create('categorized', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('category_id')->unsigned();
-
-            $table
-                ->integer('categorizable_id')
-                ->unsigned()
-                ->index();
-
-            $table->string('categorizable_type');
+            $table->string('name');
 
             $table->timestamps();
         });
@@ -36,7 +29,6 @@ class CreateTableCategorized extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categorized');
-        Schema::dropIfExists('politicals_parties');
+        Schema::dropIfExists('categories');
     }
 }

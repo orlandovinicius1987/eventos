@@ -42,19 +42,13 @@ const state = {
         },
     },
 
-    invitations: [],
-
-    selectedPerson: __emptyModel,
+    selectedCategory: __emptyModel,
 
     form: new Form({
         name: null,
     }),
 
-    mode: null,
 
-    subPeopleQuery: {},
-
-    invitationsQuery: {},
 }
 
 const getters = {}
@@ -74,9 +68,10 @@ const actions = {
 
     updateUserPerPage,
 
-    selectPerson(context, payload) {
-        context.commit('selectPerson', payload)
+    selectCategory(context, payload) {
+        context.commit('selectCategory', payload)
     },
+
 }
 
 const mutations = {
@@ -90,8 +85,10 @@ const mutations = {
     mutateFormData,
     mutatePerPage,
 
-    selectPerson(state, payload) {
-        state.selectedPerson = payload
+
+    selectCategory(state, payload) {
+        dd(payload)
+        state.selectedCategory = payload
     },
 }
 

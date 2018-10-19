@@ -126,6 +126,7 @@ export default {
         },
 
         saveModel() {
+
             this.save(this.mode).then(() => {
                 this.load()
 
