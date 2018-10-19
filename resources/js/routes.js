@@ -8,8 +8,8 @@ import Categories from './views/Categories'
 import CategoriesForm from './views/CategoriesForm'
 import Roles from './views/Roles'
 import RolesForm from './views/RolesForm'
-import EventsCreate from './views/EventsCreate'
-import SubEventsCreate from './views/SubEventsCreate'
+import EventsForm from './views/EventsForm'
+import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
 
 Vue.use(VueRouter)
@@ -32,12 +32,26 @@ let routes = [
     {
         path: '/events/create',
         name: 'events.create',
-        component: EventsCreate,
+        component: EventsForm,
+        props: { mode: 'create' },
     },
     {
-        path: '/events/sub-event/create',
-        name: 'events.subevent.create',
-        component: SubEventsCreate,
+        path: '/events/:id/update',
+        name: 'events.update',
+        component: EventsForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/sub-events/create',
+        name: 'sub-events.create',
+        component: SubEventsForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/sub-events/:id/update',
+        name: 'sub-events.update',
+        component: SubEventsForm,
+        props: { mode: 'update' },
     },
     {
         path: '/people',
@@ -56,6 +70,54 @@ let routes = [
         component: PeopleForm,
         props: { mode: 'update' },
     },
+    // {
+    //     path: '/advisors/create',
+    //     name: 'advisors.create',
+    //     component: AdvisorsForm,
+    //     props: { mode: 'create' },
+    // },
+    // {
+    //     path: '/advisors/:id/update',
+    //     name: 'advisors.update',
+    //     component: AdvisorsForm,
+    //     props: { mode: 'update' },
+    // },
+    // {
+    //     path: '/person-institutions/create',
+    //     name: 'person-institutions.create',
+    //     component: personInstitutionsForm,
+    //     props: { mode: 'create' },
+    // },
+    // {
+    //     path: '/person-institutions/:id/update',
+    //     name: 'person-institutions.update',
+    //     component: personInstitutionsForm,
+    //     props: { mode: 'update' },
+    // },
+    // {
+    //     path: '/contacts/create',
+    //     name: 'contacts.create',
+    //     component: ContactsForm,
+    //     props: { mode: 'create' },
+    // },
+    // {
+    //     path: '/contacts/:id/update',
+    //     name: 'contacts.update',
+    //     component: ContactsForm,
+    //     props: { mode: 'update' },
+    // },
+    // {
+    //     path: '/addresses/create',
+    //     name: 'addresses.create',
+    //     component: AddressesForm,
+    //     props: { mode: 'create' },
+    // },
+    // {
+    //     path: '/addresses/:id/update',
+    //     name: 'addresses.update',
+    //     component: AddressesForm,
+    //     props: { mode: 'update' },
+    // },
     {
         path: '/roles',
         name: 'roles',

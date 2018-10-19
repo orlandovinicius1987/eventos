@@ -4,35 +4,19 @@ import * as mutationsMixin from './mixins/mutations.js'
 import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 
-const __emptyModel = { id: null }
-
 let state = merge_objects({
-    invitations: [],
-
-    selectedRole: __emptyModel,
+    data: {},
 
     form: new Form({
         name: null,
     }),
-
-    mode: null,
-
-    subRolesQuery: {},
-
-    invitationsQuery: {},
 }, statesMixin.common)
 
 let actions = merge_objects({
-    selectRole(context, payload) {
-        context.commit('selectRole', payload)
-    },
+    load() {},
 }, actionsMixin)
 
-let mutations = merge_objects({
-    selectRole(state, payload) {
-        state.selectedRole = payload
-    },
-}, mutationsMixin)
+const mutations = mutationsMixin
 
 export default {
     state,

@@ -1,46 +1,13 @@
 import Form from '../../classes/Form'
 
-import {
-    load,
-    save,
-    clearForm,
-    setCurrentPage,
-    setPerPage,
-    updateUserPerPage,
-    mutateData,
-    mutateQuery,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateUpdateUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    mutatePerPage,
-    mutateQueryFilterText,
-} from './mixins/data.js'
+import * as mutationsMixin from './mixins/mutations.js'
+import * as actionsMixin from './mixins/actions.js'
+import * as statesMixin from './mixins/states.js'
 
 const __emptyModel = { id: null }
 
-const state = {
-    dataUrl: '',
-
-    storeUrl: '',
-
-    updateUrl: '',
-
-    data: {},
-
-    query: {
-        filter: {
-            text: null,
-        },
-
-        pagination: {
-            perPage: 5,
-
-            current_page: 1,
-        },
-    },
+let state = merge_objects({
+    invitations: [],
 
     selectedPerson: __emptyModel,
 
@@ -53,49 +20,22 @@ const state = {
     subPeopleQuery: {},
 
     invitationsQuery: {},
-}
+}, statesMixin.common)
 
-const getters = {}
-
-const actions = {
-    load,
-
-    save,
-
-    clearForm,
-
-    mutateQueryFilterText,
-
-    setCurrentPage,
-
-    setPerPage,
-
-    updateUserPerPage,
-
+let actions = merge_objects({
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)
     },
-}
+}, actionsMixin)
 
-const mutations = {
-    mutateData,
-    mutateQuery,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateUpdateUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    mutatePerPage,
-
+let mutations = merge_objects({
     selectPerson(state, payload) {
         state.selectedPerson = payload
     },
-}
+}, mutationsMixin)
 
 export default {
     state,
-    getters,
     actions,
     mutations,
     namespaced: true,
