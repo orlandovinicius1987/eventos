@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use PragmaRX\Coollection\Package\Coollection;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,6 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Coollection::setRaiseExceptionOnNull(false);
     }
 
     /**
