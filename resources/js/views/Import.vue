@@ -9,7 +9,7 @@
                 <p>Por favor converta o arquivo para o padrão CSV, separado por ponto-e-vírgula (;) antes de importar aqui</p>
 
                 <p>
-                    <upload-file v-model="file" :busy="busy"></upload-file>
+                    <app-upload-file v-model="file" :busy="busy"></app-upload-file>
                 </p>
 
                 <p v-if="file">

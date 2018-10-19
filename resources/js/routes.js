@@ -44,13 +44,13 @@ let routes = [
         path: '/people/create',
         name: 'people.create',
         component: PeopleForm,
-        props: {mode: 'create'},
+        props: { mode: 'create' },
     },
     {
         path: '/people/:id/update',
         name: 'people.update',
         component: PeopleForm,
-        props: {mode: 'update'},
+        props: { mode: 'update' },
     },
     {
         path: '/import',

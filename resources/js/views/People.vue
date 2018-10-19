@@ -10,10 +10,16 @@
                     <div class="col-3">
                         <h4 class="mb-0">Pessoas</h4>
                     </div>
+
                     <div class="col-9">
                         <div class="row">
                             <div class="col-4 pr-0">
-                                <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm mr-1 pull-right" :disabled="cannot('create')">
+                                <router-link
+                                    to="/people/create"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
+                                >
                                     <i class="fa fa-plus"></i> nova pessoa
                                 </router-link>
                             </div>
@@ -23,85 +29,47 @@
                             </div>
 
                             <div class="col-2 pl-0">
-                                <div class="input-group">
-                                    <select v-model="pageSize" class="custom-select custom-select-sm" id="inputGroupSelect02">
-                                        <option value="5" selected>5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                        <option value="250">250</option>
-                                    </select>
-                                </div>
+                                <app-page-size v-model="pageSize"></app-page-size>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row mt-1">
-                    <div class="col-12">
-                        <div class="card p-4">
-                            <table class="table table-sm table-hover table-borderless table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tratamento</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Nome público</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
+                <app-table
+                    :pagination="pagination"
+                    @goto-page="gotoPage($event)"
+                >
+                    <template slot="thead">
+                        <th scope="col">#</th>
+                        <th scope="col">Tratamento</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Nome público</th>
+                        <th scope="col"></th>
+                    </template>
 
-                                <tbody>
-                                    <tr
-                                        @click="selectPerson(person)"
-                                        v-for="person in rows"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
-                                    >
-                                        <td class="align-middle">{{ person.id }}</td>
-                                        <td class="align-middle">{{ person.title }}</td>
-                                        <td class="align-middle">{{ person.name }}</td>
-                                        <td class="align-middle">{{ person.nickname }}</td>
-                                        <td>
-                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-danger btn-sm mr-1 pull-right" :disabled="cannot('create')">
-                                                <i class="fa fa-edit"></i>
-                                            </router-link>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <nav class="text-center" v-if="pagination.total > 0">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item" @click="gotoPage(pagination.current_page - 1)">
-                                        <a class="page-link" href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                            <span class="sr-only">Anterior</span>
-                                        </a>
-                                    </li>
-
-                                    <li
-                                        :class="{'page-item': true, active: page === pagination.current_page}"
-                                        v-for="page in pagination.pages"
-                                        @click="gotoPage(page)"
-                                    >
-                                        <a class="page-link" href="#">
-                                            {{ page }}
-                                        </a>
-                                    </li>
-
-                                    <li class="page-item" @click="gotoPage(pagination.current_page + 1)">
-                                        <a class="page-link" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                            <span class="sr-only">Próxima</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
+                    <template slot="tbody">
+                        <tr
+                            @click="selectPerson(person)"
+                            v-for="person in rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
+                        >
+                            <td class="align-middle">{{ person.id }}</td>
+                            <td class="align-middle">{{ person.title }}</td>
+                            <td class="align-middle">{{ person.name }}</td>
+                            <td class="align-middle">{{ person.nickname }}</td>
+                            <td>
+                                <router-link
+                                    :to="'/people/'+person.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
+                        </tr>
+                    </template>
+                </app-table>
             </div>
         </div>
     </div>
