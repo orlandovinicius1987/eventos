@@ -45,6 +45,8 @@ export function setFormData(state, payload) {
 export function save(context, payload) {
     const url = payload == 'create' ? context.state.storeUrl : context.state.updateUrl
 
+    dd(url)
+
     return context.state.form
         .post(url, context.state.form.fields)
         .then(response => {
