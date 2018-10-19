@@ -44,7 +44,17 @@
                                 </li>
 
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabelas</a>
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        id="tables-menu"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        Tabelas
+                                    </a>
+
                                     <div class="dropdown-menu" aria-labelledby="dropdown01">
                                         <router-link id="people-menu" to="/people" tag="a" class="dropdown-item">
                                             Pessoas
