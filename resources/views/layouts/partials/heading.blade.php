@@ -71,6 +71,15 @@
                                 </li>
 
                                 <li class="nav-item">
+                                    <router-link id="roles-menu" to="/institutions" tag="li" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="vl_roles"></i>
+                                            <span class="nav-link-text">Instituições</span>
+                                        </a>
+                                    </router-link>
+                                </li>
+
+                                <li class="nav-item">
                                     <router-link id="events-menu" to="/import" tag="li" class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="vl_events"></i>
