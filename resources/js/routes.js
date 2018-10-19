@@ -8,6 +8,8 @@ import Categories from './views/Categories'
 import CategoriesForm from './views/CategoriesForm'
 import Roles from './views/Roles'
 import RolesForm from './views/RolesForm'
+import Institutions from './views/Institutions'
+import InstitutionsForm from './views/InstitutionsForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
@@ -155,6 +157,23 @@ let routes = [
         path: '/categories/:id/update',
         name: 'categories.update',
         component: CategoriesForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/institutions',
+        name: 'institutions',
+        component: Institutions,
+    },
+    {
+        path: '/institutions/create',
+        name: 'institutions.create',
+        component: InstitutionsForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/institutions/:id/update',
+        name: 'institutions.update',
+        component: InstitutionsForm,
         props: { mode: 'update' },
     },
 ]

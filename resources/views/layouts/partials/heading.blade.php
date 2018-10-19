@@ -68,6 +68,10 @@
                                             Funções
                                         </router-link>
 
+                                        <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
+                                            Instituições
+                                        </router-link>
+
                                         <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
                                             Importar dados
                                         </router-link>
