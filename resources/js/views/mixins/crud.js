@@ -10,42 +10,83 @@ export default {
     },
 
     computed: {
+        filterText: {
+            get() {
+                return this.$store.state[this.serviceName].query.filter.text
+            },
+
+            set(payload) {
+                return this.$store.dispatch(
+                    this.serviceName + '/mutateQueryFilterText',
+                    payload,
+                )
+            },
+        },
+
         form() {
             return this.$store.state[this.serviceName].form
         },
 
         environment() {
-            return this.$store.environment
+            return this.$store.state['environment']
+        },
+
+        pagination() {
+            return this.$store.state[this.serviceName].data.links
+                ? this.$store.state[this.serviceName].data.links.pagination
+                : {}
+        },
+
+        perPage: {
+            get() {
+                return this.pagination.per_page
+            },
+
+            set(value) {
+                this.$store.dispatch(this.serviceName + '/setPerPage', value)
+            },
         },
     },
 
     methods: {
         load() {
-            this.$store.dispatch(this.serviceName + '/load')
+            this.$store.commit(
+                this.serviceName + '/mutatePerPage',
+                this.environment.user.per_page,
+            )
+
+            return this.$store.dispatch(this.serviceName + '/load')
         },
 
-        store() {
-            return this.$store.dispatch(this.serviceName + '/store')
+        save(mode) {
+            this.mutateUpdateUrl(
+                '/api/v1/' + this.serviceName + '/' + this.$route.params.id,
+            )
+            return this.$store.dispatch(this.serviceName + '/save', mode)
         },
 
-        setGetUrl(url) {
-            this.$store.commit(this.serviceName + '/setGetUrl', url)
+        mutateGetUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateGetUrl', url)
         },
 
-        setStoreUrl(url) {
-            this.$store.commit(this.serviceName + '/setStoreUrl', url)
+        mutateStoreUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateStoreUrl', url)
         },
 
-        setErrors(errors) {
-            this.$store.commit(this.serviceName + '/setErrors', errors)
+        mutateUpdateUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateUpdateUrl', url)
         },
 
-        setFormData(data) {
-            this.$store.commit(this.serviceName + '/setFormData', data)
+        mutateErrors(errors) {
+            this.$store.commit(this.serviceName + '/mutateErrors', errors)
         },
 
-        storeFormField(data) {
-            this.$store.commit(this.serviceName + '/storeFormField', data)
+        mutateFormData(data) {
+            this.$store.commit(this.serviceName + '/mutateFormData', data)
+        },
+
+        mutateFormField(data) {
+            this.$store.commit(this.serviceName + '/mutateFormField', data)
         },
 
         isLoading() {
@@ -53,19 +94,39 @@ export default {
         },
 
         boot() {
-            this.setGetUrl('/api/v1/' + this.serviceName)
+            const $this = this
 
-            this.setStoreUrl('/api/v1/' + this.serviceName)
+            $this.mutateGetUrl('/api/v1/' + $this.serviceName)
 
-            this.load()
+            $this.mutateStoreUrl('/api/v1/' + $this.serviceName)
+
+            $this.load().then(function() {
+                $this.fillFormWhenEditing()
+            })
+        },
+
+        fillFormWhenEditing() {
+            const $this = this
+
+            if ($this.mode === 'update') {
+                const model = _.find(this.rows, function(model) {
+                    return model.id == $this.$route.params.id
+                })
+
+                $this.mutateFormData(model)
+            }
+
+            if ($this.mode === 'create') {
+                $this.mutateFormData(set_null($this.form.fields))
+            }
         },
 
         back() {
             this.$router.back()
         },
 
-        storeModel() {
-            this.store().then(() => {
+        saveModel() {
+            this.save(this.mode).then(() => {
                 this.load()
 
                 this.back()
@@ -80,6 +141,33 @@ export default {
 
         cannot(permission) {
             return !can(permission)
-        }
+        },
+
+        gotoPage(page) {
+            if (this.pagination.current_page === page) {
+                return
+            }
+
+            if (page < 1) {
+                return
+            }
+
+            if (page > this.pagination.last_page) {
+                return
+            }
+
+            this.$store.dispatch(this.serviceName + '/setCurrentPage', page)
+        },
+
+        isCurrent(model, selected) {
+            return model.id === selected.id
+        },
+
+        setPerPage() {
+            this.$store.commit(
+                this.serviceName + '/mutatePerPage',
+                this.environment.user.per_page,
+            )
+        },
     },
 }

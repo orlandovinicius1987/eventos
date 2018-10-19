@@ -30,7 +30,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
 
             $table->json('permissions');
+
             $table->json('profiles');
+
+            $table->integer('per_page')->default(5);
 
             $table->rememberToken();
 

@@ -1,27 +1,27 @@
-import environment from "./environment";
+import environment from './environment'
 
 const state = {
     loaded: false,
-
-    currentUser: null,
 }
 
-const getters = {
-
-}
+const getters = {}
 
 const actions = {
     can(permission) {
-        if (typeof JSON.parse(environment.state.user.permissions)[permission] !== 'undefined') {
+        if (
+            typeof JSON.parse(environment.state.user.permissions)[
+                permission
+            ] !== 'undefined'
+        ) {
             return true
-        }else{
+        } else {
             return false
         }
     },
 }
 
 const mutations = {
-    setData(state, payload) {
+    mutateData(state, payload) {
         _.forIn(payload, function(val, key) {
             state[key] = val
         })

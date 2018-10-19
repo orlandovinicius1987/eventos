@@ -22,7 +22,7 @@ class Events extends Controller
      * Store
      *
      * @param EventStore $request
-     * @return \Illuminate\Http\Response|Collection
+     * @return mixed
      */
     public function store(EventStore $request)
     {

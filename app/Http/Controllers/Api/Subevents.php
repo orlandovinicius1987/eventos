@@ -23,7 +23,7 @@ class SubEvents extends Controller
      * Store
      *
      * @param SubeventStore $request
-     * @return \Illuminate\Http\Response|Collection
+     * @return mixed
      */
     public function store(SubEventStore $request)
     {
