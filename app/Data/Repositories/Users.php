@@ -197,4 +197,13 @@ class Users extends Repository
         }
         return false;
     }
+
+    public function updatePerPage($user, $size)
+    {
+        $user->per_page = $size;
+
+        $user->save();
+
+        return $user;
+    }
 }
