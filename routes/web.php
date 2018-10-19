@@ -20,10 +20,16 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
             Route::post('/', 'Events@store')->name('events.store');
 
+            Route::post('/{id}', 'Events@update')->name('events.update');
+
             Route::group(['prefix' => '{eventId}/sub-events'], function () {
                 Route::get('/', 'SubEvents@all')->name('sub-events.all');
 
                 Route::post('/', 'SubEvents@store')->name('sub-events.store');
+
+                Route::post('/{id}', 'SubEvents@update')->name(
+                    'sub-events.update'
+                );
 
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
@@ -34,6 +40,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
                         Route::post('/', 'Invitations@store')->name(
                             'invitations.store'
+                        );
+
+                        Route::post('/{id}', 'Invitations@update')->name(
+                            'invitations.update'
                         );
                     }
                 );
@@ -46,6 +56,31 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'People@update')->name('people.update');
 
             Route::post('/', 'People@store')->name('people.store');
+
+            Route::group(
+                ['prefix' => '{eventId}/person-institutions'],
+                function () {
+                    Route::get('/', 'PersonInstitutions@all')->name(
+                        'person-institutions.all'
+                    );
+
+                    Route::post('/', 'PersonInstitutions@store')->name(
+                        'person-institutions.store'
+                    );
+
+                    Route::post('/{id}', 'PersonInstitutions@update')->name(
+                        'person-institutions.update'
+                    );
+                }
+            );
+        });
+
+        Route::group(['prefix' => '/roles'], function () {
+            Route::get('/', 'Roles@all')->name('roles.all');
+
+            Route::post('/{id}', 'Roles@update')->name('roles.update');
+
+            Route::post('/', 'Roles@store')->name('roles.store');
         });
 
         Route::group(['prefix' => '/categories'], function () {

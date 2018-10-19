@@ -2,17 +2,17 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Gate;
-
-class StoreWithClient extends BaseStore
+class EventUpdate extends BaseStore
 {
     /**
+     * Get the validation rules that apply to the request.
+     *
      * @return array
      */
     public function rules()
     {
         return [
-            'client_id' => 'required',
+            'name' => 'required',
         ];
     }
 }
