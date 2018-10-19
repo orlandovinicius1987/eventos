@@ -43,40 +43,25 @@
                                     </router-link>
                                 </li>
 
-                                <li class="nav-item">
-                                    <router-link id="people-menu" to="/people" tag="li" class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="vl_people"></i>
-                                            <span class="nav-link-text">Pessoas</span>
-                                        </a>
-                                    </router-link>
-                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tabelas</a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                        <router-link id="people-menu" to="/people" tag="a" class="dropdown-item">
+                                            Pessoas
+                                        </router-link>
 
-                                <li class="nav-item">
-                                    <router-link id="categories-menu" to="/categories" tag="li" class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="vl_categories"></i>
-                                            <span class="nav-link-text">Categorias</span>
-                                        </a>
-                                    </router-link>
-                                </li>
+                                        <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
+                                            Categorias
+                                        </router-link>
 
-                                <li class="nav-item">
-                                    <router-link id="roles-menu" to="/roles" tag="li" class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="vl_roles"></i>
-                                            <span class="nav-link-text">Funções</span>
-                                        </a>
-                                    </router-link>
-                                </li>
+                                        <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item">
+                                            Funções
+                                        </router-link>
 
-                                <li class="nav-item">
-                                    <router-link id="events-menu" to="/import" tag="li" class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="vl_events"></i>
-                                            <span class="nav-link-text">Importar dados</span>
-                                        </a>
-                                    </router-link>
+                                        <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
+                                            Importar dados
+                                        </router-link>
+                                    </div>
                                 </li>
 
                                 <li class="nav-item dropdown">
