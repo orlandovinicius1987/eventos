@@ -4,6 +4,8 @@ import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
 import People from './views/People'
 import Events from './views/Events'
+import Roles from './views/Roles'
+import RolesForm from './views/RolesForm'
 import EventsCreate from './views/EventsCreate'
 import SubEventsCreate from './views/SubEventsCreate'
 import Import from './views/Import'
@@ -50,6 +52,23 @@ let routes = [
         path: '/people/:id/update',
         name: 'people.update',
         component: PeopleForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/roles',
+        name: 'roles',
+        component: Roles,
+    },
+    {
+        path: '/roles/create',
+        name: 'roles.create',
+        component: RolesForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/roles/:id/update',
+        name: 'roles.update',
+        component: RolesForm,
         props: { mode: 'update' },
     },
     {

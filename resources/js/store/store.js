@@ -23,6 +23,7 @@ import gate from './modules/gate'
 import events from './modules/events'
 import subEvents from './modules/subEvents'
 import people from './modules/people'
+import roles from './modules/roles'
 import environment from './modules/environment'
 
 /**
@@ -46,6 +47,7 @@ let store = new Vuex.Store({
         people,
         environment,
         gate,
+        roles,
     },
 })
 

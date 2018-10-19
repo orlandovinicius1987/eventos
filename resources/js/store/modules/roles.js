@@ -40,17 +40,13 @@ const state = {
         },
     },
 
-    selectedPerson: __emptyModel,
+    selectedRole: __emptyModel,
 
     form: new Form({
         name: null,
     }),
 
     mode: null,
-
-    subPeopleQuery: {},
-
-    invitationsQuery: {},
 }
 
 const getters = {}
@@ -68,8 +64,8 @@ const actions = {
 
     setPerPage,
 
-    selectPerson(context, payload) {
-        context.commit('selectPerson', payload)
+    selectRole(context, payload) {
+        context.commit('selectRole', payload)
     },
 }
 

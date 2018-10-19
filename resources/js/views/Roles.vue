@@ -1,26 +1,26 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>Pessoas</h2>
+            <h2>Funções</h2>
         </div>
 
         <div class="row">
             <div class="col-4">
                 <div class="row align-items-end">
                     <div class="col-3">
-                        <h4 class="mb-0">Pessoas</h4>
+                        <h4 class="mb-0">Funções</h4>
                     </div>
 
                     <div class="col-9">
                         <div class="row">
                             <div class="col-4 pr-0">
                                 <router-link
-                                    to="/people/create"
+                                    to="/roles/create"
                                     tag="div"
                                     class="btn btn-primary btn-sm mr-1 pull-right"
                                     :disabled="cannot('create')"
                                 >
-                                    <i class="fa fa-plus"></i> nova pessoa
+                                    <i class="fa fa-plus"></i> nova função
                                 </router-link>
                             </div>
 
@@ -49,17 +49,17 @@
 
                     <template slot="tbody">
                         <tr
-                                @click="selectPerson(person)"
-                                v-for="person in rows"
-                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
+                                @click="selectRole(role)"
+                                v-for="role in rows"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selectedRole)}"
                         >
-                            <td class="align-middle">{{ person.id }}</td>
-                            <td class="align-middle">{{ person.title }}</td>
-                            <td class="align-middle">{{ person.name }}</td>
-                            <td class="align-middle">{{ person.nickname }}</td>
+                            <td class="align-middle">{{ role.id }}</td>
+                            <td class="align-middle">{{ role.title }}</td>
+                            <td class="align-middle">{{ role.name }}</td>
+                            <td class="align-middle">{{ role.nickname }}</td>
                             <td>
                                 <router-link
-                                        :to="'/people/'+person.id+'/update'"
+                                        :to="'/roles/'+role.id+'/update'"
                                         tag="div"
                                         class="btn btn-danger btn-sm mr-1 pull-right"
                                         :disabled="cannot('create')"
@@ -77,14 +77,14 @@
 
 <script>
 import crud from './mixins/crud'
-import people from './mixins/people'
+import roles from './mixins/roles'
 import permissions from './mixins/permissions'
 import { mapActions, mapState } from 'vuex'
 
-const serviceName = 'people'
+const serviceName = 'roles'
 
 export default {
-    mixins: [crud, people, permissions],
+    mixins: [crud, roles, permissions],
 
     data() {
         return {
@@ -93,11 +93,11 @@ export default {
     },
 
     computed: {
-        ...mapState(serviceName, ['selectedPerson']),
+        ...mapState(serviceName, ['selectedRole']),
     },
 
     methods: {
-        ...mapActions(serviceName, ['selectPerson']),
+        ...mapActions(serviceName, ['selectRole']),
     },
 
     mounted() {
