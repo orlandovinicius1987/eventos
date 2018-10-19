@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="col-2 pl-0">
-                                <app-page-size v-model="pageSize"></app-page-size>
+                                <app-per-page v-model="perPage"></app-per-page>
                             </div>
                         </div>
                     </div>

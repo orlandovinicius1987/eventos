@@ -57,6 +57,12 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
         });
 
         Route::post('/import', 'Import@store')->name('import.store');
+
+        Route::group(['prefix' => '/users'], function () {
+            Route::post('/per-page/{size}', 'Users@perPage')->name(
+                'users.per-page'
+            );
+        });
     });
 });
 

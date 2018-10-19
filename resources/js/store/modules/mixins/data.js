@@ -12,7 +12,7 @@ export function load(context, query = {}) {
     return axios
         .get(context.state.dataUrl, { params: { query: query } })
         .then(response => {
-            context.commit('setData', response.data)
+            context.commit('mutateData', response.data)
         })
 }
 
@@ -31,14 +31,13 @@ export function clearForm(context) {
     set_null(context.state.form.fields)
 }
 
-export function setQueryFilterText(context, payload) {
+export function mutateQueryFilterText(context, payload) {
     let query = context.state.query
 
     query.filter.text = payload
 
-    context.commit('setQuery', query)
+    context.commit('mutateQuery', query)
 
-    dd('debouncing...')
     reload(context)
 }
 
@@ -47,48 +46,50 @@ export function setCurrentPage(context, payload) {
 
     query.pagination.current_page = payload
 
-    context.commit('setQuery', query)
+    context.commit('mutateQuery', query)
 
     context.dispatch('load')
 }
 
 export function setPerPage(context, payload) {
-    let query = context.state.query
-
-    query.pagination.per_page = payload
-
-    context.commit('setQuery', query)
+    context.commit('mutatePerPage', payload)
 
     context.dispatch('load')
+
+    context.dispatch('updateUserPerPage', payload)
+}
+
+export function updateUserPerPage(context, payload) {
+    post('/api/v1/users/per-page/' + payload)
 }
 
 // ------------ mutations
 
-export function setData(state, payload) {
+export function mutateData(state, payload) {
     state.data = payload
 }
 
-export function setQuery(state, payload) {
+export function mutateQuery(state, payload) {
     state.query = payload
 }
 
-export function setGetUrl(state, payload) {
+export function mutateGetUrl(state, payload) {
     state.dataUrl = payload
 }
 
-export function setStoreUrl(state, payload) {
+export function mutateStoreUrl(state, payload) {
     state.storeUrl = payload
 }
 
-export function setUpdateUrl(state, payload) {
+export function mutateUpdateUrl(state, payload) {
     state.updateUrl = payload
 }
 
-export function storeFormField(state, payload) {
+export function mutateFormField(state, payload) {
     state.form.fields[payload.field] = payload.value
 }
 
-export function setErrors(state, payload) {
+export function mutateErrors(state, payload) {
     const errors = payload.errors
         ? typeof payload.errors.errors === 'undefined'
             ? payload.errors
@@ -98,8 +99,12 @@ export function setErrors(state, payload) {
     state.form.errors.record(errors)
 }
 
-export function setFormData(state, payload) {
+export function mutateFormData(state, payload) {
     _.each(payload, function(value, key) {
         state.form.fields[key] = value
     })
+}
+
+export function mutatePerPage(state, payload) {
+    state.query.pagination.per_page = payload
 }

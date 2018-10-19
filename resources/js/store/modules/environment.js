@@ -1,8 +1,5 @@
-
 const state = {
     loaded: false,
-
-    currentUser: null,
 }
 
 const getters = {}
@@ -10,19 +7,19 @@ const getters = {}
 const actions = {
     load(context) {
         return axios.get('/api/v1/environment').then(response => {
-            context.commit('setData', response.data)
+            context.commit('mutateData', response.data)
         })
     },
 
     absorbLaravel(context) {
-        context.commit('setData', window.laravel)
+        context.commit('mutateData', window.laravel)
 
         context.dispatch('load')
     },
 }
 
 const mutations = {
-    setData(state, payload) {
+    mutateData(state, payload) {
         _.forIn(payload, function(val, key) {
             state[key] = val
         })

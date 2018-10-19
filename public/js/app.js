@@ -1663,36 +1663,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/PageSize.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['value']
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/Pagination.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1762,6 +1732,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             return this.color ? this.color : 'bar-primary';
         }
     }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/PerPage.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['value']
 });
 
 /***/ }),
@@ -25205,6 +25205,21 @@ exports.push([module.i, "\n.file-select > input[type='file'][data-v-26329576] {\
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27b8797a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PerPage.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3529d304\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/Import.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25259,21 +25274,6 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d218f6e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PageSize.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -109321,13 +109321,13 @@ var render = function() {
                   "div",
                   { staticClass: "col-2 pl-0" },
                   [
-                    _c("app-page-size", {
+                    _c("app-per-page", {
                       model: {
-                        value: _vm.pageSize,
+                        value: _vm.perPage,
                         callback: function($$v) {
-                          _vm.pageSize = $$v
+                          _vm.perPage = $$v
                         },
-                        expression: "pageSize"
+                        expression: "perPage"
                       }
                     })
                   ],
@@ -110030,6 +110030,55 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-27b8797a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/PerPage.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "input-group" }, [
+    _c(
+      "select",
+      {
+        staticClass: "custom-select custom-select-sm",
+        domProps: { value: _vm.value },
+        on: {
+          input: function($event) {
+            _vm.$emit("input", $event.target.value)
+          }
+        }
+      },
+      [
+        _c("option", { attrs: { value: "5", selected: "" } }, [_vm._v("5")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "100" } }, [_vm._v("100")]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "250" } }, [_vm._v("250")])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-27b8797a", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3529d304\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/Import.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -110397,55 +110446,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-4fce688a", module.exports)
-  }
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5d218f6e\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/PageSize.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "input-group" }, [
-    _c(
-      "select",
-      {
-        staticClass: "custom-select custom-select-sm",
-        domProps: { value: _vm.value },
-        on: {
-          input: function($event) {
-            _vm.$emit("input", $event.target.value)
-          }
-        }
-      },
-      [
-        _c("option", { attrs: { value: "5", selected: "" } }, [_vm._v("5")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "100" } }, [_vm._v("100")]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "250" } }, [_vm._v("250")])
-      ]
-    )
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-5d218f6e", module.exports)
   }
 }
 
@@ -110942,13 +110942,13 @@ var render = function() {
                   "div",
                   { staticClass: "col-2 pl-0" },
                   [
-                    _c("app-page-size", {
+                    _c("app-per-page", {
                       model: {
-                        value: _vm.pageSize,
+                        value: _vm.perPage,
                         callback: function($$v) {
-                          _vm.pageSize = $$v
+                          _vm.perPage = $$v
                         },
-                        expression: "pageSize"
+                        expression: "perPage"
                       }
                     })
                   ],
@@ -113987,6 +113987,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27b8797a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PerPage.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27b8797a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PerPage.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("505951c2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27b8797a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PerPage.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27b8797a\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PerPage.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3529d304\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/Import.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -114085,33 +114112,6 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fce688a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Panel.vue", function() {
      var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4fce688a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Panel.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d218f6e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PageSize.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d218f6e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PageSize.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("590fbe2e", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d218f6e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PageSize.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d218f6e\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PageSize.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -127079,58 +127079,6 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/js/components/app/PageSize.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-5d218f6e\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PageSize.vue")
-}
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/PageSize.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-5d218f6e\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/PageSize.vue")
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = "data-v-5d218f6e"
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/components/app/PageSize.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5d218f6e", Component.options)
-  } else {
-    hotAPI.reload("data-v-5d218f6e", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
 /***/ "./resources/js/components/app/Pagination.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -127224,6 +127172,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-4fce688a", Component.options)
   } else {
     hotAPI.reload("data-v-4fce688a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/js/components/app/PerPage.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-27b8797a\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/components/app/PerPage.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/PerPage.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-27b8797a\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/PerPage.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = "data-v-27b8797a"
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/app/PerPage.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27b8797a", Component.options)
+  } else {
+    hotAPI.reload("data-v-27b8797a", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -127344,7 +127344,7 @@ module.exports = Component.exports
 
 Vue.component('app-panel', __webpack_require__("./resources/js/components/app/Panel.vue"));
 Vue.component('app-upload-file', __webpack_require__("./resources/js/components/app/UploadFile.vue"));
-Vue.component('app-page-size', __webpack_require__("./resources/js/components/app/PageSize.vue"));
+Vue.component('app-per-page', __webpack_require__("./resources/js/components/app/PerPage.vue"));
 Vue.component('app-pagination', __webpack_require__("./resources/js/components/app/Pagination.vue"));
 Vue.component('app-table', __webpack_require__("./resources/js/components/app/Table.vue"));
 Vue.component('app-input', __webpack_require__("./resources/js/components/app/Input.vue"));
@@ -127515,11 +127515,8 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
 var state = {
-    loaded: false,
-
-    currentUser: null
+    loaded: false
 };
 
 var getters = {};
@@ -127527,18 +127524,18 @@ var getters = {};
 var actions = {
     load: function load(context) {
         return axios.get('/api/v1/environment').then(function (response) {
-            context.commit('setData', response.data);
+            context.commit('mutateData', response.data);
         });
     },
     absorbLaravel: function absorbLaravel(context) {
-        context.commit('setData', window.laravel);
+        context.commit('mutateData', window.laravel);
 
         context.dispatch('load');
     }
 };
 
 var mutations = {
-    setData: function setData(state, payload) {
+    mutateData: function mutateData(state, payload) {
         _.forIn(payload, function (val, key) {
             state[key] = val;
         });
@@ -127608,7 +127605,7 @@ var getters = {};
 var actions = {
     load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
 
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* save */],
+    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
 
     clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
 
@@ -127637,13 +127634,13 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
-    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setQuery */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* setStoreUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */],
+    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
+    mutateQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* mutateQuery */],
+    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
+    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
+    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
+    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
+    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */],
 
     selectEvent: function selectEvent(state, payload) {
         state.selectedEvent = payload;
@@ -127686,9 +127683,7 @@ var mutations = {
 
 
 var state = {
-    loaded: false,
-
-    currentUser: null
+    loaded: false
 };
 
 var getters = {};
@@ -127704,7 +127699,7 @@ var actions = {
 };
 
 var mutations = {
-    setData: function setData(state, payload) {
+    mutateData: function mutateData(state, payload) {
         _.forIn(payload, function (val, key) {
             state[key] = val;
         });
@@ -127728,19 +127723,21 @@ var mutations = {
 
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["b"] = load;
-/* harmony export (immutable) */ __webpack_exports__["c"] = save;
+/* harmony export (immutable) */ __webpack_exports__["m"] = save;
 /* harmony export (immutable) */ __webpack_exports__["a"] = clearForm;
-/* harmony export (immutable) */ __webpack_exports__["k"] = setQueryFilterText;
-/* harmony export (immutable) */ __webpack_exports__["d"] = setCurrentPage;
-/* harmony export (immutable) */ __webpack_exports__["i"] = setPerPage;
-/* harmony export (immutable) */ __webpack_exports__["e"] = setData;
-/* harmony export (immutable) */ __webpack_exports__["j"] = setQuery;
-/* harmony export (immutable) */ __webpack_exports__["h"] = setGetUrl;
-/* harmony export (immutable) */ __webpack_exports__["l"] = setStoreUrl;
-/* harmony export (immutable) */ __webpack_exports__["m"] = setUpdateUrl;
-/* harmony export (immutable) */ __webpack_exports__["n"] = storeFormField;
-/* harmony export (immutable) */ __webpack_exports__["f"] = setErrors;
-/* harmony export (immutable) */ __webpack_exports__["g"] = setFormData;
+/* harmony export (immutable) */ __webpack_exports__["j"] = mutateQueryFilterText;
+/* harmony export (immutable) */ __webpack_exports__["n"] = setCurrentPage;
+/* harmony export (immutable) */ __webpack_exports__["o"] = setPerPage;
+/* harmony export (immutable) */ __webpack_exports__["p"] = updateUserPerPage;
+/* harmony export (immutable) */ __webpack_exports__["c"] = mutateData;
+/* harmony export (immutable) */ __webpack_exports__["i"] = mutateQuery;
+/* harmony export (immutable) */ __webpack_exports__["g"] = mutateGetUrl;
+/* harmony export (immutable) */ __webpack_exports__["k"] = mutateStoreUrl;
+/* harmony export (immutable) */ __webpack_exports__["l"] = mutateUpdateUrl;
+/* harmony export (immutable) */ __webpack_exports__["f"] = mutateFormField;
+/* harmony export (immutable) */ __webpack_exports__["d"] = mutateErrors;
+/* harmony export (immutable) */ __webpack_exports__["e"] = mutateFormData;
+/* harmony export (immutable) */ __webpack_exports__["h"] = mutatePerPage;
 // ------------ helpers
 
 var reload = _.debounce(function (context) {
@@ -127755,7 +127752,7 @@ function load(context) {
     Object.assign(query, context.state.query);
 
     return axios.get(context.state.dataUrl, { params: { query: query } }).then(function (response) {
-        context.commit('setData', response.data);
+        context.commit('mutateData', response.data);
     });
 }
 
@@ -127771,14 +127768,13 @@ function clearForm(context) {
     set_null(context.state.form.fields);
 }
 
-function setQueryFilterText(context, payload) {
+function mutateQueryFilterText(context, payload) {
     var query = context.state.query;
 
     query.filter.text = payload;
 
-    context.commit('setQuery', query);
+    context.commit('mutateQuery', query);
 
-    dd('debouncing...');
     reload(context);
 }
 
@@ -127787,57 +127783,63 @@ function setCurrentPage(context, payload) {
 
     query.pagination.current_page = payload;
 
-    context.commit('setQuery', query);
+    context.commit('mutateQuery', query);
 
     context.dispatch('load');
 }
 
 function setPerPage(context, payload) {
-    var query = context.state.query;
-
-    query.pagination.per_page = payload;
-
-    context.commit('setQuery', query);
+    context.commit('mutatePerPage', payload);
 
     context.dispatch('load');
+
+    context.dispatch('updateUserPerPage', payload);
+}
+
+function updateUserPerPage(context, payload) {
+    post('/api/v1/users/per-page/' + payload);
 }
 
 // ------------ mutations
 
-function setData(state, payload) {
+function mutateData(state, payload) {
     state.data = payload;
 }
 
-function setQuery(state, payload) {
+function mutateQuery(state, payload) {
     state.query = payload;
 }
 
-function setGetUrl(state, payload) {
+function mutateGetUrl(state, payload) {
     state.dataUrl = payload;
 }
 
-function setStoreUrl(state, payload) {
+function mutateStoreUrl(state, payload) {
     state.storeUrl = payload;
 }
 
-function setUpdateUrl(state, payload) {
+function mutateUpdateUrl(state, payload) {
     state.updateUrl = payload;
 }
 
-function storeFormField(state, payload) {
+function mutateFormField(state, payload) {
     state.form.fields[payload.field] = payload.value;
 }
 
-function setErrors(state, payload) {
+function mutateErrors(state, payload) {
     var errors = payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {};
 
     state.form.errors.record(errors);
 }
 
-function setFormData(state, payload) {
+function mutateFormData(state, payload) {
     _.each(payload, function (value, key) {
         state.form.fields[key] = value;
     });
+}
+
+function mutatePerPage(state, payload) {
+    state.query.pagination.per_page = payload;
 }
 
 /***/ }),
@@ -127869,7 +127871,7 @@ var state = {
         },
 
         pagination: {
-            per_page: 5,
+            perPage: 5,
 
             current_page: 1
         }
@@ -127893,15 +127895,17 @@ var getters = {};
 var actions = {
     load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
 
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* save */],
+    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
 
     clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
 
-    setQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* setQueryFilterText */],
+    mutateQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* mutateQueryFilterText */],
 
-    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setCurrentPage */],
+    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* setCurrentPage */],
 
-    setPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* setPerPage */],
+    setPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["o" /* setPerPage */],
+
+    updateUserPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["p" /* updateUserPerPage */],
 
     selectPerson: function selectPerson(context, payload) {
         context.commit('selectPerson', payload);
@@ -127909,14 +127913,15 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
-    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setQuery */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* setStoreUrl */],
-    setUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* setUpdateUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */],
+    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
+    mutateQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* mutateQuery */],
+    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
+    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
+    mutateUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* mutateUpdateUrl */],
+    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
+    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
+    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */],
+    mutatePerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* mutatePerPage */],
 
     selectRole: function selectRole(state, payload) {
         state.selectedRole = payload;
@@ -127960,7 +127965,7 @@ var state = {
         },
 
         pagination: {
-            per_page: 5,
+            perPage: 5,
 
             current_page: 1
         }
@@ -127980,15 +127985,15 @@ var getters = {};
 var actions = {
     load: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["b" /* load */],
 
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* save */],
+    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
 
     clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
 
-    setQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* setQueryFilterText */],
+    mutateQueryFilterText: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* mutateQueryFilterText */],
 
-    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* setCurrentPage */],
+    setCurrentPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* setCurrentPage */],
 
-    setPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* setPerPage */],
+    updateUserPerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["p" /* updateUserPerPage */],
 
     selectRole: function selectRole(context, payload) {
         context.commit('selectRole', payload);
@@ -127996,14 +128001,15 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
-    setQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["j" /* setQuery */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* setStoreUrl */],
-    setUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* setUpdateUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */],
+    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
+    mutateQuery: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["i" /* mutateQuery */],
+    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
+    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
+    mutateUpdateUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* mutateUpdateUrl */],
+    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
+    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
+    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */],
+    mutatePerPage: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* mutatePerPage */],
 
     selectRole: function selectRole(state, payload) {
         state.selectedRole = payload;
@@ -128041,7 +128047,7 @@ var state = {
 var getters = {};
 
 var actions = {
-    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* save */],
+    save: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["m" /* save */],
 
     clearForm: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["a" /* clearForm */],
 
@@ -128049,12 +128055,12 @@ var actions = {
 };
 
 var mutations = {
-    setData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* setData */],
-    setGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["h" /* setGetUrl */],
-    setStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["l" /* setStoreUrl */],
-    storeFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["n" /* storeFormField */],
-    setErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* setErrors */],
-    setFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* setFormData */]
+    mutateData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["c" /* mutateData */],
+    mutateGetUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["g" /* mutateGetUrl */],
+    mutateStoreUrl: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["k" /* mutateStoreUrl */],
+    mutateFormField: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["f" /* mutateFormField */],
+    mutateErrors: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["d" /* mutateErrors */],
+    mutateFormData: __WEBPACK_IMPORTED_MODULE_1__mixins_data_js__["e" /* mutateFormData */]
 };
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -128762,7 +128768,7 @@ module.exports = Component.exports
                 return this.$store.state[this.serviceName].query.filter.text;
             },
             set: function set(payload) {
-                return this.$store.dispatch(this.serviceName + '/setQueryFilterText', payload);
+                return this.$store.dispatch(this.serviceName + '/mutateQueryFilterText', payload);
             }
         },
 
@@ -128770,14 +128776,14 @@ module.exports = Component.exports
             return this.$store.state[this.serviceName].form;
         },
         environment: function environment() {
-            return this.$store.environment;
+            return this.$store.state['environment'];
         },
         pagination: function pagination() {
             return this.$store.state[this.serviceName].data.links ? this.$store.state[this.serviceName].data.links.pagination : {};
         },
 
 
-        pageSize: {
+        perPage: {
             get: function get() {
                 return this.pagination.per_page;
             },
@@ -128789,29 +128795,31 @@ module.exports = Component.exports
 
     methods: {
         load: function load() {
+            this.$store.commit(this.serviceName + '/mutatePerPage', this.environment.user.per_page);
+
             return this.$store.dispatch(this.serviceName + '/load');
         },
         save: function save(mode) {
-            this.setUpdateUrl('/api/v1/' + this.serviceName + '/' + this.$route.params.id);
+            this.mutateUpdateUrl('/api/v1/' + this.serviceName + '/' + this.$route.params.id);
             return this.$store.dispatch(this.serviceName + '/save', mode);
         },
-        setGetUrl: function setGetUrl(url) {
-            this.$store.commit(this.serviceName + '/setGetUrl', url);
+        mutateGetUrl: function mutateGetUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateGetUrl', url);
         },
-        setStoreUrl: function setStoreUrl(url) {
-            this.$store.commit(this.serviceName + '/setStoreUrl', url);
+        mutateStoreUrl: function mutateStoreUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateStoreUrl', url);
         },
-        setUpdateUrl: function setUpdateUrl(url) {
-            this.$store.commit(this.serviceName + '/setUpdateUrl', url);
+        mutateUpdateUrl: function mutateUpdateUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateUpdateUrl', url);
         },
-        setErrors: function setErrors(errors) {
-            this.$store.commit(this.serviceName + '/setErrors', errors);
+        mutateErrors: function mutateErrors(errors) {
+            this.$store.commit(this.serviceName + '/mutateErrors', errors);
         },
-        setFormData: function setFormData(data) {
-            this.$store.commit(this.serviceName + '/setFormData', data);
+        mutateFormData: function mutateFormData(data) {
+            this.$store.commit(this.serviceName + '/mutateFormData', data);
         },
-        storeFormField: function storeFormField(data) {
-            this.$store.commit(this.serviceName + '/storeFormField', data);
+        mutateFormField: function mutateFormField(data) {
+            this.$store.commit(this.serviceName + '/mutateFormField', data);
         },
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
@@ -128819,9 +128827,9 @@ module.exports = Component.exports
         boot: function boot() {
             var $this = this;
 
-            $this.setGetUrl('/api/v1/' + $this.serviceName);
+            $this.mutateGetUrl('/api/v1/' + $this.serviceName);
 
-            $this.setStoreUrl('/api/v1/' + $this.serviceName);
+            $this.mutateStoreUrl('/api/v1/' + $this.serviceName);
 
             $this.load().then(function () {
                 $this.fillFormWhenEditing();
@@ -128835,11 +128843,11 @@ module.exports = Component.exports
                     return model.id == $this.$route.params.id;
                 });
 
-                $this.setFormData(model);
+                $this.mutateFormData(model);
             }
 
             if ($this.mode === 'create') {
-                $this.setFormData(set_null($this.form.fields));
+                $this.mutateFormData(set_null($this.form.fields));
             }
         },
         back: function back() {
@@ -128879,6 +128887,9 @@ module.exports = Component.exports
         },
         isCurrent: function isCurrent(model, selected) {
             return model.id === selected.id;
+        },
+        setPerPage: function setPerPage() {
+            this.$store.commit(this.serviceName + '/mutatePerPage', this.environment.user.per_page);
         }
     }
 });
