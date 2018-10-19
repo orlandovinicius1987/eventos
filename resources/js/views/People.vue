@@ -12,14 +12,28 @@
                     </div>
                     <div class="col-9">
                         <div class="row">
-                            <div class="col-6 pr-0">
-                                <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
+                            <div class="col-4 pr-0">
+                                <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm mr-1 pull-right" :disabled="cannot('create')">
                                     <i class="fa fa-plus"></i> nova pessoa
                                 </router-link>
                             </div>
 
-                            <div class="col-6 pl-0">
-                                <input class="form-control" v-model="filterText">
+                            <div class="col-6 pl-0 pr-1">
+                                <input class="form-control form-control-sm" v-model="filterText">
+                            </div>
+
+                            <div class="col-2 pl-0">
+                                <div class="input-group">
+                                    <select v-model="pageSize" class="custom-select custom-select-sm" id="inputGroupSelect02">
+                                        <option value="5" selected>5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="250">250</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -50,7 +64,7 @@
                                         <td class="align-middle">{{ person.name }}</td>
                                         <td class="align-middle">{{ person.nickname }}</td>
                                         <td>
-                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-danger btn-sm m-1 pull-right" :disabled="cannot('create')">
+                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-danger btn-sm mr-1 pull-right" :disabled="cannot('create')">
                                                 <i class="fa fa-edit"></i>
                                             </router-link>
                                         </td>
@@ -59,7 +73,7 @@
                             </table>
 
                             <nav class="text-center" v-if="pagination.total > 0">
-                                <ul class="pagination justify-content-center">
+                                <ul class="pagination justify-content-center mb-0">
                                     <li class="page-item" @click="gotoPage(pagination.current_page - 1)">
                                         <a class="page-link" href="#" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
@@ -112,6 +126,16 @@ export default {
 
     computed: {
         ...mapState(serviceName, ['selectedPerson']),
+
+        pageSize: {
+            get() {
+                return this.pagination.per_page
+            },
+
+            set(value) {
+                this.$store.dispatch(this.serviceName + '/setPerPage', value)
+            },
+        },
     },
 
     methods: {

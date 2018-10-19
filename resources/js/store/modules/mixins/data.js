@@ -52,6 +52,16 @@ export function setCurrentPage(context, payload) {
     context.dispatch('load')
 }
 
+export function setPerPage(context, payload) {
+    let query = context.state.query
+
+    query.pagination.per_page = payload
+
+    context.commit('setQuery', query)
+
+    context.dispatch('load')
+}
+
 // ------------ mutations
 
 export function setData(state, payload) {

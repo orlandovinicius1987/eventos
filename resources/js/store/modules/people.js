@@ -14,6 +14,7 @@ import {
     clearForm,
     setQueryFilterText,
     setCurrentPage,
+    setPerPage,
 } from './mixins/data.js'
 
 const __emptyModel = { id: null }
@@ -68,6 +69,8 @@ const actions = {
     setQueryFilterText,
 
     setCurrentPage,
+
+    setPerPage,
 
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)
