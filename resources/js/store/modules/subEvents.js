@@ -2,12 +2,12 @@ import Form from '../../classes/Form'
 
 import {
     save,
-    setData,
-    setGetUrl,
-    setStoreUrl,
-    storeFormField,
-    setErrors,
-    setFormData,
+    mutateData,
+    mutateGetUrl,
+    mutateStoreUrl,
+    mutateFormField,
+    mutateErrors,
+    mutateFormData,
     clearForm,
 } from './mixins/data.js'
 
@@ -30,12 +30,12 @@ const actions = {
 }
 
 const mutations = {
-    setData,
-    setGetUrl,
-    setStoreUrl,
-    storeFormField,
-    setErrors,
-    setFormData,
+    mutateData,
+    mutateGetUrl,
+    mutateStoreUrl,
+    mutateFormField,
+    mutateErrors,
+    mutateFormData,
 }
 
 export default {

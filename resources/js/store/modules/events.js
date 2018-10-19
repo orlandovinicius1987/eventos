@@ -3,13 +3,13 @@ import Form from '../../classes/Form'
 import {
     load,
     save,
-    setData,
-    setQuery,
-    setGetUrl,
-    setStoreUrl,
-    storeFormField,
-    setErrors,
-    setFormData,
+    mutateData,
+    mutateQuery,
+    mutateGetUrl,
+    mutateStoreUrl,
+    mutateFormField,
+    mutateErrors,
+    mutateFormData,
     clearForm,
 } from './mixins/data.js'
 
@@ -103,13 +103,13 @@ const actions = {
 }
 
 const mutations = {
-    setData,
-    setQuery,
-    setGetUrl,
-    setStoreUrl,
-    storeFormField,
-    setErrors,
-    setFormData,
+    mutateData,
+    mutateQuery,
+    mutateGetUrl,
+    mutateStoreUrl,
+    mutateFormField,
+    mutateErrors,
+    mutateFormData,
 
     selectEvent(state, payload) {
         state.selectedEvent = payload

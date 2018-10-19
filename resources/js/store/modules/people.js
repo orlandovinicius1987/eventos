@@ -3,18 +3,20 @@ import Form from '../../classes/Form'
 import {
     load,
     save,
-    setData,
-    setQuery,
-    setGetUrl,
-    setStoreUrl,
-    setUpdateUrl,
-    storeFormField,
-    setErrors,
-    setFormData,
     clearForm,
-    setQueryFilterText,
     setCurrentPage,
     setPerPage,
+    updateUserPerPage,
+    mutateData,
+    mutateQuery,
+    mutateGetUrl,
+    mutateStoreUrl,
+    mutateUpdateUrl,
+    mutateFormField,
+    mutateErrors,
+    mutateFormData,
+    mutatePerPage,
+    mutateQueryFilterText,
 } from './mixins/data.js'
 
 const __emptyModel = { id: null }
@@ -34,13 +36,11 @@ const state = {
         },
 
         pagination: {
-            per_page: 5,
+            perPage: 5,
 
             current_page: 1,
         },
     },
-
-    subPeople: [],
 
     invitations: [],
 
@@ -66,11 +66,13 @@ const actions = {
 
     clearForm,
 
-    setQueryFilterText,
+    mutateQueryFilterText,
 
     setCurrentPage,
 
     setPerPage,
+
+    updateUserPerPage,
 
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)
@@ -78,14 +80,15 @@ const actions = {
 }
 
 const mutations = {
-    setData,
-    setQuery,
-    setGetUrl,
-    setStoreUrl,
-    setUpdateUrl,
-    storeFormField,
-    setErrors,
-    setFormData,
+    mutateData,
+    mutateQuery,
+    mutateGetUrl,
+    mutateStoreUrl,
+    mutateUpdateUrl,
+    mutateFormField,
+    mutateErrors,
+    mutateFormData,
+    mutatePerPage,
 
     selectPerson(state, payload) {
         state.selectedPerson = payload
