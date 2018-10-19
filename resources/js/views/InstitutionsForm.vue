@@ -33,12 +33,19 @@
                                     :form="form"
                             ></app-input>
 
+                            <div class="form-check">
+                                <input v-model="form.fields.is_party" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    É partido politico?
+                                </label>
+                            </div>
+
                             <app-input
-                                    name="party_number"
-                                    label="Numero do Partido"
-                                    v-model="form.fields.party_number"
-                                    :required="false"
-                                    :form="form"
+                                name="party_number"
+                                label="Numero do Partido"
+                                v-model="form.fields.party_number"
+                                :required="false"
+                                :form="form"
                             ></app-input>
                         </div>
                     </div>

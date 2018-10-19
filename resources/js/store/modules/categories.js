@@ -6,26 +6,35 @@ import * as statesMixin from './mixins/states.js'
 
 const __emptyModel = { id: null }
 
-let state = merge_objects({
-    selectedCategory: __emptyModel,
+let state = merge_objects(
+    {
+        selectedCategory: __emptyModel,
 
-    form: new Form({
-        name: null,
-    }),
-}, statesMixin.common)
-
-let actions = merge_objects({
-    selectCategory(context, payload) {
-        context.commit('selectCategory', payload)
+        form: new Form({
+            name: null,
+        }),
     },
-}, actionsMixin)
+    statesMixin.common,
+)
 
-let mutations = merge_objects({
-    selectCategory(state, payload) {
-        dd(payload)
-        state.selectedCategory = payload
+let actions = merge_objects(
+    {
+        selectCategory(context, payload) {
+            context.commit('selectCategory', payload)
+        },
     },
-}, mutationsMixin)
+    actionsMixin,
+)
+
+let mutations = merge_objects(
+    {
+        selectCategory(state, payload) {
+            dd(payload)
+            state.selectedCategory = payload
+        },
+    },
+    mutationsMixin,
+)
 
 export default {
     state,

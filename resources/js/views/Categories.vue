@@ -71,35 +71,34 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import categories from './mixins/categories'
-    import permissions from './mixins/permissions'
-    import { mapActions, mapState } from 'vuex'
+import crud from './mixins/crud'
+import categories from './mixins/categories'
+import permissions from './mixins/permissions'
+import { mapActions, mapState } from 'vuex'
 
-    const serviceName = 'categories'
+const serviceName = 'categories'
 
-    export default {
-        mixins: [crud, categories, permissions],
+export default {
+    mixins: [crud, categories, permissions],
 
-        data() {
-            return {
-                serviceName: serviceName,
-            }
-        },
-
-        computed: {
-            ...mapState(serviceName, ['selectedCategory']),
-        },
-
-        methods: {
-            ...mapActions(serviceName, ['selectCategory']),
-        },
-
-        mounted()
-        {
-            this.boot()
+    data() {
+        return {
+            serviceName: serviceName,
         }
-    }
+    },
+
+    computed: {
+        ...mapState(serviceName, ['selectedCategory']),
+    },
+
+    methods: {
+        ...mapActions(serviceName, ['selectCategory']),
+    },
+
+    mounted() {
+        this.boot()
+    },
+}
 </script>
 
 <style>

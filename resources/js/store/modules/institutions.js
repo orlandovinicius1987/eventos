@@ -6,33 +6,42 @@ import * as statesMixin from './mixins/states.js'
 
 const __emptyModel = { id: null }
 
-let state = merge_objects({
-    invitations: [],
+let state = merge_objects(
+    {
+        invitations: [],
 
-    selectedInstitution: __emptyModel,
+        selectedInstitution: __emptyModel,
 
-    form: new Form({
-        name: null,
-    }),
+        form: new Form({
+            name: null,
+        }),
 
-    mode: null,
+        mode: null,
 
-    subInstitutionsQuery: {},
+        subInstitutionsQuery: {},
 
-    invitationsQuery: {},
-}, statesMixin.common)
-
-let actions = merge_objects({
-    selectInstitution(context, payload) {
-        context.commit('selectedInstitution', payload)
+        invitationsQuery: {},
     },
-}, actionsMixin)
+    statesMixin.common,
+)
 
-let mutations = merge_objects({
-    selectInstitution(state, payload) {
-        state.selectedInstitution = payload
+let actions = merge_objects(
+    {
+        selectInstitution(context, payload) {
+            context.commit('selectedInstitution', payload)
+        },
     },
-}, mutationsMixin)
+    actionsMixin,
+)
+
+let mutations = merge_objects(
+    {
+        selectInstitution(state, payload) {
+            state.selectedInstitution = payload
+        },
+    },
+    mutationsMixin,
+)
 
 export default {
     state,
