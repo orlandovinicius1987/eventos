@@ -28,6 +28,12 @@ const state = {
         filter: {
             text: null,
         },
+
+        pagination: {
+            per_page: 5,
+
+            current_page: 1,
+        },
     },
 
     subEvents: [],
