@@ -5,7 +5,7 @@ export default {
                 return this.form.fields.color
             },
             set(value) {
-                this.storeFormField({
+                this.mutateFormField({
                     field: 'color',
                     value,
                 })
