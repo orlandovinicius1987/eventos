@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Contacts as ContactsRepository;
 use App\Http\Requests\ContactStore;
+use App\Http\Requests\ContactUpdate;
 
 class Contacts extends Controller
 {
@@ -27,5 +28,15 @@ class Contacts extends Controller
     public function store(ContactStore $request)
     {
         return app(ContactsRepository::class)->storeFromArray($request->all());
+    }
+
+    /**
+     * @param ContactUpdate $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(ContactUpdate $request, $id)
+    {
+        return app(ContactsRepository::class)->update($id, $request->all());
     }
 }

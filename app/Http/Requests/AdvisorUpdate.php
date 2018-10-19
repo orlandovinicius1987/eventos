@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AdvisorStore extends BaseStore
+class AdvisorUpdate extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AdvisorStore extends BaseStore
+class PersonInstitutionStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.
@@ -12,9 +12,9 @@ class AdvisorStore extends BaseStore
     public function rules()
     {
         return [
-            'name' => 'required',
             'role_id' => 'required|exists:roles,id',
-            'person_institution_id' => 'required|exists:person_institutions,id',
+            'person_id' => 'required|exists:people,id',
+            'institution_id' => 'required|exists:institutions,id',
         ];
     }
 }

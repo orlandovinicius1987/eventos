@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AdvisorStore extends BaseStore
+class SubEventUpdate extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.
@@ -13,8 +13,9 @@ class AdvisorStore extends BaseStore
     {
         return [
             'name' => 'required',
-            'role_id' => 'required|exists:roles,id',
-            'person_institution_id' => 'required|exists:person_institutions,id',
+            'date' => 'required',
+            'time' => 'required',
+            'event_id' => 'required|exists:events,id',
         ];
     }
 }
