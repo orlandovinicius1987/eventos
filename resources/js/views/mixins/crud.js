@@ -10,12 +10,41 @@ export default {
     },
 
     computed: {
+        filterText: {
+            get() {
+                return this.$store.state[this.serviceName].query.filter.text
+            },
+
+            set(payload) {
+                return this.$store.dispatch(
+                    this.serviceName + '/setQueryFilterText',
+                    payload,
+                )
+            },
+        },
+
         form() {
             return this.$store.state[this.serviceName].form
         },
 
         environment() {
             return this.$store.environment
+        },
+
+        pagination() {
+            return this.$store.state[this.serviceName].data.links
+                ? this.$store.state[this.serviceName].data.links.pagination
+                : {}
+        },
+
+        pageSize: {
+            get() {
+                return this.pagination.per_page
+            },
+
+            set(value) {
+                this.$store.dispatch(this.serviceName + '/setPerPage', value)
+            },
         },
     },
 
@@ -25,7 +54,9 @@ export default {
         },
 
         save(mode) {
-            this.setUpdateUrl('/api/v1/'+this.serviceName+'/'+this.$route.params.id)
+            this.setUpdateUrl(
+                '/api/v1/' + this.serviceName + '/' + this.$route.params.id,
+            )
             return this.$store.dispatch(this.serviceName + '/save', mode)
         },
 
@@ -63,6 +94,24 @@ export default {
             this.setStoreUrl('/api/v1/' + this.serviceName)
 
             this.load()
+
+            this.fillFormWhenEditing()
+        },
+
+        fillFormWhenEditing() {
+            const $this = this
+
+            if ($this.mode === 'update') {
+                const model = _.find(this.rows, function(model) {
+                    return model.id == $this.$route.params.id
+                })
+
+                $this.setFormData(model)
+            }
+
+            if ($this.mode === 'create') {
+                $this.setFormData(set_null($this.form.fields))
+            }
         },
 
         back() {
@@ -85,6 +134,26 @@ export default {
 
         cannot(permission) {
             return !can(permission)
-        }
+        },
+
+        gotoPage(page) {
+            if (this.pagination.current_page === page) {
+                return
+            }
+
+            if (page < 1) {
+                return
+            }
+
+            if (page > this.pagination.last_page) {
+                return
+            }
+
+            this.$store.dispatch(this.serviceName + '/setCurrentPage', page)
+        },
+
+        isCurrent(model, selected) {
+            return model.id === selected.id
+        },
     },
 }

@@ -7,17 +7,39 @@
         <div class="row">
             <div class="col-4">
                 <div class="row align-items-end">
-                    <div class="col-6">
+                    <div class="col-3">
                         <h4 class="mb-0">Pessoas</h4>
                     </div>
-                    <div class="col-6">
-                        <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> nova pessoa
-                        </router-link>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-4 pr-0">
+                                <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm mr-1 pull-right" :disabled="cannot('create')">
+                                    <i class="fa fa-plus"></i> nova pessoa
+                                </router-link>
+                            </div>
+
+                            <div class="col-6 pl-0 pr-1">
+                                <input class="form-control form-control-sm" v-model="filterText">
+                            </div>
+
+                            <div class="col-2 pl-0">
+                                <div class="input-group">
+                                    <select v-model="pageSize" class="custom-select custom-select-sm" id="inputGroupSelect02">
+                                        <option value="5" selected>5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="25">25</option>
+                                        <option value="50">50</option>
+                                        <option value="100">100</option>
+                                        <option value="250">250</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="row mt-1">
                     <div class="col-12">
                         <div class="card p-4">
                             <table class="table table-sm table-hover table-borderless table-striped">
@@ -30,25 +52,53 @@
                                         <th scope="col"></th>
                                     </tr>
                                 </thead>
+
                                 <tbody>
                                     <tr
                                         @click="selectPerson(person)"
-                                        v-for="person in people"
+                                        v-for="person in rows"
                                         :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
                                     >
-                                        <td>{{ person.id }}</td>
-                                        <td>{{ person.title }}</td>
-                                        <td>{{ person.name }}</td>
-                                        <td>{{ person.nickname }}</td>
+                                        <td class="align-middle">{{ person.id }}</td>
+                                        <td class="align-middle">{{ person.title }}</td>
+                                        <td class="align-middle">{{ person.name }}</td>
+                                        <td class="align-middle">{{ person.nickname }}</td>
                                         <td>
-                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                                                <i class="fa fa-plus"></i> editar
+                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-danger btn-sm mr-1 pull-right" :disabled="cannot('create')">
+                                                <i class="fa fa-edit"></i>
                                             </router-link>
-                                            <!--<button @click="edit(person)" class="btn btn-danger"><i class="fa fa-edit"></i></button>-->
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+
+                            <nav class="text-center" v-if="pagination.total > 0">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item" @click="gotoPage(pagination.current_page - 1)">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Anterior</span>
+                                        </a>
+                                    </li>
+
+                                    <li
+                                        :class="{'page-item': true, active: page === pagination.current_page}"
+                                        v-for="page in pagination.pages"
+                                        @click="gotoPage(page)"
+                                    >
+                                        <a class="page-link" href="#">
+                                            {{ page }}
+                                        </a>
+                                    </li>
+
+                                    <li class="page-item" @click="gotoPage(pagination.current_page + 1)">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Próxima</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
                 </div>
@@ -81,19 +131,14 @@ export default {
     methods: {
         ...mapActions(serviceName, ['selectPerson']),
 
-        edit(person){
+        edit(person) {
             this.selectPerson(person)
-
-        },
-
-        isCurrent(person, selected) {
-            return person.id === selected.id
         },
     },
 
     mounted() {
         this.boot()
-    }
+    },
 }
 </script>
 

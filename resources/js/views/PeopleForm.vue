@@ -67,15 +67,7 @@ export default {
     },
 
     mounted() {
-
         this.boot()
-        const $this = this
-        if($this.mode == 'update') {
-            const person = _.find(this.people, function (person) {
-                return person.id == $this.$route.params.id
-            })
-            $this.setFormData(person)
-        }
     },
 }
 </script>

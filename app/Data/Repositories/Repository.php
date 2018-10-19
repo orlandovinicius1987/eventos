@@ -3,8 +3,10 @@
 namespace App\Data\Repositories;
 
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Builder;
 
 abstract class Repository
 {
@@ -31,6 +33,27 @@ abstract class Repository
         return $model;
     }
 
+    private function filterAllColumns(Builder $query, $text)
+    {
+        $query->where('name', 'ilike', "%{$text}%");
+
+        return $query;
+    }
+
+    /**
+     * @param $filter
+     * @param $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    private function filterText($filter, $query)
+    {
+        if (($filter = $filter['filter']['text'])) {
+            $this->filterAllColumns($query, $filter);
+        }
+
+        return $query;
+    }
+
     private function findByAnyColumnName($name, $arguments)
     {
         return $this->makeQueryByAnyColumnName(
@@ -40,6 +63,15 @@ abstract class Repository
         )->first();
     }
 
+    private function generatePages(LengthAwarePaginator $data)
+    {
+        $firstPage = max($data->currentPage() - 2, 1);
+
+        $lastPage = min($firstPage + 4, $data->lastPage());
+
+        return range($firstPage, $lastPage);
+    }
+
     private function getByAnyColumnName($name, $arguments)
     {
         return $this->makeQueryByAnyColumnName(
@@ -47,6 +79,11 @@ abstract class Repository
             $name,
             $arguments
         )->get();
+    }
+
+    private function getQueryFilter()
+    {
+        return coollect(json_decode(request()->get('query'), true));
     }
 
     private function makeQueryByAnyColumnName($startsWith, $name, $arguments)
@@ -75,12 +112,54 @@ abstract class Repository
         return new $this->model();
     }
 
+    public function transform($data)
+    {
+        return $data;
+    }
+
     /**
      * @return mixed
      */
     public function all()
     {
-        return $this->model::all();
+        $queryFilter = $this->getQueryFilter();
+
+        return $this->makePaginationResult(
+            $this->filterText($queryFilter, $this->newQuery())->paginate(
+                $queryFilter->pagination->perPage,
+                ['*'],
+                'page',
+                $queryFilter->pagination->currentPage
+            )
+        );
+    }
+
+    /**
+     * Make pagination data.
+     *
+     * @param LengthAwarePaginator $data
+     * @return array
+     */
+    protected function makePaginationResult(LengthAwarePaginator $data)
+    {
+        return [
+            "links" => [
+                "pagination" => [
+                    "total" => $data->total(),
+                    "per_page" => $data->perPage(),
+                    "current_page" => $data->currentPage(),
+                    "last_page" => $data->lastPage(),
+                    "from" => ($from =
+                        ($data->currentPage() - 1) * $data->perPage() + 1),
+                    "to" => $from + count($data->items()) - 1,
+                    "pages" => $this->generatePages($data),
+                ],
+            ],
+
+            "filter" => $this->getQueryFilter()['filter'],
+
+            "rows" => $this->transform($data->items()),
+        ];
     }
 
     /**
@@ -91,6 +170,14 @@ abstract class Repository
     public function cleanString($string)
     {
         return str_replace(["\n"], [''], $string);
+    }
+
+    /**
+     * @return Builder
+     */
+    private function newQuery()
+    {
+        return $this->model::query();
     }
 
     /**

@@ -152,20 +152,24 @@ export default {
     },
 
     computed: {
-        ...mapState(serviceName, ['selectedEvent', 'selectedSubEvent', 'selectedInvitation']),
+        ...mapState(serviceName, [
+            'selectedEvent',
+            'selectedSubEvent',
+            'selectedInvitation',
+        ]),
     },
 
     methods: {
-        ...mapActions(serviceName, ['selectEvent', 'selectSubEvent', 'selectInvitation']),
-
-        isCurrent(event, selected) {
-            return event.id === selected.id
-        },
+        ...mapActions(serviceName, [
+            'selectEvent',
+            'selectSubEvent',
+            'selectInvitation',
+        ]),
     },
 
     mounted() {
         this.boot()
-    }
+    },
 }
 </script>
 
