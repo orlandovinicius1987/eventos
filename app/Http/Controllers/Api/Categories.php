@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\Categories as CategoriesRepository;
 use App\Http\Requests\CategoryStore;
+use App\Http\Requests\CategoryUpdate;
 
+/**
+ * Class Categories
+ * @package App\Http\Controllers\Api
+ */
 class Categories extends Controller
 {
     /**
@@ -26,6 +31,18 @@ class Categories extends Controller
      */
     public function store(CategoryStore $request)
     {
-        return app(CategorysRepository::class)->storeFromArray($request->all());
+        return app(CategoriesRepository::class)->storeFromArray(
+            $request->all()
+        );
+    }
+
+    /**
+     * @param PersonUpdate $request
+     * @param $id
+     * @return mixed
+     */
+    public function update(CategoryUpdate $request, $id)
+    {
+        return app(CategoriesRepository::class)->update($id, $request->all());
     }
 }

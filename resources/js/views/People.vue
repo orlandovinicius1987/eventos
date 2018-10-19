@@ -7,51 +7,69 @@
         <div class="row">
             <div class="col-4">
                 <div class="row align-items-end">
-                    <div class="col-6">
+                    <div class="col-3">
                         <h4 class="mb-0">Pessoas</h4>
                     </div>
-                    <div class="col-6">
-                        <router-link to="/people/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> nova pessoa
-                        </router-link>
-                    </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card p-4">
-                            <table class="table table-sm table-hover table-borderless table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Tratamento</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Nome público</th>
-                                        <th scope="col"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        @click="selectPerson(person)"
-                                        v-for="person in people"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
-                                    >
-                                        <td>{{ person.id }}</td>
-                                        <td>{{ person.title }}</td>
-                                        <td>{{ person.name }}</td>
-                                        <td>{{ person.nickname }}</td>
-                                        <td>
-                                            <router-link :to="'/people/'+person.id+'/update'" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                                                <i class="fa fa-plus"></i> editar
-                                            </router-link>
-                                            <!--<button @click="edit(person)" class="btn btn-danger"><i class="fa fa-edit"></i></button>-->
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="col-9">
+                        <div class="row">
+                            <div class="col-4 pr-0">
+                                <router-link
+                                    to="/people/create"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
+                                >
+                                    <i class="fa fa-plus"></i> nova pessoa
+                                </router-link>
+                            </div>
+
+                            <div class="col-6 pl-0 pr-1">
+                                <input class="form-control form-control-sm" v-model="filterText">
+                            </div>
+
+                            <div class="col-2 pl-0">
+                                <app-page-size v-model="pageSize"></app-page-size>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <app-table
+                    :pagination="pagination"
+                    @goto-page="gotoPage($event)"
+                >
+                    <template slot="thead">
+                        <th scope="col">#</th>
+                        <th scope="col">Tratamento</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Nome público</th>
+                        <th scope="col"></th>
+                    </template>
+
+                    <template slot="tbody">
+                        <tr
+                            @click="selectPerson(person)"
+                            v-for="person in rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
+                        >
+                            <td class="align-middle">{{ person.id }}</td>
+                            <td class="align-middle">{{ person.title }}</td>
+                            <td class="align-middle">{{ person.name }}</td>
+                            <td class="align-middle">{{ person.nickname }}</td>
+                            <td>
+                                <router-link
+                                    :to="'/people/'+person.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
+                        </tr>
+                    </template>
+                </app-table>
             </div>
         </div>
     </div>
@@ -81,19 +99,14 @@ export default {
     methods: {
         ...mapActions(serviceName, ['selectPerson']),
 
-        edit(person){
+        edit(person) {
             this.selectPerson(person)
-
-        },
-
-        isCurrent(person, selected) {
-            return person.id === selected.id
         },
     },
 
     mounted() {
         this.boot()
-    }
+    },
 }
 </script>
 

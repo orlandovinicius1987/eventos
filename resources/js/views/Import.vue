@@ -9,15 +9,22 @@
                 <p>Por favor converta o arquivo para o padrão CSV, separado por ponto-e-vírgula (;) antes de importar aqui</p>
 
                 <p>
-                    <upload-file v-model="file"></upload-file>
+                    <app-upload-file v-model="file" :busy="busy"></app-upload-file>
                 </p>
 
                 <p v-if="file">
-                    <button class="btn btn-danger btn-lg" @click="uploadFile()">Importar</button>
+                    <button class="btn btn-danger btn-lg" @click="uploadFile()" :disabled="busy">
+                        <i v-if="busy" class="fas fa-spinner fa-spin"></i>
+                        Importar
+                    </button>
                 </p>
 
                 <div v-if="error && error[0]" class="alert alert-danger" role="alert">
                     {{ error[0] }}
+                </div>
+
+                <div v-if="success" class="alert alert-success" role="alert">
+                    arquivo importado
                 </div>
             </div>
         </div>
@@ -33,6 +40,8 @@ export default {
             serviceName: 'import',
             file: null,
             error: null,
+            success: false,
+            busy: false,
         }
     },
 
@@ -42,11 +51,11 @@ export default {
         },
 
         readFile() {
-            const reader = new FileReader();
+            const reader = new FileReader()
 
-            reader.onload = event => this.sendFile(event);
+            reader.onload = event => this.sendFile(event)
 
-            reader.readAsText(this.file);
+            reader.readAsText(this.file)
         },
 
         sendFile(event) {
@@ -54,13 +63,22 @@ export default {
 
             $this.error = null
 
-            post('/api/v1/import', {file: event.target.result}).then(response => {
-                dd('success', response)
-            }).catch(error => {
-                $this.error = error.response.data.errors['field']
-            })
+            $this.success = false
+
+            $this.busy = true
+
+            post('/api/v1/import', { file: event.target.result })
+                .then(response => {
+                    $this.success = true
+                })
+                .catch(error => {
+                    $this.error = error.response.data.errors['field']
+                })
+                .then(() => {
+                    $this.busy = false
+                })
         },
-    }
+    },
 }
 </script>
 

@@ -4,6 +4,7 @@ import {
     load,
     save,
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     storeFormField,
@@ -22,6 +23,18 @@ const state = {
     updateUrl: '',
 
     data: {},
+
+    query: {
+        filter: {
+            text: null,
+        },
+
+        pagination: {
+            per_page: 5,
+
+            current_page: 1,
+        },
+    },
 
     subEvents: [],
 
@@ -65,7 +78,9 @@ const actions = {
 
     loadSubEvents(context, event) {
         return axios
-            .get('/api/v1/events/'+event.id+'/sub-events', { params: this.subEventsQuery })
+            .get('/api/v1/events/' + event.id + '/sub-events', {
+                params: this.subEventsQuery,
+            })
             .then(response => {
                 context.commit('setSubEvents', response.data)
             })
@@ -73,7 +88,14 @@ const actions = {
 
     loadInvitations(context, subEvent) {
         return axios
-            .get('/api/v1/events/'+subEvent.event.id+'/sub-events/'+subEvent.id+'/invitations', { params: this.invitationsQuery })
+            .get(
+                '/api/v1/events/' +
+                    subEvent.event.id +
+                    '/sub-events/' +
+                    subEvent.id +
+                    '/invitations',
+                { params: this.invitationsQuery },
+            )
             .then(response => {
                 context.commit('setInvitations', response.data)
             })
@@ -82,6 +104,7 @@ const actions = {
 
 const mutations = {
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     storeFormField,

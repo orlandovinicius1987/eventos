@@ -9,23 +9,29 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="name">Nome</label>
-                            <input v-model="form.fields.name" class="form-control" id="name" required>
-                            <small class="text-danger" v-if="form.errors.has('name')" >
-                                {{ form.errors.get('name') }}
-                            </small>
+                            <app-input
+                                name="name"
+                                label="Nome"
+                                v-model="form.fields.name"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
 
-                            <label for="nickname">Nome público</label>
-                            <input v-model="form.fields.nickname" class="form-control" id="nickname" required>
-                            <small class="text-danger" v-if="form.errors.has('nickname')" >
-                                {{ form.errors.get('nickname') }}
-                            </small>
+                            <app-input
+                                name="nickname"
+                                label="Nome público"
+                                v-model="form.fields.nickname"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
 
-                            <label for="title">Tratamento</label>
-                            <input v-model="form.fields.title" class="form-control" id="title" required>
-                            <small class="text-danger" v-if="form.errors.has('title')" >
-                                {{ form.errors.get('title') }}
-                            </small>
+                            <app-input
+                                name="title"
+                                label="Tratamento"
+                                v-model="form.fields.title"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -67,15 +73,7 @@ export default {
     },
 
     mounted() {
-
         this.boot()
-        const $this = this
-        if($this.mode == 'update') {
-            const person = _.find(this.people, function (person) {
-                return person.id == $this.$route.params.id
-            })
-            $this.setFormData(person)
-        }
     },
 }
 </script>

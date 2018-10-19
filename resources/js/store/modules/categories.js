@@ -4,12 +4,17 @@ import {
     load,
     save,
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
+    setUpdateUrl,
     storeFormField,
     setErrors,
     setFormData,
     clearForm,
+    setQueryFilterText,
+    setCurrentPage,
+    setPerPage,
 } from './mixins/data.js'
 
 const __emptyModel = { id: null }
@@ -23,15 +28,24 @@ const state = {
 
     data: {},
 
-    subCategories: [],
+    query: {
+        filter: {
+            text: null,
+        },
 
-    invitations: [],
+        pagination: {
+            per_page: 5,
+
+            current_page: 1,
+        },
+    },
+
+    selectedCategory: __emptyModel,
 
     form: new Form({
         name: null,
     }),
 
-    subCategoriesQuery: {},
 
 }
 
@@ -44,21 +58,32 @@ const actions = {
 
     clearForm,
 
-    selectCategory(context, payload) {
-        context.commit('selectCategory' + '', payload)
+    setQueryFilterText,
 
-        context.dispatch('loadSubCategories', payload)
+    setCurrentPage,
+
+    setPerPage,
+
+    selectCategory(context, payload) {
+        context.commit('selectCategory', payload)
     },
 
 }
 
 const mutations = {
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
+    setUpdateUrl,
     storeFormField,
     setErrors,
     setFormData,
+
+    selectCategory(state, payload) {
+        dd(payload)
+        state.selectedCategory = payload
+    },
 }
 
 export default {

@@ -55,6 +55,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                 'categories.update'
             );
 
+            Route::post('/{id}', 'Categories@update')->name(
+                'categories.update'
+            );
+
             Route::post('/', 'Categories@store')->name('categories.store');
         });
 

@@ -4,6 +4,7 @@ import {
     load,
     save,
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     setUpdateUrl,
@@ -11,6 +12,9 @@ import {
     setErrors,
     setFormData,
     clearForm,
+    setQueryFilterText,
+    setCurrentPage,
+    setPerPage,
 } from './mixins/data.js'
 
 const __emptyModel = { id: null }
@@ -23,6 +27,18 @@ const state = {
     updateUrl: '',
 
     data: {},
+
+    query: {
+        filter: {
+            text: null,
+        },
+
+        pagination: {
+            per_page: 5,
+
+            current_page: 1,
+        },
+    },
 
     subPeople: [],
 
@@ -50,6 +66,12 @@ const actions = {
 
     clearForm,
 
+    setQueryFilterText,
+
+    setCurrentPage,
+
+    setPerPage,
+
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)
     },
@@ -57,6 +79,7 @@ const actions = {
 
 const mutations = {
     setData,
+    setQuery,
     setGetUrl,
     setStoreUrl,
     setUpdateUrl,
