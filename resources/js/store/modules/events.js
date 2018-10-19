@@ -1,41 +1,12 @@
 import Form from '../../classes/Form'
 
-import {
-    load,
-    save,
-    mutateData,
-    mutateQuery,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    clearForm,
-} from './mixins/data.js'
+import * as mutationsMixin from './mixins/mutations.js'
+import * as actionsMixin from './mixins/actions.js'
+import * as statesMixin from './mixins/states.js'
 
 const __emptyModel = { id: null }
 
-const state = {
-    dataUrl: '',
-
-    storeUrl: '',
-
-    updateUrl: '',
-
-    data: {},
-
-    query: {
-        filter: {
-            text: null,
-        },
-
-        pagination: {
-            per_page: 5,
-
-            current_page: 1,
-        },
-    },
-
+let state = merge_objects({
     subEvents: [],
 
     invitations: [],
@@ -53,16 +24,12 @@ const state = {
     subEventsQuery: {},
 
     invitationsQuery: {},
-}
+}, statesMixin.common)
 
-const getters = {}
-
-const actions = {
-    load,
-
-    save,
-
-    clearForm,
+let actions = merge_objects({
+    load: actionsMixin.load,
+    save: actionsMixin.save,
+    clearForm: actionsMixin.clearForm,
 
     selectEvent(context, payload) {
         context.commit('selectEvent', payload)
@@ -100,17 +67,9 @@ const actions = {
                 context.commit('setInvitations', response.data)
             })
     },
-}
+}, actionsMixin)
 
-const mutations = {
-    mutateData,
-    mutateQuery,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-
+let mutations = merge_objects({
     selectEvent(state, payload) {
         state.selectedEvent = payload
 
@@ -136,11 +95,10 @@ const mutations = {
     setInvitations(state, payload) {
         state.invitations = payload
     },
-}
+}, mutationsMixin)
 
 export default {
     state,
-    getters,
     actions,
     mutations,
     namespaced: true,

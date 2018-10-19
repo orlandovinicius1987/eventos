@@ -37,6 +37,5 @@ class CreateTableCategorized extends Migration
     public function down()
     {
         Schema::dropIfExists('categorized');
-        Schema::dropIfExists('politicals_parties');
     }
 }
