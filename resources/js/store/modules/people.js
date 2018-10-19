@@ -75,6 +75,10 @@ const actions = {
     selectPerson(context, payload) {
         context.commit('selectPerson', payload)
     },
+
+    selectRole(context, payload) {
+        context.commit('selectRole', payload)
+    },
 }
 
 const mutations = {
@@ -87,8 +91,8 @@ const mutations = {
     setErrors,
     setFormData,
 
-    selectPerson(state, payload) {
-        state.selectedPerson = payload
+    selectRole(state, payload) {
+        state.selectedRole= payload
     },
 }
 

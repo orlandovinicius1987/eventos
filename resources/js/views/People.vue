@@ -36,8 +36,8 @@
                 </div>
 
                 <app-table
-                    :pagination="pagination"
-                    @goto-page="gotoPage($event)"
+                        :pagination="pagination"
+                        @goto-page="gotoPage($event)"
                 >
                     <template slot="thead">
                         <th scope="col">#</th>
@@ -49,9 +49,9 @@
 
                     <template slot="tbody">
                         <tr
-                            @click="selectPerson(person)"
-                            v-for="person in rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
+                                @click="selectPerson(person)"
+                                v-for="person in rows"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
                         >
                             <td class="align-middle">{{ person.id }}</td>
                             <td class="align-middle">{{ person.title }}</td>
@@ -59,10 +59,10 @@
                             <td class="align-middle">{{ person.nickname }}</td>
                             <td>
                                 <router-link
-                                    :to="'/people/'+person.id+'/update'"
-                                    tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
-                                    :disabled="cannot('create')"
+                                        :to="'/people/'+person.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('create')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -70,6 +70,45 @@
                         </tr>
                     </template>
                 </app-table>
+
+
+                <app-table
+                        :pagination="pagination"
+                        @goto-page="gotoPage($event)"
+                >
+                    <template slot="thead">
+                        <th scope="col">#</th>
+                        <th scope="col">Função</th>
+                        <th scope="col">Instituição</th>
+                        <th scope="col">Nome público</th>
+                        <th scope="col"></th>
+                    </template>
+
+                    <template slot="tbody">
+                        <tr
+                                @click="selectPerson(person)"
+                                v-for="person in rows"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selectedPerson)}"
+                        >
+                            <td class="align-middle">{{ person.id }}</td>
+                            <td class="align-middle">{{ person.title }}</td>
+                            <td class="align-middle">{{ person.name }}</td>
+                            <td class="align-middle">{{ person.nickname }}</td>
+                            <td>
+                                <router-link
+                                        :to="'/people/'+person.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('create')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
+                        </tr>
+                    </template>
+                </app-table>
+
+
             </div>
         </div>
     </div>
@@ -93,15 +132,11 @@ export default {
     },
 
     computed: {
-        ...mapState(serviceName, ['selectedPerson']),
+        ...mapState(serviceName, ['selectedPerson', 'selectedRole']),
     },
 
     methods: {
-        ...mapActions(serviceName, ['selectPerson']),
-
-        edit(person) {
-            this.selectPerson(person)
-        },
+        ...mapActions(serviceName, ['selectPerson', 'selectRole']),
     },
 
     mounted() {

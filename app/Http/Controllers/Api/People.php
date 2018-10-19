@@ -30,6 +30,11 @@ class People extends Controller
         return app(PeopleRepository::class)->storeFromArray($request->all());
     }
 
+    /**
+     * @param PersonUpdate $request
+     * @param $id
+     * @return mixed
+     */
     public function update(PersonUpdate $request, $id)
     {
         return app(PeopleRepository::class)->update($id, $request->all());
