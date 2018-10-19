@@ -127492,6 +127492,10 @@ module.exports = Component.exports
 
                 $this.setFormData(model);
             }
+
+            if ($this.mode === 'create') {
+                $this.setFormData(set_null($this.form.fields));
+            }
         },
         back: function back() {
             this.$router.back();

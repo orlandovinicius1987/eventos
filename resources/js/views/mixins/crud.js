@@ -108,6 +108,10 @@ export default {
 
                 $this.setFormData(model)
             }
+
+            if ($this.mode === 'create') {
+                $this.setFormData(set_null($this.form.fields))
+            }
         },
 
         back() {
