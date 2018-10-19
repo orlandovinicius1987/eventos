@@ -1,4 +1,6 @@
-import * as helpersMixin from './helpers.js'
+const loadDebounced = _.debounce(context => {
+    context.dispatch('load')
+}, 650)
 
 export function load(context, query = {}) {
     Object.assign(query, context.state.query)
@@ -32,7 +34,7 @@ export function mutateQueryFilterText(context, payload) {
 
     context.commit('mutateQuery', query)
 
-    helpersMixin.reload(context)
+    loadDebounced(context)
 }
 
 export function setCurrentPage(context, payload) {
