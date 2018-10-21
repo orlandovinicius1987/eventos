@@ -8,7 +8,7 @@ export function load(context, query = {}) {
     return axios
         .get(context.state.dataUrl, { params: { query: query } })
         .then(response => {
-            context.commit('mutateData', response.data)
+            context.commit('mutateSetData', response.data)
         })
 }
 
@@ -27,12 +27,12 @@ export function clearForm(context) {
     set_null(context.state.form.fields)
 }
 
-export function mutateQueryFilterText(context, payload) {
+export function mutateSetQueryFilterText(context, payload) {
     let query = context.state.query
 
     query.filter.text = payload
 
-    context.commit('mutateQuery', query)
+    context.commit('mutateSetQuery', query)
 
     loadDebounced(context)
 }
@@ -42,13 +42,13 @@ export function setCurrentPage(context, payload) {
 
     query.pagination.current_page = payload
 
-    context.commit('mutateQuery', query)
+    context.commit('mutateSetQuery', query)
 
     context.dispatch('load')
 }
 
 export function setPerPage(context, payload) {
-    context.commit('mutatePerPage', payload)
+    context.commit('mutateSetPerPage', payload)
 
     context.dispatch('load')
 
@@ -57,4 +57,8 @@ export function setPerPage(context, payload) {
 
 export function updateUserPerPage(context, payload) {
     post('/api/v1/users/per-page/' + payload)
+}
+
+export function select(context, payload) {
+    context.commit('mutateSetSelected', payload)
 }

@@ -1,28 +1,28 @@
-export function mutateData(state, payload) {
+export function mutateSetData(state, payload) {
     state.data = payload
 }
 
-export function mutateQuery(state, payload) {
+export function mutateSetQuery(state, payload) {
     state.query = payload
 }
 
-export function mutateGetUrl(state, payload) {
+export function mutateSetGetUrl(state, payload) {
     state.dataUrl = payload
 }
 
-export function mutateStoreUrl(state, payload) {
+export function mutateSetStoreUrl(state, payload) {
     state.storeUrl = payload
 }
 
-export function mutateUpdateUrl(state, payload) {
+export function mutateSetUpdateUrl(state, payload) {
     state.updateUrl = payload
 }
 
-export function mutateFormField(state, payload) {
+export function mutateSetFormField(state, payload) {
     state.form.fields[payload.field] = payload.value
 }
 
-export function mutateErrors(state, payload) {
+export function mutateSetErrors(state, payload) {
     const errors = payload.errors
         ? typeof payload.errors.errors === 'undefined'
             ? payload.errors
@@ -38,6 +38,10 @@ export function mutateFormData(state, payload) {
     })
 }
 
-export function mutatePerPage(state, payload) {
+export function mutateSetPerPage(state, payload) {
     state.query.pagination.per_page = payload
+}
+
+export function mutateSetSelected(state, payload) {
+    state.selected = payload
 }

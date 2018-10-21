@@ -8,7 +8,7 @@
             <div class="col-4">
                 <div class="row align-items-end">
                     <div class="col-3">
-                        <h4 class="mb-0">Categorias</h4>
+                        <h4 class="mb-0">Categorias ({{ pagination.total }})</h4>
                     </div>
 
                     <div class="col-9">
@@ -20,7 +20,7 @@
                                         class="btn btn-primary btn-sm mr-1 pull-right"
                                         :disabled="cannot('create')"
                                 >
-                                    <i class="fa fa-plus"></i> nova categoria
+                                    <i class="fa fa-plus"></i>
                                 </router-link>
                             </div>
 
@@ -45,18 +45,18 @@
 
                     <template slot="tbody">
                         <tr
-                                @click="selectCategory(category)"
-                                v-for="category in rows"
-                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(category, selectedCategory)}"
+                            @click="select(category)"
+                            v-for="category in rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(category, selected)}"
                         >
                             <td class="align-middle">{{ category.id }}</td>
                             <td class="align-middle">{{ category.name }}</td>
                             <td>
                                 <router-link
-                                        :to="'/categories/'+category.id+'/update'"
-                                        tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
-                                        :disabled="cannot('create')"
+                                    :to="'/categories/'+category.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -74,7 +74,6 @@
 import crud from './mixins/crud'
 import categories from './mixins/categories'
 import permissions from './mixins/permissions'
-import { mapActions, mapState } from 'vuex'
 
 const serviceName = 'categories'
 
@@ -85,14 +84,6 @@ export default {
         return {
             serviceName: serviceName,
         }
-    },
-
-    computed: {
-        ...mapState(serviceName, ['selectedCategory']),
-    },
-
-    methods: {
-        ...mapActions(serviceName, ['selectCategory']),
     },
 
     mounted() {

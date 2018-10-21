@@ -5,7 +5,7 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 
 const state = merge_objects(statesMixin.common, {
-    event: null,
+    subEvent: null,
 
     form: new Form({
         name: null,
@@ -14,23 +14,30 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     load(context) {
-        return get('/api/v1/events/' + context.state.event.id + '/sub-events', {
-            params: { query: context.state.query },
-        }).then(response => {
+        return get(
+            '/api/v1/events/' +
+                context.state.subEvent.event.id +
+                '/sub-events/' +
+                context.state.subEvent.id +
+                '/invitations',
+            {
+                params: { query: context.state.query },
+            },
+        ).then(response => {
             context.commit('mutateSetData', response.data)
         })
     },
 
-    setEvent(context, payload) {
-        context.commit('mutateSetEvent', payload)
+    setSubEvent(context, payload) {
+        context.commit('mutateSetSubEvent', payload)
 
         context.dispatch('load', payload)
     },
 })
 
 const mutations = merge_objects(mutationsMixin, {
-    mutateSetEvent(state, payload) {
-        state.event = payload
+    mutateSetSubEvent(state, payload) {
+        state.subEvent = payload
     },
 })
 

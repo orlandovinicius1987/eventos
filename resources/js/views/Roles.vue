@@ -8,7 +8,7 @@
             <div class="col-4">
                 <div class="row align-items-end">
                     <div class="col-3">
-                        <h4 class="mb-0">Funções</h4>
+                        <h4 class="mb-0">Funções ({{ pagination.total }})</h4>
                     </div>
 
                     <div class="col-9">
@@ -20,7 +20,7 @@
                                     class="btn btn-primary btn-sm mr-1 pull-right"
                                     :disabled="cannot('create')"
                                 >
-                                    <i class="fa fa-plus"></i> nova função
+                                    <i class="fa fa-plus"></i>
                                 </router-link>
                             </div>
 

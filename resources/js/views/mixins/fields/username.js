@@ -5,7 +5,7 @@ export default {
                 return this.form.fields.username
             },
             set(value) {
-                this.mutateFormField({
+                this.mutateSetFormField({
                     field: 'username',
                     value,
                 })

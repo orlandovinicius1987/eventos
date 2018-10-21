@@ -7,6 +7,8 @@ export const common = {
 
     data: {},
 
+    selected: { id: null },
+
     query: {
         filter: {
             text: null,

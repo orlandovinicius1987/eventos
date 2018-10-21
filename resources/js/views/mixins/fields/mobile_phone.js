@@ -5,7 +5,7 @@ export default {
                 return this.form.fields.mobile_phone
             },
             set(value) {
-                this.mutateFormField({
+                this.mutateSetFormField({
                     field: 'mobile_phone',
                     value,
                 })

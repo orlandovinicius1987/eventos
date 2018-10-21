@@ -66,7 +66,5 @@ class HomeController extends Controller
         dump(Gate::allows('canCreate'));
         dump(Gate::allows('canEdit'));
         dump(Gate::allows('canRead'));
-
-        dd('fim');
     }
 }

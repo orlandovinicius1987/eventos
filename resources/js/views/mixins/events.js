@@ -7,11 +7,11 @@ export default {
 
     computed: {
         ...mapState({
-            events: state => state.events.data.rows,
+            events: state => state.events,
 
-            subEvents: state => state.events.subEvents.rows,
+            subEvents: state => state.subEvents,
 
-            invitations: state => state.events.invitations.rows,
+            invitations: state => state.invitations,
         }),
     },
 }
