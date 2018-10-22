@@ -2255,7 +2255,18 @@ var serviceName = 'events';
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(serviceName, ['selectEvent', 'selectSubEvent', 'selectInvitation'])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(serviceName, ['selectEvent', 'selectSubEvent', 'selectInvitation']), {
+        eventsGotoPage: function eventsGotoPage(page) {
+            this.gotoPage(page, 'events', this.events.query.pagination);
+        },
+        subEventsGotoPage: function subEventsGotoPage(page) {
+            this.gotoPage(page, 'subEvents', this.subEvents.query.pagination);
+        },
+        invitationsGotoPage: function invitationsGotoPage(page) {
+            dd('invitationsGotoPage(page)', this);
+            this.gotoPage(page, 'invitations', this.invitations.query.pagination);
+        }
+    }),
 
     computed: {
         eventsFilterText: {
@@ -25495,7 +25506,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -110028,7 +110039,7 @@ var render = function() {
                       },
                       on: {
                         "goto-page": function($event) {
-                          _vm.gotoPage($event)
+                          _vm.eventsGotoPage($event)
                         }
                       }
                     },
@@ -110104,7 +110115,7 @@ var render = function() {
                       },
                       on: {
                         "goto-page": function($event) {
-                          _vm.gotoPage($event)
+                          _vm.subEventsGotoPage($event)
                         }
                       }
                     },
@@ -110187,7 +110198,7 @@ var render = function() {
                           },
                           on: {
                             "goto-page": function($event) {
-                              _vm.gotoPage($event)
+                              _vm.invitationsGotoPage($event)
                             }
                           }
                         },
@@ -130320,7 +130331,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return !can(permission);
         },
         gotoPage: function gotoPage(page) {
-            if (this.pagination.current_page === page) {
+            var namespace = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+            var pagination = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+            pagination = pagination ? pagination : this.pagination;
+
+            if (pagination.current_page === page) {
                 return;
             }
 
@@ -130328,11 +130344,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return;
             }
 
-            if (page > this.pagination.last_page) {
+            if (page > pagination.last_page) {
                 return;
             }
 
-            this.$store.dispatch(this.serviceName + '/setCurrentPage', page);
+            this.$store.dispatch((namespace ? namespace : this.serviceName) + '/setCurrentPage', page);
         },
         isCurrent: function isCurrent(model, selected) {
             return model.id === selected.id;

@@ -28,5 +28,4 @@ class Invitations extends Repository
 
         return $query;
     }
-
 }

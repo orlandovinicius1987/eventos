@@ -16,7 +16,7 @@
                 >
                     <app-table
                         :pagination="events.data.links.pagination"
-                        @goto-page="gotoPage($event)"
+                        @goto-page="eventsGotoPage($event)"
                         :columns="['#','Nome','Confirmado em']"
                     >
                         <tr
@@ -43,7 +43,7 @@
                 >
                     <app-table
                         :pagination="subEvents.data.links.pagination"
-                        @goto-page="gotoPage($event)"
+                        @goto-page="subEventsGotoPage($event)"
                         :columns="['#','Nome','Data','Hora',]"
                     >
                         <tr
@@ -73,7 +73,7 @@
                 >
                     <app-table
                         :pagination="invitations.data.links.pagination"
-                        @goto-page="gotoPage($event)"
+                        @goto-page="invitationsGotoPage($event)"
                         :columns="['#','Nome','Instituição','Cargo',]"
                     >
                         <tr
@@ -116,6 +116,23 @@ export default {
             'selectSubEvent',
             'selectInvitation',
         ]),
+
+        eventsGotoPage(page) {
+            this.gotoPage(page, 'events', this.events.query.pagination)
+        },
+
+        subEventsGotoPage(page) {
+            this.gotoPage(page, 'subEvents', this.subEvents.query.pagination)
+        },
+
+        invitationsGotoPage(page) {
+            dd('invitationsGotoPage(page)', this)
+            this.gotoPage(
+                page,
+                'invitations',
+                this.invitations.query.pagination,
+            )
+        },
     },
 
     computed: {
@@ -129,7 +146,7 @@ export default {
                     this.serviceName + '/mutateSetQueryFilterText',
                     filter,
                 )
-            }
+            },
         },
 
         eventsPerPage: {
@@ -138,11 +155,8 @@ export default {
             },
 
             set(perPage) {
-                return this.$store.dispatch(
-                    'events/setPerPage',
-                    perPage,
-                )
-            }
+                return this.$store.dispatch('events/setPerPage', perPage)
+            },
         },
 
         subEventsFilterText: {
@@ -155,7 +169,7 @@ export default {
                     'subEvents/mutateSetQueryFilterText',
                     filter,
                 )
-            }
+            },
         },
 
         subEventsPerPage: {
@@ -164,11 +178,8 @@ export default {
             },
 
             set(perPage) {
-                return this.$store.dispatch(
-                    'subEvents/setPerPage',
-                    perPage,
-                )
-            }
+                return this.$store.dispatch('subEvents/setPerPage', perPage)
+            },
         },
 
         invitationsFilterText: {
@@ -181,20 +192,18 @@ export default {
                     'invitations/mutateSetQueryFilterText',
                     filter,
                 )
-            }
+            },
         },
 
         invitationsPerPage: {
             get() {
-                return this.$store.state['invitations'].query.pagination.per_page
+                return this.$store.state['invitations'].query.pagination
+                    .per_page
             },
 
             set(perPage) {
-                return this.$store.dispatch(
-                    'invitations/setPerPage',
-                    perPage,
-                )
-            }
+                return this.$store.dispatch('invitations/setPerPage', perPage)
+            },
         },
     },
 
