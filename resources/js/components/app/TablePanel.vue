@@ -1,13 +1,15 @@
 <template>
     <div>
         <div class="row align-items-end">
-            <div class="col-12 bg-light">
-                <h4 class="mb-0">{{ title }}</h4>
+            <div class="col-12">
+                <div class="bg-dark text-white p-2 mb-2 mt-2 text-center">
+                    <h4 class="mb-0">{{ title }}</h4>
+                </div>
             </div>
 
             <div class="col-12">
                 <div class="row">
-                    <div class="col-6 pl-0 pr-1">
+                    <div class="col-6">
                         <input
                             class="form-control form-control-sm"
                             :value="filterText"

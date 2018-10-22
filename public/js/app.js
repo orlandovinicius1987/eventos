@@ -1864,6 +1864,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['title', 'add-button', 'add-button-disabled', 'columns', 'filter-text', 'per-page']
@@ -25577,7 +25579,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -111055,13 +111057,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row align-items-end" }, [
-      _c("div", { staticClass: "col-12 bg-light" }, [
-        _c("h4", { staticClass: "mb-0" }, [_vm._v(_vm._s(_vm.title))])
+      _c("div", { staticClass: "col-12" }, [
+        _c(
+          "div",
+          { staticClass: "bg-dark text-white p-2 mb-2 mt-2 text-center" },
+          [_c("h4", { staticClass: "mb-0" }, [_vm._v(_vm._s(_vm.title))])]
+        )
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-6 pl-0 pr-1" }, [
+          _c("div", { staticClass: "col-6" }, [
             _c("input", {
               staticClass: "form-control form-control-sm",
               domProps: { value: _vm.filterText },
