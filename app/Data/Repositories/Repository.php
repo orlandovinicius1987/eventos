@@ -37,12 +37,18 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
+        $currentPage = $this->fixCurrentPage(
+            $queryFilter->pagination->currentPage ?: 1,
+            $queryFilter->pagination->perPage ?: 5,
+            $query->count()
+        );
+
         return $this->makePaginationResult(
             $this->filterText($queryFilter, $query)->paginate(
                 $queryFilter->pagination->perPage ?: 5,
                 ['*'],
                 'page',
-                $queryFilter->pagination->currentPage ?: 1
+                $currentPage
             )
         );
     }
@@ -135,6 +141,31 @@ abstract class Repository
     public function all()
     {
         return $this->applyFilter($this->newQuery());
+    }
+
+    /**
+     * @param $perPage
+     * @param $total
+     * @return float
+     */
+    private function maxPage($perPage, $total)
+    {
+        return ceil($total / $perPage);
+    }
+
+    /**
+     * @param $current
+     * @param $perPage
+     * @param $total
+     * @return int
+     */
+    private function fixCurrentPage($current, $perPage, $total)
+    {
+        if ($current > $this->maxPage($perPage, $total)) {
+            return 1;
+        } else {
+            return $current;
+        }
     }
 
     /**
