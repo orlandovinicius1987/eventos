@@ -2237,6 +2237,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2319,6 +2322,7 @@ var serviceName = 'events';
                 return this.$store.state['invitations'].query.pagination.per_page;
             },
             set: function set(perPage) {
+                dd(perPage);
                 return this.$store.dispatch('invitations/setPerPage', perPage);
             }
         }
@@ -25506,7 +25510,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -110024,6 +110028,9 @@ var render = function() {
                     "filter-text": _vm.eventsFilterText
                   },
                   on: {
+                    "set-per-page": function($event) {
+                      _vm.eventsPerPage = $event
+                    },
                     "input-filter-text": function($event) {
                       _vm.eventsFilterText = $event.target.value
                     }
@@ -110100,6 +110107,9 @@ var render = function() {
                     "filter-text": _vm.subEventsFilterText
                   },
                   on: {
+                    "set-per-page": function($event) {
+                      _vm.subEventsPerPage = $event
+                    },
                     "input-filter-text": function($event) {
                       _vm.subEventsFilterText = $event.target.value
                     }
@@ -110183,6 +110193,9 @@ var render = function() {
                         "filter-text": _vm.invitationsFilterText
                       },
                       on: {
+                        "set-per-page": function($event) {
+                          _vm.invitationsPerPage = $event
+                        },
                         "input-filter-text": function($event) {
                           _vm.invitationsFilterText = $event.target.value
                         }

@@ -11,6 +11,7 @@
                     :title="'Eventos (' + pagination.total + ')'"
                     :add-button="{ uri: '/events/create', disabled: cannot('create') }"
                     :per-page="eventsPerPage"
+                    @set-per-page="eventsPerPage = $event"
                     :filter-text="eventsFilterText"
                     @input-filter-text="eventsFilterText = $event.target.value"
                 >
@@ -38,6 +39,7 @@
                     :title="selected.name + ' (' + subEvents.data.links.pagination.total + ' subeventos)'"
                     :add-button="{ uri: '/events/sub-event/create', disabled: cannot('create') }"
                     :per-page="subEventsPerPage"
+                    @set-per-page="subEventsPerPage = $event"
                     :filter-text="subEventsFilterText"
                     @input-filter-text="subEventsFilterText = $event.target.value"
                 >
@@ -68,6 +70,7 @@
                     :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
                     :add-button="{ uri: '/events/create', disabled: cannot('create') }"
                     :per-page="invitationsPerPage"
+                    @set-per-page="invitationsPerPage = $event"
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
                 >
@@ -202,6 +205,7 @@ export default {
             },
 
             set(perPage) {
+                dd(perPage)
                 return this.$store.dispatch('invitations/setPerPage', perPage)
             },
         },
