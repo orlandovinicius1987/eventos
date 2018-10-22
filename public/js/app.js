@@ -1866,6 +1866,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['title', 'add-button', 'add-button-disabled', 'columns', 'filter-text', 'per-page']
@@ -2227,6 +2228,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2246,6 +2256,62 @@ var serviceName = 'events';
 
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(serviceName, ['selectEvent', 'selectSubEvent', 'selectInvitation'])),
+
+    computed: {
+        eventsFilterText: {
+            get: function get() {
+                return this.$store.state['events'].query.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch(this.serviceName + '/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        eventsPerPage: {
+            get: function get() {
+                return this.$store.state['events'].query.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('events/setPerPage', perPage);
+            }
+        },
+
+        subEventsFilterText: {
+            get: function get() {
+                return this.$store.state['subEvents'].query.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('subEvents/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        subEventsPerPage: {
+            get: function get() {
+                return this.$store.state['subEvents'].query.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('subEvents/setPerPage', perPage);
+            }
+        },
+
+        invitationsFilterText: {
+            get: function get() {
+                return this.$store.state['invitations'].query.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('invitations/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        invitationsPerPage: {
+            get: function get() {
+                return this.$store.state['invitations'].query.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('invitations/setPerPage', perPage);
+            }
+        }
+    },
 
     mounted: function mounted() {
         this.boot();
@@ -25429,7 +25495,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25579,7 +25645,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -109942,6 +110008,13 @@ var render = function() {
                     "add-button": {
                       uri: "/events/create",
                       disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.eventsPerPage,
+                    "filter-text": _vm.eventsFilterText
+                  },
+                  on: {
+                    "input-filter-text": function($event) {
+                      _vm.eventsFilterText = $event.target.value
                     }
                   }
                 },
@@ -110011,6 +110084,13 @@ var render = function() {
                     "add-button": {
                       uri: "/events/sub-event/create",
                       disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.subEventsPerPage,
+                    "filter-text": _vm.subEventsFilterText
+                  },
+                  on: {
+                    "input-filter-text": function($event) {
+                      _vm.subEventsFilterText = $event.target.value
                     }
                   }
                 },
@@ -110087,6 +110167,13 @@ var render = function() {
                         "add-button": {
                           uri: "/events/create",
                           disabled: _vm.cannot("create")
+                        },
+                        "per-page": _vm.invitationsPerPage,
+                        "filter-text": _vm.invitationsFilterText
+                      },
+                      on: {
+                        "input-filter-text": function($event) {
+                          _vm.invitationsFilterText = $event.target.value
                         }
                       }
                     },
@@ -111070,6 +111157,7 @@ var render = function() {
           _c("div", { staticClass: "col-6" }, [
             _c("input", {
               staticClass: "form-control form-control-sm",
+              attrs: { placeholder: "filtrar" },
               domProps: { value: _vm.filterText },
               on: {
                 input: function($event) {
@@ -130217,8 +130305,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         saveModel: function saveModel() {
             var _this = this;
 
-            dd(this.$route);
-
             this.save(this.mode).then(function () {
                 _this.load();
 
@@ -130258,8 +130344,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     mounted: function mounted() {
         this.boot();
-
-        dd(this.$route);
     }
 });
 

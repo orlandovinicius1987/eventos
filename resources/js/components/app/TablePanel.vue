@@ -14,6 +14,7 @@
                             class="form-control form-control-sm"
                             :value="filterText"
                             @input="$emit('input-filter-text', $event)"
+                            placeholder="filtrar"
                         >
                     </div>
 
