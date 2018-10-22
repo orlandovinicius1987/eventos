@@ -22,7 +22,11 @@ import * as mutations from './mutations'
 import gate from './modules/gate'
 import events from './modules/events'
 import subEvents from './modules/subEvents'
+import invitations from './modules/invitations'
+import categories from './modules/categories'
 import people from './modules/people'
+import roles from './modules/roles'
+import institutions from './modules/institutions'
 import environment from './modules/environment'
 
 /**
@@ -41,11 +45,15 @@ let store = new Vuex.Store({
     getters,
     mutations,
     modules: {
+        environment,
+        people,
+        categories,
         events,
         subEvents,
-        people,
-        environment,
+        invitations,
         gate,
+        roles,
+        institutions,
     },
 })
 

@@ -13,8 +13,8 @@ class AdvisorStore extends BaseStore
     {
         return [
             'name' => 'required',
-            'advisor_type_id' => 'required|exists:advisor_types,id',
-            'person_id' => 'required|exists:people,id',
+            'role_id' => 'required|exists:roles,id',
+            'person_institution_id' => 'required|exists:person_institutions,id',
         ];
     }
 }

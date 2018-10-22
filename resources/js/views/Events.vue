@@ -6,129 +6,79 @@
 
         <div class="row">
             <div class="col-4">
-                <div class="row align-items-end">
-                    <div class="col-6">
-                        <h4 class="mb-0">Eventos</h4>
-                    </div>
-                    <div class="col-6">
-                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> novo evento
-                        </router-link>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card p-4">
-                            <table class="table table-sm table-hover table-borderless table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Confirmado em</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        @click="selectEvent(event)"
-                                        v-for="event in events"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selectedEvent)}"
-                                    >
-                                        <td>{{ event.id }}</td>
-                                        <td>{{ event.name }}</td>
-                                        <td>{{ event.confirmed_at }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <app-table-panel
+                    v-if="events.data.links"
+                    :title="'Eventos (' + pagination.total + ')'"
+                    :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                >
+                    <app-table
+                        :pagination="events.data.links.pagination"
+                        @goto-page="gotoPage($event)"
+                        :columns="['#','Nome','Confirmado em']"
+                    >
+                        <tr
+                            @click="select(event)"
+                            v-for="event in events.data.rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
+                        >
+                            <td>{{ event.id }}</td>
+                            <td>{{ event.name }}</td>
+                            <td>{{ event.confirmed_at }}</td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
             </div>
 
-            <div class="col-8" v-if="selectedEvent.id">
-                <div class="row align-items-end">
-                    <div class="col-10">
-                        <h4 class="mb-0">{{ selectedEvent.name }} (subeventos)</h4>
-                    </div>
-                    <div class="col-2">
-                        <router-link to="/events/sub-event/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
-                            <i class="fa fa-plus"></i> novo subevento
-                        </router-link>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card p-4">
-                            <table class="table table-sm table-hover table-borderless table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Data</th>
-                                        <th scope="col">Hora</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        @click="selectSubEvent(subEvent)"
-                                        v-for="subEvent in subEvents" class="cursor-pointer"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, selectedSubEvent)}"
-                                    >
-                                        <td>{{ subEvent.id }}</td>
-                                        <td>{{ subEvent.name }}</td>
-                                        <td>{{ subEvent.date }}</td>
-                                        <td>{{ subEvent.time }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-8">
+                <app-table-panel
+                    v-if="selected.id && subEvents.data.links"
+                    :title="selected.name + '(' + pagination.total + ' subeventos)'"
+                    :add-button="{ uri: '/events/sub-event/create', disabled: cannot('create') }"
+                >
+                    <app-table
+                        :pagination="subEvents.data.links.pagination"
+                        @goto-page="gotoPage($event)"
+                        :columns="['#','Nome','Data','Hora',]"
+                    >
+                        <tr
+                            @click="selectSubEvent(subEvent)"
+                            v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
+                        >
+                            <td>{{ subEvent.id }}</td>
+                            <td>{{ subEvent.name }}</td>
+                            <td>{{ subEvent.date }}</td>
+                            <td>{{ subEvent.time }}</td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
             </div>
         </div>
 
-        <div class="row" v-if="selectedSubEvent.id">
+        <div class="row" v-if="subEvents && subEvents.selected.id">
             <div class="col-12">
-                <div class="row align-items-end">
-                    <div class="col-6">
-                        <h4 class="mb-0">Convidados para {{ selectedSubEvent.name }} de {{ selectedEvent.name }} </h4>
-                    </div>
-                    <div class="col-6">
-                        <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> adicionar convidado
-                        </router-link>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card p-4">
-                            <table class="table table-sm table-hover table-borderless table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nome</th>
-                                        <th scope="col">Instituição</th>
-                                        <th scope="col">Cargo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr
-                                        @click="selectEvent(invitation)"
-                                        v-for="invitation in invitations"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, selectedInvitation)}"
-                                    >
-                                        <td>{{ invitation.id }}</td>
-                                        <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
-                                        <td>{{ invitation.person_institution.institution.name }}</td>
-                                        <td>{{ invitation.person_institution.role.name }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
+                <app-table-panel
+                    v-if="selected.id && invitations.data.links"
+                    :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
+                    :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                >
+                    <app-table
+                        :pagination="invitations.data.links.pagination"
+                        @goto-page="gotoPage($event)"
+                        :columns="['#','Nome','Instituição','Cargo',]"
+                    >
+                        <tr
+                            @click="selectInvitation(invitation)"
+                            v-for="invitation in invitations.data.rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
+                        >
+                            <td>{{ invitation.id }}</td>
+                            <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
+                            <td>{{ invitation.person_institution.institution.name }}</td>
+                            <td>{{ invitation.person_institution.role.name }}</td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
             </div>
         </div>
     </div>
@@ -149,14 +99,6 @@ export default {
         return {
             serviceName: serviceName,
         }
-    },
-
-    computed: {
-        ...mapState(serviceName, [
-            'selectedEvent',
-            'selectedSubEvent',
-            'selectedInvitation',
-        ]),
     },
 
     methods: {

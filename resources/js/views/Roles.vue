@@ -1,0 +1,67 @@
+<template>
+    <div>
+        <div class="py-2 mb-4 text-center">
+            <h2>Funções</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <app-table-panel
+                    :title="'Funções (' + pagination.total + ')'"
+                    :add-button="{ uri: '/roles/create', disabled: cannot('create') }"
+                    :per-page="perPage"
+                    :filter-text="filterText"
+                    @input-filter-text="filterText = $event.target.value"
+                    @set-per-page="perPage = $event"
+                >
+                    <app-table
+                        :pagination="pagination"
+                        @goto-page="gotoPage($event)"
+                        :columns="['#', 'Nome']"
+                    >
+                        <tr
+                            @click="select(role)"
+                            v-for="role in roles.data.rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selected)}"
+                        >
+                            <td class="align-middle">{{ role.id }}</td>
+                            <td class="align-middle">{{ role.name }}</td>
+                            <td>
+                                <router-link
+                                    :to="'/roles/'+role.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import crud from './mixins/crud'
+import roles from './mixins/roles'
+import permissions from './mixins/permissions'
+import { mapActions, mapState } from 'vuex'
+
+const serviceName = 'roles'
+
+export default {
+    mixins: [crud, roles, permissions],
+
+    data() {
+        return {
+            serviceName: serviceName,
+        }
+    },
+}
+</script>
+
+<style>
+</style>

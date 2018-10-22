@@ -33,7 +33,27 @@ abstract class Repository
         return $model;
     }
 
-    private function filterAllColumns(Builder $query, $text)
+    protected function applyFilter($query)
+    {
+        $queryFilter = $this->getQueryFilter();
+
+        $currentPage = $this->fixCurrentPage(
+            $queryFilter->pagination->currentPage ?: 1,
+            $queryFilter->pagination->perPage ?: 5,
+            $query->count()
+        );
+
+        return $this->makePaginationResult(
+            $this->filterText($queryFilter, $query)->paginate(
+                $queryFilter->pagination->perPage ?: 5,
+                ['*'],
+                'page',
+                $currentPage
+            )
+        );
+    }
+
+    protected function filterAllColumns(Builder $query, $text)
     {
         $query->where('name', 'ilike', "%{$text}%");
 
@@ -45,7 +65,7 @@ abstract class Repository
      * @param $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    private function filterText($filter, $query)
+    protected function filterText($filter, $query)
     {
         if (($filter = $filter['filter']['text'])) {
             $this->filterAllColumns($query, $filter);
@@ -54,7 +74,7 @@ abstract class Repository
         return $query;
     }
 
-    private function findByAnyColumnName($name, $arguments)
+    protected function findByAnyColumnName($name, $arguments)
     {
         return $this->makeQueryByAnyColumnName(
             'findBy',
@@ -63,7 +83,7 @@ abstract class Repository
         )->first();
     }
 
-    private function generatePages(LengthAwarePaginator $data)
+    protected function generatePages(LengthAwarePaginator $data)
     {
         $firstPage = max($data->currentPage() - 2, 1);
 
@@ -72,21 +92,19 @@ abstract class Repository
         return range($firstPage, $lastPage);
     }
 
-    private function getByAnyColumnName($name, $arguments)
+    protected function getByAnyColumnName($name, $arguments)
     {
-        return $this->makeQueryByAnyColumnName(
-            'getBy',
-            $name,
-            $arguments
-        )->get();
+        return $this->applyFilter(
+            $this->makeQueryByAnyColumnName('getBy', $name, $arguments)
+        );
     }
 
-    private function getQueryFilter()
+    protected function getQueryFilter()
     {
         return coollect(json_decode(request()->get('query'), true));
     }
 
-    private function makeQueryByAnyColumnName($startsWith, $name, $arguments)
+    protected function makeQueryByAnyColumnName($startsWith, $name, $arguments)
     {
         $columnName = snake_case(Str::after($name, $startsWith));
 
@@ -122,16 +140,32 @@ abstract class Repository
      */
     public function all()
     {
-        $queryFilter = $this->getQueryFilter();
+        return $this->applyFilter($this->newQuery());
+    }
 
-        return $this->makePaginationResult(
-            $this->filterText($queryFilter, $this->newQuery())->paginate(
-                $queryFilter->pagination->perPage,
-                ['*'],
-                'page',
-                $queryFilter->pagination->currentPage
-            )
-        );
+    /**
+     * @param $perPage
+     * @param $total
+     * @return float
+     */
+    private function maxPage($perPage, $total)
+    {
+        return ceil($total / $perPage);
+    }
+
+    /**
+     * @param $current
+     * @param $perPage
+     * @param $total
+     * @return int
+     */
+    private function fixCurrentPage($current, $perPage, $total)
+    {
+        if ($current > $this->maxPage($perPage, $total)) {
+            return 1;
+        } else {
+            return $current;
+        }
     }
 
     /**
@@ -175,7 +209,7 @@ abstract class Repository
     /**
      * @return Builder
      */
-    private function newQuery()
+    protected function newQuery()
     {
         return $this->model::query();
     }

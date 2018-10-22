@@ -1,46 +1,41 @@
 import Form from '../../classes/Form'
 
-import {
-    save,
-    mutateData,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    clearForm,
-} from './mixins/data.js'
+import * as mutationsMixin from './mixins/mutations.js'
+import * as actionsMixin from './mixins/actions.js'
+import * as statesMixin from './mixins/states.js'
 
-const state = {
-    data: {},
+const state = merge_objects(statesMixin.common, {
+    event: null,
 
     form: new Form({
         name: null,
     }),
-}
+})
 
-const getters = {}
+const actions = merge_objects(actionsMixin, {
+    load(context) {
+        return get('/api/v1/events/' + context.state.event.id + '/sub-events', {
+            params: { query: context.state.query },
+        }).then(response => {
+            context.commit('mutateSetData', response.data)
+        })
+    },
 
-const actions = {
-    save,
+    setEvent(context, payload) {
+        context.commit('mutateSetEvent', payload)
 
-    clearForm,
+        context.dispatch('load', payload)
+    },
+})
 
-    load() {},
-}
-
-const mutations = {
-    mutateData,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-}
+const mutations = merge_objects(mutationsMixin, {
+    mutateSetEvent(state, payload) {
+        state.event = payload
+    },
+})
 
 export default {
     state,
-    getters,
     actions,
     mutations,
     namespaced: true,

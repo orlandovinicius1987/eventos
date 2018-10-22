@@ -1,5 +1,5 @@
 <template>
-    <nav class="text-center" v-if="pagination.total > 0">
+    <nav class="text-center" v-if="pagination.last_page > 1">
         <ul class="pagination justify-content-center mb-0">
             <li class="page-item" @click="$emit('goto-page', pagination.current_page - 1)">
                 <a class="page-link" href="#" aria-label="Previous">

@@ -8,4 +8,6 @@ class Category extends Base
      * @var array
      */
     protected $fillable = ['name'];
+
+    protected $table = 'categories';
 }

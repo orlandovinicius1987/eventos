@@ -21,7 +21,7 @@ const actions = {
 }
 
 const mutations = {
-    mutateData(state, payload) {
+    mutateSetData(state, payload) {
         _.forIn(payload, function(val, key) {
             state[key] = val
         })

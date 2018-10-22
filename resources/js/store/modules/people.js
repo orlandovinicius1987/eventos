@@ -1,105 +1,50 @@
 import Form from '../../classes/Form'
 
-import {
-    load,
-    save,
-    clearForm,
-    setCurrentPage,
-    setPerPage,
-    updateUserPerPage,
-    mutateData,
-    mutateQuery,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateUpdateUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    mutatePerPage,
-    mutateQueryFilterText,
-} from './mixins/data.js'
+import * as mutationsMixin from './mixins/mutations.js'
+import * as actionsMixin from './mixins/actions.js'
+import * as statesMixin from './mixins/states.js'
 
 const __emptyModel = { id: null }
 
-const state = {
-    dataUrl: '',
+let state = merge_objects(
+    {
+        invitations: [],
 
-    storeUrl: '',
+        selectedPerson: __emptyModel,
 
-    updateUrl: '',
+        form: new Form({
+            name: null,
+        }),
 
-    data: {},
+        mode: null,
 
-    query: {
-        filter: {
-            text: null,
+        subPeopleQuery: {},
+
+        invitationsQuery: {},
+    },
+    statesMixin.common,
+)
+
+let actions = merge_objects(
+    {
+        selectPerson(context, payload) {
+            context.commit('selectPerson', payload)
         },
+    },
+    actionsMixin,
+)
 
-        pagination: {
-            per_page: 5,
-
-            current_page: 1,
+let mutations = merge_objects(
+    {
+        selectPerson(state, payload) {
+            state.selectedPerson = payload
         },
     },
-
-    subPeople: [],
-
-    invitations: [],
-
-    selectedPerson: __emptyModel,
-
-    form: new Form({
-        name: null,
-    }),
-
-    mode: null,
-
-    subPeopleQuery: {},
-
-    invitationsQuery: {},
-}
-
-const getters = {}
-
-const actions = {
-    load,
-
-    save,
-
-    clearForm,
-
-    mutateQueryFilterText,
-
-    setCurrentPage,
-
-    setPerPage,
-
-    updateUserPerPage,
-
-    selectPerson(context, payload) {
-        context.commit('selectPerson', payload)
-    },
-}
-
-const mutations = {
-    mutateData,
-    mutateQuery,
-    mutateGetUrl,
-    mutateStoreUrl,
-    mutateUpdateUrl,
-    mutateFormField,
-    mutateErrors,
-    mutateFormData,
-    mutatePerPage,
-
-    selectPerson(state, payload) {
-        state.selectedPerson = payload
-    },
-}
+    mutationsMixin,
+)
 
 export default {
     state,
-    getters,
     actions,
     mutations,
     namespaced: true,

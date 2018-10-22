@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class PersonUpdate extends StoreWithClient
+class PersonUpdate extends Request
 {
     /**
      * Get the validation rules that apply to the request.
@@ -11,11 +11,8 @@ class PersonUpdate extends StoreWithClient
      */
     public function rules()
     {
-        //        $parentArray = parent::rules();
-        $parentArray = [];
-
-        return array_merge($parentArray, [
+        return [
             'name' => 'required',
-        ]);
+        ];
     }
 }
