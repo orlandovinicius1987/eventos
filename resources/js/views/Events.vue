@@ -32,7 +32,7 @@
             <div class="col-8">
                 <app-table-panel
                     v-if="selected.id && subEvents.data.links"
-                    :title="selected.name + '(' + pagination.total + ' subeventos)'"
+                    :title="selected.name + ' (' + subEvents.data.links.pagination.total + ' subeventos)'"
                     :add-button="{ uri: '/events/sub-event/create', disabled: cannot('create') }"
                 >
                     <app-table

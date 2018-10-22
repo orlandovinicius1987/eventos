@@ -110005,8 +110005,8 @@ var render = function() {
                   attrs: {
                     title:
                       _vm.selected.name +
-                      "(" +
-                      _vm.pagination.total +
+                      " (" +
+                      _vm.subEvents.data.links.pagination.total +
                       " subeventos)",
                     "add-button": {
                       uri: "/events/sub-event/create",
@@ -111060,7 +111060,7 @@ var render = function() {
       _c("div", { staticClass: "col-12" }, [
         _c(
           "div",
-          { staticClass: "bg-dark text-white p-2 mb-2 mt-2 text-center" },
+          { staticClass: "bg-dark text-white p-2 mb-2 mt-4 text-center" },
           [_c("h4", { staticClass: "mb-0" }, [_vm._v(_vm._s(_vm.title))])]
         )
       ]),
@@ -111097,7 +111097,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-2" },
+            { staticClass: "col-2 text-right" },
             [
               _vm.addButton
                 ? _c(

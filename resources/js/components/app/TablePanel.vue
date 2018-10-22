@@ -2,7 +2,7 @@
     <div>
         <div class="row align-items-end">
             <div class="col-12">
-                <div class="bg-dark text-white p-2 mb-2 mt-2 text-center">
+                <div class="bg-dark text-white p-2 mb-2 mt-4 text-center">
                     <h4 class="mb-0">{{ title }}</h4>
                 </div>
             </div>
@@ -24,7 +24,7 @@
                         ></app-per-page>
                     </div>
 
-                    <div class="col-2">
+                    <div class="col-2 text-right">
                         <router-link
                             v-if="addButton"
                             :to="addButton.uri"
