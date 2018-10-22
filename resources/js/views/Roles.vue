@@ -6,70 +6,39 @@
 
         <div class="row">
             <div class="col-4">
-                <div class="row align-items-end">
-                    <div class="col-3">
-                        <h4 class="mb-0">Funções ({{ pagination.total }})</h4>
-                    </div>
-
-                    <div class="col-9">
-                        <div class="row">
-                            <div class="col-4 pr-0">
-                                <router-link
-                                    to="/roles/create"
-                                    tag="div"
-                                    class="btn btn-primary btn-sm mr-1 pull-right"
-                                    :disabled="cannot('create')"
-                                >
-                                    <i class="fa fa-plus"></i>
-                                </router-link>
-                            </div>
-
-                            <div class="col-6 pl-0 pr-1">
-                                <input class="form-control form-control-sm" v-model="filterText">
-                            </div>
-
-                            <div class="col-2 pl-0">
-                                <app-per-page v-model="perPage"></app-per-page>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <app-table
+                <app-table-panel
+                    :title="'Funções (' + pagination.total + ')'"
+                    :add-button="{ uri: '/roles/create', disabled: cannot('create') }"
+                    :per-page="perPage"
+                    :filter-text="filterText"
+                    @input-filter-text="filterText = $event.target.value"
+                    @set-per-page="perPage = $event"
+                >
+                    <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                >
-                    <template slot="thead">
-                        <th scope="col">#</th>
-                        <th scope="col">Tratamento</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Nome público</th>
-                        <th scope="col"></th>
-                    </template>
-
-                    <template slot="tbody">
+                        :columns="['#', 'Nome']"
+                    >
                         <tr
-                                @click="selectRole(role)"
-                                v-for="role in rows"
-                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selectedRole)}"
+                            @click="select(role)"
+                            v-for="role in roles.data.rows"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selected)}"
                         >
                             <td class="align-middle">{{ role.id }}</td>
-                            <td class="align-middle">{{ role.title }}</td>
                             <td class="align-middle">{{ role.name }}</td>
-                            <td class="align-middle">{{ role.nickname }}</td>
                             <td>
                                 <router-link
-                                        :to="'/roles/'+role.id+'/update'"
-                                        tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
-                                        :disabled="cannot('create')"
+                                    :to="'/roles/'+role.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('create')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
                             </td>
                         </tr>
-                    </template>
-                </app-table>
+                    </app-table>
+                </app-table-panel>
             </div>
         </div>
     </div>
@@ -90,18 +59,6 @@ export default {
         return {
             serviceName: serviceName,
         }
-    },
-
-    computed: {
-        ...mapState(serviceName, ['selectedRole']),
-    },
-
-    methods: {
-        ...mapActions(serviceName, ['selectRole']),
-    },
-
-    mounted() {
-        this.boot()
     },
 }
 </script>
