@@ -111084,7 +111084,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-4 pl-0" },
+            { staticClass: "col-4 p-0" },
             [
               _c("app-per-page", {
                 attrs: { value: _vm.perPage },
@@ -111106,7 +111106,7 @@ var render = function() {
                 ? _c(
                     "router-link",
                     {
-                      staticClass: "btn btn-primary btn-sm m-1 pull-right",
+                      staticClass: "btn btn-primary btn-sm pull-right",
                       attrs: {
                         to: _vm.addButton.uri,
                         tag: "div",

@@ -15,7 +15,7 @@
                         >
                     </div>
 
-                    <div class="col-4 pl-0">
+                    <div class="col-4 p-0">
                         <app-per-page
                             :value="perPage"
                             @input="$emit('set-per-page', $event)"
@@ -27,7 +27,7 @@
                             v-if="addButton"
                             :to="addButton.uri"
                             tag="div"
-                            class="btn btn-primary btn-sm m-1 pull-right"
+                            class="btn btn-primary btn-sm pull-right"
                             :disabled="addButton.disabled"
                         >
                             <i class="fa fa-plus"></i>
