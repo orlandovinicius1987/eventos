@@ -17,7 +17,7 @@ export default {
 
             set(payload) {
                 return this.$store.dispatch(
-                    this.serviceName + '/mutateQueryFilterText',
+                    this.serviceName + '/mutateSetQueryFilterText',
                     payload,
                 )
             },
@@ -25,6 +25,10 @@ export default {
 
         form() {
             return this.$store.state[this.serviceName].form
+        },
+
+        selected() {
+            return this.$store.state[this.serviceName].selected
         },
 
         environment() {
@@ -51,42 +55,46 @@ export default {
     methods: {
         load() {
             this.$store.commit(
-                this.serviceName + '/mutatePerPage',
+                this.serviceName + '/mutateSetPerPage',
                 this.environment.user.per_page,
             )
 
             return this.$store.dispatch(this.serviceName + '/load')
         },
 
+        select(model) {
+            return this.$store.dispatch(this.serviceName + '/select', model)
+        },
+
         save(mode) {
-            this.mutateUpdateUrl(
+            this.mutateSetUpdateUrl(
                 '/api/v1/' + this.serviceName + '/' + this.$route.params.id,
             )
             return this.$store.dispatch(this.serviceName + '/save', mode)
         },
 
-        mutateGetUrl(url) {
-            this.$store.commit(this.serviceName + '/mutateGetUrl', url)
+        mutateSetGetUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateSetGetUrl', url)
         },
 
-        mutateStoreUrl(url) {
-            this.$store.commit(this.serviceName + '/mutateStoreUrl', url)
+        mutateSetStoreUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateSetStoreUrl', url)
         },
 
-        mutateUpdateUrl(url) {
-            this.$store.commit(this.serviceName + '/mutateUpdateUrl', url)
+        mutateSetUpdateUrl(url) {
+            this.$store.commit(this.serviceName + '/mutateSetUpdateUrl', url)
         },
 
-        mutateErrors(errors) {
-            this.$store.commit(this.serviceName + '/mutateErrors', errors)
+        mutateSetErrors(errors) {
+            this.$store.commit(this.serviceName + '/mutateSetErrors', errors)
         },
 
         mutateFormData(data) {
             this.$store.commit(this.serviceName + '/mutateFormData', data)
         },
 
-        mutateFormField(data) {
-            this.$store.commit(this.serviceName + '/mutateFormField', data)
+        mutateSetFormField(data) {
+            this.$store.commit(this.serviceName + '/mutateSetFormField', data)
         },
 
         isLoading() {
@@ -96,9 +104,9 @@ export default {
         boot() {
             const $this = this
 
-            $this.mutateGetUrl('/api/v1/' + $this.serviceName)
+            $this.mutateSetGetUrl('/api/v1/' + $this.serviceName)
 
-            $this.mutateStoreUrl('/api/v1/' + $this.serviceName)
+            $this.mutateSetStoreUrl('/api/v1/' + $this.serviceName)
 
             $this.load().then(function() {
                 $this.fillFormWhenEditing()
@@ -126,7 +134,6 @@ export default {
         },
 
         saveModel() {
-
             this.save(this.mode).then(() => {
                 this.load()
 
@@ -166,7 +173,7 @@ export default {
 
         setPerPage() {
             this.$store.commit(
-                this.serviceName + '/mutatePerPage',
+                this.serviceName + '/mutateSetPerPage',
                 this.environment.user.per_page,
             )
         },

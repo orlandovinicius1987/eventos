@@ -6,41 +6,31 @@ import * as statesMixin from './mixins/states.js'
 
 const __emptyModel = { id: null }
 
-let state = merge_objects({
-    subEvents: [],
-
-    invitations: [],
-
-    selectedEvent: __emptyModel,
-
-    selectedSubEvent: __emptyModel,
-
-    selectedInvitation: __emptyModel,
-
+const state = merge_objects(statesMixin.common, {
     form: new Form({
         name: null,
     }),
+})
 
-    subEventsQuery: {},
+const actions = merge_objects(actionsMixin, {
+    select(context, payload) {
+        context.commit('mutateSetSelected', payload)
 
-    invitationsQuery: {},
-}, statesMixin.common)
-
-let actions = merge_objects({
-    load: actionsMixin.load,
-    save: actionsMixin.save,
-    clearForm: actionsMixin.clearForm,
-
-    selectEvent(context, payload) {
-        context.commit('selectEvent', payload)
-
-        context.dispatch('loadSubEvents', payload)
+        context.dispatch('subEvents/setEvent', payload, { root: true })
     },
 
     selectSubEvent(context, payload) {
-        context.commit('selectSubEvent', payload)
+        context.commit('subEvents/mutateSetSelected', payload, {
+            root: true,
+        })
 
-        context.dispatch('loadInvitations', payload)
+        context.dispatch('invitations/setSubEvent', payload, { root: true })
+    },
+
+    selectInvitation(context, payload) {
+        context.commit('invitations/mutateSetSelected', payload, {
+            root: true,
+        })
     },
 
     loadSubEvents(context, event) {
@@ -67,9 +57,9 @@ let actions = merge_objects({
                 context.commit('setInvitations', response.data)
             })
     },
-}, actionsMixin)
+})
 
-let mutations = merge_objects({
+const mutations = merge_objects(mutationsMixin, {
     selectEvent(state, payload) {
         state.selectedEvent = payload
 
@@ -95,7 +85,7 @@ let mutations = merge_objects({
     setInvitations(state, payload) {
         state.invitations = payload
     },
-}, mutationsMixin)
+})
 
 export default {
     state,

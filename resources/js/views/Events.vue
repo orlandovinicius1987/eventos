@@ -8,11 +8,11 @@
             <div class="col-4">
                 <div class="row align-items-end">
                     <div class="col-6">
-                        <h4 class="mb-0">Eventos</h4>
+                        <h4 class="mb-0">Eventos ({{ pagination.total }})</h4>
                     </div>
                     <div class="col-6">
                         <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> novo evento
+                            <i class="fa fa-plus"></i>
                         </router-link>
                     </div>
                 </div>
@@ -30,9 +30,9 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        @click="selectEvent(event)"
-                                        v-for="event in events"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selectedEvent)}"
+                                        @click="select(event)"
+                                        v-for="event in events.data.rows"
+                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
                                     >
                                         <td>{{ event.id }}</td>
                                         <td>{{ event.name }}</td>
@@ -45,14 +45,14 @@
                 </div>
             </div>
 
-            <div class="col-8" v-if="selectedEvent.id">
+            <div class="col-8" v-if="selected.id">
                 <div class="row align-items-end">
                     <div class="col-10">
-                        <h4 class="mb-0">{{ selectedEvent.name }} (subeventos)</h4>
+                        <h4 class="mb-0">{{ selected.name }} ({{ pagination.total }} subeventos)</h4>
                     </div>
                     <div class="col-2">
                         <router-link to="/events/sub-event/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right">
-                            <i class="fa fa-plus"></i> novo subevento
+                            <i class="fa fa-plus"></i>
                         </router-link>
                     </div>
                 </div>
@@ -72,8 +72,8 @@
                                 <tbody>
                                     <tr
                                         @click="selectSubEvent(subEvent)"
-                                        v-for="subEvent in subEvents" class="cursor-pointer"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, selectedSubEvent)}"
+                                        v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
+                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
                                     >
                                         <td>{{ subEvent.id }}</td>
                                         <td>{{ subEvent.name }}</td>
@@ -88,15 +88,15 @@
             </div>
         </div>
 
-        <div class="row" v-if="selectedSubEvent.id">
+        <div class="row" v-if="subEvents && subEvents.selected.id">
             <div class="col-12">
                 <div class="row align-items-end">
                     <div class="col-6">
-                        <h4 class="mb-0">Convidados para {{ selectedSubEvent.name }} de {{ selectedEvent.name }} </h4>
+                        <h4 class="mb-0">{{ pagination.total }} convidados para {{ subEvents.selected.name }} de {{ selected.name }} </h4>
                     </div>
                     <div class="col-6">
                         <router-link to="/events/create" tag="div" class="btn btn-primary btn-sm m-1 pull-right" :disabled="cannot('create')">
-                            <i class="fa fa-plus"></i> adicionar convidado
+                            <i class="fa fa-plus"></i>
                         </router-link>
                     </div>
                 </div>
@@ -115,9 +115,9 @@
                                 </thead>
                                 <tbody>
                                     <tr
-                                        @click="selectEvent(invitation)"
-                                        v-for="invitation in invitations"
-                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, selectedInvitation)}"
+                                        @click="selectInvitation(invitation)"
+                                        v-for="invitation in invitations.data.rows"
+                                        :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
                                     >
                                         <td>{{ invitation.id }}</td>
                                         <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
@@ -149,14 +149,6 @@ export default {
         return {
             serviceName: serviceName,
         }
-    },
-
-    computed: {
-        ...mapState(serviceName, [
-            'selectedEvent',
-            'selectedSubEvent',
-            'selectedInvitation',
-        ]),
     },
 
     methods: {

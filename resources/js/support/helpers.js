@@ -60,8 +60,12 @@ window.confirm = (title, vue) => {
     })
 }
 
-window.post = (arg1, arg2, arg3) => {
-    return axios.post(arg1, arg2, arg3)
+window.post = (...args) => {
+    return axios.post(...args)
+}
+
+window.get = (...args) => {
+    return axios.get(...args)
 }
 
 window.object_get = (obj, descendants) => {
@@ -117,5 +121,5 @@ window.set_null = obj => {
 }
 
 window.merge_objects = (target, ...sources) => {
-    return Object.assign(target, ...sources)
+    return Object.assign({}, target, ...sources)
 }

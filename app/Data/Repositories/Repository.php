@@ -39,10 +39,10 @@ abstract class Repository
 
         return $this->makePaginationResult(
             $this->filterText($queryFilter, $query)->paginate(
-                $queryFilter->pagination->perPage ?? 5,
+                $queryFilter->pagination->perPage ?: 5,
                 ['*'],
                 'page',
-                $queryFilter->pagination->currentPage ?? 1
+                $queryFilter->pagination->currentPage ?: 1
             )
         );
     }
