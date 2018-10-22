@@ -7,7 +7,7 @@ export default {
 
     computed: {
         ...mapState({
-            rows: state => state.institutions.data.rows,
+            institutions: state => state.institutions,
         }),
     },
 }
