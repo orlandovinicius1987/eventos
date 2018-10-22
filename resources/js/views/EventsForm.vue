@@ -9,13 +9,13 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="name">Nome do evento</label>
-
-                            <input v-model="form.fields.name" class="form-control" id="name" required>
-
-                            <small class="text-danger" v-if="form.errors.has('name')" >
-                                {{ form.errors.get('name') }}
-                            </small>
+                            <app-input
+                                name="name"
+                                label="Nome do evento"
+                                v-model="form.fields.name"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -41,7 +41,7 @@ import events from './mixins/events'
 const serviceName = 'events'
 
 export default {
-    props: [],
+    props: ['mode'],
 
     mixins: [crud, events],
 
@@ -49,10 +49,6 @@ export default {
         return {
             serviceName: serviceName,
         }
-    },
-
-    mounted() {
-        this.boot()
     },
 }
 </script>
