@@ -70,6 +70,11 @@ export default {
             this.mutateSetUpdateUrl(
                 '/api/v1/' + this.serviceName + '/' + this.$route.params.id,
             )
+
+            this.mutateSetStoreUrl(
+                '/api/v1/' + this.serviceName,
+            )
+
             return this.$store.dispatch(this.serviceName + '/save', mode)
         },
 
@@ -134,6 +139,8 @@ export default {
         },
 
         saveModel() {
+            dd(this.$route)
+
             this.save(this.mode).then(() => {
                 this.load()
 
@@ -181,5 +188,7 @@ export default {
 
     mounted() {
         this.boot()
+
+        dd(this.$route)
     },
 }

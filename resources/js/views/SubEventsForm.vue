@@ -43,7 +43,7 @@ import { mapState } from 'vuex'
 const serviceName = 'subEvents'
 
 export default {
-    props: [],
+    props: ['mode'],
 
     mixins: [crud, events],
 
@@ -55,10 +55,6 @@ export default {
 
     computed: {
         ...mapState('events', ['selectedEvent', 'selectedSubEvent']),
-    },
-
-    mounted() {
-        this.boot()
     },
 }
 </script>

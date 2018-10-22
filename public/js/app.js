@@ -2302,7 +2302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 var serviceName = 'events';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: [],
+    props: ['mode'],
 
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */]],
 
@@ -2310,9 +2310,6 @@ var serviceName = 'events';
         return {
             serviceName: serviceName
         };
-    },
-    mounted: function mounted() {
-        this.boot();
     }
 });
 
@@ -2323,6 +2320,8 @@ var serviceName = 'events';
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -2892,11 +2891,7 @@ var serviceName = 'roles';
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(serviceName, ['selectRole'])),
-
-    mounted: function mounted() {
-        this.boot();
-    }
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(serviceName, ['selectRole']))
 });
 
 /***/ }),
@@ -2956,7 +2951,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 var serviceName = 'subEvents';
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: [],
+    props: ['mode'],
 
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */]],
 
@@ -2967,11 +2962,7 @@ var serviceName = 'subEvents';
     },
 
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('events', ['selectedEvent', 'selectedSubEvent'])),
-
-    mounted: function mounted() {
-        this.boot();
-    }
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('events', ['selectedEvent', 'selectedSubEvent']))
 });
 
 /***/ }),
@@ -25496,7 +25487,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25556,7 +25547,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25646,7 +25637,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25676,7 +25667,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -111064,11 +111055,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "row align-items-end" }, [
-      _c("div", { staticClass: "col-3" }, [
+      _c("div", { staticClass: "col-12 bg-light" }, [
         _c("h4", { staticClass: "mb-0" }, [_vm._v(_vm._s(_vm.title))])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-9" }, [
+      _c("div", { staticClass: "col-12" }, [
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-6 pl-0 pr-1" }, [
             _c("input", {
@@ -111484,43 +111475,28 @@ var render = function() {
       _c("div", { staticClass: "col-8" }, [
         _c("form", [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12 mb-3" }, [
-              _c("label", { attrs: { for: "name" } }, [
-                _vm._v("Nome do evento")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-input", {
+                  attrs: {
+                    name: "name",
+                    label: "Nome do evento",
+                    required: true,
+                    form: _vm.form
+                  },
+                  model: {
                     value: _vm.form.fields.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "name", $$v)
+                    },
                     expression: "form.fields.name"
                   }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "name", required: "" },
-                domProps: { value: _vm.form.fields.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form.fields, "name", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.errors.has("name")
-                ? _c("small", { staticClass: "text-danger" }, [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(_vm.form.errors.get("name")) +
-                        "\n                        "
-                    )
-                  ])
-                : _vm._e()
-            ])
+                })
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
@@ -130177,6 +130153,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         save: function save(mode) {
             this.mutateSetUpdateUrl('/api/v1/' + this.serviceName + '/' + this.$route.params.id);
+
+            this.mutateSetStoreUrl('/api/v1/' + this.serviceName);
+
             return this.$store.dispatch(this.serviceName + '/save', mode);
         },
         mutateSetGetUrl: function mutateSetGetUrl(url) {
@@ -130232,6 +130211,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         saveModel: function saveModel() {
             var _this = this;
 
+            dd(this.$route);
+
             this.save(this.mode).then(function () {
                 _this.load();
 
@@ -130271,6 +130252,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     mounted: function mounted() {
         this.boot();
+
+        dd(this.$route);
     }
 });
 
