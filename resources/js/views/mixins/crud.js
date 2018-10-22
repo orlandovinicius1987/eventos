@@ -178,4 +178,8 @@ export default {
             )
         },
     },
+
+    mounted() {
+        this.boot()
+    },
 }

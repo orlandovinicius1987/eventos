@@ -6,47 +6,22 @@
 
         <div class="row">
             <div class="col-4">
-                <div class="row align-items-end">
-                    <div class="col-3">
-                        <h4 class="mb-0">Categorias ({{ pagination.total }})</h4>
-                    </div>
-
-                    <div class="col-9">
-                        <div class="row">
-                            <div class="col-4 pr-0">
-                                <router-link
-                                        to="/categories/create"
-                                        tag="div"
-                                        class="btn btn-primary btn-sm mr-1 pull-right"
-                                        :disabled="cannot('create')"
-                                >
-                                    <i class="fa fa-plus"></i>
-                                </router-link>
-                            </div>
-
-                            <div class="col-6 pl-0 pr-1">
-                                <input class="form-control form-control-sm" v-model="filterText">
-                            </div>
-
-                            <div class="col-2 pl-0">
-                                <app-per-page v-model="perPage"></app-per-page>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <app-table
+                <app-table-panel
+                    :title="'Categorias (' + pagination.total + ')'"
+                    :add-button="{ uri: '/categories/create', disabled: cannot('create') }"
+                    :per-page="perPage"
+                    :filter-text="filterText"
+                    @input-filter-text="filterText = $event.target.value"
+                    @set-per-page="perPage = $event"
+                >
+                    <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                >
-                    <template slot="thead">
-                        <th scope="col">#</th>
-                        <th scope="col">Nome</th>
-                    </template>
-
-                    <template slot="tbody">
+                        :columns="['#', 'Nome']"
+                    >
                         <tr
                             @click="select(category)"
-                            v-for="category in rows"
+                            v-for="category in categories.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(category, selected)}"
                         >
                             <td class="align-middle">{{ category.id }}</td>
@@ -62,12 +37,11 @@
                                 </router-link>
                             </td>
                         </tr>
-                    </template>
-                </app-table>
+                    </app-table>
+                </app-table-panel>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>

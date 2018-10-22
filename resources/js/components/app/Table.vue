@@ -6,11 +6,18 @@
                     <thead>
                         <tr>
                             <slot name="thead"></slot>
+
+                            <th
+                                v-if="columns"
+                                v-for="column in columns"
+                            >
+                                {{ column}}
+                            </th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <slot name="tbody"></slot>
+                        <slot></slot>
                     </tbody>
                 </table>
 
@@ -25,7 +32,7 @@
 
 <script>
 export default {
-    props: ['pagination'],
+    props: ['pagination', 'columns'],
 }
 </script>
 
