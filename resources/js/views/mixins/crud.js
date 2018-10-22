@@ -139,8 +139,6 @@ export default {
         },
 
         saveModel() {
-            dd(this.$route)
-
             this.save(this.mode).then(() => {
                 this.load()
 
@@ -188,7 +186,5 @@ export default {
 
     mounted() {
         this.boot()
-
-        dd(this.$route)
     },
 }
