@@ -12,7 +12,8 @@ export default {
     computed: {
         filterText: {
             get() {
-                return this.$store.state[this.serviceName].query.filter.text
+                dd('filtertext')
+                return this.$store.state[this.serviceName].data.filter.text
             },
 
             set(payload) {

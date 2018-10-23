@@ -2260,20 +2260,21 @@ var serviceName = 'events';
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(serviceName, ['selectEvent', 'selectSubEvent', 'selectInvitation']), {
         eventsGotoPage: function eventsGotoPage(page) {
-            this.gotoPage(page, 'events', this.events.query.pagination);
+            this.gotoPage(page, 'events', this.events.data.links.pagination);
         },
         subEventsGotoPage: function subEventsGotoPage(page) {
-            this.gotoPage(page, 'subEvents', this.subEvents.query.pagination);
+            this.gotoPage(page, 'subEvents', this.subEvents.data.links.pagination);
         },
         invitationsGotoPage: function invitationsGotoPage(page) {
-            this.gotoPage(page, 'invitations', this.invitations.query.pagination);
+            this.gotoPage(page, 'invitations', this.invitations.data.links.pagination);
         }
     }),
 
     computed: {
         eventsFilterText: {
             get: function get() {
-                return this.$store.state['events'].query.filter.text;
+                dd('eventsFilterText', this.$store.state['events']);
+                return this.$store.state['events'].data.filter.text;
             },
             set: function set(filter) {
                 return this.$store.dispatch(this.serviceName + '/mutateSetQueryFilterText', filter);
@@ -2282,7 +2283,7 @@ var serviceName = 'events';
 
         eventsPerPage: {
             get: function get() {
-                return this.$store.state['events'].query.pagination.per_page;
+                return this.$store.state['events'].data.links.pagination.per_page;
             },
             set: function set(perPage) {
                 return this.$store.dispatch('events/setPerPage', perPage);
@@ -2291,7 +2292,7 @@ var serviceName = 'events';
 
         subEventsFilterText: {
             get: function get() {
-                return this.$store.state['subEvents'].query.filter.text;
+                return this.$store.state['subEvents'].data.filter.text;
             },
             set: function set(filter) {
                 return this.$store.dispatch('subEvents/mutateSetQueryFilterText', filter);
@@ -2300,7 +2301,7 @@ var serviceName = 'events';
 
         subEventsPerPage: {
             get: function get() {
-                return this.$store.state['subEvents'].query.pagination.per_page;
+                return this.$store.state['subEvents'].data.links.pagination.per_page;
             },
             set: function set(perPage) {
                 return this.$store.dispatch('subEvents/setPerPage', perPage);
@@ -2309,7 +2310,7 @@ var serviceName = 'events';
 
         invitationsFilterText: {
             get: function get() {
-                return this.$store.state['invitations'].query.filter.text;
+                return this.$store.state['invitations'].data.filter.text;
             },
             set: function set(filter) {
                 return this.$store.dispatch('invitations/mutateSetQueryFilterText', filter);
@@ -2318,7 +2319,7 @@ var serviceName = 'events';
 
         invitationsPerPage: {
             get: function get() {
-                return this.$store.state['invitations'].query.pagination.per_page;
+                return this.$store.state['invitations'].data.links.pagination.per_page;
             },
             set: function set(perPage) {
                 return this.$store.dispatch('invitations/setPerPage', perPage);
@@ -2737,6 +2738,11 @@ var serviceName = 'people';
         return {
             serviceName: serviceName
         };
+    },
+    mounted: function mounted() {
+        this.boot();
+
+        dd('mounted');
     }
 });
 
@@ -25203,7 +25209,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["cheerio@1.0.0-rc.2","/Users/antoniocarlos/code/alerj/eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"/Users/antoniocarlos/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -25478,7 +25484,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25508,7 +25514,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -110079,7 +110085,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm.subEvents && _vm.subEvents.selected.id
+    _vm.invitations.subEvent.id
       ? _c("div", { staticClass: "row" }, [
           _c(
             "div",
@@ -128378,6 +128384,8 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128392,11 +128400,13 @@ var state = merge_objects({
 
 var actions = __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__;
 var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -128453,6 +128463,8 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128470,11 +128482,20 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     select: function select(context, payload) {
         context.commit('mutateSetSelected', payload);
+
         context.commit('mutateFormData', payload);
 
         context.dispatch('subEvents/setEvent', payload, { root: true });
 
+        context.commit('subEvents/mutateSetSelected', __emptyModel, {
+            root: true
+        });
+
         context.dispatch('invitations/setSubEvent', __emptyModel, {
+            root: true
+        });
+
+        context.commit('invitations/mutateSetSelected', __emptyModel, {
             root: true
         });
     },
@@ -128488,13 +128509,6 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     selectInvitation: function selectInvitation(context, payload) {
         context.commit('invitations/mutateSetSelected', payload, {
             root: true
-        });
-    },
-    loadSubEvents: function loadSubEvents(context, event) {
-        return axios.get('/api/v1/events/' + event.id + '/sub-events', {
-            params: this.subEventsQuery
-        }).then(function (response) {
-            context.commit('setSubEvents', response.data);
         });
     },
     loadInvitations: function loadInvitations(context, subEvent) {
@@ -128528,10 +128542,13 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
     }
 });
 
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -128588,6 +128605,8 @@ var mutations = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128612,10 +128631,13 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
     }
 });
 
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -128629,6 +128651,8 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128636,7 +128660,7 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
 
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
-    subEvent: null,
+    subEvent: { id: null },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -128645,14 +128669,12 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     load: function load(context) {
-        context.commit('mutateSetData', {});
-
         if (!context.state.subEvent || !context.state.subEvent.event) {
             return;
         }
 
         return get('/api/v1/events/' + context.state.subEvent.event.id + '/sub-events/' + context.state.subEvent.id + '/invitations', {
-            params: { query: context.state.query }
+            params: { query: context.getters.getQueryFilter }
         }).then(function (response) {
             context.commit('mutateSetData', response.data);
         });
@@ -128670,10 +128692,13 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
     }
 });
 
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -128697,11 +128722,13 @@ var loadDebounced = _.debounce(function (context) {
 }, 650);
 
 function load(context) {
-    var query = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    dd('context.state.dataUrl', context.state.dataUrl);
+    if (!context.state.dataUrl) {
+        return;
+    }
 
-    Object.assign(query, context.state.query);
-
-    return axios.get(context.state.dataUrl, { params: { query: query } }).then(function (response) {
+    return axios.get(context.state.dataUrl, { params: { query: context.getters.getQueryFilter } }).then(function (response) {
+        dd('response.data', response.data);
         context.commit('mutateSetData', response.data);
     });
 }
@@ -128719,23 +128746,23 @@ function clearForm(context) {
 }
 
 function mutateSetQueryFilterText(context, payload) {
-    var query = context.state.query;
+    var data = context.state.data;
 
-    query.filter.text = payload;
+    data.filter.text = payload;
 
-    context.commit('mutateSetQuery', query);
+    context.commit('mutateSetData', data);
 
     loadDebounced(context);
 }
 
 function setCurrentPage(context, payload) {
-    var query = context.state.query;
+    var data = context.state.data;
 
-    query.pagination.current_page = payload;
+    data.links.pagination.current_page = payload;
 
-    context.commit('mutateSetQuery', query);
+    context.commit('mutateSetData', data);
 
-    context.dispatch('load');
+    loadDebounced(context);
 }
 
 function setPerPage(context, payload) {
@@ -128754,6 +128781,22 @@ function select(context, payload) {
     context.commit('mutateSetSelected', payload);
 
     context.commit('mutateFormData', payload);
+}
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/mixins/getters.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (immutable) */ __webpack_exports__["getQueryFilter"] = getQueryFilter;
+function getQueryFilter(state, getters) {
+    dd('getQueryFilter', state, getters);
+    return {
+        filter: state.data.filter,
+        pagination: state.data.links.pagination
+    };
 }
 
 /***/ }),
@@ -128810,7 +128853,8 @@ function mutateFormData(state, payload) {
 }
 
 function mutateSetPerPage(state, payload) {
-    state.query.pagination.per_page = payload;
+    dd(state);
+    state.data.links.pagination.per_page = payload;
 }
 
 function mutateSetSelected(state, payload) {
@@ -128831,21 +128875,21 @@ var common = {
 
     updateUrl: '',
 
-    data: {},
-
-    selected: { id: null },
-
-    query: {
+    data: {
         filter: {
             text: null
         },
 
-        pagination: {
-            per_page: 5,
+        links: {
+            pagination: {
+                per_page: 5,
 
-            current_page: 1
+                current_page: 1
+            }
         }
-    }
+    },
+
+    selected: { id: null }
 };
 
 /***/ }),
@@ -128858,6 +128902,8 @@ var common = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128894,10 +128940,13 @@ var mutations = merge_objects({
     }
 }, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
 
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -128911,6 +128960,8 @@ var mutations = merge_objects({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128947,10 +128998,13 @@ var mutations = merge_objects({
     }
 }, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
 
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -128964,6 +129018,8 @@ var mutations = merge_objects({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
 
 
 
@@ -128971,7 +129027,7 @@ var mutations = merge_objects({
 
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
-    event: null,
+    event: { id: null },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -128996,10 +129052,13 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
     }
 });
 
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
     actions: actions,
     mutations: mutations,
+    getters: getters,
     namespaced: true
 });
 
@@ -129951,7 +130010,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: {
         filterText: {
             get: function get() {
-                return this.$store.state[this.serviceName].query.filter.text;
+                dd('filtertext');
+                return this.$store.state[this.serviceName].data.filter.text;
             },
             set: function set(payload) {
                 return this.$store.dispatch(this.serviceName + '/mutateSetQueryFilterText', payload);

@@ -3,6 +3,7 @@ import Form from '../../classes/Form'
 import * as mutationsMixin from './mixins/mutations.js'
 import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
+import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = { id: null }
 
@@ -15,11 +16,20 @@ const state = merge_objects(statesMixin.common, {
 const actions = merge_objects(actionsMixin, {
     select(context, payload) {
         context.commit('mutateSetSelected', payload)
+
         context.commit('mutateFormData', payload)
 
         context.dispatch('subEvents/setEvent', payload, { root: true })
 
+        context.commit('subEvents/mutateSetSelected', __emptyModel, {
+            root: true,
+        })
+
         context.dispatch('invitations/setSubEvent', __emptyModel, {
+            root: true,
+        })
+
+        context.commit('invitations/mutateSetSelected', __emptyModel, {
             root: true,
         })
     },
@@ -36,16 +46,6 @@ const actions = merge_objects(actionsMixin, {
         context.commit('invitations/mutateSetSelected', payload, {
             root: true,
         })
-    },
-
-    loadSubEvents(context, event) {
-        return axios
-            .get('/api/v1/events/' + event.id + '/sub-events', {
-                params: this.subEventsQuery,
-            })
-            .then(response => {
-                context.commit('setSubEvents', response.data)
-            })
     },
 
     loadInvitations(context, subEvent) {
@@ -92,9 +92,12 @@ const mutations = merge_objects(mutationsMixin, {
     },
 })
 
+let getters = gettersMixin
+
 export default {
     state,
     actions,
     mutations,
+    getters,
     namespaced: true,
 }

@@ -2,12 +2,16 @@ const loadDebounced = _.debounce(context => {
     context.dispatch('load')
 }, 650)
 
-export function load(context, query = {}) {
-    Object.assign(query, context.state.query)
+export function load(context) {
+    dd('context.state.dataUrl', context.state.dataUrl)
+    if (!context.state.dataUrl) {
+        return
+    }
 
     return axios
-        .get(context.state.dataUrl, { params: { query: query } })
+        .get(context.state.dataUrl, { params: { query: context.getters.getQueryFilter } })
         .then(response => {
+            dd('response.data', response.data)
             context.commit('mutateSetData', response.data)
         })
 }
@@ -28,23 +32,23 @@ export function clearForm(context) {
 }
 
 export function mutateSetQueryFilterText(context, payload) {
-    let query = context.state.query
+    let data = context.state.data
 
-    query.filter.text = payload
+    data.filter.text = payload
 
-    context.commit('mutateSetQuery', query)
+    context.commit('mutateSetData', data)
 
     loadDebounced(context)
 }
 
 export function setCurrentPage(context, payload) {
-    let query = context.state.query
+    let data = context.state.data
 
-    query.pagination.current_page = payload
+    data.links.pagination.current_page = payload
 
-    context.commit('mutateSetQuery', query)
+    context.commit('mutateSetData', data)
 
-    context.dispatch('load')
+    loadDebounced(context)
 }
 
 export function setPerPage(context, payload) {

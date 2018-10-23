@@ -61,6 +61,12 @@ export default {
             serviceName: serviceName,
         }
     },
+
+    mounted() {
+        this.boot()
+
+        dd('mounted')
+    },
 }
 </script>
 
