@@ -13,15 +13,17 @@ const state = merge_objects(statesMixin.common, {
 })
 
 const actions = merge_objects(actionsMixin, {
-    load(context) {
-        return get('/api/v1/events/' + context.state.event.id + '/sub-events', {
-            params: { query: context.state.query },
-        }).then(response => {
-            context.commit('mutateSetData', response.data)
-        })
-    },
-
     setEvent(context, payload) {
+        context.commit(
+            'mutateSetGetUrl',
+            '/api/v1/events/' + payload.id + '/sub-events',
+        )
+
+        context.commit(
+            'mutateSetStoreUrl',
+            '/api/v1/events/' + payload.id + '/sub-events',
+        )
+
         context.commit('mutateSetEvent', payload)
 
         context.dispatch('load', payload)

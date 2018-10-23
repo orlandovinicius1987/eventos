@@ -128979,14 +128979,11 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
-    load: function load(context) {
-        return get('/api/v1/events/' + context.state.event.id + '/sub-events', {
-            params: { query: context.state.query }
-        }).then(function (response) {
-            context.commit('mutateSetData', response.data);
-        });
-    },
     setEvent: function setEvent(context, payload) {
+        context.commit('mutateSetGetUrl', '/api/v1/events/' + payload.id + '/sub-events');
+
+        context.commit('mutateSetStoreUrl', '/api/v1/events/' + payload.id + '/sub-events');
+
         context.commit('mutateSetEvent', payload);
 
         context.dispatch('load', payload);
