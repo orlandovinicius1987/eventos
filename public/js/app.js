@@ -110008,7 +110008,10 @@ var render = function() {
                       _vm.subEvents.data.links.pagination.total +
                       " subeventos)",
                     "add-button": {
-                      uri: "/events/sub-event/create",
+                      uri:
+                        "/events/" +
+                        _vm.subEvents.event.id +
+                        "/sub-events/create",
                       disabled: _vm.cannot("create")
                     },
                     "per-page": _vm.subEventsPerPage,
@@ -110094,7 +110097,7 @@ var render = function() {
                           " de " +
                           _vm.selected.name,
                         "add-button": {
-                          uri: "/events/create",
+                          uri: "/invitation/create",
                           disabled: _vm.cannot("create")
                         },
                         "per-page": _vm.invitationsPerPage,
@@ -110863,12 +110866,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.selectedEvent.name))]),
+      _c("h1", [_vm._v(_vm._s(_vm.events.selected.name))]),
       _vm._v(" "),
       _c("h2", [
         _vm._v(
           _vm._s(
-            _vm.form.fields.name ? _vm.form.fields.name : "Novo Sub Evento"
+            _vm.subEvents.form.fields.name
+              ? _vm.subEvents.form.fields.name
+              : "Novo Sub Evento"
           )
         )
       ])
@@ -110878,43 +110883,28 @@ var render = function() {
       _c("div", { staticClass: "col-8" }, [
         _c("form", [
           _c("div", { staticClass: "row" }, [
-            _c("div", { staticClass: "col-12 mb-3" }, [
-              _c("label", { attrs: { for: "name" } }, [
-                _vm._v("Nome do sub evento")
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.fields.name,
-                    expression: "form.fields.name"
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-input", {
+                  attrs: {
+                    name: "name",
+                    label: "Nome",
+                    required: true,
+                    form: _vm.form
+                  },
+                  model: {
+                    value: _vm.subEvents.form.fields.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.subEvents.form.fields, "name", $$v)
+                    },
+                    expression: "subEvents.form.fields.name"
                   }
-                ],
-                staticClass: "form-control",
-                attrs: { id: "name", required: "" },
-                domProps: { value: _vm.form.fields.name },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form.fields, "name", $event.target.value)
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _vm.form.errors.has("name")
-                ? _c("small", { staticClass: "text-danger" }, [
-                    _vm._v(
-                      "\n                            " +
-                        _vm._s(_vm.form.errors.get("name")) +
-                        "\n                        "
-                    )
-                  ])
-                : _vm._e()
-            ])
+                })
+              ],
+              1
+            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
@@ -128237,12 +128227,12 @@ var routes = [{
     component: __WEBPACK_IMPORTED_MODULE_12__views_EventsForm___default.a,
     props: { mode: 'update' }
 }, {
-    path: '/sub-events/create',
+    path: '/events/:eventId/sub-events/create',
     name: 'sub-events.create',
     component: __WEBPACK_IMPORTED_MODULE_13__views_SubEventsForm___default.a,
     props: { mode: 'create' }
 }, {
-    path: '/sub-events/:id/update',
+    path: '/events/:eventId/sub-events/:subEventId/update',
     name: 'sub-events.update',
     component: __WEBPACK_IMPORTED_MODULE_13__views_SubEventsForm___default.a,
     props: { mode: 'update' }

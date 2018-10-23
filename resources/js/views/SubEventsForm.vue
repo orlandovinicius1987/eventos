@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h1>{{ selectedEvent.name }}</h1>
-            <h2>{{ form.fields.name ? form.fields.name : 'Novo Sub Evento' }}</h2>
+            <h1>{{ events.selected.name }}</h1>
+            <h2>{{ subEvents.form.fields.name ? subEvents.form.fields.name : 'Novo Sub Evento' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -10,13 +10,13 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="name">Nome do sub evento</label>
-
-                            <input v-model="form.fields.name" class="form-control" id="name" required>
-
-                            <small class="text-danger" v-if="form.errors.has('name')" >
-                                {{ form.errors.get('name') }}
-                            </small>
+                            <app-input
+                                name="name"
+                                label="Nome"
+                                v-model="subEvents.form.fields.name"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
                         </div>
                     </div>
 

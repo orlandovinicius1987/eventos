@@ -37,7 +37,7 @@
                 <app-table-panel
                     v-if="selected.id && subEvents.data.links"
                     :title="selected.name + ' (' + subEvents.data.links.pagination.total + ' subeventos)'"
-                    :add-button="{ uri: '/events/sub-event/create', disabled: cannot('create') }"
+                    :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/create', disabled: cannot('create') }"
                     :per-page="subEventsPerPage"
                     @set-per-page="subEventsPerPage = $event"
                     :filter-text="subEventsFilterText"
@@ -68,7 +68,7 @@
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
                     :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
-                    :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                    :add-button="{ uri: '/invitation/create', disabled: cannot('create') }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
                     :filter-text="invitationsFilterText"
