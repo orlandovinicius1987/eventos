@@ -55,10 +55,6 @@ export default {
     methods: {
         ...mapActions(serviceName, ['selectRole']),
     },
-
-    mounted() {
-        this.boot()
-    },
 }
 </script>
 

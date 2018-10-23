@@ -10,10 +10,14 @@
                     v-if="events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
                     :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                    :per-page="eventsPerPage"
+                    @set-per-page="eventsPerPage = $event"
+                    :filter-text="eventsFilterText"
+                    @input-filter-text="eventsFilterText = $event.target.value"
                 >
                     <app-table
                         :pagination="events.data.links.pagination"
-                        @goto-page="gotoPage($event)"
+                        @goto-page="eventsGotoPage($event)"
                         :columns="['#','Nome','Confirmado em']"
                     >
                         <tr
@@ -32,12 +36,16 @@
             <div class="col-8">
                 <app-table-panel
                     v-if="selected.id && subEvents.data.links"
-                    :title="selected.name + '(' + pagination.total + ' subeventos)'"
-                    :add-button="{ uri: '/events/sub-event/create', disabled: cannot('create') }"
+                    :title="selected.name + ' (' + subEvents.data.links.pagination.total + ' subeventos)'"
+                    :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/create', disabled: cannot('create') }"
+                    :per-page="subEventsPerPage"
+                    @set-per-page="subEventsPerPage = $event"
+                    :filter-text="subEventsFilterText"
+                    @input-filter-text="subEventsFilterText = $event.target.value"
                 >
                     <app-table
                         :pagination="subEvents.data.links.pagination"
-                        @goto-page="gotoPage($event)"
+                        @goto-page="subEventsGotoPage($event)"
                         :columns="['#','Nome','Data','Hora',]"
                     >
                         <tr
@@ -60,11 +68,15 @@
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
                     :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
-                    :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                    :add-button="{ uri: '/invitation/create', disabled: cannot('create') }"
+                    :per-page="invitationsPerPage"
+                    @set-per-page="invitationsPerPage = $event"
+                    :filter-text="invitationsFilterText"
+                    @input-filter-text="invitationsFilterText = $event.target.value"
                 >
                     <app-table
                         :pagination="invitations.data.links.pagination"
-                        @goto-page="gotoPage($event)"
+                        @goto-page="invitationsGotoPage($event)"
                         :columns="['#','Nome','Instituição','Cargo',]"
                     >
                         <tr
@@ -107,6 +119,94 @@ export default {
             'selectSubEvent',
             'selectInvitation',
         ]),
+
+        eventsGotoPage(page) {
+            this.gotoPage(page, 'events', this.events.query.pagination)
+        },
+
+        subEventsGotoPage(page) {
+            this.gotoPage(page, 'subEvents', this.subEvents.query.pagination)
+        },
+
+        invitationsGotoPage(page) {
+            this.gotoPage(
+                page,
+                'invitations',
+                this.invitations.query.pagination,
+            )
+        },
+    },
+
+    computed: {
+        eventsFilterText: {
+            get() {
+                return this.$store.state['events'].query.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    this.serviceName + '/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        eventsPerPage: {
+            get() {
+                return this.$store.state['events'].query.pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('events/setPerPage', perPage)
+            },
+        },
+
+        subEventsFilterText: {
+            get() {
+                return this.$store.state['subEvents'].query.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'subEvents/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        subEventsPerPage: {
+            get() {
+                return this.$store.state['subEvents'].query.pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('subEvents/setPerPage', perPage)
+            },
+        },
+
+        invitationsFilterText: {
+            get() {
+                return this.$store.state['invitations'].query.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'invitations/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        invitationsPerPage: {
+            get() {
+                return this.$store.state['invitations'].query.pagination
+                    .per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('invitations/setPerPage', perPage)
+            },
+        },
     },
 
     mounted() {

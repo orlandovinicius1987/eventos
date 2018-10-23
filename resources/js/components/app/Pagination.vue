@@ -33,6 +33,3 @@ export default {
     props: ['pagination'],
 }
 </script>
-
-<style scoped>
-</style>
