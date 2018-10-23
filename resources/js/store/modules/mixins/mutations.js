@@ -39,7 +39,6 @@ export function mutateFormData(state, payload) {
 }
 
 export function mutateSetPerPage(state, payload) {
-    dd(state)
     state.data.links.pagination.per_page = payload
 }
 

@@ -140,7 +140,6 @@ export default {
     computed: {
         eventsFilterText: {
             get() {
-                dd('eventsFilterText', this.$store.state['events'])
                 return this.$store.state['events'].data.filter.text
             },
 

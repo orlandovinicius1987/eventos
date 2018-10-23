@@ -3,7 +3,6 @@ const loadDebounced = _.debounce(context => {
 }, 650)
 
 export function load(context) {
-    dd('context.state.dataUrl', context.state.dataUrl)
     if (!context.state.dataUrl) {
         return
     }
@@ -11,7 +10,6 @@ export function load(context) {
     return axios
         .get(context.state.dataUrl, { params: { query: context.getters.getQueryFilter } })
         .then(response => {
-            dd('response.data', response.data)
             context.commit('mutateSetData', response.data)
         })
 }
@@ -35,6 +33,7 @@ export function mutateSetQueryFilterText(context, payload) {
     let data = context.state.data
 
     data.filter.text = payload
+    data.links.pagination.current_page = 1
 
     context.commit('mutateSetData', data)
 

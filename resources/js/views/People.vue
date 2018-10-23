@@ -64,8 +64,6 @@ export default {
 
     mounted() {
         this.boot()
-
-        dd('mounted')
     },
 }
 </script>

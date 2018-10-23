@@ -47,21 +47,6 @@ const actions = merge_objects(actionsMixin, {
             root: true,
         })
     },
-
-    loadInvitations(context, subEvent) {
-        return axios
-            .get(
-                '/api/v1/events/' +
-                    subEvent.event.id +
-                    '/sub-events/' +
-                    subEvent.id +
-                    '/invitations',
-                { params: this.invitationsQuery },
-            )
-            .then(response => {
-                context.commit('setInvitations', response.data)
-            })
-    },
 })
 
 const mutations = merge_objects(mutationsMixin, {

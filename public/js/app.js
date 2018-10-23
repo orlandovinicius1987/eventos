@@ -2273,7 +2273,6 @@ var serviceName = 'events';
     computed: {
         eventsFilterText: {
             get: function get() {
-                dd('eventsFilterText', this.$store.state['events']);
                 return this.$store.state['events'].data.filter.text;
             },
             set: function set(filter) {
@@ -2741,8 +2740,6 @@ var serviceName = 'people';
     },
     mounted: function mounted() {
         this.boot();
-
-        dd('mounted');
     }
 });
 
@@ -25484,7 +25481,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25514,7 +25511,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -128510,11 +128507,6 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         context.commit('invitations/mutateSetSelected', payload, {
             root: true
         });
-    },
-    loadInvitations: function loadInvitations(context, subEvent) {
-        return axios.get('/api/v1/events/' + subEvent.event.id + '/sub-events/' + subEvent.id + '/invitations', { params: this.invitationsQuery }).then(function (response) {
-            context.commit('setInvitations', response.data);
-        });
     }
 });
 
@@ -128722,13 +128714,11 @@ var loadDebounced = _.debounce(function (context) {
 }, 650);
 
 function load(context) {
-    dd('context.state.dataUrl', context.state.dataUrl);
     if (!context.state.dataUrl) {
         return;
     }
 
     return axios.get(context.state.dataUrl, { params: { query: context.getters.getQueryFilter } }).then(function (response) {
-        dd('response.data', response.data);
         context.commit('mutateSetData', response.data);
     });
 }
@@ -128749,6 +128739,7 @@ function mutateSetQueryFilterText(context, payload) {
     var data = context.state.data;
 
     data.filter.text = payload;
+    data.links.pagination.current_page = 1;
 
     context.commit('mutateSetData', data);
 
@@ -128792,7 +128783,6 @@ function select(context, payload) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["getQueryFilter"] = getQueryFilter;
 function getQueryFilter(state, getters) {
-    dd('getQueryFilter', state, getters);
     return {
         filter: state.data.filter,
         pagination: state.data.links.pagination
@@ -128853,7 +128843,6 @@ function mutateFormData(state, payload) {
 }
 
 function mutateSetPerPage(state, payload) {
-    dd(state);
     state.data.links.pagination.per_page = payload;
 }
 
@@ -130010,7 +129999,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: {
         filterText: {
             get: function get() {
-                dd('filtertext');
                 return this.$store.state[this.serviceName].data.filter.text;
             },
             set: function set(payload) {
