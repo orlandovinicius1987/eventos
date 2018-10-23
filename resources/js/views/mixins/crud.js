@@ -71,9 +71,7 @@ export default {
                 '/api/v1/' + this.serviceName + '/' + this.$route.params.id,
             )
 
-            this.mutateSetStoreUrl(
-                '/api/v1/' + this.serviceName,
-            )
+            this.mutateSetStoreUrl('/api/v1/' + this.serviceName)
 
             return this.$store.dispatch(this.serviceName + '/save', mode)
         },
@@ -139,8 +137,6 @@ export default {
         },
 
         saveModel() {
-            dd(this.$route)
-
             this.save(this.mode).then(() => {
                 this.load()
 
@@ -158,8 +154,10 @@ export default {
             return !can(permission)
         },
 
-        gotoPage(page) {
-            if (this.pagination.current_page === page) {
+        gotoPage(page, namespace = null, pagination = null) {
+            pagination = pagination ? pagination : this.pagination
+
+            if (pagination.current_page === page) {
                 return
             }
 
@@ -167,11 +165,14 @@ export default {
                 return
             }
 
-            if (page > this.pagination.last_page) {
+            if (page > pagination.last_page) {
                 return
             }
 
-            this.$store.dispatch(this.serviceName + '/setCurrentPage', page)
+            this.$store.dispatch(
+                (namespace ? namespace : this.serviceName) + '/setCurrentPage',
+                page,
+            )
         },
 
         isCurrent(model, selected) {
@@ -188,7 +189,5 @@ export default {
 
     mounted() {
         this.boot()
-
-        dd(this.$route)
     },
 }

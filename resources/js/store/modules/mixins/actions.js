@@ -61,4 +61,6 @@ export function updateUserPerPage(context, payload) {
 
 export function select(context, payload) {
     context.commit('mutateSetSelected', payload)
+
+    context.commit('mutateFormData', payload)
 }

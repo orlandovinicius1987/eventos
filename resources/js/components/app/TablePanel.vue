@@ -14,6 +14,7 @@
                             class="form-control form-control-sm"
                             :value="filterText"
                             @input="$emit('input-filter-text', $event)"
+                            placeholder="filtrar"
                         >
                     </div>
 
@@ -50,17 +51,14 @@
 </template>
 
 <script>
-    export default {
-        props: [
-            'title',
-            'add-button',
-            'add-button-disabled',
-            'columns',
-            'filter-text',
-            'per-page'
-        ],
-    }
+export default {
+    props: [
+        'title',
+        'add-button',
+        'add-button-disabled',
+        'columns',
+        'filter-text',
+        'per-page',
+    ],
+}
 </script>
-
-<style>
-</style>
