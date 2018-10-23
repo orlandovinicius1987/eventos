@@ -39,7 +39,7 @@ import crud from './mixins/crud'
 import roles from './mixins/roles'
 import { mapActions } from 'vuex'
 
-const serviceName = 'roles'
+const service = { name: 'roles', uri: 'roles' }
 
 export default {
     props: ['mode'],
@@ -48,12 +48,12 @@ export default {
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 
     methods: {
-        ...mapActions(serviceName, ['selectRole']),
+        ...mapActions(service.name, ['selectRole']),
     },
 }
 </script>

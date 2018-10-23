@@ -1965,18 +1965,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var serviceName = 'categories';
+var service = { name: 'categories', uri: 'categories' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_categories__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
-    },
-    mounted: function mounted() {
-        this.boot();
     }
 });
 
@@ -2029,7 +2026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var serviceName = 'categories';
+var service = { name: 'categories', uri: 'categories' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2038,11 +2035,8 @@ var serviceName = 'categories';
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
-    },
-    mounted: function mounted() {
-        this.boot();
     }
 });
 
@@ -2124,7 +2118,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            serviceName: 'dashboard'
+            service: { name: 'dashboard', uri: 'dashboard' }
         };
     }
 });
@@ -2246,19 +2240,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var serviceName = 'events';
+var service = { name: 'events', uri: 'events' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(serviceName, ['selectEvent', 'selectSubEvent', 'selectInvitation']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectEvent', 'selectSubEvent', 'selectInvitation']), {
         eventsGotoPage: function eventsGotoPage(page) {
             this.gotoPage(page, 'events', this.events.data.links.pagination);
         },
@@ -2276,7 +2270,7 @@ var serviceName = 'events';
                 return this.$store.state['events'].data.filter.text;
             },
             set: function set(filter) {
-                return this.$store.dispatch(this.serviceName + '/mutateSetQueryFilterText', filter);
+                return this.$store.dispatch(this.service.name + '/mutateSetQueryFilterText', filter);
             }
         },
 
@@ -2324,10 +2318,6 @@ var serviceName = 'events';
                 return this.$store.dispatch('invitations/setPerPage', perPage);
             }
         }
-    },
-
-    mounted: function mounted() {
-        this.boot();
     }
 });
 
@@ -2380,7 +2370,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var serviceName = 'events';
+var service = { name: 'events', uri: 'events' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2389,7 +2379,7 @@ var serviceName = 'events';
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     }
 });
@@ -2442,7 +2432,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     data: function data() {
         return {
-            serviceName: 'import',
+            service: { name: 'import', uri: 'import' },
             file: null,
             error: null,
             success: false,
@@ -2549,14 +2539,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var serviceName = 'institutions';
+var service = { name: 'institutions', uri: 'institutions' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_institutions__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     }
 });
@@ -2644,7 +2634,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var serviceName = 'institutions';
+var service = { name: 'institutions', uri: 'institutions' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2653,16 +2643,12 @@ var serviceName = 'institutions';
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(serviceName, ['selectInstitution'])),
-
-    mounted: function mounted() {
-        this.boot();
-    }
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(service.name, ['selectInstitution']))
 });
 
 /***/ }),
@@ -2728,18 +2714,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var serviceName = 'people';
+var service = { name: 'people', uri: 'people' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_people__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
-    },
-    mounted: function mounted() {
-        this.boot();
     }
 });
 
@@ -2812,7 +2795,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var serviceName = 'people';
+var service = { name: 'people', uri: 'people' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2821,16 +2804,12 @@ var serviceName = 'people';
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(serviceName, ['selectPerson'])),
-
-    mounted: function mounted() {
-        this.boot();
-    }
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(service.name, ['selectPerson']))
 });
 
 /***/ }),
@@ -2896,14 +2875,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var serviceName = 'roles';
+var service = { name: 'roles', uri: 'roles' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_roles__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     }
 });
@@ -2961,7 +2940,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var serviceName = 'roles';
+var service = { name: 'roles', uri: 'roles' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2970,12 +2949,12 @@ var serviceName = 'roles';
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(serviceName, ['selectRole']))
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(service.name, ['selectRole']))
 });
 
 /***/ }),
@@ -2996,43 +2975,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 
 
-var serviceName = 'subEvents';
+var service = { name: 'subEvents', uri: 'sub-events' };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -3041,7 +2989,7 @@ var serviceName = 'subEvents';
 
     data: function data() {
         return {
-            serviceName: serviceName
+            service: service
         };
     },
 
@@ -25481,7 +25429,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25496,7 +25444,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25511,7 +25459,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25571,7 +25519,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25586,7 +25534,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25601,7 +25549,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -25616,7 +25564,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -110867,89 +110815,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.events.selected.name))]),
-      _vm._v(" "),
-      _c("h2", [
-        _vm._v(
-          _vm._s(
-            _vm.subEvents.form.fields.name
-              ? _vm.subEvents.form.fields.name
-              : "Novo Sub Evento"
-          )
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-8" }, [
-        _c("form", [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-12 mb-3" },
-              [
-                _c("app-input", {
-                  attrs: {
-                    name: "name",
-                    label: "Nome",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "name", $$v)
-                    },
-                    expression: "subEvents.form.fields.name"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-12 text-right mb-3" },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-secondary",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.saveModel()
-                      }
-                    }
-                  },
-                  [_vm._v("gravar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { to: "/events", tag: "button" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            cancelar\n                        "
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -128421,11 +128287,13 @@ var getters = {};
 
 var actions = {
     load: function load(context) {
+        dd('load environment');
         return axios.get('/api/v1/environment').then(function (response) {
             context.commit('mutateSetData', response.data);
         });
     },
     absorbLaravel: function absorbLaravel(context) {
+        dd('absorbLaravel');
         context.commit('mutateSetData', window.laravel);
 
         context.dispatch('load');
@@ -128672,6 +128540,7 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
     },
     setSubEvent: function setSubEvent(context, payload) {
+        dd('setSubEvent');
         context.commit('mutateSetSubEvent', payload);
 
         context.dispatch('load', payload);
@@ -128709,10 +128578,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["setPerPage"] = setPerPage;
 /* harmony export (immutable) */ __webpack_exports__["updateUserPerPage"] = updateUserPerPage;
 /* harmony export (immutable) */ __webpack_exports__["select"] = select;
-var loadDebounced = _.debounce(function (context) {
-    context.dispatch('load');
-}, 650);
-
 function load(context) {
     if (!context.state.dataUrl) {
         return;
@@ -128725,6 +128590,8 @@ function load(context) {
 
 function save(context, payload) {
     var url = payload === 'create' ? context.state.storeUrl : context.state.updateUrl;
+
+    dd('save');
 
     return context.state.form.post(url, context.state.form.fields).then(function (response) {
         context.dispatch('load');
@@ -128757,6 +128624,8 @@ function setCurrentPage(context, payload) {
 }
 
 function setPerPage(context, payload) {
+    dd('setPerPage');
+
     context.commit('mutateSetPerPage', payload);
 
     context.dispatch('load');
@@ -129025,11 +128894,14 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setEvent: function setEvent(context, payload) {
+        dd('setEvent');
         context.commit('mutateSetGetUrl', '/api/v1/events/' + payload.id + '/sub-events');
 
         context.commit('mutateSetStoreUrl', '/api/v1/events/' + payload.id + '/sub-events');
 
         context.commit('mutateSetEvent', payload);
+
+        context.commit('mutateSetFormField', { field: 'event_id', value: payload.id });
 
         context.dispatch('load', payload);
     }
@@ -129151,7 +129023,7 @@ store.dispatch('environment/absorbLaravel');
 /***/ }),
 
 /***/ "./resources/js/support/helpers.js":
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 window.dd = function () {
     for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -129217,13 +129089,23 @@ window.confirm = function (title, vue) {
 window.post = function () {
     var _axios;
 
-    return (_axios = axios).post.apply(_axios, arguments);
+    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+    }
+
+    dd.apply(undefined, ['window.post'].concat(args));
+    return (_axios = axios).post.apply(_axios, args);
 };
 
 window.get = function () {
     var _axios2;
 
-    return (_axios2 = axios).get.apply(_axios2, arguments);
+    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+        args[_key3] = arguments[_key3];
+    }
+
+    dd.apply(undefined, ['window.get'].concat(args));
+    return (_axios2 = axios).get.apply(_axios2, args);
 };
 
 window.object_get = function (obj, descendants) {
@@ -129255,6 +129137,7 @@ window.remove_empty_properties = function (obj) {
 };
 
 window.logout = function () {
+    dd('logout');
     axios.post('/logout').then(function (response) {
         window.location = '/';
     });
@@ -129275,12 +129158,18 @@ window.set_null = function (obj) {
 };
 
 window.merge_objects = function (target) {
-    for (var _len2 = arguments.length, sources = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        sources[_key2 - 1] = arguments[_key2];
+    for (var _len4 = arguments.length, sources = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
+        sources[_key4 - 1] = arguments[_key4];
     }
 
     return Object.assign.apply(Object, [{}, target].concat(sources));
 };
+
+window._ = __webpack_require__("./node_modules/lodash/lodash.js");
+
+window.loadDebounced = _.debounce(function (context) {
+    context.dispatch('load');
+}, 650);
 
 /***/ }),
 
@@ -129999,24 +129888,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: {
         filterText: {
             get: function get() {
-                return this.$store.state[this.serviceName].data.filter.text;
+                return this.$store.state[this.service.name].data.filter.text;
             },
             set: function set(payload) {
-                return this.$store.dispatch(this.serviceName + '/mutateSetQueryFilterText', payload);
+                return this.$store.dispatch(this.service.name + '/mutateSetQueryFilterText', payload);
             }
         },
 
         form: function form() {
-            return this.$store.state[this.serviceName].form;
+            return this.$store.state[this.service.name].form;
         },
         selected: function selected() {
-            return this.$store.state[this.serviceName].selected;
+            return this.$store.state[this.service.name].selected;
         },
         environment: function environment() {
             return this.$store.state['environment'];
         },
         pagination: function pagination() {
-            return this.$store.state[this.serviceName].data.links ? this.$store.state[this.serviceName].data.links.pagination : {};
+            return this.$store.state[this.service.name].data.links ? this.$store.state[this.service.name].data.links.pagination : {};
         },
 
 
@@ -130025,44 +129914,46 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return this.pagination.per_page;
             },
             set: function set(value) {
-                this.$store.dispatch(this.serviceName + '/setPerPage', value);
+                this.$store.dispatch(this.service.name + '/setPerPage', value);
             }
         }
     },
 
     methods: {
         load: function load() {
-            this.$store.commit(this.serviceName + '/mutateSetPerPage', this.environment.user.per_page);
+            this.$store.commit(this.service.name + '/mutateSetPerPage', this.environment.user.per_page);
 
-            return this.$store.dispatch(this.serviceName + '/load');
+            dd('load from mixin', this.service.name);
+
+            return this.$store.dispatch(this.service.name + '/load');
         },
         select: function select(model) {
-            return this.$store.dispatch(this.serviceName + '/select', model);
+            return this.$store.dispatch(this.service.name + '/select', model);
         },
         save: function save(mode) {
-            this.mutateSetUpdateUrl('/api/v1/' + this.serviceName + '/' + this.$route.params.id);
+            this.mutateSetUpdateUrl('/api/v1/' + this.service.name + '/' + this.$route.params.id);
 
-            this.mutateSetStoreUrl('/api/v1/' + this.serviceName);
+            this.mutateSetStoreUrl('/api/v1/' + this.service.name);
 
-            return this.$store.dispatch(this.serviceName + '/save', mode);
+            return this.$store.dispatch(this.service.name + '/save', mode);
         },
         mutateSetGetUrl: function mutateSetGetUrl(url) {
-            this.$store.commit(this.serviceName + '/mutateSetGetUrl', url);
+            this.$store.commit(this.service.name + '/mutateSetGetUrl', url);
         },
         mutateSetStoreUrl: function mutateSetStoreUrl(url) {
-            this.$store.commit(this.serviceName + '/mutateSetStoreUrl', url);
+            this.$store.commit(this.service.name + '/mutateSetStoreUrl', url);
         },
         mutateSetUpdateUrl: function mutateSetUpdateUrl(url) {
-            this.$store.commit(this.serviceName + '/mutateSetUpdateUrl', url);
+            this.$store.commit(this.service.name + '/mutateSetUpdateUrl', url);
         },
         mutateSetErrors: function mutateSetErrors(errors) {
-            this.$store.commit(this.serviceName + '/mutateSetErrors', errors);
+            this.$store.commit(this.service.name + '/mutateSetErrors', errors);
         },
         mutateFormData: function mutateFormData(data) {
-            this.$store.commit(this.serviceName + '/mutateFormData', data);
+            this.$store.commit(this.service.name + '/mutateFormData', data);
         },
         mutateSetFormField: function mutateSetFormField(data) {
-            this.$store.commit(this.serviceName + '/mutateSetFormField', data);
+            this.$store.commit(this.service.name + '/mutateSetFormField', data);
         },
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
@@ -130070,9 +129961,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         boot: function boot() {
             var $this = this;
 
-            $this.mutateSetGetUrl('/api/v1/' + $this.serviceName);
+            $this.mutateSetGetUrl('/api/v1/' + $this.service.uri);
 
-            $this.mutateSetStoreUrl('/api/v1/' + $this.serviceName);
+            $this.mutateSetStoreUrl('/api/v1/' + $this.service.uri);
 
             $this.load().then(function () {
                 $this.fillFormWhenEditing();
@@ -130131,13 +130022,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 return;
             }
 
-            this.$store.dispatch((namespace ? namespace : this.serviceName) + '/setCurrentPage', page);
+            this.$store.dispatch((namespace ? namespace : this.service.name) + '/setCurrentPage', page);
         },
         isCurrent: function isCurrent(model, selected) {
             return model.id === selected.id;
         },
         setPerPage: function setPerPage() {
-            this.$store.commit(this.serviceName + '/mutateSetPerPage', this.environment.user.per_page);
+            this.$store.commit(this.service.name + '/mutateSetPerPage', this.environment.user.per_page);
         }
     },
 
@@ -130215,6 +130106,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return state.people;
         }
     }))
+
 });
 
 /***/ }),

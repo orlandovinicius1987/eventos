@@ -51,14 +51,14 @@ import crud from './mixins/crud'
 import institutions from './mixins/institutions'
 import permissions from './mixins/permissions'
 
-const serviceName = 'institutions'
+const service = { name: 'institutions', uri: 'institutions' }
 
 export default {
     mixins: [crud, institutions, permissions],
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 }

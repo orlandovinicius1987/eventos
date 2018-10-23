@@ -38,7 +38,7 @@
 import crud from './mixins/crud'
 import categories from './mixins/categories'
 
-const serviceName = 'categories'
+const service = { name: 'categories', uri: 'categories' }
 
 export default {
     props: ['mode'],
@@ -47,13 +47,9 @@ export default {
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
-    },
-
-    mounted() {
-        this.boot()
-    },
+    }
 }
 </script>
 

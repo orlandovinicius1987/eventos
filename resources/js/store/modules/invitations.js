@@ -34,6 +34,7 @@ const actions = merge_objects(actionsMixin, {
     },
 
     setSubEvent(context, payload) {
+        dd('setSubEvent')
         context.commit('mutateSetSubEvent', payload)
 
         context.dispatch('load', payload)

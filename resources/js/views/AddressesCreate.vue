@@ -48,7 +48,7 @@
 import crud from './mixins/crud'
 import people from './mixins/people'
 
-const serviceName = 'people'
+const service = { name: 'people', uri: 'people' }
 
 export default {
     props: [],
@@ -57,13 +57,9 @@ export default {
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
-    },
-
-    mounted() {
-        this.boot()
-    },
+    }
 }
 </script>
 

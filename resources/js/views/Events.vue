@@ -102,19 +102,19 @@ import events from './mixins/events'
 import permissions from './mixins/permissions'
 import { mapActions, mapState } from 'vuex'
 
-const serviceName = 'events'
+const service = { name: 'events', uri: 'events' }
 
 export default {
     mixins: [crud, events, permissions],
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 
     methods: {
-        ...mapActions(serviceName, [
+        ...mapActions(service.name, [
             'selectEvent',
             'selectSubEvent',
             'selectInvitation',
@@ -145,7 +145,7 @@ export default {
 
             set(filter) {
                 return this.$store.dispatch(
-                    this.serviceName + '/mutateSetQueryFilterText',
+                    this.service.name + '/mutateSetQueryFilterText',
                     filter,
                 )
             },
@@ -207,10 +207,6 @@ export default {
                 return this.$store.dispatch('invitations/setPerPage', perPage)
             },
         },
-    },
-
-    mounted() {
-        this.boot()
     },
 }
 </script>

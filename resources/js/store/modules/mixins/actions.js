@@ -1,7 +1,3 @@
-const loadDebounced = _.debounce(context => {
-    context.dispatch('load')
-}, 650)
-
 export function load(context) {
     if (!context.state.dataUrl) {
         return
@@ -17,6 +13,8 @@ export function load(context) {
 export function save(context, payload) {
     const url =
         payload === 'create' ? context.state.storeUrl : context.state.updateUrl
+
+    dd('save')
 
     return context.state.form
         .post(url, context.state.form.fields)
@@ -51,6 +49,8 @@ export function setCurrentPage(context, payload) {
 }
 
 export function setPerPage(context, payload) {
+    dd('setPerPage')
+
     context.commit('mutateSetPerPage', payload)
 
     context.dispatch('load')

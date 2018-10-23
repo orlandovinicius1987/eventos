@@ -61,10 +61,12 @@ window.confirm = (title, vue) => {
 }
 
 window.post = (...args) => {
+    dd('window.post', ...args)
     return axios.post(...args)
 }
 
 window.get = (...args) => {
+    dd('window.get', ...args)
     return axios.get(...args)
 }
 
@@ -101,6 +103,7 @@ window.remove_empty_properties = obj => {
 }
 
 window.logout = () => {
+    dd('logout')
     axios.post('/logout').then(response => {
         window.location = '/'
     })
@@ -123,3 +126,9 @@ window.set_null = obj => {
 window.merge_objects = (target, ...sources) => {
     return Object.assign({}, target, ...sources)
 }
+
+window._ = require('lodash')
+
+window.loadDebounced = _.debounce(context => {
+    context.dispatch('load')
+}, 650)

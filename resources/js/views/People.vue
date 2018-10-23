@@ -51,19 +51,15 @@ import crud from './mixins/crud'
 import people from './mixins/people'
 import permissions from './mixins/permissions'
 
-const serviceName = 'people'
+const service = { name: 'people', uri: 'people' }
 
 export default {
     mixins: [crud, people, permissions],
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
-    },
-
-    mounted() {
-        this.boot()
     },
 }
 </script>
