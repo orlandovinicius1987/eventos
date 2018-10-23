@@ -35,6 +35,3 @@ export default {
     props: ['pagination', 'columns'],
 }
 </script>
-
-<style>
-</style>

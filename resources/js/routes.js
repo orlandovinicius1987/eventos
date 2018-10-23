@@ -44,13 +44,13 @@ let routes = [
         props: { mode: 'update' },
     },
     {
-        path: '/sub-events/create',
+        path: '/events/:eventId/sub-events/create',
         name: 'sub-events.create',
         component: SubEventsForm,
         props: { mode: 'create' },
     },
     {
-        path: '/sub-events/:id/update',
+        path: '/events/:eventId/sub-events/:subEventId/update',
         name: 'sub-events.update',
         component: SubEventsForm,
         props: { mode: 'update' },
