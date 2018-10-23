@@ -10,4 +10,6 @@ export default {
             people: state => state.people,
         }),
     },
+
+
 }

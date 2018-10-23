@@ -36,27 +36,27 @@
 </template>
 
 <script>
-import crud from './mixins/crud'
-import events from './mixins/events'
-import { mapState } from 'vuex'
+    import crud from './mixins/crud'
+    import events from './mixins/events'
+    import { mapState } from 'vuex'
 
-const serviceName = 'subEvents'
+    const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true }
 
-export default {
-    props: ['mode'],
+    export default {
+        props: ['mode'],
 
-    mixins: [crud, events],
+        mixins: [crud, events],
 
-    data() {
-        return {
-            serviceName: serviceName,
+        data() {
+            return {
+                service: service,
+            }
+        },
+
+        computed: {
+            ...mapState('events', ['selectedEvent', 'selectedSubEvent']),
         }
-    },
-
-    computed: {
-        ...mapState('events', ['selectedEvent', 'selectedSubEvent']),
-    },
-}
+    }
 </script>
 
 <style>
