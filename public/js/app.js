@@ -2026,7 +2026,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var service = { name: 'categories', uri: 'categories' };
+var service = { name: 'categories', uri: 'categories', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2370,7 +2370,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var service = { name: 'events', uri: 'events' };
+var service = { name: 'events', uri: 'events', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2634,7 +2634,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var service = { name: 'institutions', uri: 'institutions' };
+var service = { name: 'institutions', uri: 'institutions', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2714,7 +2714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var service = { name: 'people', uri: 'people' };
+var service = { name: 'people', uri: 'people', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_people__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
@@ -2795,7 +2795,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var service = { name: 'people', uri: 'people' };
+var service = { name: 'people', uri: 'people', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2940,7 +2940,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var service = { name: 'roles', uri: 'roles' };
+var service = { name: 'roles', uri: 'roles', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2975,12 +2975,43 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
-var service = { name: 'subEvents', uri: 'sub-events' };
+var service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -25549,7 +25580,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -110815,7 +110846,89 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h1", [_vm._v(_vm._s(_vm.events.selected.name))]),
+      _vm._v(" "),
+      _c("h2", [
+        _vm._v(
+          _vm._s(
+            _vm.subEvents.form.fields.name
+              ? _vm.subEvents.form.fields.name
+              : "Novo Sub Evento"
+          )
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("form", [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-input", {
+                  attrs: {
+                    name: "name",
+                    label: "Nome",
+                    required: true,
+                    form: _vm.form
+                  },
+                  model: {
+                    value: _vm.subEvents.form.fields.name,
+                    callback: function($$v) {
+                      _vm.$set(_vm.subEvents.form.fields, "name", $$v)
+                    },
+                    expression: "subEvents.form.fields.name"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 text-right mb-3" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.saveModel()
+                      }
+                    }
+                  },
+                  [_vm._v("gravar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: "/events", tag: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            cancelar\n                        "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -129171,6 +129284,22 @@ window.loadDebounced = _.debounce(function (context) {
     context.dispatch('load');
 }, 650);
 
+window.buildApiUrl = function (uri, state) {
+    var url = '/api/v1/' + uri;
+
+    _.each(uri.match(/(\{.*?\})/g), function (param) {
+        var elements = param.match(/(\w+)/g);
+
+        var result = _.reduce(elements, function (carry, value) {
+            return carry[value];
+        }, state);
+
+        url = url.replace(param, result);
+    });
+
+    return url;
+};
+
 /***/ }),
 
 /***/ "./resources/js/views/Categories.vue":
@@ -129931,9 +130060,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return this.$store.dispatch(this.service.name + '/select', model);
         },
         save: function save(mode) {
-            this.mutateSetUpdateUrl('/api/v1/' + this.service.name + '/' + this.$route.params.id);
+            this.mutateSetUpdateUrl('/api/v1/' + this.service.uri + '/' + this.$route.params.id);
 
-            this.mutateSetStoreUrl('/api/v1/' + this.service.name);
+            this.mutateSetStoreUrl(this.getDataUrl());
 
             return this.$store.dispatch(this.service.name + '/save', mode);
         },
@@ -129965,9 +130094,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             $this.mutateSetStoreUrl('/api/v1/' + $this.service.uri);
 
-            $this.load().then(function () {
-                $this.fillFormWhenEditing();
-            });
+            if (!$this.service.isForm) {
+                $this.load().then(function () {
+                    $this.fillFormWhenEditing();
+                });
+            }
         },
         fillFormWhenEditing: function fillFormWhenEditing() {
             var $this = this;
@@ -130029,6 +130160,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         },
         setPerPage: function setPerPage() {
             this.$store.commit(this.service.name + '/mutateSetPerPage', this.environment.user.per_page);
+        },
+        getDataUrl: function getDataUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state);
         }
     },
 

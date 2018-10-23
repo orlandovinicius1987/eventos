@@ -132,3 +132,19 @@ window._ = require('lodash')
 window.loadDebounced = _.debounce(context => {
     context.dispatch('load')
 }, 650)
+
+window.buildApiUrl = (uri, state) => {
+    let url = '/api/v1/' + uri
+
+    _.each(uri.match(/(\{.*?\})/g), (param) => {
+        let elements = param.match(/(\w+)/g)
+
+        let result = _.reduce(elements, function(carry, value) {
+            return carry[value]
+        }, state);
+
+        url = url.replace(param, result)
+    })
+
+    return url
+}

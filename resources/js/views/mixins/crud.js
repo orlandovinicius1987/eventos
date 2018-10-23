@@ -70,10 +70,10 @@ export default {
 
         save(mode) {
             this.mutateSetUpdateUrl(
-                '/api/v1/' + this.service.name + '/' + this.$route.params.id,
+                '/api/v1/' + this.service.uri + '/' + this.$route.params.id,
             )
 
-            this.mutateSetStoreUrl('/api/v1/' + this.service.name)
+            this.mutateSetStoreUrl(this.getDataUrl())
 
             return this.$store.dispatch(this.service.name + '/save', mode)
         },
@@ -113,9 +113,11 @@ export default {
 
             $this.mutateSetStoreUrl('/api/v1/' + $this.service.uri)
 
-            $this.load().then(function() {
-                $this.fillFormWhenEditing()
-            })
+            if (!$this.service.isForm) {
+                $this.load().then(function() {
+                    $this.fillFormWhenEditing()
+                })
+            }
         },
 
         fillFormWhenEditing() {
@@ -186,6 +188,10 @@ export default {
                 this.service.name + '/mutateSetPerPage',
                 this.environment.user.per_page,
             )
+        },
+
+        getDataUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state)
         },
     },
 

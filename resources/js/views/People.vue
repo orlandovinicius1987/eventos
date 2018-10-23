@@ -51,7 +51,7 @@ import crud from './mixins/crud'
 import people from './mixins/people'
 import permissions from './mixins/permissions'
 
-const service = { name: 'people', uri: 'people' }
+const service = { name: 'people', uri: 'people', isForm: true }
 
 export default {
     mixins: [crud, people, permissions],

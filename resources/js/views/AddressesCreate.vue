@@ -48,7 +48,7 @@
 import crud from './mixins/crud'
 import people from './mixins/people'
 
-const service = { name: 'people', uri: 'people' }
+const service = { name: 'people', uri: 'people', isForm: true }
 
 export default {
     props: [],
