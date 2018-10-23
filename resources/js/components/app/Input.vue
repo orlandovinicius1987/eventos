@@ -21,6 +21,3 @@ export default {
     props: ['value', 'name', 'label', 'required', 'form'],
 }
 </script>
-
-<style>
-</style>

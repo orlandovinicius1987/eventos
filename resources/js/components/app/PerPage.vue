@@ -21,6 +21,3 @@ export default {
     props: ['value'],
 }
 </script>
-
-<style scoped>
-</style>

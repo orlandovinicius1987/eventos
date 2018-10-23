@@ -14,6 +14,12 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     load(context) {
+        context.commit('mutateSetData', {})
+
+        if (!context.state.subEvent || !context.state.subEvent.event) {
+            return
+        }
+
         return get(
             '/api/v1/events/' +
                 context.state.subEvent.event.id +
