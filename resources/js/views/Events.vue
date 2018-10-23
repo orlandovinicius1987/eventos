@@ -129,7 +129,6 @@ export default {
         },
 
         invitationsGotoPage(page) {
-            dd('invitationsGotoPage(page)', this)
             this.gotoPage(
                 page,
                 'invitations',
@@ -205,7 +204,6 @@ export default {
             },
 
             set(perPage) {
-                dd(perPage)
                 return this.$store.dispatch('invitations/setPerPage', perPage)
             },
         },
