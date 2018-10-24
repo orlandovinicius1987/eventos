@@ -137,11 +137,29 @@ window.buildApiUrl = (uri, state) => {
         let elements = param.match(/(\w+)/g)
 
         let result = _.reduce(elements, function(carry, value) {
-            return carry[value]
+            return carry && carry.hasOwnProperty(value) ? carry[value] : null
         }, state);
 
         url = url.replace(param, result)
     })
 
     return url
+}
+
+window.makeDataUrl = (context) => {
+    return (context.state.service && context.state.service.uri)
+        ? buildApiUrl(context.state.service.uri, context.rootState)
+        : null
+}
+
+window.makeStoreUrl = (context) => {
+    return (context.state.service && context.state.service.uri)
+        ? buildApiUrl(context.state.service.uri, context.rootState)
+        : null
+}
+
+window.makeUpdateUrl = (context) => {
+    return (context.state.service && context.state.service.uri)
+        ? buildApiUrl(context.state.service.uri, context.rootState)
+        : null
 }

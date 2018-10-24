@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use App\Data\Repositories\ContactTypes as ContactTypesRepository;
+use App\Rules\Contact;
 
-class ContactTypeUpdate extends BaseStore
+class ContactTypeUpdateERROR extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

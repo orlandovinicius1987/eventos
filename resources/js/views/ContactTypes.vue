@@ -20,7 +20,7 @@
                             :columns="['#', 'Nome', 'Código']"
                     >
                         <tr
-                                @click="select(category)"
+                                @click="select(contactType)"
                                 v-for="contactType in contactTypes.data.rows"
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contactType, selected)}"
                         >
@@ -29,7 +29,7 @@
                             <td class="align-middle">{{ contactType.code }}</td>
                             <td>
                                 <router-link
-                                        :to="'/categories/'+contactType.id+'/update'"
+                                        :to="'/contact-types/'+contactType.id+'/update'"
                                         tag="div"
                                         class="btn btn-danger btn-sm mr-1 pull-right"
                                         :disabled="cannot('create')"
