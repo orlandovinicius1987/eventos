@@ -38,6 +38,16 @@
                                     <i class="fa fa-edit"></i>
                                 </router-link>
                             </td>
+                            <td>
+                                <router-link
+                                        :to="'/people/'+person.id+'/contact/create'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('create')"
+                                >
+                                    <i class="fa fa-create"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>

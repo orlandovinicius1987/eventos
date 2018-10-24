@@ -42,6 +42,15 @@
                                 </router-link>
                             </li>
 
+                            <li class="nav-item">
+                                <router-link id="events-menu" to="/addrresses" tag="li" class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="vl_events"></i>
+                                        <span class="nav-link-text">Endereços</span>
+                                    </a>
+                                </router-link>
+                            </li>
+
                             <li class="nav-item dropdown">
                                 <a
                                     class="nav-link dropdown-toggle"
