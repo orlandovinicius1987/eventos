@@ -19,14 +19,11 @@ class CriarEventoTesteNovo extends DuskTestCase
     public function testCriarEvento()
     {
         $this->browse(function (Browser $browser) {
-            $browser->visit('/admin#/events')
-            ->type('@evetName', '')
-            ->type('password', '4321');
-            $browser->click('@login_button')
-                ->assertPathIs('/login');
-    });
+            $browser
+                ->visit('/admin#/events')
+                ->type('@evetName', '')
+                ->type('password', '4321');
+            $browser->click('@login_button')->assertPathIs('/login');
+        });
     }
-
-
-
 }
