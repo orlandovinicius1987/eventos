@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Data\Models\ContactsType;
+use App\Data\Models\ContactType;
 
 class CreateTableContactsTypes extends Migration
 {
@@ -31,7 +31,7 @@ class CreateTableContactsTypes extends Migration
         });
 
         collect($this->array)->each(function ($item, $key) {
-            $row = new ContactsType();
+            $row = new ContactType();
             $row->name = $item[1];
             $row->code = $item[2];
             $row->save();

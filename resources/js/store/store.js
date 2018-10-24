@@ -27,7 +27,7 @@ import categories from './modules/categories'
 import people from './modules/people'
 import roles from './modules/roles'
 import institutions from './modules/institutions'
-import contactTypes from './modules/contactTypes'
+import contactTypes from './modules/contact-types'
 import environment from './modules/environment'
 
 /**

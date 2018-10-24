@@ -16,8 +16,18 @@ class Invitations extends Repository
     protected function filterAllColumns(Builder $query, $text)
     {
         $query
-            ->join('person_institutions', 'person_institutions.id', '=', 'invitations.person_institution_id')
-            ->join('institutions', 'person_institutions.institution_id', '=', 'institutions.id')
+            ->join(
+                'person_institutions',
+                'person_institutions.id',
+                '=',
+                'invitations.person_institution_id'
+            )
+            ->join(
+                'institutions',
+                'person_institutions.institution_id',
+                '=',
+                'institutions.id'
+            )
             ->join('people', 'person_institutions.person_id', '=', 'people.id')
             ->join('roles', 'person_institutions.role_id', '=', 'roles.id')
             ->where(function ($query) use ($text) {

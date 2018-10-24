@@ -35,20 +35,19 @@ abstract class Repository
 
     protected function applyFilter($query)
     {
-        $queryFilter = $this->getQueryFilter();
+        return $this->getQueryFilter()->count() === 0
+            ? $query->get()
+            : $this->paginateQuery($query, $this->getQueryFilter());
+    }
 
-        $currentPage = $this->fixCurrentPage(
-            $queryFilter->pagination->currentPage ?: 1,
-            $queryFilter->pagination->perPage ?: 5,
-            $query->count()
-        );
-
+    protected function paginateQuery($query, $queryFilter)
+    {
         return $this->makePaginationResult(
             $this->filterText($queryFilter, $query)->paginate(
                 $queryFilter->pagination->perPage ?: 5,
                 ['*'],
                 'page',
-                $currentPage
+                $queryFilter->pagination->currentPage ?: 1
             )
         );
     }
