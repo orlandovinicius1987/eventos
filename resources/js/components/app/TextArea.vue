@@ -2,15 +2,15 @@
     <div>
         <label :for="name" class="mb-0 mt-4">{{ label }}</label>
 
-        <input
+        <textarea
             v-bind:value="value"
             v-on:input="$emit('input', $event.target.value)"
             class="form-control"
             :id="name"
-            :type="type"
             :required="required"
-            :dusk="dusk"
-        >
+            :rows="rows"
+            :cols="cols"
+        ></textarea>
 
         <small class="text-danger" v-if="form.errors.has(name)" >
             {{ form.errors.get(name) }}
@@ -20,6 +20,6 @@
 
 <script>
 export default {
-    props: ['value', 'name', 'label', 'required', 'form', 'type', 'dusk'],
+    props: ['value', 'name', 'rows', 'cols', 'form', 'required', 'label'],
 }
 </script>

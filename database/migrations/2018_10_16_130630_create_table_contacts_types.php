@@ -21,7 +21,7 @@ class CreateTableContactsTypes extends Migration
      */
     public function up()
     {
-        Schema::create('contacts_types', function (Blueprint $table) {
+        Schema::create('contact_types', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('name');
@@ -45,6 +45,6 @@ class CreateTableContactsTypes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts_types');
+        Schema::dropIfExists('contact_types');
     }
 }

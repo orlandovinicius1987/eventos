@@ -22,6 +22,11 @@ class CreatePersonInstitutions extends Migration
 
             $table->integer('role_id')->unsigned();
 
+            $table
+                ->integer('advised_id')
+                ->unsigned()
+                ->nullable();
+
             $table->string('title')->nullable();
 
             $table->timestamps();
