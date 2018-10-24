@@ -1,9 +1,7 @@
 export const common = {
     dataUrl: '',
 
-    storeUrl: '',
-
-    updateUrl: '',
+    service: null,
 
     data: {
         filter: {
@@ -15,7 +13,7 @@ export const common = {
                 per_page: 5,
 
                 current_page: 1,
-            }
+            },
         },
     },
 

@@ -61,12 +61,10 @@ window.confirm = (title, vue) => {
 }
 
 window.post = (...args) => {
-    dd('window.post', ...args)
     return axios.post(...args)
 }
 
 window.get = (...args) => {
-    dd('window.get', ...args)
     return axios.get(...args)
 }
 
@@ -103,7 +101,6 @@ window.remove_empty_properties = obj => {
 }
 
 window.logout = () => {
-    dd('logout')
     axios.post('/logout').then(response => {
         window.location = '/'
     })

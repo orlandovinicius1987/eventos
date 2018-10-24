@@ -2714,7 +2714,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var service = { name: 'people', uri: 'people', isForm: true };
+var service = { name: 'people', uri: 'people', isForm: false };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_people__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
@@ -25185,7 +25185,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_args":[["cheerio@1.0.0-rc.2","/Users/antoniocarlos/code/alerj/eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"/Users/antoniocarlos/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -128400,13 +128400,11 @@ var getters = {};
 
 var actions = {
     load: function load(context) {
-        dd('load environment');
         return axios.get('/api/v1/environment').then(function (response) {
             context.commit('mutateSetData', response.data);
         });
     },
     absorbLaravel: function absorbLaravel(context) {
-        dd('absorbLaravel');
         context.commit('mutateSetData', window.laravel);
 
         context.dispatch('load');
@@ -128653,7 +128651,6 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
     },
     setSubEvent: function setSubEvent(context, payload) {
-        dd('setSubEvent');
         context.commit('mutateSetSubEvent', payload);
 
         context.dispatch('load', payload);
@@ -128692,19 +128689,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["updateUserPerPage"] = updateUserPerPage;
 /* harmony export (immutable) */ __webpack_exports__["select"] = select;
 function load(context) {
-    if (!context.state.dataUrl) {
+    if (!context.getters.getDataUrl) {
         return;
     }
 
-    return axios.get(context.state.dataUrl, { params: { query: context.getters.getQueryFilter } }).then(function (response) {
+    return axios.get(context.getters.getDataUrl, {
+        params: { query: context.getters.getQueryFilter }
+    }).then(function (response) {
         context.commit('mutateSetData', response.data);
     });
 }
 
 function save(context, payload) {
-    var url = payload === 'create' ? context.state.storeUrl : context.state.updateUrl;
-
-    dd('save');
+    var url = payload === 'create' ? context.getters.getStoreUrl : context.getters.getUpdateUrl;
 
     return context.state.form.post(url, context.state.form.fields).then(function (response) {
         context.dispatch('load');
@@ -128719,6 +128716,7 @@ function mutateSetQueryFilterText(context, payload) {
     var data = context.state.data;
 
     data.filter.text = payload;
+
     data.links.pagination.current_page = 1;
 
     context.commit('mutateSetData', data);
@@ -128737,8 +128735,6 @@ function setCurrentPage(context, payload) {
 }
 
 function setPerPage(context, payload) {
-    dd('setPerPage');
-
     context.commit('mutateSetPerPage', payload);
 
     context.dispatch('load');
@@ -128764,11 +128760,32 @@ function select(context, payload) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["getQueryFilter"] = getQueryFilter;
+/* harmony export (immutable) */ __webpack_exports__["getDataUrl"] = getDataUrl;
+/* harmony export (immutable) */ __webpack_exports__["getStoreUrl"] = getStoreUrl;
+/* harmony export (immutable) */ __webpack_exports__["getUpdateUrl"] = getUpdateUrl;
 function getQueryFilter(state, getters) {
     return {
         filter: state.data.filter,
         pagination: state.data.links.pagination
     };
+}
+
+function getDataUrl(state, getters) {
+    if (state.service && state.service.uri) {
+        return buildApiUrl(state.service.uri, state);
+    }
+}
+
+function getStoreUrl(state, getters) {
+    if (state.service && state.service.uri) {
+        return buildApiUrl(state.service.uri, state);
+    }
+}
+
+function getUpdateUrl(state, getters) {
+    if (state.service && state.service.uri) {
+        return buildApiUrl(state.service.uri, state);
+    }
 }
 
 /***/ }),
@@ -128780,32 +128797,18 @@ function getQueryFilter(state, getters) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["mutateSetData"] = mutateSetData;
 /* harmony export (immutable) */ __webpack_exports__["mutateSetQuery"] = mutateSetQuery;
-/* harmony export (immutable) */ __webpack_exports__["mutateSetGetUrl"] = mutateSetGetUrl;
-/* harmony export (immutable) */ __webpack_exports__["mutateSetStoreUrl"] = mutateSetStoreUrl;
-/* harmony export (immutable) */ __webpack_exports__["mutateSetUpdateUrl"] = mutateSetUpdateUrl;
 /* harmony export (immutable) */ __webpack_exports__["mutateSetFormField"] = mutateSetFormField;
 /* harmony export (immutable) */ __webpack_exports__["mutateSetErrors"] = mutateSetErrors;
 /* harmony export (immutable) */ __webpack_exports__["mutateFormData"] = mutateFormData;
 /* harmony export (immutable) */ __webpack_exports__["mutateSetPerPage"] = mutateSetPerPage;
 /* harmony export (immutable) */ __webpack_exports__["mutateSetSelected"] = mutateSetSelected;
+/* harmony export (immutable) */ __webpack_exports__["mutateSetService"] = mutateSetService;
 function mutateSetData(state, payload) {
     state.data = payload;
 }
 
 function mutateSetQuery(state, payload) {
     state.query = payload;
-}
-
-function mutateSetGetUrl(state, payload) {
-    state.dataUrl = payload;
-}
-
-function mutateSetStoreUrl(state, payload) {
-    state.storeUrl = payload;
-}
-
-function mutateSetUpdateUrl(state, payload) {
-    state.updateUrl = payload;
 }
 
 function mutateSetFormField(state, payload) {
@@ -128832,6 +128835,10 @@ function mutateSetSelected(state, payload) {
     state.selected = payload;
 }
 
+function mutateSetService(state, payload) {
+    state.service = payload;
+}
+
 /***/ }),
 
 /***/ "./resources/js/store/modules/mixins/states.js":
@@ -128842,9 +128849,7 @@ function mutateSetSelected(state, payload) {
 var common = {
     dataUrl: '',
 
-    storeUrl: '',
-
-    updateUrl: '',
+    service: null,
 
     data: {
         filter: {
@@ -129007,11 +129012,6 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setEvent: function setEvent(context, payload) {
-        dd('setEvent');
-        context.commit('mutateSetGetUrl', '/api/v1/events/' + payload.id + '/sub-events');
-
-        context.commit('mutateSetStoreUrl', '/api/v1/events/' + payload.id + '/sub-events');
-
         context.commit('mutateSetEvent', payload);
 
         context.commit('mutateSetFormField', { field: 'event_id', value: payload.id });
@@ -129202,23 +129202,13 @@ window.confirm = function (title, vue) {
 window.post = function () {
     var _axios;
 
-    for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-    }
-
-    dd.apply(undefined, ['window.post'].concat(args));
-    return (_axios = axios).post.apply(_axios, args);
+    return (_axios = axios).post.apply(_axios, arguments);
 };
 
 window.get = function () {
     var _axios2;
 
-    for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-        args[_key3] = arguments[_key3];
-    }
-
-    dd.apply(undefined, ['window.get'].concat(args));
-    return (_axios2 = axios).get.apply(_axios2, args);
+    return (_axios2 = axios).get.apply(_axios2, arguments);
 };
 
 window.object_get = function (obj, descendants) {
@@ -129250,7 +129240,6 @@ window.remove_empty_properties = function (obj) {
 };
 
 window.logout = function () {
-    dd('logout');
     axios.post('/logout').then(function (response) {
         window.location = '/';
     });
@@ -129271,8 +129260,8 @@ window.set_null = function (obj) {
 };
 
 window.merge_objects = function (target) {
-    for (var _len4 = arguments.length, sources = Array(_len4 > 1 ? _len4 - 1 : 0), _key4 = 1; _key4 < _len4; _key4++) {
-        sources[_key4 - 1] = arguments[_key4];
+    for (var _len2 = arguments.length, sources = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        sources[_key2 - 1] = arguments[_key2];
     }
 
     return Object.assign.apply(Object, [{}, target].concat(sources));
@@ -130052,28 +130041,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         load: function load() {
             this.$store.commit(this.service.name + '/mutateSetPerPage', this.environment.user.per_page);
 
-            dd('load from mixin', this.service.name);
-
             return this.$store.dispatch(this.service.name + '/load');
         },
         select: function select(model) {
             return this.$store.dispatch(this.service.name + '/select', model);
         },
         save: function save(mode) {
-            this.mutateSetUpdateUrl('/api/v1/' + this.service.uri + '/' + this.$route.params.id);
-
-            this.mutateSetStoreUrl(this.getDataUrl());
-
             return this.$store.dispatch(this.service.name + '/save', mode);
-        },
-        mutateSetGetUrl: function mutateSetGetUrl(url) {
-            this.$store.commit(this.service.name + '/mutateSetGetUrl', url);
-        },
-        mutateSetStoreUrl: function mutateSetStoreUrl(url) {
-            this.$store.commit(this.service.name + '/mutateSetStoreUrl', url);
-        },
-        mutateSetUpdateUrl: function mutateSetUpdateUrl(url) {
-            this.$store.commit(this.service.name + '/mutateSetUpdateUrl', url);
         },
         mutateSetErrors: function mutateSetErrors(errors) {
             this.$store.commit(this.service.name + '/mutateSetErrors', errors);
@@ -130084,15 +130058,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         mutateSetFormField: function mutateSetFormField(data) {
             this.$store.commit(this.service.name + '/mutateSetFormField', data);
         },
+        mutateSetService: function mutateSetService(data) {
+            this.$store.commit(this.service.name + '/mutateSetService', data);
+        },
         isLoading: function isLoading() {
             return this.loading.environment || this.loading.table;
         },
         boot: function boot() {
             var $this = this;
 
-            $this.mutateSetGetUrl('/api/v1/' + $this.service.uri);
-
-            $this.mutateSetStoreUrl('/api/v1/' + $this.service.uri);
+            $this.mutateSetService(this.service);
 
             if (!$this.service.isForm) {
                 $this.load().then(function () {
@@ -130162,6 +130137,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.$store.commit(this.service.name + '/mutateSetPerPage', this.environment.user.per_page);
         },
         getDataUrl: function getDataUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state);
+        },
+        getStoreUrl: function getStoreUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state);
+        },
+        getUpdateStoreUrl: function getUpdateStoreUrl() {
             return buildApiUrl(this.service.uri, this.$store.state);
         }
     },
