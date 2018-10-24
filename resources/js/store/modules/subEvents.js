@@ -15,17 +15,6 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     setEvent(context, payload) {
-        dd('setEvent')
-        context.commit(
-            'mutateSetGetUrl',
-            '/api/v1/events/' + payload.id + '/sub-events',
-        )
-
-        context.commit(
-            'mutateSetStoreUrl',
-            '/api/v1/events/' + payload.id + '/sub-events',
-        )
-
         context.commit('mutateSetEvent', payload)
 
         context.commit('mutateSetFormField', { field: 'event_id', value: payload.id })
