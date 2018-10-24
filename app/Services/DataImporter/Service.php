@@ -5,7 +5,6 @@ namespace App\Services\DataImporter;
 use App\Services\CSV;
 use App\Data\Models\Role;
 use App\Data\Models\Event;
-use App\Data\Models\Client;
 use App\Data\Models\Person;
 use App\Data\Models\Address;
 use App\Data\Models\Contact;
