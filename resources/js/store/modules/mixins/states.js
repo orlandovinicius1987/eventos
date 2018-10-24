@@ -15,6 +15,10 @@ export const common = {
                 current_page: 1,
             },
         },
+
+        order: {
+
+        }
     },
 
     selected: { id: null },
