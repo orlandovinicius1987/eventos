@@ -24,6 +24,7 @@ import events from './modules/events'
 import subEvents from './modules/subEvents'
 import invitations from './modules/invitations'
 import categories from './modules/categories'
+import addresses from './modules/addresses'
 import people from './modules/people'
 import roles from './modules/roles'
 import institutions from './modules/institutions'
@@ -52,6 +53,7 @@ let store = new Vuex.Store({
         events,
         subEvents,
         invitations,
+        addresses,
         gate,
         roles,
         institutions,

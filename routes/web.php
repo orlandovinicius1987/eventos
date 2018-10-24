@@ -12,6 +12,8 @@ Route::group(
 );
 
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
+    Route::get('zipcode/{zipcode}', 'ZipCode@get')->name('api.zipcode.get');
+
     Route::get('/environment', 'Environment@data');
 
     Route::group(['middleware' => 'auth'], function () {
@@ -81,6 +83,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'Roles@update')->name('roles.update');
 
             Route::post('/', 'Roles@store')->name('roles.store');
+        });
+
+        Route::group(['prefix' => '/addresses'], function () {
+            Route::get('/', 'Addresses@all')->name('addresses.all');
+
+            Route::post('/{id}', 'Addresses@update')->name('addresses.update');
+
+            Route::post('/', 'Addresses@store')->name('addresses.store');
         });
 
         Route::group(['prefix' => '/categories'], function () {
