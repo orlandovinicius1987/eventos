@@ -2328,6 +2328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -25980,7 +25981,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -102107,7 +102108,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-success",
-                    attrs: { to: "/categories", tag: "button" }
+                    attrs: { to: "/contact-types", tag: "button" }
                   },
                   [
                     _vm._v(
@@ -120181,7 +120182,7 @@ function load(context) {
 }
 
 function save(context, payload) {
-    var url = payload === 'create' ? context.getters.getStoreUrl : context.getters.getUpdateUrl;
+    var url = payload === 'create' ? context.getters.getStoreUrl : context.getters.getUpdateUrl + '/' + context.state.form.fields.id;
 
     return context.state.form.post(url, context.state.form.fields).then(function (response) {
         context.dispatch('load');

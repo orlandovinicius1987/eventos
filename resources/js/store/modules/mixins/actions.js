@@ -16,7 +16,7 @@ export function save(context, payload) {
     const url =
         payload === 'create'
             ? context.getters.getStoreUrl
-            : context.getters.getUpdateUrl
+            : context.getters.getUpdateUrl + '/' + context.state.form.fields.id
 
     return context.state.form
         .post(url, context.state.form.fields)
