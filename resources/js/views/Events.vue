@@ -21,7 +21,7 @@
                         :columns="['#','Nome','Confirmado em']"
                     >
                         <tr
-                            @click="select(event)"
+                            @click="selectEvent(event)"
                             v-for="event in events.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
                         >

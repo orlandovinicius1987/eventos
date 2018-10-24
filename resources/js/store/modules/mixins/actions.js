@@ -4,7 +4,7 @@ export function load(context) {
     }
 
     return axios
-        .get(context.getters.getDataUrl, {
+        .get(makeDataUrl(context), {
             params: { query: context.getters.getQueryFilter },
         })
         .then(response => {
@@ -15,8 +15,8 @@ export function load(context) {
 export function save(context, payload) {
     const url =
         payload === 'create'
-            ? context.getters.getStoreUrl
-            : context.getters.getUpdateUrl + '/' + context.state.form.fields.id
+            ? makeStoreUrl(context)
+            : makeUpdateUrl(context) + '/' + context.state.form.fields.id
 
     return context.state.form
         .post(url, context.state.form.fields)

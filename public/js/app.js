@@ -100569,7 +100569,7 @@ var render = function() {
                           },
                           on: {
                             click: function($event) {
-                              _vm.select(event)
+                              _vm.selectEvent(event)
                             }
                           }
                         },
@@ -119937,24 +119937,12 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
-    select: function select(context, payload) {
+    selectEvent: function selectEvent(context, payload) {
         context.commit('mutateSetSelected', payload);
 
         context.commit('mutateFormData', payload);
 
         context.dispatch('subEvents/setEvent', payload, { root: true });
-
-        context.commit('subEvents/mutateSetSelected', __emptyModel, {
-            root: true
-        });
-
-        context.dispatch('invitations/setSubEvent', __emptyModel, {
-            root: true
-        });
-
-        context.commit('invitations/mutateSetSelected', __emptyModel, {
-            root: true
-        });
     },
     selectSubEvent: function selectSubEvent(context, payload) {
         context.commit('subEvents/mutateSetSelected', payload, {
@@ -120111,6 +120099,8 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 
 
+var __emptyModel = { id: null };
+
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     subEvent: { id: null },
 
@@ -120133,6 +120123,8 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     },
     setSubEvent: function setSubEvent(context, payload) {
         context.commit('mutateSetSubEvent', payload);
+
+        context.commit('mutateSetSelected', __emptyModel);
 
         context.dispatch('load', payload);
     }
@@ -120174,7 +120166,7 @@ function load(context) {
         return;
     }
 
-    return axios.get(context.getters.getDataUrl, {
+    return axios.get(makeDataUrl(context), {
         params: { query: context.getters.getQueryFilter }
     }).then(function (response) {
         context.commit('mutateSetData', response.data);
@@ -120182,7 +120174,7 @@ function load(context) {
 }
 
 function save(context, payload) {
-    var url = payload === 'create' ? context.getters.getStoreUrl : context.getters.getUpdateUrl + '/' + context.state.form.fields.id;
+    var url = payload === 'create' ? makeStoreUrl(context) : makeUpdateUrl(context) + '/' + context.state.form.fields.id;
 
     return context.state.form.post(url, context.state.form.fields).then(function (response) {
         context.dispatch('load');
@@ -120329,8 +120321,6 @@ function mutateSetService(state, payload) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return common; });
 var common = {
-    dataUrl: '',
-
     service: null,
 
     data: {
@@ -120486,8 +120476,12 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 
 
+var __emptyModel = { id: null };
+
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     event: { id: null },
+
+    service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -120499,6 +120493,12 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         context.commit('mutateSetEvent', payload);
 
         context.commit('mutateSetFormField', { field: 'event_id', value: payload.id });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('invitations/setSubEvent', __emptyModel, {
+            root: true
+        });
 
         context.dispatch('load', payload);
     }
@@ -120770,13 +120770,25 @@ window.buildApiUrl = function (uri, state) {
         var elements = param.match(/(\w+)/g);
 
         var result = _.reduce(elements, function (carry, value) {
-            return carry[value];
+            return carry && carry.hasOwnProperty(value) ? carry[value] : null;
         }, state);
 
         url = url.replace(param, result);
     });
 
     return url;
+};
+
+window.makeDataUrl = function (context) {
+    return context.state.service && context.state.service.uri ? buildApiUrl(context.state.service.uri, context.rootState) : null;
+};
+
+window.makeStoreUrl = function (context) {
+    return context.state.service && context.state.service.uri ? buildApiUrl(context.state.service.uri, context.rootState) : null;
+};
+
+window.makeUpdateUrl = function (context) {
+    return context.state.service && context.state.service.uri ? buildApiUrl(context.state.service.uri, context.rootState) : null;
 };
 
 /***/ }),

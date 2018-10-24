@@ -1,6 +1,4 @@
 export const common = {
-    dataUrl: '',
-
     service: null,
 
     data: {
