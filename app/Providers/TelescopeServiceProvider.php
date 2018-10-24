@@ -11,6 +11,16 @@ use Laravel\Telescope\TelescopeApplicationServiceProvider;
 
 class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
 {
+    private function getEnvironment()
+    {
+        try {
+            return $this->app->environment();
+        } catch (\Exception $exception) {
+        }
+
+        return 'local';
+    }
+
     /**
      * Register any application services.
      *
@@ -21,7 +31,7 @@ class TelescopeServiceProvider extends TelescopeApplicationServiceProvider
         // Telescope::night();
 
         Telescope::filter(function (IncomingEntry $entry) {
-            if ($this->app->environment() == 'local') {
+            if ($this->getEnvironment() == 'local') {
                 return true;
             }
 
