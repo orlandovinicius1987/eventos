@@ -195,8 +195,6 @@ class Service
             $this->throwError('O campo assessor_funcao não existe no arquivo');
         }
 
-        dump($personInstitution->id);
-
         $advisorInstitution = $this->importPersonInstitution(
             coollect(['tratamento' => null]),
 
@@ -209,7 +207,7 @@ class Service
                 ])
             ),
 
-            Institution::find($personInstitution->id),
+            Institution::find($personInstitution->institution_id),
 
             $this->imporRole(coollect(['funcao' => $row->assessor_funcao])),
 
