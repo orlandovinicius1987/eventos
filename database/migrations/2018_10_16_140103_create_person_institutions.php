@@ -23,7 +23,7 @@ class CreatePersonInstitutions extends Migration
             $table->integer('role_id')->unsigned();
 
             $table
-                ->integer('advisor_id')
+                ->integer('advised_id')
                 ->unsigned()
                 ->nullable();
 
