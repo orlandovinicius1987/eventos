@@ -172,6 +172,7 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewComposerServiceProvider::class,
+        PragmaRX\ZipCode\Vendor\Laravel\ServiceProvider::class,
     ],
 
     /*
@@ -219,5 +220,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'ZipCode' => PragmaRX\ZipCode\Vendor\Laravel\Facade::class,
     ],
 ];
