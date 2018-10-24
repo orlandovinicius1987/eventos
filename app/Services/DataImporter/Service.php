@@ -187,7 +187,7 @@ class Service
 
     private function importAdvisor($row, $personInstitution)
     {
-        if (!isset($row->assessor_nome)) {
+        if (!isset($row->assessor_nome) || empty($row->assessor_nome)) {
             return;
         }
 
@@ -305,10 +305,12 @@ class Service
     protected function importPerson($row, $party = null)
     {
         return Person::create([
-            'name' => $row->nome,
-            'nickname' => isset($row->apelido) ? $row->apelido : $row->nome,
+            'name' => trim($row->nome),
+            'nickname' => trim(
+                isset($row->apelido) ? $row->apelido : $row->nome
+            ),
             'party_id' => $party ? $party->id : null,
-            'title' => $row->tratamento,
+            'title' => trim($row->tratamento),
             'client_id' => $this->client_id,
         ]);
     }
