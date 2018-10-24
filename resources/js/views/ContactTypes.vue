@@ -17,7 +17,7 @@
                     <app-table
                             :pagination="pagination"
                             @goto-page="gotoPage($event)"
-                            :columns="['#', 'Nome']"
+                            :columns="['#', 'Nome', 'Código']"
                     >
                         <tr
                                 @click="select(category)"
@@ -26,6 +26,7 @@
                         >
                             <td class="align-middle">{{ contactType.id }}</td>
                             <td class="align-middle">{{ contactType.name }}</td>
+                            <td class="align-middle">{{ contactType.code }}</td>
                             <td>
                                 <router-link
                                         :to="'/categories/'+contactType.id+'/update'"
@@ -46,13 +47,13 @@
 
 <script>
     import crud from './mixins/crud'
-    import contactType from './mixins/contact-types'
+    import contactTypes from './mixins/contact-types'
     import permissions from './mixins/permissions'
 
-    const service = { name: 'contactType', uri: 'contact-type' }
+    const service = { name: 'contactTypes', uri: 'contact-types' }
 
     export default {
-        mixins: [crud, contactType, permissions],
+        mixins: [crud, contactTypes, permissions],
 
         data() {
             return {

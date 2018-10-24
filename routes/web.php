@@ -107,7 +107,7 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/', 'Institutions@store')->name('institutions.store');
         });
 
-        Route::group(['prefix' => '/contactTypes'], function () {
+        Route::group(['prefix' => '/contact-types'], function () {
             Route::get('/', 'ContactTypes@all')->name('contactTypes.all');
 
             Route::post('/{id}', 'ContactTypes@update')->name(

@@ -181,18 +181,18 @@ let routes = [
     },
     {
         path: '/contact-types',
-        name: 'contact-types',
+        name: 'contactTypes',
         component: ContactTypes,
     },
     {
         path: '/contact-types/create',
-        name: 'contact-types.create',
+        name: 'contactTypes.create',
         component: ContactTypesForm,
         props: { mode: 'create' },
     },
     {
         path: '/contact-types/:id/update',
-        name: 'contact-types.update',
+        name: 'contactTypes.update',
         component: ContactTypesForm,
         props: { mode: 'update' },
     },

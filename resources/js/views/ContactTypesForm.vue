@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>{{ form.fields.name ? form.fields.name : 'Nova Categoria' }}</h2>
+            <h2>{{ form.fields.name ? form.fields.name : 'Novo Tipo de Contato' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -10,11 +10,18 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
-                                name="name"
-                                label="Nome"
-                                v-model="form.fields.name"
-                                :required="true"
-                                :form="form"
+                                    name="name"
+                                    label="Nome"
+                                    v-model="form.fields.name"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="code"
+                                    label="Código"
+                                    v-model="form.fields.code"
+                                    :required="true"
+                                    :form="form"
                             ></app-input>
                         </div>
                     </div>
@@ -35,26 +42,22 @@
 </template>
 
 <script>
-import crud from './mixins/crud'
-import categories from './mixins/categories'
+    import crud from './mixins/crud'
+    import contactTypes from './mixins/contact-types'
 
-const serviceName = 'categories'
+    const service = { name: 'contactTypes', uri: 'contact-types', isForm: true }
 
-export default {
-    props: ['mode'],
+    export default {
+        props: ['mode'],
 
-    mixins: [crud, categories],
+        mixins: [crud, contactTypes],
 
-    data() {
-        return {
-            serviceName: serviceName,
+        data() {
+            return {
+                service: service,
+            }
         }
-    },
-
-    mounted() {
-        this.boot()
-    },
-}
+    }
 </script>
 
 <style>
