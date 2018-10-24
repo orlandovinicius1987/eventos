@@ -39,7 +39,7 @@ export function mutateFormData(state, payload) {
 }
 
 export function mutateSetPerPage(state, payload) {
-    state.query.pagination.per_page = payload
+    state.data.links.pagination.per_page = payload
 }
 
 export function mutateSetSelected(state, payload) {

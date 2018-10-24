@@ -55,7 +55,7 @@ import crud from './mixins/crud'
 import people from './mixins/people'
 import { mapActions } from 'vuex'
 
-const serviceName = 'people'
+const service = { name: 'people', uri: 'people', isForm: true }
 
 export default {
     props: ['mode'],
@@ -64,17 +64,13 @@ export default {
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 
     methods: {
-        ...mapActions(serviceName, ['selectPerson']),
-    },
-
-    mounted() {
-        this.boot()
-    },
+        ...mapActions(service.name, ['selectPerson']),
+    }
 }
 </script>
 

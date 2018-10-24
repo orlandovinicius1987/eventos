@@ -38,7 +38,7 @@
 import crud from './mixins/crud'
 import events from './mixins/events'
 
-const serviceName = 'events'
+const service = { name: 'events', uri: 'events', isForm: true }
 
 export default {
     props: ['mode'],
@@ -47,7 +47,7 @@ export default {
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 }

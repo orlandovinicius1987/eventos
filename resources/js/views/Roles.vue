@@ -50,14 +50,14 @@ import roles from './mixins/roles'
 import permissions from './mixins/permissions'
 import { mapActions, mapState } from 'vuex'
 
-const serviceName = 'roles'
+const service = { name: 'roles', uri: 'roles' }
 
 export default {
     mixins: [crud, roles, permissions],
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 }

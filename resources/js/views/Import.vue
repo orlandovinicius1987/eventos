@@ -39,7 +39,7 @@ export default {
 
     data() {
         return {
-            serviceName: 'import',
+            service: { name: 'import', uri: 'import' },
             file: null,
             error: null,
             success: false,

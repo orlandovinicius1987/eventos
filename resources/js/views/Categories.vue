@@ -49,20 +49,16 @@ import crud from './mixins/crud'
 import categories from './mixins/categories'
 import permissions from './mixins/permissions'
 
-const serviceName = 'categories'
+const service = { name: 'categories', uri: 'categories' }
 
 export default {
     mixins: [crud, categories, permissions],
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
-    },
-
-    mounted() {
-        this.boot()
-    },
+    }
 }
 </script>
 

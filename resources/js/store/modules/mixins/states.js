@@ -5,19 +5,19 @@ export const common = {
 
     updateUrl: '',
 
-    data: {},
-
-    selected: { id: null },
-
-    query: {
+    data: {
         filter: {
             text: null,
         },
 
-        pagination: {
-            per_page: 5,
+        links: {
+            pagination: {
+                per_page: 5,
 
-            current_page: 1,
+                current_page: 1,
+            }
         },
     },
+
+    selected: { id: null },
 }

@@ -35,19 +35,18 @@ abstract class Repository
 
     protected function applyFilter($query)
     {
-        return $this->getQueryFilter()->count() === 0
-            ? $query->get()
-            : $this->paginateQuery($query, $this->getQueryFilter());
-    }
+        $queryFilter = $this->getQueryFilter();
 
-    protected function paginateQuery($query, $queryFilter)
-    {
         return $this->makePaginationResult(
             $this->filterText($queryFilter, $query)->paginate(
-                $queryFilter->pagination->perPage ?: 5,
+                $queryFilter->pagination
+                    ? $queryFilter->pagination->perPage
+                    : 5,
                 ['*'],
                 'page',
-                $queryFilter->pagination->currentPage ?: 1
+                $queryFilter->pagination
+                    ? $queryFilter->pagination->currentPage
+                    : 1
             )
         );
     }
@@ -175,6 +174,8 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
+        info($this->getQueryFilter()->toArray());
+
         return [
             "links" => [
                 "pagination" => [

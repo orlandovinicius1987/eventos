@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="row" v-if="subEvents && subEvents.selected.id">
+        <div class="row" v-if="invitations.subEvent.id">
             <div class="col-12">
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
@@ -102,37 +102,37 @@ import events from './mixins/events'
 import permissions from './mixins/permissions'
 import { mapActions, mapState } from 'vuex'
 
-const serviceName = 'events'
+const service = { name: 'events', uri: 'events' }
 
 export default {
     mixins: [crud, events, permissions],
 
     data() {
         return {
-            serviceName: serviceName,
+            service: service,
         }
     },
 
     methods: {
-        ...mapActions(serviceName, [
+        ...mapActions(service.name, [
             'selectEvent',
             'selectSubEvent',
             'selectInvitation',
         ]),
 
         eventsGotoPage(page) {
-            this.gotoPage(page, 'events', this.events.query.pagination)
+            this.gotoPage(page, 'events', this.events.data.links.pagination)
         },
 
         subEventsGotoPage(page) {
-            this.gotoPage(page, 'subEvents', this.subEvents.query.pagination)
+            this.gotoPage(page, 'subEvents', this.subEvents.data.links.pagination)
         },
 
         invitationsGotoPage(page) {
             this.gotoPage(
                 page,
                 'invitations',
-                this.invitations.query.pagination,
+                this.invitations.data.links.pagination,
             )
         },
     },
@@ -140,12 +140,12 @@ export default {
     computed: {
         eventsFilterText: {
             get() {
-                return this.$store.state['events'].query.filter.text
+                return this.$store.state['events'].data.filter.text
             },
 
             set(filter) {
                 return this.$store.dispatch(
-                    this.serviceName + '/mutateSetQueryFilterText',
+                    this.service.name + '/mutateSetQueryFilterText',
                     filter,
                 )
             },
@@ -153,7 +153,7 @@ export default {
 
         eventsPerPage: {
             get() {
-                return this.$store.state['events'].query.pagination.per_page
+                return this.$store.state['events'].data.links.pagination.per_page
             },
 
             set(perPage) {
@@ -163,7 +163,7 @@ export default {
 
         subEventsFilterText: {
             get() {
-                return this.$store.state['subEvents'].query.filter.text
+                return this.$store.state['subEvents'].data.filter.text
             },
 
             set(filter) {
@@ -176,7 +176,7 @@ export default {
 
         subEventsPerPage: {
             get() {
-                return this.$store.state['subEvents'].query.pagination.per_page
+                return this.$store.state['subEvents'].data.links.pagination.per_page
             },
 
             set(perPage) {
@@ -186,7 +186,7 @@ export default {
 
         invitationsFilterText: {
             get() {
-                return this.$store.state['invitations'].query.filter.text
+                return this.$store.state['invitations'].data.filter.text
             },
 
             set(filter) {
@@ -199,7 +199,7 @@ export default {
 
         invitationsPerPage: {
             get() {
-                return this.$store.state['invitations'].query.pagination
+                return this.$store.state['invitations'].data.links.pagination
                     .per_page
             },
 
@@ -207,10 +207,6 @@ export default {
                 return this.$store.dispatch('invitations/setPerPage', perPage)
             },
         },
-    },
-
-    mounted() {
-        this.boot()
     },
 }
 </script>
