@@ -9,7 +9,7 @@
                 <app-table-panel
                     v-if="events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
-                    :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                    :add-button="{ uri: '/events/create', disabled: cannot('create'), dusk:'createEventButton' }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
                     :filter-text="eventsFilterText"

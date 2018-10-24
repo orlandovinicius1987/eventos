@@ -8,7 +8,7 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class CriarEventoTest extends DuskTestCase
+class CriarEventoTesteNovo extends DuskTestCase
 {
     /**
      * A basic browser test example.

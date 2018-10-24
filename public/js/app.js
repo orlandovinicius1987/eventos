@@ -1869,6 +1869,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['title', 'add-button', 'add-button-disabled', 'columns', 'filter-text', 'per-page']
@@ -100525,7 +100526,8 @@ var render = function() {
                     title: "Eventos (" + _vm.pagination.total + ")",
                     "add-button": {
                       uri: "/events/create",
-                      disabled: _vm.cannot("create")
+                      disabled: _vm.cannot("create"),
+                      dusk: "createEventButton"
                     },
                     "per-page": _vm.eventsPerPage,
                     "filter-text": _vm.eventsFilterText
@@ -102288,7 +102290,8 @@ var render = function() {
                       attrs: {
                         to: _vm.addButton.uri,
                         tag: "div",
-                        disabled: _vm.addButton.disabled
+                        disabled: _vm.addButton.disabled,
+                        dusk: "createEventButton"
                       }
                     },
                     [_c("i", { staticClass: "fa fa-plus" })]
@@ -102696,7 +102699,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "btn btn-outline-secondary",
-                    attrs: { dusk: "createEventButton", type: "submit" },
+                    attrs: { type: "submit" },
                     on: {
                       click: function($event) {
                         $event.preventDefault()
