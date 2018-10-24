@@ -7,7 +7,13 @@ class PersonInstitution extends Base
     /**
      * @var array
      */
-    protected $fillable = ['person_id', 'institution_id', 'role_id', 'title'];
+    protected $fillable = [
+        'person_id',
+        'institution_id',
+        'role_id',
+        'title',
+        'advised_id',
+    ];
 
     protected $with = ['person', 'institution', 'role'];
 
