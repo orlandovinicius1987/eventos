@@ -8,6 +8,7 @@
             class="form-control"
             id="name"
             :required="required"
+            :dusk="dusk"
         >
 
         <small class="text-danger" v-if="form.errors.has(name)" >
@@ -18,6 +19,6 @@
 
 <script>
 export default {
-    props: ['value', 'name', 'label', 'required', 'form'],
+    props: ['value', 'name', 'label', 'required', 'form' ,'dusk'],
 }
 </script>

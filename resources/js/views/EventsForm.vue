@@ -15,13 +15,14 @@
                                 v-model="form.fields.name"
                                 :required="true"
                                 :form="form"
+                                dusk="eventName"
                             ></app-input>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button @click.prevent="saveModel()" dusk="createEventButton" class="btn btn-outline-secondary" type="submit">gravar</button>
 
                             <router-link to="/events" tag="button" class="btn btn-success">
                                 cancelar
