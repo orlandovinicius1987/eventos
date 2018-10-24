@@ -6,14 +6,12 @@ const getters = {}
 
 const actions = {
     load(context) {
-        dd('load environment')
         return axios.get('/api/v1/environment').then(response => {
             context.commit('mutateSetData', response.data)
         })
     },
 
     absorbLaravel(context) {
-        dd('absorbLaravel')
         context.commit('mutateSetData', window.laravel)
 
         context.dispatch('load')

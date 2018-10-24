@@ -1,10 +1,12 @@
 export function load(context) {
-    if (!context.state.dataUrl) {
+    if (!context.getters.getDataUrl) {
         return
     }
 
     return axios
-        .get(context.state.dataUrl, { params: { query: context.getters.getQueryFilter } })
+        .get(context.getters.getDataUrl, {
+            params: { query: context.getters.getQueryFilter },
+        })
         .then(response => {
             context.commit('mutateSetData', response.data)
         })
@@ -12,9 +14,9 @@ export function load(context) {
 
 export function save(context, payload) {
     const url =
-        payload === 'create' ? context.state.storeUrl : context.state.updateUrl
-
-    dd('save')
+        payload === 'create'
+            ? context.getters.getStoreUrl
+            : context.getters.getUpdateUrl
 
     return context.state.form
         .post(url, context.state.form.fields)
@@ -31,6 +33,7 @@ export function mutateSetQueryFilterText(context, payload) {
     let data = context.state.data
 
     data.filter.text = payload
+
     data.links.pagination.current_page = 1
 
     context.commit('mutateSetData', data)
@@ -49,8 +52,6 @@ export function setCurrentPage(context, payload) {
 }
 
 export function setPerPage(context, payload) {
-    dd('setPerPage')
-
     context.commit('mutateSetPerPage', payload)
 
     context.dispatch('load')

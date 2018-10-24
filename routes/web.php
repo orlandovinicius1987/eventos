@@ -108,13 +108,23 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
         });
 
         Route::group(['prefix' => '/institutions'], function () {
-            Route::get('/', 'institutions@all')->name('institutions.all');
+            Route::get('/', 'Institutions@all')->name('institutions.all');
 
-            Route::post('/{id}', 'institutions@update')->name(
+            Route::post('/{id}', 'Institutions@update')->name(
                 'institutions.update'
             );
 
-            Route::post('/', 'institutions@store')->name('institutions.store');
+            Route::post('/', 'Institutions@store')->name('institutions.store');
+        });
+
+        Route::group(['prefix' => '/contact-types'], function () {
+            Route::get('/', 'ContactTypes@all')->name('contactTypes.all');
+
+            Route::post('/{id}', 'ContactTypes@update')->name(
+                'contactTypes.update'
+            );
+
+            Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
         });
 
         Route::post('/import', 'Import@store')->name('import.store');

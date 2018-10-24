@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class ContactsType extends Base
+class ContactType extends Base
 {
     /**
      * @var array

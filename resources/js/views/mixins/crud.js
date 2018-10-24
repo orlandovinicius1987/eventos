@@ -59,8 +59,6 @@ export default {
                 this.environment.user.per_page,
             )
 
-            dd('load from mixin', this.service.name)
-
             return this.$store.dispatch(this.service.name + '/load')
         },
 
@@ -69,25 +67,7 @@ export default {
         },
 
         save(mode) {
-            this.mutateSetUpdateUrl(
-                '/api/v1/' + this.service.uri + '/' + this.$route.params.id,
-            )
-
-            this.mutateSetStoreUrl(this.getDataUrl())
-
             return this.$store.dispatch(this.service.name + '/save', mode)
-        },
-
-        mutateSetGetUrl(url) {
-            this.$store.commit(this.service.name + '/mutateSetGetUrl', url)
-        },
-
-        mutateSetStoreUrl(url) {
-            this.$store.commit(this.service.name + '/mutateSetStoreUrl', url)
-        },
-
-        mutateSetUpdateUrl(url) {
-            this.$store.commit(this.service.name + '/mutateSetUpdateUrl', url)
         },
 
         mutateSetErrors(errors) {
@@ -102,6 +82,10 @@ export default {
             this.$store.commit(this.service.name + '/mutateSetFormField', data)
         },
 
+        mutateSetService(data) {
+            this.$store.commit(this.service.name + '/mutateSetService', data)
+        },
+
         isLoading() {
             return this.loading.environment || this.loading.table
         },
@@ -109,9 +93,7 @@ export default {
         boot() {
             const $this = this
 
-            $this.mutateSetGetUrl('/api/v1/' + $this.service.uri)
-
-            $this.mutateSetStoreUrl('/api/v1/' + $this.service.uri)
+            $this.mutateSetService(this.service)
 
             if (!$this.service.isForm) {
                 $this.load().then(function() {
@@ -191,6 +173,14 @@ export default {
         },
 
         getDataUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state)
+        },
+
+        getStoreUrl() {
+            return buildApiUrl(this.service.uri, this.$store.state)
+        },
+
+        getUpdateStoreUrl() {
             return buildApiUrl(this.service.uri, this.$store.state)
         },
     },
