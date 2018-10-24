@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\DataImporter\Service;
 use Illuminate\Foundation\Inspiring;
 
 /*
@@ -13,6 +14,6 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
+Artisan::command('eventos:import {client} {file}', function ($client, $file) {
+    app(Service::class)->importCSV(file_get_contents($file), $client);
 })->describe('Display an inspiring quote');

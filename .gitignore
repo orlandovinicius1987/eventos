@@ -14,3 +14,5 @@ yarn-error.log
 .phpunit.result.cache
 Vagrantfile
 package-lock.json
+public/vendor/telescope/*
+config/telescope.php

@@ -14,6 +14,8 @@ class CSV
         $string = str_replace("\r", "\n", $string);
         $string = explode("\n", trim($string));
 
+        $string = preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $string);
+
         $data = collect($string)
             ->map(function ($line) {
                 return str_getcsv($line, ";", '');

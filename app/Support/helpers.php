@@ -65,6 +65,11 @@ function ld($info)
     die();
 }
 
+function get_current_client_id()
+{
+    return Session::get('current_client_id') ?: auth()->user()->client_id;
+}
+
 class Timer
 {
     public static $starttime;
