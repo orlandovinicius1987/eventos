@@ -26,6 +26,11 @@ abstract class Base extends Model implements AuditableContract
     protected $dataTypes = [];
 
     /**
+     * @var array
+     */
+    protected $orderBy = [];
+
+    /**
      * Cache keys to be flushed when a model is saved.
      *
      * @var array
@@ -49,6 +54,14 @@ abstract class Base extends Model implements AuditableContract
         $model = new static();
 
         return collect($model->dataTypes)->get($column);
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderBy(): array
+    {
+        return $this->orderBy;
     }
 
     public function save(array $options = [])
