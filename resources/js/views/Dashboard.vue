@@ -68,7 +68,7 @@ export default {
 
     data() {
         return {
-            serviceName: 'dashboard',
+            service: { name: 'dashboard', uri: 'dashboard' },
         }
     },
 }

@@ -37,18 +37,16 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
-        $currentPage = $this->fixCurrentPage(
-            $queryFilter->pagination->currentPage ?: 1,
-            $queryFilter->pagination->perPage ?: 5,
-            $query->count()
-        );
-
         return $this->makePaginationResult(
             $this->filterText($queryFilter, $query)->paginate(
-                $queryFilter->pagination->perPage ?: 5,
+                $queryFilter->pagination
+                    ? $queryFilter->pagination->perPage
+                    : 5,
                 ['*'],
                 'page',
-                $currentPage
+                $queryFilter->pagination
+                    ? $queryFilter->pagination->currentPage
+                    : 1
             )
         );
     }
@@ -176,6 +174,8 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
+        info($this->getQueryFilter()->toArray());
+
         return [
             "links" => [
                 "pagination" => [

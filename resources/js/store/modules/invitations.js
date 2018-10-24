@@ -3,9 +3,10 @@ import Form from '../../classes/Form'
 import * as mutationsMixin from './mixins/mutations.js'
 import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
+import * as gettersMixin from './mixins/getters.js'
 
 const state = merge_objects(statesMixin.common, {
-    subEvent: null,
+    subEvent: { id: null },
 
     form: new Form({
         name: null,
@@ -14,8 +15,6 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     load(context) {
-        context.commit('mutateSetData', {})
-
         if (!context.state.subEvent || !context.state.subEvent.event) {
             return
         }
@@ -27,7 +26,7 @@ const actions = merge_objects(actionsMixin, {
                 context.state.subEvent.id +
                 '/invitations',
             {
-                params: { query: context.state.query },
+                params: { query: context.getters.getQueryFilter },
             },
         ).then(response => {
             context.commit('mutateSetData', response.data)
@@ -47,9 +46,12 @@ const mutations = merge_objects(mutationsMixin, {
     },
 })
 
+let getters = gettersMixin
+
 export default {
     state,
     actions,
     mutations,
+    getters,
     namespaced: true,
 }

@@ -21,6 +21,6 @@ class Contact extends Base
 
     public function contactsType()
     {
-        return $this->belongsTo(ContactsType::class);
+        return $this->belongsTo(ContactType::class);
     }
 }

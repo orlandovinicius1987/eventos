@@ -6,18 +6,6 @@ export function mutateSetQuery(state, payload) {
     state.query = payload
 }
 
-export function mutateSetGetUrl(state, payload) {
-    state.dataUrl = payload
-}
-
-export function mutateSetStoreUrl(state, payload) {
-    state.storeUrl = payload
-}
-
-export function mutateSetUpdateUrl(state, payload) {
-    state.updateUrl = payload
-}
-
 export function mutateSetFormField(state, payload) {
     state.form.fields[payload.field] = payload.value
 }
@@ -39,9 +27,13 @@ export function mutateFormData(state, payload) {
 }
 
 export function mutateSetPerPage(state, payload) {
-    state.query.pagination.per_page = payload
+    state.data.links.pagination.per_page = payload
 }
 
 export function mutateSetSelected(state, payload) {
     state.selected = payload
+}
+
+export function mutateSetService(state, payload) {
+    state.service = payload
 }

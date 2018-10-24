@@ -2,14 +2,12 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions('people', ['clearForm']),
+        ...mapActions('contactTypes', ['clearForm']),
     },
 
     computed: {
         ...mapState({
-            people: state => state.people,
+            contactTypes: state => state.contactTypes,
         }),
     },
-
-
 }
