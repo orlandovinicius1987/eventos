@@ -10,6 +10,9 @@ import Roles from './views/Roles'
 import RolesForm from './views/RolesForm'
 import Institutions from './views/Institutions'
 import InstitutionsForm from './views/InstitutionsForm'
+import ContactTypes from './views/ContactTypes'
+import ContactTypesForm from './views/ContactTypesForm'
+
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
@@ -174,6 +177,23 @@ let routes = [
         path: '/institutions/:id/update',
         name: 'institutions.update',
         component: InstitutionsForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/contact-types',
+        name: 'contactTypes',
+        component: ContactTypes,
+    },
+    {
+        path: '/contact-types/create',
+        name: 'contactTypes.create',
+        component: ContactTypesForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/contact-types/:id/update',
+        name: 'contactTypes.update',
+        component: ContactTypesForm,
         props: { mode: 'update' },
     },
 ]
