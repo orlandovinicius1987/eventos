@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AddressesForm from './views/AddressesForm'
 import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
 import People from './views/People'
@@ -108,18 +109,18 @@ let routes = [
     //     component: ContactsForm,
     //     props: { mode: 'update' },
     // },
-    // {
-    //     path: '/addresses/create',
-    //     name: 'addresses.create',
-    //     component: AddressesForm,
-    //     props: { mode: 'create' },
-    // },
-    // {
-    //     path: '/addresses/:id/update',
-    //     name: 'addresses.update',
-    //     component: AddressesForm,
-    //     props: { mode: 'update' },
-    // },
+    {
+        path: '/addresses/create',
+        name: 'addresses.create',
+        component: AddressesForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/addresses/:id/update',
+        name: 'addresses.update',
+        component: AddressesForm,
+        props: { mode: 'update' },
+    },
     {
         path: '/roles',
         name: 'roles',

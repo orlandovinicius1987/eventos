@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h1>{{ events.selected.name }}</h1>
-            <h2>{{ addresses.form.fields.name ? addresses.form.fields.name : 'Novo Endereço' }}</h2>
+            <h2>Novo Endereço</h2>
+            <!--<h2>{{ addresses.form.fields.name ? addresses.form.fields.name : 'Novo Endereço' }}</h2>-->
         </div>
 
         <div class="row justify-content-center">
@@ -11,9 +11,65 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
-                                    name="name"
-                                    label="Nome"
-                                    v-model="addresses.form.fields.name"
+                                    name="zipcode"
+                                    label="CEP"
+                                    v-model="addresses.form.fields.zipcode"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="street"
+                                    label="Endereço"
+                                    v-model="addresses.form.fields.street"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="number"
+                                    label="Número"
+                                    v-model="addresses.form.fields.number"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="complement"
+                                    label="Complemento"
+                                    v-model="addresses.form.fields.complement"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="neighbourhood"
+                                    label="Bairro"
+                                    v-model="addresses.form.fields.neighbourhood"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="city"
+                                    label="Cidade"
+                                    v-model="addresses.form.fields.city"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="state"
+                                    label="Estado"
+                                    v-model="addresses.form.fields.state"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="latitude"
+                                    label="Latitude"
+                                    v-model="addresses.form.fields.latitude"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+                            <app-input
+                                    name="longitude"
+                                    label="Longitude"
+                                    v-model="addresses.form.fields.longitude"
                                     :required="true"
                                     :form="form"
                             ></app-input>
@@ -24,7 +80,7 @@
                         <div class="col-12 text-right mb-3">
                             <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
-                            <router-link to="/events" tag="button" class="btn btn-success">
+                            <router-link to="/addresses" tag="button" class="btn btn-success">
                                 cancelar
                             </router-link>
                         </div>
@@ -37,15 +93,15 @@
 
 <script>
     import crud from './mixins/crud'
-    import events from './mixins/events'
+    import addresses from './mixins/addresses'
     import { mapState } from 'vuex'
 
-    const service = { name: 'addresses', uri: 'events/{events.selected.id}/sub-events', isForm: true }
+    const service = { name: 'addresses', uri: 'addresses', isForm: true }
 
     export default {
         props: ['mode'],
 
-        mixins: [crud, events],
+        mixins: [crud, addresses],
 
         data() {
             return {
@@ -54,7 +110,7 @@
         },
 
         computed: {
-            ...mapState('events', ['selectedEvent', 'selectedSubEvent']),
+            ...mapState('addresses', ['selectedEvent', 'selectedSubEvent']),
         }
     }
 </script>
