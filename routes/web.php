@@ -12,6 +12,8 @@ Route::group(
 );
 
 Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
+    Route::get('zipcode/{zipcode}', 'ZipCode@get')->name('api.zipcode.get');
+
     Route::get('/environment', 'Environment@data');
 
     Route::group(['middleware' => 'auth'], function () {
