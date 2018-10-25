@@ -365,12 +365,8 @@ class Service
         });
     }
 
-    protected function importContact(
-        $contact,
-        $type,
-        $personInstitution,
-        $contactable_type = PersonInstitution::class
-    ) {
+    protected function importContact($contact, $type, $personInstitution)
+    {
         if ($contact) {
             Contact::create([
                 'contact' => $contact,
@@ -378,9 +374,7 @@ class Service
                 'contact_type_id' => app(ContactTypes::class)->findByCode($type)
                     ->id,
 
-                'contactable_id' => $personInstitution->id,
-
-                'contactable_type' => $contactable_type,
+                'person_institution_id' => $personInstitution->id,
             ]);
         }
     }

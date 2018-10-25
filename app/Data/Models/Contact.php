@@ -9,14 +9,13 @@ class Contact extends Base
     protected $fillable = [
         'contact_type_id',
         'contact',
-        'contactable_id',
-        'contactable_type',
+        'person_institution_id',
         'client_id',
     ];
 
-    public function contactable()
+    public function personInstitution()
     {
-        return $this->morphTo();
+        return $this->belongsTo(PersonInstitution::class);
     }
 
     public function contactsType()

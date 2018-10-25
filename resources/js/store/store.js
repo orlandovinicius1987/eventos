@@ -29,6 +29,7 @@ import people from './modules/people'
 import roles from './modules/roles'
 import institutions from './modules/institutions'
 import contactTypes from './modules/contact-types'
+import contacts from './modules/contacts'
 import environment from './modules/environment'
 
 /**
@@ -56,6 +57,7 @@ let store = new Vuex.Store({
         addresses,
         gate,
         roles,
+        contacts,
         institutions,
         contactTypes,
     },

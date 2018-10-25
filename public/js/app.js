@@ -120430,6 +120430,42 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/contacts.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var state = merge_objects({
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        contact_type_id: null
+    })
+}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
+
+var actions = __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__;
+var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/environment.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -121118,7 +121154,8 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_roles__ = __webpack_require__("./resources/js/store/modules/roles.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_institutions__ = __webpack_require__("./resources/js/store/modules/institutions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
 /**
  * Imports
  */
@@ -121152,6 +121189,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
+
 /**
  * State
  */
@@ -121167,7 +121205,7 @@ var state = {
   getters: __WEBPACK_IMPORTED_MODULE_3__getters__,
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
-    environment: __WEBPACK_IMPORTED_MODULE_15__modules_environment__["a" /* default */],
+    environment: __WEBPACK_IMPORTED_MODULE_16__modules_environment__["a" /* default */],
     people: __WEBPACK_IMPORTED_MODULE_11__modules_people__["a" /* default */],
     categories: __WEBPACK_IMPORTED_MODULE_9__modules_categories__["a" /* default */],
     events: __WEBPACK_IMPORTED_MODULE_6__modules_events__["a" /* default */],
@@ -121176,6 +121214,7 @@ var state = {
     addresses: __WEBPACK_IMPORTED_MODULE_10__modules_addresses__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_5__modules_gate__["a" /* default */],
     roles: __WEBPACK_IMPORTED_MODULE_12__modules_roles__["a" /* default */],
+    contacts: __WEBPACK_IMPORTED_MODULE_15__modules_contacts__["a" /* default */],
     institutions: __WEBPACK_IMPORTED_MODULE_13__modules_institutions__["a" /* default */],
     contactTypes: __WEBPACK_IMPORTED_MODULE_14__modules_contact_types__["a" /* default */]
   }
