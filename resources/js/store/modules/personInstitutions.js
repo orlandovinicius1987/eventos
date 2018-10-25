@@ -8,9 +8,9 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = { id: null }
 
 const state = merge_objects(statesMixin.common, {
-    event: { id: null },
+    person: { id: null },
 
-    service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true },
+    service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
 
     form: new Form({
         name: null,
@@ -23,14 +23,18 @@ const state = merge_objects(statesMixin.common, {
 })
 
 const actions = merge_objects(actionsMixin, {
-    setEvent(context, payload) {
-        context.commit('mutateSetEvent', payload)
+    setPerson(context, payload) {
+        context.commit('mutateSetPerson', payload)
 
-        context.commit('mutateSetFormField', { field: 'event_id', value: payload.id })
+        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
 
         context.commit('mutateSetSelected', __emptyModel)
 
-        context.dispatch('invitations/setSubEvent', __emptyModel, {
+        context.dispatch('contacts/setPersonInstitution', __emptyModel, {
+            root: true,
+        })
+
+        context.dispatch('addresses/setPersonInstitution', __emptyModel, {
             root: true,
         })
 
@@ -39,8 +43,8 @@ const actions = merge_objects(actionsMixin, {
 })
 
 const mutations = merge_objects(mutationsMixin, {
-    mutateSetEvent(state, payload) {
-        state.event = payload
+    mutateSetPerson(state, payload) {
+        state.person = payload
     },
 })
 

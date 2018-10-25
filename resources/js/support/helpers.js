@@ -43,17 +43,17 @@ window.confirm = (title, vue) => {
         dangerMode: true,
         buttons: {
             cancel: {
-                text: vue.$t('messages.No'),
-                value: false,
+                text: 'sim',
+                value: true,
                 visible: true,
                 className: 'btn-outline-secondary',
                 closeModal: true,
             },
             confirm: {
-                text: vue.$t('messages.Yes'),
-                value: true,
+                text: 'não',
+                value: false,
                 visible: true,
-                className: 'btn-purple',
+                className: 'btn-success',
                 closeModal: true,
             },
         },
@@ -80,6 +80,10 @@ window.object_get = (obj, descendants) => {
     })
 
     return obj
+}
+
+window.is_object = (target) => {
+    return typeof target === 'object'
 }
 
 window.remove_empty_properties = obj => {
@@ -137,7 +141,7 @@ window.buildApiUrl = (uri, state) => {
         let elements = param.match(/(\w+)/g)
 
         let result = _.reduce(elements, function(carry, value) {
-            return carry[value]
+            return carry && carry.hasOwnProperty(value) ? carry[value] : null
         }, state);
 
         url = url.replace(param, result)
@@ -145,3 +149,23 @@ window.buildApiUrl = (uri, state) => {
 
     return url
 }
+
+window.makeDataUrl = (context) => {
+    return (context.state.service && context.state.service.uri)
+        ? buildApiUrl(context.state.service.uri, context.rootState)
+        : null
+}
+
+window.makeStoreUrl = (context) => {
+    return (context.state.service && context.state.service.uri)
+        ? buildApiUrl(context.state.service.uri, context.rootState)
+        : null
+}
+
+window.makeUpdateUrl = (context) => {
+    return (context.state.service && context.state.service.uri)
+        ? buildApiUrl(context.state.service.uri, context.rootState)
+        : null
+}
+
+

@@ -9,7 +9,7 @@
                 <app-table-panel
                     v-if="events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
-                    :add-button="{ uri: '/events/create', disabled: cannot('create') }"
+                    :add-button="{ uri: '/events/create', disabled: cannot('create'), dusk:'createEventButton' }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
                     :filter-text="eventsFilterText"
@@ -18,16 +18,26 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['#','Nome','Confirmado em']"
+                        :columns="['#','Nome','Confirmado em', '']"
                     >
                         <tr
-                            @click="select(event)"
+                            @click="selectEvent(event)"
                             v-for="event in events.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
                         >
-                            <td>{{ event.id }}</td>
-                            <td>{{ event.name }}</td>
-                            <td>{{ event.confirmed_at }}</td>
+                            <td class="align-middle">{{ event.id }}</td>
+                            <td class="align-middle">{{ event.name }}</td>
+                            <td class="align-middle">{{ event.confirmed_at }}</td>
+                            <td class="align-middle">
+                                <router-link
+                                        :to="'/events/'+event.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -46,17 +56,27 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora',]"
+                        :columns="['#','Nome','Data','Hora','']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
                             v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
-                            <td>{{ subEvent.id }}</td>
-                            <td>{{ subEvent.name }}</td>
-                            <td>{{ subEvent.date }}</td>
-                            <td>{{ subEvent.time }}</td>
+                            <td class="align-middle">{{ subEvent.id }}</td>
+                            <td class="align-middle">{{ subEvent.name }}</td>
+                            <td class="align-middle">{{ subEvent.date }}</td>
+                            <td class="align-middle">{{ subEvent.time }}</td>
+                            <td class="align-middle text-right">
+                                <router-link
+                                    :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -77,17 +97,71 @@
                     <app-table
                         :pagination="invitations.data.links.pagination"
                         @goto-page="invitationsGotoPage($event)"
-                        :columns="['#','Nome','Instituição','Cargo',]"
+                        :columns="[
+                                    '#',
+                                    'Nome',
+                                    'Instituição',
+                                    'Cargo',
+                                    {title: 'Convite', trClass: 'text-center'},
+                                    {title: 'Recebido', trClass: 'text-center'},
+                                    {title: 'Aceito', trClass: 'text-center'},
+                                    {title: 'Check in', trClass: 'text-center'},
+                                    ''
+                                ]"
                     >
                         <tr
                             @click="selectInvitation(invitation)"
                             v-for="invitation in invitations.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
                         >
-                            <td>{{ invitation.id }}</td>
-                            <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
-                            <td>{{ invitation.person_institution.institution.name }}</td>
-                            <td>{{ invitation.person_institution.role.name }}</td>
+                            <td class="align-middle">{{ invitation.id }}</td>
+
+                            <td class="align-middle">{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
+
+                            <td class="align-middle">{{ invitation.person_institution.institution.name }}</td>
+
+                            <td class="align-middle">{{ invitation.person_institution.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.sent_at" class="badge badge-success">enviado</span>
+                                    <span v-else class="badge badge-danger">não enviado</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.received_at" class="badge badge-success">sim</span>
+                                    <span v-else class="badge badge-danger">não</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center">
+                                <h6 v-if="invitation.sent_at" class="mb-0">
+                                    <span v-if="invitation.accepted_at" class="badge badge-success">aceitou</span>
+                                    <span v-if="invitation.declined_at" class="badge badge-danger">declinou</span>
+                                    <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
+                                </h6>
+
+                                <h6 v-if="!invitation.sent_at" class="mb-0">
+                                    <span class="badge badge-danger">convite não enviado</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center">
+                                {{ invitation.checkin_at }}
+                            </td>
+
+                            <td class="align-middle">
+                                <a
+                                    @click="confirmUnInvite(invitation)"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    v-if="can('update') && !invitation.sent_at"
+                                    href="#"
+                                >
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -135,6 +209,20 @@ export default {
                 this.invitations.data.links.pagination,
             )
         },
+
+        confirmUnInvite(invitation) {
+            const $this = this
+
+            confirm('Deseja realmente desconvidar '+invitation.person_institution.person.name+'?', this).then(function(value) {
+                if (value) {
+                    $this.unInvite(invitation)
+                }
+            })
+        },
+
+        unInvite(invitation) {
+            return this.$store.dispatch('invitations/unInvite', invitation)
+        }
     },
 
     computed: {

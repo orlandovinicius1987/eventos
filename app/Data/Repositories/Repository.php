@@ -38,7 +38,7 @@ abstract class Repository
         $queryFilter = $this->getQueryFilter();
 
         return $this->makePaginationResult(
-            $this->filterText($queryFilter, $query)->paginate(
+            $this->order($this->filterText($queryFilter, $query))->paginate(
                 $queryFilter->pagination
                     ? $queryFilter->pagination->perPage
                     : 5,
@@ -126,6 +126,15 @@ abstract class Repository
     public function new()
     {
         return new $this->model();
+    }
+
+    private function order(Builder $query)
+    {
+        foreach ($this->new()->getOrderBy() as $field => $direction) {
+            $query->orderBy($field, $direction);
+        }
+
+        return $query;
     }
 
     public function transform($data)

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Data\Repositories\Invitations as InvitationsRepository;
-use App\Http\Controllers\Controller;
-use App\Data\Repositories\SubEvents as SubEventsRepository;
-use App\Http\Requests\SubEventStore;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SubEventStore;
+use App\Http\Requests\UnInvite as UninviteRequest;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
+use App\Data\Repositories\Invitations as InvitationsRepository;
 
 class Invitations extends Controller
 {
@@ -29,5 +30,29 @@ class Invitations extends Controller
     public function store(SubEventStore $request)
     {
         return app(SubEventsRepository::class)->storeFromArray($request->all());
+    }
+
+    /**
+     * UnInvite a person
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function unInvite(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId
+    ) {
+        app(InvitationsRepository::class)->uninvite(
+            $eventId,
+            $subEventId,
+            $invitationId
+        );
+
+        return $this->emptyResponse();
     }
 }

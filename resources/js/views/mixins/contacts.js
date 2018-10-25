@@ -7,7 +7,7 @@ export default {
 
     computed: {
         ...mapState({
-            contacts: state => state.contacts.data.rows,
+            contacts: state => state.addresses,
         }),
     },
 }

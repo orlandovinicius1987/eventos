@@ -14,8 +14,6 @@ class CSV
         $string = str_replace("\r", "\n", $string);
         $string = explode("\n", trim($string));
 
-        $string = preg_replace('/[\x00-\x1F\x7F-\xFF]/', '', $string);
-
         $data = collect($string)
             ->map(function ($line) {
                 return str_getcsv($line, ";", '');
@@ -23,6 +21,15 @@ class CSV
             ->toArray();
 
         return $data;
+    }
+
+    private function fixHeader($array)
+    {
+        return coollect($array)
+            ->map(function ($value) {
+                return preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $value);
+            })
+            ->toArray();
     }
 
     /**
@@ -33,13 +40,15 @@ class CSV
     {
         $data = $this->extractCSV($string);
 
-        $header = array_shift($data);
+        $header = $this->fixHeader(array_shift($data));
 
         $csv = [];
 
         foreach ($data as $key => $row) {
             $csv[] = array_combine($header, $row);
         }
+
+        $csv = coollect($csv);
 
         return coollect($csv);
     }

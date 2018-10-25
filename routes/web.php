@@ -47,6 +47,11 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                         Route::post('/{id}', 'Invitations@update')->name(
                             'invitations.update'
                         );
+
+                        Route::post(
+                            '/{id}/un-invite',
+                            'Invitations@unInvite'
+                        )->name('invitations.un-invite');
                     }
                 );
             });
@@ -60,10 +65,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/', 'People@store')->name('people.store');
 
             Route::group(
-                ['prefix' => '{eventId}/person-institutions'],
+                ['prefix' => '{personId}/person-institutions'],
                 function () {
-                    Route::get('/', 'PersonInstitutions@all')->name(
-                        'person-institutions.all'
+                    Route::get('/', 'PersonInstitutions@allByPerson')->name(
+                        'person-institutions.all-by-person'
                     );
 
                     Route::post('/', 'PersonInstitutions@store')->name(
@@ -72,6 +77,41 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
                     Route::post('/{id}', 'PersonInstitutions@update')->name(
                         'person-institutions.update'
+                    );
+
+                    Route::group(
+                        ['prefix' => '{personInstitutionId}/contacts'],
+                        function () {
+                            Route::get('/', 'Contacts@all')->name(
+                                'contacts.all'
+                            );
+
+                            Route::post('/', 'Contacts@store')->name(
+                                'contacts.store'
+                            );
+
+                            Route::post('/{id}', 'Contacts@update')->name(
+                                'contacts.update'
+                            );
+                        }
+                    );
+
+                    Route::group(
+                        ['prefix' => '{personInstitutionId}/addresses'],
+                        function () {
+                            Route::get(
+                                '/',
+                                'Addresses@allByPersonInstitution'
+                            )->name('addresses.all-by-person-institution');
+
+                            Route::post('/', 'Addresses@store')->name(
+                                'addresses.store'
+                            );
+
+                            Route::post('/{id}', 'Addresses@update')->name(
+                                'addresses.update'
+                            );
+                        }
                     );
                 }
             );

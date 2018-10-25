@@ -8,4 +8,6 @@ class Person extends BaseWithClient
      * @var array
      */
     protected $fillable = ['name', 'nickname', 'title', 'client_id'];
+
+    protected $orderBy = ['name' => 'asc'];
 }

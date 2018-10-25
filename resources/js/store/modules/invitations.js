@@ -5,8 +5,12 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
+const __emptyModel = { id: null }
+
 const state = merge_objects(statesMixin.common, {
     subEvent: { id: null },
+
+    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{events.selected.id}/invitations', isForm: true },
 
     form: new Form({
         name: null,
@@ -36,8 +40,16 @@ const actions = merge_objects(actionsMixin, {
     setSubEvent(context, payload) {
         context.commit('mutateSetSubEvent', payload)
 
+        context.commit('mutateSetSelected', __emptyModel)
+
         context.dispatch('load', payload)
     },
+
+    unInvite(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(function() {
+            context.dispatch('load', payload)
+        })
+    }
 })
 
 const mutations = merge_objects(mutationsMixin, {

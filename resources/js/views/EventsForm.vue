@@ -15,6 +15,7 @@
                                 v-model="form.fields.name"
                                 :required="true"
                                 :form="form"
+                                dusk="eventName"
                             ></app-input>
                         </div>
                     </div>

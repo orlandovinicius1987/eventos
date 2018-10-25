@@ -5,7 +5,6 @@ namespace App\Services\DataImporter;
 use App\Services\CSV;
 use App\Data\Models\Role;
 use App\Data\Models\Event;
-use App\Data\Models\Client;
 use App\Data\Models\Person;
 use App\Data\Models\Address;
 use App\Data\Models\Contact;
@@ -187,15 +186,13 @@ class Service
 
     private function importAdvisor($row, $personInstitution)
     {
-        if (!isset($row->assessor_nome)) {
+        if (!isset($row->assessor_nome) || empty($row->assessor_nome)) {
             return;
         }
 
         if (!isset($row->assessor_funcao)) {
             $this->throwError('O campo assessor_funcao não existe no arquivo');
         }
-
-        dump($personInstitution->id);
 
         $advisorInstitution = $this->importPersonInstitution(
             coollect(['tratamento' => null]),
@@ -209,7 +206,7 @@ class Service
                 ])
             ),
 
-            Institution::find($personInstitution->id),
+            Institution::find($personInstitution->institution_id),
 
             $this->imporRole(coollect(['funcao' => $row->assessor_funcao])),
 
@@ -307,10 +304,12 @@ class Service
     protected function importPerson($row, $party = null)
     {
         return Person::create([
-            'name' => $row->nome,
-            'nickname' => isset($row->apelido) ? $row->apelido : $row->nome,
+            'name' => trim($row->nome),
+            'nickname' => trim(
+                isset($row->apelido) ? $row->apelido : $row->nome
+            ),
             'party_id' => $party ? $party->id : null,
-            'title' => $row->tratamento,
+            'title' => trim($row->tratamento),
             'client_id' => $this->client_id,
         ]);
     }
@@ -366,12 +365,8 @@ class Service
         });
     }
 
-    protected function importContact(
-        $contact,
-        $type,
-        $personInstitution,
-        $contactable_type = PersonInstitution::class
-    ) {
+    protected function importContact($contact, $type, $personInstitution)
+    {
         if ($contact) {
             Contact::create([
                 'contact' => $contact,
@@ -379,9 +374,7 @@ class Service
                 'contact_type_id' => app(ContactTypes::class)->findByCode($type)
                     ->id,
 
-                'contactable_id' => $personInstitution->id,
-
-                'contactable_type' => $contactable_type,
+                'person_institution_id' => $personInstitution->id,
             ]);
         }
     }
