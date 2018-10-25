@@ -26,17 +26,17 @@ const actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
         context.commit('mutateSetPerson', payload)
 
-        // context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
+        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
 
         context.commit('mutateSetSelected', __emptyModel)
 
-        // context.dispatch('contacts/setPersonInstitution', __emptyModel, {
-        //     root: true,
-        // })
+        context.dispatch('contacts/setPersonInstitution', __emptyModel, {
+            root: true,
+        })
 
-        // context.dispatch('addresses/setPersonInstitution', __emptyModel, {
-        //     root: true,
-        // })
+        context.dispatch('addresses/setPersonInstitution', __emptyModel, {
+            root: true,
+        })
 
         context.dispatch('load', payload)
     },

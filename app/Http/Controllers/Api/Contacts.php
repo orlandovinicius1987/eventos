@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Data\Repositories\Contacts as ContactsRepository;
 use App\Http\Requests\ContactStore;
 use App\Http\Requests\ContactUpdate;
+use Illuminate\Http\Request;
 
 class Contacts extends Controller
 {
@@ -14,9 +15,11 @@ class Contacts extends Controller
      *
      * @return array
      */
-    public function all()
+    public function all(Request $request, $personInstitutionId)
     {
-        return app(ContactsRepository::class)->all();
+        return app(ContactsRepository::class)->allByPersonInstitutionId(
+            $personInstitutionId
+        );
     }
 
     /**

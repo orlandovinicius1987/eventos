@@ -3087,6 +3087,53 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3111,6 +3158,12 @@ var service = { name: 'people', uri: 'people' };
         },
         personInstitutionsGotoPage: function personInstitutionsGotoPage(page) {
             this.gotoPage(page, 'personInstitutions', this.personInstitutions.data.links.pagination);
+        },
+        addressesGotoPage: function addressesGotoPage(page) {
+            this.gotoPage(page, 'addresses', this.addresses.data.links.pagination);
+        },
+        contactsGotoPage: function contactsGotoPage(page) {
+            this.gotoPage(page, 'contacts', this.contacts.data.links.pagination);
         }
     }),
 
@@ -3149,55 +3202,43 @@ var service = { name: 'people', uri: 'people' };
             set: function set(perPage) {
                 return this.$store.dispatch('personInstitutions/setPerPage', perPage);
             }
-        }
+        },
 
-        // addressesFilterText: {
-        //     get() {
-        //         return this.$store.state['addresses'].data.filter.text
-        //     },
-        //
-        //     set(filter) {
-        //         return this.$store.dispatch(
-        //             'addresses/mutateSetQueryFilterText',
-        //             filter,
-        //         )
-        //     },
-        // },
-        //
-        // addressesPerPage: {
-        //     get() {
-        //         return this.$store.state['addresses'].data.links.pagination
-        //             .per_page
-        //     },
-        //
-        //     set(perPage) {
-        //         return this.$store.dispatch('addresses/setPerPage', perPage)
-        //     },
-        // },
-        //
-        // contactsFilterText: {
-        //     get() {
-        //         return this.$store.state['contacts'].data.filter.text
-        //     },
-        //
-        //     set(filter) {
-        //         return this.$store.dispatch(
-        //             'contacts/mutateSetQueryFilterText',
-        //             filter,
-        //         )
-        //     },
-        // },
-        //
-        // contactsPerPage: {
-        //     get() {
-        //         return this.$store.state['contacts'].data.links.pagination
-        //             .per_page
-        //     },
-        //
-        //     set(perPage) {
-        //         return this.$store.dispatch('contacts/setPerPage', perPage)
-        //     },
-        // },
+        addressesFilterText: {
+            get: function get() {
+                return this.$store.state['addresses'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('addresses/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        addressesPerPage: {
+            get: function get() {
+                return this.$store.state['addresses'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('addresses/setPerPage', perPage);
+            }
+        },
+
+        contactsFilterText: {
+            get: function get() {
+                return this.$store.state['contacts'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('contacts/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        contactsPerPage: {
+            get: function get() {
+                return this.$store.state['contacts'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('contacts/setPerPage', perPage);
+            }
+        }
     }
 });
 
@@ -26102,7 +26143,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -100615,7 +100656,7 @@ var render = function() {
                       attrs: {
                         pagination:
                           _vm.personInstitutions.data.links.pagination,
-                        columns: ["#", "Title"]
+                        columns: ["#", "Title", "Instituição", "Função"]
                       },
                       on: {
                         "goto-page": function($event) {
@@ -100639,14 +100680,22 @@ var render = function() {
                           },
                           on: {
                             click: function($event) {
-                              _vm.selectSubEvent(personInstitution)
+                              _vm.selectPersonInstitution(personInstitution)
                             }
                           }
                         },
                         [
                           _c("td", [_vm._v(_vm._s(personInstitution.id))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(personInstitution.title))])
+                          _c("td", [_vm._v(_vm._s(personInstitution.title))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(personInstitution.institution.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(personInstitution.role.name))
+                          ])
                         ]
                       )
                     })
@@ -100658,6 +100707,95 @@ var render = function() {
         ],
         1
       )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-4" },
+        [
+          _vm.personInstitutions.selected.id && _vm.contacts.data.links
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title:
+                      _vm.selected.name +
+                      " (" +
+                      _vm.contacts.data.links.pagination.total +
+                      " contatos)",
+                    "add-button": {
+                      uri:
+                        "/people/" +
+                        _vm.personInstitutions.person.id +
+                        "/person-institutions/" +
+                        _vm.contacts.personInstitution.id +
+                        "create",
+                      disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.contactsPerPage,
+                    "filter-text": _vm.contactsFilterText
+                  },
+                  on: {
+                    "set-per-page": function($event) {
+                      _vm.contactsPerPage = $event
+                    },
+                    "input-filter-text": function($event) {
+                      _vm.contactsFilterText = $event.target.value
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.contacts.data.links.pagination,
+                        columns: ["#", "Tipo", "Contato"]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          _vm.contactsGotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.contacts.data.rows, function(contact) {
+                      return _c(
+                        "tr",
+                        {
+                          staticClass: "cursor-pointer",
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              contact,
+                              _vm.contacts.selected
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.selectContact(contact)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(contact.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(contact.contact_type.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(contact.contact))])
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-8" })
     ])
   ])
 }
@@ -120443,6 +120581,8 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 
 
 
+var __emptyModel = { id: null };
+
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         zipcode: null,
@@ -120457,8 +120597,26 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     })
 });
 
-var actions = __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__;
-var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id });
+
+        context.commit('mutateSetFormField', { field: 'addressable_type', value: 'NomeDaClasse' });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    }
+});
+
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -120559,16 +120717,38 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 
 
-var state = merge_objects({
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: { name: 'contacts', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts', isForm: true },
+
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         contact_type_id: null,
         contact: null,
         person_institution_id: null
     })
-}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
+});
 
-var actions = __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__;
-var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    }
+});
+
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -121181,17 +121361,17 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPerson: function setPerson(context, payload) {
         context.commit('mutateSetPerson', payload);
 
-        // context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
+        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id });
 
         context.commit('mutateSetSelected', __emptyModel);
 
-        // context.dispatch('contacts/setPersonInstitution', __emptyModel, {
-        //     root: true,
-        // })
+        context.dispatch('contacts/setPersonInstitution', __emptyModel, {
+            root: true
+        });
 
-        // context.dispatch('addresses/setPersonInstitution', __emptyModel, {
-        //     root: true,
-        // })
+        context.dispatch('addresses/setPersonInstitution', __emptyModel, {
+            root: true
+        });
 
         context.dispatch('load', payload);
     }

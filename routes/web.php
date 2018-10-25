@@ -73,6 +73,23 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     Route::post('/{id}', 'PersonInstitutions@update')->name(
                         'person-institutions.update'
                     );
+
+                    Route::group(
+                        ['prefix' => '{personInstitutionId}/contacts'],
+                        function () {
+                            Route::get('/', 'Contacts@all')->name(
+                                'contacts.all'
+                            );
+
+                            Route::post('/', 'Contacts@store')->name(
+                                'contacts.store'
+                            );
+
+                            Route::post('/{id}', 'Contacts@update')->name(
+                                'contacts.update'
+                            );
+                        }
+                    );
                 }
             );
         });

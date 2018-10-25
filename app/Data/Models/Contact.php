@@ -13,12 +13,14 @@ class Contact extends Base
         'client_id',
     ];
 
+    protected $with = ['contactType'];
+
     public function personInstitution()
     {
         return $this->belongsTo(PersonInstitution::class);
     }
 
-    public function contactsType()
+    public function contactType()
     {
         return $this->belongsTo(ContactType::class);
     }
