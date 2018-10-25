@@ -82,6 +82,10 @@ window.object_get = (obj, descendants) => {
     return obj
 }
 
+window.is_object = (target) => {
+    return typeof target === 'object'
+}
+
 window.remove_empty_properties = obj => {
     let me = JSON.parse(JSON.stringify(obj))
 

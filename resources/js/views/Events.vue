@@ -25,10 +25,10 @@
                             v-for="event in events.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
                         >
-                            <td>{{ event.id }}</td>
-                            <td>{{ event.name }}</td>
-                            <td>{{ event.confirmed_at }}</td>
-                            <td>
+                            <td class="align-middle">{{ event.id }}</td>
+                            <td class="align-middle">{{ event.name }}</td>
+                            <td class="align-middle">{{ event.confirmed_at }}</td>
+                            <td class="align-middle">
                                 <router-link
                                         :to="'/events/'+event.id+'/update'"
                                         tag="div"
@@ -63,16 +63,16 @@
                             v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
-                            <td>{{ subEvent.id }}</td>
-                            <td>{{ subEvent.name }}</td>
-                            <td>{{ subEvent.date }}</td>
-                            <td>{{ subEvent.time }}</td>
-                            <td>
+                            <td class="align-middle">{{ subEvent.id }}</td>
+                            <td class="align-middle">{{ subEvent.name }}</td>
+                            <td class="align-middle">{{ subEvent.date }}</td>
+                            <td class="align-middle">{{ subEvent.time }}</td>
+                            <td class="align-middle text-right">
                                 <router-link
-                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
-                                        tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
-                                        :disabled="cannot('update')"
+                                    :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -97,26 +97,70 @@
                     <app-table
                         :pagination="invitations.data.links.pagination"
                         @goto-page="invitationsGotoPage($event)"
-                        :columns="['#','Nome','Instituição','Cargo','']"
+                        :columns="[
+                                    '#',
+                                    'Nome',
+                                    'Instituição',
+                                    'Cargo',
+                                    {title: 'Convite', trClass: 'text-center'},
+                                    {title: 'Recebido', trClass: 'text-center'},
+                                    {title: 'Aceito', trClass: 'text-center'},
+                                    {title: 'Check in', trClass: 'text-center'},
+                                    ''
+                                ]"
                     >
                         <tr
                             @click="selectInvitation(invitation)"
                             v-for="invitation in invitations.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
                         >
-                            <td>{{ invitation.id }}</td>
-                            <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
-                            <td>{{ invitation.person_institution.institution.name }}</td>
-                            <td>{{ invitation.person_institution.role.name }}</td>
-                            <td>
-                                <router-link
-                                        :to="'/invitations/'+invitation.id+'/update'"
-                                        tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
-                                        :disabled="cannot('update')"
+                            <td class="align-middle">{{ invitation.id }}</td>
+
+                            <td class="align-middle">{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
+
+                            <td class="align-middle">{{ invitation.person_institution.institution.name }}</td>
+
+                            <td class="align-middle">{{ invitation.person_institution.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.sent_at" class="badge badge-success">enviado</span>
+                                    <span v-else class="badge badge-danger">não enviado</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.received_at" class="badge badge-success">sim</span>
+                                    <span v-else class="badge badge-danger">não</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center">
+                                <h6 v-if="invitation.sent_at" class="mb-0">
+                                    <span v-if="invitation.accepted_at" class="badge badge-success">aceitou</span>
+                                    <span v-if="invitation.declined_at" class="badge badge-danger">declinou</span>
+                                    <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
+                                </h6>
+
+                                <h6 v-if="!invitation.sent_at" class="mb-0">
+                                    <span class="badge badge-danger">convite não enviado</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center">
+                                {{ invitation.checkin_at }}
+                            </td>
+
+                            <td class="align-middle">
+                                <a
+                                    @click="uninvite(invitation)"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    v-if="can('update') && !invitation.sent_at"
+                                    href="#"
                                 >
-                                    <i class="fa fa-edit"></i>
-                                </router-link>
+                                    <i class="fa fa-trash"></i>
+                                </a>
                             </td>
                         </tr>
                     </app-table>
