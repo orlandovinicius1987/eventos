@@ -85,15 +85,15 @@
 
 <script>
     import crud from './mixins/crud'
-    import events from './mixins/events'
+    import people from './mixins/people'
     import { mapState } from 'vuex'
 
-    const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true }
+    const service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true }
 
     export default {
         props: ['mode'],
 
-        mixins: [crud, events],
+        mixins: [crud, people],
 
         data() {
             return {
@@ -102,7 +102,7 @@
         },
 
         computed: {
-            ...mapState('events', ['selectedEvent', 'selectedSubEvent']),
+            ...mapState('people', ['selectedPerson', 'selectedPersonInstitution']),
         }
     }
 </script>

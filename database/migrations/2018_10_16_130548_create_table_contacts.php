@@ -24,11 +24,9 @@ class CreateTableContacts extends Migration
             $table->string('contact');
 
             $table
-                ->integer('contactable_id')
+                ->integer('person_institution_id')
                 ->unsigned()
                 ->index();
-
-            $table->string('contactable_type');
 
             $table->timestamps();
         });
