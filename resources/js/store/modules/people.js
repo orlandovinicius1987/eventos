@@ -18,11 +18,17 @@ const state = merge_objects(statesMixin.common, {
 let actions = merge_objects(
     {
         selectPerson(context, payload) {
-            dd('selectPerson', payload)
-
             context.dispatch('people/select', payload, { root: true })
 
             context.dispatch('personInstitutions/setPerson', payload, { root: true })
+        },
+
+        selectContact(context, payload) {
+            context.dispatch('contacts/select', payload, { root: true })
+        },
+
+        selectAddress(context, payload) {
+            context.dispatch('addresses/select', payload, { root: true })
         },
 
         selectPersonInstitution(context, payload) {

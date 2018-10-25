@@ -8,6 +8,10 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = { id: null }
 
 const state = merge_objects(statesMixin.common, {
+    person: { id: null },
+
+    service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+
     form: new Form({
         zipcode: null,
         street: null,

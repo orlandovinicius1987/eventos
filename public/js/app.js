@@ -3134,6 +3134,39 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -26143,7 +26176,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -100795,7 +100828,88 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("div", { staticClass: "col-8" })
+      _c(
+        "div",
+        { staticClass: "col-8" },
+        [
+          _vm.personInstitutions.selected.id && _vm.addresses.data.links
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title:
+                      _vm.selected.name +
+                      " (" +
+                      _vm.addresses.data.links.pagination.total +
+                      " endereços)",
+                    "add-button": {
+                      uri:
+                        "/people/" +
+                        _vm.personInstitutions.person.id +
+                        "/person-institutions/" +
+                        _vm.addresses.personInstitution.id +
+                        "create",
+                      disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.addressesPerPage,
+                    "filter-text": _vm.addressesFilterText
+                  },
+                  on: {
+                    "set-per-page": function($event) {
+                      _vm.addressesPerPage = $event
+                    },
+                    "input-filter-text": function($event) {
+                      _vm.addressesFilterText = $event.target.value
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.addresses.data.links.pagination,
+                        columns: ["#", "CEP"]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          _vm.addressesGotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.addresses.data.rows, function(address) {
+                      return _c(
+                        "tr",
+                        {
+                          staticClass: "cursor-pointer",
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              address,
+                              _vm.addresses.selected
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.selectAddress(address)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(address.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(address.zipcode))])
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ])
   ])
 }
@@ -120584,6 +120698,10 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
 var __emptyModel = { id: null };
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         zipcode: null,
         street: null,
@@ -121260,11 +121378,15 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
 
 var actions = merge_objects({
     selectPerson: function selectPerson(context, payload) {
-        dd('selectPerson', payload);
-
         context.dispatch('people/select', payload, { root: true });
 
         context.dispatch('personInstitutions/setPerson', payload, { root: true });
+    },
+    selectContact: function selectContact(context, payload) {
+        context.dispatch('contacts/select', payload, { root: true });
+    },
+    selectAddress: function selectAddress(context, payload) {
+        context.dispatch('addresses/select', payload, { root: true });
     },
     selectPersonInstitution: function selectPersonInstitution(context, payload) {
         context.dispatch('personInstitutions/select', payload, { root: true });

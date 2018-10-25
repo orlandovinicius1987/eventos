@@ -6,17 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Data\Repositories\Addresses as AddressesRepository;
 use App\Http\Requests\AddressStore;
 use App\Http\Requests\AddressUpdate;
+use Illuminate\Http\Request;
 
 class Addresses extends Controller
 {
     /**
-     * Get all data
-     *
-     * @return array
+     * @param Request $request
+     * @param $personInstitutionId
+     * @return mixed
      */
-    public function all()
-    {
-        return app(AddressesRepository::class)->all();
+    public function allByPersonInstitution(
+        Request $request,
+        $personInstitutionId
+    ) {
+        return app(AddressesRepository::class)->allByPersonInstitutionId(
+            $personInstitutionId
+        );
     }
 
     /**

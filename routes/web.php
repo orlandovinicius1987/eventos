@@ -90,6 +90,24 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                             );
                         }
                     );
+
+                    Route::group(
+                        ['prefix' => '{personInstitutionId}/addresses'],
+                        function () {
+                            Route::get(
+                                '/',
+                                'Addresses@allByPersonInstitution'
+                            )->name('addresses.all-by-person-institution');
+
+                            Route::post('/', 'Addresses@store')->name(
+                                'addresses.store'
+                            );
+
+                            Route::post('/{id}', 'Addresses@update')->name(
+                                'addresses.update'
+                            );
+                        }
+                    );
                 }
             );
         });

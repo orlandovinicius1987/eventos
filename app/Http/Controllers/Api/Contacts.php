@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 class Contacts extends Controller
 {
     /**
-     * Get all data
-     *
-     * @return array
+     * @param Request $request
+     * @param $personInstitutionId
+     * @return mixed
      */
     public function all(Request $request, $personInstitutionId)
     {
