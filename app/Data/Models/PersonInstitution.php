@@ -47,7 +47,7 @@ class PersonInstitution extends Base
         return $this->hasMany(PersonInstitution::class, 'advised_id', 'id');
     }
 
-    public function advise()
+    public function advises()
     {
         return $this->hasMany(PersonInstitution::class, 'id', 'advised_id');
     }

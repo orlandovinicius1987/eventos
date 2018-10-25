@@ -5,20 +5,49 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-let state = merge_objects(
-    {
-        form: new Form({
-            advised_id: null,
-            person_id: null,
-            institution_id: null,
-            role_id: null,
-        }),
-    },
-    statesMixin.common,
-)
+const __emptyModel = { id: null }
 
-let actions = actionsMixin
-let mutations = mutationsMixin
+const state = merge_objects(statesMixin.common, {
+    person: { id: null },
+
+    service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
+
+    form: new Form({
+        name: null,
+        date: null,
+        time: null,
+        invitation_text: null,
+        confirmation_text: null,
+        credential_send_text: null,
+    }),
+})
+
+const actions = merge_objects(actionsMixin, {
+    setPerson(context, payload) {
+        context.commit('mutateSetPerson', payload)
+
+        // context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
+
+        context.commit('mutateSetSelected', __emptyModel)
+
+        // context.dispatch('contacts/setPersonInstitution', __emptyModel, {
+        //     root: true,
+        // })
+
+        // context.dispatch('addresses/setPersonInstitution', __emptyModel, {
+        //     root: true,
+        // })
+
+        context.dispatch('load', payload)
+    },
+})
+
+const mutations = merge_objects(mutationsMixin, {
+    mutateSetPerson(state, payload) {
+        state.person = payload
+    },
+})
+
 let getters = gettersMixin
 
 export default {

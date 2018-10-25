@@ -21,9 +21,9 @@
                         :columns="['#','Tratamento','Nome', 'Nome público', '']"
                     >
                         <tr
-                            @click="select(person)"
-                            v-for="person in people.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selected)}"
+                                @click="selectPerson(person)"
+                                v-for="person in people.data.rows"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selected)}"
                         >
                             <td class="align-middle">{{ person.id }}</td>
                             <td class="align-middle">{{ person.title }}</td>
@@ -39,6 +39,42 @@
                                     <i class="fa fa-edit"></i>
                                 </router-link>
                             </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+            <div class="col-8">
+                <app-table-panel
+                        v-if="selected.id && personInstitutions.data.links"
+                        :title="selected.name + ' (' + personInstitutions.data.links.pagination.total + ' funções)'"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/create', disabled: cannot('create') }"
+                        :per-page="personInstitutionsPerPage"
+                        @set-per-page="personInstitutionsPerPage = $event"
+                        :filter-text="personInstitutionsFilterText"
+                        @input-filter-text="personInstitutionsFilterText = $event.target.value"
+                >
+                    <app-table
+                            :pagination="personInstitutions.data.links.pagination"
+                            @goto-page="personInstitutionsGotoPage($event)"
+                            :columns="['#','Title']"
+                    >
+                        <tr
+                                @click="selectSubEvent(personInstitution)"
+                                v-for="personInstitution in personInstitutions.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(personInstitution, personInstitutions.selected)}"
+                        >
+                            <td>{{ personInstitution.id }}</td>
+                            <td>{{ personInstitution.title }}</td>
+                            <!--<td>-->
+                                <!--<router-link-->
+                                        <!--:to="'people/'+personInstitutions.event.id+'/person-institutions/'+personInstitution.id+'/update'"-->
+                                        <!--tag="div"-->
+                                        <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                                        <!--:disabled="cannot('update')"-->
+                                <!--&gt;-->
+                                    <!--<i class="fa fa-edit"></i>-->
+                                <!--</router-link>-->
+                            <!--</td>-->
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -80,21 +116,21 @@
                 this.gotoPage(page, 'personInstitutions', this.personInstitutions.data.links.pagination)
             },
 
-            addressesGotoPage(page) {
-                this.gotoPage(
-                    page,
-                    'addresses',
-                    this.addresses.data.links.pagination,
-                )
-            },
-
-            contactsGotoPage(page) {
-                this.gotoPage(
-                    page,
-                    'contacts',
-                    this.contacts.data.links.pagination,
-                )
-            },
+            // addressesGotoPage(page) {
+            //     this.gotoPage(
+            //         page,
+            //         'addresses',
+            //         this.addresses.data.links.pagination,
+            //     )
+            // },
+            //
+            // contactsGotoPage(page) {
+            //     this.gotoPage(
+            //         page,
+            //         'contacts',
+            //         this.contacts.data.links.pagination,
+            //     )
+            // },
         },
 
         computed: {
@@ -144,53 +180,53 @@
                 },
             },
 
-            addressesFilterText: {
-                get() {
-                    return this.$store.state['addresses'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'addresses/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            addressesPerPage: {
-                get() {
-                    return this.$store.state['addresses'].data.links.pagination
-                        .per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('addresses/setPerPage', perPage)
-                },
-            },
-
-            contactsFilterText: {
-                get() {
-                    return this.$store.state['contacts'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'contacts/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            contactsPerPage: {
-                get() {
-                    return this.$store.state['contacts'].data.links.pagination
-                        .per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('contacts/setPerPage', perPage)
-                },
-            },
+            // addressesFilterText: {
+            //     get() {
+            //         return this.$store.state['addresses'].data.filter.text
+            //     },
+            //
+            //     set(filter) {
+            //         return this.$store.dispatch(
+            //             'addresses/mutateSetQueryFilterText',
+            //             filter,
+            //         )
+            //     },
+            // },
+            //
+            // addressesPerPage: {
+            //     get() {
+            //         return this.$store.state['addresses'].data.links.pagination
+            //             .per_page
+            //     },
+            //
+            //     set(perPage) {
+            //         return this.$store.dispatch('addresses/setPerPage', perPage)
+            //     },
+            // },
+            //
+            // contactsFilterText: {
+            //     get() {
+            //         return this.$store.state['contacts'].data.filter.text
+            //     },
+            //
+            //     set(filter) {
+            //         return this.$store.dispatch(
+            //             'contacts/mutateSetQueryFilterText',
+            //             filter,
+            //         )
+            //     },
+            // },
+            //
+            // contactsPerPage: {
+            //     get() {
+            //         return this.$store.state['contacts'].data.links.pagination
+            //             .per_page
+            //     },
+            //
+            //     set(perPage) {
+            //         return this.$store.dispatch('contacts/setPerPage', perPage)
+            //     },
+            // },
         },
     }
 </script>

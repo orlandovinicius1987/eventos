@@ -60,10 +60,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/', 'People@store')->name('people.store');
 
             Route::group(
-                ['prefix' => '{eventId}/person-institutions'],
+                ['prefix' => '{personId}/person-institutions'],
                 function () {
-                    Route::get('/', 'PersonInstitutions@all')->name(
-                        'person-institutions.all'
+                    Route::get('/', 'PersonInstitutions@allByPerson')->name(
+                        'person-institutions.all-by-person'
                     );
 
                     Route::post('/', 'PersonInstitutions@store')->name(
