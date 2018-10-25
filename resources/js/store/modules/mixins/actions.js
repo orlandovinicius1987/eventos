@@ -1,5 +1,5 @@
 export function load(context) {
-    if (!context.getters.getDataUrl) {
+    if (!makeDataUrl(context)) {
         return
     }
 

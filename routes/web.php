@@ -40,6 +40,15 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                             'invitations.all'
                         );
 
+                        Route::get(
+                            '/invitables',
+                            'Invitations@invitables'
+                        )->name('invitations.invitables');
+
+                        Route::post('/invitables', 'Invitations@invite')->name(
+                            'invitations.invite'
+                        );
+
                         Route::post('/', 'Invitations@store')->name(
                             'invitations.store'
                         );

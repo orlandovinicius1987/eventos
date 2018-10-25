@@ -10,7 +10,7 @@ const __emptyModel = { id: null }
 const state = merge_objects(statesMixin.common, {
     event: { id: null },
 
-    service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true },
+    service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false },
 
     form: new Form({
         name: null,

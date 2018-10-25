@@ -55,4 +55,20 @@ class Invitations extends Controller
 
         return $this->emptyResponse();
     }
+
+    public function invitables($eventId, $subEventId)
+    {
+        return app(InvitationsRepository::class)->getInvitables($subEventId);
+    }
+
+    public function invite($eventId, $subEventId)
+    {
+        app(InvitationsRepository::class)->invite(
+            $eventId,
+            $subEventId,
+            request()->get('invitees')
+        );
+
+        return $this->emptyResponse();
+    }
 }

@@ -1,5 +1,5 @@
 export const common = {
-    service: null,
+    service: { performLoad: true },
 
     data: {
         filter: {

@@ -30,6 +30,7 @@ import roles from './modules/roles'
 import institutions from './modules/institutions'
 import contactTypes from './modules/contact-types'
 import environment from './modules/environment'
+import invitables from './modules/invitables'
 
 /**
  * State
@@ -53,6 +54,7 @@ let store = new Vuex.Store({
         events,
         subEvents,
         invitations,
+        invitables,
         addresses,
         gate,
         roles,

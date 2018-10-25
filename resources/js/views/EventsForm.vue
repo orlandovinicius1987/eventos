@@ -39,7 +39,7 @@
 import crud from './mixins/crud'
 import events from './mixins/events'
 
-const service = { name: 'events', uri: 'events', isForm: true }
+const service = { name: 'events', uri: 'events', performLoad: false }
 
 export default {
     props: ['mode'],

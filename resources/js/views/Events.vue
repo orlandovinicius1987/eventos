@@ -88,7 +88,7 @@
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
                     :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
-                    :add-button="{ uri: '/invitation/create', disabled: cannot('create') }"
+                    :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/'+subEvents.selected.id+'/invitations/create', disabled: cannot('create') }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
                     :filter-text="invitationsFilterText"
