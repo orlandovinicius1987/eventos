@@ -18,7 +18,7 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['#','Nome','Confirmado em']"
+                        :columns="['#','Nome','Confirmado em', '']"
                     >
                         <tr
                             @click="selectEvent(event)"
@@ -28,6 +28,16 @@
                             <td>{{ event.id }}</td>
                             <td>{{ event.name }}</td>
                             <td>{{ event.confirmed_at }}</td>
+                            <td>
+                                <router-link
+                                        :to="'/events/'+event.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -46,7 +56,7 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora',]"
+                        :columns="['#','Nome','Data','Hora','']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -57,6 +67,16 @@
                             <td>{{ subEvent.name }}</td>
                             <td>{{ subEvent.date }}</td>
                             <td>{{ subEvent.time }}</td>
+                            <td>
+                                <router-link
+                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -77,7 +97,7 @@
                     <app-table
                         :pagination="invitations.data.links.pagination"
                         @goto-page="invitationsGotoPage($event)"
-                        :columns="['#','Nome','Instituição','Cargo',]"
+                        :columns="['#','Nome','Instituição','Cargo','']"
                     >
                         <tr
                             @click="selectInvitation(invitation)"
@@ -88,6 +108,16 @@
                             <td>{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
                             <td>{{ invitation.person_institution.institution.name }}</td>
                             <td>{{ invitation.person_institution.role.name }}</td>
+                            <td>
+                                <router-link
+                                        :to="'/invitations/'+invitation.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>

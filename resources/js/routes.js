@@ -7,6 +7,7 @@ import People from './views/People'
 import Events from './views/Events'
 import Categories from './views/Categories'
 import CategoriesForm from './views/CategoriesForm'
+import PersonInstitutionsForm from './views/PersonInstitutionsForm'
 import Roles from './views/Roles'
 import RolesForm from './views/RolesForm'
 import Institutions from './views/Institutions'
@@ -88,18 +89,18 @@ let routes = [
     //     component: AdvisorsForm,
     //     props: { mode: 'update' },
     // },
-    // {
-    //     path: '/person-institutions/create',
-    //     name: 'person-institutions.create',
-    //     component: personInstitutionsForm,
-    //     props: { mode: 'create' },
-    // },
-    // {
-    //     path: '/person-institutions/:id/update',
-    //     name: 'person-institutions.update',
-    //     component: personInstitutionsForm,
-    //     props: { mode: 'update' },
-    // },
+    {
+        path: '/people/:personId/person-institutions/create',
+        name: 'person-institutions.create',
+        component: PersonInstitutionsForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/people/:personId/person-institutions/:personInstitutionId/update',
+        name: 'person-institutions.update',
+        component: PersonInstitutionsForm,
+        props: { mode: 'update' },
+    },
     // {
     //     path: '/contacts/create',
     //     name: 'contacts.create',
