@@ -25,4 +25,9 @@ class Invitation extends Base
     {
         return $this->belongsTo(PersonInstitution::class);
     }
+
+    public function subEvent()
+    {
+        return $this->belongsTo(SubEvent::class);
+    }
 }

@@ -38,4 +38,20 @@ class Invitations extends Repository
 
         return $query;
     }
+
+    public function unInvite($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->delete();
+
+            return true;
+        }
+
+        return false;
+    }
 }

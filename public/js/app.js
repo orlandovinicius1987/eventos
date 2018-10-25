@@ -2659,6 +2659,18 @@ var service = { name: 'events', uri: 'events' };
         },
         invitationsGotoPage: function invitationsGotoPage(page) {
             this.gotoPage(page, 'invitations', this.invitations.data.links.pagination);
+        },
+        confirmUnInvite: function confirmUnInvite(invitation) {
+            var $this = this;
+
+            confirm('Deseja realmente desconvidar ' + invitation.person_institution.person.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.unInvite(invitation);
+                }
+            });
+        },
+        unInvite: function unInvite(invitation) {
+            return this.$store.dispatch('invitations/unInvite', invitation);
         }
     }),
 
@@ -26151,7 +26163,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101286,7 +101298,7 @@ var render = function() {
                                         attrs: { href: "#" },
                                         on: {
                                           click: function($event) {
-                                            _vm.uninvite(invitation)
+                                            _vm.confirmUnInvite(invitation)
                                           }
                                         }
                                       },
@@ -120866,6 +120878,8 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     subEvent: { id: null },
 
+    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{events.selected.id}/invitations', isForm: true },
+
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
     })
@@ -120889,6 +120903,11 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         context.commit('mutateSetSelected', __emptyModel);
 
         context.dispatch('load', payload);
+    },
+    unInvite: function unInvite(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(function () {
+            context.dispatch('load', payload);
+        });
     }
 });
 
@@ -121441,17 +121460,17 @@ window.confirm = function (title, vue) {
         dangerMode: true,
         buttons: {
             cancel: {
-                text: vue.$t('messages.No'),
-                value: false,
+                text: 'sim',
+                value: true,
                 visible: true,
                 className: 'btn-outline-secondary',
                 closeModal: true
             },
             confirm: {
-                text: vue.$t('messages.Yes'),
-                value: true,
+                text: 'não',
+                value: false,
                 visible: true,
-                className: 'btn-purple',
+                className: 'btn-success',
                 closeModal: true
             }
         }

@@ -47,6 +47,11 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                         Route::post('/{id}', 'Invitations@update')->name(
                             'invitations.update'
                         );
+
+                        Route::post(
+                            '/{id}/un-invite',
+                            'Invitations@unInvite'
+                        )->name('invitations.un-invite');
                     }
                 );
             });

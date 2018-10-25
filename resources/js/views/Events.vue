@@ -154,7 +154,7 @@
 
                             <td class="align-middle">
                                 <a
-                                    @click="uninvite(invitation)"
+                                    @click="confirmUnInvite(invitation)"
                                     class="btn btn-danger btn-sm mr-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
                                     href="#"
@@ -209,6 +209,20 @@ export default {
                 this.invitations.data.links.pagination,
             )
         },
+
+        confirmUnInvite(invitation) {
+            const $this = this
+
+            confirm('Deseja realmente desconvidar '+invitation.person_institution.person.name+'?', this).then(function(value) {
+                if (value) {
+                    $this.unInvite(invitation)
+                }
+            })
+        },
+
+        unInvite(invitation) {
+            return this.$store.dispatch('invitations/unInvite', invitation)
+        }
     },
 
     computed: {
