@@ -198,7 +198,7 @@ let routes = [
         props: { mode: 'update' },
     },
     {
-        path: '/people/:id/contacts/create',
+        path: '/contacts/create',
         name: 'contacts.create',
         component: ContactsForm,
         props: { mode: 'create' },
