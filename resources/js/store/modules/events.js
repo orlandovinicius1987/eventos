@@ -15,17 +15,13 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     selectEvent(context, payload) {
-        context.commit('mutateSetSelected', payload)
-
-        context.commit('mutateFormData', payload)
+        context.dispatch('select', payload)
 
         context.dispatch('subEvents/setEvent', payload, { root: true })
     },
 
     selectSubEvent(context, payload) {
-        context.commit('subEvents/mutateSetSelected', payload, {
-            root: true,
-        })
+        context.dispatch('subEvents/select', payload, { root: true })
 
         context.dispatch('invitations/setSubEvent', payload, { root: true })
     },
