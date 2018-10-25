@@ -8,9 +8,10 @@ import * as gettersMixin from './mixins/getters.js'
 let state = merge_objects(
     {
         form: new Form({
-            contact_type_id: null,
-            contact: null,
-            person_institution_id: null,
+            advised_id: null,
+            person_id: null,
+            institution_id: null,
+            role_id: null,
         }),
     },
     statesMixin.common,

@@ -120448,7 +120448,9 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 var state = merge_objects({
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
-        contact_type_id: null
+        contact_type_id: null,
+        contact: null,
+        person_institution_id: null
     })
 }, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
 
