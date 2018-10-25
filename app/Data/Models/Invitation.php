@@ -19,8 +19,15 @@ class Invitation extends Base
 
     protected $with = ['personInstitution'];
 
+    protected $orderBy = ['id' => 'asc'];
+
     public function personInstitution()
     {
         return $this->belongsTo(PersonInstitution::class);
+    }
+
+    public function subEvent()
+    {
+        return $this->belongsTo(SubEvent::class);
     }
 }

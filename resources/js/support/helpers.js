@@ -43,17 +43,17 @@ window.confirm = (title, vue) => {
         dangerMode: true,
         buttons: {
             cancel: {
-                text: vue.$t('messages.No'),
-                value: false,
+                text: 'sim',
+                value: true,
                 visible: true,
                 className: 'btn-outline-secondary',
                 closeModal: true,
             },
             confirm: {
-                text: vue.$t('messages.Yes'),
-                value: true,
+                text: 'não',
+                value: false,
                 visible: true,
-                className: 'btn-purple',
+                className: 'btn-success',
                 closeModal: true,
             },
         },
@@ -80,6 +80,10 @@ window.object_get = (obj, descendants) => {
     })
 
     return obj
+}
+
+window.is_object = (target) => {
+    return typeof target === 'object'
 }
 
 window.remove_empty_properties = obj => {
@@ -163,3 +167,5 @@ window.makeUpdateUrl = (context) => {
         ? buildApiUrl(context.state.service.uri, context.rootState)
         : null
 }
+
+
