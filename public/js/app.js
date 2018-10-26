@@ -2061,6 +2061,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -26369,7 +26380,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -100921,7 +100932,7 @@ var render = function() {
                         _vm.personInstitutions.person.id +
                         "/person-institutions/" +
                         _vm.addresses.personInstitution.id +
-                        "create",
+                        "/addresses/create",
                       disabled: _vm.cannot("create")
                     },
                     "per-page": _vm.addressesPerPage,
@@ -102368,21 +102379,60 @@ var render = function() {
               "div",
               { staticClass: "col-12 mb-3" },
               [
-                _c("app-input", {
-                  attrs: {
-                    name: "zipcode",
-                    label: "CEP",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.zipcode,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "zipcode", $$v)
+                _c(
+                  "label",
+                  { staticClass: "mb-0 mt-4", attrs: { for: _vm.zipcode } },
+                  [_vm._v("CEP")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.addresses.form.fields.zipcode,
+                      expression: "addresses.form.fields.zipcode"
                     },
-                    expression: "addresses.form.fields.zipcode"
+                    {
+                      name: "mask",
+                      rawName: "v-mask",
+                      value: ["##.###-###"],
+                      expression: '["##.###-###"]'
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "zipcode",
+                    required: "required",
+                    dusk: "zipcode"
+                  },
+                  domProps: { value: _vm.addresses.form.fields.zipcode },
+                  on: {
+                    keyup: function($event) {
+                      _vm.typeKeyZipcode(_vm.addresses.form.fields.zipcode)
+                    },
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.addresses.form.fields,
+                        "zipcode",
+                        $event.target.value
+                      )
+                    }
                   }
                 }),
+                _vm._v(" "),
+                _vm.form.errors.has(_vm.zipcode)
+                  ? _c("small", { staticClass: "text-danger" }, [
+                      _vm._v(
+                        "\n                            " +
+                          _vm._s(_vm.form.errors.get(_vm.zipcode)) +
+                          "\n                        "
+                      )
+                    ])
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("app-input", {
                   attrs: {
@@ -120802,12 +120852,12 @@ var routes = [{
 //     props: { mode: 'update' },
 // },
 {
-    path: '/addresses/create',
+    path: '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
     name: 'addresses.create',
     component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
     props: { mode: 'create' }
 }, {
-    path: '/addresses/:id/update',
+    path: '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
     name: 'addresses.update',
     component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
     props: { mode: 'update' }
@@ -120920,6 +120970,8 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        addressable_id: null,
+        addressable_type: null,
         zipcode: null,
         street: null,
         number: null,
@@ -120938,11 +120990,29 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
 
         context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id });
 
-        context.commit('mutateSetFormField', { field: 'addressable_type', value: 'NomeDaClasse' });
+        context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model });
 
         context.commit('mutateSetSelected', __emptyModel);
 
         context.dispatch('load', payload);
+    },
+    typeKeyZipcode: function typeKeyZipcode(context, payload) {
+        clearTimeout(this.timeout);
+
+        this.timeout = setTimeout(function () {
+            axios.get('/api/v1/zipcode/' + payload).then(function (response) {
+                if (response.data.addresses[0].street_name) {
+                    context.commit('mutateSetFormField', { field: 'zipcode', value: response.data.addresses[0].zip });
+                    context.commit('mutateSetFormField', { field: 'street', value: response.data.addresses[0].street_name });
+                    context.commit('mutateSetFormField', { field: 'neighbourhood', value: response.data.addresses[0].neighborhood });
+                    context.commit('mutateSetFormField', { field: 'city', value: response.data.addresses[0].city });
+                    context.commit('mutateSetFormField', { field: 'state', value: response.data.addresses[0].state_id });
+                    document.getElementById("number").focus();
+                }
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }, 500);
     }
 });
 
@@ -123043,7 +123113,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('addresses', ['clearForm'])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('addresses', ['clearForm', 'typeKeyZipcode'])),
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         addresses: function addresses(state) {

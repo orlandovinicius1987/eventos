@@ -126,7 +126,7 @@
                 <app-table-panel
                         v-if="personInstitutions.selected.id && addresses.data.links"
                         :title="selected.name + ' (' +addresses.data.links.pagination.total + ' endereços)'"
-                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'create', disabled: cannot('create') }"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/create', disabled: cannot('create') }"
                         :per-page="addressesPerPage"
                         @set-per-page="addressesPerPage = $event"
                         :filter-text="addressesFilterText"

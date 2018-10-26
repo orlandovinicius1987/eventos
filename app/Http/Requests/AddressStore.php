@@ -12,7 +12,6 @@ class AddressStore extends BaseStore
     public function rules()
     {
         return [
-            'client_id' => 'required|exists:clients,id',
             'addressable_id' => 'required',
             'addressable_type' => 'required',
             'zipcode' => 'required',
