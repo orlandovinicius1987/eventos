@@ -144,16 +144,16 @@
                         >
                             <td>{{ address.id }}</td>
                             <td>{{ address.zipcode }}</td>
-                            <!--<td>-->
-                            <!--<router-link-->
-                            <!--:to="'people/'+addresses.event.id+'/person-institutions/'+contact.id+'/update'"-->
-                            <!--tag="div"-->
-                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
-                            <!--:disabled="cannot('update')"-->
-                            <!--&gt;-->
-                            <!--<i class="fa fa-edit"></i>-->
-                            <!--</router-link>-->
-                            <!--</td>-->
+                            <td>
+                            <router-link
+                                :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/'+address.id+'/update'"
+                                tag="div"
+                                class="btn btn-danger btn-sm mr-1 pull-right"
+                                :disabled="cannot('update')"
+                            >
+                            <i class="fa fa-edit"></i>
+                            </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>

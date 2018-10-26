@@ -100982,7 +100982,34 @@ var render = function() {
                         [
                           _c("td", [_vm._v(_vm._s(address.id))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(address.zipcode))])
+                          _c("td", [_vm._v(_vm._s(address.zipcode))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                  attrs: {
+                                    to:
+                                      "/people/" +
+                                      _vm.personInstitutions.person.id +
+                                      "/person-institutions/" +
+                                      _vm.addresses.personInstitution.id +
+                                      "/addresses/" +
+                                      address.id +
+                                      "/update",
+                                    tag: "div",
+                                    disabled: _vm.cannot("update")
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              )
+                            ],
+                            1
+                          )
                         ]
                       )
                     })
