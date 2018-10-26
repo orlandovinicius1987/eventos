@@ -102,13 +102,13 @@ let routes = [
     //     props: { mode: 'update' },
     // },
     {
-        path: '/addresses/create',
+        path: '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
         name: 'addresses.create',
         component: AddressesForm,
         props: { mode: 'create' },
     },
     {
-        path: '/addresses/:id/update',
+        path: '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
         name: 'addresses.update',
         component: AddressesForm,
         props: { mode: 'update' },
