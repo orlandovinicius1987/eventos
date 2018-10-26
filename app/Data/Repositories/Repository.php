@@ -90,11 +90,20 @@ abstract class Repository
         return range($firstPage, $lastPage);
     }
 
-    protected function getByAnyColumnName($name, $arguments)
+    protected function filterByAnyColumnName($name, $arguments)
     {
         return $this->applyFilter(
-            $this->makeQueryByAnyColumnName('getBy', $name, $arguments)
+            $this->makeQueryByAnyColumnName('filterBy', $name, $arguments)
         );
+    }
+
+    protected function getByAnyColumnName($name, $arguments)
+    {
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            $name,
+            $arguments
+        )->get();
     }
 
     protected function getQueryFilter()
@@ -244,6 +253,10 @@ abstract class Repository
     {
         if (starts_with($name, 'findBy')) {
             return $result = $this->findByAnyColumnName($name, $arguments);
+        }
+
+        if (starts_with($name, 'filterBy')) {
+            return $result = $this->filterByAnyColumnName($name, $arguments);
         }
 
         if (starts_with($name, 'getBy')) {

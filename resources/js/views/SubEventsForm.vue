@@ -88,7 +88,7 @@
     import events from './mixins/events'
     import { mapState } from 'vuex'
 
-    const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', isForm: true }
+    const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false }
 
     export default {
         props: ['mode'],

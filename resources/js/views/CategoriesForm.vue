@@ -38,7 +38,7 @@
 import crud from './mixins/crud'
 import categories from './mixins/categories'
 
-const service = { name: 'categories', uri: 'categories', isForm: true }
+const service = { name: 'categories', uri: 'categories', performLoad: false }
 
 export default {
     props: ['mode'],

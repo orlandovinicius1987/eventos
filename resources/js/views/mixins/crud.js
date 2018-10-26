@@ -95,7 +95,7 @@ export default {
 
             $this.mutateSetService(this.service)
 
-            if (!$this.service.isForm) {
+            if (!$this.service.hasOwnProperty('performLoad') || $this.service.performLoad) {
                 $this.load().then(function() {
                     $this.fillFormWhenEditing()
                 })

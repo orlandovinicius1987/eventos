@@ -18,7 +18,9 @@ class Invitations extends Controller
      */
     public function all(Request $request, $eventId, $subEventId)
     {
-        return app(InvitationsRepository::class)->getBySubEventId($subEventId);
+        return app(InvitationsRepository::class)->filterBySubEventId(
+            $subEventId
+        );
     }
 
     /**
@@ -51,6 +53,22 @@ class Invitations extends Controller
             $eventId,
             $subEventId,
             $invitationId
+        );
+
+        return $this->emptyResponse();
+    }
+
+    public function invitables($eventId, $subEventId)
+    {
+        return app(InvitationsRepository::class)->getInvitables($subEventId);
+    }
+
+    public function invite($eventId, $subEventId)
+    {
+        app(InvitationsRepository::class)->invite(
+            $eventId,
+            $subEventId,
+            request()->get('invitees')
         );
 
         return $this->emptyResponse();

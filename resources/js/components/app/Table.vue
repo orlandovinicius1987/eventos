@@ -33,7 +33,7 @@
 
 <script>
 export default {
-    props: ['pagination', 'columns'],
+    props: ['pagination', 'columns', 'rows'],
 
     methods: {
         is_object(target) {

@@ -32,6 +32,7 @@ import personInstitutions from './modules/personInstitutions'
 import contactTypes from './modules/contact-types'
 import contacts from './modules/contacts'
 import environment from './modules/environment'
+import invitables from './modules/invitables'
 
 /**
  * State
@@ -55,6 +56,7 @@ let store = new Vuex.Store({
         events,
         subEvents,
         invitations,
+        invitables,
         addresses,
         gate,
         roles,

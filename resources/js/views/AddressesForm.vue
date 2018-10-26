@@ -107,7 +107,7 @@
     import addresses from './mixins/addresses'
     import { mapState } from 'vuex'
 
-    const service = { name: 'addresses', uri: 'addresses', isForm: true }
+    const service = { name: 'addresses', uri: 'addresses', performLoad: false }
 
     export default {
         props: ['mode'],

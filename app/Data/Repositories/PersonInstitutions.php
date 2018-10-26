@@ -12,7 +12,7 @@ class PersonInstitutions extends Repository
      */
     public function allByPerson($personId)
     {
-        return $this->getByPersonId($personId);
+        return $this->filterByPersonId($personId);
     }
 
     /**
@@ -21,7 +21,7 @@ class PersonInstitutions extends Repository
      */
     public function allByInstitution($institutionId)
     {
-        return $this->getByInstitutionId($institutionId);
+        return $this->filterByInstitutionId($institutionId);
     }
 
     /**

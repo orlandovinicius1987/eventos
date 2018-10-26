@@ -14,7 +14,7 @@ import Institutions from './views/Institutions'
 import InstitutionsForm from './views/InstitutionsForm'
 import ContactTypes from './views/ContactTypes'
 import ContactTypesForm from './views/ContactTypesForm'
-
+import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
@@ -59,6 +59,12 @@ let routes = [
         name: 'sub-events.update',
         component: SubEventsForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/events/:eventId/sub-events/:subEventId/invitations/create',
+        name: 'invitations.create',
+        component: InviteForm,
+        props: { mode: 'create' },
     },
     {
         path: '/people',
