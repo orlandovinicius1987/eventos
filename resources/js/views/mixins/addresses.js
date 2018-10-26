@@ -2,7 +2,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions('addresses', ['clearForm']),
+        ...mapActions('addresses', ['clearForm', 'typeKeyZipcode']),
     },
 
     computed: {

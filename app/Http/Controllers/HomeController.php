@@ -42,6 +42,6 @@ class HomeController extends Controller
     {
         $pi = app(PersonInstitutionsRepository::class)->findById(2);
 
-        dd($pi->advise);
+        dd($pi);
     }
 }
