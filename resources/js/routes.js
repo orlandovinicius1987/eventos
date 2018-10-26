@@ -83,18 +83,6 @@ let routes = [
         component: PeopleForm,
         props: { mode: 'update' },
     },
-    // {
-    //     path: '/advisors/create',
-    //     name: 'advisors.create',
-    //     component: AdvisorsForm,
-    //     props: { mode: 'create' },
-    // },
-    // {
-    //     path: '/advisors/:id/update',
-    //     name: 'advisors.update',
-    //     component: AdvisorsForm,
-    //     props: { mode: 'update' },
-    // },
     {
         path: '/people/:personId/person-institutions/create',
         name: 'person-institutions.create',

@@ -52,11 +52,11 @@
                                 >
                             </td>
 
-                            <td class="align-middle">{{ invitable.person_institution.title }} {{ invitable.person_institution.person.name }}</td>
+                            <td class="align-middle">{{ invitable.title }} {{ invitable.person.name }}</td>
 
-                            <td class="align-middle">{{ invitable.person_institution.institution.name }}</td>
+                            <td class="align-middle">{{ invitable.institution.name }}</td>
 
-                            <td class="align-middle">{{ invitable.person_institution.role.name }}</td>
+                            <td class="align-middle">{{ invitable.role.name }}</td>
 
                             <td class="align-middle">
                                 <a
@@ -77,93 +77,106 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import invitables from './mixins/invitables'
-    import { mapState } from 'vuex'
+import crud from './mixins/crud'
+import invitables from './mixins/invitables'
+import { mapState } from 'vuex'
 
-    const service = {
-        name: 'invitables',
-        uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations/invitables'
-    }
+const service = {
+    name: 'invitables',
+    uri:
+        'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations/invitables',
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, invitables],
+    mixins: [crud, invitables],
 
-        data() {
-            return {
-                service: service,
+    data() {
+        return {
+            service: service,
 
-                checkedPeople: {},
-            }
-        },
-
-        computed: {
-            ...mapState({
-                events: state => state.events,
-
-                subEvents: state => state.subEvents,
-            }),
-
-            invitablesFilterText: {
-                get() {
-                    return this.$store.state['invitables'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        this.service.name + '/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            invitablesPerPage: {
-                get() {
-                    return this.$store.state['invitables'].data.links.pagination.per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('invitables/setPerPage', perPage)
-                },
-            },
-        },
-
-        methods: {
-            invitablesGotoPage(page) {
-                this.gotoPage(page, 'invitables', this.invitables.data.links.pagination)
-            },
-
-            isChecked(invitation) {
-                return this.checkedPeople.hasOwnProperty(invitation.id)
-                    ? this.checkedPeople[invitation.id].checked
-                    : false
-            },
-
-            toggleCheck(invitation) {
-                if (!this.checkedPeople.hasOwnProperty(invitation.id)) {
-                    this.checkedPeople[invitation.id] = { id: invitation.id, checked: false }
-                }
-
-                this.checkedPeople[invitation.id].checked = !this.checkedPeople[invitation.id].checked
-            },
-
-            invite() {
-                const invitees = {
-                    eventId: this.events.selected.id,
-
-                    subEventId: this.subEvents.selected.id,
-
-                    invitees: _.filter(this.checkedPeople, (person) => {
-                        return person.checked
-                    })
-                }
-
-                return this.$store.dispatch('invitables/invite', invitees)
-            },
+            checkedPeople: {},
         }
-    }
+    },
+
+    computed: {
+        ...mapState({
+            events: state => state.events,
+
+            subEvents: state => state.subEvents,
+        }),
+
+        invitablesFilterText: {
+            get() {
+                return this.$store.state['invitables'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    this.service.name + '/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        invitablesPerPage: {
+            get() {
+                return this.$store.state['invitables'].data.links.pagination
+                    .per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('invitables/setPerPage', perPage)
+            },
+        },
+    },
+
+    methods: {
+        invitablesGotoPage(page) {
+            this.gotoPage(
+                page,
+                'invitables',
+                this.invitables.data.links.pagination,
+            )
+        },
+
+        isChecked(invitation) {
+            return this.checkedPeople.hasOwnProperty(invitation.id)
+                ? this.checkedPeople[invitation.id].checked
+                : false
+        },
+
+        toggleCheck(invitation) {
+            if (!this.checkedPeople.hasOwnProperty(invitation.id)) {
+                this.checkedPeople[invitation.id] = {
+                    id: invitation.id,
+                    checked: false,
+                }
+            }
+
+            this.checkedPeople[invitation.id].checked = !this.checkedPeople[
+                invitation.id
+            ].checked
+        },
+
+        invite() {
+            const invitees = {
+                eventId: this.events.selected.id,
+
+                subEventId: this.subEvents.selected.id,
+
+                invitees: _.filter(this.checkedPeople, person => {
+                    return person.checked
+                }),
+            }
+
+            this.$store.dispatch('invitables/invite', invitees)
+
+            this.$router.go(-1)
+        },
+    },
+}
 </script>
 
 <style>

@@ -7,29 +7,43 @@ import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = { id: null }
 
-let state = merge_objects(
-    {
-        invitations: [],
-
-        selectedPerson: __emptyModel,
-
-        form: new Form({
-            name: null,
-        }),
-
-        mode: null,
-
-        subPeopleQuery: {},
-
-        invitationsQuery: {},
-    },
-    statesMixin.common,
-)
+const state = merge_objects(statesMixin.common, {
+    form: new Form({
+        name: null,
+        nickname: null,
+        title: null,
+    }),
+})
 
 let actions = merge_objects(
     {
         selectPerson(context, payload) {
-            context.commit('selectPerson', payload)
+            context.dispatch('people/select', payload, { root: true })
+
+            context.dispatch('personInstitutions/setPerson', payload, { root: true })
+        },
+
+        selectContact(context, payload) {
+            context.dispatch('contacts/select', payload, { root: true })
+        },
+
+        selectAddress(context, payload) {
+            context.dispatch('addresses/select', payload, { root: true })
+        },
+
+        selectPersonInstitution(context, payload) {
+            context.dispatch('personInstitutions/select', payload, { root: true })
+
+            context.dispatch('contacts/setPersonInstitution', payload, { root: true })
+            context.dispatch('addresses/setPersonInstitution', payload, { root: true })
+        },
+
+        selectContacts(context, payload) {
+            context.dispatch('contacts/select', payload, { root: true })
+        },
+
+        selectAddresses(context, payload) {
+            context.dispatch('addresses/select', payload, { root: true })
         },
     },
     actionsMixin,
@@ -39,6 +53,38 @@ let mutations = merge_objects(
     {
         selectPerson(state, payload) {
             state.selectedPerson = payload
+
+            state.selectedPersonInstitution = __emptyModel
+
+            state.selectedContact = __emptyModel
+            state.selectedAddress = __emptyModel
+        },
+
+        selectPersonInstitution(state, payload) {
+            state.selectedPersonInstitution = payload
+
+            state.selectedContact = __emptyModel
+            state.selectedAddress = __emptyModel
+        },
+
+        selectContact(state, payload) {
+            state.selectedContact = payload
+        },
+
+        selectAddress(state, payload) {
+            state.selectedAddress = payload
+        },
+
+        setPersonInstitution(state, payload) {
+            state.personInstitutions = payload
+        },
+
+        setContacts(state, payload) {
+            state.contacts = payload
+        },
+
+        setAddresses(state, payload) {
+            state.addresses = payload
         },
     },
     mutationsMixin,

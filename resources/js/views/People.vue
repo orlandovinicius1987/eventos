@@ -7,23 +7,23 @@
         <div class="row">
             <div class="col-4">
                 <app-table-panel
-                    v-if="people.data.links"
-                    :title="'Pessoas (' + pagination.total + ')'"
-                    :add-button="{ uri: '/people/create', disabled: cannot('create') }"
-                    :per-page="peoplePerPage"
-                    @set-per-page="peoplePerPage = $event"
-                    :filter-text="peopleFilterText"
-                    @input-filter-text="peopleFilterText = $event.target.value"
+                        v-if="people.data.links"
+                        :title="'Pessoas (' + pagination.total + ')'"
+                        :add-button="{ uri: '/people/create', disabled: cannot('create') }"
+                        :per-page="peoplePerPage"
+                        @set-per-page="peoplePerPage = $event"
+                        :filter-text="peopleFilterText"
+                        @input-filter-text="peopleFilterText = $event.target.value"
                 >
                     <app-table
-                        :pagination="people.data.links.pagination"
-                        @goto-page="peopleGotoPage($event)"
-                        :columns="['#','Tratamento','Nome', 'Nome público', '']"
+                            :pagination="people.data.links.pagination"
+                            @goto-page="peopleGotoPage($event)"
+                            :columns="['#','Tratamento','Nome', 'Nome público', '']"
                     >
                         <tr
-                            @click="select(person)"
-                            v-for="person in people.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selected)}"
+                                @click="selectPerson(person)"
+                                v-for="person in people.data.rows"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selected)}"
                         >
                             <td class="align-middle">{{ person.id }}</td>
                             <td class="align-middle">{{ person.title }}</td>
@@ -31,10 +31,10 @@
                             <td class="align-middle">{{ person.nickname }}</td>
                             <td>
                                 <router-link
-                                    :to="'/people/'+person.id+'/update'"
-                                    tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
-                                    :disabled="cannot('update')"
+                                        :to="'/people/'+person.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -43,7 +43,123 @@
                     </app-table>
                 </app-table-panel>
             </div>
+            <div class="col-8">
+                <app-table-panel
+                        v-if="selected.id && personInstitutions.data.links"
+                        :title="selected.name + ' (' + personInstitutions.data.links.pagination.total + ' funções)'"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/create', disabled: cannot('create') }"
+                        :per-page="personInstitutionsPerPage"
+                        @set-per-page="personInstitutionsPerPage = $event"
+                        :filter-text="personInstitutionsFilterText"
+                        @input-filter-text="personInstitutionsFilterText = $event.target.value"
+                >
+                    <app-table
+                            :pagination="personInstitutions.data.links.pagination"
+                            @goto-page="personInstitutionsGotoPage($event)"
+                            :columns="['#','Title','Instituição', 'Função']"
+                    >
+                        <tr
+                                @click="selectPersonInstitution(personInstitution)"
+                                v-for="personInstitution in personInstitutions.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(personInstitution, personInstitutions.selected)}"
+                        >
+                            <td>{{ personInstitution.id }}</td>
+                            <td>{{ personInstitution.title }}</td>
+                            <td>{{ personInstitution.institution.name }}</td>
+                            <td>{{ personInstitution.role.name }}</td>
+                            <!--<td>-->
+                            <!--<router-link-->
+                            <!--:to="'people/'+personInstitutions.event.id+'/person-institutions/'+personInstitution.id+'/update'"-->
+                            <!--tag="div"-->
+                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                            <!--:disabled="cannot('update')"-->
+                            <!--&gt;-->
+                            <!--<i class="fa fa-edit"></i>-->
+                            <!--</router-link>-->
+                            <!--</td>-->
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
         </div>
+
+
+        <div class="row">
+            <div class="col-4">
+                <app-table-panel
+                        v-if="personInstitutions.selected.id &&contacts.data.links"
+                        :title="selected.name + ' (' +contacts.data.links.pagination.total + ' contatos)'"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'create', disabled: cannot('create') }"
+                        :per-page="contactsPerPage"
+                        @set-per-page="contactsPerPage = $event"
+                        :filter-text="contactsFilterText"
+                        @input-filter-text="contactsFilterText = $event.target.value"
+                >
+                    <app-table
+                            :pagination="contacts.data.links.pagination"
+                            @goto-page="contactsGotoPage($event)"
+                            :columns="['#', 'Tipo', 'Contato']"
+                    >
+                        <tr
+                                @click="selectContact(contact)"
+                                v-for="contact in contacts.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contact,contacts.selected)}"
+                        >
+                            <td>{{ contact.id }}</td>
+                            <td>{{ contact.contact_type.name }}</td>
+                            <td>{{ contact.contact }}</td>
+                            <!--<td>-->
+                            <!--<router-link-->
+                            <!--:to="'people/'+contacts.event.id+'/person-institutions/'+contact.id+'/update'"-->
+                            <!--tag="div"-->
+                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                            <!--:disabled="cannot('update')"-->
+                            <!--&gt;-->
+                            <!--<i class="fa fa-edit"></i>-->
+                            <!--</router-link>-->
+                            <!--</td>-->
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+            <div class="col-8">
+                <app-table-panel
+                        v-if="personInstitutions.selected.id && addresses.data.links"
+                        :title="selected.name + ' (' +addresses.data.links.pagination.total + ' endereços)'"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'create', disabled: cannot('create') }"
+                        :per-page="addressesPerPage"
+                        @set-per-page="addressesPerPage = $event"
+                        :filter-text="addressesFilterText"
+                        @input-filter-text="addressesFilterText = $event.target.value"
+                >
+                    <app-table
+                            :pagination="addresses.data.links.pagination"
+                            @goto-page="addressesGotoPage($event)"
+                            :columns="['#', 'CEP']"
+                    >
+                        <tr
+                                @click="selectAddress(address)"
+                                v-for="address in addresses.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address,addresses.selected)}"
+                        >
+                            <td>{{ address.id }}</td>
+                            <td>{{ address.zipcode }}</td>
+                            <!--<td>-->
+                            <!--<router-link-->
+                            <!--:to="'people/'+addresses.event.id+'/person-institutions/'+contact.id+'/update'"-->
+                            <!--tag="div"-->
+                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                            <!--:disabled="cannot('update')"-->
+                            <!--&gt;-->
+                            <!--<i class="fa fa-edit"></i>-->
+                            <!--</router-link>-->
+                            <!--</td>-->
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+        </div>
+
     </div>
 </template>
 

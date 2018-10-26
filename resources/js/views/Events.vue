@@ -199,7 +199,11 @@ export default {
         },
 
         subEventsGotoPage(page) {
-            this.gotoPage(page, 'subEvents', this.subEvents.data.links.pagination)
+            this.gotoPage(
+                page,
+                'subEvents',
+                this.subEvents.data.links.pagination,
+            )
         },
 
         invitationsGotoPage(page) {
@@ -213,7 +217,12 @@ export default {
         confirmUnInvite(invitation) {
             const $this = this
 
-            confirm('Deseja realmente desconvidar '+invitation.person_institution.person.name+'?', this).then(function(value) {
+            confirm(
+                'Deseja realmente desconvidar ' +
+                    invitation.person_institution.person.name +
+                    '?',
+                this,
+            ).then(function(value) {
                 if (value) {
                     $this.unInvite(invitation)
                 }
@@ -222,7 +231,7 @@ export default {
 
         unInvite(invitation) {
             return this.$store.dispatch('invitations/unInvite', invitation)
-        }
+        },
     },
 
     computed: {
@@ -241,7 +250,8 @@ export default {
 
         eventsPerPage: {
             get() {
-                return this.$store.state['events'].data.links.pagination.per_page
+                return this.$store.state['events'].data.links.pagination
+                    .per_page
             },
 
             set(perPage) {
@@ -264,7 +274,8 @@ export default {
 
         subEventsPerPage: {
             get() {
-                return this.$store.state['subEvents'].data.links.pagination.per_page
+                return this.$store.state['subEvents'].data.links.pagination
+                    .per_page
             },
 
             set(perPage) {
@@ -295,6 +306,13 @@ export default {
                 return this.$store.dispatch('invitations/setPerPage', perPage)
             },
         },
+    },
+
+    mounted() {
+        dd('--- mounted')
+        this.$store.dispatch('subEvents/load')
+
+        this.$store.dispatch('invitations/load')
     },
 }
 </script>

@@ -24,7 +24,7 @@ class PersonInstitution extends Base
 
     public function contacts()
     {
-        return $this->morphMany('App\Data\Models\Contact', 'contactable');
+        return $this->hasMany(Contact::class);
     }
 
     public function role()
@@ -40,5 +40,15 @@ class PersonInstitution extends Base
     public function institution()
     {
         return $this->belongsTo(Institution::class);
+    }
+
+    public function advisors()
+    {
+        return $this->hasMany(PersonInstitution::class, 'advised_id', 'id');
+    }
+
+    public function advises()
+    {
+        return $this->hasMany(PersonInstitution::class, 'id', 'advised_id');
     }
 }

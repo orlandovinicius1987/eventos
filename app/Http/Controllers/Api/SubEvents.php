@@ -17,7 +17,7 @@ class SubEvents extends Controller
      */
     public function all(Request $request, $eventId)
     {
-        return app(SubEventsRepository::class)->getByEventId($eventId);
+        return app(SubEventsRepository::class)->filterByEventId($eventId);
     }
 
     /**

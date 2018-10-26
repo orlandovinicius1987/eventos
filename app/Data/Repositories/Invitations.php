@@ -49,10 +49,8 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
-        if (
-            $invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId
-        ) {
+        if ($invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId) {
             $invitation->delete();
 
             return true;
@@ -63,18 +61,21 @@ class Invitations extends Repository
 
     public function invite($eventId, $subEventId, $invitees)
     {
+        info($invitees);
         foreach ($invitees as $invitee) {
             Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
-                'person_institution_id' => $invitees['id'],
+                'person_institution_id' => $invitee['id'],
             ]);
         }
     }
 
     public function getInvitables($subEventId)
     {
+        return app(InvitationsRepository::class)->filterBySubEventId($subEventId);
+
         return $this->applyFilter(
-            $this->getPersonInstitutionsRepository()->newQuery()
+            $this->getPersonInstitutionsRepository()->newQuery()->whereNotIn()
         );
     }
 }
