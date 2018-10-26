@@ -14,9 +14,8 @@ class ContactUpdate extends BaseStore
     public function rules()
     {
         return [
-            'contactable_id' => 'required',
-            'contactable_type' => 'required',
-            'contact_type_id' => 'required|exists:contacts_types,id',
+            'person_institution_id' => 'required|exists:person_institutions,id',
+            'contact_type_id' => 'required|exists:contact_types,id',
             'contact' => ['required', new Contact()],
         ];
     }

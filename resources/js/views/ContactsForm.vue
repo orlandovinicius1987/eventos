@@ -9,22 +9,32 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <app-input
-                                    name="name"
-                                    label="Nome"
-                                    v-model="form.fields.name"
+                            <app-select
+                                    name="contact_type_id"
+                                    label="Tipo de Contato"
+                                    v-model="form.fields.contact_type_id"
                                     :required="true"
                                     :form="form"
-                                    
+                                    :elements="environment.tables.contact_types"
+                            ></app-select>
+
+                            <app-input
+                                    name="contact"
+                                    label="Contato"
+                                    v-model="form.fields.contact"
+                                    :required="true"
+                                    :form="form"
                             ></app-input>
                         </div>
                     </div>
+
+
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
                             <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
-                            <router-link to="/categories" tag="button" class="btn btn-success">
+                            <router-link to="/" tag="button" class="btn btn-success">
                                 cancelar
                             </router-link>
                         </div>
@@ -39,7 +49,7 @@
     import crud from './mixins/crud'
     import contacts from './mixins/contacts'
 
-    const service = { name: 'contacts', uri: 'contacts', isForm: true }
+    const service = { name: 'contacts', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts', isForm: true }
 
     export default {
         props: ['mode'],

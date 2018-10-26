@@ -6,11 +6,15 @@
                 v-on:input="$emit('input', $event.target.value)"
                 class="custom-select custom-select-sm"
                 :id="name"
+                :name="name"
                 :required="required"
+
         >
             <option
-                    value="value"
-                     selected>5
+                    v-for="element in elements.rows"
+                   :value="element.id"
+                     >
+                {{ element.name}}
             </option>
         </select>
 
@@ -22,6 +26,6 @@
 
 <script>
 export default {
-    props: ['value', 'name', 'label', 'required', 'form', 'type'],
+    props: ['value', 'name', 'label', 'required','form','elements'],
 }
 </script>
