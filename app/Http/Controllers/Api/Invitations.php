@@ -18,7 +18,9 @@ class Invitations extends Controller
      */
     public function all(Request $request, $eventId, $subEventId)
     {
-        return app(InvitationsRepository::class)->filterBySubEventId($subEventId);
+        return app(InvitationsRepository::class)->filterBySubEventId(
+            $subEventId
+        );
     }
 
     /**

@@ -93,13 +93,17 @@ abstract class Repository
     protected function filterByAnyColumnName($name, $arguments)
     {
         return $this->applyFilter(
-            $this->makeQueryByAnyColumnName('getBy', $name, $arguments)
+            $this->makeQueryByAnyColumnName('filterBy', $name, $arguments)
         );
     }
 
     protected function getByAnyColumnName($name, $arguments)
     {
-        return $this->makeQueryByAnyColumnName('getBy', $name, $arguments)->get();
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            $name,
+            $arguments
+        )->get();
     }
 
     protected function getQueryFilter()
@@ -197,7 +201,8 @@ abstract class Repository
                     "per_page" => $data->perPage(),
                     "current_page" => $data->currentPage(),
                     "last_page" => $data->lastPage(),
-                    "from" => ($from = ($data->currentPage() - 1) * $data->perPage() + 1),
+                    "from" => ($from =
+                        ($data->currentPage() - 1) * $data->perPage() + 1),
                     "to" => $from + count($data->items()) - 1,
                     "pages" => $this->generatePages($data),
                 ],

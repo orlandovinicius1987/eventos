@@ -136,6 +136,7 @@
                             :pagination="addresses.data.links.pagination"
                             @goto-page="addressesGotoPage($event)"
                             :columns="['#', 'CEP']"
+                            :rows="addresses.data.rows"
                     >
                         <tr
                                 @click="selectAddress(address)"
