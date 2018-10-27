@@ -16,7 +16,7 @@ class PersonInstitution extends Base
     ];
 
     protected $with = ['person', 'institution', 'role'];
-
+    
     public function addresses()
     {
         return $this->morphMany('App\Data\Models\Address', 'addressable');

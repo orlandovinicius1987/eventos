@@ -7,6 +7,11 @@ use App\Data\Models\PersonInstitution as PersonInstitutionModel;
 class PersonInstitutions extends Repository
 {
     /**
+     * @var string
+     */
+    protected $model = PersonInstitutionModel::class;
+
+    /**
      * @param $personId
      * @return mixed
      */
@@ -23,9 +28,4 @@ class PersonInstitutions extends Repository
     {
         return $this->filterByInstitutionId($institutionId);
     }
-
-    /**
-     * @var string
-     */
-    protected $model = PersonInstitutionModel::class;
 }

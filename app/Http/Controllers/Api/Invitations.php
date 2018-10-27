@@ -8,6 +8,7 @@ use App\Http\Requests\SubEventStore;
 use App\Http\Requests\UnInvite as UninviteRequest;
 use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Data\Repositories\Invitations as InvitationsRepository;
+use App\Data\Repositories\Invitables as InvitablesRepository;
 
 class Invitations extends Controller
 {
@@ -60,7 +61,7 @@ class Invitations extends Controller
 
     public function invitables($eventId, $subEventId)
     {
-        return app(InvitationsRepository::class)->getInvitables($subEventId);
+        return app(InvitablesRepository::class)->getInvitables($subEventId);
     }
 
     public function invite($eventId, $subEventId)
