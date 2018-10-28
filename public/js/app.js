@@ -121347,7 +121347,14 @@ router.beforeEach(function (to, from, next) {
     if (to.path !== '/' && !initialized) {
         initialized = true;
 
-        next('/dashboard');
+        var regex = /.+?(?=\/\d)/;
+        var result = regex.exec(to.path);
+
+        if (result && result.length > 0) {
+            next(result[0]);
+        } else {
+            next('/dashboard');
+        }
     }
 
     next();
