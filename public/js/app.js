@@ -2746,6 +2746,9 @@ var service = { name: 'events', uri: 'events' };
         this.$store.dispatch('subEvents/load');
 
         this.$store.dispatch('invitations/load');
+    },
+    created: function created() {
+        console.log(this.$router.options.routes);
     }
 });
 
@@ -2820,8 +2823,6 @@ var service = { name: 'events', uri: 'events', performLoad: false };
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
 //
 //
 //
@@ -26476,7 +26477,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26551,7 +26552,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -121192,6 +121193,9 @@ __webpack_require__("./resources/js/pages/app.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__views_Import__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_util__ = __webpack_require__("./node_modules/util/util.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_util__);
+
 
 
 
@@ -121220,142 +121224,114 @@ var routes = [{
     redirect: 'dashboard'
 }, {
     path: '/dashboard',
-    name: 'dashboard',
     component: __WEBPACK_IMPORTED_MODULE_3__views_Dashboard___default.a
 }, {
     path: '/events',
-    name: 'events',
-    component: __WEBPACK_IMPORTED_MODULE_6__views_Events___default.a
+    component: __WEBPACK_IMPORTED_MODULE_6__views_Events___default.a,
+    children: []
+}, {
+    path: '/events/:eventId/sub-events/create',
+    component: __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default.a,
+    props: { mode: 'create' }
 }, {
     path: '/events/create',
-    name: 'events.create',
     component: __WEBPACK_IMPORTED_MODULE_17__views_EventsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/events/:id/update',
-    name: 'events.update',
     component: __WEBPACK_IMPORTED_MODULE_17__views_EventsForm___default.a,
     props: { mode: 'update' }
 }, {
-    path: '/events/:eventId/sub-events/create',
-    name: 'sub-events.create',
-    component: __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default.a,
-    props: { mode: 'create' }
-}, {
     path: '/events/:eventId/sub-events/:subEventId/update',
-    name: 'sub-events.update',
     component: __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/events/:eventId/sub-events/:subEventId/invitations/create',
-    name: 'invitations.create',
     component: __WEBPACK_IMPORTED_MODULE_16__views_InviteForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people',
-    name: 'people',
     component: __WEBPACK_IMPORTED_MODULE_5__views_People___default.a
 }, {
     path: '/people/create',
-    name: 'people.create',
     component: __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:id/update',
-    name: 'people.update',
     component: __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/people/:personId/person-institutions/create',
-    name: 'person-institutions.create',
     component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/update',
-    name: 'person-institutions.update',
     component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
     props: { mode: 'update' }
 },
 // {
 //     path: '/contacts/create',
-//     name: 'contacts.create',
 //     component: ContactsForm,
 //     props: { mode: 'create' },
 // },
 // {
 //     path: '/contacts/:id/update',
-//     name: 'contacts.update',
 //     component: ContactsForm,
 //     props: { mode: 'update' },
 // },
 {
     path: '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
-    name: 'addresses.create',
     component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
-    name: 'addresses.update',
     component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/roles',
-    name: 'roles',
     component: __WEBPACK_IMPORTED_MODULE_10__views_Roles___default.a
 }, {
     path: '/roles/create',
-    name: 'roles.create',
     component: __WEBPACK_IMPORTED_MODULE_11__views_RolesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/roles/:id/update',
-    name: 'roles.update',
     component: __WEBPACK_IMPORTED_MODULE_11__views_RolesForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/import',
-    name: 'import',
     component: __WEBPACK_IMPORTED_MODULE_19__views_Import___default.a
 }, {
     path: '/categories',
-    name: 'categories',
     component: __WEBPACK_IMPORTED_MODULE_7__views_Categories___default.a
 }, {
     path: '/categories/create',
-    name: 'categories.create',
     component: __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/categories/:id/update',
-    name: 'categories.update',
     component: __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/institutions',
-    name: 'institutions',
     component: __WEBPACK_IMPORTED_MODULE_12__views_Institutions___default.a
 }, {
     path: '/institutions/create',
-    name: 'institutions.create',
     component: __WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/institutions/:id/update',
-    name: 'institutions.update',
     component: __WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/contact-types',
-    name: 'contactTypes',
     component: __WEBPACK_IMPORTED_MODULE_14__views_ContactTypes___default.a
 }, {
     path: '/contact-types/create',
-    name: 'contactTypes.create',
     component: __WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/contact-types/:id/update',
-    name: 'contactTypes.update',
     component: __WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm___default.a,
     props: { mode: 'update' }
 }];
@@ -121363,6 +121339,18 @@ var routes = [{
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
     routes: routes,
     linkActiveClass: 'active'
+});
+
+var initialized = false;
+
+router.beforeEach(function (to, from, next) {
+    if (to.path !== '/' && !initialized) {
+        initialized = true;
+
+        next('/dashboard');
+    }
+
+    next();
 });
 
 /* harmony default export */ __webpack_exports__["a"] = (router);
@@ -121404,7 +121392,11 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
 
-    service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+    service: {
+        name: 'addresses',
+        uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses',
+        isForm: true
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         addressable_id: null,
@@ -121425,9 +121417,15 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPersonInstitution: function setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload);
 
-        context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'addressable_id',
+            value: payload.id
+        });
 
-        context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model });
+        context.commit('mutateSetFormField', {
+            field: 'addressable_type',
+            value: payload.model
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -121439,12 +121437,27 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         this.timeout = setTimeout(function () {
             axios.get('/api/v1/zipcode/' + payload).then(function (response) {
                 if (response.data.addresses[0].street_name) {
-                    context.commit('mutateSetFormField', { field: 'zipcode', value: response.data.addresses[0].zip });
-                    context.commit('mutateSetFormField', { field: 'street', value: response.data.addresses[0].street_name });
-                    context.commit('mutateSetFormField', { field: 'neighbourhood', value: response.data.addresses[0].neighborhood });
-                    context.commit('mutateSetFormField', { field: 'city', value: response.data.addresses[0].city });
-                    context.commit('mutateSetFormField', { field: 'state', value: response.data.addresses[0].state_id });
-                    document.getElementById("number").focus();
+                    context.commit('mutateSetFormField', {
+                        field: 'zipcode',
+                        value: response.data.addresses[0].zip
+                    });
+                    context.commit('mutateSetFormField', {
+                        field: 'street',
+                        value: response.data.addresses[0].street_name
+                    });
+                    context.commit('mutateSetFormField', {
+                        field: 'neighbourhood',
+                        value: response.data.addresses[0].neighborhood
+                    });
+                    context.commit('mutateSetFormField', {
+                        field: 'city',
+                        value: response.data.addresses[0].city
+                    });
+                    context.commit('mutateSetFormField', {
+                        field: 'state',
+                        value: response.data.addresses[0].state_id
+                    });
+                    document.getElementById('number').focus();
                 }
             }).catch(function (error) {
                 console.log(error);
