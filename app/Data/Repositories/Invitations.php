@@ -49,10 +49,8 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
-        if (
-            $invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId
-        ) {
+        if ($invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId) {
             $invitation->delete();
 
             return true;
@@ -71,17 +69,5 @@ class Invitations extends Repository
             ]);
         }
     }
-
-    public function getInvitables($subEventId)
-    {
-        return $this->applyFilter(
-            $this->getPersonInstitutionsRepository()
-                ->newQuery()
-                ->whereRaw(
-                    'id not in (select person_institution_id from invitations where sub_event_id = ' .
-                        $subEventId .
-                        ')'
-                )
-        );
-    }
 }
+

@@ -37,8 +37,21 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
+        \DB::listen(function ($query) {
+            if (!str_contains($query->sql, 'telescope')) {
+                info($query->sql);
+                info($query->bindings);
+            }
+        });
+
+        $this->filterText($queryFilter, $query);
+
+        $this->order($query);
+
+        info(['------------- TO SQL', $query->toSql()]);
+
         return $this->makePaginationResult(
-            $this->order($this->filterText($queryFilter, $query))->paginate(
+            $query->paginate(
                 $queryFilter->pagination
                     ? $queryFilter->pagination->perPage
                     : 5,
@@ -53,9 +66,7 @@ abstract class Repository
 
     protected function filterAllColumns(Builder $query, $text)
     {
-        $query->where('name', 'ilike', "%{$text}%");
-
-        return $query;
+        return $query->where('name', 'ilike', "%{$text}%");
     }
 
     /**
@@ -201,8 +212,7 @@ abstract class Repository
                     "per_page" => $data->perPage(),
                     "current_page" => $data->currentPage(),
                     "last_page" => $data->lastPage(),
-                    "from" => ($from =
-                        ($data->currentPage() - 1) * $data->perPage() + 1),
+                    "from" => ($from = ($data->currentPage() - 1) * $data->perPage() + 1),
                     "to" => $from + count($data->items()) - 1,
                     "pages" => $this->generatePages($data),
                 ],
@@ -309,3 +319,31 @@ abstract class Repository
         return $model;
     }
 }
+
+
+// select count(*)
+//     as aggregate
+//     from "person_institutions"
+//     inner join "person_institutions" on "person_institutions" . "id" = "invitations" . "person_institution_id"
+//     inner join "institutions" on "person_institutions" . "institution_id" = "institutions" . "id"
+//     inner join "people" on "person_institutions" . "person_id" = "people" . "id"
+//     inner join "roles" on "person_institutions" . "role_id" = "roles" . "id"
+//     where id not in(select person_institution_id from invitations where sub_event_id = 1)
+//     and ("institutions" . "name"::text ilike % ferreira %
+//     or "people" . "name"::text ilike % ferreira %
+//     or "roles" . "name"::text ilike % ferreira %))
+
+
+
+//     select
+//     count (*) as aggregate
+//     from
+//     "person_institutions"
+//     where
+//     id not in (select
+//     person_institution_id
+//     from
+//     invitations
+//     where
+//     sub_event_id = 1)
+

@@ -31,8 +31,6 @@
     </div>
 </template>
 
-
-
 <script>
 export default {
     mixins: [],
@@ -48,6 +46,9 @@ export default {
     },
 
     methods: {
+
+
+        
         uploadFile() {
             this.readFile()
         },
