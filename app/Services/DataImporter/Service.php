@@ -12,6 +12,7 @@ use App\Data\Models\Category;
 use App\Data\Models\SubEvent;
 use App\Data\Models\Invitation;
 use App\Data\Models\Institution;
+use App\Data\Models\Categorized;
 use App\Data\Repositories\Clients;
 use App\Data\Repositories\Parties;
 use App\Data\Models\PersonInstitution;
@@ -105,6 +106,12 @@ class Service
             $institution,
             $role
         );
+
+        Categorized::create([
+            'category_id' => $category->id, 
+            'categorizable_id' => $person->id, 
+            'categorizable_type' => Person::class,
+        ]);
 
         $this->importAddress($row, $personInstitution);
 
