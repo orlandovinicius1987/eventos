@@ -11,6 +11,16 @@ use Illuminate\Http\Request;
 class Addresses extends Controller
 {
     /**
+     * Get all data
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return app(AddressesRepository::class)->all();
+    }
+
+    /**
      * @param Request $request
      * @param $personInstitutionId
      * @return mixed

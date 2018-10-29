@@ -2,16 +2,16 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions('events', ['clearForm']),
+        ...mapActions('subEvents', ['clearForm']),
     },
 
     computed: {
         ...mapState({
-            events: state => state.events.data.rows,
+            addresses: state => state.addresses,
 
-            subEvents: state => state.events.subEvents.rows,
+            events: state => state.events,
 
-            invitations: state => state.events.invitations.rows,
+            subEvents: state => state.subEvents,
         }),
     },
 }

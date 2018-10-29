@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\SubEvents as SubEventsRepository;
+use App\Data\Repositories\Addresses as AddressesRepository;
 use App\Http\Requests\SubEventStore;
 use App\Http\Requests\SubEventUpdate;
 use Illuminate\Http\Request;
@@ -28,7 +29,16 @@ class SubEvents extends Controller
      */
     public function store(SubEventStore $request)
     {
-        return app(SubEventsRepository::class)->storeFromArray($request->all());
+        $array = $request->all();
+
+        $subEvent = app(SubEventsRepository::class)->storeFromArray($array);
+
+        return app(AddressesRepository::class)->storeFromArray(
+            app(AddressesRepository::class)->fillAddressableFromModel(
+                $array,
+                $subEvent
+            )
+        );
     }
 
     /**

@@ -24,4 +24,17 @@ class Addresses extends Repository
             )
         );
     }
+
+    /**
+     * @param $array
+     * @param $model
+     * @return array
+     */
+    public function fillAddressableFromModel($array, $model)
+    {
+        return array_merge($array, [
+            'addressable_id' => $model->id,
+            'addressable_type' => $model->model,
+        ]);
+    }
 }

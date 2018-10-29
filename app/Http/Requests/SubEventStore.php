@@ -16,6 +16,13 @@ class SubEventStore extends BaseStore
             'date' => 'required',
             'time' => 'required',
             'event_id' => 'required|exists:events,id',
+
+            'zipcode' => 'required',
+            'street' => 'required',
+            'neighbourhood' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'number' => 'required',
         ];
     }
 }

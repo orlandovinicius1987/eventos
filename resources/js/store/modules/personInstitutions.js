@@ -16,6 +16,7 @@ const state = merge_objects(statesMixin.common, {
         name: null,
         date: null,
         time: null,
+        place: null,
         invitation_text: null,
         confirmation_text: null,
         credential_send_text: null,
