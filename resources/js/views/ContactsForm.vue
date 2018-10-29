@@ -18,18 +18,31 @@
                                     :elements="environment.tables.contact_types"
                             ></app-select>
 
-                            <app-input
+                                <app-input
+                                    v-if="!isEmail(form.fields.contact_type_id)"
                                     name="contact"
                                     label="Contato"
                                     v-model="form.fields.contact"
                                     :required="true"
                                     :form="form"
-                                    :mask='makeMask(form.fields.contact_type_id)'
+                                    v-mask='makeMask(form.fields.contact_type_id)'
                                     :type="makeType(form.fields.contact_type_id)"
-                            ></app-input>
+                                ></app-input>
+
+                                <app-input
+                                        v-else
+                                        name="contact"
+                                        label="Contato"
+                                        v-model="form.fields.contact"
+                                        :required="true"
+                                        :form="form"
+                                        type="email"
+                                ></app-input>
+
 
                         </div>
                     </div>
+
 
 
 
@@ -67,8 +80,10 @@
         methods:{
             makeMask(id){
                 if(id == null){
+
                     return ''
                 }
+
                   const type = findById(this.environment.tables.contact_types,id)
                 switch (type.code) {
                     case 'mobile':
@@ -85,10 +100,22 @@
                 }
                 const type = findById(this.environment.tables.contact_types,id);
                 if(type.code == 'email'){
+
                     return 'email'
                 }
+            },
+            isEmail(id){
+                if(id == null){
+                    return false;
+                }
+                const type = findById(this.environment.tables.contact_types,id);
+                return type.code == 'email'
+            },
+            fillAdditionalFormFields(){
+                this.$store.commit('contacts/mutateSetFormField', { field: 'person_institution_id', value: this.contacts.personInstitution.id })
             }
-        }
+        },
+
     }
 </script>
 

@@ -170,15 +170,17 @@ let routes = [
         props: { mode: 'update' },
     },
     {
-        path: '/people/:id/person-institutions/:id/create',
+        path: '/people/:personId/person-institutions/:personInstitutionId/contacts/create',
         name: 'contacts.create',
         component: ContactsForm,
         props: { mode: 'create' },
     },
-
-
-
-
+    {
+        path: '/people/:personId/person-institutions/:personInstitutionId/contacts/:contactId/update',
+        name: 'contacts.create',
+        component: ContactsForm,
+        props: { mode: 'update' },
+    },
 
 ]
 
