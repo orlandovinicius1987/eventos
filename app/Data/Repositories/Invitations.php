@@ -49,8 +49,10 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
-        if ($invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId) {
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
             $invitation->delete();
 
             return true;
@@ -70,4 +72,3 @@ class Invitations extends Repository
         }
     }
 }
-

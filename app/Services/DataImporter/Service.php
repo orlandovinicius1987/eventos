@@ -108,8 +108,8 @@ class Service
         );
 
         Categorized::create([
-            'category_id' => $category->id, 
-            'categorizable_id' => $person->id, 
+            'category_id' => $category->id,
+            'categorizable_id' => $person->id,
             'categorizable_type' => Person::class,
         ]);
 

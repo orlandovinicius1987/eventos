@@ -6,7 +6,7 @@ return [
     'resources' => [
         'path' => config_path('health/resources'),
 
-        'enabled' =>  [
+        'enabled' => [
             'AppKey',
             // 'Broadcasting',
             'Cache',
@@ -52,7 +52,6 @@ return [
             'Sshd',
             'Supervisor',
         ],
-
     ],
 
     'sort_by' => 'slug',
