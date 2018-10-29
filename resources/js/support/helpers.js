@@ -179,4 +179,8 @@ window.makeUpdateUrl = (context) => {
         : null
 }
 
-
+window.findById = (data,id) => {
+    return _.find(data.rows, (item) => {
+        return item.id == id
+    })
+}

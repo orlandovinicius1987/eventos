@@ -98,7 +98,6 @@ window.cheerio = cheerio
 /**
  * Vue The Mask
  */
-
 import VueTheMask from 'vue-the-mask'
 Vue.use(VueTheMask)
 
@@ -119,7 +118,6 @@ Vue.use(Button)
 /**
  * Vue Google Maps
  */
-
 
 import * as VueGoogleMaps from 'vue2-google-maps'
 
@@ -147,3 +145,4 @@ Vue.use(VueGoogleMaps, {
     //// then disable the following:
     // installComponents: true,
 })
+
