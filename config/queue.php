@@ -25,7 +25,7 @@ return [
     |
     | Drivers: "sync", "database", "beanstalkd", "sqs", "redis", "null"
     |
-    */
+     */
 
     'connections' => [
         'sync' => [
@@ -76,7 +76,7 @@ return [
     | can control which database and table are used to store the jobs that
     | have failed. You may change them to any database / table you wish.
     |
-    */
+     */
 
     'failed' => [
         'database' => env('DB_CONNECTION', 'mysql'),

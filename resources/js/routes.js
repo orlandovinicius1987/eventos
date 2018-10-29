@@ -14,10 +14,11 @@ import Institutions from './views/Institutions'
 import InstitutionsForm from './views/InstitutionsForm'
 import ContactTypes from './views/ContactTypes'
 import ContactTypesForm from './views/ContactTypesForm'
-
+import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
+import { format } from 'util'
 
 Vue.use(VueRouter)
 
@@ -28,161 +29,142 @@ let routes = [
     },
     {
         path: '/dashboard',
-        name: 'dashboard',
         component: Dashboard,
     },
     {
         path: '/events',
-        name: 'events',
         component: Events,
+        children: [],
+    },
+    {
+        path: '/events/:eventId/sub-events/create',
+        component: SubEventsForm,
+        props: { mode: 'create' },
     },
     {
         path: '/events/create',
-        name: 'events.create',
         component: EventsForm,
         props: { mode: 'create' },
     },
     {
         path: '/events/:id/update',
-        name: 'events.update',
         component: EventsForm,
         props: { mode: 'update' },
     },
     {
-        path: '/events/:eventId/sub-events/create',
-        name: 'sub-events.create',
-        component: SubEventsForm,
-        props: { mode: 'create' },
-    },
-    {
         path: '/events/:eventId/sub-events/:subEventId/update',
-        name: 'sub-events.update',
         component: SubEventsForm,
         props: { mode: 'update' },
     },
     {
+        path: '/events/:eventId/sub-events/:subEventId/invitations/create',
+        component: InviteForm,
+        props: { mode: 'create' },
+    },
+    {
         path: '/people',
-        name: 'people',
         component: People,
     },
     {
         path: '/people/create',
-        name: 'people.create',
         component: PeopleForm,
         props: { mode: 'create' },
     },
     {
         path: '/people/:id/update',
-        name: 'people.update',
         component: PeopleForm,
         props: { mode: 'update' },
     },
     {
         path: '/people/:personId/person-institutions/create',
-        name: 'person-institutions.create',
         component: PersonInstitutionsForm,
         props: { mode: 'create' },
     },
     {
-        path: '/people/:personId/person-institutions/:personInstitutionId/update',
-        name: 'person-institutions.update',
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/update',
         component: PersonInstitutionsForm,
         props: { mode: 'update' },
     },
     // {
     //     path: '/contacts/create',
-    //     name: 'contacts.create',
     //     component: ContactsForm,
     //     props: { mode: 'create' },
     // },
     // {
     //     path: '/contacts/:id/update',
-    //     name: 'contacts.update',
     //     component: ContactsForm,
     //     props: { mode: 'update' },
     // },
     {
-        path: '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
-        name: 'addresses.create',
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
         component: AddressesForm,
         props: { mode: 'create' },
     },
     {
-        path: '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
-        name: 'addresses.update',
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
         component: AddressesForm,
         props: { mode: 'update' },
     },
     {
         path: '/roles',
-        name: 'roles',
         component: Roles,
     },
     {
         path: '/roles/create',
-        name: 'roles.create',
         component: RolesForm,
         props: { mode: 'create' },
     },
     {
         path: '/roles/:id/update',
-        name: 'roles.update',
         component: RolesForm,
         props: { mode: 'update' },
     },
     {
         path: '/import',
-        name: 'import',
         component: Import,
     },
     {
         path: '/categories',
-        name: 'categories',
         component: Categories,
     },
     {
         path: '/categories/create',
-        name: 'categories.create',
         component: CategoriesForm,
         props: { mode: 'create' },
     },
     {
         path: '/categories/:id/update',
-        name: 'categories.update',
         component: CategoriesForm,
         props: { mode: 'update' },
     },
     {
         path: '/institutions',
-        name: 'institutions',
         component: Institutions,
     },
     {
         path: '/institutions/create',
-        name: 'institutions.create',
         component: InstitutionsForm,
         props: { mode: 'create' },
     },
     {
         path: '/institutions/:id/update',
-        name: 'institutions.update',
         component: InstitutionsForm,
         props: { mode: 'update' },
     },
     {
         path: '/contact-types',
-        name: 'contactTypes',
         component: ContactTypes,
     },
     {
         path: '/contact-types/create',
-        name: 'contactTypes.create',
         component: ContactTypesForm,
         props: { mode: 'create' },
     },
     {
         path: '/contact-types/:id/update',
-        name: 'contactTypes.update',
         component: ContactTypesForm,
         props: { mode: 'update' },
     },
@@ -191,6 +173,25 @@ let routes = [
 let router = new VueRouter({
     routes,
     linkActiveClass: 'active',
+})
+
+let initialized = false
+
+router.beforeEach((to, from, next) => {
+    if (to.path !== '/' && !initialized) {
+        initialized = true
+
+        let regex = /.+?(?=\/\d)/
+        let result = regex.exec(to.path)
+
+        if (result && result.length > 0) {
+            next(result[0])
+        } else {
+            next('/dashboard')
+        }
+    }
+
+    next()
 })
 
 export default router

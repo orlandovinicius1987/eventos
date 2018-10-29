@@ -136,18 +136,25 @@ window.loadDebounced = _.debounce(context => {
 
 window.buildApiUrl = (uri, state) => {
     let url = '/api/v1/' + uri
+    let hasNulls = false
 
     _.each(uri.match(/(\{.*?\})/g), (param) => {
         let elements = param.match(/(\w+)/g)
 
         let result = _.reduce(elements, function(carry, value) {
-            return carry && carry.hasOwnProperty(value) ? carry[value] : null
+            carry = carry && carry.hasOwnProperty(value) ? carry[value] : null
+
+            if (carry === null) {
+                hasNulls = true
+            }
+
+            return carry
         }, state);
 
         url = url.replace(param, result)
     })
 
-    return url
+    return hasNulls ? null : url
 }
 
 window.makeDataUrl = (context) => {

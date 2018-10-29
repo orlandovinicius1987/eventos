@@ -46,7 +46,7 @@
     import crud from './mixins/crud'
     import contactTypes from './mixins/contact-types'
 
-    const service = { name: 'contactTypes', uri: 'contact-types', isForm: true }
+    const service = { name: 'contactTypes', uri: 'contact-types', performLoad: false }
 
     export default {
         props: ['mode'],

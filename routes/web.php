@@ -16,6 +16,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
     Route::get('/environment', 'Environment@data');
 
+    Route::get('/dashboard', 'Dashboard@data');
+
     Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => '/events'], function () {
             Route::get('/', 'Events@all')->name('events.all');
@@ -38,6 +40,15 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     function () {
                         Route::get('/', 'Invitations@all')->name(
                             'invitations.all'
+                        );
+
+                        Route::get(
+                            '/invitables',
+                            'Invitations@invitables'
+                        )->name('invitations.invitables');
+
+                        Route::post('/invitables', 'Invitations@invite')->name(
+                            'invitations.invite'
                         );
 
                         Route::post('/', 'Invitations@store')->name(

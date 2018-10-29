@@ -16,6 +16,6 @@ class Contacts extends Repository
      */
     public function allByPersonInstitutionId($personInstitutionId)
     {
-        return $this->getByPersonInstitutionId($personInstitutionId);
+        return $this->filterByPersonInstitutionId($personInstitutionId);
     }
 }

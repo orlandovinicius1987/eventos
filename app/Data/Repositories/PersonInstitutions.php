@@ -7,12 +7,17 @@ use App\Data\Models\PersonInstitution as PersonInstitutionModel;
 class PersonInstitutions extends Repository
 {
     /**
+     * @var string
+     */
+    protected $model = PersonInstitutionModel::class;
+
+    /**
      * @param $personId
      * @return mixed
      */
     public function allByPerson($personId)
     {
-        return $this->getByPersonId($personId);
+        return $this->filterByPersonId($personId);
     }
 
     /**
@@ -21,11 +26,6 @@ class PersonInstitutions extends Repository
      */
     public function allByInstitution($institutionId)
     {
-        return $this->getByInstitutionId($institutionId);
+        return $this->filterByInstitutionId($institutionId);
     }
-
-    /**
-     * @var string
-     */
-    protected $model = PersonInstitutionModel::class;
 }
