@@ -309,7 +309,6 @@ export default {
     },
 
     mounted() {
-        dd('--- mounted')
         this.$store.dispatch('subEvents/load')
 
         this.$store.dispatch('invitations/load')
