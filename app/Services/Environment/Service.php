@@ -2,6 +2,7 @@
 
 namespace App\Services\Environment;
 
+use App\Data\Repositories\ContactTypes;
 use PragmaRX\Version\Package\Facade as Version;
 
 class Service
@@ -59,6 +60,8 @@ class Service
             'old' => coollect(old())
                 ->except('password', 'password_confirmation')
                 ->toArray(),
+
+            'tables' => ['contact_types' => app(ContactTypes::class)->all()],
         ]);
     }
 }
