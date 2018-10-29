@@ -2414,6 +2414,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -26469,7 +26471,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101968,22 +101970,31 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "h1",
-                        { staticClass: "card-title pricing-card-title" },
-                        [_vm._v(_vm._s(item.count))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-sm btn-block btn-primary",
-                          attrs: { type: "button" }
-                        },
-                        [_vm._v("ver")]
-                      )
-                    ])
+                    _c(
+                      "div",
+                      { staticClass: "card-body" },
+                      [
+                        _c(
+                          "h1",
+                          { staticClass: "card-title pricing-card-title" },
+                          [_vm._v(_vm._s(item.count))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-block btn-primary",
+                            attrs: { to: item.route, tag: "button" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                ver\n                            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   ])
                 })
               )
