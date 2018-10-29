@@ -37,18 +37,9 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
-        \DB::listen(function ($query) {
-            if (!str_contains($query->sql, 'telescope')) {
-                info($query->sql);
-                info($query->bindings);
-            }
-        });
-
         $this->filterText($queryFilter, $query);
 
         $this->order($query);
-
-        info(['------------- TO SQL', $query->toSql()]);
 
         return $this->makePaginationResult(
             $query->paginate(
@@ -317,6 +308,11 @@ abstract class Repository
         $model->save();
 
         return $model;
+    }
+
+    public function count()
+    {
+        return $this->model::count();
     }
 }
 

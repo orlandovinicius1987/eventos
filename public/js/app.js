@@ -2382,7 +2382,11 @@ var service = { name: 'contactTypes', uri: 'contact-types', performLoad: false }
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 //
 //
 //
@@ -2410,52 +2414,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_permissions__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
             service: { name: 'dashboard', uri: 'dashboard' }
         };
-    }
+    },
+
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])({
+        dashboard: function dashboard(state) {
+            return state.dashboard.data.rows;
+        }
+    }))
 });
 
 /***/ }),
@@ -2742,7 +2720,6 @@ var service = { name: 'events', uri: 'events' };
     },
 
     mounted: function mounted() {
-        dd('--- mounted');
         this.$store.dispatch('subEvents/load');
 
         this.$store.dispatch('invitations/load');
@@ -26477,7 +26454,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26492,7 +26469,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101980,33 +101957,36 @@ var render = function() {
       ? _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-12" }, [
             _c("div", { staticClass: "container" }, [
-              _c("div", { staticClass: "card-deck mb-3 text-center" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "card-body" }, [
-                    _vm._m(4),
+              _c(
+                "div",
+                { staticClass: "card-deck mb-3 text-center" },
+                _vm._l(_vm.dashboard, function(item) {
+                  return _c("div", { staticClass: "card mb-4 shadow-sm" }, [
+                    _c("div", { staticClass: "card-header" }, [
+                      _c("h4", { staticClass: "my-0 font-weight-normal" }, [
+                        _vm._v(_vm._s(item.name))
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-lg btn-block btn-primary",
-                        attrs: {
-                          type: "button",
-                          disabled: _vm.cannot("create")
-                        }
-                      },
-                      [_vm._v("Contact us")]
-                    )
+                    _c("div", { staticClass: "card-body" }, [
+                      _c(
+                        "h1",
+                        { staticClass: "card-title pricing-card-title" },
+                        [_vm._v(_vm._s(item.count))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-sm btn-block btn-primary",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("ver")]
+                      )
+                    ])
                   ])
-                ])
-              ])
+                })
+              )
             ])
           ])
         ])
@@ -102020,111 +102000,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
       _c("h2", [_vm._v("Painel de Controle")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h4", { staticClass: "my-0 font-weight-normal" }, [_vm._v("Free")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h1", { staticClass: "card-title pricing-card-title" }, [
-          _vm._v("$0 "),
-          _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
-          _c("li", [_vm._v("10 users included")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("2 GB of storage")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Email support")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Help center access")])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-lg btn-block btn-outline-primary",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Sign up for free")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card mb-4 shadow-sm" }, [
-      _c("div", { staticClass: "card-header" }, [
-        _c("h4", { staticClass: "my-0 font-weight-normal" }, [_vm._v("Pro")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "card-body" }, [
-        _c("h1", { staticClass: "card-title pricing-card-title" }, [
-          _vm._v("$15 "),
-          _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
-          _c("li", [_vm._v("20 users included")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("10 GB of storage")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Priority email support")]),
-          _vm._v(" "),
-          _c("li", [_vm._v("Help center access")])
-        ]),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-lg btn-block btn-primary",
-            attrs: { type: "button" }
-          },
-          [_vm._v("Get started")]
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header" }, [
-      _c("h4", { staticClass: "my-0 font-weight-normal" }, [
-        _vm._v("Enterprise")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("h1", { staticClass: "card-title pricing-card-title" }, [
-      _vm._v("$29 "),
-      _c("small", { staticClass: "text-muted" }, [_vm._v("/ mo")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "list-unstyled mt-3 mb-4" }, [
-      _c("li", [_vm._v("30 users included")]),
-      _vm._v(" "),
-      _c("li", [_vm._v("15 GB of storage")]),
-      _vm._v(" "),
-      _c("li", [_vm._v("Phone and email support")]),
-      _vm._v(" "),
-      _c("li", [_vm._v("Help center access")])
     ])
   }
 ]
@@ -121623,6 +121498,42 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/dashboard.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects({}, __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */]);
+
+var actions = __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__;
+
+var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
+
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/environment.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -122469,20 +122380,21 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters__ = __webpack_require__("./resources/js/store/getters.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__getters___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__getters__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mutations__ = __webpack_require__("./resources/js/store/mutations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_subEvents__ = __webpack_require__("./resources/js/store/modules/subEvents.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_invitations__ = __webpack_require__("./resources/js/store/modules/invitations.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_categories__ = __webpack_require__("./resources/js/store/modules/categories.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_addresses__ = __webpack_require__("./resources/js/store/modules/addresses.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_people__ = __webpack_require__("./resources/js/store/modules/people.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_roles__ = __webpack_require__("./resources/js/store/modules/roles.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_institutions__ = __webpack_require__("./resources/js/store/modules/institutions.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__modules_environment__ = __webpack_require__("./resources/js/store/modules/environment.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__modules_dashboard__ = __webpack_require__("./resources/js/store/modules/dashboard.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_gate__ = __webpack_require__("./resources/js/store/modules/gate.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__modules_events__ = __webpack_require__("./resources/js/store/modules/events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__ = __webpack_require__("./resources/js/store/modules/subEvents.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__modules_invitations__ = __webpack_require__("./resources/js/store/modules/invitations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__modules_categories__ = __webpack_require__("./resources/js/store/modules/categories.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__modules_addresses__ = __webpack_require__("./resources/js/store/modules/addresses.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_people__ = __webpack_require__("./resources/js/store/modules/people.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_roles__ = __webpack_require__("./resources/js/store/modules/roles.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_institutions__ = __webpack_require__("./resources/js/store/modules/institutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
 /**
  * Imports
  */
@@ -122519,6 +122431,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 
 
 
+
 /**
  * State
  */
@@ -122534,20 +122447,21 @@ var state = {
   getters: __WEBPACK_IMPORTED_MODULE_3__getters__,
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
   modules: {
-    environment: __WEBPACK_IMPORTED_MODULE_17__modules_environment__["a" /* default */],
-    people: __WEBPACK_IMPORTED_MODULE_11__modules_people__["a" /* default */],
-    categories: __WEBPACK_IMPORTED_MODULE_9__modules_categories__["a" /* default */],
-    events: __WEBPACK_IMPORTED_MODULE_6__modules_events__["a" /* default */],
-    subEvents: __WEBPACK_IMPORTED_MODULE_7__modules_subEvents__["a" /* default */],
-    invitations: __WEBPACK_IMPORTED_MODULE_8__modules_invitations__["a" /* default */],
-    invitables: __WEBPACK_IMPORTED_MODULE_18__modules_invitables__["a" /* default */],
-    addresses: __WEBPACK_IMPORTED_MODULE_10__modules_addresses__["a" /* default */],
-    gate: __WEBPACK_IMPORTED_MODULE_5__modules_gate__["a" /* default */],
-    roles: __WEBPACK_IMPORTED_MODULE_12__modules_roles__["a" /* default */],
-    contacts: __WEBPACK_IMPORTED_MODULE_16__modules_contacts__["a" /* default */],
-    institutions: __WEBPACK_IMPORTED_MODULE_13__modules_institutions__["a" /* default */],
-    personInstitutions: __WEBPACK_IMPORTED_MODULE_14__modules_personInstitutions__["a" /* default */],
-    contactTypes: __WEBPACK_IMPORTED_MODULE_15__modules_contact_types__["a" /* default */]
+    environment: __WEBPACK_IMPORTED_MODULE_5__modules_environment__["a" /* default */],
+    dashboard: __WEBPACK_IMPORTED_MODULE_6__modules_dashboard__["a" /* default */],
+    people: __WEBPACK_IMPORTED_MODULE_13__modules_people__["a" /* default */],
+    categories: __WEBPACK_IMPORTED_MODULE_11__modules_categories__["a" /* default */],
+    events: __WEBPACK_IMPORTED_MODULE_8__modules_events__["a" /* default */],
+    subEvents: __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__["a" /* default */],
+    invitations: __WEBPACK_IMPORTED_MODULE_10__modules_invitations__["a" /* default */],
+    invitables: __WEBPACK_IMPORTED_MODULE_19__modules_invitables__["a" /* default */],
+    addresses: __WEBPACK_IMPORTED_MODULE_12__modules_addresses__["a" /* default */],
+    gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */],
+    roles: __WEBPACK_IMPORTED_MODULE_14__modules_roles__["a" /* default */],
+    contacts: __WEBPACK_IMPORTED_MODULE_18__modules_contacts__["a" /* default */],
+    institutions: __WEBPACK_IMPORTED_MODULE_15__modules_institutions__["a" /* default */],
+    personInstitutions: __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__["a" /* default */],
+    contactTypes: __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__["a" /* default */]
   }
 });
 
