@@ -3654,60 +3654,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3887,6 +3833,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -26591,7 +26547,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26606,7 +26562,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103098,130 +103054,7 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-8" }, [
         _c("form", [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-12 mb-3" },
-              [
-                _c("app-input", {
-                  attrs: {
-                    name: "name",
-                    label: "Nome",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.name,
-                    callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "name", $$v)
-                    },
-                    expression: "subEvents.form.fields.name"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "date",
-                    label: "Data",
-                    type: "date",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.date,
-                    callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "date", $$v)
-                    },
-                    expression: "subEvents.form.fields.date"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "time",
-                    label: "Horário",
-                    type: "time",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.time,
-                    callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "time", $$v)
-                    },
-                    expression: "subEvents.form.fields.time"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-text-area", {
-                  attrs: {
-                    name: "invitation_text",
-                    label: "Texto de convite",
-                    required: true,
-                    form: _vm.form,
-                    rows: "10",
-                    cols: "100"
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.invitation_text,
-                    callback: function($$v) {
-                      _vm.$set(
-                        _vm.subEvents.form.fields,
-                        "invitation_text",
-                        $$v
-                      )
-                    },
-                    expression: "subEvents.form.fields.invitation_text"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-text-area", {
-                  attrs: {
-                    name: "confirmation_text",
-                    label: "Texto de confirmação",
-                    required: true,
-                    form: _vm.form,
-                    rows: "10",
-                    cols: "100"
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.confirmation_text,
-                    callback: function($$v) {
-                      _vm.$set(
-                        _vm.subEvents.form.fields,
-                        "confirmation_text",
-                        $$v
-                      )
-                    },
-                    expression: "subEvents.form.fields.confirmation_text"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-text-area", {
-                  attrs: {
-                    name: "credential_send_text",
-                    label: "Texto de envio de credencial",
-                    required: true,
-                    form: _vm.form,
-                    rows: "10",
-                    cols: "100"
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.credential_send_text,
-                    callback: function($$v) {
-                      _vm.$set(
-                        _vm.subEvents.form.fields,
-                        "credential_send_text",
-                        $$v
-                      )
-                    },
-                    expression: "subEvents.form.fields.credential_send_text"
-                  }
-                })
-              ],
-              1
-            )
-          ]),
+          _vm._m(0),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c(
@@ -103264,7 +103097,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12 mb-3" }, [
+        _vm._v(
+          "\n                        We need to check this\n                    "
+        )
+      ])
+    ])
+  }
+]
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -103353,6 +103199,24 @@ var render = function() {
                       _vm.$set(_vm.subEvents.form.fields, "time", $$v)
                     },
                     expression: "subEvents.form.fields.time"
+                  }
+                }),
+                _vm._v(" "),
+                _c("app-input", {
+                  attrs: {
+                    name: "place",
+                    label: "Local",
+                    required: true,
+                    form: _vm.form,
+                    rows: "10",
+                    cols: "100"
+                  },
+                  model: {
+                    value: _vm.subEvents.form.fields.place,
+                    callback: function($$v) {
+                      _vm.$set(_vm.subEvents.form.fields, "place", $$v)
+                    },
+                    expression: "subEvents.form.fields.place"
                   }
                 }),
                 _vm._v(" "),
@@ -122198,6 +122062,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         name: null,
         date: null,
         time: null,
+        place: null,
         invitation_text: null,
         confirmation_text: null,
         credential_send_text: null
@@ -122324,12 +122189,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
-        name: null,
-        date: null,
-        time: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null
+        we_need_to_check_this: null
     })
 });
 
