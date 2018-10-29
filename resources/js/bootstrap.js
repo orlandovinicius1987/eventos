@@ -108,3 +108,8 @@ import { Modal } from 'bootstrap-vue/es/components'
 import { Button } from 'bootstrap-vue/es/components'
 Vue.use(Modal)
 Vue.use(Button)
+/**
+ * Vue the-mask
+ */
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask)

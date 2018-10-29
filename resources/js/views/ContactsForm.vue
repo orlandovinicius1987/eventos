@@ -24,7 +24,10 @@
                                     v-model="form.fields.contact"
                                     :required="true"
                                     :form="form"
+                                    :mask='makeMask(form.fields.contact_type_id)'
+                                    :type="makeType(form.fields.contact_type_id)"
                             ></app-input>
+
                         </div>
                     </div>
 
@@ -59,6 +62,31 @@
         data() {
             return {
                 service: service,
+            }
+        },
+        methods:{
+            makeMask(id){
+                if(id == null){
+                    return ''
+                }
+                  const type = findById(this.environment.tables.contact_types,id)
+                switch (type.code) {
+                    case 'mobile':
+                        return '(##)#####-####'
+                    case 'whatsapp':
+                        return '(##)#####-####'
+                    case 'phone':
+                        return '(##)####-####'
+                }
+            },
+            makeType(id){
+                if(id == null){
+                    return ''
+                }
+                const type = findById(this.environment.tables.contact_types,id);
+                if(type.code == 'email'){
+                    return 'email'
+                }
             }
         }
     }
