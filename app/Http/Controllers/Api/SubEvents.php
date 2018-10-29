@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ConfirmSubEvent;
 use App\Data\Repositories\Addresses as AddressesRepository;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Http\Requests\SubEventStore;
 use App\Http\Requests\SubEventUpdate;
 use Illuminate\Http\Request;
