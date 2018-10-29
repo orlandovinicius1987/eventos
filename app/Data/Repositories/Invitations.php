@@ -70,17 +70,4 @@ class Invitations extends Repository
             ]);
         }
     }
-
-    public function getInvitables($subEventId)
-    {
-        return $this->applyFilter(
-            $this->getPersonInstitutionsRepository()
-                ->newQuery()
-                ->whereRaw(
-                    'id not in (select person_institution_id from invitations where sub_event_id = ' .
-                        $subEventId .
-                        ')'
-                )
-        );
-    }
 }

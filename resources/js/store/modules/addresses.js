@@ -11,6 +11,7 @@ const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
     service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+    // service: { name: 'addresses', uri: 'addresses', isForm: true },
 
     form: new Form({
         addressable_id: null,
@@ -38,27 +39,6 @@ const actions = merge_objects(actionsMixin, {
         context.commit('mutateSetSelected', __emptyModel)
 
         context.dispatch('load', payload)
-    },
-
-    typeKeyZipcode(context, payload){
-        clearTimeout(this.timeout)
-
-        this.timeout = setTimeout(function () {
-            axios.get('/api/v1/zipcode/'+payload)
-                .then(function(response) {
-                    if (response.data.addresses[0].street_name) {
-                        context.commit('mutateSetFormField', { field: 'zipcode', value: response.data.addresses[0].zip })
-                        context.commit('mutateSetFormField', { field: 'street', value: response.data.addresses[0].street_name })
-                        context.commit('mutateSetFormField', { field: 'neighbourhood', value: response.data.addresses[0].neighborhood })
-                        context.commit('mutateSetFormField', { field: 'city', value: response.data.addresses[0].city })
-                        context.commit('mutateSetFormField', { field: 'state', value: response.data.addresses[0].state_id })
-                        document.getElementById("number").focus();
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error)
-                })
-        }, 500)
     },
 })
 

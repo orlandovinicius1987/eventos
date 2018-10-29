@@ -19,7 +19,7 @@ class Invitation extends Base
 
     protected $with = ['personInstitution'];
 
-    protected $orderBy = ['id' => 'asc'];
+    protected $orderBy = ['invitations.id' => 'asc'];
 
     public function personInstitution()
     {

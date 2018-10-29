@@ -340,11 +340,14 @@ export default {
     },
 
     mounted() {
-        dd('--- mounted')
         this.$store.dispatch('subEvents/load')
 
         this.$store.dispatch('invitations/load')
     },
+
+    created() {
+        console.log(this.$router.options.routes);
+    }
 }
 </script>
 
