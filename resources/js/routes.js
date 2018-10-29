@@ -14,6 +14,7 @@ import Institutions from './views/Institutions'
 import InstitutionsForm from './views/InstitutionsForm'
 import ContactTypes from './views/ContactTypes'
 import ContactTypesForm from './views/ContactTypesForm'
+import ContactsForm from './views/ContactsForm'
 import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
@@ -168,6 +169,19 @@ let routes = [
         component: ContactTypesForm,
         props: { mode: 'update' },
     },
+    {
+        path: '/people/:personId/person-institutions/:personInstitutionId/contacts/create',
+        name: 'contacts.create',
+        component: ContactsForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/people/:personId/person-institutions/:personInstitutionId/contacts/:contactId/update',
+        name: 'contacts.create',
+        component: ContactsForm,
+        props: { mode: 'update' },
+    },
+
 ]
 
 let router = new VueRouter({
