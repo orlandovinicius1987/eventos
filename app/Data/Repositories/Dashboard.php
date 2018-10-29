@@ -17,26 +17,32 @@ class Dashboard extends Repository
         return [
             'events' => [
                 'name' => 'Eventos',
+                'route' => '/events',
                 'count' => app(EventsRepository::class)->count(),
             ],
             'subEvents' => [
                 'name' => 'Sub-eventos',
+                'route' => '/events',
                 'count' => app(SubEventsRepository::class)->count(),
             ],
             'people' => [
                 'name' => 'Pessoas',
+                'route' => '/people',
                 'count' => app(PeopleRepository::class)->count(),
             ],
             'institutions' => [
                 'name' => 'Instituições',
+                'route' => '/institutions',
                 'count' => app(InstitutionsRepository::class)->count(),
             ],
             'partidos' => [
                 'name' => 'Partidos',
+                'route' => '/parties',
                 'count' => app(PartiesRepository::class)->count(),
             ],
             'categories' => [
                 'name' => 'Categorias',
+                'route' => '/categories',
                 'count' => app(CategoriesRepository::class)->count(),
             ],
         ];
