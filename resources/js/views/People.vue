@@ -146,15 +146,55 @@
                             <td>{{ address.id }}</td>
                             <td>{{ address.zipcode }}</td>
                             <td>
-                            <router-link
-                                :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/'+address.id+'/update'"
-                                tag="div"
-                                class="btn btn-danger btn-sm mr-1 pull-right"
-                                :disabled="cannot('update')"
-                            >
-                            <i class="fa fa-edit"></i>
-                            </router-link>
+                                <router-link
+                                        :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/'+address.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
                             </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-4">
+                <app-table-panel
+                        v-if="personInstitutions.selected.id && contacts.data.links"
+                        :title="selected.name + ' (' +contacts.data.links.pagination.total + ' contatos)'"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'create', disabled: cannot('create') }"
+                        :per-page="contactsPerPage"
+                        @set-per-page="contactsPerPage = $event"
+                        :filter-text="contactsFilterText"
+                        @input-filter-text="contactsFilterText = $event.target.value"
+                >
+                    <app-table
+                            :pagination="contacts.data.links.pagination"
+                            @goto-page="contactsGotoPage($event)"
+                            :columns="['#', 'Tipo', 'Contato']"
+                    >
+                        <tr
+                                @click="selectContact(contact)"
+                                v-for="contact in contacts.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contact,contacts.selected)}"
+                        >
+                            <td>{{ contact.id }}</td>
+                            <td>{{ contact.contact_type.name }}</td>
+                            <td>{{ contact.contact }}</td>
+                            <!--<td>-->
+                            <!--<router-link-->
+                            <!--:to="'people/'+contacts.event.id+'/person-institutions/'+contact.id+'/update'"-->
+                            <!--tag="div"-->
+                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                            <!--:disabled="cannot('update')"-->
+                            <!--&gt;-->
+                            <!--<i class="fa fa-edit"></i>-->
+                            <!--</router-link>-->
+                            <!--</td>-->
                         </tr>
                     </app-table>
                 </app-table-panel>
