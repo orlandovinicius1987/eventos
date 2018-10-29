@@ -63,7 +63,6 @@ class Invitations extends Repository
 
     public function invite($eventId, $subEventId, $invitees)
     {
-        info($invitees);
         foreach ($invitees as $invitee) {
             Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,

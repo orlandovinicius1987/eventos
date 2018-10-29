@@ -13,6 +13,19 @@ class SubEvents extends Repository
     protected $model = SubEventModel::class;
 
     /**
+     * @param $eventId
+     * @param $subEventId
+     */
+    public function confirm($eventId, $subEventId)
+    {
+        $subEvent = $this->findById($subEventId);
+
+        $subEvent->confirmed_at = now();
+
+        $subEvent->save();
+    }
+
+    /**
      * @return mixed
      */
     public function getAvailableAddresses()

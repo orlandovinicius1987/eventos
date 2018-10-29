@@ -1700,6 +1700,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['pagination']
@@ -2791,6 +2792,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2830,6 +2842,18 @@ var service = { name: 'events', uri: 'events' };
         },
         unInvite: function unInvite(invitation) {
             return this.$store.dispatch('invitations/unInvite', invitation);
+        },
+        confirmSubEvent: function confirmSubEvent(subEvent) {
+            var $this = this;
+
+            confirm('Deseja realmente confirmar ' + subEvent.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.doConfirmSubEvent(subEvent);
+                }
+            });
+        },
+        doConfirmSubEvent: function doConfirmSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/confirm', subEvent);
         }
     }),
 
@@ -26630,7 +26654,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101824,7 +101848,14 @@ var render = function() {
                     {
                       attrs: {
                         pagination: _vm.subEvents.data.links.pagination,
-                        columns: ["#", "Nome", "Data", "Hora", ""]
+                        columns: [
+                          "#",
+                          "Nome",
+                          "Data",
+                          "Hora",
+                          "Confirmado em",
+                          ""
+                        ]
                       },
                       on: {
                         "goto-page": function($event) {
@@ -101867,6 +101898,10 @@ var render = function() {
                             _vm._v(_vm._s(subEvent.time))
                           ]),
                           _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(subEvent.confirmed_at))
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "td",
                             { staticClass: "align-middle text-right" },
@@ -101888,6 +101923,25 @@ var render = function() {
                                   }
                                 },
                                 [_c("i", { staticClass: "fa fa-edit" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "btn btn-success btn-sm mr-1 pull-right",
+                                  attrs: {
+                                    href: "#",
+                                    title: "Confirmar Sub-evento",
+                                    disabled: _vm.cannot("update")
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.confirmSubEvent(subEvent)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-check" })]
                               )
                             ],
                             1
@@ -122359,7 +122413,7 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     subEvent: { id: null },
 
-    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{events.selected.id}/invitations', performLoad: false },
+    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations', performLoad: false },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -122877,6 +122931,11 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
 
         context.dispatch('load', payload);
+    },
+    confirm: function confirm(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(function () {
+            context.dispatch('load', payload);
+        });
     }
 });
 
