@@ -18,7 +18,16 @@ const state = merge_objects(statesMixin.common, {
         time: null,
         invitation_text: null,
         confirmation_text: null,
-        credential_send_text: null,
+        zipcode: null,
+
+        street: null,
+        number: null,
+        complement: null,
+        neighbourhood: null,
+        city: null,
+        state: null,
+        latitude: null,
+        longitude: null,
     }),
 })
 

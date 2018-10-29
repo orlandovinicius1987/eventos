@@ -4061,6 +4061,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -26695,7 +26697,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101294,92 +101296,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-4" },
-        [
-          _vm.personInstitutions.selected.id && _vm.contacts.data.links
-            ? _c(
-                "app-table-panel",
-                {
-                  attrs: {
-                    title:
-                      _vm.selected.name +
-                      " (" +
-                      _vm.contacts.data.links.pagination.total +
-                      " contatos)",
-                    "add-button": {
-                      uri:
-                        "/people/" +
-                        _vm.personInstitutions.person.id +
-                        "/person-institutions/" +
-                        _vm.contacts.personInstitution.id +
-                        "create",
-                      disabled: _vm.cannot("create")
-                    },
-                    "per-page": _vm.contactsPerPage,
-                    "filter-text": _vm.contactsFilterText
-                  },
-                  on: {
-                    "set-per-page": function($event) {
-                      _vm.contactsPerPage = $event
-                    },
-                    "input-filter-text": function($event) {
-                      _vm.contactsFilterText = $event.target.value
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "app-table",
-                    {
-                      attrs: {
-                        pagination: _vm.contacts.data.links.pagination,
-                        columns: ["#", "Tipo", "Contato"]
-                      },
-                      on: {
-                        "goto-page": function($event) {
-                          _vm.contactsGotoPage($event)
-                        }
-                      }
-                    },
-                    _vm._l(_vm.contacts.data.rows, function(contact) {
-                      return _c(
-                        "tr",
-                        {
-                          staticClass: "cursor-pointer",
-                          class: {
-                            "cursor-pointer": true,
-                            "bg-primary text-white": _vm.isCurrent(
-                              contact,
-                              _vm.contacts.selected
-                            )
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.selectContact(contact)
-                            }
-                          }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(contact.id))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(contact.contact_type.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(contact.contact))])
-                        ]
-                      )
-                    })
-                  )
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      )
-    ])
+    _vm._m(1)
   ])
 }
 var staticRenderFns = [
@@ -101389,6 +101306,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
       _c("h2", [_vm._v("Pessoas")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-4" })
     ])
   }
 ]
@@ -103600,7 +103525,9 @@ var render = function() {
                     },
                     expression: "subEvents.form.fields.credential_send_text"
                   }
-                })
+                }),
+                _vm._v(" "),
+                _c("app-address-form", { attrs: { form: _vm.subEvents.form } })
               ],
               1
             )
@@ -122515,7 +122442,16 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         time: null,
         invitation_text: null,
         confirmation_text: null,
-        credential_send_text: null
+        zipcode: null,
+
+        street: null,
+        number: null,
+        complement: null,
+        neighbourhood: null,
+        city: null,
+        state: null,
+        latitude: null,
+        longitude: null
     })
 });
 

@@ -65,6 +65,8 @@
                                     rows="10"
                                     cols="100"
                             ></app-text-area>
+
+                            <app-address-form :form="subEvents.form"></app-address-form>
                         </div>
                     </div>
 

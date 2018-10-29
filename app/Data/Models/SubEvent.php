@@ -19,9 +19,9 @@ class SubEvent extends Base
 
     protected $with = ['event'];
 
-    public function addresses()
+    public function address()
     {
-        return $this->morphMany(Address::class, 'addressable');
+        return $this->morphTo(Address::class, 'addressable');
     }
 
     public function event()
