@@ -11,79 +11,12 @@
                     <div class="row">
                         <div class="col-12 mb-3">
 
-                            <label :for="zipcode" class="mb-0 mt-4">CEP</label>
-
-                            <input
-                                    v-model="addresses.form.fields.zipcode"
-                                    @keyup="typeKeyZipcode(addresses.form.fields.zipcode)"
-                                    class="form-control"
-                                    id="zipcode"
-                                    required="required"
-                                    dusk="zipcode"
-                                    v-mask='["##.###-###"]'
+                            <app-address-form
+                                :form="form"
                             >
 
-                            <small class="text-danger" v-if="form.errors.has(zipcode)" >
-                                {{ form.errors.get(zipcode) }}
-                            </small>
+                            </app-address-form>
 
-
-                            <app-input
-                                    name="street"
-                                    label="Endereço"
-                                    v-model="addresses.form.fields.street"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="number"
-                                    label="Número"
-                                    v-model="addresses.form.fields.number"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="complement"
-                                    label="Complemento"
-                                    v-model="addresses.form.fields.complement"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="neighbourhood"
-                                    label="Bairro"
-                                    v-model="addresses.form.fields.neighbourhood"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="city"
-                                    label="Cidade"
-                                    v-model="addresses.form.fields.city"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="state"
-                                    label="Estado"
-                                    v-model="addresses.form.fields.state"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="latitude"
-                                    label="Latitude"
-                                    v-model="addresses.form.fields.latitude"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
-                            <app-input
-                                    name="longitude"
-                                    label="Longitude"
-                                    v-model="addresses.form.fields.longitude"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
                         </div>
                     </div>
 
