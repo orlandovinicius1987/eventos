@@ -37,8 +37,12 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
+        $this->filterText($queryFilter, $query);
+
+        $this->order($query);
+
         return $this->makePaginationResult(
-            $this->order($this->filterText($queryFilter, $query))->paginate(
+            $query->paginate(
                 $queryFilter->pagination
                     ? $queryFilter->pagination->perPage
                     : 5,
@@ -53,9 +57,7 @@ abstract class Repository
 
     protected function filterAllColumns(Builder $query, $text)
     {
-        $query->where('name', 'ilike', "%{$text}%");
-
-        return $query;
+        return $query->where('name', 'ilike', "%{$text}%");
     }
 
     /**
@@ -90,11 +92,20 @@ abstract class Repository
         return range($firstPage, $lastPage);
     }
 
-    protected function getByAnyColumnName($name, $arguments)
+    protected function filterByAnyColumnName($name, $arguments)
     {
         return $this->applyFilter(
-            $this->makeQueryByAnyColumnName('getBy', $name, $arguments)
+            $this->makeQueryByAnyColumnName('filterBy', $name, $arguments)
         );
+    }
+
+    protected function getByAnyColumnName($name, $arguments)
+    {
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            $name,
+            $arguments
+        )->get();
     }
 
     protected function getQueryFilter()
@@ -246,6 +257,10 @@ abstract class Repository
             return $result = $this->findByAnyColumnName($name, $arguments);
         }
 
+        if (starts_with($name, 'filterBy')) {
+            return $result = $this->filterByAnyColumnName($name, $arguments);
+        }
+
         if (starts_with($name, 'getBy')) {
             return $result = $this->getByAnyColumnName($name, $arguments);
         }
@@ -295,4 +310,33 @@ abstract class Repository
 
         return $model;
     }
+
+    public function count()
+    {
+        return $this->model::count();
+    }
 }
+
+// select count(*)
+//     as aggregate
+//     from "person_institutions"
+//     inner join "person_institutions" on "person_institutions" . "id" = "invitations" . "person_institution_id"
+//     inner join "institutions" on "person_institutions" . "institution_id" = "institutions" . "id"
+//     inner join "people" on "person_institutions" . "person_id" = "people" . "id"
+//     inner join "roles" on "person_institutions" . "role_id" = "roles" . "id"
+//     where id not in(select person_institution_id from invitations where sub_event_id = 1)
+//     and ("institutions" . "name"::text ilike % ferreira %
+//     or "people" . "name"::text ilike % ferreira %
+//     or "roles" . "name"::text ilike % ferreira %))
+
+//     select
+//     count (*) as aggregate
+//     from
+//     "person_institutions"
+//     where
+//     id not in (select
+//     person_institution_id
+//     from
+//     invitations
+//     where
+//     sub_event_id = 1)

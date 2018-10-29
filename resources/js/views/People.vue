@@ -126,7 +126,7 @@
                 <app-table-panel
                         v-if="personInstitutions.selected.id && addresses.data.links"
                         :title="selected.name + ' (' +addresses.data.links.pagination.total + ' endereços)'"
-                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'create', disabled: cannot('create') }"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/create', disabled: cannot('create') }"
                         :per-page="addressesPerPage"
                         @set-per-page="addressesPerPage = $event"
                         :filter-text="addressesFilterText"
@@ -136,6 +136,7 @@
                             :pagination="addresses.data.links.pagination"
                             @goto-page="addressesGotoPage($event)"
                             :columns="['#', 'Rua', 'Numero','Complemento','Bairro','Cidade']"
+                            :rows="addresses.data.rows"
                     >
                         <tr
                                 @click="selectAddress(address)"
@@ -150,17 +151,16 @@
                             <td>{{ address.zipcode }}</td>
                             <td>{{ address.city }}</td>
                             <td>{{ address.state }}</td>
-
-                            <!--<td>-->
-                            <!--<router-link-->
-                            <!--:to="'people/'+addresses.event.id+'/person-institutions/'+contact.id+'/update'"-->
-                            <!--tag="div"-->
-                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
-                            <!--:disabled="cannot('update')"-->
-                            <!--&gt;-->
-                            <!--<i class="fa fa-edit"></i>-->
-                            <!--</router-link>-->
-                            <!--</td>-->
+                            <td>
+                            <router-link
+                                :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/'+address.id+'/update'"
+                                tag="div"
+                                class="btn btn-danger btn-sm mr-1 pull-right"
+                                :disabled="cannot('update')"
+                            >
+                            <i class="fa fa-edit"></i>
+                            </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>

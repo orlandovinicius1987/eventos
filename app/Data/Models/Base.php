@@ -31,6 +31,11 @@ abstract class Base extends Model implements AuditableContract
     protected $orderBy = [];
 
     /**
+     * @var array
+     */
+    protected $appends = ['model'];
+
+    /**
      * Cache keys to be flushed when a model is saved.
      *
      * @var array
@@ -96,5 +101,10 @@ abstract class Base extends Model implements AuditableContract
         });
 
         return $this;
+    }
+
+    public function getModelAttribute()
+    {
+        return get_class($this);
     }
 }

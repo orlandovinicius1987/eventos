@@ -10,13 +10,24 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <app-input
-                                    name="zipcode"
-                                    label="CEP"
+
+                            <label :for="zipcode" class="mb-0 mt-4">CEP</label>
+
+                            <input
                                     v-model="addresses.form.fields.zipcode"
-                                    :required="true"
-                                    :form="form"
-                            ></app-input>
+                                    @keyup="typeKeyZipcode(addresses.form.fields.zipcode)"
+                                    class="form-control"
+                                    id="zipcode"
+                                    required="required"
+                                    dusk="zipcode"
+                                    v-mask='["##.###-###"]'
+                            >
+
+                            <small class="text-danger" v-if="form.errors.has(zipcode)" >
+                                {{ form.errors.get(zipcode) }}
+                            </small>
+
+
                             <app-input
                                     name="street"
                                     label="Endereço"
@@ -96,7 +107,7 @@
     import addresses from './mixins/addresses'
     import { mapState } from 'vuex'
 
-    const service = { name: 'addresses', uri: 'addresses', isForm: true }
+    const service = { name: 'addresses', uri: 'addresses', performLoad: false }
 
     export default {
         props: ['mode'],

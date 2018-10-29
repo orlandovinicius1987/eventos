@@ -39,7 +39,7 @@ import crud from './mixins/crud'
 import roles from './mixins/roles'
 import { mapActions } from 'vuex'
 
-const service = { name: 'roles', uri: 'roles', isForm: true }
+const service = { name: 'roles', uri: 'roles', performLoad: false }
 
 export default {
     props: ['mode'],
