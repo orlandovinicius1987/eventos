@@ -34,6 +34,8 @@ class CreateTableEventsAndSubEvents extends Migration
             $table->date('date');
             $table->time('time');
 
+            $table->string('place')->nullable();
+
             $table->string('invitation_text')->nullable();
             $table->string('confirmation_text')->nullable();
             $table->string('credential_send_text')->nullable();

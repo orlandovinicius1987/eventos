@@ -13,12 +13,7 @@ const state = merge_objects(statesMixin.common, {
     service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false },
 
     form: new Form({
-        name: null,
-        date: null,
-        time: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null,
+        we_need_to_check_this: null,
     }),
 })
 
