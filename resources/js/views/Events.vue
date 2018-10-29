@@ -313,10 +313,6 @@ export default {
 
         this.$store.dispatch('invitations/load')
     },
-
-    created() {
-        console.log(this.$router.options.routes);
-    }
 }
 </script>
 
