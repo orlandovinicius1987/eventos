@@ -3972,8 +3972,9 @@ var service = { name: 'roles', uri: 'roles', performLoad: false };
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_events__ = __webpack_require__("./resources/js/views/mixins/events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_sub_events__ = __webpack_require__("./resources/js/views/mixins/sub-events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -4063,6 +4064,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -4073,7 +4108,7 @@ var service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events'
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_sub_events__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
@@ -4082,7 +4117,21 @@ var service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events'
     },
 
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('events', ['selectedEvent', 'selectedSubEvent']))
+    methods: {
+        selectAddressInsideEvent: function selectAddressInsideEvent(address) {
+            context.commit('mutateSetFormField', { field: 'zipcode', value: address.zipcode });
+            context.commit('mutateSetFormField', { field: 'street', value: address.street });
+            context.commit('mutateSetFormField', { field: 'number', value: address.number });
+            context.commit('mutateSetFormField', { field: 'complement', value: address.complement });
+            context.commit('mutateSetFormField', { field: 'neighbourhood', value: address.neighbourhood });
+            context.commit('mutateSetFormField', { field: 'city', value: address.city });
+            context.commit('mutateSetFormField', { field: 'state', value: address.state });
+            context.commit('mutateSetFormField', { field: 'latitude', value: address.latitude });
+            context.commit('mutateSetFormField', { field: 'longitude', value: address.longitude });
+        }
+    },
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapState"])('subEvents', ['selectedEvent', 'selectedSubEvent']))
 });
 
 /***/ }),
@@ -26697,7 +26746,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101296,7 +101345,92 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _vm._m(1)
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-4" },
+        [
+          _vm.personInstitutions.selected.id && _vm.contacts.data.links
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title:
+                      _vm.selected.name +
+                      " (" +
+                      _vm.contacts.data.links.pagination.total +
+                      " contatos)",
+                    "add-button": {
+                      uri:
+                        "/people/" +
+                        _vm.personInstitutions.person.id +
+                        "/person-institutions/" +
+                        _vm.contacts.personInstitution.id +
+                        "create",
+                      disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.contactsPerPage,
+                    "filter-text": _vm.contactsFilterText
+                  },
+                  on: {
+                    "set-per-page": function($event) {
+                      _vm.contactsPerPage = $event
+                    },
+                    "input-filter-text": function($event) {
+                      _vm.contactsFilterText = $event.target.value
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.contacts.data.links.pagination,
+                        columns: ["#", "Tipo", "Contato"]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          _vm.contactsGotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.contacts.data.rows, function(contact) {
+                      return _c(
+                        "tr",
+                        {
+                          staticClass: "cursor-pointer",
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              contact,
+                              _vm.contacts.selected
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.selectContact(contact)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(contact.id))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(contact.contact_type.name))]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(contact.contact))])
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -101306,14 +101440,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
       _c("h2", [_vm._v("Pessoas")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-4" })
     ])
   }
 ]
@@ -103527,6 +103653,96 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
+                _vm.mode == "create"
+                  ? _c(
+                      "app-table-panel",
+                      {
+                        attrs: {
+                          title:
+                            "Endereços disponíveis (" +
+                            _vm.subEvents.data.available_addresses.length +
+                            " endereços)"
+                        }
+                      },
+                      [
+                        _c(
+                          "app-table",
+                          {
+                            attrs: {
+                              columns: ["#", "Endereço"],
+                              rows: _vm.subEvents.data.available_addresses
+                            }
+                          },
+                          _vm._l(
+                            _vm.subEvents.data.available_addresses,
+                            function(address) {
+                              return _c(
+                                "tr",
+                                {
+                                  staticClass: "cursor-pointer",
+                                  class: {
+                                    "cursor-pointer": true,
+                                    "bg-primary text-white": _vm.isCurrent(
+                                      address,
+                                      _vm.addresses.selected
+                                    )
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.selectAddressInsideEvent(address)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("td", [_vm._v(_vm._s(address.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        address.street +
+                                          ", " +
+                                          address.number +
+                                          (address.complement
+                                            ? " - " + address.complement
+                                            : "")
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm mr-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "events/{events.selected.id}/sub-event/" +
+                                              _vm.subEvents.selected.id +
+                                              "/addresses/" +
+                                              address.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            }
+                          )
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("app-address-form", { attrs: { form: _vm.subEvents.form } })
               ],
               1
@@ -103815,63 +104031,65 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-6" }, [
-            _c("input", {
-              staticClass: "form-control form-control-sm",
-              attrs: { placeholder: "filtrar" },
-              domProps: { value: _vm.filterText },
-              on: {
-                input: function($event) {
-                  _vm.$emit("input-filter-text", $event)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-4 p-0" },
-            [
-              _c("app-per-page", {
-                attrs: { value: _vm.perPage },
-                on: {
-                  input: function($event) {
-                    _vm.$emit("set-per-page", $event)
+      _vm.perPage
+        ? _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-6" }, [
+                _c("input", {
+                  staticClass: "form-control form-control-sm",
+                  attrs: { placeholder: "filtrar" },
+                  domProps: { value: _vm.filterText },
+                  on: {
+                    input: function($event) {
+                      _vm.$emit("input-filter-text", $event)
+                    }
                   }
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-2 text-right" },
-            [
-              _vm.addButton
-                ? _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary btn-sm pull-right",
-                      attrs: {
-                        to: _vm.addButton.uri,
-                        tag: "div",
-                        disabled: _vm.addButton.disabled,
-                        dusk: "createEventButton"
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-plus" })]
-                  )
-                : _vm._e(),
+                })
+              ]),
               _vm._v(" "),
-              _vm._t("buttons")
-            ],
-            2
-          )
-        ])
-      ])
+              _c(
+                "div",
+                { staticClass: "col-4 p-0" },
+                [
+                  _c("app-per-page", {
+                    attrs: { value: _vm.perPage },
+                    on: {
+                      input: function($event) {
+                        _vm.$emit("set-per-page", $event)
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-2 text-right" },
+                [
+                  _vm.addButton
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-sm pull-right",
+                          attrs: {
+                            to: _vm.addButton.uri,
+                            tag: "div",
+                            disabled: _vm.addButton.disabled,
+                            dusk: "createEventButton"
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-plus" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._t("buttons")
+                ],
+                2
+              )
+            ])
+          ])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -121442,6 +121660,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     person: { id: null },
 
     service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+    // service: { name: 'addresses', uri: 'addresses', isForm: true },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         addressable_id: null,
@@ -124087,6 +124306,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         roles: function roles(state) {
             return state.roles;
+        }
+    }))
+});
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/sub-events.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('subEvents', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        addresses: function addresses(state) {
+            return state.addresses;
+        },
+
+        events: function events(state) {
+            return state.events;
+        },
+
+        subEvents: function subEvents(state) {
+            return state.subEvents;
         }
     }))
 });
