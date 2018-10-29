@@ -203,7 +203,8 @@ abstract class Repository
                     "per_page" => $data->perPage(),
                     "current_page" => $data->currentPage(),
                     "last_page" => $data->lastPage(),
-                    "from" => ($from = ($data->currentPage() - 1) * $data->perPage() + 1),
+                    "from" => ($from =
+                        ($data->currentPage() - 1) * $data->perPage() + 1),
                     "to" => $from + count($data->items()) - 1,
                     "pages" => $this->generatePages($data),
                 ],
@@ -316,7 +317,6 @@ abstract class Repository
     }
 }
 
-
 // select count(*)
 //     as aggregate
 //     from "person_institutions"
@@ -329,8 +329,6 @@ abstract class Repository
 //     or "people" . "name"::text ilike % ferreira %
 //     or "roles" . "name"::text ilike % ferreira %))
 
-
-
 //     select
 //     count (*) as aggregate
 //     from
@@ -342,4 +340,3 @@ abstract class Repository
 //     invitations
 //     where
 //     sub_event_id = 1)
-

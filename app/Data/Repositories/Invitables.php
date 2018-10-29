@@ -47,4 +47,3 @@ class Invitables extends Repository
         );
     }
 }
-

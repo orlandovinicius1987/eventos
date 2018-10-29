@@ -9,5 +9,9 @@ class Categorized extends Base
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'categorizable_id', 'categorizable_type'];
+    protected $fillable = [
+        'category_id',
+        'categorizable_id',
+        'categorizable_type',
+    ];
 }
