@@ -37,4 +37,23 @@ class Addresses extends Repository
             'addressable_type' => $model->model,
         ]);
     }
+
+    public function findByAddressable($addressable)
+    {
+        return $this->newQuery()
+            ->where('addressable_id', $addressable['addressable_id'])
+            ->where('addressable_type', $addressable['addressable_type'])
+            ->first();
+    }
+
+    public function updateAddress($address, $attributes)
+    {
+        $address->fill(
+            coollect($attributes['address'])
+                ->only($address->fillable)
+                ->toArray()
+        );
+
+        $address->save();
+    }
 }

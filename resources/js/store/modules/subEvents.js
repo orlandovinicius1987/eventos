@@ -18,8 +18,36 @@ const state = merge_objects(statesMixin.common, {
         time: null,
         invitation_text: null,
         confirmation_text: null,
-        zipcode: null,
+        address: {
+            zipcode: null,
+            street: null,
+            number: null,
+            complement: null,
+            neighbourhood: null,
+            city: null,
+            state: null,
+            latitude: null,
+            longitude: null,
+        }
+    }),
+})
 
+function replacer(key, value) {
+    // Filtering out properties
+    if (typeof value === 'string') {
+        return undefined;
+    }
+    return value;
+}
+
+var foo = {
+    name: '1',
+    date: '2',
+    time: 3333,
+    invitation_text: null,
+    confirmation_text: null,
+    address: {
+        zipcode: 213123,
         street: null,
         number: null,
         complement: null,
@@ -28,8 +56,34 @@ const state = merge_objects(statesMixin.common, {
         state: null,
         latitude: null,
         longitude: null,
-    }),
-})
+    }
+}
+
+JSON.stringify(foo, replacer);
+
+
+window.replacer = (key, value) => {
+    return '';
+}
+
+JSON.stringify({
+    name: null,
+    date: null,
+    time: null,
+    invitation_text: null,
+    confirmation_text: null,
+    address: {
+        zipcode: null,
+        street: null,
+        number: null,
+        complement: null,
+        neighbourhood: null,
+        city: null,
+        state: null,
+        latitude: null,
+        longitude: null,
+    }
+}, replacer)
 
 const actions = merge_objects(actionsMixin, {
     setEvent(context, payload) {

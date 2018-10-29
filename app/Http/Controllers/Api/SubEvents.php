@@ -30,16 +30,7 @@ class SubEvents extends Controller
      */
     public function store(SubEventStore $request)
     {
-        $array = $request->all();
-
-        $subEvent = app(SubEventsRepository::class)->storeFromArray($array);
-
-        return app(AddressesRepository::class)->storeFromArray(
-            app(AddressesRepository::class)->fillAddressableFromModel(
-                $array,
-                $subEvent
-            )
-        );
+        return app(SubEventsRepository::class)->storeFromArray($request->all());
     }
 
     /**
