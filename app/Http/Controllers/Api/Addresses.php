@@ -27,6 +27,7 @@ class Addresses extends Controller
      */
     public function allByPersonInstitution(
         Request $request,
+        $personId,
         $personInstitutionId
     ) {
         return app(AddressesRepository::class)->allByPersonInstitutionId(

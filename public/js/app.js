@@ -1905,15 +1905,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return 'Preencha a latitude e longitude, ou localize o endereço no mapa';
             }
         }
-    },
-
-    mounted: function mounted() {
-        // Vue.use(VueGoogleMaps, {
-        //     load: {
-        //         key: this.googleMaps.api_key,
-        //         libraries: 'places',
-        //     },
-        // })
     }
 });
 
@@ -2098,6 +2089,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -4078,10 +4070,7 @@ var service = { name: 'people', uri: 'people', performLoad: false };
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_people__ = __webpack_require__("./resources/js/views/mixins/people.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__ = __webpack_require__("./resources/js/views/mixins/personInstitutions.js");
 //
 //
 //
@@ -4113,7 +4102,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4123,7 +4139,7 @@ var service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/pe
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_people__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */]],
 
     data: function data() {
         return {
@@ -4132,7 +4148,11 @@ var service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/pe
     },
 
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('people', ['selectedPerson', 'selectedPersonInstitution']))
+    methods: {
+        fillAdditionalFormFields: function fillAdditionalFormFields() {
+            this.$store.commit('personInstitutions/mutateSetFormField', { field: 'person_id', value: this.personInstitutions.person.id });
+        }
+    }
 });
 
 /***/ }),
@@ -4293,8 +4313,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__ = __webpack_require__("./node_modules/vue2-google-maps/dist/main.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -4460,10 +4478,11 @@ var service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events'
             context.commit('mutateSetFormField', { field: 'state', value: address.state });
             context.commit('mutateSetFormField', { field: 'latitude', value: address.latitude });
             context.commit('mutateSetFormField', { field: 'longitude', value: address.longitude });
+        },
+        fillAdditionalFormFields: function fillAdditionalFormFields() {
+            this.$store.commit('subEvents/mutateSetFormField', { field: 'event_id', value: this.events.selected.id });
         }
     },
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapState"])('subEvents', ['selectedEvent', 'selectedSubEvent'])),
 
     mounted: function mounted() {}
 });
@@ -27193,7 +27212,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101625,7 +101644,32 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", [
                             _vm._v(_vm._s(personInstitution.role.name))
-                          ])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                  attrs: {
+                                    to:
+                                      "people/" +
+                                      _vm.personInstitutions.person.id +
+                                      "/person-institutions/" +
+                                      personInstitution.id +
+                                      "/update",
+                                    tag: "div",
+                                    disabled: _vm.cannot("update")
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              )
+                            ],
+                            1
+                          )
                         ]
                       )
                     })
@@ -104141,15 +104185,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.events.selected.name))]),
-      _vm._v(" "),
       _c("h2", [
         _vm._v(
-          _vm._s(
-            _vm.subEvents.form.fields.name
-              ? _vm.subEvents.form.fields.name
-              : "Novo Sub Evento"
-          )
+          _vm._s(_vm.form.fields.name ? _vm.form.fields.name : "Novo Cargo")
         )
       ])
     ]),
@@ -104157,7 +104195,64 @@ var render = function() {
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-8" }, [
         _c("form", [
-          _vm._m(0),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-select", {
+                  attrs: {
+                    name: "institution_id",
+                    label: "Instituição",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.institutions
+                  },
+                  model: {
+                    value: _vm.form.fields.institution_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "institution_id", $$v)
+                    },
+                    expression: "form.fields.institution_id"
+                  }
+                }),
+                _vm._v(" "),
+                _c("app-select", {
+                  attrs: {
+                    name: "role_id",
+                    label: "Funções",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.roles
+                  },
+                  model: {
+                    value: _vm.form.fields.role_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "role_id", $$v)
+                    },
+                    expression: "form.fields.role_id"
+                  }
+                }),
+                _vm._v(" "),
+                _c("app-input", {
+                  attrs: {
+                    name: "title",
+                    label: "Título",
+                    required: true,
+                    form: _vm.form
+                  },
+                  model: {
+                    value: _vm.form.fields.title,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "title", $$v)
+                    },
+                    expression: "form.fields.title"
+                  }
+                })
+              ],
+              1
+            )
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "row" }, [
             _c(
@@ -104183,7 +104278,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-success",
-                    attrs: { to: "/events", tag: "button" }
+                    attrs: { to: "/", tag: "button" }
                   },
                   [
                     _vm._v(
@@ -104200,20 +104295,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-12 mb-3" }, [
-        _vm._v(
-          "\n                        We need to check this\n                    "
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
@@ -105240,14 +105322,16 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("app-pagination", {
-            attrs: { pagination: _vm.pagination },
-            on: {
-              "goto-page": function($event) {
-                _vm.$emit("goto-page", $event)
-              }
-            }
-          })
+          _vm.pagination
+            ? _c("app-pagination", {
+                attrs: { pagination: _vm.pagination },
+                on: {
+                  "goto-page": function($event) {
+                    _vm.$emit("goto-page", $event)
+                  }
+                }
+              })
+            : _vm._e()
         ],
         1
       )
@@ -125080,8 +125164,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         contact_type_id: null,
         contact: null,
-        person_institution_id: null,
-        abc: 123
+        person_institution_id: null
     })
 });
 
@@ -125155,11 +125238,35 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var state = {
-    loaded: false
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+var __emptyTable = {
+    filter: {
+        text: null
+    },
+
+    links: {
+        pagination: {
+            per_page: null,
+
+            current_page: null
+        }
+    },
+
+    rows: {}
 };
 
-var getters = {};
+var state = {
+    loaded: false,
+    tables: {
+        contact_types: __emptyTable,
+        institutions: __emptyTable,
+        roles: __emptyTable
+    }
+};
+
+var getters = __WEBPACK_IMPORTED_MODULE_0__mixins_getters_js__;
 
 var actions = {
     load: function load(context) {
@@ -125167,20 +125274,56 @@ var actions = {
             context.commit('mutateSetData', response.data);
         });
     },
+    loadContactTypes: function loadContactTypes(context) {
+        return axios.get('/api/v1/contact-types', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetContactTypes', response.data);
+        });
+    },
+    loadInstitutions: function loadInstitutions(context) {
+        return axios.get('/api/v1/institutions', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetInstitutions', response.data);
+        });
+    },
+    loadRoles: function loadRoles(context) {
+        return axios.get('/api/v1/roles', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetRoles', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
         context.dispatch('load');
+
+        context.dispatch('loadContactTypes');
+        context.dispatch('loadInstitutions');
+        context.dispatch('loadRoles');
     }
 };
 
 var mutations = {
     mutateSetData: function mutateSetData(state, payload) {
+        state['loaded'] = false;
+
         _.forIn(payload, function (val, key) {
             state[key] = val;
         });
 
         state['loaded'] = true;
+    },
+    mutateSetContactTypes: function mutateSetContactTypes(state, payload) {
+        state['tables']['contact_types'] = payload;
+    },
+    mutateSetInstitutions: function mutateSetInstitutions(state, payload) {
+        state['tables']['institutions'] = payload;
+    },
+    mutateSetRoles: function mutateSetRoles(state, payload) {
+        state['tables']['roles'] = payload;
     }
 };
 
@@ -125570,14 +125713,23 @@ function select(context, payload) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["getQueryFilter"] = getQueryFilter;
+/* harmony export (immutable) */ __webpack_exports__["getFullQueryFilter"] = getFullQueryFilter;
 /* harmony export (immutable) */ __webpack_exports__["getDataUrl"] = getDataUrl;
 /* harmony export (immutable) */ __webpack_exports__["getStoreUrl"] = getStoreUrl;
 /* harmony export (immutable) */ __webpack_exports__["getUpdateUrl"] = getUpdateUrl;
 function getQueryFilter(state, getters) {
     return {
-        filter: state.data.filter,
-        pagination: state.data.links.pagination,
-        order: state.data.order
+        filter: state.data ? state.data.filter : null,
+        pagination: state.data ? state.data.links.pagination : null,
+        order: state.data ? state.data.order : null
+    };
+}
+
+function getFullQueryFilter(state, getters) {
+    return {
+        filter: { text: null },
+        pagination: { per_page: 0, current_page: 0 },
+        order: {}
     };
 }
 
@@ -125801,13 +125953,10 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
-        name: null,
-        date: null,
-        time: null,
-        place: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null
+        person_id: null,
+        role_id: null,
+        institution_id: null,
+        title: null
     })
 });
 
@@ -126048,8 +126197,6 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 /**
  * Imports
  */
@@ -126101,7 +126248,7 @@ var state = {
   actions: __WEBPACK_IMPORTED_MODULE_2__actions__,
   getters: __WEBPACK_IMPORTED_MODULE_3__getters__,
   mutations: __WEBPACK_IMPORTED_MODULE_4__mutations__,
-  modules: _defineProperty({
+  modules: {
     environment: __WEBPACK_IMPORTED_MODULE_5__modules_environment__["a" /* default */],
     dashboard: __WEBPACK_IMPORTED_MODULE_6__modules_dashboard__["a" /* default */],
     people: __WEBPACK_IMPORTED_MODULE_13__modules_people__["a" /* default */],
@@ -126117,7 +126264,7 @@ var state = {
     institutions: __WEBPACK_IMPORTED_MODULE_15__modules_institutions__["a" /* default */],
     personInstitutions: __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__["a" /* default */],
     contactTypes: __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__["a" /* default */]
-  }, 'contacts', __WEBPACK_IMPORTED_MODULE_18__modules_contacts__["a" /* default */])
+  }
 });
 
 store.dispatch('environment/absorbLaravel');
@@ -127474,6 +127621,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 $this.load().then(function () {
                     $this.fillFormWhenEditing();
                 });
+            } else {
+                $this.fillFormWhenEditing();
             }
         },
         fillFormWhenEditing: function fillFormWhenEditing() {
@@ -127676,6 +127825,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             return !this.can(permission);
         }
     }
+});
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/personInstitutions.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('personInstitutions', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        personInstitutions: function personInstitutions(state) {
+            return state.personInstitutions;
+        }
+    }))
 });
 
 /***/ }),

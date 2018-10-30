@@ -23,6 +23,7 @@
                 </table>
 
                 <app-pagination
+                    v-if="pagination"
                     :pagination="pagination"
                     @goto-page="$emit('goto-page', $event)"
                 ></app-pagination>
