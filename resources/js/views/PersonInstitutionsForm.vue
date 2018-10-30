@@ -1,8 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h1>{{ events.selected.name }}</h1>
-            <h2>{{ subEvents.form.fields.name ? subEvents.form.fields.name : 'Novo Sub Evento' }}</h2>
+            <h2>{{ form.fields.name ? form.fields.name : 'Novo Cargo' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -10,15 +9,44 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            We need to check this
+                            <app-select
+                                    name="institution_id"
+                                    label="Instituição"
+                                    v-model="form.fields.institution_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.institutions"
+                            ></app-select>
+
+                            <app-select
+                                    name="role_id"
+                                    label="Funções"
+                                    v-model="form.fields.role_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.roles"
+                            ></app-select>
+
+                            <app-input
+                                    name="title"
+                                    label="Título"
+                                    v-model="form.fields.title"
+                                    :required="true"
+                                    :form="form"
+                            ></app-input>
+
+
                         </div>
                     </div>
+
+
+
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
                             <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
-                            <router-link to="/events" tag="button" class="btn btn-success">
+                            <router-link to="/" tag="button" class="btn btn-success">
                                 cancelar
                             </router-link>
                         </div>
@@ -31,15 +59,14 @@
 
 <script>
     import crud from './mixins/crud'
-    import people from './mixins/people'
-    import { mapState } from 'vuex'
+    import personInstitutions from './mixins/personInstitutions'
 
     const service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true }
 
     export default {
         props: ['mode'],
 
-        mixins: [crud, people],
+        mixins: [crud, personInstitutions],
 
         data() {
             return {
@@ -47,9 +74,11 @@
             }
         },
 
-        computed: {
-            ...mapState('people', ['selectedPerson', 'selectedPersonInstitution']),
-        }
+        methods:{
+            fillAdditionalFormFields() {
+                this.$store.commit('personInstitutions/mutateSetFormField', { field: 'person_id', value: this.personInstitutions.person.id })
+            },
+        },
     }
 </script>
 

@@ -14,7 +14,7 @@
             required="required"
             dusk="zipcode"
             v-mask='["##.###-###"]'
-        >
+    >
 
         <small class="text-danger" v-if="form.errors.has('zipcode')" >
             {{ form.errors.get('zipcode') }}

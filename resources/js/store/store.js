@@ -66,7 +66,6 @@ let store = new Vuex.Store({
         institutions,
         personInstitutions,
         contactTypes,
-        contacts,
     },
 })
 

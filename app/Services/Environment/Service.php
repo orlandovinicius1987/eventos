@@ -2,7 +2,10 @@
 
 namespace App\Services\Environment;
 
-use App\Data\Repositories\ContactTypes;
+use App\Data\Repositories\ContactTypes as ContactTypesRepository;
+use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
+use App\Data\Repositories\Institutions as InstitutionsRepository;
+use App\Data\Repositories\Roles as RolesRepository;
 use PragmaRX\Version\Package\Facade as Version;
 
 class Service
@@ -64,8 +67,6 @@ class Service
             'google_maps' => [
                 'api_key' => config('services.google_maps.api_key'),
             ],
-
-            'tables' => ['contact_types' => app(ContactTypes::class)->all()],
         ]);
     }
 }
