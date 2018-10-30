@@ -112,7 +112,7 @@ export default {
 
             const model = $this.mode === 'update'
                 ? _.find(this.rows, function(model) {
-                    return model.id == $this.$route.params.id
+                    return model.id === $this.$route.params.id
                 }) :  set_null($this.form.fields)
 
             $this.mutateFormData(model)

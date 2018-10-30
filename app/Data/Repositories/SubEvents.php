@@ -62,7 +62,7 @@ class SubEvents extends Repository
     {
         $this->createAddress(
             ($subEvent = parent::storeFromArray($array)),
-            $array
+            $array['address']
         );
 
         return $subEvent;
