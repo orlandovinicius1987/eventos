@@ -78,15 +78,14 @@
                                     <i class="fa fa-edit"></i>
                                 </router-link>
 
-                                <a
-                                    href="#"
+                                <button
                                     class="btn btn-success btn-sm mr-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
                                     title="Confirmar Sub-evento"
                                     :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-check"></i>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     </app-table>
