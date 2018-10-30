@@ -1898,7 +1898,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         mapUrl: {
             get: function get() {
-                return 'https://www.google.com/maps/@' + this.form.fields.address.latitude + ',' + this.form.fields.address.longitude + ',17z';
+                if (this.form.fields.address.latitude && this.form.fields.address.longitude) {
+                    return 'https://www.google.com/maps/@' + this.form.fields.address.latitude + ',' + this.form.fields.address.longitude + ',17z';
+                }
+
+                return 'Preencha a latitude e longitude, ou localize o endereço no mapa';
             }
         }
     },
@@ -2835,6 +2839,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -27033,7 +27043,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -102423,6 +102433,26 @@ var render = function() {
                             "td",
                             { staticClass: "align-middle text-right" },
                             [
+                              !subEvent.confirmed_at
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-success btn-sm mr-1 pull-right",
+                                      attrs: {
+                                        title: "Confirmar Sub-evento",
+                                        disabled: _vm.cannot("update")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.confirmSubEvent(subEvent)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
                               _c(
                                 "router-link",
                                 {
@@ -102440,24 +102470,6 @@ var render = function() {
                                   }
                                 },
                                 [_c("i", { staticClass: "fa fa-edit" })]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "btn btn-success btn-sm mr-1 pull-right",
-                                  attrs: {
-                                    title: "Confirmar Sub-evento",
-                                    disabled: _vm.cannot("update")
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.confirmSubEvent(subEvent)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-check" })]
                               )
                             ],
                             1
@@ -123859,7 +123871,6 @@ Vue.use(__WEBPACK_IMPORTED_MODULE_3_bootstrap_vue_es_components__["a" /* Button 
 /**
  * Vue Google Maps
  */
-
 
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__, {

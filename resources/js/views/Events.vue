@@ -64,21 +64,18 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
                             <td class="align-middle">{{ subEvent.id }}</td>
-                            <td class="align-middle">{{ subEvent.name }}</td>
-                            <td class="align-middle">{{ subEvent.date }}</td>
-                            <td class="align-middle">{{ subEvent.time }}</td>
-                            <td class="align-middle">{{ subEvent.confirmed_at }}</td>
-                            <td class="align-middle text-right">
-                                <router-link
-                                    :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
-                                    tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
-                                    :disabled="cannot('update')"
-                                >
-                                    <i class="fa fa-edit"></i>
-                                </router-link>
 
+                            <td class="align-middle">{{ subEvent.name }}</td>
+
+                            <td class="align-middle">{{ subEvent.date }}</td>
+
+                            <td class="align-middle">{{ subEvent.time }}</td>
+
+                            <td class="align-middle">{{ subEvent.confirmed_at }}</td>
+
+                            <td class="align-middle text-right">
                                 <button
+                                    v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm mr-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
                                     title="Confirmar Sub-evento"
@@ -86,6 +83,15 @@
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
+
+                                <router-link
+                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
                             </td>
                         </tr>
                     </app-table>

@@ -118,7 +118,6 @@ Vue.use(Button)
 /**
  * Vue Google Maps
  */
-
 import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
@@ -127,4 +126,3 @@ Vue.use(VueGoogleMaps, {
         libraries: 'places',
     },
 })
-

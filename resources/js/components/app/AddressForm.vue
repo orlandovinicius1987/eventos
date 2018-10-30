@@ -181,7 +181,11 @@ export default {
     computed: {
         mapUrl: {
             get() {
-                return 'https://www.google.com/maps/@'+ this.form.fields.address.latitude +','+ this.form.fields.address.longitude +',17z'
+                if (this.form.fields.address.latitude && this.form.fields.address.longitude) {
+                    return 'https://www.google.com/maps/@'+ this.form.fields.address.latitude +','+ this.form.fields.address.longitude +',17z'
+                }
+
+                return 'Preencha a latitude e longitude, ou localize o endereço no mapa'
             }
         }
     },
