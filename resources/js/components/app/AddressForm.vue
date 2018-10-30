@@ -174,9 +174,7 @@ export default {
         },
 
         getMarkerPosition() {
-            dd({position: {lat: this.getLatitude(),lng: this.getLongitude()}})
-            
-            return {position: {lat: this.getLatitude(),lng: this.getLongitude()}}
+            return {lat: Number(this.getLatitude()),lng: Number(this.getLongitude())}
         },
     },
 
