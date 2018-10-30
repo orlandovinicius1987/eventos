@@ -78,13 +78,13 @@
             }
         },
         methods:{
-            makeMask(id){
-                if(id == null){
-
+            makeMask(id) {
+                if(id == null) {
                     return ''
                 }
 
-                  const type = findById(this.environment.tables.contact_types,id)
+                const type = findById(this.environment.tables.contact_types,id)
+
                 switch (type.code) {
                     case 'mobile':
                         return '(##)#####-####'
@@ -94,7 +94,8 @@
                         return '(##)####-####'
                 }
             },
-            makeType(id){
+
+            makeType(id) {
                 if(id == null){
                     return ''
                 }
@@ -104,16 +105,18 @@
                     return 'email'
                 }
             },
-            isEmail(id){
+
+            isEmail(id) {
                 if(id == null){
                     return false;
                 }
                 const type = findById(this.environment.tables.contact_types,id);
                 return type.code == 'email'
             },
-            fillAdditionalFormFields(){
+
+            fillAdditionalFormFields() {
                 this.$store.commit('contacts/mutateSetFormField', { field: 'person_institution_id', value: this.contacts.personInstitution.id })
-            }
+            },
         },
 
     }
