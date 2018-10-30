@@ -1,6 +1,10 @@
 <template>
     <div>
-        <label for="zipcode" class="mb-0 mt-4">CEP</label>
+        <div class="mt-5 text-center">
+            <h2 class="mb-0">Endereço</h2>
+        </div>
+
+        <label for="zipcode" class="mb-0 mt-2">CEP</label>
 
         <input
             v-model="form.fields.address.zipcode"
