@@ -189,14 +189,5 @@ export default {
             }
         }
     },
-
-    mounted() {
-        // Vue.use(VueGoogleMaps, {
-        //     load: {
-        //         key: this.googleMaps.api_key,
-        //         libraries: 'places',
-        //     },
-        // })
-    },
 }
 </script>

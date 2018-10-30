@@ -1905,15 +1905,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return 'Preencha a latitude e longitude, ou localize o endereço no mapa';
             }
         }
-    },
-
-    mounted: function mounted() {
-        // Vue.use(VueGoogleMaps, {
-        //     load: {
-        //         key: this.googleMaps.api_key,
-        //         libraries: 'places',
-        //     },
-        // })
     }
 });
 
