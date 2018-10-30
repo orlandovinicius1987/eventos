@@ -117,16 +117,18 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                         function () {
                             Route::get(
                                 '/',
-                                'Addresses@allByPersonInstitution'
-                            )->name('addresses.all-by-person-institution');
+                                'PersonInstitutionsAddresses@all'
+                            )->name('person-institutions-addresses.store.all');
 
-                            Route::post('/', 'Addresses@store')->name(
-                                'addresses.store'
-                            );
+                            Route::post(
+                                '/',
+                                'PersonInstitutionsAddresses@store'
+                            )->name('person-institutions-addresses.store');
 
-                            Route::post('/{id}', 'Addresses@update')->name(
-                                'addresses.update'
-                            );
+                            Route::post(
+                                '/{id}',
+                                'PersonInstitutionsAddresses@update'
+                            )->name('person-institutions-addresses.update');
                         }
                     );
                 }
