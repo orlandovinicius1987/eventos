@@ -262,7 +262,6 @@ export default {
         doConfirmSubEvent(subEvent) {
             return this.$store.dispatch('subEvents/confirm', subEvent)
         },
-
     },
 
     computed: {
