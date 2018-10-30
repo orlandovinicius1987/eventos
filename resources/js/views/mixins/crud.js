@@ -102,6 +102,8 @@ export default {
                 $this.load().then(function() {
                     $this.fillFormWhenEditing()
                 })
+            } else {
+                $this.fillFormWhenEditing()
             }
         },
 
