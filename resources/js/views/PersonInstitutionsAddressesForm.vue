@@ -41,7 +41,7 @@
     import addresses from './mixins/addresses'
     import { mapState } from 'vuex'
 
-    const service = { name: 'addresses', uri: 'addresses', performLoad: false }
+    const service = { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', performLoad: false }
 
     export default {
         props: ['mode'],
@@ -56,7 +56,8 @@
 
         computed: {
             ...mapState('addresses', ['selectedEvent', 'selectedSubEvent']),
-        }
+        },
+
     }
 </script>
 

@@ -21,21 +21,6 @@ class Addresses extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $personInstitutionId
-     * @return mixed
-     */
-    public function allByPersonInstitution(
-        Request $request,
-        $personId,
-        $personInstitutionId
-    ) {
-        return app(AddressesRepository::class)->allByPersonInstitutionId(
-            $personInstitutionId
-        );
-    }
-
-    /**
      * Store
      *
      * @param AddressStore $request

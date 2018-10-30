@@ -5,23 +5,16 @@ namespace App\Data\Repositories;
 use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Models\SubEvent;
 use App\Data\Repositories\Addresses as AddressesRepository;
+use App\Data\Repositories\Traits\AddressesTraits;
 
 class SubEvents extends Repository
 {
+    use AddressesTraits;
+
     /**
      * @var string
      */
     protected $model = SubEventModel::class;
-
-    private function createAddress($subEvent, $array)
-    {
-        return app(AddressesRepository::class)->storeFromArray(
-            app(AddressesRepository::class)->fillAddressableFromModel(
-                $array,
-                $subEvent
-            )
-        );
-    }
 
     /**
      * @param $eventId
@@ -76,8 +69,8 @@ class SubEvents extends Repository
             $this->createAddress($subEvent, $attributes['address']);
         } else {
             app(AddressesRepository::class)->updateAddress(
-                $subEvent->address,
-                $attributes
+                $subEvent->address->id,
+                $attributes['address']
             );
         }
 

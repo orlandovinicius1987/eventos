@@ -2275,78 +2275,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/AddressesForm.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__ = __webpack_require__("./resources/js/views/mixins/addresses.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-var service = { name: 'addresses', uri: 'addresses', performLoad: false };
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['mode'],
-
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__["a" /* default */]],
-
-    data: function data() {
-        return {
-            service: service
-        };
-    },
-
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('addresses', ['selectedEvent', 'selectedSubEvent']))
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/Categories.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4061,6 +3989,79 @@ var service = { name: 'people', uri: 'people', performLoad: false };
 
 
     methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapActions"])(service.name, ['selectPerson']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__ = __webpack_require__("./resources/js/views/mixins/addresses.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+var service = { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', performLoad: false };
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['mode'],
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__["a" /* default */]],
+
+    data: function data() {
+        return {
+            service: service
+        };
+    },
+
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('addresses', ['selectedEvent', 'selectedSubEvent']))
+
 });
 
 /***/ }),
@@ -27176,21 +27177,6 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53f0967b\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/Categories.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27350,6 +27336,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n.vue-street-view-pano-container {\n  position: relative;\n}\n.vue-street-view-pano-container .vue-street-view-pano {\n  left: 0; right: 0; top: 0; bottom: 0;\n  position: absolute;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103980,98 +103981,6 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4e2865f7\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/AddressesForm.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("div", { staticClass: "row justify-content-center" }, [
-      _c("div", { staticClass: "col-8" }, [
-        _c("form", [
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-12 mb-3" },
-              [
-                _c("app-address-form", {
-                  attrs: {
-                    address: _vm.addresses.form.fields,
-                    form: _vm.addresses.form,
-                    "google-maps": _vm.environment.google_maps
-                  }
-                })
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "row" }, [
-            _c(
-              "div",
-              { staticClass: "col-12 text-right mb-3" },
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "btn btn-outline-secondary",
-                    attrs: { type: "submit" },
-                    on: {
-                      click: function($event) {
-                        $event.preventDefault()
-                        _vm.saveModel()
-                      }
-                    }
-                  },
-                  [_vm._v("gravar")]
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "btn btn-success",
-                    attrs: { to: "/addresses", tag: "button" }
-                  },
-                  [
-                    _vm._v(
-                      "\n                            cancelar\n                        "
-                    )
-                  ]
-                )
-              ],
-              1
-            )
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Novo Endereço")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4e2865f7", module.exports)
-  }
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4fce688a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/Panel.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -104615,7 +104524,7 @@ var render = function() {
                 _c("app-address-form", {
                   attrs: {
                     form: _vm.subEvents.form,
-                    address: _vm.subEvents.form.fields,
+                    address: _vm.subEvents.form.fields.address,
                     "google-maps": _vm.environment.google_maps
                   }
                 })
@@ -105879,6 +105788,98 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-ed35740a", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ff1a2432\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("form", [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-address-form", {
+                  attrs: {
+                    address: _vm.addresses.form.fields,
+                    form: _vm.addresses.form,
+                    "google-maps": _vm.environment.google_maps
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 text-right mb-3" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.saveModel()
+                      }
+                    }
+                  },
+                  [_vm._v("gravar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: "/addresses", tag: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            cancelar\n                        "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h2", [_vm._v("Novo Endereço")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ff1a2432", module.exports)
   }
 }
 
@@ -108954,33 +108955,6 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("32417074", content, false, {});
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddressesForm.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddressesForm.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-53f0967b\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/Categories.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -109268,6 +109242,33 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./streetViewPanorama.vue", function() {
      var newContent = require("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./streetViewPanorama.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3c43a46c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PersonInstitutionsAddressesForm.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PersonInstitutionsAddressesForm.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -124815,22 +124816,22 @@ __webpack_require__("./resources/js/pages/app.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm__ = __webpack_require__("./resources/js/views/AddressesForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_AddressesForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Dashboard__ = __webpack_require__("./resources/js/views/Dashboard.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_Dashboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm__ = __webpack_require__("./resources/js/views/PeopleForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_PeopleForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_People__ = __webpack_require__("./resources/js/views/People.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_People___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_People__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Events__ = __webpack_require__("./resources/js/views/Events.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_Events__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_Categories__ = __webpack_require__("./resources/js/views/Categories.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_Categories___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_Categories__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm__ = __webpack_require__("./resources/js/views/CategoriesForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm__ = __webpack_require__("./resources/js/views/PersonInstitutionsForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Dashboard__ = __webpack_require__("./resources/js/views/Dashboard.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_Dashboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm__ = __webpack_require__("./resources/js/views/PeopleForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_PeopleForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_People__ = __webpack_require__("./resources/js/views/People.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_People___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_People__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_Events__ = __webpack_require__("./resources/js/views/Events.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_Events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_Events__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Categories__ = __webpack_require__("./resources/js/views/Categories.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Categories___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_Categories__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_CategoriesForm__ = __webpack_require__("./resources/js/views/CategoriesForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_CategoriesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__views_CategoriesForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_PersonInstitutionsForm__ = __webpack_require__("./resources/js/views/PersonInstitutionsForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_PersonInstitutionsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__views_PersonInstitutionsForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsAddressesForm__ = __webpack_require__("./resources/js/views/PersonInstitutionsAddressesForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsAddressesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsAddressesForm__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_Roles__ = __webpack_require__("./resources/js/views/Roles.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_Roles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__views_Roles__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_RolesForm__ = __webpack_require__("./resources/js/views/RolesForm.vue");
@@ -124885,10 +124886,10 @@ var routes = [{
     redirect: 'dashboard'
 }, {
     path: '/dashboard',
-    component: __WEBPACK_IMPORTED_MODULE_3__views_Dashboard___default.a
+    component: __WEBPACK_IMPORTED_MODULE_2__views_Dashboard___default.a
 }, {
     path: '/events',
-    component: __WEBPACK_IMPORTED_MODULE_6__views_Events___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_5__views_Events___default.a,
     children: []
 }, {
     path: '/events/:eventId/sub-events/create',
@@ -124912,22 +124913,22 @@ var routes = [{
     props: { mode: 'create' }
 }, {
     path: '/people',
-    component: __WEBPACK_IMPORTED_MODULE_5__views_People___default.a
+    component: __WEBPACK_IMPORTED_MODULE_4__views_People___default.a
 }, {
     path: '/people/create',
-    component: __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/people/:personId/person-institutions/create',
-    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_8__views_PersonInstitutionsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/update',
-    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_8__views_PersonInstitutionsForm___default.a,
     props: { mode: 'update' }
 },
 // {
@@ -124942,11 +124943,11 @@ var routes = [{
 // },
 {
     path: '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
-    component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsAddressesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsAddressesForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/roles',
@@ -124964,14 +124965,14 @@ var routes = [{
     component: __WEBPACK_IMPORTED_MODULE_20__views_Import___default.a
 }, {
     path: '/categories',
-    component: __WEBPACK_IMPORTED_MODULE_7__views_Categories___default.a
+    component: __WEBPACK_IMPORTED_MODULE_6__views_Categories___default.a
 }, {
     path: '/categories/create',
-    component: __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_7__views_CategoriesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/categories/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_7__views_CategoriesForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/institutions',
@@ -126516,58 +126517,6 @@ window.findById = function (data, id) {
 
 /***/ }),
 
-/***/ "./resources/js/views/AddressesForm.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue")
-}
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/AddressesForm.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4e2865f7\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/AddressesForm.vue")
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/views/AddressesForm.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4e2865f7", Component.options)
-  } else {
-    hotAPI.reload("data-v-4e2865f7", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
 /***/ "./resources/js/views/Categories.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -127296,6 +127245,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ff1a2432\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/views/PersonInstitutionsAddressesForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ff1a2432", Component.options)
+  } else {
+    hotAPI.reload("data-v-ff1a2432", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/js/views/PersonInstitutionsForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -127519,6 +127520,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         addresses: function addresses(state) {
             return state.addresses;
+        },
+
+        personInstitutions: function personInstitutions(state) {
+            return state.personInstitutions;
         }
     }))
 });
