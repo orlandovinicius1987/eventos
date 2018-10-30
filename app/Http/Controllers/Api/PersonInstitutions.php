@@ -50,8 +50,11 @@ class PersonInstitutions extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(PersonInstitutionUpdateRequest $request, $id)
-    {
+    public function update(
+        PersonInstitutionUpdateRequest $request,
+        $personId,
+        $id
+    ) {
         return app(PersonInstitutionsRepository::class)->update(
             $id,
             $request->all()
