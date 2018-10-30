@@ -108,8 +108,11 @@
                                 </app-table>
                             </app-table-panel>
 
-
-                            <app-address-form :form="subEvents.form"></app-address-form>
+                            <app-address-form
+                                :form="subEvents.form"
+                                :google-maps="environment.google_maps"
+                            >
+                            </app-address-form>
                         </div>
                     </div>
 
@@ -133,6 +136,7 @@
     import subEvents from './mixins/sub-events'
     import permissions from './mixins/permissions'
     import { mapState } from 'vuex'
+    import * as VueGoogleMaps from 'vue2-google-maps'
 
     const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false }
 
@@ -158,12 +162,16 @@
                 context.commit('mutateSetFormField', { field: 'state', value: address.state })
                 context.commit('mutateSetFormField', { field: 'latitude', value: address.latitude })
                 context.commit('mutateSetFormField', { field: 'longitude', value: address.longitude })
-            }
+            },
         },
 
         computed: {
             ...mapState('subEvents', ['selectedEvent', 'selectedSubEvent']),
         },
+
+        mounted() {
+            
+        }
     }
 </script>
 

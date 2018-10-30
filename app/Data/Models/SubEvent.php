@@ -18,11 +18,11 @@ class SubEvent extends Base
         'event_id',
     ];
 
-    protected $with = ['event'];
+    protected $with = ['event', 'address'];
 
     public function address()
     {
-        return $this->morphTo(Address::class, 'addressable');
+        return $this->morphOne(Address::class, 'addressable');
     }
 
     public function event()
