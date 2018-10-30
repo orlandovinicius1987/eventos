@@ -2122,6 +2122,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['pagination', 'columns', 'rows'],
@@ -105231,14 +105232,16 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("app-pagination", {
-            attrs: { pagination: _vm.pagination },
-            on: {
-              "goto-page": function($event) {
-                _vm.$emit("goto-page", $event)
-              }
-            }
-          })
+          _vm.pagination
+            ? _c("app-pagination", {
+                attrs: { pagination: _vm.pagination },
+                on: {
+                  "goto-page": function($event) {
+                    _vm.$emit("goto-page", $event)
+                  }
+                }
+              })
+            : _vm._e()
         ],
         1
       )
