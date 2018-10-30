@@ -91,12 +91,14 @@ export default {
         },
 
         boot() {
-            dd('boot')
             const $this = this
 
             $this.mutateSetService(this.service)
 
-            if (!$this.service.hasOwnProperty('performLoad') || $this.service.performLoad) {
+            if (
+                !$this.service.hasOwnProperty('performLoad') ||
+                $this.service.performLoad
+            ) {
                 $this.load().then(function() {
                     $this.fillFormWhenEditing()
                 })
@@ -121,9 +123,7 @@ export default {
             $this.fillAdditionalFormFields()
         },
 
-        fillAdditionalFormFields(){
-
-        },
+        fillAdditionalFormFields() {},
 
         back() {
             this.$router.back()
@@ -193,7 +193,6 @@ export default {
     },
 
     mounted() {
-        dd('mounted')
         this.boot()
     },
 }

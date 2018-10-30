@@ -5,27 +5,27 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
+const __emptyModel = {
+    id: null,
+    addressable_id: null,
+    addressable_type: null,
+    zipcode: null,
+    street: null,
+    number: null,
+    complement: null,
+    neighbourhood: null,
+    city: null,
+    state: null,
+    latitude: null,
+    longitude: null,
+}
 
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
     service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
-    // service: { name: 'addresses', uri: 'addresses', isForm: true },
 
-    form: new Form({
-        addressable_id: null,
-        addressable_type: null,
-        zipcode: null,
-        street: null,
-        number: null,
-        complement: null,
-        neighbourhood: null,
-        city: null,
-        state: null,
-        latitude: null,
-        longitude: null,
-    }),
+    form: new Form(__emptyModel),
 })
 
 const actions = merge_objects(actionsMixin, {

@@ -1,6 +1,10 @@
 <template>
     <div>
-        <label for="zipcode" class="mb-0 mt-4">CEP</label>
+        <div class="mt-5 text-center">
+            <h2 class="mb-0">Endereço</h2>
+        </div>
+
+        <label for="zipcode" class="mb-0 mt-2">CEP</label>
 
         <input
             v-model="form.fields.address.zipcode"
@@ -80,7 +84,17 @@
             :form="form"
         ></app-input>
 
+
         <div class="mt-4">
+            <app-input
+                name="url"
+                label="URL do mapa"
+                v-model="mapUrl"
+                :required="true"
+                :form="form"
+                readonly="true"
+            ></app-input>
+
             <GmapMap
                 ref="map"
                 :center="{ lat: getLatitude(), lng: getLongitude() }"
@@ -89,14 +103,12 @@
                 style="width: 100%; height: 300px"
                 @center_changed="makeUrl($event)"
             >
-                <!--<GmapMarker-->
-                    <!--:key="index"-->
-                    <!--v-for="(m, index) in markers"-->
-                    <!--:position="m.position"-->
-                    <!--:clickable="true"-->
-                    <!--:draggable="true"-->
-                    <!--@click="center=m.position"-->
-                <!--/>-->
+                <GmapMarker
+                    key="1"
+                    :position="getMarkerPosition()"
+                    :clickable="true"
+                    :draggable="true"
+                />
             </GmapMap>
         </div>
     </div>
@@ -140,15 +152,15 @@ export default {
         },
 
         getLatitude() {
-            this.latitude = this.latitude ? this.latitude : (this.form.fields.address.latitude ? parseFloat(this.form.fields.address.latitude) : -22.9036935)
+            this.latitude = this.latitude ? this.latitude : (this.form.fields.address.latitude ? this.form.fields.address.latitude : -22.90337724433402)
 
-            return this.latitude
+            return parseFloat(this.latitude)
         },
 
         getLongitude() {
-            this.longitude = this.longitude ? this.longitude : (this.form.fields.address.longitude ? parseFloat(this.form.fields.address.longitude) : -43.1757775)
+            this.longitude = this.longitude ? this.longitude : (this.form.fields.address.longitude ? this.form.fields.address.longitude : -43.17343861373911)
 
-            return this.longitude
+            return parseFloat(this.longitude)
         },
 
         getZoom() {
@@ -159,6 +171,20 @@ export default {
             this.form.fields.address.latitude = event.lat()
 
             this.form.fields.address.longitude = event.lng()
+        },
+
+        getMarkerPosition() {
+            dd({position: {lat: this.getLatitude(),lng: this.getLongitude()}})
+            
+            return {position: {lat: this.getLatitude(),lng: this.getLongitude()}}
+        },
+    },
+
+    computed: {
+        mapUrl: {
+            get() {
+                return 'https://www.google.com/maps/@'+ this.form.fields.address.latitude +','+ this.form.fields.address.longitude +',17z'
+            }
         }
     },
 

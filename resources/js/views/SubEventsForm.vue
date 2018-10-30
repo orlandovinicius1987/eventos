@@ -162,12 +162,16 @@
                 context.commit('mutateSetFormField', { field: 'state', value: address.state })
                 context.commit('mutateSetFormField', { field: 'latitude', value: address.latitude })
                 context.commit('mutateSetFormField', { field: 'longitude', value: address.longitude })
-            }
+            },
         },
 
         computed: {
             ...mapState('subEvents', ['selectedEvent', 'selectedSubEvent']),
         },
+
+        mounted() {
+            
+        }
     }
 </script>
 

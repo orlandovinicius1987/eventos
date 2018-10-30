@@ -23,7 +23,7 @@ const state = merge_objects(statesMixin.common, {
 const actions = merge_objects(actionsMixin, {
     setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload)
-        dd('person_institution_id: ',payload.id);
+
         context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id })
 
         context.commit('mutateSetSelected', __emptyModel)
