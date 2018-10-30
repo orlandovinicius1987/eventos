@@ -164,10 +164,10 @@
                 context.commit('mutateSetFormField', { field: 'latitude', value: address.latitude })
                 context.commit('mutateSetFormField', { field: 'longitude', value: address.longitude })
             },
-        },
 
-        computed: {
-            ...mapState('subEvents', ['selectedEvent', 'selectedSubEvent']),
+            fillAdditionalFormFields() {
+                this.$store.commit('subEvents/mutateSetFormField', { field: 'event_id', value: this.events.selected.id })
+            },
         },
 
         mounted() {

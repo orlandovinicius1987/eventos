@@ -33,6 +33,16 @@ abstract class Repository
         return $model;
     }
 
+    protected function allElements($queryFilter)
+    {
+        $array = $queryFilter->toArray();
+
+        $array['pagination']['per_page'] = $this->count();
+        $array['pagination']['current_page'] = 1;
+
+        return coollect($array);
+    }
+
     protected function applyFilter($query)
     {
         $queryFilter = $this->getQueryFilter();
@@ -40,6 +50,14 @@ abstract class Repository
         $this->filterText($queryFilter, $query);
 
         $this->order($query);
+
+        if (
+            isset($queryFilter->toArray()['pagination']['current_page']) &&
+            $queryFilter->toArray()['pagination']['current_page'] == 0
+        ) {
+            info($queryFilter->pagination->currentPage);
+            $queryFilter = $this->allElements($queryFilter);
+        }
 
         return $this->makePaginationResult(
             $query->paginate(

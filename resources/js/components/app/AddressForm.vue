@@ -14,7 +14,7 @@
             required="required"
             dusk="zipcode"
             v-mask='["##.###-###"]'
-        >
+    >
 
         <small class="text-danger" v-if="form.errors.has('zipcode')" >
             {{ form.errors.get('zipcode') }}
@@ -188,15 +188,6 @@ export default {
                 return 'Preencha a latitude e longitude, ou localize o endereço no mapa'
             }
         }
-    },
-
-    mounted() {
-        // Vue.use(VueGoogleMaps, {
-        //     load: {
-        //         key: this.googleMaps.api_key,
-        //         libraries: 'places',
-        //     },
-        // })
     },
 }
 </script>
