@@ -56,7 +56,7 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora','']"
+                        :columns="['#','Nome','Data','Hora','Confirmado em','']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -67,6 +67,7 @@
                             <td class="align-middle">{{ subEvent.name }}</td>
                             <td class="align-middle">{{ subEvent.date }}</td>
                             <td class="align-middle">{{ subEvent.time }}</td>
+                            <td class="align-middle">{{ subEvent.confirmed_at }}</td>
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
@@ -76,6 +77,16 @@
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
+
+                                <a
+                                    href="#"
+                                    class="btn btn-success btn-sm mr-1 pull-right"
+                                    @click="confirmSubEvent(subEvent)"
+                                    title="Confirmar Sub-evento"
+                                    :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </a>
                             </td>
                         </tr>
                     </app-table>
@@ -232,6 +243,25 @@ export default {
         unInvite(invitation) {
             return this.$store.dispatch('invitations/unInvite', invitation)
         },
+
+        confirmSubEvent(subEvent) {
+            const $this = this
+
+            confirm(
+                'Deseja realmente confirmar ' +
+                subEvent.name +
+                '?',
+                this,
+            ).then(function(value) {
+                if (value) {
+                    $this.doConfirmSubEvent(subEvent)
+                }
+            })
+        },
+
+        doConfirmSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/confirm', subEvent)
+        },
     },
 
     computed: {
@@ -313,10 +343,6 @@ export default {
 
         this.$store.dispatch('invitations/load')
     },
-
-    created() {
-        console.log(this.$router.options.routes);
-    }
 }
 </script>
 

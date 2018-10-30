@@ -116,7 +116,11 @@ window.clone = object => {
 
 window.set_object_values = (obj, val) => {
     Object.keys(obj).forEach(function(k) {
-        obj[k] = val
+        if (obj[k] !== null && typeof obj[k] === 'object') {
+            set_object_values(obj[k], val)
+        } else {
+            obj[k] = val
+        }
     })
 }
 
@@ -175,4 +179,8 @@ window.makeUpdateUrl = (context) => {
         : null
 }
 
-
+window.findById = (data,id) => {
+    return _.find(data.rows, (item) => {
+        return item.id == id
+    })
+}

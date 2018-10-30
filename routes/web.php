@@ -35,6 +35,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'sub-events.update'
                 );
 
+                Route::post('/{id}/confirm', 'SubEvents@confirm')->name(
+                    'sub-events.confirm'
+                );
+
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
                     function () {
@@ -174,6 +178,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'ContactTypes@update')->name(
                 'contactTypes.update'
             );
+
+            Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
+        });
+
+        Route::group(['prefix' => '/contacts'], function () {
+            Route::get('/', 'Contacts@all')->name('contacts.all');
+
+            Route::post('/{id}', 'Contacts@update')->name('contacts.update');
 
             Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
         });

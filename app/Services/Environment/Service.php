@@ -2,6 +2,7 @@
 
 namespace App\Services\Environment;
 
+use App\Data\Repositories\ContactTypes;
 use PragmaRX\Version\Package\Facade as Version;
 
 class Service
@@ -33,12 +34,12 @@ class Service
 
             'token' => csrf_token(),
 
-            'captchaEnabled' =>
+            'captcha_enabled' =>
                 app()->environment() == 'local' && env('DISABLE_CAPTCHA')
                     ? false
                     : true,
 
-            'captchaSiteKey' => config('services.recaptcha.siteKey'),
+            'captcha_siteKey' => config('services.recaptcha.siteKey'),
 
             'debug' => config('app.debug'),
 
@@ -59,6 +60,12 @@ class Service
             'old' => coollect(old())
                 ->except('password', 'password_confirmation')
                 ->toArray(),
+
+            'google_maps' => [
+                'api_key' => config('services.google_maps.api_key'),
+            ],
+
+            'tables' => ['contact_types' => app(ContactTypes::class)->all()],
         ]);
     }
 }

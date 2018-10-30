@@ -95,7 +95,10 @@ export default {
 
             $this.mutateSetService(this.service)
 
-            if (!$this.service.hasOwnProperty('performLoad') || $this.service.performLoad) {
+            if (
+                !$this.service.hasOwnProperty('performLoad') ||
+                $this.service.performLoad
+            ) {
                 $this.load().then(function() {
                     $this.fillFormWhenEditing()
                 })
@@ -116,7 +119,11 @@ export default {
             if ($this.mode === 'create') {
                 $this.mutateFormData(set_null($this.form.fields))
             }
+
+            $this.fillAdditionalFormFields()
         },
+
+        fillAdditionalFormFields() {},
 
         back() {
             this.$router.back()

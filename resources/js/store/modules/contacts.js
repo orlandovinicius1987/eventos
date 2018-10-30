@@ -16,6 +16,7 @@ const state = merge_objects(statesMixin.common, {
         contact_type_id: null,
         contact: null,
         person_institution_id: null,
+        abc : 123,
     }),
 })
 
