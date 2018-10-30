@@ -316,27 +316,3 @@ abstract class Repository
         return $this->model::count();
     }
 }
-
-// select count(*)
-//     as aggregate
-//     from "person_institutions"
-//     inner join "person_institutions" on "person_institutions" . "id" = "invitations" . "person_institution_id"
-//     inner join "institutions" on "person_institutions" . "institution_id" = "institutions" . "id"
-//     inner join "people" on "person_institutions" . "person_id" = "people" . "id"
-//     inner join "roles" on "person_institutions" . "role_id" = "roles" . "id"
-//     where id not in(select person_institution_id from invitations where sub_event_id = 1)
-//     and ("institutions" . "name"::text ilike % ferreira %
-//     or "people" . "name"::text ilike % ferreira %
-//     or "roles" . "name"::text ilike % ferreira %))
-
-//     select
-//     count (*) as aggregate
-//     from
-//     "person_institutions"
-//     where
-//     id not in (select
-//     person_institution_id
-//     from
-//     invitations
-//     where
-//     sub_event_id = 1)
