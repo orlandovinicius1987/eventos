@@ -11,6 +11,7 @@ class SubEvent extends Base
         'name',
         'date',
         'time',
+        'place',
         'invitation_text',
         'confirmation_text',
         'credential_send_text',

@@ -14,8 +14,10 @@
                             </div>
                             <div class="card-body">
                                 <h1 class="card-title pricing-card-title">{{ item.count }}</small></h1>
-                                
-                                <button type="button" class="btn btn-sm btn-block btn-primary">ver</button>
+
+                                <router-link :to="item.route" tag="button" class="btn btn-sm btn-block btn-primary">
+                                    ver
+                                </router-link>
                             </div>
                         </div>
                     </div>
