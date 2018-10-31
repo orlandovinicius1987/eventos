@@ -10,7 +10,12 @@ const __emptyModel = { id: null }
 const state = merge_objects(statesMixin.common, {
     subEvent: { id: null },
 
-    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations', performLoad: false },
+    service: {
+        name: 'invitations',
+        uri:
+            'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations',
+        performLoad: false,
+    },
 
     form: new Form({
         name: null,
@@ -46,10 +51,12 @@ const actions = merge_objects(actionsMixin, {
     },
 
     unInvite(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(function() {
-            context.dispatch('load', payload)
-        })
-    }
+        post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(
+            function() {
+                context.dispatch('load', payload)
+            },
+        )
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {

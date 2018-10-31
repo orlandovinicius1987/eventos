@@ -20,7 +20,9 @@ class Form {
     populateData(data) {
         this.fields = data
 
-        this.original = Object.assign({}, this.fields)
+        this.original = clone(this.fields)
+
+        this.empty = clone(this.fields)
     }
 
     /**

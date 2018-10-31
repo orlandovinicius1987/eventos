@@ -20,7 +20,9 @@ let actions = merge_objects(
         selectPerson(context, payload) {
             context.dispatch('people/select', payload, { root: true })
 
-            context.dispatch('personInstitutions/setPerson', payload, { root: true })
+            context.dispatch('personInstitutions/setPerson', payload, {
+                root: true,
+            })
         },
 
         selectContact(context, payload) {
@@ -32,10 +34,16 @@ let actions = merge_objects(
         },
 
         selectPersonInstitution(context, payload) {
-            context.dispatch('personInstitutions/select', payload, { root: true })
+            context.dispatch('personInstitutions/select', payload, {
+                root: true,
+            })
 
-            context.dispatch('contacts/setPersonInstitution', payload, { root: true })
-            context.dispatch('addresses/setPersonInstitution', payload, { root: true })
+            context.dispatch('contacts/setPersonInstitution', payload, {
+                root: true,
+            })
+            context.dispatch('addresses/setPersonInstitution', payload, {
+                root: true,
+            })
         },
 
         selectContacts(context, payload) {

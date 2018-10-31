@@ -66,6 +66,11 @@ class Service
 
             'google_maps' => [
                 'api_key' => config('services.google_maps.api_key'),
+
+                'geolocation' => [
+                    'latitude' => -22.90337724433402,
+                    'longitude' => -43.17343861373911,
+                ],
             ],
         ]);
     }

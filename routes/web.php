@@ -106,9 +106,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                                 'contacts.store'
                             );
 
-                            Route::post('/{id}', 'Contacts@update')->name(
-                                'contacts.update'
-                            );
+                            Route::post(
+                                '/{id}',
+                                'Contacts@updateForPersonInstitution'
+                            )->name('contacts.update');
                         }
                     );
 

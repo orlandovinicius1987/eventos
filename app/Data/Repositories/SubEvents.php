@@ -69,7 +69,7 @@ class SubEvents extends Repository
             $this->createAddress($subEvent, $attributes['address']);
         } else {
             app(AddressesRepository::class)->updateAddress(
-                $subEvent->address->id,
+                $subEvent->address,
                 $attributes['address']
             );
         }
