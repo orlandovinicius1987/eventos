@@ -103538,7 +103538,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "label",
-                  { staticClass: "mb-0 mt-2", attrs: { for: "birthdate" } },
+                  { staticClass: "mb-0 mt-4", attrs: { for: "birthdate" } },
                   [_vm._v("Data de Nascimento")]
                 ),
                 _vm._v(" "),
@@ -126188,8 +126188,7 @@ var __emptyAddress = {
     city: null,
     state: null,
     latitude: null,
-    longitude: null,
-    nofield: 1111
+    longitude: null
 };
 
 var __emptyModel = {
@@ -127739,17 +127738,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         fillFormWhenEditing: function fillFormWhenEditing() {
             var $this = this;
 
-            if ($this.mode === 'update') {
-                var model = _.find(this.rows, function (model) {
-                    return model.id == $this.$route.params.id;
-                });
+            var model = $this.mode === 'update' ? _.find(this.rows, function (model) {
+                return model.id === $this.$route.params.id;
+            }) : set_null($this.form.fields);
 
-                $this.mutateFormData(model);
-            }
+            $this.mutateFormData(model);
 
-            if ($this.mode === 'create') {
-                $this.mutateFormData(set_null($this.form.fields));
-            }
+            $this.mutateSetErrors({});
 
             $this.fillAdditionalFormFields();
         },

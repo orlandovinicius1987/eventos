@@ -15,7 +15,6 @@ const __emptyAddress = {
     state: null,
     latitude: null,
     longitude: null,
-    nofield: 1111,
 }
 
 const __emptyModel = {

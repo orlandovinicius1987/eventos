@@ -33,7 +33,7 @@
                                 :form="form"
                             ></app-input>
 
-                            <label for="birthdate" class="mb-0 mt-2">Data de Nascimento</label>
+                            <label for="birthdate" class="mb-0 mt-4">Data de Nascimento</label>
 
                             <input
                                 v-model="form.fields.birthdate"
