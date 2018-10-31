@@ -26,6 +26,8 @@ class CreateTablePeople extends Migration
 
             $table->integer('party_id')->nullable();
 
+            $table->date('birthdate')->nullable();
+
             $table->timestamps();
         });
     }
