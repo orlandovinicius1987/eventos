@@ -25,12 +25,14 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(category, selected)}"
                         >
                             <td class="align-middle">{{ category.id }}</td>
+
                             <td class="align-middle">{{ category.name }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                     :to="'/categories/'+category.id+'/update'"
                                     tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
                                 >
                                     <i class="fa fa-edit"></i>

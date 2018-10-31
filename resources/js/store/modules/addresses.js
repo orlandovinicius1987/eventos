@@ -16,14 +16,19 @@ const __emptyModel = {
     neighbourhood: null,
     city: null,
     state: null,
-    latitude: null,
-    longitude: null,
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude,
 }
 
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
-    service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+    service: {
+        name: 'addresses',
+        uri:
+            'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses',
+        isForm: true,
+    },
 
     form: new Form(__emptyModel),
 })
@@ -32,9 +37,15 @@ const actions = merge_objects(actionsMixin, {
     setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload)
 
-        context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id })
+        context.commit('mutateSetFormField', {
+            field: 'addressable_id',
+            value: payload.id,
+        })
 
-        context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model })
+        context.commit('mutateSetFormField', {
+            field: 'addressable_type',
+            value: payload.model,
+        })
 
         context.commit('mutateSetSelected', __emptyModel)
 

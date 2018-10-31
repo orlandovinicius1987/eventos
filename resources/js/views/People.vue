@@ -26,14 +26,18 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selected)}"
                         >
                             <td class="align-middle">{{ person.id }}</td>
+
                             <td class="align-middle">{{ person.title }}</td>
+
                             <td class="align-middle">{{ person.name }}</td>
+
                             <td class="align-middle">{{ person.nickname }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                         :to="'/people/'+person.id+'/update'"
                                         tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -64,14 +68,18 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(personInstitution, personInstitutions.selected)}"
                         >
                             <td>{{ personInstitution.id }}</td>
+
                             <td>{{ personInstitution.title }}</td>
+
                             <td>{{ personInstitution.institution.name }}</td>
+
                             <td>{{ personInstitution.role.name }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                     :to="'people/'+personInstitutions.person.id+'/person-institutions/'+personInstitution.id+'/update'"
                                     tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     >
                                     <i class="fa fa-edit"></i>
@@ -143,17 +151,20 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contact,contacts.selected)}"
                         >
                             <td>{{ contact.id }}</td>
+
                             <td>{{ contact.contact_type.name }}</td>
+
                             <td>{{ contact.contact }}</td>
-                            <td>
-                            <router-link
-                            :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'/contacts/'+contact.id+'/update'"
-                            tag="div"
-                            class="btn btn-danger btn-sm mr-1 pull-right"
-                            :disabled="cannot('update')"
-                            >
-                            <i class="fa fa-edit"></i>
-                            </router-link>
+
+                            <td class="align-middle text-right">
+                                <router-link
+                                    :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'/contacts/'+contact.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
                             </td>
                         </tr>
                     </app-table>
@@ -182,18 +193,26 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address,addresses.selected)}"
                         >
                             <td>{{ address.id }}</td>
+
                             <td>{{ address.street }}</td>
+
                             <td>{{ address.number }}</td>
+
                             <td>{{ address.complement }}</td>
+
                             <td>{{ address.neighbourhood }}</td>
+
                             <td>{{ address.zipcode }}</td>
+
                             <td>{{ address.city }}</td>
+
                             <td>{{ address.state }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                         :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/'+address.id+'/update'"
                                         tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -233,7 +252,7 @@
                             <!--<router-link-->
                             <!--:to="'people/'+contacts.event.id+'/person-institutions/'+contact.id+'/update'"-->
                             <!--tag="div"-->
-                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                            <!--class="btn btn-danger btn-sm ml-1 pull-right"-->
                             <!--:disabled="cannot('update')"-->
                             <!--&gt;-->
                             <!--<i class="fa fa-edit"></i>-->

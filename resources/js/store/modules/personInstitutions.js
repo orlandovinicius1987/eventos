@@ -10,13 +10,17 @@ const __emptyModel = { id: null }
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
-    service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
+    service: {
+        name: 'personInstitutions',
+        uri: 'people/{people.selected.id}/person-institutions',
+        isForm: true,
+    },
 
     form: new Form({
         person_id: null,
         role_id: null,
         institution_id: null,
-        title: null
+        title: null,
     }),
 })
 
@@ -24,7 +28,10 @@ const actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
         context.commit('mutateSetPerson', payload)
 
-        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
+        context.commit('mutateSetFormField', {
+            field: 'person_id',
+            value: payload.id,
+        })
 
         context.commit('mutateSetSelected', __emptyModel)
 

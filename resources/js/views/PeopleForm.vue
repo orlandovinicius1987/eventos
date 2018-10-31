@@ -33,17 +33,13 @@
                                 :form="form"
                             ></app-input>
 
-                            <label for="birthdate" class="mb-0 mt-4">Data de Nascimento</label>
-
-                            <input
+                            <app-input
+                                name="birthdate"
+                                label="Data de nascimento"
                                 v-model="form.fields.birthdate"
-                                class="form-control"
-                                id="birthdate"
-                                required="required"
-                                dusk="birthdate"
-                                v-mask='["##/##/####"]'
-                            >
-
+                                type="date"
+                                :form="form"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -82,7 +78,7 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectPerson']),
-    }
+    },
 }
 </script>
 

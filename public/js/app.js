@@ -1719,8 +1719,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__ = __webpack_require__("./node_modules/vue2-google-maps/dist/main.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue2_google_maps__);
 //
 //
 //
@@ -1837,16 +1835,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['address', 'form', 'googleMaps'],
 
     data: function data() {
         return {
-            latitude: null,
-            longitude: null
+            latitude: laravel.google_maps.geolocation.latitude,
+            longitude: laravel.google_maps.geolocation.longitude
         };
     },
 
@@ -1865,7 +1861,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                         $this.address.neighbourhood = response.data.addresses[0].neighborhood;
                         $this.address.city = response.data.addresses[0].city;
                         $this.address.state = response.data.addresses[0].state_id;
-                        document.getElementById("number").focus();
+                        document.getElementById('number').focus();
                     }
                 }).catch(function (error) {
                     console.log(error);
@@ -1873,12 +1869,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, 500);
         },
         getLatitude: function getLatitude() {
-            this.latitude = this.latitude ? this.latitude : this.address.latitude ? this.address.latitude : -22.90337724433402;
+            this.latitude = this.latitude ? this.latitude : this.address.latitude ? this.address.latitude : laravel.google_maps.geolocation.latitude;
 
             return parseFloat(this.latitude);
         },
         getLongitude: function getLongitude() {
-            this.longitude = this.longitude ? this.longitude : this.address.longitude ? this.address.longitude : -43.17343861373911;
+            this.longitude = this.longitude ? this.longitude : this.address.longitude ? this.address.longitude : laravel.google_maps.geolocation.longitude;
 
             return parseFloat(this.longitude);
         },
@@ -1891,7 +1887,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.address.longitude = event.lng();
         },
         getMarkerPosition: function getMarkerPosition() {
-            return { lat: Number(this.getLatitude()), lng: Number(this.getLongitude()) };
+            return {
+                lat: Number(this.getLatitude()),
+                lng: Number(this.getLongitude())
+            };
         }
     },
 
@@ -2329,6 +2328,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -2419,6 +2420,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_contact_types__ = __webpack_require__("./resources/js/views/mixins/contact-types.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+//
+//
+//
 //
 //
 //
@@ -2623,9 +2627,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2760,6 +2761,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
 //
 //
 //
@@ -3835,6 +3839,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3988,10 +4011,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
 //
 //
 //
@@ -4297,6 +4316,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -4398,6 +4419,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__ = __webpack_require__("./node_modules/vue2-google-maps/dist/main.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__);
+//
+//
 //
 //
 //
@@ -27118,7 +27141,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27148,7 +27171,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27178,7 +27201,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27238,7 +27261,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27253,7 +27276,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27268,7 +27291,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27298,7 +27321,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27403,7 +27426,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101663,12 +101686,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to: "/people/" + person.id + "/update",
                                     tag: "div",
@@ -101775,12 +101799,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to:
                                       "people/" +
@@ -101985,12 +102010,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to:
                                       "/people/" +
@@ -102115,12 +102141,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to:
                                       "/people/" +
@@ -102575,13 +102602,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
-                            { staticClass: "align-middle" },
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to: "/events/" + event.id + "/update",
                                     tag: "div",
@@ -102707,7 +102734,7 @@ var render = function() {
                                     "button",
                                     {
                                       staticClass:
-                                        "btn btn-success btn-sm mr-1 pull-right",
+                                        "btn btn-success btn-sm ml-1 pull-right",
                                       attrs: {
                                         title: "Confirmar Sub-evento",
                                         disabled: _vm.cannot("update")
@@ -102726,7 +102753,7 @@ var render = function() {
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to:
                                       "events/" +
@@ -102983,7 +103010,7 @@ var render = function() {
                                       "a",
                                       {
                                         staticClass:
-                                          "btn btn-danger btn-sm mr-1 pull-right",
+                                          "btn btn-danger btn-sm ml-1 pull-right",
                                         attrs: { href: "#" },
                                         on: {
                                           click: function($event) {
@@ -103193,12 +103220,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to:
                                   "/contact-types/" +
@@ -103493,7 +103521,7 @@ var render = function() {
                                   "a",
                                   {
                                     staticClass:
-                                      "btn btn-danger btn-sm mr-1 pull-right",
+                                      "btn btn-danger btn-sm ml-1 pull-right",
                                     attrs: { href: "#" },
                                     on: {
                                       click: function($event) {
@@ -103705,45 +103733,19 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "mb-0 mt-4", attrs: { for: "birthdate" } },
-                  [_vm._v("Data de Nascimento")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.fields.birthdate,
-                      expression: "form.fields.birthdate"
-                    },
-                    {
-                      name: "mask",
-                      rawName: "v-mask",
-                      value: ["##/##/####"],
-                      expression: '["##/##/####"]'
-                    }
-                  ],
-                  staticClass: "form-control",
+                _c("app-input", {
                   attrs: {
-                    id: "birthdate",
-                    required: "required",
-                    dusk: "birthdate"
+                    name: "birthdate",
+                    label: "Data de nascimento",
+                    type: "date",
+                    form: _vm.form
                   },
-                  domProps: { value: _vm.form.fields.birthdate },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.form.fields,
-                        "birthdate",
-                        $event.target.value
-                      )
-                    }
+                  model: {
+                    value: _vm.form.fields.birthdate,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "birthdate", $$v)
+                    },
+                    expression: "form.fields.birthdate"
                   }
                 })
               ],
@@ -104308,12 +104310,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to: "/categories/" + category.id + "/update",
                                 tag: "div",
@@ -104712,12 +104715,13 @@ var render = function() {
                                   _vm._v(" "),
                                   _c(
                                     "td",
+                                    { staticClass: "align-middle text-right" },
                                     [
                                       _c(
                                         "router-link",
                                         {
                                           staticClass:
-                                            "btn btn-danger btn-sm mr-1 pull-right",
+                                            "btn btn-danger btn-sm ml-1 pull-right",
                                           attrs: {
                                             to:
                                               "events/{events.selected.id}/sub-event/" +
@@ -105202,12 +105206,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to:
                                   "/institutions/" + institution.id + "/update",
@@ -105932,12 +105937,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to: "/roles/" + role.id + "/update",
                                 tag: "div",
@@ -124372,7 +124378,9 @@ var Form = function () {
         value: function populateData(data) {
             this.fields = data;
 
-            this.original = Object.assign({}, this.fields);
+            this.original = clone(this.fields);
+
+            this.empty = clone(this.fields);
         }
 
         /**
@@ -125298,14 +125306,18 @@ var __emptyModel = {
     neighbourhood: null,
     city: null,
     state: null,
-    latitude: null,
-    longitude: null
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude
 };
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
 
-    service: { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', isForm: true },
+    service: {
+        name: 'addresses',
+        uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses',
+        isForm: true
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
 });
@@ -125314,9 +125326,15 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPersonInstitution: function setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload);
 
-        context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'addressable_id',
+            value: payload.id
+        });
 
-        context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model });
+        context.commit('mutateSetFormField', {
+            field: 'addressable_type',
+            value: payload.model
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -125435,7 +125453,11 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
 
-    service: { name: 'contacts', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts', isForm: true },
+    service: {
+        name: 'contacts',
+        uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
+        isForm: true
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         contact_type_id: null,
@@ -125448,7 +125470,10 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPersonInstitution: function setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload);
 
-        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'person_institution_id',
+            value: payload.id
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -125853,7 +125878,11 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     subEvent: { id: null },
 
-    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations', performLoad: false },
+    service: {
+        name: 'invitations',
+        uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations',
+        performLoad: false
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -126055,9 +126084,9 @@ function mutateSetFormField(state, payload) {
 }
 
 function mutateSetErrors(state, payload) {
-    var errors = payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {};
-
-    state.form.errors.record(errors);
+    if (state.form && state.form.errors) {
+        state.form.errors.record(!payload.hasOwnProperty('errors') ? {} : payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {});
+    }
 }
 
 function mutateFormData(state, payload) {
@@ -126298,7 +126327,11 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
 
-    service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
+    service: {
+        name: 'personInstitutions',
+        uri: 'people/{people.selected.id}/person-institutions',
+        isForm: true
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         person_id: null,
@@ -126312,7 +126345,10 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPerson: function setPerson(context, payload) {
         context.commit('mutateSetPerson', payload);
 
-        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'person_id',
+            value: payload.id
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -126428,8 +126464,8 @@ var __emptyAddress = {
     neighbourhood: null,
     city: null,
     state: null,
-    latitude: null,
-    longitude: null
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude
 };
 
 var __emptyModel = {
@@ -127984,7 +128020,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
             var model = $this.mode === 'update' ? _.find(this.rows, function (model) {
                 return model.id === $this.$route.params.id;
-            }) : set_null($this.form.fields);
+            }) : $this.form ? clone($this.form.empty) : {};
 
             $this.mutateFormData(model);
 
