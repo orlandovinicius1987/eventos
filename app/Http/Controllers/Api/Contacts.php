@@ -51,8 +51,12 @@ class Contacts extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(ContactUpdate $request, $id)
-    {
+    public function update(
+        ContactUpdate $request,
+        $personId,
+        $personInstitutionId,
+        $id
+    ) {
         return app(ContactsRepository::class)->update($id, $request->all());
     }
 }
