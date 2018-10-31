@@ -32,6 +32,18 @@
                                 :required="true"
                                 :form="form"
                             ></app-input>
+
+                            <label for="birthdate" class="mb-0 mt-4">Data de Nascimento</label>
+
+                            <input
+                                v-model="form.fields.birthdate"
+                                class="form-control"
+                                id="birthdate"
+                                required="required"
+                                dusk="birthdate"
+                                v-mask='["##/##/####"]'
+                            >
+
                         </div>
                     </div>
 
