@@ -51,7 +51,7 @@ class Contacts extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(
+    public function updateForPersonInstitution(
         ContactUpdate $request,
         $personId,
         $personInstitutionId,
