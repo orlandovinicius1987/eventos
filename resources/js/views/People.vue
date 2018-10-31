@@ -171,29 +171,29 @@
             <div class="col-4">
                 <app-table-panel
                         v-if="personInstitutions.selected.id && contacts.data.links"
-                        :title="selected.name + ' (' +contacts.data.links.pagination.total + ' contatos)'"
+                        :title="'Acessores'"
                         :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'create', disabled: cannot('create') }"
-                        :per-page="contactsPerPage"
-                        @set-per-page="contactsPerPage = $event"
-                        :filter-text="contactsFilterText"
-                        @input-filter-text="contactsFilterText = $event.target.value"
+                        :per-page="advisorsPerPage"
+                        @set-per-page="advisorsPerPage = $event"
+                        :filter-text="advisorsFilterText"
+                        @input-filter-text="advisorsFilterText = $event.target.value"
                 >
                     <app-table
-                            :pagination="contacts.data.links.pagination"
-                            @goto-page="contactsGotoPage($event)"
-                            :columns="['#', 'Tipo', 'Contato']"
+                            :pagination="advisors.data.links.pagination"
+                            @goto-page="advisorsGotoPage($event)"
+                            :columns="['#','Tratamento', 'Nome', 'Nome Público']"
                     >
                         <tr
-                                @click="selectContact(contact)"
-                                v-for="contact in contacts.data.rows" class="cursor-pointer"
-                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contact,contacts.selected)}"
+                                @click="selectAdvisor(advisor)"
+                                v-for="advisor in advisors.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(advisor,advisors.selected)}"
                         >
-                            <td>{{ contact.id }}</td>
-                            <td>{{ contact.contact_type.name }}</td>
-                            <td>{{ contact.contact }}</td>
+                            <td>{{ advisor.id }}</td>
+                            <td>{{ advisor.name }}</td>
+                            <td>{{ advisor.nickname }}</td>
                             <!--<td>-->
                             <!--<router-link-->
-                            <!--:to="'people/'+contacts.event.id+'/person-institutions/'+contact.id+'/update'"-->
+                            <!--:to="'people/'+advisors.event.id+'/person-institutions/'+advisor.id+'/update'"-->
                             <!--tag="div"-->
                             <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
                             <!--:disabled="cannot('update')"-->
@@ -233,6 +233,7 @@
                 'selectPersonInstitution',
                 'selectAddress',
                 'selectContact',
+                'selectAdvisor',
             ]),
 
             peopleGotoPage(page) {
@@ -252,6 +253,14 @@
             },
 
             contactsGotoPage(page) {
+                this.gotoPage(
+                    page,
+                    'contacts',
+                    this.contacts.data.links.pagination,
+                )
+            },
+
+            advisorssGotoPage(page) {
                 this.gotoPage(
                     page,
                     'contacts',
@@ -352,6 +361,30 @@
 
                 set(perPage) {
                     return this.$store.dispatch('contacts/setPerPage', perPage)
+                },
+            },
+
+            advisorsFilterText: {
+                get() {
+                    return this.$store.state['advisors'].data.filter.text
+                },
+
+                set(filter) {
+                    return this.$store.dispatch(
+                        'advisors/mutateSetQueryFilterText',
+                        filter,
+                    )
+                },
+            },
+
+            advisorsPerPage: {
+                get() {
+                    return this.$store.state['advisors'].data.links.pagination
+                        .per_page
+                },
+
+                set(perPage) {
+                    return this.$store.dispatch('advisors/setPerPage', perPage)
                 },
             },
         },

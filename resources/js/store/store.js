@@ -33,6 +33,7 @@ import institutions from './modules/institutions'
 import personInstitutions from './modules/personInstitutions'
 import contactTypes from './modules/contact-types'
 import contacts from './modules/contacts'
+import advisors from './modules/advisors'
 import invitables from './modules/invitables'
 
 /**
@@ -67,6 +68,7 @@ let store = new Vuex.Store({
         personInstitutions,
         contactTypes,
         contacts,
+        advisors,
     },
 })
 

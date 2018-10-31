@@ -38,12 +38,20 @@ let actions = merge_objects(
             context.dispatch('addresses/setPersonInstitution', payload, { root: true })
         },
 
+        selectAdvisor(context, payload) {
+            context.dispatch('advisors/select', payload, { root: true })
+        },
+
         selectContacts(context, payload) {
             context.dispatch('contacts/select', payload, { root: true })
         },
 
         selectAddresses(context, payload) {
             context.dispatch('addresses/select', payload, { root: true })
+        },
+
+        selectAdvisors(context, payload) {
+            context.dispatch('advisors/select', payload, { root: true })
         },
     },
     actionsMixin,
@@ -58,6 +66,8 @@ let mutations = merge_objects(
 
             state.selectedContact = __emptyModel
             state.selectedAddress = __emptyModel
+
+            state.selectedAdvisors = __emptyModel
         },
 
         selectPersonInstitution(state, payload) {
@@ -74,6 +84,10 @@ let mutations = merge_objects(
         selectAddress(state, payload) {
             state.selectedAddress = payload
         },
+        selectAdvisors(state, payload) {
+            state.selectedAdvisors = payload
+        },
+
 
         setPersonInstitution(state, payload) {
             state.personInstitutions = payload
@@ -81,6 +95,10 @@ let mutations = merge_objects(
 
         setContacts(state, payload) {
             state.contacts = payload
+        },
+
+        setAdvisors(state, payload) {
+            state.advisors = payload
         },
 
         setAddresses(state, payload) {

@@ -39,6 +39,10 @@ const actions = merge_objects(actionsMixin, {
             root: true,
         })
 
+        context.dispatch('advisors/setPersonInstitution', __emptyModel, {
+            root: true,
+        })
+
         context.dispatch('load', payload)
     },
 })
