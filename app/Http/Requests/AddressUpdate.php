@@ -19,7 +19,6 @@ class AddressUpdate extends BaseStore
             'neighbourhood' => 'required',
             'city' => 'required',
             'state' => 'required',
-            'number' => 'required',
         ];
     }
 }

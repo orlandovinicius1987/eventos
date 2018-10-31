@@ -24,7 +24,6 @@ class SubEventUpdate extends BaseStore
             'address.neighbourhood' => 'required',
             'address.city' => 'required',
             'address.state' => 'required',
-            'address.number' => 'required',
         ];
     }
 }

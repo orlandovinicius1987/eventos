@@ -110,10 +110,14 @@ export default {
         fillFormWhenEditing() {
             const $this = this
 
-            const model = $this.mode === 'update'
-                ? _.find(this.rows, function(model) {
-                    return model.id === $this.$route.params.id
-                }) :  set_null($this.form.fields)
+            const model =
+                $this.mode === 'update'
+                    ? _.find(this.rows, function(model) {
+                          return model.id === $this.$route.params.id
+                      })
+                    : $this.form
+                        ? clone($this.form.empty)
+                        : {}
 
             $this.mutateFormData(model)
 

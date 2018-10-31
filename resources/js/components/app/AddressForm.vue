@@ -115,34 +115,37 @@
 </template>
 
 <script>
-import * as VueGoogleMaps from 'vue2-google-maps'
-
 export default {
     props: ['address', 'form', 'googleMaps'],
 
     data() {
         return {
-            latitude: null,
-            longitude: null,
+            latitude: laravel.google_maps.geolocation.latitude,
+            longitude: laravel.google_maps.geolocation.longitude,
         }
     },
 
     methods: {
-        typeKeyZipcode(payload){
+        typeKeyZipcode(payload) {
             clearTimeout(this.timeout)
 
             const $this = this
 
-            this.timeout = setTimeout(function () {
-                axios.get('/api/v1/zipcode/'+payload)
+            this.timeout = setTimeout(function() {
+                axios
+                    .get('/api/v1/zipcode/' + payload)
                     .then(function(response) {
                         if (response.data.addresses[0].street_name) {
-                            $this.address.zipcode = response.data.addresses[0].zip
-                            $this.address.street = response.data.addresses[0].street_name
-                            $this.address.neighbourhood = response.data.addresses[0].neighborhood
+                            $this.address.zipcode =
+                                response.data.addresses[0].zip
+                            $this.address.street =
+                                response.data.addresses[0].street_name
+                            $this.address.neighbourhood =
+                                response.data.addresses[0].neighborhood
                             $this.address.city = response.data.addresses[0].city
-                            $this.address.state = response.data.addresses[0].state_id
-                            document.getElementById("number").focus()
+                            $this.address.state =
+                                response.data.addresses[0].state_id
+                            document.getElementById('number').focus()
                         }
                     })
                     .catch(function(error) {
@@ -152,13 +155,21 @@ export default {
         },
 
         getLatitude() {
-            this.latitude = this.latitude ? this.latitude : (this.address.latitude ? this.address.latitude : -22.90337724433402)
+            this.latitude = this.latitude
+                ? this.latitude
+                : this.address.latitude
+                    ? this.address.latitude
+                    : laravel.google_maps.geolocation.latitude
 
             return parseFloat(this.latitude)
         },
 
         getLongitude() {
-            this.longitude = this.longitude ? this.longitude : (this.address.longitude ? this.address.longitude : -43.17343861373911)
+            this.longitude = this.longitude
+                ? this.longitude
+                : this.address.longitude
+                    ? this.address.longitude
+                    : laravel.google_maps.geolocation.longitude
 
             return parseFloat(this.longitude)
         },
@@ -174,7 +185,10 @@ export default {
         },
 
         getMarkerPosition() {
-            return {lat: Number(this.getLatitude()),lng: Number(this.getLongitude())}
+            return {
+                lat: Number(this.getLatitude()),
+                lng: Number(this.getLongitude()),
+            }
         },
     },
 
@@ -182,12 +196,18 @@ export default {
         mapUrl: {
             get() {
                 if (this.address.latitude && this.address.longitude) {
-                    return 'https://www.google.com/maps/@'+ this.address.latitude +','+ this.address.longitude +',17z'
+                    return (
+                        'https://www.google.com/maps/@' +
+                        this.address.latitude +
+                        ',' +
+                        this.address.longitude +
+                        ',17z'
+                    )
                 }
 
                 return 'Preencha a latitude e longitude, ou localize o endereço no mapa'
-            }
-        }
+            },
+        },
     },
 }
 </script>
