@@ -3,9 +3,12 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Address as AddressModel;
 use App\Data\Models\PersonInstitution as PersonInstitutionModel;
+use App\Data\Repositories\Traits\AddressesTraits;
 
 class Addresses extends Repository
 {
+    use AddressesTraits;
+
     /**
      * @var string
      */
@@ -46,14 +49,16 @@ class Addresses extends Repository
             ->first();
     }
 
-    public function updateAddress($address, $attributes)
+    public function storeForPersonInstitution($id, $attributes)
     {
-        $address->fill(
-            coollect($attributes['address'])
-                ->only($address->fillable)
-                ->toArray()
+        return $this->createAddress(
+            app(PersonInstitutions::class)->findById($id),
+            $attributes
         );
+    }
 
-        $address->save();
+    public function update($id, $attributes)
+    {
+        return $this->updateAddress($this->findById($id), $attributes);
     }
 }

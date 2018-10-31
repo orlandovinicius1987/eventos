@@ -12,9 +12,10 @@
                         <div class="col-12 mb-3">
 
                             <app-address-form
-                                :form="form"
+                                :address="addresses.form.fields"
+                                :form="addresses.form"
+                                :google-maps="environment.google_maps"
                             >
-
                             </app-address-form>
 
                         </div>
@@ -40,7 +41,7 @@
     import addresses from './mixins/addresses'
     import { mapState } from 'vuex'
 
-    const service = { name: 'addresses', uri: 'addresses', performLoad: false }
+    const service = { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', performLoad: false }
 
     export default {
         props: ['mode'],
@@ -55,7 +56,8 @@
 
         computed: {
             ...mapState('addresses', ['selectedEvent', 'selectedSubEvent']),
-        }
+        },
+
     }
 </script>
 

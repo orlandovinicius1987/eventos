@@ -110,6 +110,7 @@
 
                             <app-address-form
                                 :form="subEvents.form"
+                                :address="subEvents.form.fields.address"
                                 :google-maps="environment.google_maps"
                             >
                             </app-address-form>
