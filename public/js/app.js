@@ -125874,9 +125874,9 @@ function mutateSetFormField(state, payload) {
 }
 
 function mutateSetErrors(state, payload) {
-    var errors = payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {};
-
-    state.form.errors.record(errors);
+    if (state.form && state.form.errors) {
+        state.form.errors.record(!payload.hasOwnProperty('errors') ? {} : payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {});
+    }
 }
 
 function mutateFormData(state, payload) {
