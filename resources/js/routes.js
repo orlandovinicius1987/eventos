@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import AddressesForm from './views/AddressesForm'
 import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
 import People from './views/People'
@@ -8,6 +7,7 @@ import Events from './views/Events'
 import Categories from './views/Categories'
 import CategoriesForm from './views/CategoriesForm'
 import PersonInstitutionsForm from './views/PersonInstitutionsForm'
+import PersonInstitutionsAddressesForm from './views/PersonInstitutionsAddressesForm'
 import Roles from './views/Roles'
 import RolesForm from './views/RolesForm'
 import Institutions from './views/Institutions'
@@ -100,13 +100,13 @@ let routes = [
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
-        component: AddressesForm,
+        component: PersonInstitutionsAddressesForm,
         props: { mode: 'create' },
     },
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
-        component: AddressesForm,
+        component: PersonInstitutionsAddressesForm,
         props: { mode: 'update' },
     },
     {

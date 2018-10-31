@@ -102,23 +102,22 @@ export default {
                 $this.load().then(function() {
                     $this.fillFormWhenEditing()
                 })
+            } else {
+                $this.fillFormWhenEditing()
             }
         },
 
         fillFormWhenEditing() {
             const $this = this
 
-            if ($this.mode === 'update') {
-                const model = _.find(this.rows, function(model) {
-                    return model.id == $this.$route.params.id
-                })
+            const model = $this.mode === 'update'
+                ? _.find(this.rows, function(model) {
+                    return model.id === $this.$route.params.id
+                }) :  set_null($this.form.fields)
 
-                $this.mutateFormData(model)
-            }
+            $this.mutateFormData(model)
 
-            if ($this.mode === 'create') {
-                $this.mutateFormData(set_null($this.form.fields))
-            }
+            $this.mutateSetErrors({})
 
             $this.fillAdditionalFormFields()
         },

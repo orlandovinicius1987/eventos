@@ -11,12 +11,25 @@ use Illuminate\Http\Request;
 class Contacts extends Controller
 {
     /**
+     * Get all data
+     *
+     * @return array
+     */
+    public function all()
+    {
+        return app(ContactsRepository::class)->all();
+    }
+
+    /**
      * @param Request $request
      * @param $personInstitutionId
      * @return mixed
      */
-    public function all(Request $request, $personInstitutionId)
-    {
+    public function allByPersonInstitution(
+        Request $request,
+        $personId,
+        $personInstitutionId
+    ) {
         return app(ContactsRepository::class)->allByPersonInstitutionId(
             $personInstitutionId
         );

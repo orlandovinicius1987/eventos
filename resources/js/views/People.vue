@@ -67,16 +67,16 @@
                             <td>{{ personInstitution.title }}</td>
                             <td>{{ personInstitution.institution.name }}</td>
                             <td>{{ personInstitution.role.name }}</td>
-                            <!--<td>-->
-                            <!--<router-link-->
-                            <!--:to="'people/'+personInstitutions.event.id+'/person-institutions/'+personInstitution.id+'/update'"-->
-                            <!--tag="div"-->
-                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
-                            <!--:disabled="cannot('update')"-->
-                            <!--&gt;-->
-                            <!--<i class="fa fa-edit"></i>-->
-                            <!--</router-link>-->
-                            <!--</td>-->
+                            <td>
+                                <router-link
+                                    :to="'people/'+personInstitutions.person.id+'/person-institutions/'+personInstitution.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    :disabled="cannot('update')"
+                                    >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>

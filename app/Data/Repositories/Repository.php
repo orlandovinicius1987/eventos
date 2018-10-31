@@ -33,6 +33,16 @@ abstract class Repository
         return $model;
     }
 
+    protected function allElements($queryFilter)
+    {
+        $array = $queryFilter->toArray();
+
+        $array['pagination']['per_page'] = $this->count();
+        $array['pagination']['current_page'] = 1;
+
+        return coollect($array);
+    }
+
     protected function applyFilter($query)
     {
         $queryFilter = $this->getQueryFilter();
@@ -40,6 +50,14 @@ abstract class Repository
         $this->filterText($queryFilter, $query);
 
         $this->order($query);
+
+        if (
+            isset($queryFilter->toArray()['pagination']['current_page']) &&
+            $queryFilter->toArray()['pagination']['current_page'] == 0
+        ) {
+            info($queryFilter->pagination->currentPage);
+            $queryFilter = $this->allElements($queryFilter);
+        }
 
         return $this->makePaginationResult(
             $query->paginate(
@@ -316,27 +334,3 @@ abstract class Repository
         return $this->model::count();
     }
 }
-
-// select count(*)
-//     as aggregate
-//     from "person_institutions"
-//     inner join "person_institutions" on "person_institutions" . "id" = "invitations" . "person_institution_id"
-//     inner join "institutions" on "person_institutions" . "institution_id" = "institutions" . "id"
-//     inner join "people" on "person_institutions" . "person_id" = "people" . "id"
-//     inner join "roles" on "person_institutions" . "role_id" = "roles" . "id"
-//     where id not in(select person_institution_id from invitations where sub_event_id = 1)
-//     and ("institutions" . "name"::text ilike % ferreira %
-//     or "people" . "name"::text ilike % ferreira %
-//     or "roles" . "name"::text ilike % ferreira %))
-
-//     select
-//     count (*) as aggregate
-//     from
-//     "person_institutions"
-//     where
-//     id not in (select
-//     person_institution_id
-//     from
-//     invitations
-//     where
-//     sub_event_id = 1)

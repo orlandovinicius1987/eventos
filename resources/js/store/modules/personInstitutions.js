@@ -13,13 +13,10 @@ const state = merge_objects(statesMixin.common, {
     service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
 
     form: new Form({
-        name: null,
-        date: null,
-        time: null,
-        place: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null,
+        person_id: null,
+        role_id: null,
+        institution_id: null,
+        title: null
     }),
 })
 
