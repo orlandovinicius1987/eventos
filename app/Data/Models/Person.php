@@ -16,4 +16,9 @@ class Person extends BaseWithClient
     ];
 
     protected $orderBy = ['name' => 'asc'];
+
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categorizable');
+    }
 }

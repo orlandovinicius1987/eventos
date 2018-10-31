@@ -3797,6 +3797,44 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3827,6 +3865,21 @@ var service = { name: 'people', uri: 'people' };
         },
         contactsGotoPage: function contactsGotoPage(page) {
             this.gotoPage(page, 'contacts', this.contacts.data.links.pagination);
+        },
+        personCategoriesGotoPage: function personCategoriesGotoPage(page) {
+            this.gotoPage(page, 'personCategories', this.personCategories.data.links.pagination);
+        },
+        confirmDeletePersonCategory: function confirmDeletePersonCategory(personCategory) {
+            var $this = this;
+
+            confirm('Deseja realmente desassociar ' + personCategory.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.deletePersonCategory(personCategory);
+                }
+            });
+        },
+        deletePersonCategory: function deletePersonCategory(personCategory) {
+            return this.$store.dispatch('personCategories/disassociate', personCategory);
         }
     }),
 
@@ -3900,6 +3953,24 @@ var service = { name: 'people', uri: 'people' };
             },
             set: function set(perPage) {
                 return this.$store.dispatch('contacts/setPerPage', perPage);
+            }
+        },
+
+        personCategoriesFilterText: {
+            get: function get() {
+                return this.$store.state['personCategories'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('personCategories/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        personCategoriesPerPage: {
+            get: function get() {
+                return this.$store.state['personCategories'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('personCategories/setPerPage', perPage);
             }
         }
     }
@@ -27047,7 +27118,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -101736,6 +101807,104 @@ var render = function() {
             : _vm._e()
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-8" },
+        [
+          _vm.selected.id && _vm.personCategories.data.links
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title:
+                      _vm.selected.name +
+                      " (" +
+                      _vm.personCategories.data.links.pagination.total +
+                      " categorias)",
+                    "add-button": {
+                      uri: "/categories/create",
+                      disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.personCategoriesPerPage,
+                    "filter-text": _vm.personCategoriesFilterText
+                  },
+                  on: {
+                    "set-per-page": function($event) {
+                      _vm.personCategoriesPerPage = $event
+                    },
+                    "input-filter-text": function($event) {
+                      _vm.personCategoriesFilterText = $event.target.value
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.personCategories.data.links.pagination,
+                        columns: ["#", "Nome"]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          _vm.personCategoriesGotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.personCategories.data.rows, function(
+                      personCategory
+                    ) {
+                      return _c(
+                        "tr",
+                        {
+                          staticClass: "cursor-pointer",
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              personCategory,
+                              _vm.personCategories.selected
+                            )
+                          }
+                        },
+                        [
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(personCategory.id))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(personCategory.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "btn btn-danger btn-sm mr-1 pull-right",
+                                attrs: { href: "#" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.confirmDeletePersonCategory(
+                                      personCategory
+                                    )
+                                  }
+                                }
+                              },
+                              [_c("i", { staticClass: "fa fa-trash" })]
+                            )
+                          ])
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
       )
     ]),
     _vm._v(" "),
@@ -125949,6 +126118,10 @@ var common = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+var _merge_objects;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -125966,31 +126139,33 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     })
 });
 
-var actions = merge_objects({
+var actions = merge_objects((_merge_objects = {
     selectPerson: function selectPerson(context, payload) {
         context.dispatch('people/select', payload, { root: true });
 
         context.dispatch('personInstitutions/setPerson', payload, { root: true });
+
+        context.dispatch('personCategories/setPerson', payload, { root: true });
     },
     selectContact: function selectContact(context, payload) {
         context.dispatch('contacts/select', payload, { root: true });
     },
-    selectAddress: function selectAddress(context, payload) {
-        context.dispatch('addresses/select', payload, { root: true });
+    selectPersonCategories: function selectPersonCategories(context, payload) {
+        context.dispatch('personCategories/select', payload, { root: true });
     },
     selectPersonInstitution: function selectPersonInstitution(context, payload) {
         context.dispatch('personInstitutions/select', payload, { root: true });
 
         context.dispatch('contacts/setPersonInstitution', payload, { root: true });
         context.dispatch('addresses/setPersonInstitution', payload, { root: true });
-    },
-    selectContacts: function selectContacts(context, payload) {
-        context.dispatch('contacts/select', payload, { root: true });
-    },
-    selectAddresses: function selectAddresses(context, payload) {
-        context.dispatch('addresses/select', payload, { root: true });
     }
-}, __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
+}, _defineProperty(_merge_objects, 'selectPersonCategories', function selectPersonCategories(context, payload) {
+    context.dispatch('categories/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectContacts', function selectContacts(context, payload) {
+    context.dispatch('contacts/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAddresses', function selectAddresses(context, payload) {
+    context.dispatch('addresses/select', payload, { root: true });
+}), _merge_objects), __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
 var mutations = merge_objects({
     selectPerson: function selectPerson(state, payload) {
@@ -126013,6 +126188,9 @@ var mutations = merge_objects({
     selectAddress: function selectAddress(state, payload) {
         state.selectedAddress = payload;
     },
+    setPersonCategories: function setPersonCategories(state, payload) {
+        state.personCategories = payload;
+    },
     setPersonInstitution: function setPersonInstitution(state, payload) {
         state.personInstitutions = payload;
     },
@@ -126023,6 +126201,69 @@ var mutations = merge_objects({
         state.addresses = payload;
     }
 }, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
+
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/personCategories.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: { name: 'personCategories', uri: 'people/{people.selected.id}/person-categories', isForm: true },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
+});
+
+var __emptyModel = { id: null };
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPerson: function setPerson(context, payload) {
+        context.commit('mutateSetPersonCategory', payload);
+
+        //context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id })
+
+        //context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model })
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    },
+    disassociate: function disassociate(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/disassociate/').then(function () {
+            context.dispatch('load', payload);
+        });
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonCategory: function mutateSetPersonCategory(state, payload) {
+        state.personCategory = payload;
+    }
+});
 
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
@@ -126299,10 +126540,11 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_people__ = __webpack_require__("./resources/js/store/modules/people.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_roles__ = __webpack_require__("./resources/js/store/modules/roles.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_institutions__ = __webpack_require__("./resources/js/store/modules/institutions.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__ = __webpack_require__("./resources/js/store/modules/personCategories.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
 /**
  * Imports
  */
@@ -126324,6 +126566,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /**
  * Modules
  */
+
 
 
 
@@ -126362,14 +126605,15 @@ var state = {
     events: __WEBPACK_IMPORTED_MODULE_8__modules_events__["a" /* default */],
     subEvents: __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__["a" /* default */],
     invitations: __WEBPACK_IMPORTED_MODULE_10__modules_invitations__["a" /* default */],
-    invitables: __WEBPACK_IMPORTED_MODULE_19__modules_invitables__["a" /* default */],
+    invitables: __WEBPACK_IMPORTED_MODULE_20__modules_invitables__["a" /* default */],
     addresses: __WEBPACK_IMPORTED_MODULE_12__modules_addresses__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */],
     roles: __WEBPACK_IMPORTED_MODULE_14__modules_roles__["a" /* default */],
-    contacts: __WEBPACK_IMPORTED_MODULE_18__modules_contacts__["a" /* default */],
+    contacts: __WEBPACK_IMPORTED_MODULE_19__modules_contacts__["a" /* default */],
     institutions: __WEBPACK_IMPORTED_MODULE_15__modules_institutions__["a" /* default */],
-    personInstitutions: __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__["a" /* default */],
-    contactTypes: __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__["a" /* default */]
+    personCategories: __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__["a" /* default */],
+    personInstitutions: __WEBPACK_IMPORTED_MODULE_17__modules_personInstitutions__["a" /* default */],
+    contactTypes: __WEBPACK_IMPORTED_MODULE_18__modules_contact_types__["a" /* default */]
   }
 });
 
@@ -127911,6 +128155,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         addresses: function addresses(state) {
             return state.addresses;
+        },
+
+        personCategories: function personCategories(state) {
+            return state.personCategories;
         }
     }))
 
