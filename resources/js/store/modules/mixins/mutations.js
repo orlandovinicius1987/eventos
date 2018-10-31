@@ -11,13 +11,17 @@ export function mutateSetFormField(state, payload) {
 }
 
 export function mutateSetErrors(state, payload) {
-    const errors = payload.errors
-        ? typeof payload.errors.errors === 'undefined'
-            ? payload.errors
-            : payload.errors.errors
-        : {}
-
-    state.form.errors.record(errors)
+    if (state.form && state.form.errors) {
+        state.form.errors.record(
+            !payload.hasOwnProperty('errors')
+                ? {}
+                : payload.errors
+                    ? typeof payload.errors.errors === 'undefined'
+                        ? payload.errors
+                        : payload.errors.errors
+                    : {},
+        )
+    }
 }
 
 export function mutateFormData(state, payload) {
