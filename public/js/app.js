@@ -3969,6 +3969,18 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27155,7 +27167,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103521,6 +103533,48 @@ var render = function() {
                       _vm.$set(_vm.form.fields, "title", $$v)
                     },
                     expression: "form.fields.title"
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "mb-0 mt-4", attrs: { for: "birthdate" } },
+                  [_vm._v("Data de Nascimento")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.fields.birthdate,
+                      expression: "form.fields.birthdate"
+                    },
+                    {
+                      name: "mask",
+                      rawName: "v-mask",
+                      value: ["##/##/####"],
+                      expression: '["##/##/####"]'
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "birthdate",
+                    required: "required",
+                    dusk: "birthdate"
+                  },
+                  domProps: { value: _vm.form.fields.birthdate },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form.fields,
+                        "birthdate",
+                        $event.target.value
+                      )
+                    }
                   }
                 })
               ],
