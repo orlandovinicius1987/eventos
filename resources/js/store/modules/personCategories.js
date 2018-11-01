@@ -5,15 +5,19 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
+const __emptyModel = { id: null }
+
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
-    service: { name: 'personCategories', uri: 'people/{people.selected.id}/person-categories', isForm: true },
+    service: {
+        name: 'personCategories',
+        uri: 'people/{people.selected.id}/person-categories',
+        isForm: true,
+    },
 
     form: new Form(__emptyModel),
 })
-
-const __emptyModel = { id: null }
 
 const actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
@@ -29,10 +33,12 @@ const actions = merge_objects(actionsMixin, {
     },
 
     disassociate(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/disassociate/').then(function() {
-            context.dispatch('load', payload)
-        })
-    }
+        post(makeDataUrl(context) + '/' + payload.id + '/disassociate/').then(
+            function() {
+                context.dispatch('load', payload)
+            },
+        )
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
