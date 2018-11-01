@@ -28,6 +28,9 @@ const actions = merge_objects(actionsMixin, {
         context.commit('mutateSetSelected', __emptyModel)
 
         context.dispatch('load', payload)
+
+        dd('mutateSetSelected - Contacts')
+        dd('payload',payload)
     },
 })
 

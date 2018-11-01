@@ -36,6 +36,7 @@ let actions = merge_objects(
 
             context.dispatch('contacts/setPersonInstitution', payload, { root: true })
             context.dispatch('addresses/setPersonInstitution', payload, { root: true })
+            context.dispatch('advisors/setPersonInstitution', payload, { root: true })
         },
 
         selectAdvisor(context, payload) {

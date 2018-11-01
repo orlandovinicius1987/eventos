@@ -9,4 +9,14 @@ class Advisors extends Repository
      * @var string
      */
     protected $model = AdvisorModel::class;
+
+    /**
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function allByPersonInstitutionId($personInstitutionId)
+    {
+        //return $this->filterByPersonInstitutionId($personInstitutionId);
+        dd('Vim, vi e venci');
+    }
 }

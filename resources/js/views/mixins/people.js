@@ -16,6 +16,7 @@ export default {
             addresses: state => state.addresses,
 
             advisors: state => state.advisors,
+
         }),
     },
 

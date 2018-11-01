@@ -170,9 +170,9 @@
         <div class="row">
             <div class="col-4">
                 <app-table-panel
-                        v-if="personInstitutions.selected.id && contacts.data.links"
+                        v-if="personInstitutions.selected.id && advisors.data.links"
                         :title="'Acessores'"
-                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'create', disabled: cannot('create') }"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+advisors.personInstitution.id+'/create', disabled: cannot('create') }"
                         :per-page="advisorsPerPage"
                         @set-per-page="advisorsPerPage = $event"
                         :filter-text="advisorsFilterText"
@@ -236,6 +236,10 @@
                 'selectAdvisor',
             ]),
 
+            dd(value){
+                dd(value)
+            },
+
             peopleGotoPage(page) {
                 this.gotoPage(page, 'people', this.people.data.links.pagination)
             },
@@ -260,11 +264,11 @@
                 )
             },
 
-            advisorssGotoPage(page) {
+            advisorsGotoPage(page) {
                 this.gotoPage(
                     page,
-                    'contacts',
-                    this.contacts.data.links.pagination,
+                    'advisors',
+                    this.advisors.data.links.pagination,
                 )
             },
         },

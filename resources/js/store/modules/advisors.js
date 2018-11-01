@@ -12,6 +12,7 @@ const state = merge_objects(statesMixin.common, {
 
     service: { name: 'advisors', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/advisors', isForm: true },
 
+
     form: new Form({
         name: null,
         nickname: null,
@@ -28,6 +29,9 @@ const actions = merge_objects(actionsMixin, {
         context.commit('mutateSetSelected', __emptyModel)
 
         context.dispatch('load', payload)
+
+        dd('mutateSetSelected - advisors')
+        dd('payload',payload)
     },
 })
 
