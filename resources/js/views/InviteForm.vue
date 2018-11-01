@@ -61,7 +61,7 @@
                             <td class="align-middle">
                                 <a
                                     @click="invite(invitable)"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
                                     v-if="can('update')"
                                     href="#"
                                 >

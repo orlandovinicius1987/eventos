@@ -106,9 +106,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                                 'contacts.store'
                             );
 
-                            Route::post('/{id}', 'Contacts@update')->name(
-                                'contacts.update'
-                            );
+                            Route::post(
+                                '/{id}',
+                                'Contacts@updateForPersonInstitution'
+                            )->name('contacts.update');
                         }
                     );
 
@@ -149,6 +150,20 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                             )->name('person-institutions-addresses.update');
                         }
                     );
+                }
+            );
+
+            Route::group(
+                ['prefix' => '{personId}/person-categories'],
+                function () {
+                    Route::get('/', 'PersonCategories@all')->name(
+                        'person-categories.all'
+                    );
+
+                    Route::post(
+                        '/{id}/disassociate/',
+                        'PersonCategories@disassociate'
+                    )->name('person-categories.disassociate');
                 }
             );
         });

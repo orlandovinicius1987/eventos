@@ -13,8 +13,8 @@ const __emptyAddress = {
     neighbourhood: null,
     city: null,
     state: null,
-    latitude: null,
-    longitude: null,
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude,
 }
 
 const __emptyModel = {

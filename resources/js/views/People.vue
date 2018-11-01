@@ -26,14 +26,18 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(person, selected)}"
                         >
                             <td class="align-middle">{{ person.id }}</td>
+
                             <td class="align-middle">{{ person.title }}</td>
+
                             <td class="align-middle">{{ person.name }}</td>
+
                             <td class="align-middle">{{ person.nickname }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                         :to="'/people/'+person.id+'/update'"
                                         tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -64,19 +68,60 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(personInstitution, personInstitutions.selected)}"
                         >
                             <td>{{ personInstitution.id }}</td>
+
                             <td>{{ personInstitution.title }}</td>
+
                             <td>{{ personInstitution.institution.name }}</td>
+
                             <td>{{ personInstitution.role.name }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                     :to="'people/'+personInstitutions.person.id+'/person-institutions/'+personInstitution.id+'/update'"
                                     tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
                             </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+
+            <div class="col-8">
+                <app-table-panel
+                    v-if="selected.id && personCategories.data.links"
+                    :title="selected.name + ' (' + personCategories.data.links.pagination.total + ' categorias)'"
+                    :add-button="{ uri: '/categories/create', disabled: cannot('create') }"
+                    :per-page="personCategoriesPerPage"
+                    @set-per-page="personCategoriesPerPage = $event"
+                    :filter-text="personCategoriesFilterText"
+                    @input-filter-text="personCategoriesFilterText = $event.target.value"
+                >
+                    <app-table
+                        :pagination="personCategories.data.links.pagination"
+                        @goto-page="personCategoriesGotoPage($event)"
+                        :columns="['#', 'Nome']"
+                    >
+                        <tr
+                            v-for="personCategory in personCategories.data.rows" class="cursor-pointer"
+                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(personCategory, personCategories.selected)}"
+                        >
+                            <td class="align-middle">{{ personCategory.id }}</td>
+                            <td class="align-middle">{{ personCategory.name }}</td>
+
+                            <td class="align-middle">
+                                <a
+                                    @click="confirmDeletePersonCategory(personCategory)"
+                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    href="#"
+                                >
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -87,7 +132,7 @@
         <div class="row">
             <div class="col-4">
                 <app-table-panel
-                        v-if="personInstitutions.selected.id &&contacts.data.links"
+                        v-if="personInstitutions.selected.id && contacts.data.links"
                         :title="selected.name + ' (' +contacts.data.links.pagination.total + ' contatos)'"
                         :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'/contacts/create', disabled: cannot('create') }"
                         :per-page="contactsPerPage"
@@ -106,22 +151,26 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contact,contacts.selected)}"
                         >
                             <td>{{ contact.id }}</td>
+
                             <td>{{ contact.contact_type.name }}</td>
+
                             <td>{{ contact.contact }}</td>
-                            <td>
-                            <router-link
-                            :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'/contacts/'+contact.id+'/update'"
-                            tag="div"
-                            class="btn btn-danger btn-sm mr-1 pull-right"
-                            :disabled="cannot('update')"
-                            >
-                            <i class="fa fa-edit"></i>
-                            </router-link>
+
+                            <td class="align-middle text-right">
+                                <router-link
+                                    :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+contacts.personInstitution.id+'/contacts/'+contact.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
                             </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
             </div>
+
             <div class="col-8">
                 <app-table-panel
                         v-if="personInstitutions.selected.id && addresses.data.links"
@@ -144,18 +193,26 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address,addresses.selected)}"
                         >
                             <td>{{ address.id }}</td>
+
                             <td>{{ address.street }}</td>
+
                             <td>{{ address.number }}</td>
+
                             <td>{{ address.complement }}</td>
+
                             <td>{{ address.neighbourhood }}</td>
+
                             <td>{{ address.zipcode }}</td>
+
                             <td>{{ address.city }}</td>
+
                             <td>{{ address.state }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                         :to="'/people/'+personInstitutions.person.id+'/person-institutions/'+addresses.personInstitution.id+'/addresses/'+address.id+'/update'"
                                         tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -195,7 +252,7 @@
                             <!--<router-link-->
                             <!--:to="'people/'+advisors.event.id+'/person-institutions/'+advisor.id+'/update'"-->
                             <!--tag="div"-->
-                            <!--class="btn btn-danger btn-sm mr-1 pull-right"-->
+                            <!--class="btn btn-danger btn-sm ml-1 pull-right"-->
                             <!--:disabled="cannot('update')"-->
                             <!--&gt;-->
                             <!--<i class="fa fa-edit"></i>-->
@@ -271,6 +328,34 @@
                     this.advisors.data.links.pagination,
                 )
             },
+
+            personCategoriesGotoPage(page) {
+                this.gotoPage(
+                    page,
+                    'personCategories',
+                    this.personCategories.data.links.pagination,
+                )
+            },
+
+            confirmDeletePersonCategory(personCategory) {
+                const $this = this
+
+                confirm(
+                    'Deseja realmente desassociar ' +
+                    personCategory.name +
+                    '?',
+                    this,
+                ).then(function(value) {
+                    if (value) {
+                        $this.deletePersonCategory(personCategory)
+                    }
+                })
+            },
+
+            deletePersonCategory(personCategory) {
+                return this.$store.dispatch('personCategories/disassociate', personCategory)
+            },
+
         },
 
         computed: {
@@ -365,6 +450,30 @@
 
                 set(perPage) {
                     return this.$store.dispatch('contacts/setPerPage', perPage)
+                },
+            },
+
+            personCategoriesFilterText: {
+                get() {
+                    return this.$store.state['personCategories'].data.filter.text
+                },
+
+                set(filter) {
+                    return this.$store.dispatch(
+                        'personCategories/mutateSetQueryFilterText',
+                        filter,
+                    )
+                },
+            },
+
+            personCategoriesPerPage: {
+                get() {
+                    return this.$store.state['personCategories'].data.links.pagination
+                        .per_page
+                },
+
+                set(perPage) {
+                    return this.$store.dispatch('personCategories/setPerPage', perPage)
                 },
             },
 

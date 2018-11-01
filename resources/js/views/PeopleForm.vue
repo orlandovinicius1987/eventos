@@ -32,6 +32,14 @@
                                 :required="true"
                                 :form="form"
                             ></app-input>
+
+                            <app-input
+                                name="birthdate"
+                                label="Data de nascimento"
+                                v-model="form.fields.birthdate"
+                                type="date"
+                                :form="form"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -70,7 +78,7 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectPerson']),
-    }
+    },
 }
 </script>
 

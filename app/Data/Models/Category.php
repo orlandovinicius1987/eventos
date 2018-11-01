@@ -10,4 +10,9 @@ class Category extends Base
     protected $fillable = ['name'];
 
     protected $table = 'categories';
+
+    public function persons()
+    {
+        return $this->morphedByMany(Person::class, 'categorizable');
+    }
 }
