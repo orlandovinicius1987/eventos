@@ -145,12 +145,20 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'PersonCategories@unCategorize'
                 )->name('person-categories.un-categorize');
 
+                Route::post(
+                    '/categorizables/',
+                    'PersonCategories@categorize'
+                )->name('person-categories.categorize');
+
                 Route::get(
                     '/categorizables/',
                     'PersonCategories@categorizables'
                 )->name('person-categories.categorizables');
 
-                Route::post('{id}/categorize/', 'PersonCategories@categorize');
+                Route::post(
+                    '/categorize/',
+                    'PersonCategories@categorize'
+                )->name('person-categories.categorize');
             });
         });
 

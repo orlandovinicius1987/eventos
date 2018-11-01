@@ -2,10 +2,12 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Category as CategoryModel;
+use App\Data\Models\Category;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class PersonCategories extends Repository
 {
+    protected $model = Category::class;
     /**
      * @param $personId
      * @return mixed
@@ -24,11 +26,17 @@ class PersonCategories extends Repository
 
     public function unCategorize($personId, $id)
     {
-        dd(
-            app(People::class)
-                ->findById($personId)
-                ->categories()
-                ->detach($id)
-        );
+        return app(People::class)
+            ->findById($personId)
+            ->categories()
+            ->detach($id);
+    }
+
+    public function categorize()
+    {
+        //        return app(People::class)
+        //            ->findById()
+        //            ->categories()
+        //            ->sync();
     }
 }

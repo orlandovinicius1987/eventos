@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
 import People from './views/People'
+import CategorizablesForm from './views/CategorizablesForm'
 import Events from './views/Events'
 import Categories from './views/Categories'
 import CategoriesForm from './views/CategoriesForm'
@@ -108,6 +109,12 @@ let routes = [
             '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
         component: PersonInstitutionsAddressesForm,
         props: { mode: 'update' },
+    },
+    {
+        path:
+            '/people/:personId/categories/create',
+        component: CategorizablesForm,
+        props: { mode: 'create' },
     },
     {
         path: '/roles',

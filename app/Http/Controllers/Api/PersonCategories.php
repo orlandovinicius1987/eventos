@@ -43,8 +43,39 @@ class PersonCategories extends Controller
      * @param $personInstitutionId
      * @return mixed
      */
-    public function categorizables($personId, $id)
+    public function categorizables()
     {
         return app(PersonCategoriesRepository::class)->all();
+    }
+
+    /**
+     * @param Request $request
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function categorize1()
+    {
+        dd('categorize');
+        return app(PersonCategoriesRepository::class)->categorize();
+    }
+
+    /**
+     * @param Request $request
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function categorize(Request $request)
+    {
+        dd($request);
+        return app(PersonCategoriesRepository::class)->categorize();
+    } /**
+     * @param Request $request
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function categorize2($personId, $id)
+    {
+        dd($personId, $id);
+        return app(PersonCategoriesRepository::class)->categorize();
     }
 }
