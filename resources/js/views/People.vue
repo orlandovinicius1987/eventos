@@ -268,203 +268,211 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import people from './mixins/people'
-    import permissions from './mixins/permissions'
-    import { mapActions, mapState } from 'vuex'
+import crud from './mixins/crud'
+import people from './mixins/people'
+import permissions from './mixins/permissions'
+import { mapActions, mapState } from 'vuex'
 
-    const service = { name: 'people', uri: 'people' }
+const service = { name: 'people', uri: 'people' }
 
-    export default {
-        mixins: [crud, people, permissions],
+export default {
+    mixins: [crud, people, permissions],
 
-        data() {
-            return {
-                service: service,
-            }
+    data() {
+        return {
+            service: service,
+        }
+    },
+
+    methods: {
+        ...mapActions(service.name, [
+            'selectPerson',
+            'selectPersonInstitution',
+            'selectAddress',
+            'selectContact',
+        ]),
+
+        peopleGotoPage(page) {
+            this.gotoPage(page, 'people', this.people.data.links.pagination)
         },
 
-        methods: {
-            ...mapActions(service.name, [
-                'selectPerson',
-                'selectPersonInstitution',
-                'selectAddress',
-                'selectContact',
-            ]),
-
-            peopleGotoPage(page) {
-                this.gotoPage(page, 'people', this.people.data.links.pagination)
-            },
-
-            personInstitutionsGotoPage(page) {
-                this.gotoPage(page, 'personInstitutions', this.personInstitutions.data.links.pagination)
-            },
-
-            addressesGotoPage(page) {
-                this.gotoPage(
-                    page,
-                    'addresses',
-                    this.addresses.data.links.pagination,
-                )
-            },
-
-            contactsGotoPage(page) {
-                this.gotoPage(
-                    page,
-                    'contacts',
-                    this.contacts.data.links.pagination,
-                )
-            },
-
-            personCategoriesGotoPage(page) {
-                this.gotoPage(
-                    page,
-                    'personCategories',
-                    this.personCategories.data.links.pagination,
-                )
-            },
-
-            confirmDeletePersonCategory(personCategory) {
-                const $this = this
-
-                confirm(
-                    'Deseja realmente desassociar ' +
-                    personCategory.name +
-                    '?',
-                    this,
-                ).then(function(value) {
-                    if (value) {
-                        $this.deletePersonCategory(personCategory)
-                    }
-                })
-            },
-
-            deletePersonCategory(personCategory) {
-                return this.$store.dispatch('personCategories/disassociate', personCategory)
-            },
-
+        personInstitutionsGotoPage(page) {
+            this.gotoPage(
+                page,
+                'personInstitutions',
+                this.personInstitutions.data.links.pagination,
+            )
         },
 
-        computed: {
-            peopleFilterText: {
-                get() {
-                    return this.$store.state['people'].data.filter.text
-                },
+        addressesGotoPage(page) {
+            this.gotoPage(
+                page,
+                'addresses',
+                this.addresses.data.links.pagination,
+            )
+        },
 
-                set(filter) {
-                    return this.$store.dispatch(
-                        this.service.name + '/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
+        contactsGotoPage(page) {
+            this.gotoPage(page, 'contacts', this.contacts.data.links.pagination)
+        },
+
+        personCategoriesGotoPage(page) {
+            this.gotoPage(
+                page,
+                'personCategories',
+                this.personCategories.data.links.pagination,
+            )
+        },
+
+        confirmDeletePersonCategory(personCategory) {
+            const $this = this
+
+            confirm(
+                'Deseja realmente desassociar ' + personCategory.name + '?',
+                this,
+            ).then(function(value) {
+                if (value) {
+                    $this.deletePersonCategory(personCategory)
+                }
+            })
+        },
+
+        deletePersonCategory(personCategory) {
+            return this.$store.dispatch(
+                'personCategories/disassociate',
+                personCategory,
+            )
+        },
+    },
+
+    computed: {
+        peopleFilterText: {
+            get() {
+                return this.$store.state['people'].data.filter.text
             },
 
-            peoplePerPage: {
-                get() {
-                    return this.$store.state['people'].data.links.pagination.per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('people/setPerPage', perPage)
-                },
-            },
-
-            personInstitutionsFilterText: {
-                get() {
-                    return this.$store.state['personInstitutions'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'personInstitutions/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            personInstitutionsPerPage: {
-                get() {
-                    return this.$store.state['personInstitutions'].data.links.pagination.per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('personInstitutions/setPerPage', perPage)
-                },
-            },
-
-            addressesFilterText: {
-                get() {
-                    return this.$store.state['addresses'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'addresses/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            addressesPerPage: {
-                get() {
-                    return this.$store.state['addresses'].data.links.pagination
-                        .per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('addresses/setPerPage', perPage)
-                },
-            },
-
-            contactsFilterText: {
-                get() {
-                    return this.$store.state['contacts'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'contacts/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            contactsPerPage: {
-                get() {
-                    return this.$store.state['contacts'].data.links.pagination
-                        .per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('contacts/setPerPage', perPage)
-                },
-            },
-
-            personCategoriesFilterText: {
-                get() {
-                    return this.$store.state['personCategories'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'personCategories/mutateSetQueryFilterText',
-                        filter,
-                    )
-                },
-            },
-
-            personCategoriesPerPage: {
-                get() {
-                    return this.$store.state['personCategories'].data.links.pagination
-                        .per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch('personCategories/setPerPage', perPage)
-                },
+            set(filter) {
+                return this.$store.dispatch(
+                    this.service.name + '/mutateSetQueryFilterText',
+                    filter,
+                )
             },
         },
-    }
+
+        peoplePerPage: {
+            get() {
+                return this.$store.state['people'].data.links.pagination
+                    .per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('people/setPerPage', perPage)
+            },
+        },
+
+        personInstitutionsFilterText: {
+            get() {
+                return this.$store.state['personInstitutions'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'personInstitutions/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        personInstitutionsPerPage: {
+            get() {
+                return this.$store.state['personInstitutions'].data.links
+                    .pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch(
+                    'personInstitutions/setPerPage',
+                    perPage,
+                )
+            },
+        },
+
+        addressesFilterText: {
+            get() {
+                return this.$store.state['addresses'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'addresses/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        addressesPerPage: {
+            get() {
+                return this.$store.state['addresses'].data.links.pagination
+                    .per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('addresses/setPerPage', perPage)
+            },
+        },
+
+        contactsFilterText: {
+            get() {
+                return this.$store.state['contacts'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'contacts/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        contactsPerPage: {
+            get() {
+                return this.$store.state['contacts'].data.links.pagination
+                    .per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('contacts/setPerPage', perPage)
+            },
+        },
+
+        personCategoriesFilterText: {
+            get() {
+                return this.$store.state['personCategories'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'personCategories/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        personCategoriesPerPage: {
+            get() {
+                return this.$store.state['personCategories'].data.links
+                    .pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch(
+                    'personCategories/setPerPage',
+                    perPage,
+                )
+            },
+        },
+    },
+}
 </script>
 
 <style>

@@ -18,6 +18,4 @@ export default {
             personCategories: state => state.personCategories,
         }),
     },
-
-
 }

@@ -13,9 +13,9 @@
                 v-for="page in pagination.pages"
                 @click="$emit('goto-page', page)"
             >
-                <a class="page-link" href="#">
+                <div class="page-link">
                     {{ page }}
-                </a>
+                </div>
             </li>
 
             <li class="page-item" @click="$emit('goto-page', pagination.current_page + 1)">
