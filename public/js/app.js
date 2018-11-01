@@ -3876,7 +3876,20 @@ var service = { name: 'people', uri: 'people' };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectPerson', 'selectPersonInstitution', 'selectAddress', 'selectContact']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectPerson', 'selectPersonInstitution', 'selectAddress', 'selectContact', 'selectAdvisor']), {
+        dd: function (_dd) {
+            function dd(_x) {
+                return _dd.apply(this, arguments);
+            }
+
+            dd.toString = function () {
+                return _dd.toString();
+            };
+
+            return dd;
+        }(function (value) {
+            dd(value);
+        }),
         peopleGotoPage: function peopleGotoPage(page) {
             this.gotoPage(page, 'people', this.people.data.links.pagination);
         },
@@ -3888,6 +3901,9 @@ var service = { name: 'people', uri: 'people' };
         },
         contactsGotoPage: function contactsGotoPage(page) {
             this.gotoPage(page, 'contacts', this.contacts.data.links.pagination);
+        },
+        advisorsGotoPage: function advisorsGotoPage(page) {
+            this.gotoPage(page, 'advisors', this.advisors.data.links.pagination);
         },
         personCategoriesGotoPage: function personCategoriesGotoPage(page) {
             this.gotoPage(page, 'personCategories', this.personCategories.data.links.pagination);
@@ -3994,6 +4010,24 @@ var service = { name: 'people', uri: 'people' };
             },
             set: function set(perPage) {
                 return this.$store.dispatch('personCategories/setPerPage', perPage);
+            }
+        },
+
+        advisorsFilterText: {
+            get: function get() {
+                return this.$store.state['advisors'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('advisors/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        advisorsPerPage: {
+            get: function get() {
+                return this.$store.state['advisors'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('advisors/setPerPage', perPage);
             }
         }
     }
@@ -27141,7 +27175,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -102184,34 +102218,30 @@ var render = function() {
         "div",
         { staticClass: "col-4" },
         [
-          _vm.personInstitutions.selected.id && _vm.contacts.data.links
+          _vm.personInstitutions.selected.id && _vm.advisors.data.links
             ? _c(
                 "app-table-panel",
                 {
                   attrs: {
-                    title:
-                      _vm.selected.name +
-                      " (" +
-                      _vm.contacts.data.links.pagination.total +
-                      " contatos)",
+                    title: "Acessores",
                     "add-button": {
                       uri:
                         "/people/" +
                         _vm.personInstitutions.person.id +
                         "/person-institutions/" +
-                        _vm.contacts.personInstitution.id +
-                        "create",
+                        _vm.advisors.personInstitution.id +
+                        "/create",
                       disabled: _vm.cannot("create")
                     },
-                    "per-page": _vm.contactsPerPage,
-                    "filter-text": _vm.contactsFilterText
+                    "per-page": _vm.advisorsPerPage,
+                    "filter-text": _vm.advisorsFilterText
                   },
                   on: {
                     "set-per-page": function($event) {
-                      _vm.contactsPerPage = $event
+                      _vm.advisorsPerPage = $event
                     },
                     "input-filter-text": function($event) {
-                      _vm.contactsFilterText = $event.target.value
+                      _vm.advisorsFilterText = $event.target.value
                     }
                   }
                 },
@@ -102220,16 +102250,16 @@ var render = function() {
                     "app-table",
                     {
                       attrs: {
-                        pagination: _vm.contacts.data.links.pagination,
-                        columns: ["#", "Tipo", "Contato"]
+                        pagination: _vm.advisors.data.links.pagination,
+                        columns: ["#", "Tratamento", "Nome", "Nome Público"]
                       },
                       on: {
                         "goto-page": function($event) {
-                          _vm.contactsGotoPage($event)
+                          _vm.advisorsGotoPage($event)
                         }
                       }
                     },
-                    _vm._l(_vm.contacts.data.rows, function(contact) {
+                    _vm._l(_vm.advisors.data.rows, function(advisor) {
                       return _c(
                         "tr",
                         {
@@ -102237,22 +102267,22 @@ var render = function() {
                           class: {
                             "cursor-pointer": true,
                             "bg-primary text-white": _vm.isCurrent(
-                              contact,
-                              _vm.contacts.selected
+                              advisor,
+                              _vm.advisors.selected
                             )
                           },
                           on: {
                             click: function($event) {
-                              _vm.selectContact(contact)
+                              _vm.selectAdvisor(advisor)
                             }
                           }
                         },
                         [
-                          _c("td", [_vm._v(_vm._s(contact.id))]),
+                          _c("td", [_vm._v(_vm._s(advisor.id))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(contact.contact_type.name))]),
+                          _c("td", [_vm._v(_vm._s(advisor.name))]),
                           _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(contact.contact))])
+                          _c("td", [_vm._v(_vm._s(advisor.nickname))])
                         ]
                       )
                     })
@@ -125360,6 +125390,69 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /***/ }),
 
+/***/ "./resources/js/store/modules/advisors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: { name: 'advisors', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/advisors', isForm: true },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        name: null,
+        nickname: null,
+        title: null
+    })
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+
+        dd('mutateSetSelected - advisors');
+        dd('payload', payload);
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    }
+});
+
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
 /***/ "./resources/js/store/modules/categories.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -125478,6 +125571,9 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         context.commit('mutateSetSelected', __emptyModel);
 
         context.dispatch('load', payload);
+
+        dd('mutateSetSelected - Contacts');
+        dd('payload', payload);
     }
 });
 
@@ -126187,6 +126283,10 @@ var actions = merge_objects((_merge_objects = {
 
         context.dispatch('contacts/setPersonInstitution', payload, { root: true });
         context.dispatch('addresses/setPersonInstitution', payload, { root: true });
+        context.dispatch('advisors/setPersonInstitution', payload, { root: true });
+    },
+    selectAdvisor: function selectAdvisor(context, payload) {
+        context.dispatch('advisors/select', payload, { root: true });
     }
 }, _defineProperty(_merge_objects, 'selectPersonCategories', function selectPersonCategories(context, payload) {
     context.dispatch('categories/select', payload, { root: true });
@@ -126194,6 +126294,8 @@ var actions = merge_objects((_merge_objects = {
     context.dispatch('contacts/select', payload, { root: true });
 }), _defineProperty(_merge_objects, 'selectAddresses', function selectAddresses(context, payload) {
     context.dispatch('addresses/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAdvisors', function selectAdvisors(context, payload) {
+    context.dispatch('advisors/select', payload, { root: true });
 }), _merge_objects), __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
 var mutations = merge_objects({
@@ -126204,6 +126306,8 @@ var mutations = merge_objects({
 
         state.selectedContact = __emptyModel;
         state.selectedAddress = __emptyModel;
+
+        state.selectedAdvisors = __emptyModel;
     },
     selectPersonInstitution: function selectPersonInstitution(state, payload) {
         state.selectedPersonInstitution = payload;
@@ -126217,6 +126321,9 @@ var mutations = merge_objects({
     selectAddress: function selectAddress(state, payload) {
         state.selectedAddress = payload;
     },
+    selectAdvisors: function selectAdvisors(state, payload) {
+        state.selectedAdvisors = payload;
+    },
     setPersonCategories: function setPersonCategories(state, payload) {
         state.personCategories = payload;
     },
@@ -126225,6 +126332,9 @@ var mutations = merge_objects({
     },
     setContacts: function setContacts(state, payload) {
         state.contacts = payload;
+    },
+    setAdvisors: function setAdvisors(state, payload) {
+        state.advisors = payload;
     },
     setAddresses: function setAddresses(state, payload) {
         state.addresses = payload;
@@ -126351,12 +126461,18 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
 
         context.commit('mutateSetSelected', __emptyModel);
+        dd('mutateSetSelected - PersonInstitutions');
+        dd('payload', payload);
 
         context.dispatch('contacts/setPersonInstitution', __emptyModel, {
             root: true
         });
 
         context.dispatch('addresses/setPersonInstitution', __emptyModel, {
+            root: true
+        });
+
+        context.dispatch('advisors/setPersonInstitution', __emptyModel, {
             root: true
         });
 
@@ -126580,7 +126696,8 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_advisors__ = __webpack_require__("./resources/js/store/modules/advisors.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
 /**
  * Imports
  */
@@ -126602,6 +126719,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /**
  * Modules
  */
+
 
 
 
@@ -126641,7 +126759,7 @@ var state = {
     events: __WEBPACK_IMPORTED_MODULE_8__modules_events__["a" /* default */],
     subEvents: __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__["a" /* default */],
     invitations: __WEBPACK_IMPORTED_MODULE_10__modules_invitations__["a" /* default */],
-    invitables: __WEBPACK_IMPORTED_MODULE_20__modules_invitables__["a" /* default */],
+    invitables: __WEBPACK_IMPORTED_MODULE_21__modules_invitables__["a" /* default */],
     addresses: __WEBPACK_IMPORTED_MODULE_12__modules_addresses__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */],
     roles: __WEBPACK_IMPORTED_MODULE_14__modules_roles__["a" /* default */],
@@ -126649,7 +126767,8 @@ var state = {
     institutions: __WEBPACK_IMPORTED_MODULE_15__modules_institutions__["a" /* default */],
     personCategories: __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__["a" /* default */],
     personInstitutions: __WEBPACK_IMPORTED_MODULE_17__modules_personInstitutions__["a" /* default */],
-    contactTypes: __WEBPACK_IMPORTED_MODULE_18__modules_contact_types__["a" /* default */]
+    contactTypes: __WEBPACK_IMPORTED_MODULE_18__modules_contact_types__["a" /* default */],
+    advisors: __WEBPACK_IMPORTED_MODULE_20__modules_advisors__["a" /* default */]
   }
 });
 
@@ -128195,7 +128314,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         personCategories: function personCategories(state) {
             return state.personCategories;
+        },
+
+        advisors: function advisors(state) {
+            return state.advisors;
         }
+
     }))
 
 });
