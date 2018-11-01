@@ -118,8 +118,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                         function () {
                             Route::get(
                                 '/',
-                                'Advisors@allByPersonInstitution'
-                            )->name('advisors.all-by-person-institution');
+                                'PersonInstitutions@allAdvisorsByPersonInstitution'
+                            )->name(
+                                'advisors.all-advisors-by-person-institution'
+                            );
 
                             Route::post('/', 'Advisors@store')->name(
                                 'advisors.store'

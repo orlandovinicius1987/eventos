@@ -19,6 +19,16 @@
                             ></app-select>
 
                             <app-select
+                                    v-if="source == 'advisor'"
+                                    name="advised_id"
+                                    label="Assessor"
+                                    v-model="form.fields.advised_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="advisors.data.rows"
+                            ></app-select>
+
+                            <app-select
                                     name="role_id"
                                     label="Funções"
                                     v-model="form.fields.role_id"
@@ -64,7 +74,7 @@
     const service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true }
 
     export default {
-        props: ['mode'],
+        props: ['mode','source'],
 
         mixins: [crud, personInstitutions],
 

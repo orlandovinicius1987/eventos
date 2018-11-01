@@ -28,4 +28,9 @@ class PersonInstitutions extends Repository
     {
         return $this->filterByInstitutionId($institutionId);
     }
+
+    public function allAdvisorsByPersonInstitution($personInstitutionId)
+    {
+        return $this->filterByAdvisedId($personInstitutionId);
+    }
 }

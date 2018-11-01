@@ -16,7 +16,6 @@ class Advisors extends Repository
      */
     public function allByPersonInstitutionId($personInstitutionId)
     {
-        //return $this->filterByPersonInstitutionId($personInstitutionId);
-        dd('Vim, vi e venci');
+        return $this->filterByPersonInstitutionId($personInstitutionId);
     }
 }

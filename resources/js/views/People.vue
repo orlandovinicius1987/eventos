@@ -228,7 +228,7 @@
             <div class="col-4">
                 <app-table-panel
                         v-if="personInstitutions.selected.id && advisors.data.links"
-                        :title="'Acessores'"
+                        :title="'Assessores'"
                         :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+advisors.personInstitution.id+'/create', disabled: cannot('create') }"
                         :per-page="advisorsPerPage"
                         @set-per-page="advisorsPerPage = $event"
@@ -246,11 +246,12 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(advisor,advisors.selected)}"
                         >
                             <td>{{ advisor.id }}</td>
-                            <td>{{ advisor.name }}</td>
-                            <td>{{ advisor.nickname }}</td>
+                            <td>{{ advisor.person.title }}</td>
+                            <td>{{ advisor.person.name }}</td>
+                            <td>{{ advisor.person.nickname }}</td>
                             <!--<td>-->
                             <!--<router-link-->
-                            <!--:to="'people/'+advisors.event.id+'/person-institutions/'+advisor.id+'/update'"-->
+                            <!--:to="'/people/'+personInstitutions.person.id+'/person-institutions/'+advisors.personInstitution.id+'/advisors/'+advisor.id'/update'"-->
                             <!--tag="div"-->
                             <!--class="btn btn-danger btn-sm ml-1 pull-right"-->
                             <!--:disabled="cannot('update')"-->
