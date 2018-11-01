@@ -92,20 +92,19 @@
                                     <td class="align-middle">{{ personCategory.name }}</td>
 
                                     <td class="align-middle text-right">
-                                        <a
+                                        <div
                                                 @click="confirmDeletePersonCategory(personCategory)"
                                                 class="btn btn-danger btn-sm mr-1 pull-right"
-                                                href="#"
                                         >
                                             <i class="fa fa-trash"></i>
-                                        </a>
+                                        </div>
                                     </td>
 
                                 </tr>
                             </app-table>
                         </app-table-panel>
                     </div>
-                    
+
                     <div class="col-12">
                         <app-table-panel
                                 v-if="selected.id && personInstitutions.data.links"
