@@ -30,11 +30,21 @@ class PersonCategories extends Controller
      * @param $personInstitutionId
      * @return mixed
      */
-    public function disassociate($personId, $id)
+    public function unCategorize($personId, $id)
     {
-        return app(PersonCategoriesRepository::class)->disassociate(
+        return app(PersonCategoriesRepository::class)->unCategorize(
             $personId,
             $id
         );
+    }
+
+    /**
+     * @param Request $request
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function categorizables($personId, $id)
+    {
+        return app(PersonCategoriesRepository::class)->all();
     }
 }

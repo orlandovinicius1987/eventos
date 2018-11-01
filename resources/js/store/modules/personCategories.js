@@ -12,7 +12,7 @@ const state = merge_objects(statesMixin.common, {
 
     service: {
         name: 'personCategories',
-        uri: 'people/{people.selected.id}/person-categories',
+        uri: 'people/{people.selected.id}/categories',
         isForm: true,
     },
 
@@ -32,8 +32,8 @@ const actions = merge_objects(actionsMixin, {
         context.dispatch('load', payload)
     },
 
-    disassociate(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/disassociate/').then(
+    unCategorize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/').then(
             function() {
                 context.dispatch('load', payload)
             },

@@ -94,7 +94,7 @@
                 <app-table-panel
                     v-if="selected.id && personCategories.data.links"
                     :title="selected.name + ' (' + personCategories.data.links.pagination.total + ' categorias)'"
-                    :add-button="{ uri: '/categories/create', disabled: cannot('create') }"
+                    :add-button="{ uri: 'people/'+personInstitutions.person.id+'/category/categorizables', disabled: cannot('create') }"
                     :per-page="personCategoriesPerPage"
                     @set-per-page="personCategoriesPerPage = $event"
                     :filter-text="personCategoriesFilterText"
@@ -339,7 +339,7 @@ export default {
 
         deletePersonCategory(personCategory) {
             return this.$store.dispatch(
-                'personCategories/disassociate',
+                'personCategories/un-categorize',
                 personCategory,
             )
         },

@@ -8,6 +8,8 @@ export default {
     computed: {
         ...mapState({
             personCategories: state => state.personCategories,
+
+            categorizables: state => state.categorizables,
         }),
     },
 }

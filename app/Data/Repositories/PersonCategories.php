@@ -22,7 +22,7 @@ class PersonCategories extends Repository
         );
     }
 
-    public function disassociate($personId, $id)
+    public function unCategorize($personId, $id)
     {
         dd(
             app(People::class)
