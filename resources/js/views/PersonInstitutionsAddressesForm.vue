@@ -37,28 +37,32 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import addresses from './mixins/addresses'
-    import { mapState } from 'vuex'
+import crud from './mixins/crud'
+import addresses from './mixins/addresses'
+import { mapState } from 'vuex'
 
-    const service = { name: 'addresses', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses', performLoad: false }
+const service = {
+    name: 'addresses',
+    uri:
+        'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses',
+    performLoad: false,
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, addresses],
+    mixins: [crud, addresses],
 
-        data() {
-            return {
-                service: service,
-            }
-        },
+    data() {
+        return {
+            service: service,
+        }
+    },
 
-        computed: {
-            ...mapState('addresses', ['selectedEvent', 'selectedSubEvent']),
-        },
-
-    }
+    computed: {
+        ...mapState('addresses', ['selectedEvent', 'selectedSubEvent']),
+    },
+}
 </script>
 
 <style>

@@ -21,6 +21,15 @@
 
 <script>
 export default {
-    props: ['value', 'name', 'label', 'required', 'form', 'type', 'dusk', 'readonly'],
+    props: [
+        'value',
+        'name',
+        'label',
+        'required',
+        'form',
+        'type',
+        'dusk',
+        'readonly',
+    ],
 }
 </script>

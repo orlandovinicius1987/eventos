@@ -39,7 +39,7 @@ export default {
     methods: {
         is_object(target) {
             return is_object(target)
-        }
-    }
+        },
+    },
 }
 </script>

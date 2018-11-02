@@ -256,9 +256,7 @@ export default {
             const $this = this
 
             confirm(
-                'Deseja realmente confirmar ' +
-                subEvent.name +
-                '?',
+                'Deseja realmente confirmar ' + subEvent.name + '?',
                 this,
             ).then(function(value) {
                 if (value) {

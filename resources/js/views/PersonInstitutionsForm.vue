@@ -58,28 +58,35 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import personInstitutions from './mixins/personInstitutions'
+import crud from './mixins/crud'
+import personInstitutions from './mixins/personInstitutions'
 
-    const service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true }
+const service = {
+    name: 'personInstitutions',
+    uri: 'people/{people.selected.id}/person-institutions',
+    isForm: true,
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, personInstitutions],
+    mixins: [crud, personInstitutions],
 
-        data() {
-            return {
-                service: service,
-            }
+    data() {
+        return {
+            service: service,
+        }
+    },
+
+    methods: {
+        fillAdditionalFormFields() {
+            this.$store.commit('personInstitutions/mutateSetFormField', {
+                field: 'person_id',
+                value: this.personInstitutions.person.id,
+            })
         },
-
-        methods:{
-            fillAdditionalFormFields() {
-                this.$store.commit('personInstitutions/mutateSetFormField', { field: 'person_id', value: this.personInstitutions.person.id })
-            },
-        },
-    }
+    },
+}
 </script>
 
 <style>
