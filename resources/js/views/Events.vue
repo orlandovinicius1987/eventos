@@ -171,7 +171,7 @@
                                 {{ invitation.checkin_at }}
                             </td>
 
-                            <td class="align-middle">
+                            <td class="align-middle text-right">
                                 <a
                                     @click="confirmUnInvite(invitation)"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
