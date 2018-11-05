@@ -52,13 +52,16 @@ let actions = merge_objects(
             context.dispatch('addresses/setPersonInstitution', payload, {
                 root: true,
             })
-            context.dispatch('advisors/setPersonInstitution', payload, { root: true })
+            context.dispatch('advisors/setPersonInstitution', payload, {
+                root: true,
+            })
         },
 
         selectAdvisor(context, payload) {
             context.dispatch('advisors/select', payload, { root: true })
-            context.dispatch('advisorContacts/setPersonInstitution',payload, { root: true })
-
+            context.dispatch('advisorContacts/setPersonInstitution', payload, {
+                root: true,
+            })
         },
 
         selectPersonCategories(context, payload) {
@@ -112,9 +115,7 @@ let mutations = merge_objects(
         },
         selectAdvisors(state, payload) {
             state.selectedAdvisors = payload
-
         },
-
 
         setPersonCategories(state, payload) {
             state.personCategories = payload

@@ -79,10 +79,10 @@ const service = {
     isForm: true,
 }
 
-    export default {
-        props: ['mode','source'],
+export default {
+    props: ['mode', 'source'],
 
-    mixins: [crud, personInstitutions,people,advisors],
+    mixins: [crud, personInstitutions, people, advisors],
 
     data() {
         return {
@@ -92,21 +92,25 @@ const service = {
 
     methods: {
         fillAdditionalFormFields() {
-           const $this = this
+            const $this = this
 
-            if(this.mode == 'create') {
-                this.$store.dispatch('personInstitutions/clearForm', {root: true})
-            }else if(this.mode == 'update'){
-                this.$store.commit('personInstitutions/mutateFormData', $this.advisors.selected)
+            if (this.mode == 'create') {
+                this.$store.dispatch('personInstitutions/clearForm', {
+                    root: true,
+                })
+            } else if (this.mode == 'update') {
+                this.$store.commit(
+                    'personInstitutions/mutateFormData',
+                    $this.advisors.selected,
+                )
             }
 
-            if(this.source == 'advisor') {
+            if (this.source == 'advisor') {
                 this.$store.commit('personInstitutions/mutateSetFormField', {
                     field: 'advised_id',
                     value: this.personInstitutions.selected.id,
                 })
-
-            }else{
+            } else {
                 this.$store.commit('personInstitutions/mutateSetFormField', {
                     field: 'person_id',
                     value: this.personInstitutions.person.id,

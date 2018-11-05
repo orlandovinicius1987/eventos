@@ -20,8 +20,6 @@ export default {
             advisors: state => state.advisors,
 
             advisorContacts: state => state.advisorContacts,
-
-
         }),
     },
 }
