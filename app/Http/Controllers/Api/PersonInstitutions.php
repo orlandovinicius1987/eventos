@@ -60,4 +60,11 @@ class PersonInstitutions extends Controller
             $request->all()
         );
     }
+
+    public function allAdvisorsByPersonInstitution($personInstitutionId)
+    {
+        return app(
+            PersonInstitutionsRepository::class
+        )->allAdvisorsByPersonInstitution($personInstitutionId);
+    }
 }
