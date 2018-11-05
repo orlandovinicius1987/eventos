@@ -11,7 +11,7 @@ const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
     service: {
-        name: 'personCategories',
+        name: 'categorizables',
         uri: 'people/{people.selected.id}/categories',
         isForm: true,
     },
@@ -21,11 +21,7 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
-        context.commit('mutateSetPersonCategory', payload)
-
-        //context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id })
-
-        //context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model })
+        context.commit('mutateSetCategorizable', payload)
 
         context.commit('mutateSetSelected', __emptyModel)
 
@@ -39,11 +35,23 @@ const actions = merge_objects(actionsMixin, {
             },
         )
     },
+
+    categorize(context, payload) {
+        dd(context)
+        dd(payload)
+        dd(makeDataUrl(context))
+        post(makeDataUrl(context)).then(
+            function() {
+                dd(context.dispatch('load', payload))
+                context.dispatch('load', payload)
+            },
+        )
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
-    mutateSetPersonCategory(state, payload) {
-        state.personCategory = payload
+    mutateSetCategorizable(state, payload) {
+        state.categorizables = payload
     },
 })
 

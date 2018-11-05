@@ -73,7 +73,7 @@
                         <app-table-panel
                                 v-if="selected.id && personCategories.data.links"
                                 :title="'Categorias: ' + personCategories.data.links.pagination.total"
-                                :add-button="{ uri: '/categories/create', disabled: cannot('create') }"
+                                :add-button="{ uri: '/people/'+people.selected.id+'/categories/create', disabled: cannot('create') }"
                                 :per-page="personCategoriesPerPage"
                                 @set-per-page="personCategoriesPerPage = $event"
                                 :filter-text="personCategoriesFilterText"
@@ -105,7 +105,7 @@
                             </app-table>
                         </app-table-panel>
                     </div>
-                    
+
                     <div class="col-12">
                         <app-table-panel
                                 v-if="selected.id && personInstitutions.data.links"
@@ -213,19 +213,19 @@
                                 >
                                     <td>{{ address.id }}</td>
 
-                                    <td>{{ address.street }}</td>
+                            <td>{{ address.street }}</td>
 
-                                    <td>{{ address.number }}</td>
+                            <td>{{ address.number }}</td>
 
-                                    <td>{{ address.complement }}</td>
+                            <td>{{ address.complement }}</td>
 
-                                    <td>{{ address.neighbourhood }}</td>
+                            <td>{{ address.neighbourhood }}</td>
 
-                                    <td>{{ address.zipcode }}</td>
+                            <td>{{ address.zipcode }}</td>
 
-                                    <td>{{ address.city }}</td>
+                            <td>{{ address.city }}</td>
 
-                                    <td>{{ address.state }}</td>
+                            <td>{{ address.state }}</td>
 
                                     <td class="align-middle text-right">
                                         <router-link
