@@ -114,6 +114,26 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     );
 
                     Route::group(
+                        ['prefix' => '{personInstitutionId}/advisors'],
+                        function () {
+                            Route::get(
+                                '/',
+                                'PersonInstitutions@allAdvisorsByPersonInstitution'
+                            )->name(
+                                'advisors.all-advisors-by-person-institution'
+                            );
+
+                            Route::post('/', 'Advisors@store')->name(
+                                'advisors.store'
+                            );
+
+                            Route::post('/{id}', 'Advisors@update')->name(
+                                'advisors.update'
+                            );
+                        }
+                    );
+
+                    Route::group(
                         ['prefix' => '{personInstitutionId}/addresses'],
                         function () {
                             Route::get(

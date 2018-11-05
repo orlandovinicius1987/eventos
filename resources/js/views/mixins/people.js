@@ -16,6 +16,10 @@ export default {
             addresses: state => state.addresses,
 
             personCategories: state => state.personCategories,
+
+            advisors: state => state.advisors,
+
+            advisorContacts: state => state.advisorContacts,
         }),
     },
 }
