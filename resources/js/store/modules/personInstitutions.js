@@ -22,6 +22,8 @@ const state = merge_objects(statesMixin.common, {
         institution_id: null,
         title: null,
     }),
+
+    advisors: null,
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -34,8 +36,6 @@ const actions = merge_objects(actionsMixin, {
         })
 
         context.commit('mutateSetSelected', __emptyModel)
-        dd('mutateSetSelected - PersonInstitutions')
-        dd('payload',payload)
 
         context.dispatch('contacts/setPersonInstitution', __emptyModel, {
             root: true,
@@ -50,12 +50,21 @@ const actions = merge_objects(actionsMixin, {
         })
 
         context.dispatch('load', payload)
+        context.dispatch('loadAdvisors')
     },
+
+    loadAdvisors(context, payload){
+        context.commit('mutateSetAdvisors',(payload))
+    }
 })
 
 const mutations = merge_objects(mutationsMixin, {
     mutateSetPerson(state, payload) {
         state.person = payload
+    },
+
+    mutateSetAdvisors(state, payload) {
+        state.advisors = payload
     },
 })
 

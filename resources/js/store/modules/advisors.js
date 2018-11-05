@@ -30,8 +30,8 @@ const actions = merge_objects(actionsMixin, {
 
         context.dispatch('load', payload)
 
-        dd('mutateSetSelected - advisors')
-        dd('payload',payload)
+        context.dispatch('personInstitutions/loadAdvisors', 'loadAdvisors', {root:true})
+
     },
 })
 
@@ -39,9 +39,17 @@ const mutations = merge_objects(mutationsMixin, {
     mutateSetPersonInstitution(state, payload) { 
         state.personInstitution = payload
     },
+
+    mutateSetAdvisors(state,payload){
+        state.advisor = payload
+    },
 })
 
-let getters = gettersMixin
+let getters = merge_objects(gettersMixin,{
+    getAdvisors(state, getters){
+        return state.data
+    }
+})
 
 export default {
     state,

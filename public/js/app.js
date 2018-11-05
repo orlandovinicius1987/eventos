@@ -102227,7 +102227,7 @@ var render = function() {
                         _vm.personInstitutions.person.id +
                         "/person-institutions/" +
                         _vm.advisors.personInstitution.id +
-                        "/create",
+                        "/advisors/create",
                       disabled: _vm.cannot("create")
                     },
                     "per-page": _vm.advisorsPerPage,
@@ -125456,18 +125456,24 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
 
         context.dispatch('load', payload);
 
-        dd('mutateSetSelected - advisors');
-        dd('payload', payload);
+        context.dispatch('personInstitutions/loadAdvisors', 'loadAdvisors', { root: true });
     }
 });
 
 var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
     mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
         state.personInstitution = payload;
+    },
+    mutateSetAdvisors: function mutateSetAdvisors(state, payload) {
+        state.advisor = payload;
     }
 });
 
-var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+var getters = merge_objects(__WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__, {
+    getAdvisors: function getAdvisors(state, getters) {
+        return state.data;
+    }
+});
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
@@ -126488,7 +126494,9 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         role_id: null,
         institution_id: null,
         title: null
-    })
+    }),
+
+    advisors: null
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
@@ -126501,8 +126509,6 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
 
         context.commit('mutateSetSelected', __emptyModel);
-        dd('mutateSetSelected - PersonInstitutions');
-        dd('payload', payload);
 
         context.dispatch('contacts/setPersonInstitution', __emptyModel, {
             root: true
@@ -126517,12 +126523,19 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
 
         context.dispatch('load', payload);
+        context.dispatch('loadAdvisors');
+    },
+    loadAdvisors: function loadAdvisors(context, payload) {
+        context.commit('mutateSetAdvisors', payload);
     }
 });
 
 var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
     mutateSetPerson: function mutateSetPerson(state, payload) {
         state.person = payload;
+    },
+    mutateSetAdvisors: function mutateSetAdvisors(state, payload) {
+        state.advisors = payload;
     }
 });
 

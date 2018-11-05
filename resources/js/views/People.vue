@@ -229,7 +229,7 @@
                 <app-table-panel
                         v-if="personInstitutions.selected.id && advisors.data.links"
                         :title="'Assessores'"
-                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+advisors.personInstitution.id+'/create', disabled: cannot('create') }"
+                        :add-button="{ uri: '/people/'+personInstitutions.person.id+'/person-institutions/'+advisors.personInstitution.id+'/advisors/create', disabled: cannot('create') }"
                         :per-page="advisorsPerPage"
                         @set-per-page="advisorsPerPage = $event"
                         :filter-text="advisorsFilterText"
