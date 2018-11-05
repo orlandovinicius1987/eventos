@@ -65,7 +65,7 @@ const actions = {
             })
     },
 
-    loadPeople(context){
+    loadPeople(context) {
         return axios
             .get('/api/v1/people', {
                 params: { query: context.getters.getFullQueryFilter },

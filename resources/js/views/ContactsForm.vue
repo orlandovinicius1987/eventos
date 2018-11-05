@@ -71,7 +71,7 @@ const service = {
 }
 
 export default {
-    props: ['mode','source'],
+    props: ['mode', 'source'],
 
     mixins: [crud, contacts, advisorContacts],
 
@@ -122,8 +122,7 @@ export default {
                     field: 'person_institution_id',
                     value: this.advisorContacts.personInstitution.id,
                 })
-            } else{
-
+            } else {
                 this.$store.commit('contacts/mutateSetFormField', {
                     field: 'person_institution_id',
                     value: this.contacts.personInstitution.id,

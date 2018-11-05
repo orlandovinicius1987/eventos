@@ -53,9 +53,9 @@ const actions = merge_objects(actionsMixin, {
         context.dispatch('loadAdvisors')
     },
 
-    loadAdvisors(context, payload){
-        context.commit('mutateSetAdvisors',(payload))
-    }
+    loadAdvisors(context, payload) {
+        context.commit('mutateSetAdvisors', payload)
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
