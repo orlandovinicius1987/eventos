@@ -1,7 +1,29 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>Eventos</h2>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Eventos</h2>
+                </div>
+            </div>
+
+            <div
+                v-if="selected.id && events.data.links"
+                class="row bg-primary text-white"
+            >
+                <div class="col-12 mt-2">
+                    <h3
+
+                    >
+                        {{ selected.name }}
+
+                        <span v-if="subEvents.selected && subEvents.selected.id == events.selected.id && subEvents.selected.name">
+                            - {{ subEvents.selected.name }}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">

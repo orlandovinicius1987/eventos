@@ -2499,13 +2499,14 @@ var service = {
         return {
             service: service,
 
+            categorizablesChecked: {},
+
             checkedCategory: {}
         };
     },
 
 
     computed: {
-
         categorizablesFilterText: {
             get: function get() {
                 return this.$store.state['categorizables'].data.filter.text;
@@ -2541,19 +2542,24 @@ var service = {
             }
 
             this.checkedCategory[categorizable.id].checked = !this.checkedCategory[categorizable.id].checked;
+
+            this.categorizablesChecked = this.getCategorizablesChecked();
         },
         categorize: function categorize() {
             var categories = {
                 personId: this.people.selected.id,
 
-                categories: _.filter(this.checkedCategory, function (category) {
-                    return category.checked;
-                })
+                categories: this.categorizablesChecked
             };
 
             this.$store.dispatch('categorizables/categorize', categories);
 
             this.$router.go(-1);
+        },
+        getCategorizablesChecked: function getCategorizablesChecked() {
+            return _.filter(this.checkedCategory, function (category) {
+                return category.checked;
+            });
         }
     }
 });
@@ -2928,6 +2934,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -27518,7 +27546,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27578,7 +27606,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103068,7 +103096,34 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.selected.id && _vm.events.data.links
+        ? _c("div", { staticClass: "row bg-primary text-white" }, [
+            _c("div", { staticClass: "col-12 mt-2" }, [
+              _c("h3", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.selected.name) +
+                    "\n\n                    "
+                ),
+                _vm.subEvents.selected &&
+                _vm.subEvents.selected.id == _vm.events.selected.id &&
+                _vm.subEvents.selected.name
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                        - " +
+                          _vm._s(_vm.subEvents.selected.name) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -103592,8 +103647,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Eventos")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [_c("h2", [_vm._v("Eventos")])])
     ])
   }
 ]
@@ -103979,23 +104034,24 @@ var render = function() {
                 },
                 [
                   _c("template", { slot: "buttons" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary btn-sm pull-right",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            _vm.categorize()
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        gravar associação de categorias\n                    "
+                    _vm.categorizablesChecked.length > 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm pull-right",
+                            on: {
+                              click: function($event) {
+                                _vm.categorize()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        associar categorias\n                    "
+                            )
+                          ]
                         )
-                      ]
-                    )
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
                   _c(
@@ -105762,7 +105818,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-4 p-0" },
+                { staticClass: "col-2 p-0" },
                 [
                   _c("app-per-page", {
                     attrs: { value: _vm.perPage },
@@ -105778,7 +105834,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-2 text-right" },
+                { staticClass: "col-4 text-right" },
                 [
                   _vm.addButton
                     ? _c(
@@ -106035,11 +106091,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
-      {
-        staticClass: "page-link",
-        attrs: { href: "#", "aria-label": "Previous" }
-      },
+      "div",
+      { staticClass: "page-link", attrs: { "aria-label": "Previous" } },
       [
         _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("«")]),
         _vm._v(" "),
@@ -106052,8 +106105,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
-      { staticClass: "page-link", attrs: { href: "#", "aria-label": "Next" } },
+      "div",
+      { staticClass: "page-link", attrs: { "aria-label": "Next" } },
       [
         _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("»")]),
         _vm._v(" "),
@@ -126355,8 +126408,10 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
     },
     categorize: function categorize(context, payload) {
-        post(makeDataUrl(context)).then(function () {
+        post(makeDataUrl(context), payload).then(function () {
             context.dispatch('load', payload);
+
+            context.dispatch('personCategories/load', payload, { root: true });
         });
     }
 });

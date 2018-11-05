@@ -2,10 +2,10 @@
     <nav class="text-center" v-if="pagination.last_page > 1">
         <ul class="pagination justify-content-center mb-0">
             <li class="page-item" @click="$emit('goto-page', pagination.current_page - 1)">
-                <a class="page-link" href="#" aria-label="Previous">
+                <div class="page-link" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Anterior</span>
-                </a>
+                </div>
             </li>
 
             <li
@@ -19,10 +19,10 @@
             </li>
 
             <li class="page-item" @click="$emit('goto-page', pagination.current_page + 1)">
-                <a class="page-link" href="#" aria-label="Next">
+                <div class="page-link" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Próxima</span>
-                </a>
+                </div>
             </li>
         </ul>
     </nav>
