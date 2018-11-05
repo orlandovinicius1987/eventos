@@ -155,19 +155,31 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                 }
             );
 
-            Route::group(
-                ['prefix' => '{personId}/person-categories'],
-                function () {
-                    Route::get('/', 'PersonCategories@all')->name(
-                        'person-categories.all'
-                    );
+            Route::group(['prefix' => '{personId}/categories'], function () {
+                Route::get('/', 'PersonCategories@all')->name(
+                    'person-categories.all'
+                );
 
-                    Route::post(
-                        '/{id}/disassociate/',
-                        'PersonCategories@disassociate'
-                    )->name('person-categories.disassociate');
-                }
-            );
+                Route::post(
+                    '/{id}/un-categorize/',
+                    'PersonCategories@unCategorize'
+                )->name('person-categories.un-categorize');
+
+                Route::post(
+                    '/categorizables/',
+                    'PersonCategories@categorize'
+                )->name('person-categories.categorize');
+
+                Route::get(
+                    '/categorizables/',
+                    'PersonCategories@categorizables'
+                )->name('person-categories.categorizables');
+
+                Route::post(
+                    '/categorize/',
+                    'PersonCategories@categorize'
+                )->name('person-categories.categorize');
+            });
         });
 
         Route::group(['prefix' => '/roles'], function () {

@@ -43,22 +43,26 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import contactTypes from './mixins/contact-types'
+import crud from './mixins/crud'
+import contactTypes from './mixins/contact-types'
 
-    const service = { name: 'contactTypes', uri: 'contact-types', performLoad: false }
+const service = {
+    name: 'contactTypes',
+    uri: 'contact-types',
+    performLoad: false,
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, contactTypes],
+    mixins: [crud, contactTypes],
 
-        data() {
-            return {
-                service: service,
-            }
+    data() {
+        return {
+            service: service,
         }
-    }
+    },
+}
 </script>
 
 <style>

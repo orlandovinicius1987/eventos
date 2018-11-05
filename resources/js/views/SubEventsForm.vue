@@ -135,47 +135,79 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import subEvents from './mixins/sub-events'
-    import permissions from './mixins/permissions'
-    import { mapState } from 'vuex'
-    import * as VueGoogleMaps from 'vue2-google-maps'
+import crud from './mixins/crud'
+import subEvents from './mixins/sub-events'
+import permissions from './mixins/permissions'
+import { mapState } from 'vuex'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
-    const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false }
+const service = {
+    name: 'subEvents',
+    uri: 'events/{events.selected.id}/sub-events',
+    performLoad: false,
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, subEvents, permissions],
+    mixins: [crud, subEvents, permissions],
 
-        data() {
-            return {
-                service: service,
-            }
-        },
-
-        methods: {
-            selectAddressInsideEvent(address){
-                context.commit('mutateSetFormField', { field: 'zipcode', value: address.zipcode })
-                context.commit('mutateSetFormField', { field: 'street', value: address.street })
-                context.commit('mutateSetFormField', { field: 'number', value: address.number })
-                context.commit('mutateSetFormField', { field: 'complement', value: address.complement })
-                context.commit('mutateSetFormField', { field: 'neighbourhood', value: address.neighbourhood })
-                context.commit('mutateSetFormField', { field: 'city', value: address.city })
-                context.commit('mutateSetFormField', { field: 'state', value: address.state })
-                context.commit('mutateSetFormField', { field: 'latitude', value: address.latitude })
-                context.commit('mutateSetFormField', { field: 'longitude', value: address.longitude })
-            },
-
-            fillAdditionalFormFields() {
-                this.$store.commit('subEvents/mutateSetFormField', { field: 'event_id', value: this.events.selected.id })
-            },
-        },
-
-        mounted() {
-            
+    data() {
+        return {
+            service: service,
         }
-    }
+    },
+
+    methods: {
+        selectAddressInsideEvent(address) {
+            context.commit('mutateSetFormField', {
+                field: 'zipcode',
+                value: address.zipcode,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'street',
+                value: address.street,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'number',
+                value: address.number,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'complement',
+                value: address.complement,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'neighbourhood',
+                value: address.neighbourhood,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'city',
+                value: address.city,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'state',
+                value: address.state,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'latitude',
+                value: address.latitude,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'longitude',
+                value: address.longitude,
+            })
+        },
+
+        fillAdditionalFormFields() {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                field: 'event_id',
+                value: this.events.selected.id,
+            })
+        },
+    },
+
+    mounted() {},
+}
 </script>
 
 <style>

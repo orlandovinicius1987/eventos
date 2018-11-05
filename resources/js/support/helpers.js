@@ -82,7 +82,7 @@ window.object_get = (obj, descendants) => {
     return obj
 }
 
-window.is_object = (target) => {
+window.is_object = target => {
     return typeof target === 'object'
 }
 
@@ -142,18 +142,23 @@ window.buildApiUrl = (uri, state) => {
     let url = '/api/v1/' + uri
     let hasNulls = false
 
-    _.each(uri.match(/(\{.*?\})/g), (param) => {
+    _.each(uri.match(/(\{.*?\})/g), param => {
         let elements = param.match(/(\w+)/g)
 
-        let result = _.reduce(elements, function(carry, value) {
-            carry = carry && carry.hasOwnProperty(value) ? carry[value] : null
+        let result = _.reduce(
+            elements,
+            function(carry, value) {
+                carry =
+                    carry && carry.hasOwnProperty(value) ? carry[value] : null
 
-            if (carry === null) {
-                hasNulls = true
-            }
+                if (carry === null) {
+                    hasNulls = true
+                }
 
-            return carry
-        }, state);
+                return carry
+            },
+            state,
+        )
 
         url = url.replace(param, result)
     })
@@ -161,26 +166,26 @@ window.buildApiUrl = (uri, state) => {
     return hasNulls ? null : url
 }
 
-window.makeDataUrl = (context) => {
-    return (context.state.service && context.state.service.uri)
+window.makeDataUrl = context => {
+    return context.state.service && context.state.service.uri
         ? buildApiUrl(context.state.service.uri, context.rootState)
         : null
 }
 
-window.makeStoreUrl = (context) => {
-    return (context.state.service && context.state.service.uri)
+window.makeStoreUrl = context => {
+    return context.state.service && context.state.service.uri
         ? buildApiUrl(context.state.service.uri, context.rootState)
         : null
 }
 
-window.makeUpdateUrl = (context) => {
-    return (context.state.service && context.state.service.uri)
+window.makeUpdateUrl = context => {
+    return context.state.service && context.state.service.uri
         ? buildApiUrl(context.state.service.uri, context.rootState)
         : null
 }
 
-window.findById = (data,id) => {
-    return _.find(data.rows, (item) => {
+window.findById = (data, id) => {
+    return _.find(data.rows, item => {
         return item.id == id
     })
 }
