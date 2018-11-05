@@ -37,8 +37,6 @@ const actions = merge_objects(actionsMixin, {
 
         context.dispatch('load', payload)
 
-        dd('mutateSetSelected - Contacts')
-        dd('payload',payload)
     },
 })
 

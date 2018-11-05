@@ -37,12 +37,8 @@ const actions = merge_objects(actionsMixin, {
     },
 
     categorize(context, payload) {
-        dd(context)
-        dd(payload)
-        dd(makeDataUrl(context))
         post(makeDataUrl(context)).then(
             function() {
-                dd(context.dispatch('load', payload))
                 context.dispatch('load', payload)
             },
         )

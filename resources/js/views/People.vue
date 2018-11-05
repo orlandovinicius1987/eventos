@@ -189,7 +189,7 @@
                         </app-table-panel>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" v-if="personInstitutions.selected.advised_id == null">
                         <app-table-panel
                                 v-if="personInstitutions.selected.id && addresses.data.links"
                                 :title="'Endereços: ' + addresses.data.links.pagination.total"
@@ -245,7 +245,7 @@
         </div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-4" v-if="personInstitutions.selected.advised_id == null">
                 <app-table-panel
                         v-if="personInstitutions.selected.id && advisors.data.links"
                         :title="'Assessores'"
@@ -284,6 +284,48 @@
                     </app-table>
                 </app-table-panel>
             </div>
+
+            <div class="col-12">
+                <app-table-panel
+                        v-if="advisors.selected.id && advisorContacts.data.links"
+                        :title="'Contatos: ' + advisorContacts.data.links.pagination.total"
+                        :add-button="{ uri: '/people/'+advisors.person.id+'/person-institutions/'+personInstitutions.selected.id+'/advisors/'+advisorContacts.personInstitution.id+'/contacts/create', disabled: cannot('create') }"
+                        :per-page="advisorContactsPerPage"
+                        @set-per-page="advisorContactsPerPage = $event"
+                        :filter-text="advisorContactsFilterText"
+                        @input-filter-text="advisorContactsFilterText = $event.target.value"
+                >
+                    <app-table
+                            :pagination="advisorContacts.data.links.pagination"
+                            @goto-page="advisorContactsGotoPage($event)"
+                            :columns="['#', 'Tipo', 'Contato']"
+                    >
+                        <tr
+                                @click="selectAdvisorContacts(advisorContact)"
+                                v-for="advisorContact in advisorContacts.data.rows" class="cursor-pointer"
+                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(advisorContact,advisorContacts.selected)}"
+                        >
+                            <td>{{ advisorContact.id }}</td>
+
+                            <td>{{ advisorContact.contact_type.name }}</td>
+
+                            <td>{{ advisorContact.contact }}</td>
+
+                            <td class="align-middle text-right">
+                                <router-link
+                                        :to="'/people/'+advisors.person.id+'/person-institutions/'+personInstitutions.selected.id+'/advisors/'+advisorContacts.personInstitution.id+'/contacts/'+advisorContact.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
+                                        :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
+                            </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
+
         </div>
     </div>
 </template>
@@ -312,6 +354,7 @@ export default {
             'selectAddress',
             'selectContact',
             'selectAdvisor',
+            'selectAdvisorContacts'
             ]),
 
 
@@ -338,6 +381,10 @@ export default {
 
         contactsGotoPage(page) {
             this.gotoPage(page, 'contacts', this.contacts.data.links.pagination)
+        },
+
+        advisorContactsGotoPage(page) {
+            this.gotoPage(page, 'advisorContacts', this.contacts.data.links.pagination)
         },
 
         personCategoriesGotoPage(page) {
@@ -525,6 +572,29 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('advisors/setPerPage', perPage)
+            },
+        },
+        advisorContactsFilterText: {
+            get() {
+                return this.$store.state['advisorContacts'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'advisorContacts/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        advisorContactsPerPage: {
+            get() {
+                return this.$store.state['advisorContacts'].data.links.pagination
+                    .per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch('advisorContacts/setPerPage', perPage)
             },
         },
     },

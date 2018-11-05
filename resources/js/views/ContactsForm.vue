@@ -61,6 +61,7 @@
 <script>
 import crud from './mixins/crud'
 import contacts from './mixins/contacts'
+import advisorContacts from './mixins/advisorContacts'
 
 const service = {
     name: 'contacts',
@@ -70,9 +71,9 @@ const service = {
 }
 
 export default {
-    props: ['mode'],
+    props: ['mode','source'],
 
-    mixins: [crud, contacts],
+    mixins: [crud, contacts, advisorContacts],
 
     data() {
         return {
@@ -116,10 +117,18 @@ export default {
         },
 
         fillAdditionalFormFields() {
-            this.$store.commit('contacts/mutateSetFormField', {
-                field: 'person_institution_id',
-                value: this.contacts.personInstitution.id,
-            })
+            if (this.source == 'advisor') {
+                this.$store.commit('contacts/mutateSetFormField', {
+                    field: 'person_institution_id',
+                    value: this.advisorContacts.personInstitution.id,
+                })
+            } else{
+
+                this.$store.commit('contacts/mutateSetFormField', {
+                    field: 'person_institution_id',
+                    value: this.contacts.personInstitution.id,
+                })
+            }
         },
     },
 }
