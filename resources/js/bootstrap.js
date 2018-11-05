@@ -96,6 +96,12 @@ let cheerio = require('cheerio')
 window.cheerio = cheerio
 
 /**
+ * Vue The Mask
+ */
+import VueTheMask from 'vue-the-mask'
+Vue.use(VueTheMask)
+
+/**
  * SweetAlert
  */
 import VueSwal from 'vue-swal'
@@ -108,3 +114,24 @@ import { Modal } from 'bootstrap-vue/es/components'
 import { Button } from 'bootstrap-vue/es/components'
 Vue.use(Modal)
 Vue.use(Button)
+
+/**
+ * Vue Google Maps
+ */
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: laravel.google_maps.api_key,
+        libraries: 'places',
+    },
+})
+
+/**
+ * Autoload Vue components
+ */
+const files = require.context('./components/app/', true, /\.vue$/i)
+files.keys().map(key => {
+    const name = 'App' + _.last(key.split('/')).split('.')[0]
+    return Vue.component(name, files(key))
+})

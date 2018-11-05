@@ -1633,6 +1633,282 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/autocomplete.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ((function (x) {
+  return x.default || x;
+})(__webpack_require__("./node_modules/vue2-google-maps/dist/components/autocompleteImpl.js")));
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/infoWindow.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ((function (x) {
+  return x.default || x;
+})(__webpack_require__("./node_modules/vue2-google-maps/dist/components/infoWindowImpl.js")));
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/map.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ((function (x) {
+  return x.default || x;
+})(__webpack_require__("./node_modules/vue2-google-maps/dist/components/mapImpl.js")));
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ((function (x) {
+  return x.default || x;
+})(__webpack_require__("./node_modules/vue2-google-maps/dist/components/streetViewPanoramaImpl.js")));
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/AddressForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['address', 'form', 'googleMaps'],
+
+    data: function data() {
+        return {
+            latitude: laravel.google_maps.geolocation.latitude,
+            longitude: laravel.google_maps.geolocation.longitude
+        };
+    },
+
+
+    methods: {
+        typeKeyZipcode: function typeKeyZipcode(payload) {
+            clearTimeout(this.timeout);
+
+            var $this = this;
+
+            this.timeout = setTimeout(function () {
+                axios.get('/api/v1/zipcode/' + payload).then(function (response) {
+                    if (response.data.addresses[0].street_name) {
+                        $this.address.zipcode = response.data.addresses[0].zip;
+                        $this.address.street = response.data.addresses[0].street_name;
+                        $this.address.neighbourhood = response.data.addresses[0].neighborhood;
+                        $this.address.city = response.data.addresses[0].city;
+                        $this.address.state = response.data.addresses[0].state_id;
+                        document.getElementById('number').focus();
+                    }
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }, 500);
+        },
+        getLatitude: function getLatitude() {
+            this.latitude = this.latitude ? this.latitude : this.address.latitude ? this.address.latitude : laravel.google_maps.geolocation.latitude;
+
+            return parseFloat(this.latitude);
+        },
+        getLongitude: function getLongitude() {
+            this.longitude = this.longitude ? this.longitude : this.address.longitude ? this.address.longitude : laravel.google_maps.geolocation.longitude;
+
+            return parseFloat(this.longitude);
+        },
+        getZoom: function getZoom() {
+            return 17;
+        },
+        makeUrl: function makeUrl(event) {
+            this.address.latitude = event.lat();
+
+            this.address.longitude = event.lng();
+        },
+        getMarkerPosition: function getMarkerPosition() {
+            return {
+                lat: Number(this.getLatitude()),
+                lng: Number(this.getLongitude())
+            };
+        }
+    },
+
+    computed: {
+        mapUrl: {
+            get: function get() {
+                if (this.address.latitude && this.address.longitude) {
+                    return 'https://www.google.com/maps/@' + this.address.latitude + ',' + this.address.longitude + ',17z';
+                }
+
+                return 'Preencha a latitude e longitude, ou localize o endereço no mapa';
+            }
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/Input.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1658,9 +1934,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['value', 'name', 'label', 'required', 'form', 'type', 'dusk']
+    props: ['value', 'name', 'label', 'required', 'form', 'type', 'dusk', 'readonly']
 });
 
 /***/ }),
@@ -1768,11 +2045,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/Select.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['value', 'name', 'label', 'required', 'form', 'elements']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/Table.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
 //
 //
 //
@@ -1958,144 +2274,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/AddressesForm.vue":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__ = __webpack_require__("./resources/js/views/mixins/addresses.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-var service = { name: 'addresses', uri: 'addresses', performLoad: false };
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['mode'],
-
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__["a" /* default */]],
-
-    data: function data() {
-        return {
-            service: service
-        };
-    },
-
-
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('addresses', ['selectedEvent', 'selectedSubEvent']))
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/Categories.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2104,6 +2282,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_categories__ = __webpack_require__("./resources/js/views/mixins/categories.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+//
+//
 //
 //
 //
@@ -2232,6 +2412,160 @@ var service = { name: 'categories', uri: 'categories', performLoad: false };
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/CategorizablesForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_categorizables__ = __webpack_require__("./resources/js/views/mixins/categorizables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+var service = {
+    name: 'categorizables',
+    uri: 'people/{people.selected.id}/categories/categorizables'
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['mode'],
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_categorizables__["a" /* default */]],
+
+    data: function data() {
+        return {
+            service: service,
+
+            categorizablesChecked: {},
+
+            checkedCategory: {}
+        };
+    },
+
+
+    computed: {
+        categorizablesFilterText: {
+            get: function get() {
+                return this.$store.state['categorizables'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch(this.service.name + '/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        categorizablesPerPage: {
+            get: function get() {
+                return this.$store.state['categorizables'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('categorizables/setPerPage', perPage);
+            }
+        }
+    },
+
+    methods: {
+        categorizablesGotoPage: function categorizablesGotoPage(page) {
+            this.gotoPage(page, 'categorizables', this.categorizables.data.links.pagination);
+        },
+        isChecked: function isChecked(categorizable) {
+            return this.checkedCategory.hasOwnProperty(categorizable.id) ? this.checkedCategory[categorizable.id].checked : false;
+        },
+        toggleCheck: function toggleCheck(categorizable) {
+            if (!this.checkedCategory.hasOwnProperty(categorizable.id)) {
+                this.checkedCategory[categorizable.id] = {
+                    id: categorizable.id,
+                    checked: false
+                };
+            }
+
+            this.checkedCategory[categorizable.id].checked = !this.checkedCategory[categorizable.id].checked;
+
+            this.categorizablesChecked = this.getCategorizablesChecked();
+        },
+        categorize: function categorize() {
+            var categories = {
+                personId: this.people.selected.id,
+
+                categories: this.categorizablesChecked
+            };
+
+            this.$store.dispatch('categorizables/categorize', categories);
+
+            this.$router.go(-1);
+        },
+        getCategorizablesChecked: function getCategorizablesChecked() {
+            return _.filter(this.checkedCategory, function (category) {
+                return category.checked;
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/ContactTypes.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2240,6 +2574,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_contact_types__ = __webpack_require__("./resources/js/views/mixins/contact-types.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+//
+//
+//
 //
 //
 //
@@ -2361,7 +2698,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var service = { name: 'contactTypes', uri: 'contact-types', performLoad: false };
+var service = {
+    name: 'contactTypes',
+    uri: 'contact-types',
+    performLoad: false
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -2377,6 +2718,138 @@ var service = { name: 'contactTypes', uri: 'contact-types', performLoad: false }
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/ContactsForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__ = __webpack_require__("./resources/js/views/mixins/contacts.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+var service = {
+    name: 'contacts',
+    uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
+    isForm: true
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['mode'],
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__["a" /* default */]],
+
+    data: function data() {
+        return {
+            service: service
+        };
+    },
+
+    methods: {
+        makeMask: function makeMask(id) {
+            if (id == null) {
+                return '';
+            }
+
+            var type = findById(this.environment.tables.contact_types, id);
+
+            switch (type.code) {
+                case 'mobile':
+                    return '(##)#####-####';
+                case 'whatsapp':
+                    return '(##)#####-####';
+                case 'phone':
+                    return '(##)####-####';
+            }
+        },
+        makeType: function makeType(id) {
+            if (id == null) {
+                return '';
+            }
+            var type = findById(this.environment.tables.contact_types, id);
+            if (type.code == 'email') {
+                return 'email';
+            }
+        },
+        isEmail: function isEmail(id) {
+            if (id == null) {
+                return false;
+            }
+            var type = findById(this.environment.tables.contact_types, id);
+            return type.code == 'email';
+        },
+        fillAdditionalFormFields: function fillAdditionalFormFields() {
+            this.$store.commit('contacts/mutateSetFormField', {
+                field: 'person_institution_id',
+                value: this.contacts.personInstitution.id
+            });
+        }
+    }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/Dashboard.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2387,6 +2860,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -2621,6 +3096,47 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2660,6 +3176,18 @@ var service = { name: 'events', uri: 'events' };
         },
         unInvite: function unInvite(invitation) {
             return this.$store.dispatch('invitations/unInvite', invitation);
+        },
+        confirmSubEvent: function confirmSubEvent(subEvent) {
+            var $this = this;
+
+            confirm('Deseja realmente confirmar ' + subEvent.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.doConfirmSubEvent(subEvent);
+                }
+            });
+        },
+        doConfirmSubEvent: function doConfirmSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/confirm', subEvent);
         }
     }),
 
@@ -2723,9 +3251,6 @@ var service = { name: 'events', uri: 'events' };
         this.$store.dispatch('subEvents/load');
 
         this.$store.dispatch('invitations/load');
-    },
-    created: function created() {
-        console.log(this.$router.options.routes);
     }
 });
 
@@ -3041,7 +3566,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var service = { name: 'institutions', uri: 'institutions', performLoad: false };
+var service = {
+    name: 'institutions',
+    uri: 'institutions',
+    performLoad: false
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
@@ -3415,6 +3944,88 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3445,6 +4056,21 @@ var service = { name: 'people', uri: 'people' };
         },
         contactsGotoPage: function contactsGotoPage(page) {
             this.gotoPage(page, 'contacts', this.contacts.data.links.pagination);
+        },
+        personCategoriesGotoPage: function personCategoriesGotoPage(page) {
+            this.gotoPage(page, 'personCategories', this.personCategories.data.links.pagination);
+        },
+        confirmDeletePersonCategory: function confirmDeletePersonCategory(personCategory) {
+            var $this = this;
+
+            confirm('Deseja realmente desassociar ' + personCategory.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.deletePersonCategory(personCategory);
+                }
+            });
+        },
+        deletePersonCategory: function deletePersonCategory(personCategory) {
+            return this.$store.dispatch('personCategories/disassociate', personCategory);
         }
     }),
 
@@ -3519,6 +4145,24 @@ var service = { name: 'people', uri: 'people' };
             set: function set(perPage) {
                 return this.$store.dispatch('contacts/setPerPage', perPage);
             }
+        },
+
+        personCategoriesFilterText: {
+            get: function get() {
+                return this.$store.state['personCategories'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('personCategories/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        personCategoriesPerPage: {
+            get: function get() {
+                return this.$store.state['personCategories'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('personCategories/setPerPage', perPage);
+            }
         }
     }
 });
@@ -3535,6 +4179,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3611,13 +4263,13 @@ var service = { name: 'people', uri: 'people', performLoad: false };
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/PersonInstitutionsForm.vue":
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_people__ = __webpack_require__("./resources/js/views/mixins/people.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__ = __webpack_require__("./resources/js/views/mixins/addresses.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
@@ -3659,64 +4311,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 
 
-var service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true };
+var service = {
+    name: 'addresses',
+    uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses',
+    performLoad: false
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_people__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_addresses__["a" /* default */]],
 
     data: function data() {
         return {
@@ -3725,7 +4334,107 @@ var service = { name: 'personInstitutions', uri: 'people/{people.selected.id}/pe
     },
 
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('people', ['selectedPerson', 'selectedPersonInstitution']))
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('addresses', ['selectedEvent', 'selectedSubEvent']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/PersonInstitutionsForm.vue":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__ = __webpack_require__("./resources/js/views/mixins/personInstitutions.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+var service = {
+    name: 'personInstitutions',
+    uri: 'people/{people.selected.id}/person-institutions',
+    isForm: true
+};
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['mode'],
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */]],
+
+    data: function data() {
+        return {
+            service: service
+        };
+    },
+
+
+    methods: {
+        fillAdditionalFormFields: function fillAdditionalFormFields() {
+            this.$store.commit('personInstitutions/mutateSetFormField', {
+                field: 'person_id',
+                value: this.personInstitutions.person.id
+            });
+        }
+    }
 });
 
 /***/ }),
@@ -3739,6 +4448,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_roles__ = __webpack_require__("./resources/js/views/mixins/roles.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+//
+//
 //
 //
 //
@@ -3881,106 +4592,164 @@ var service = { name: 'roles', uri: 'roles', performLoad: false };
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_events__ = __webpack_require__("./resources/js/views/mixins/events.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_sub_events__ = __webpack_require__("./resources/js/views/mixins/sub-events.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__ = __webpack_require__("./resources/js/views/mixins/permissions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__ = __webpack_require__("./node_modules/vue2-google-maps/dist/main.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 
 
-var service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false };
+
+var service = {
+    name: 'subEvents',
+    uri: 'events/{events.selected.id}/sub-events',
+    performLoad: false
+};
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_events__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_sub_events__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_permissions__["a" /* default */]],
 
     data: function data() {
         return {
@@ -3989,8 +4758,168 @@ var service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events'
     },
 
 
-    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_2_vuex__["mapState"])('events', ['selectedEvent', 'selectedSubEvent']))
+    methods: {
+        selectAddressInsideEvent: function selectAddressInsideEvent(address) {
+            context.commit('mutateSetFormField', {
+                field: 'zipcode',
+                value: address.zipcode
+            });
+            context.commit('mutateSetFormField', {
+                field: 'street',
+                value: address.street
+            });
+            context.commit('mutateSetFormField', {
+                field: 'number',
+                value: address.number
+            });
+            context.commit('mutateSetFormField', {
+                field: 'complement',
+                value: address.complement
+            });
+            context.commit('mutateSetFormField', {
+                field: 'neighbourhood',
+                value: address.neighbourhood
+            });
+            context.commit('mutateSetFormField', {
+                field: 'city',
+                value: address.city
+            });
+            context.commit('mutateSetFormField', {
+                field: 'state',
+                value: address.state
+            });
+            context.commit('mutateSetFormField', {
+                field: 'latitude',
+                value: address.latitude
+            });
+            context.commit('mutateSetFormField', {
+                field: 'longitude',
+                value: address.longitude
+            });
+        },
+        fillAdditionalFormFields: function fillAdditionalFormFields() {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                field: 'event_id',
+                value: this.events.selected.id
+            });
+        }
+    },
+
+    mounted: function mounted() {}
 });
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue2-google-maps/dist/components/placeInputImpl.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _bindProps = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindProps.js");
+
+var _simulateArrowDown = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/simulateArrowDown.js");
+
+var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
+
+function _objectWithoutProperties(obj, keys) {
+  var target = {};for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;target[i] = obj[i];
+  }return target;
+}
+
+var props = {
+  bounds: {
+    type: Object
+  },
+  defaultPlace: {
+    type: String,
+    default: ''
+  },
+  componentRestrictions: {
+    type: Object,
+    default: null
+  },
+  types: {
+    type: Array,
+    default: function _default() {
+      return [];
+    }
+  },
+  placeholder: {
+    required: false,
+    type: String
+  },
+  className: {
+    required: false,
+    type: String
+  },
+  label: {
+    required: false,
+    type: String,
+    default: null
+  },
+  selectFirstOnEnter: {
+    require: false,
+    type: Boolean,
+    default: false
+  }
+};
+
+exports.default = {
+  mounted: function mounted() {
+    var _this = this;
+
+    var input = this.$refs.input;
+
+    // Allow default place to be set
+    input.value = this.defaultPlace;
+    this.$watch('defaultPlace', function () {
+      input.value = _this.defaultPlace;
+    });
+
+    this.$gmapApiPromiseLazy().then(function () {
+      var options = (0, _bindProps.getPropsValues)(_this, props);
+      if (_this.selectFirstOnEnter) {
+        (0, _simulateArrowDown2.default)(_this.$refs.input);
+      }
+
+      if (typeof google.maps.places.Autocomplete !== 'function') {
+        throw new Error('google.maps.places.Autocomplete is undefined. Did you add \'places\' to libraries when loading Google Maps?');
+      }
+
+      _this.autoCompleter = new google.maps.places.Autocomplete(_this.$refs.input, options);
+
+      var placeholder = props.placeholder,
+          place = props.place,
+          defaultPlace = props.defaultPlace,
+          className = props.className,
+          label = props.label,
+          selectFirstOnEnter = props.selectFirstOnEnter,
+          rest = _objectWithoutProperties(props, ['placeholder', 'place', 'defaultPlace', 'className', 'label', 'selectFirstOnEnter']); // eslint-disable-line
+
+
+      (0, _bindProps.bindProps)(_this, _this.autoCompleter, rest);
+
+      _this.autoCompleter.addListener('place_changed', function () {
+        _this.$emit('place_changed', _this.autoCompleter.getPlace());
+      });
+    });
+  },
+  created: function created() {
+    console.warn('The PlaceInput class is deprecated! Please consider using the Autocomplete input instead'); // eslint-disable-line no-console
+  },
+
+  props: props
+};
 
 /***/ }),
 
@@ -26149,7 +27078,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_args":[["cheerio@1.0.0-rc.2","/Users/antoniocarlos/code/alerj/eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"/Users/antoniocarlos/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -26424,7 +27353,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26439,7 +27368,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26454,7 +27383,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26469,7 +27398,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26484,7 +27413,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26500,6 +27429,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n.file-select > input[type='file'][data-v-26329576] {\n    display: none;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3229bdd0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/CategorizablesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26529,7 +27473,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26544,14 +27488,14 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue":
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4889b4d6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/ContactsForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
@@ -26559,7 +27503,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26574,7 +27518,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26589,7 +27533,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26604,7 +27548,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26619,7 +27563,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -26650,6 +27594,21 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 // module
 exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ca06a4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/map.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.vue-map-container {\n  position: relative;\n}\n.vue-map-container .vue-map {\n  left: 0; right: 0; top: 0; bottom: 0;\n  position: absolute;\n}\n.vue-map-hidden {\n  display: none;\n}\n", ""]);
 
 // exports
 
@@ -26694,7 +27653,37 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.vue-street-view-pano-container {\n  position: relative;\n}\n.vue-street-view-pano-container .vue-street-view-pano {\n  left: 0; right: 0; top: 0; bottom: 0;\n  position: absolute;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -100804,7 +101793,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.selected.id && _vm.personInstitutions.data.links
+        ? _c("div", { staticClass: "row bg-primary text-white" }, [
+            _c("div", { staticClass: "col-12 mt-2" }, [
+              _c("h3", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.selected.name) +
+                    "\n                "
+                )
+              ])
+            ])
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -100883,12 +101888,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to: "/people/" + person.id + "/update",
                                     tag: "div",
@@ -100912,295 +101918,474 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-8" },
-        [
-          _vm.selected.id && _vm.personInstitutions.data.links
-            ? _c(
-                "app-table-panel",
-                {
-                  attrs: {
-                    title:
-                      _vm.selected.name +
-                      " (" +
-                      _vm.personInstitutions.data.links.pagination.total +
-                      " funções)",
-                    "add-button": {
-                      uri:
-                        "/people/" +
-                        _vm.personInstitutions.person.id +
-                        "/person-institutions/create",
-                      disabled: _vm.cannot("create")
-                    },
-                    "per-page": _vm.personInstitutionsPerPage,
-                    "filter-text": _vm.personInstitutionsFilterText
-                  },
-                  on: {
-                    "set-per-page": function($event) {
-                      _vm.personInstitutionsPerPage = $event
-                    },
-                    "input-filter-text": function($event) {
-                      _vm.personInstitutionsFilterText = $event.target.value
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "app-table",
+      _c("div", { staticClass: "col-8" }, [
+        _c("div", { staticClass: "row" }, [
+          _c(
+            "div",
+            { staticClass: "col-12" },
+            [
+              _vm.selected.id && _vm.personCategories.data.links
+                ? _c(
+                    "app-table-panel",
                     {
                       attrs: {
-                        pagination:
-                          _vm.personInstitutions.data.links.pagination,
-                        columns: ["#", "Title", "Instituição", "Função"]
+                        title:
+                          "Categorias: " +
+                          _vm.personCategories.data.links.pagination.total,
+                        "add-button": {
+                          uri:
+                            "/people/" +
+                            _vm.people.selected.id +
+                            "/categories/create",
+                          disabled: _vm.cannot("create")
+                        },
+                        "per-page": _vm.personCategoriesPerPage,
+                        "filter-text": _vm.personCategoriesFilterText
                       },
                       on: {
-                        "goto-page": function($event) {
-                          _vm.personInstitutionsGotoPage($event)
+                        "set-per-page": function($event) {
+                          _vm.personCategoriesPerPage = $event
+                        },
+                        "input-filter-text": function($event) {
+                          _vm.personCategoriesFilterText = $event.target.value
                         }
                       }
                     },
-                    _vm._l(_vm.personInstitutions.data.rows, function(
-                      personInstitution
-                    ) {
-                      return _c(
-                        "tr",
+                    [
+                      _c(
+                        "app-table",
                         {
-                          staticClass: "cursor-pointer",
-                          class: {
-                            "cursor-pointer": true,
-                            "bg-primary text-white": _vm.isCurrent(
-                              personInstitution,
-                              _vm.personInstitutions.selected
-                            )
+                          attrs: {
+                            pagination:
+                              _vm.personCategories.data.links.pagination,
+                            columns: ["#", "Nome"]
                           },
                           on: {
-                            click: function($event) {
-                              _vm.selectPersonInstitution(personInstitution)
+                            "goto-page": function($event) {
+                              _vm.personCategoriesGotoPage($event)
                             }
                           }
                         },
-                        [
-                          _c("td", [_vm._v(_vm._s(personInstitution.id))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(personInstitution.title))]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(personInstitution.institution.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", [
-                            _vm._v(_vm._s(personInstitution.role.name))
-                          ])
-                        ]
-                      )
-                    })
-                  )
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "row" }, [
-      _c(
-        "div",
-        { staticClass: "col-4" },
-        [
-          _vm.personInstitutions.selected.id && _vm.contacts.data.links
-            ? _c(
-                "app-table-panel",
-                {
-                  attrs: {
-                    title:
-                      _vm.selected.name +
-                      " (" +
-                      _vm.contacts.data.links.pagination.total +
-                      " contatos)",
-                    "add-button": {
-                      uri:
-                        "/people/" +
-                        _vm.personInstitutions.person.id +
-                        "/person-institutions/" +
-                        _vm.contacts.personInstitution.id +
-                        "create",
-                      disabled: _vm.cannot("create")
-                    },
-                    "per-page": _vm.contactsPerPage,
-                    "filter-text": _vm.contactsFilterText
-                  },
-                  on: {
-                    "set-per-page": function($event) {
-                      _vm.contactsPerPage = $event
-                    },
-                    "input-filter-text": function($event) {
-                      _vm.contactsFilterText = $event.target.value
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "app-table",
-                    {
-                      attrs: {
-                        pagination: _vm.contacts.data.links.pagination,
-                        columns: ["#", "Tipo", "Contato"]
-                      },
-                      on: {
-                        "goto-page": function($event) {
-                          _vm.contactsGotoPage($event)
-                        }
-                      }
-                    },
-                    _vm._l(_vm.contacts.data.rows, function(contact) {
-                      return _c(
-                        "tr",
-                        {
-                          staticClass: "cursor-pointer",
-                          class: {
-                            "cursor-pointer": true,
-                            "bg-primary text-white": _vm.isCurrent(
-                              contact,
-                              _vm.contacts.selected
-                            )
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.selectContact(contact)
-                            }
-                          }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(contact.id))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(contact.contact_type.name))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(contact.contact))])
-                        ]
-                      )
-                    })
-                  )
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-8" },
-        [
-          _vm.personInstitutions.selected.id && _vm.addresses.data.links
-            ? _c(
-                "app-table-panel",
-                {
-                  attrs: {
-                    title:
-                      _vm.selected.name +
-                      " (" +
-                      _vm.addresses.data.links.pagination.total +
-                      " endereços)",
-                    "add-button": {
-                      uri:
-                        "/people/" +
-                        _vm.personInstitutions.person.id +
-                        "/person-institutions/" +
-                        _vm.addresses.personInstitution.id +
-                        "/addresses/create",
-                      disabled: _vm.cannot("create")
-                    },
-                    "per-page": _vm.addressesPerPage,
-                    "filter-text": _vm.addressesFilterText
-                  },
-                  on: {
-                    "set-per-page": function($event) {
-                      _vm.addressesPerPage = $event
-                    },
-                    "input-filter-text": function($event) {
-                      _vm.addressesFilterText = $event.target.value
-                    }
-                  }
-                },
-                [
-                  _c(
-                    "app-table",
-                    {
-                      attrs: {
-                        pagination: _vm.addresses.data.links.pagination,
-                        columns: ["#", "CEP"],
-                        rows: _vm.addresses.data.rows
-                      },
-                      on: {
-                        "goto-page": function($event) {
-                          _vm.addressesGotoPage($event)
-                        }
-                      }
-                    },
-                    _vm._l(_vm.addresses.data.rows, function(address) {
-                      return _c(
-                        "tr",
-                        {
-                          staticClass: "cursor-pointer",
-                          class: {
-                            "cursor-pointer": true,
-                            "bg-primary text-white": _vm.isCurrent(
-                              address,
-                              _vm.addresses.selected
-                            )
-                          },
-                          on: {
-                            click: function($event) {
-                              _vm.selectAddress(address)
-                            }
-                          }
-                        },
-                        [
-                          _c("td", [_vm._v(_vm._s(address.id))]),
-                          _vm._v(" "),
-                          _c("td", [_vm._v(_vm._s(address.zipcode))]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
+                        _vm._l(_vm.personCategories.data.rows, function(
+                          personCategory
+                        ) {
+                          return _c(
+                            "tr",
+                            {
+                              staticClass: "cursor-pointer",
+                              class: {
+                                "cursor-pointer": true,
+                                "bg-primary text-white": _vm.isCurrent(
+                                  personCategory,
+                                  _vm.personCategories.selected
+                                )
+                              }
+                            },
                             [
+                              _c("td", { staticClass: "align-middle" }, [
+                                _vm._v(_vm._s(personCategory.id))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "align-middle" }, [
+                                _vm._v(_vm._s(personCategory.name))
+                              ]),
+                              _vm._v(" "),
                               _c(
-                                "router-link",
-                                {
-                                  staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
-                                  attrs: {
-                                    to:
-                                      "/people/" +
-                                      _vm.personInstitutions.person.id +
-                                      "/person-institutions/" +
-                                      _vm.addresses.personInstitution.id +
-                                      "/addresses/" +
-                                      address.id +
-                                      "/update",
-                                    tag: "div",
-                                    disabled: _vm.cannot("update")
-                                  }
-                                },
-                                [_c("i", { staticClass: "fa fa-edit" })]
+                                "td",
+                                { staticClass: "align-middle text-right" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "btn btn-danger btn-sm mr-1 pull-right",
+                                      on: {
+                                        click: function($event) {
+                                          _vm.confirmDeletePersonCategory(
+                                            personCategory
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-trash" })]
+                                  )
+                                ]
                               )
-                            ],
-                            1
+                            ]
                           )
-                        ]
+                        })
                       )
-                    })
+                    ],
+                    1
                   )
-                ],
-                1
-              )
-            : _vm._e()
-        ],
-        1
-      )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-12" },
+            [
+              _vm.selected.id && _vm.personInstitutions.data.links
+                ? _c(
+                    "app-table-panel",
+                    {
+                      attrs: {
+                        title:
+                          "Funções: " +
+                          _vm.personInstitutions.data.links.pagination.total,
+                        "add-button": {
+                          uri:
+                            "/people/" +
+                            _vm.personInstitutions.person.id +
+                            "/person-institutions/create",
+                          disabled: _vm.cannot("create")
+                        },
+                        "per-page": _vm.personInstitutionsPerPage,
+                        "filter-text": _vm.personInstitutionsFilterText
+                      },
+                      on: {
+                        "set-per-page": function($event) {
+                          _vm.personInstitutionsPerPage = $event
+                        },
+                        "input-filter-text": function($event) {
+                          _vm.personInstitutionsFilterText = $event.target.value
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "app-table",
+                        {
+                          attrs: {
+                            pagination:
+                              _vm.personInstitutions.data.links.pagination,
+                            columns: ["#", "Title", "Instituição", "Função"]
+                          },
+                          on: {
+                            "goto-page": function($event) {
+                              _vm.personInstitutionsGotoPage($event)
+                            }
+                          }
+                        },
+                        _vm._l(_vm.personInstitutions.data.rows, function(
+                          personInstitution
+                        ) {
+                          return _c(
+                            "tr",
+                            {
+                              staticClass: "cursor-pointer",
+                              class: {
+                                "cursor-pointer": true,
+                                "bg-primary text-white": _vm.isCurrent(
+                                  personInstitution,
+                                  _vm.personInstitutions.selected
+                                )
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.selectPersonInstitution(personInstitution)
+                                }
+                              }
+                            },
+                            [
+                              _c("td", [_vm._v(_vm._s(personInstitution.id))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(personInstitution.title))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(
+                                  _vm._s(personInstitution.institution.name)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(personInstitution.role.name))
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "align-middle text-right" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass:
+                                        "btn btn-danger btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        to:
+                                          "people/" +
+                                          _vm.personInstitutions.person.id +
+                                          "/person-institutions/" +
+                                          personInstitution.id +
+                                          "/update",
+                                        tag: "div",
+                                        disabled: _vm.cannot("update")
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-edit" })]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        })
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-12" },
+            [
+              _vm.personInstitutions.selected.id && _vm.contacts.data.links
+                ? _c(
+                    "app-table-panel",
+                    {
+                      attrs: {
+                        title:
+                          "Contatos: " +
+                          _vm.contacts.data.links.pagination.total,
+                        "add-button": {
+                          uri:
+                            "/people/" +
+                            _vm.personInstitutions.person.id +
+                            "/person-institutions/" +
+                            _vm.contacts.personInstitution.id +
+                            "/contacts/create",
+                          disabled: _vm.cannot("create")
+                        },
+                        "per-page": _vm.contactsPerPage,
+                        "filter-text": _vm.contactsFilterText
+                      },
+                      on: {
+                        "set-per-page": function($event) {
+                          _vm.contactsPerPage = $event
+                        },
+                        "input-filter-text": function($event) {
+                          _vm.contactsFilterText = $event.target.value
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "app-table",
+                        {
+                          attrs: {
+                            pagination: _vm.contacts.data.links.pagination,
+                            columns: ["#", "Tipo", "Contato"]
+                          },
+                          on: {
+                            "goto-page": function($event) {
+                              _vm.contactsGotoPage($event)
+                            }
+                          }
+                        },
+                        _vm._l(_vm.contacts.data.rows, function(contact) {
+                          return _c(
+                            "tr",
+                            {
+                              staticClass: "cursor-pointer",
+                              class: {
+                                "cursor-pointer": true,
+                                "bg-primary text-white": _vm.isCurrent(
+                                  contact,
+                                  _vm.contacts.selected
+                                )
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.selectContact(contact)
+                                }
+                              }
+                            },
+                            [
+                              _c("td", [_vm._v(_vm._s(contact.id))]),
+                              _vm._v(" "),
+                              _c("td", [
+                                _vm._v(_vm._s(contact.contact_type.name))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(contact.contact))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "align-middle text-right" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass:
+                                        "btn btn-danger btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        to:
+                                          "/people/" +
+                                          _vm.personInstitutions.person.id +
+                                          "/person-institutions/" +
+                                          _vm.contacts.personInstitution.id +
+                                          "/contacts/" +
+                                          contact.id +
+                                          "/update",
+                                        tag: "div",
+                                        disabled: _vm.cannot("update")
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-edit" })]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        })
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "col-12" },
+            [
+              _vm.personInstitutions.selected.id && _vm.addresses.data.links
+                ? _c(
+                    "app-table-panel",
+                    {
+                      attrs: {
+                        title:
+                          "Endereços: " +
+                          _vm.addresses.data.links.pagination.total,
+                        "add-button": {
+                          uri:
+                            "/people/" +
+                            _vm.personInstitutions.person.id +
+                            "/person-institutions/" +
+                            _vm.addresses.personInstitution.id +
+                            "/addresses/create",
+                          disabled: _vm.cannot("create")
+                        },
+                        "per-page": _vm.addressesPerPage,
+                        "filter-text": _vm.addressesFilterText
+                      },
+                      on: {
+                        "set-per-page": function($event) {
+                          _vm.addressesPerPage = $event
+                        },
+                        "input-filter-text": function($event) {
+                          _vm.addressesFilterText = $event.target.value
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "app-table",
+                        {
+                          attrs: {
+                            pagination: _vm.addresses.data.links.pagination,
+                            columns: [
+                              "#",
+                              "Rua",
+                              "Numero",
+                              "Complemento",
+                              "Bairro",
+                              "Cidade"
+                            ],
+                            rows: _vm.addresses.data.rows
+                          },
+                          on: {
+                            "goto-page": function($event) {
+                              _vm.addressesGotoPage($event)
+                            }
+                          }
+                        },
+                        _vm._l(_vm.addresses.data.rows, function(address) {
+                          return _c(
+                            "tr",
+                            {
+                              staticClass: "cursor-pointer",
+                              class: {
+                                "cursor-pointer": true,
+                                "bg-primary text-white": _vm.isCurrent(
+                                  address,
+                                  _vm.addresses.selected
+                                )
+                              },
+                              on: {
+                                click: function($event) {
+                                  _vm.selectAddress(address)
+                                }
+                              }
+                            },
+                            [
+                              _c("td", [_vm._v(_vm._s(address.id))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.street))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.number))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.complement))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.neighbourhood))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.zipcode))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.city))]),
+                              _vm._v(" "),
+                              _c("td", [_vm._v(_vm._s(address.state))]),
+                              _vm._v(" "),
+                              _c(
+                                "td",
+                                { staticClass: "align-middle text-right" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass:
+                                        "btn btn-danger btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        to:
+                                          "/people/" +
+                                          _vm.personInstitutions.person.id +
+                                          "/person-institutions/" +
+                                          _vm.addresses.personInstitution.id +
+                                          "/addresses/" +
+                                          address.id +
+                                          "/update",
+                                        tag: "div",
+                                        disabled: _vm.cannot("update")
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-edit" })]
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        })
+                      )
+                    ],
+                    1
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ])
+      ])
     ])
   ])
 }
@@ -101209,8 +102394,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Pessoas")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [_c("h2", [_vm._v("Pessoas")])])
     ])
   }
 ]
@@ -101434,6 +102619,27 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-17fc7ddc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/infoWindow.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [_c("div", { ref: "flyaway" }, [_vm._t("default")], 2)])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-17fc7ddc", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-1b973310\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/Events.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -101442,7 +102648,34 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.selected.id && _vm.events.data.links
+        ? _c("div", { staticClass: "row bg-primary text-white" }, [
+            _c("div", { staticClass: "col-12 mt-2" }, [
+              _c("h3", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.selected.name) +
+                    "\n\n                    "
+                ),
+                _vm.subEvents.selected &&
+                _vm.subEvents.selected.id == _vm.events.selected.id &&
+                _vm.subEvents.selected.name
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                        - " +
+                          _vm._s(_vm.subEvents.selected.name) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -101518,13 +102751,13 @@ var render = function() {
                           _vm._v(" "),
                           _c(
                             "td",
-                            { staticClass: "align-middle" },
+                            { staticClass: "align-middle text-right" },
                             [
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to: "/events/" + event.id + "/update",
                                     tag: "div",
@@ -101587,7 +102820,14 @@ var render = function() {
                     {
                       attrs: {
                         pagination: _vm.subEvents.data.links.pagination,
-                        columns: ["#", "Nome", "Data", "Hora", ""]
+                        columns: [
+                          "#",
+                          "Nome",
+                          "Data",
+                          "Hora",
+                          "Confirmado em",
+                          ""
+                        ]
                       },
                       on: {
                         "goto-page": function($event) {
@@ -101630,15 +102870,39 @@ var render = function() {
                             _vm._v(_vm._s(subEvent.time))
                           ]),
                           _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(subEvent.confirmed_at))
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "td",
                             { staticClass: "align-middle text-right" },
                             [
+                              !subEvent.confirmed_at
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-success btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        title: "Confirmar Sub-evento",
+                                        disabled: _vm.cannot("update")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.confirmSubEvent(subEvent)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
                               _c(
                                 "router-link",
                                 {
                                   staticClass:
-                                    "btn btn-danger btn-sm mr-1 pull-right",
+                                    "btn btn-danger btn-sm ml-1 pull-right",
                                   attrs: {
                                     to:
                                       "events/" +
@@ -101889,24 +103153,32 @@ var render = function() {
                                 ]
                               ),
                               _vm._v(" "),
-                              _c("td", { staticClass: "align-middle" }, [
-                                _vm.can("update") && !invitation.sent_at
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass:
-                                          "btn btn-danger btn-sm mr-1 pull-right",
-                                        attrs: { href: "#" },
-                                        on: {
-                                          click: function($event) {
-                                            _vm.confirmUnInvite(invitation)
+                              _c(
+                                "td",
+                                { staticClass: "align-middle text-right" },
+                                [
+                                  _vm.can("update") && !invitation.sent_at
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: { href: "#" },
+                                          on: {
+                                            click: function($event) {
+                                              _vm.confirmUnInvite(invitation)
+                                            }
                                           }
-                                        }
-                                      },
-                                      [_c("i", { staticClass: "fa fa-trash" })]
-                                    )
-                                  : _vm._e()
-                              ])
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass: "fa fa-trash"
+                                          })
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ]
+                              )
                             ]
                           )
                         })
@@ -101927,8 +103199,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Eventos")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [_c("h2", [_vm._v("Eventos")])])
     ])
   }
 ]
@@ -101968,22 +103240,31 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "card-body" }, [
-                      _c(
-                        "h1",
-                        { staticClass: "card-title pricing-card-title" },
-                        [_vm._v(_vm._s(item.count))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-sm btn-block btn-primary",
-                          attrs: { type: "button" }
-                        },
-                        [_vm._v("ver")]
-                      )
-                    ])
+                    _c(
+                      "div",
+                      { staticClass: "card-body" },
+                      [
+                        _c(
+                          "h1",
+                          { staticClass: "card-title pricing-card-title" },
+                          [_vm._v(_vm._s(item.count))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "router-link",
+                          {
+                            staticClass: "btn btn-sm btn-block btn-primary",
+                            attrs: { to: item.route, tag: "button" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                ver\n                            "
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
                   ])
                 })
               )
@@ -102096,12 +103377,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to:
                                   "/contact-types/" +
@@ -102240,6 +103522,165 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-2c922d06\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/autocomplete.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("input", {
+    ref: "input",
+    attrs: { type: "text", placeholder: _vm.placeholder },
+    domProps: { value: _vm.value }
+  })
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-2c922d06", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3229bdd0\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/CategorizablesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h1", [_vm._v(_vm._s(_vm.people.selected.name))]),
+      _vm._v(" "),
+      _c("h2", [_vm._v("Associar Categorias a Pessoas")])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        { staticClass: "col-6" },
+        [
+          _vm.categorizables.data.links
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title: "Categorias",
+                    "per-page": _vm.categorizablesPerPage,
+                    "filter-text": _vm.categorizablesFilterText
+                  },
+                  on: {
+                    "set-per-page": function($event) {
+                      _vm.categorizablesPerPage = $event
+                    },
+                    "input-filter-text": function($event) {
+                      _vm.categorizablesFilterText = $event.target.value
+                    }
+                  }
+                },
+                [
+                  _c("template", { slot: "buttons" }, [
+                    _vm.categorizablesChecked.length > 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm pull-right",
+                            on: {
+                              click: function($event) {
+                                _vm.categorize()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        associar categorias\n                    "
+                            )
+                          ]
+                        )
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.categorizables.data.links.pagination,
+                        columns: ["#", "Nome", ""]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          _vm.categorizablesGotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.categorizables.data.rows, function(
+                      categorizable
+                    ) {
+                      return _c(
+                        "tr",
+                        {
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              categorizable,
+                              _vm.categorizables.selected
+                            )
+                          }
+                        },
+                        [
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(categorizable.id))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _c("input", {
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: _vm.isChecked(categorizable)
+                              },
+                              on: {
+                                input: function($event) {
+                                  _vm.toggleCheck(categorizable)
+                                }
+                              }
+                            })
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(categorizable.name))
+                          ])
+                        ]
+                      )
+                    })
+                  )
+                ],
+                2
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-3229bdd0", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-345b434c\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/InviteForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -102371,7 +103812,7 @@ var render = function() {
                                   "a",
                                   {
                                     staticClass:
-                                      "btn btn-danger btn-sm mr-1 pull-right",
+                                      "btn btn-danger btn-sm ml-1 pull-right",
                                     attrs: { href: "#" },
                                     on: {
                                       click: function($event) {
@@ -102581,6 +104022,22 @@ var render = function() {
                     },
                     expression: "form.fields.title"
                   }
+                }),
+                _vm._v(" "),
+                _c("app-input", {
+                  attrs: {
+                    name: "birthdate",
+                    label: "Data de nascimento",
+                    type: "date",
+                    form: _vm.form
+                  },
+                  model: {
+                    value: _vm.form.fields.birthdate,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "birthdate", $$v)
+                    },
+                    expression: "form.fields.birthdate"
+                  }
                 })
               ],
               1
@@ -102640,7 +104097,267 @@ if (false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4e2865f7\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/AddressesForm.vue":
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-402ab162\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/AddressForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("label", { staticClass: "mb-0 mt-2", attrs: { for: "zipcode" } }, [
+        _vm._v("CEP")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.address.zipcode,
+            expression: "address.zipcode"
+          },
+          {
+            name: "mask",
+            rawName: "v-mask",
+            value: ["##.###-###"],
+            expression: '["##.###-###"]'
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { id: "zipcode", required: "required", dusk: "zipcode" },
+        domProps: { value: _vm.address.zipcode },
+        on: {
+          keyup: function($event) {
+            _vm.typeKeyZipcode(_vm.address.zipcode)
+          },
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.address, "zipcode", $event.target.value)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _vm.form.errors.has("zipcode")
+        ? _c("small", { staticClass: "text-danger" }, [
+            _vm._v(
+              "\n        " + _vm._s(_vm.form.errors.get("zipcode")) + "\n    "
+            )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "street",
+          label: "Endereço",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.street,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "street", $$v)
+          },
+          expression: "address.street"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "number",
+          label: "Número",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.number,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "number", $$v)
+          },
+          expression: "address.number"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "complement",
+          label: "Complemento",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.complement,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "complement", $$v)
+          },
+          expression: "address.complement"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "neighbourhood",
+          label: "Bairro",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.neighbourhood,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "neighbourhood", $$v)
+          },
+          expression: "address.neighbourhood"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "city",
+          label: "Cidade",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.city,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "city", $$v)
+          },
+          expression: "address.city"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "state",
+          label: "Estado",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.state,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "state", $$v)
+          },
+          expression: "address.state"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "latitude",
+          label: "Latitude",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.latitude,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "latitude", $$v)
+          },
+          expression: "address.latitude"
+        }
+      }),
+      _vm._v(" "),
+      _c("app-input", {
+        attrs: {
+          name: "longitude",
+          label: "Longitude",
+          required: true,
+          form: _vm.form
+        },
+        model: {
+          value: _vm.address.longitude,
+          callback: function($$v) {
+            _vm.$set(_vm.address, "longitude", $$v)
+          },
+          expression: "address.longitude"
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "mt-4" },
+        [
+          _c("app-input", {
+            attrs: {
+              name: "url",
+              label: "URL do mapa",
+              required: true,
+              form: _vm.form,
+              readonly: "true"
+            },
+            model: {
+              value: _vm.mapUrl,
+              callback: function($$v) {
+                _vm.mapUrl = $$v
+              },
+              expression: "mapUrl"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "GmapMap",
+            {
+              ref: "map",
+              staticStyle: { width: "100%", height: "300px" },
+              attrs: {
+                center: { lat: _vm.getLatitude(), lng: _vm.getLongitude() },
+                zoom: _vm.getZoom(),
+                "map-type-id": "roadmap"
+              },
+              on: {
+                center_changed: function($event) {
+                  _vm.makeUrl($event)
+                }
+              }
+            },
+            [
+              _c("GmapMarker", {
+                key: "1",
+                attrs: {
+                  position: _vm.getMarkerPosition(),
+                  clickable: true,
+                  draggable: true
+                }
+              })
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "mt-5 text-center" }, [
+      _c("h2", { staticClass: "mb-0" }, [_vm._v("Endereço")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-402ab162", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4889b4d6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/ContactsForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -102648,7 +104365,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h2", [
+        _vm._v(
+          _vm._s(_vm.form.fields.name ? _vm.form.fields.name : "Novo Contato")
+        )
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
       _c("div", { staticClass: "col-8" }, [
@@ -102658,188 +104381,64 @@ var render = function() {
               "div",
               { staticClass: "col-12 mb-3" },
               [
-                _c(
-                  "label",
-                  { staticClass: "mb-0 mt-4", attrs: { for: _vm.zipcode } },
-                  [_vm._v("CEP")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.addresses.form.fields.zipcode,
-                      expression: "addresses.form.fields.zipcode"
-                    },
-                    {
-                      name: "mask",
-                      rawName: "v-mask",
-                      value: ["##.###-###"],
-                      expression: '["##.###-###"]'
-                    }
-                  ],
-                  staticClass: "form-control",
+                _c("app-select", {
                   attrs: {
-                    id: "zipcode",
-                    required: "required",
-                    dusk: "zipcode"
+                    name: "contact_type_id",
+                    label: "Tipo de Contato",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.contact_types
                   },
-                  domProps: { value: _vm.addresses.form.fields.zipcode },
-                  on: {
-                    keyup: function($event) {
-                      _vm.typeKeyZipcode(_vm.addresses.form.fields.zipcode)
+                  model: {
+                    value: _vm.form.fields.contact_type_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "contact_type_id", $$v)
                     },
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                    expression: "form.fields.contact_type_id"
+                  }
+                }),
+                _vm._v(" "),
+                !_vm.isEmail(_vm.form.fields.contact_type_id)
+                  ? _c("app-input", {
+                      directives: [
+                        {
+                          name: "mask",
+                          rawName: "v-mask",
+                          value: _vm.makeMask(_vm.form.fields.contact_type_id),
+                          expression: "makeMask(form.fields.contact_type_id)"
+                        }
+                      ],
+                      attrs: {
+                        name: "contact",
+                        label: "Contato",
+                        required: true,
+                        form: _vm.form,
+                        type: _vm.makeType(_vm.form.fields.contact_type_id)
+                      },
+                      model: {
+                        value: _vm.form.fields.contact,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form.fields, "contact", $$v)
+                        },
+                        expression: "form.fields.contact"
                       }
-                      _vm.$set(
-                        _vm.addresses.form.fields,
-                        "zipcode",
-                        $event.target.value
-                      )
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm.form.errors.has(_vm.zipcode)
-                  ? _c("small", { staticClass: "text-danger" }, [
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(_vm.form.errors.get(_vm.zipcode)) +
-                          "\n                        "
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "street",
-                    label: "Endereço",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.street,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "street", $$v)
-                    },
-                    expression: "addresses.form.fields.street"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "number",
-                    label: "Número",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.number,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "number", $$v)
-                    },
-                    expression: "addresses.form.fields.number"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "complement",
-                    label: "Complemento",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.complement,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "complement", $$v)
-                    },
-                    expression: "addresses.form.fields.complement"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "neighbourhood",
-                    label: "Bairro",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.neighbourhood,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "neighbourhood", $$v)
-                    },
-                    expression: "addresses.form.fields.neighbourhood"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "city",
-                    label: "Cidade",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.city,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "city", $$v)
-                    },
-                    expression: "addresses.form.fields.city"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "state",
-                    label: "Estado",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.state,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "state", $$v)
-                    },
-                    expression: "addresses.form.fields.state"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "latitude",
-                    label: "Latitude",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.latitude,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "latitude", $$v)
-                    },
-                    expression: "addresses.form.fields.latitude"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "longitude",
-                    label: "Longitude",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.addresses.form.fields.longitude,
-                    callback: function($$v) {
-                      _vm.$set(_vm.addresses.form.fields, "longitude", $$v)
-                    },
-                    expression: "addresses.form.fields.longitude"
-                  }
-                })
+                    })
+                  : _c("app-input", {
+                      attrs: {
+                        name: "contact",
+                        label: "Contato",
+                        required: true,
+                        form: _vm.form,
+                        type: "email"
+                      },
+                      model: {
+                        value: _vm.form.fields.contact,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form.fields, "contact", $$v)
+                        },
+                        expression: "form.fields.contact"
+                      }
+                    })
               ],
               1
             )
@@ -102869,7 +104468,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-success",
-                    attrs: { to: "/addresses", tag: "button" }
+                    attrs: { to: "/", tag: "button" }
                   },
                   [
                     _vm._v(
@@ -102886,22 +104485,13 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Novo Endereço")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-4e2865f7", module.exports)
+    require("vue-hot-reload-api")      .rerender("data-v-4889b4d6", module.exports)
   }
 }
 
@@ -103011,12 +104601,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to: "/categories/" + category.id + "/update",
                                 tag: "div",
@@ -103071,15 +104662,9 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h1", [_vm._v(_vm._s(_vm.events.selected.name))]),
-      _vm._v(" "),
       _c("h2", [
         _vm._v(
-          _vm._s(
-            _vm.subEvents.form.fields.name
-              ? _vm.subEvents.form.fields.name
-              : "Novo Sub Evento"
-          )
+          _vm._s(_vm.form.fields.name ? _vm.form.fields.name : "Novo Cargo")
         )
       ])
     ]),
@@ -103092,119 +104677,53 @@ var render = function() {
               "div",
               { staticClass: "col-12 mb-3" },
               [
+                _c("app-select", {
+                  attrs: {
+                    name: "institution_id",
+                    label: "Instituição",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.institutions
+                  },
+                  model: {
+                    value: _vm.form.fields.institution_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "institution_id", $$v)
+                    },
+                    expression: "form.fields.institution_id"
+                  }
+                }),
+                _vm._v(" "),
+                _c("app-select", {
+                  attrs: {
+                    name: "role_id",
+                    label: "Funções",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.roles
+                  },
+                  model: {
+                    value: _vm.form.fields.role_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "role_id", $$v)
+                    },
+                    expression: "form.fields.role_id"
+                  }
+                }),
+                _vm._v(" "),
                 _c("app-input", {
                   attrs: {
-                    name: "name",
-                    label: "Nome",
+                    name: "title",
+                    label: "Título",
                     required: true,
                     form: _vm.form
                   },
                   model: {
-                    value: _vm.subEvents.form.fields.name,
+                    value: _vm.form.fields.title,
                     callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "name", $$v)
+                      _vm.$set(_vm.form.fields, "title", $$v)
                     },
-                    expression: "subEvents.form.fields.name"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "date",
-                    label: "Data",
-                    type: "date",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.date,
-                    callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "date", $$v)
-                    },
-                    expression: "subEvents.form.fields.date"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-input", {
-                  attrs: {
-                    name: "time",
-                    label: "Horário",
-                    type: "time",
-                    required: true,
-                    form: _vm.form
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.time,
-                    callback: function($$v) {
-                      _vm.$set(_vm.subEvents.form.fields, "time", $$v)
-                    },
-                    expression: "subEvents.form.fields.time"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-text-area", {
-                  attrs: {
-                    name: "invitation_text",
-                    label: "Texto de convite",
-                    required: true,
-                    form: _vm.form,
-                    rows: "10",
-                    cols: "100"
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.invitation_text,
-                    callback: function($$v) {
-                      _vm.$set(
-                        _vm.subEvents.form.fields,
-                        "invitation_text",
-                        $$v
-                      )
-                    },
-                    expression: "subEvents.form.fields.invitation_text"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-text-area", {
-                  attrs: {
-                    name: "confirmation_text",
-                    label: "Texto de confirmação",
-                    required: true,
-                    form: _vm.form,
-                    rows: "10",
-                    cols: "100"
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.confirmation_text,
-                    callback: function($$v) {
-                      _vm.$set(
-                        _vm.subEvents.form.fields,
-                        "confirmation_text",
-                        $$v
-                      )
-                    },
-                    expression: "subEvents.form.fields.confirmation_text"
-                  }
-                }),
-                _vm._v(" "),
-                _c("app-text-area", {
-                  attrs: {
-                    name: "credential_send_text",
-                    label: "Texto de envio de credencial",
-                    required: true,
-                    form: _vm.form,
-                    rows: "10",
-                    cols: "100"
-                  },
-                  model: {
-                    value: _vm.subEvents.form.fields.credential_send_text,
-                    callback: function($$v) {
-                      _vm.$set(
-                        _vm.subEvents.form.fields,
-                        "credential_send_text",
-                        $$v
-                      )
-                    },
-                    expression: "subEvents.form.fields.credential_send_text"
+                    expression: "form.fields.title"
                   }
                 })
               ],
@@ -103236,7 +104755,7 @@ var render = function() {
                   "router-link",
                   {
                     staticClass: "btn btn-success",
-                    attrs: { to: "/events", tag: "button" }
+                    attrs: { to: "/", tag: "button" }
                   },
                   [
                     _vm._v(
@@ -103345,6 +104864,24 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
+                _c("app-input", {
+                  attrs: {
+                    name: "place",
+                    label: "Local",
+                    required: true,
+                    form: _vm.form,
+                    rows: "10",
+                    cols: "100"
+                  },
+                  model: {
+                    value: _vm.subEvents.form.fields.place,
+                    callback: function($$v) {
+                      _vm.$set(_vm.subEvents.form.fields, "place", $$v)
+                    },
+                    expression: "subEvents.form.fields.place"
+                  }
+                }),
+                _vm._v(" "),
                 _c("app-text-area", {
                   attrs: {
                     name: "invitation_text",
@@ -103408,6 +104945,105 @@ var render = function() {
                       )
                     },
                     expression: "subEvents.form.fields.credential_send_text"
+                  }
+                }),
+                _vm._v(" "),
+                _vm.mode == "create"
+                  ? _c(
+                      "app-table-panel",
+                      {
+                        attrs: {
+                          title:
+                            "Endereços disponíveis (" +
+                            _vm.subEvents.data.available_addresses.length +
+                            " endereços)"
+                        }
+                      },
+                      [
+                        _c(
+                          "app-table",
+                          {
+                            attrs: {
+                              columns: ["#", "Endereço"],
+                              rows: _vm.subEvents.data.available_addresses
+                            }
+                          },
+                          _vm._l(
+                            _vm.subEvents.data.available_addresses,
+                            function(address) {
+                              return _c(
+                                "tr",
+                                {
+                                  staticClass: "cursor-pointer",
+                                  class: {
+                                    "cursor-pointer": true,
+                                    "bg-primary text-white": _vm.isCurrent(
+                                      address,
+                                      _vm.addresses.selected
+                                    )
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.selectAddressInsideEvent(address)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("td", [_vm._v(_vm._s(address.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(
+                                      _vm._s(
+                                        address.street +
+                                          ", " +
+                                          address.number +
+                                          (address.complement
+                                            ? " - " + address.complement
+                                            : "")
+                                      )
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "align-middle text-right" },
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "events/{events.selected.id}/sub-event/" +
+                                              _vm.subEvents.selected.id +
+                                              "/addresses/" +
+                                              address.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            }
+                          )
+                        )
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("app-address-form", {
+                  attrs: {
+                    form: _vm.subEvents.form,
+                    address: _vm.subEvents.form.fields.address,
+                    "google-maps": _vm.environment.google_maps
                   }
                 })
               ],
@@ -103697,63 +105333,65 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-6" }, [
-            _c("input", {
-              staticClass: "form-control form-control-sm",
-              attrs: { placeholder: "filtrar" },
-              domProps: { value: _vm.filterText },
-              on: {
-                input: function($event) {
-                  _vm.$emit("input-filter-text", $event)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-4 p-0" },
-            [
-              _c("app-per-page", {
-                attrs: { value: _vm.perPage },
-                on: {
-                  input: function($event) {
-                    _vm.$emit("set-per-page", $event)
+      _vm.perPage
+        ? _c("div", { staticClass: "col-12" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-6" }, [
+                _c("input", {
+                  staticClass: "form-control form-control-sm",
+                  attrs: { placeholder: "filtrar" },
+                  domProps: { value: _vm.filterText },
+                  on: {
+                    input: function($event) {
+                      _vm.$emit("input-filter-text", $event)
+                    }
                   }
-                }
-              })
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-2 text-right" },
-            [
-              _vm.addButton
-                ? _c(
-                    "router-link",
-                    {
-                      staticClass: "btn btn-primary btn-sm pull-right",
-                      attrs: {
-                        to: _vm.addButton.uri,
-                        tag: "div",
-                        disabled: _vm.addButton.disabled,
-                        dusk: "createEventButton"
-                      }
-                    },
-                    [_c("i", { staticClass: "fa fa-plus" })]
-                  )
-                : _vm._e(),
+                })
+              ]),
               _vm._v(" "),
-              _vm._t("buttons")
-            ],
-            2
-          )
-        ])
-      ])
+              _c(
+                "div",
+                { staticClass: "col-2 p-0" },
+                [
+                  _c("app-per-page", {
+                    attrs: { value: _vm.perPage },
+                    on: {
+                      input: function($event) {
+                        _vm.$emit("set-per-page", $event)
+                      }
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "col-4 text-right" },
+                [
+                  _vm.addButton
+                    ? _c(
+                        "router-link",
+                        {
+                          staticClass: "btn btn-primary btn-sm pull-right",
+                          attrs: {
+                            to: _vm.addButton.uri,
+                            tag: "div",
+                            disabled: _vm.addButton.disabled,
+                            dusk: "createEventButton"
+                          }
+                        },
+                        [_c("i", { staticClass: "fa fa-plus" })]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm._t("buttons")
+                ],
+                2
+              )
+            ])
+          ])
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -103859,12 +105497,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to:
                                   "/institutions/" + institution.id + "/update",
@@ -103952,7 +105591,7 @@ var render = function() {
                   }
                 },
                 [
-                  _c("a", { staticClass: "page-link", attrs: { href: "#" } }, [
+                  _c("div", { staticClass: "page-link" }, [
                     _vm._v(
                       "\n                " + _vm._s(page) + "\n            "
                     )
@@ -103985,11 +105624,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
-      {
-        staticClass: "page-link",
-        attrs: { href: "#", "aria-label": "Previous" }
-      },
+      "div",
+      { staticClass: "page-link", attrs: { "aria-label": "Previous" } },
       [
         _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("«")]),
         _vm._v(" "),
@@ -104002,8 +105638,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "a",
-      { staticClass: "page-link", attrs: { href: "#", "aria-label": "Next" } },
+      "div",
+      { staticClass: "page-link", attrs: { "aria-label": "Next" } },
       [
         _c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("»")]),
         _vm._v(" "),
@@ -104018,6 +105654,90 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-7a5cb773", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7d8a7c55\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/Select.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("label", { staticClass: "mb-0 mt-4", attrs: { for: _vm.name } }, [
+      _vm._v(_vm._s(_vm.label))
+    ]),
+    _vm._v(" "),
+    _c(
+      "select",
+      {
+        staticClass: "custom-select custom-select-sm",
+        attrs: { id: _vm.name, name: _vm.name, required: _vm.required },
+        domProps: { value: _vm.value },
+        on: {
+          input: function($event) {
+            _vm.$emit("input", $event.target.value)
+          }
+        }
+      },
+      _vm._l(_vm.elements.rows, function(element) {
+        return _c("option", { domProps: { value: element.id } }, [
+          _vm._v("\n            " + _vm._s(element.name) + "\n        ")
+        ])
+      })
+    ),
+    _vm._v(" "),
+    _vm.form.errors.has(_vm.name)
+      ? _c("small", { staticClass: "text-danger" }, [
+          _vm._v(
+            "\n        " + _vm._s(_vm.form.errors.get(_vm.name)) + "\n    "
+          )
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-7d8a7c55", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-85ca06a4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/map.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "vue-map-container" },
+    [
+      _c("div", { ref: "vue-map", staticClass: "vue-map" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "vue-map-hidden" }, [_vm._t("default")], 2),
+      _vm._v(" "),
+      _vm._t("visible")
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-85ca06a4", module.exports)
   }
 }
 
@@ -104079,14 +105799,16 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _c("app-pagination", {
-            attrs: { pagination: _vm.pagination },
-            on: {
-              "goto-page": function($event) {
-                _vm.$emit("goto-page", $event)
-              }
-            }
-          })
+          _vm.pagination
+            ? _c("app-pagination", {
+                attrs: { pagination: _vm.pagination },
+                on: {
+                  "goto-page": function($event) {
+                    _vm.$emit("goto-page", $event)
+                  }
+                }
+              })
+            : _vm._e()
         ],
         1
       )
@@ -104203,6 +105925,35 @@ if (false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c1ab87be\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/placeInput.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("label", [
+    _c("span", { domProps: { textContent: _vm._s(_vm.label) } }),
+    _vm._v(" "),
+    _c("input", {
+      ref: "input",
+      class: _vm.className,
+      attrs: { type: "text", placeholder: _vm.placeholder }
+    })
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-c1ab87be", module.exports)
+  }
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-d23f311a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/TextArea.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -104270,7 +106021,8 @@ var render = function() {
         id: _vm.name,
         type: _vm.type,
         required: _vm.required,
-        dusk: _vm.dusk
+        dusk: _vm.dusk,
+        readonly: _vm.readonly
       },
       domProps: { value: _vm.value },
       on: {
@@ -104473,12 +106225,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "td",
+                        { staticClass: "align-middle text-right" },
                         [
                           _c(
                             "router-link",
                             {
                               staticClass:
-                                "btn btn-danger btn-sm mr-1 pull-right",
+                                "btn btn-danger btn-sm ml-1 pull-right",
                               attrs: {
                                 to: "/roles/" + role.id + "/update",
                                 tag: "div",
@@ -104519,6 +106272,131 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
     require("vue-hot-reload-api")      .rerender("data-v-e2fbe2a4", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ed35740a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "vue-street-view-pano-container" },
+    [
+      _c("div", {
+        ref: "vue-street-view-pano",
+        staticClass: "vue-street-view-pano"
+      }),
+      _vm._v(" "),
+      _vm._t("default")
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ed35740a", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ff1a2432\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("form", [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-address-form", {
+                  attrs: {
+                    address: _vm.addresses.form.fields,
+                    form: _vm.addresses.form,
+                    "google-maps": _vm.environment.google_maps
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 text-right mb-3" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: { type: "submit" },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        _vm.saveModel()
+                      }
+                    }
+                  },
+                  [_vm._v("gravar")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: "/addresses", tag: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            cancelar\n                        "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _c("h2", [_vm._v("Novo Endereço")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-ff1a2432", module.exports)
   }
 }
 
@@ -107486,6 +109364,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3229bdd0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/CategorizablesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3229bdd0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/CategorizablesForm.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("10dea45c", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3229bdd0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CategorizablesForm.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3229bdd0\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./CategorizablesForm.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-345b434c\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/InviteForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -107567,23 +109472,23 @@ if(false) {
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue":
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4889b4d6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/ContactsForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue");
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4889b4d6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/ContactsForm.vue");
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("ff59c5fe", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5fbb7553", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddressesForm.vue", function() {
-     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AddressesForm.vue");
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4889b4d6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ContactsForm.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4889b4d6\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ContactsForm.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -107756,6 +109661,33 @@ if(false) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ca06a4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/map.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ca06a4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/map.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("78dc4eec", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ca06a4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./map.vue", function() {
+     var newContent = require("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ca06a4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./map.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
 /***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-bb343548\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/EventsForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -107827,6 +109759,60 @@ if(false) {
  if(!content.locals) {
    module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2fbe2a4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Roles.vue", function() {
      var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-e2fbe2a4\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Roles.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("9762adce", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./streetViewPanorama.vue", function() {
+     var newContent = require("!!../../../css-loader/index.js!../../../vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!../../../vue-loader/lib/selector.js?type=styles&index=0!./streetViewPanorama.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("23969dd2", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PersonInstitutionsAddressesForm.vue", function() {
+     var newContent = require("!!../../../node_modules/css-loader/index.js!../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./PersonInstitutionsAddressesForm.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -108230,6 +110216,13 @@ exports.version = version;
 /***/ })
 /******/ ]);
 });
+
+/***/ }),
+
+/***/ "./node_modules/vue-the-mask/dist/vue-the-mask.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+(function(e,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.VueTheMask=t():e.VueTheMask=t()})(this,function(){return function(e){function t(r){if(n[r])return n[r].exports;var a=n[r]={i:r,l:!1,exports:{}};return e[r].call(a.exports,a,a.exports,t),a.l=!0,a.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p=".",t(t.s=10)}([function(e,t){e.exports={"#":{pattern:/\d/},X:{pattern:/[0-9a-zA-Z]/},S:{pattern:/[a-zA-Z]/},A:{pattern:/[a-zA-Z]/,transform:function(e){return e.toLocaleUpperCase()}},a:{pattern:/[a-zA-Z]/,transform:function(e){return e.toLocaleLowerCase()}},"!":{escape:!0}}},function(e,t,n){"use strict";function r(e){var t=document.createEvent("Event");return t.initEvent(e,!0,!0),t}var a=n(2),o=n(0),i=n.n(o);t.a=function(e,t){var o=t.value;if((Array.isArray(o)||"string"==typeof o)&&(o={mask:o,tokens:i.a}),"INPUT"!==e.tagName.toLocaleUpperCase()){var u=e.getElementsByTagName("input");if(1!==u.length)throw new Error("v-mask directive requires 1 input, found "+u.length);e=u[0]}e.oninput=function(t){if(t.isTrusted){var i=e.selectionEnd,u=e.value[i-1];for(e.value=n.i(a.a)(e.value,o.mask,!0,o.tokens);i<e.value.length&&e.value.charAt(i-1)!==u;)i++;e===document.activeElement&&(e.setSelectionRange(i,i),setTimeout(function(){e.setSelectionRange(i,i)},0)),e.dispatchEvent(r("input"))}};var s=n.i(a.a)(e.value,o.mask,!0,o.tokens);s!==e.value&&(e.value=s,e.dispatchEvent(r("input")))}},function(e,t,n){"use strict";var r=n(6),a=n(5);t.a=function(e,t){var o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],i=arguments[3];return Array.isArray(t)?n.i(a.a)(r.a,t,i)(e,t,o,i):n.i(r.a)(e,t,o,i)}},function(e,t,n){"use strict";function r(e){e.component(s.a.name,s.a),e.directive("mask",i.a)}Object.defineProperty(t,"__esModule",{value:!0});var a=n(0),o=n.n(a),i=n(1),u=n(7),s=n.n(u);n.d(t,"TheMask",function(){return s.a}),n.d(t,"mask",function(){return i.a}),n.d(t,"tokens",function(){return o.a}),n.d(t,"version",function(){return c});var c="0.11.1";t.default=r,"undefined"!=typeof window&&window.Vue&&window.Vue.use(r)},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(1),a=n(0),o=n.n(a),i=n(2);t.default={name:"TheMask",props:{value:[String,Number],mask:{type:[String,Array],required:!0},masked:{type:Boolean,default:!1},tokens:{type:Object,default:function(){return o.a}}},directives:{mask:r.a},data:function(){return{lastValue:null,display:this.value}},watch:{value:function(e){e!==this.lastValue&&(this.display=e)},masked:function(){this.refresh(this.display)}},computed:{config:function(){return{mask:this.mask,tokens:this.tokens,masked:this.masked}}},methods:{onInput:function(e){e.isTrusted||this.refresh(e.target.value)},refresh:function(e){this.display=e;var e=n.i(i.a)(e,this.mask,this.masked,this.tokens);e!==this.lastValue&&(this.lastValue=e,this.$emit("input",e))}}}},function(e,t,n){"use strict";function r(e,t,n){return t=t.sort(function(e,t){return e.length-t.length}),function(r,a){for(var o=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],i=0;i<t.length;){var u=t[i];i++;var s=t[i];if(!(s&&e(r,s,!0,n).length>u.length))return e(r,u,o,n)}return""}}t.a=r},function(e,t,n){"use strict";function r(e,t){var n=!(arguments.length>2&&void 0!==arguments[2])||arguments[2],r=arguments[3];e=e||"",t=t||"";for(var a=0,o=0,i="";a<t.length&&o<e.length;){var u=t[a],s=r[u],c=e[o];s&&!s.escape?(s.pattern.test(c)&&(i+=s.transform?s.transform(c):c,a++),o++):(s&&s.escape&&(a++,u=t[a]),n&&(i+=u),c===u&&o++,a++)}for(var f="";a<t.length&&n;){var u=t[a];if(r[u]){f="";break}f+=u,a++}return i+f}t.a=r},function(e,t,n){var r=n(8)(n(4),n(9),null,null);e.exports=r.exports},function(e,t){e.exports=function(e,t,n,r){var a,o=e=e||{},i=typeof e.default;"object"!==i&&"function"!==i||(a=e,o=e.default);var u="function"==typeof o?o.options:o;if(t&&(u.render=t.render,u.staticRenderFns=t.staticRenderFns),n&&(u._scopeId=n),r){var s=u.computed||(u.computed={});Object.keys(r).forEach(function(e){var t=r[e];s[e]=function(){return t}})}return{esModule:a,exports:o,options:u}}},function(e,t){e.exports={render:function(){var e=this,t=e.$createElement;return(e._self._c||t)("input",{directives:[{name:"mask",rawName:"v-mask",value:e.config,expression:"config"}],attrs:{type:"text"},domProps:{value:e.display},on:{input:e.onInput}})},staticRenderFns:[]}},function(e,t,n){e.exports=n(3)}])});
 
 /***/ }),
 
@@ -119200,6 +121193,2221 @@ module.exports = Vue;
 
 /***/ }),
 
+/***/ "./node_modules/vue2-google-maps/dist/components/autocomplete.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/autocomplete.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-2c922d06\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/autocomplete.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue2-google-maps/dist/components/autocomplete.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2c922d06", Component.options)
+  } else {
+    hotAPI.reload("data-v-2c922d06", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/autocompleteImpl.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _bindProps = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindProps.js");
+
+var _simulateArrowDown = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/simulateArrowDown.js");
+
+var _simulateArrowDown2 = _interopRequireDefault(_simulateArrowDown);
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mappedProps = {
+  bounds: {
+    type: Object
+  },
+  componentRestrictions: {
+    type: Object,
+    // Do not bind -- must check for undefined
+    // in the property
+    noBind: true
+  },
+  types: {
+    type: Array,
+    default: function _default() {
+      return [];
+    }
+  }
+};
+
+var props = {
+  placeholder: {
+    required: false,
+    type: String
+  },
+  selectFirstOnEnter: {
+    require: false,
+    type: Boolean,
+    default: false
+  },
+  value: {
+    type: String,
+    default: ''
+  },
+  options: {
+    type: Object
+  }
+};
+
+exports.default = {
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$gmapApiPromiseLazy().then(function () {
+      if (_this.selectFirstOnEnter) {
+        (0, _simulateArrowDown2.default)(_this.$refs.input);
+      }
+
+      if (typeof google.maps.places.Autocomplete !== 'function') {
+        throw new Error('google.maps.places.Autocomplete is undefined. Did you add \'places\' to libraries when loading Google Maps?');
+      }
+
+      /* eslint-disable no-unused-vars */
+      var finalOptions = _extends({}, (0, _bindProps.getPropsValues)(_this, mappedProps), _this.options);
+
+      _this.$autocomplete = new google.maps.places.Autocomplete(_this.$refs.input, finalOptions);
+      (0, _bindProps.bindProps)(_this, _this.$autocomplete, mappedProps);
+
+      _this.$watch('componentRestrictions', function (v) {
+        if (v !== undefined) {
+          _this.$autocomplete.setComponentRestrictions(v);
+        }
+      });
+
+      // Not using `bindEvents` because we also want
+      // to return the result of `getPlace()`
+      _this.$autocomplete.addListener('place_changed', function () {
+        _this.$emit('place_changed', _this.$autocomplete.getPlace());
+      });
+    });
+  },
+
+  props: _extends({}, (0, _mapElementFactory.mappedPropsToVueProps)(mappedProps), props)
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/circle.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  center: {
+    type: Object,
+    twoWay: true,
+    required: true
+  },
+  radius: {
+    type: Number,
+    twoWay: true
+  },
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  options: {
+    type: Object,
+    twoWay: false
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  name: 'circle',
+  ctr: function ctr() {
+    return google.maps.Circle;
+  },
+  events: events
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/infoWindow.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/infoWindow.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-17fc7ddc\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/infoWindow.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue2-google-maps/dist/components/infoWindow.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-17fc7ddc", Component.options)
+  } else {
+    hotAPI.reload("data-v-17fc7ddc", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/infoWindowImpl.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  options: {
+    type: Object,
+    required: false,
+    default: function _default() {
+      return {};
+    }
+  },
+  position: {
+    type: Object,
+    twoWay: true
+  },
+  zIndex: {
+    type: Number,
+    twoWay: true
+  }
+};
+
+var events = ['domready', 'closeclick', 'content_changed'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  events: events,
+  name: 'infoWindow',
+  ctr: function ctr() {
+    return google.maps.InfoWindow;
+  },
+  props: {
+    opened: {
+      type: Boolean,
+      default: true
+    }
+  },
+
+  inject: {
+    '$markerPromise': {
+      default: null
+    }
+  },
+
+  mounted: function mounted() {
+    var el = this.$refs.flyaway;
+    el.parentNode.removeChild(el);
+  },
+  beforeCreate: function beforeCreate(options) {
+    var _this = this;
+
+    options.content = this.$refs.flyaway;
+
+    if (this.$markerPromise) {
+      delete options.position;
+      return this.$markerPromise.then(function (mo) {
+        _this.$markerObject = mo;
+        return mo;
+      });
+    }
+  },
+
+
+  methods: {
+    _openInfoWindow: function _openInfoWindow() {
+      if (this.opened) {
+        if (this.$markerObject !== null) {
+          this.$infoWindowObject.open(this.$map, this.$markerObject);
+        } else {
+          this.$infoWindowObject.open(this.$map);
+        }
+      } else {
+        this.$infoWindowObject.close();
+      }
+    }
+  },
+
+  afterCreate: function afterCreate() {
+    var _this2 = this;
+
+    this._openInfoWindow();
+    this.$watch('opened', function () {
+      _this2._openInfoWindow();
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/map.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-85ca06a4\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/map.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/map.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-85ca06a4\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/map.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue2-google-maps/dist/components/map.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-85ca06a4", Component.options)
+  } else {
+    hotAPI.reload("data-v-85ca06a4", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/mapElementFactory.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = function (options) {
+  var mappedProps = options.mappedProps,
+      name = options.name,
+      ctr = options.ctr,
+      ctrArgs = options.ctrArgs,
+      events = options.events,
+      beforeCreate = options.beforeCreate,
+      afterCreate = options.afterCreate,
+      props = options.props,
+      rest = _objectWithoutProperties(options, ['mappedProps', 'name', 'ctr', 'ctrArgs', 'events', 'beforeCreate', 'afterCreate', 'props']);
+
+  var promiseName = '$' + name + 'Promise';
+  var instanceName = '$' + name + 'Object';
+
+  assert(!(rest.props instanceof Array), '`props` should be an object, not Array');
+
+  return _extends({}, typeof GENERATE_DOC !== 'undefined' ? { $vgmOptions: options } : {}, {
+    mixins: [_mapElementMixin2.default],
+    props: _extends({}, props, mappedPropsToVueProps(mappedProps)),
+    render: function render() {
+      return '';
+    },
+    provide: function provide() {
+      var _this = this;
+
+      var promise = this.$mapPromise.then(function (map) {
+        // Infowindow needs this to be immediately available
+        _this.$map = map;
+
+        // Initialize the maps with the given options
+        var options = _extends({}, _this.options, {
+          map: map
+        }, (0, _bindProps.getPropsValues)(_this, mappedProps));
+        delete options.options; // delete the extra options
+
+        if (beforeCreate) {
+          var result = beforeCreate.bind(_this)(options);
+
+          if (result instanceof Promise) {
+            return result.then(function () {
+              return { options: options };
+            });
+          }
+        }
+        return { options: options };
+      }).then(function (_ref) {
+        var _Function$prototype$b;
+
+        var options = _ref.options;
+
+        var ConstructorObject = ctr();
+        // https://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible
+        _this[instanceName] = ctrArgs ? new ((_Function$prototype$b = Function.prototype.bind).call.apply(_Function$prototype$b, [ConstructorObject, null].concat(_toConsumableArray(ctrArgs(options, (0, _bindProps.getPropsValues)(_this, props || {}))))))() : new ConstructorObject(options);
+
+        (0, _bindProps.bindProps)(_this, _this[instanceName], mappedProps);
+        (0, _bindEvents2.default)(_this, _this[instanceName], events);
+
+        if (afterCreate) {
+          afterCreate.bind(_this)(_this[instanceName]);
+        }
+        return _this[instanceName];
+      });
+      this[promiseName] = promise;
+      return _defineProperty({}, promiseName, promise);
+    },
+    destroyed: function destroyed() {
+      // Note: not all Google Maps components support maps
+      if (this[instanceName] && this[instanceName].setMap) {
+        this[instanceName].setMap(null);
+      }
+    }
+  }, rest);
+};
+
+exports.mappedPropsToVueProps = mappedPropsToVueProps;
+
+var _bindEvents = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindEvents.js");
+
+var _bindEvents2 = _interopRequireDefault(_bindEvents);
+
+var _bindProps = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindProps.js");
+
+var _mapElementMixin = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementMixin.js");
+
+var _mapElementMixin2 = _interopRequireDefault(_mapElementMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+/**
+ *
+ * @param {Object} options
+ * @param {Object} options.mappedProps - Definitions of props
+ * @param {Object} options.mappedProps.PROP.type - Value type
+ * @param {Boolean} options.mappedProps.PROP.twoWay
+ *  - Whether the prop has a corresponding PROP_changed
+ *   event
+ * @param {Boolean} options.mappedProps.PROP.noBind
+ *  - If true, do not apply the default bindProps / bindEvents.
+ * However it will still be added to the list of component props
+ * @param {Object} options.props - Regular Vue-style props.
+ *  Note: must be in the Object form because it will be
+ *  merged with the `mappedProps`
+ *
+ * @param {Object} options.events - Google Maps API events
+ *  that are not bound to a corresponding prop
+ * @param {String} options.name - e.g. `polyline`
+ * @param {=> String} options.ctr - constructor, e.g.
+ *  `google.maps.Polyline`. However, since this is not
+ *  generally available during library load, this becomes
+ *  a function instead, e.g. () => google.maps.Polyline
+ *  which will be called only after the API has been loaded
+ * @param {(MappedProps, OtherVueProps) => Array} options.ctrArgs -
+ *   If the constructor in `ctr` needs to be called with
+ *   arguments other than a single `options` object, e.g. for
+ *   GroundOverlay, we call `new GroundOverlay(url, bounds, options)`
+ *   then pass in a function that returns the argument list as an array
+ *
+ * Otherwise, the constructor will be called with an `options` object,
+ *   with property and values merged from:
+ *
+ *   1. the `options` property, if any
+ *   2. a `map` property with the Google Maps
+ *   3. all the properties passed to the component in `mappedProps`
+ * @param {Object => Any} options.beforeCreate -
+ *  Hook to modify the options passed to the initializer
+ * @param {(options.ctr, Object) => Any} options.afterCreate -
+ *  Hook called when
+ *
+ */
+
+
+function assert(v, message) {
+  if (!v) throw new Error(message);
+}
+
+/**
+ * Strips out the extraneous properties we have in our
+ * props definitions
+ * @param {Object} props
+ */
+function mappedPropsToVueProps(mappedProps) {
+  return Object.entries(mappedProps).map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        key = _ref4[0],
+        prop = _ref4[1];
+
+    var value = {};
+
+    if ('type' in prop) value.type = prop.type;
+    if ('default' in prop) value.default = prop.default;
+    if ('required' in prop) value.required = prop.required;
+
+    return [key, value];
+  }).reduce(function (acc, _ref5) {
+    var _ref6 = _slicedToArray(_ref5, 2),
+        key = _ref6[0],
+        val = _ref6[1];
+
+    acc[key] = val;
+    return acc;
+  }, {});
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/mapElementMixin.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * @class MapElementMixin
+ *
+ * Extends components to include the following fields:
+ *
+ * @property $map        The Google map (valid only after the promise returns)
+ *
+ *
+ * */
+exports.default = {
+  inject: {
+    '$mapPromise': { default: 'abcdef' }
+  },
+
+  provide: function provide() {
+    var _this = this;
+
+    // Note: although this mixin is not "providing" anything,
+    // components' expect the `$map` property to be present on the component.
+    // In order for that to happen, this mixin must intercept the $mapPromise
+    // .then(() =>) first before its component does so.
+    //
+    // Since a provide() on a mixin is executed before a provide() on the
+    // component, putting this code in provide() ensures that the $map is
+    // already set by the time the
+    // component's provide() is called.
+    this.$mapPromise.then(function (map) {
+      _this.$map = map;
+    });
+
+    return {};
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/mapImpl.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _bindEvents = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindEvents.js");
+
+var _bindEvents2 = _interopRequireDefault(_bindEvents);
+
+var _bindProps = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindProps.js");
+
+var _mountableMixin = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/mountableMixin.js");
+
+var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
+
+var _TwoWayBindingWrapper = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/TwoWayBindingWrapper.js");
+
+var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
+
+var _WatchPrimitiveProperties = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/WatchPrimitiveProperties.js");
+
+var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  center: {
+    required: true,
+    twoWay: true,
+    type: Object,
+    noBind: true
+  },
+  zoom: {
+    required: false,
+    twoWay: true,
+    type: Number,
+    noBind: true
+  },
+  heading: {
+    type: Number,
+    twoWay: true
+  },
+  mapTypeId: {
+    twoWay: true,
+    type: String
+  },
+  tilt: {
+    twoWay: true,
+    type: Number
+  },
+  options: {
+    type: Object,
+    default: function _default() {
+      return {};
+    }
+  }
+};
+
+var events = ['bounds_changed', 'click', 'dblclick', 'drag', 'dragend', 'dragstart', 'idle', 'mousemove', 'mouseout', 'mouseover', 'resize', 'rightclick', 'tilesloaded'];
+
+// Plain Google Maps methods exposed here for convenience
+var linkedMethods = ['panBy', 'panTo', 'panToBounds', 'fitBounds'].reduce(function (all, methodName) {
+  all[methodName] = function () {
+    if (this.$mapObject) {
+      this.$mapObject[methodName].apply(this.$mapObject, arguments);
+    }
+  };
+  return all;
+}, {});
+
+// Other convenience methods exposed by Vue Google Maps
+var customMethods = {
+  resize: function resize() {
+    if (this.$mapObject) {
+      google.maps.event.trigger(this.$mapObject, 'resize');
+    }
+  },
+  resizePreserveCenter: function resizePreserveCenter() {
+    if (!this.$mapObject) {
+      return;
+    }
+
+    var oldCenter = this.$mapObject.getCenter();
+    google.maps.event.trigger(this.$mapObject, 'resize');
+    this.$mapObject.setCenter(oldCenter);
+  },
+
+
+  /// Override mountableMixin::_resizeCallback
+  /// because resizePreserveCenter is usually the
+  /// expected behaviour
+  _resizeCallback: function _resizeCallback() {
+    this.resizePreserveCenter();
+  }
+};
+
+exports.default = {
+  mixins: [_mountableMixin2.default],
+  props: (0, _mapElementFactory.mappedPropsToVueProps)(props),
+
+  provide: function provide() {
+    var _this = this;
+
+    this.$mapPromise = new Promise(function (resolve, reject) {
+      _this.$mapPromiseDeferred = { resolve: resolve, reject: reject };
+    });
+    return {
+      '$mapPromise': this.$mapPromise
+    };
+  },
+
+
+  computed: {
+    finalLat: function finalLat() {
+      return this.center && typeof this.center.lat === 'function' ? this.center.lat() : this.center.lat;
+    },
+    finalLng: function finalLng() {
+      return this.center && typeof this.center.lng === 'function' ? this.center.lng() : this.center.lng;
+    },
+    finalLatLng: function finalLatLng() {
+      return { lat: this.finalLat, lng: this.finalLng };
+    }
+  },
+
+  watch: {
+    zoom: function zoom(_zoom) {
+      if (this.$mapObject) {
+        this.$mapObject.setZoom(_zoom);
+      }
+    }
+  },
+
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return this.$gmapApiPromiseLazy().then(function () {
+      // getting the DOM element where to create the map
+      var element = _this2.$refs['vue-map'];
+
+      // creating the map
+      var options = _extends({}, _this2.options, (0, _bindProps.getPropsValues)(_this2, props));
+      delete options.options;
+      _this2.$mapObject = new google.maps.Map(element, options);
+
+      // binding properties (two and one way)
+      (0, _bindProps.bindProps)(_this2, _this2.$mapObject, props);
+      // binding events
+      (0, _bindEvents2.default)(_this2, _this2.$mapObject, events);
+
+      // manually trigger center and zoom
+      (0, _TwoWayBindingWrapper2.default)(function (increment, decrement, shouldUpdate) {
+        _this2.$mapObject.addListener('center_changed', function () {
+          if (shouldUpdate()) {
+            _this2.$emit('center_changed', _this2.$mapObject.getCenter());
+          }
+          decrement();
+        });
+
+        (0, _WatchPrimitiveProperties2.default)(_this2, ['finalLat', 'finalLng'], function updateCenter() {
+          increment();
+          _this2.$mapObject.setCenter(_this2.finalLatLng);
+        });
+      });
+      _this2.$mapObject.addListener('zoom_changed', function () {
+        _this2.$emit('zoom_changed', _this2.$mapObject.getZoom());
+      });
+      _this2.$mapObject.addListener('bounds_changed', function () {
+        _this2.$emit('bounds_changed', _this2.$mapObject.getBounds());
+      });
+
+      _this2.$mapPromiseDeferred.resolve(_this2.$mapObject);
+
+      return _this2.$mapObject;
+    }).catch(function (error) {
+      throw error;
+    });
+  },
+
+  methods: _extends({}, customMethods, linkedMethods)
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/marker.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  animation: {
+    twoWay: true,
+    type: Number
+  },
+  attribution: {
+    type: Object
+  },
+  clickable: {
+    type: Boolean,
+    twoWay: true,
+    default: true
+  },
+  cursor: {
+    type: String,
+    twoWay: true
+  },
+  draggable: {
+    type: Boolean,
+    twoWay: true,
+    default: false
+  },
+  icon: {
+    twoWay: true
+  },
+  label: {},
+  opacity: {
+    type: Number,
+    default: 1
+  },
+  options: {
+    type: Object
+  },
+  place: {
+    type: Object
+  },
+  position: {
+    type: Object,
+    twoWay: true
+  },
+  shape: {
+    type: Object,
+    twoWay: true
+  },
+  title: {
+    type: String,
+    twoWay: true
+  },
+  zIndex: {
+    type: Number,
+    twoWay: true
+  },
+  visible: {
+    twoWay: true,
+    default: true
+  }
+};
+
+var events = ['click', 'rightclick', 'dblclick', 'drag', 'dragstart', 'dragend', 'mouseup', 'mousedown', 'mouseover', 'mouseout'];
+
+/**
+ * @class Marker
+ *
+ * Marker class with extra support for
+ *
+ * - Embedded info windows
+ * - Clustered markers
+ *
+ * Support for clustered markers is for backward-compatability
+ * reasons. Otherwise we should use a cluster-marker mixin or
+ * subclass.
+ */
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  events: events,
+  name: 'marker',
+  ctr: function ctr() {
+    return google.maps.Marker;
+  },
+
+  inject: {
+    '$clusterPromise': {
+      default: null
+    }
+  },
+
+  render: function render(h) {
+    if (!this.$slots.default || this.$slots.default.length === 0) {
+      return '';
+    } else if (this.$slots.default.length === 1) {
+      // So that infowindows can have a marker parent
+      return this.$slots.default[0];
+    } else {
+      return h('div', this.$slots.default);
+    }
+  },
+  destroyed: function destroyed() {
+    if (!this.$markerObject) {
+      return;
+    }
+
+    if (this.$clusterObject) {
+      // Repaint will be performed in `updated()` of cluster
+      this.$clusterObject.removeMarker(this.$markerObject, true);
+    } else {
+      this.$markerObject.setMap(null);
+    }
+  },
+  beforeCreate: function beforeCreate(options) {
+    if (this.$clusterPromise) {
+      options.map = null;
+    }
+
+    return this.$clusterPromise;
+  },
+  afterCreate: function afterCreate(inst) {
+    var _this = this;
+
+    if (this.$clusterPromise) {
+      this.$clusterPromise.then(function (co) {
+        co.addMarker(inst);
+        _this.$clusterObject = co;
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/placeInput.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue2-google-maps/dist/components/placeInputImpl.js")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-c1ab87be\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/placeInput.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue2-google-maps/dist/components/placeInput.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-c1ab87be", Component.options)
+  } else {
+    hotAPI.reload("data-v-c1ab87be", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/polygon.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  draggable: {
+    type: Boolean
+  },
+  editable: {
+    type: Boolean
+  },
+  options: {
+    type: Object
+  },
+  path: {
+    type: Array,
+    twoWay: true,
+    noBind: true
+  },
+  paths: {
+    type: Array,
+    twoWay: true,
+    noBind: true
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  props: {
+    deepWatch: {
+      type: Boolean,
+      default: false
+    }
+  },
+  events: events,
+  mappedProps: props,
+  name: 'polygon',
+  ctr: function ctr() {
+    return google.maps.Polygon;
+  },
+
+  beforeCreate: function beforeCreate(options) {
+    if (!options.path) delete options.path;
+    if (!options.paths) delete options.paths;
+  },
+  afterCreate: function afterCreate(inst) {
+    var _this = this;
+
+    var clearEvents = function () {};
+
+    // Watch paths, on our own, because we do not want to set either when it is
+    // empty
+    this.$watch('paths', function (paths) {
+      if (paths) {
+        clearEvents();
+
+        inst.setPaths(paths);
+
+        var updatePaths = function () {
+          _this.$emit('paths_changed', inst.getPaths());
+        };
+        var eventListeners = [];
+
+        var mvcArray = inst.getPaths();
+        for (var i = 0; i < mvcArray.getLength(); i++) {
+          var mvcPath = mvcArray.getAt(i);
+          eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
+          eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
+          eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
+        }
+        eventListeners.push([mvcArray, mvcArray.addListener('insert_at', updatePaths)]);
+        eventListeners.push([mvcArray, mvcArray.addListener('remove_at', updatePaths)]);
+        eventListeners.push([mvcArray, mvcArray.addListener('set_at', updatePaths)]);
+
+        clearEvents = function () {
+          eventListeners.map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+                obj = _ref2[0],
+                listenerHandle = _ref2[1];
+
+            return (// eslint-disable-line no-unused-vars
+              google.maps.event.removeListener(listenerHandle)
+            );
+          });
+        };
+      }
+    }, {
+      deep: this.deepWatch,
+      immediate: true
+    });
+
+    this.$watch('path', function (path) {
+      if (path) {
+        clearEvents();
+
+        inst.setPaths(path);
+
+        var mvcPath = inst.getPath();
+        var eventListeners = [];
+
+        var updatePaths = function () {
+          _this.$emit('path_changed', inst.getPath());
+        };
+
+        eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
+
+        clearEvents = function () {
+          eventListeners.map(function (_ref3) {
+            var _ref4 = _slicedToArray(_ref3, 2),
+                obj = _ref4[0],
+                listenerHandle = _ref4[1];
+
+            return (// eslint-disable-line no-unused-vars
+              google.maps.event.removeListener(listenerHandle)
+            );
+          });
+        };
+      }
+    }, {
+      deep: this.deepWatch,
+      immediate: true
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/polyline.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  draggable: {
+    type: Boolean
+  },
+  editable: {
+    type: Boolean
+  },
+  options: {
+    twoWay: false,
+    type: Object
+  },
+  path: {
+    type: Array,
+    twoWay: true
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  props: {
+    deepWatch: {
+      type: Boolean,
+      default: false
+    }
+  },
+  events: events,
+
+  name: 'polyline',
+  ctr: function ctr() {
+    return google.maps.Polyline;
+  },
+
+  afterCreate: function afterCreate() {
+    var _this = this;
+
+    var clearEvents = function () {};
+
+    this.$watch('path', function (path) {
+      if (path) {
+        clearEvents();
+
+        _this.$polylineObject.setPath(path);
+
+        var mvcPath = _this.$polylineObject.getPath();
+        var eventListeners = [];
+
+        var updatePaths = function () {
+          _this.$emit('path_changed', _this.$polylineObject.getPath());
+        };
+
+        eventListeners.push([mvcPath, mvcPath.addListener('insert_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('remove_at', updatePaths)]);
+        eventListeners.push([mvcPath, mvcPath.addListener('set_at', updatePaths)]);
+
+        clearEvents = function () {
+          eventListeners.map(function (_ref) {
+            var _ref2 = _slicedToArray(_ref, 2),
+                obj = _ref2[0],
+                listenerHandle = _ref2[1];
+
+            return (// eslint-disable-line no-unused-vars
+              google.maps.event.removeListener(listenerHandle)
+            );
+          });
+        };
+      }
+    }, {
+      deep: this.deepWatch,
+      immediate: true
+    });
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/rectangle.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  bounds: {
+    type: Object,
+    twoWay: true
+  },
+  draggable: {
+    type: Boolean,
+    default: false
+  },
+  editable: {
+    type: Boolean,
+    default: false
+  },
+  options: {
+    type: Object,
+    twoWay: false
+  }
+};
+
+var events = ['click', 'dblclick', 'drag', 'dragend', 'dragstart', 'mousedown', 'mousemove', 'mouseout', 'mouseover', 'mouseup', 'rightclick'];
+
+exports.default = (0, _mapElementFactory2.default)({
+  mappedProps: props,
+  name: 'rectangle',
+  ctr: function ctr() {
+    return google.maps.Rectangle;
+  },
+  events: events
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ed35740a\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ed35740a\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ed35740a", Component.options)
+  } else {
+    hotAPI.reload("data-v-ed35740a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/components/streetViewPanoramaImpl.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _bindEvents = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindEvents.js");
+
+var _bindEvents2 = _interopRequireDefault(_bindEvents);
+
+var _bindProps = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/bindProps.js");
+
+var _mountableMixin = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/mountableMixin.js");
+
+var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
+
+var _TwoWayBindingWrapper = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/TwoWayBindingWrapper.js");
+
+var _TwoWayBindingWrapper2 = _interopRequireDefault(_TwoWayBindingWrapper);
+
+var _WatchPrimitiveProperties = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/WatchPrimitiveProperties.js");
+
+var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var props = {
+  zoom: {
+    twoWay: true,
+    type: Number
+  },
+  pov: {
+    twoWay: true,
+    type: Object,
+    trackProperties: ['pitch', 'heading']
+  },
+  position: {
+    twoWay: true,
+    type: Object,
+    noBind: true
+  },
+  pano: {
+    twoWay: true,
+    type: String
+  },
+  motionTracking: {
+    twoWay: false,
+    type: Boolean
+  },
+  visible: {
+    twoWay: true,
+    type: Boolean,
+    default: true
+  },
+  options: {
+    twoWay: false,
+    type: Object,
+    default: function _default() {
+      return {};
+    }
+  }
+};
+
+var events = ['closeclick', 'status_changed'];
+
+exports.default = {
+  mixins: [_mountableMixin2.default],
+  props: (0, _mapElementFactory.mappedPropsToVueProps)(props),
+  replace: false, // necessary for css styles
+  methods: {
+    resize: function resize() {
+      if (this.$panoObject) {
+        google.maps.event.trigger(this.$panoObject, 'resize');
+      }
+    }
+  },
+
+  provide: function provide() {
+    var _this = this;
+
+    var promise = new Promise(function (resolve, reject) {
+      _this.$panoPromiseDeferred = { resolve: resolve, reject: reject };
+    });
+    return {
+      '$panoPromise': promise,
+      '$mapPromise': promise // so that we can use it with markers
+    };
+  },
+
+
+  computed: {
+    finalLat: function finalLat() {
+      return this.position && typeof this.position.lat === 'function' ? this.position.lat() : this.position.lat;
+    },
+    finalLng: function finalLng() {
+      return this.position && typeof this.position.lng === 'function' ? this.position.lng() : this.position.lng;
+    },
+    finalLatLng: function finalLatLng() {
+      return {
+        lat: this.finalLat,
+        lng: this.finalLng
+      };
+    }
+  },
+
+  watch: {
+    zoom: function zoom(_zoom) {
+      if (this.$panoObject) {
+        this.$panoObject.setZoom(_zoom);
+      }
+    }
+  },
+
+  mounted: function mounted() {
+    var _this2 = this;
+
+    return this.$gmapApiPromiseLazy().then(function () {
+      // getting the DOM element where to create the map
+      var element = _this2.$refs['vue-street-view-pano'];
+
+      // creating the map
+      var options = _extends({}, _this2.options, (0, _bindProps.getPropsValues)(_this2, props));
+      delete options.options;
+
+      _this2.$panoObject = new google.maps.StreetViewPanorama(element, options);
+
+      // binding properties (two and one way)
+      (0, _bindProps.bindProps)(_this2, _this2.$panoObject, props);
+      // binding events
+      (0, _bindEvents2.default)(_this2, _this2.$panoObject, events);
+
+      // manually trigger position
+      (0, _TwoWayBindingWrapper2.default)(function (increment, decrement, shouldUpdate) {
+        // Panos take a while to load
+        increment();
+
+        _this2.$panoObject.addListener('position_changed', function () {
+          if (shouldUpdate()) {
+            _this2.$emit('position_changed', _this2.$panoObject.getPosition());
+          }
+          decrement();
+        });
+
+        (0, _WatchPrimitiveProperties2.default)(_this2, ['finalLat', 'finalLng'], function updateCenter() {
+          increment();
+          _this2.$panoObject.setPosition(_this2.finalLatLng);
+        });
+      });
+
+      _this2.$panoPromiseDeferred.resolve(_this2.$panoObject);
+
+      return _this2.$panoPromise;
+    }).catch(function (error) {
+      throw error;
+    });
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/main.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.StreetViewPanorama = exports.MountableMixin = exports.Autocomplete = exports.MapElementFactory = exports.MapElementMixin = exports.PlaceInput = exports.Map = exports.InfoWindow = exports.Rectangle = exports.Cluster = exports.Circle = exports.Polygon = exports.Polyline = exports.Marker = exports.loadGmapApi = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+// Vue component imports
+
+
+exports.install = install;
+exports.gmapApi = gmapApi;
+
+var _lazyValue = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/lazyValue.js");
+
+var _lazyValue2 = _interopRequireDefault(_lazyValue);
+
+var _manager = __webpack_require__("./node_modules/vue2-google-maps/dist/manager.js");
+
+var _marker = __webpack_require__("./node_modules/vue2-google-maps/dist/components/marker.js");
+
+var _marker2 = _interopRequireDefault(_marker);
+
+var _polyline = __webpack_require__("./node_modules/vue2-google-maps/dist/components/polyline.js");
+
+var _polyline2 = _interopRequireDefault(_polyline);
+
+var _polygon = __webpack_require__("./node_modules/vue2-google-maps/dist/components/polygon.js");
+
+var _polygon2 = _interopRequireDefault(_polygon);
+
+var _circle = __webpack_require__("./node_modules/vue2-google-maps/dist/components/circle.js");
+
+var _circle2 = _interopRequireDefault(_circle);
+
+var _rectangle = __webpack_require__("./node_modules/vue2-google-maps/dist/components/rectangle.js");
+
+var _rectangle2 = _interopRequireDefault(_rectangle);
+
+var _infoWindow = __webpack_require__("./node_modules/vue2-google-maps/dist/components/infoWindow.vue");
+
+var _infoWindow2 = _interopRequireDefault(_infoWindow);
+
+var _map = __webpack_require__("./node_modules/vue2-google-maps/dist/components/map.vue");
+
+var _map2 = _interopRequireDefault(_map);
+
+var _streetViewPanorama = __webpack_require__("./node_modules/vue2-google-maps/dist/components/streetViewPanorama.vue");
+
+var _streetViewPanorama2 = _interopRequireDefault(_streetViewPanorama);
+
+var _placeInput = __webpack_require__("./node_modules/vue2-google-maps/dist/components/placeInput.vue");
+
+var _placeInput2 = _interopRequireDefault(_placeInput);
+
+var _autocomplete = __webpack_require__("./node_modules/vue2-google-maps/dist/components/autocomplete.vue");
+
+var _autocomplete2 = _interopRequireDefault(_autocomplete);
+
+var _mapElementMixin = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementMixin.js");
+
+var _mapElementMixin2 = _interopRequireDefault(_mapElementMixin);
+
+var _mapElementFactory = __webpack_require__("./node_modules/vue2-google-maps/dist/components/mapElementFactory.js");
+
+var _mapElementFactory2 = _interopRequireDefault(_mapElementFactory);
+
+var _mountableMixin = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/mountableMixin.js");
+
+var _mountableMixin2 = _interopRequireDefault(_mountableMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// HACK: Cluster should be loaded conditionally
+// However in the web version, it's not possible to write
+// `import 'vue2-google-maps/src/components/cluster'`, so we need to
+// import it anyway (but we don't have to register it)
+// Therefore we use babel-plugin-transform-inline-environment-variables to
+// set BUILD_DEV to truthy / falsy
+var Cluster = undefined;
+
+var GmapApi = null;
+
+// export everything
+exports.loadGmapApi = _manager.loadGmapApi;
+exports.Marker = _marker2.default;
+exports.Polyline = _polyline2.default;
+exports.Polygon = _polygon2.default;
+exports.Circle = _circle2.default;
+exports.Cluster = Cluster;
+exports.Rectangle = _rectangle2.default;
+exports.InfoWindow = _infoWindow2.default;
+exports.Map = _map2.default;
+exports.PlaceInput = _placeInput2.default;
+exports.MapElementMixin = _mapElementMixin2.default;
+exports.MapElementFactory = _mapElementFactory2.default;
+exports.Autocomplete = _autocomplete2.default;
+exports.MountableMixin = _mountableMixin2.default;
+exports.StreetViewPanorama = _streetViewPanorama2.default;
+function install(Vue, options) {
+  // Set defaults
+  options = _extends({
+    installComponents: true,
+    autobindAllEvents: false
+  }, options);
+
+  // Update the global `GmapApi`. This will allow
+  // components to use the `google` global reactively
+  // via:
+  //   import {gmapApi} from 'vue2-google-maps'
+  //   export default {  computed: { google: gmapApi }  }
+  GmapApi = new Vue({ data: { gmapApi: null } });
+
+  var defaultResizeBus = new Vue();
+
+  // Use a lazy to only load the API when
+  // a VGM component is loaded
+  var gmapApiPromiseLazy = makeGmapApiPromiseLazy(options);
+
+  Vue.mixin({
+    created: function created() {
+      this.$gmapDefaultResizeBus = defaultResizeBus;
+      this.$gmapOptions = options;
+      this.$gmapApiPromiseLazy = gmapApiPromiseLazy;
+    }
+  });
+  Vue.$gmapDefaultResizeBus = defaultResizeBus;
+  Vue.$gmapApiPromiseLazy = gmapApiPromiseLazy;
+
+  if (options.installComponents) {
+    Vue.component('GmapMap', _map2.default);
+    Vue.component('GmapMarker', _marker2.default);
+    Vue.component('GmapInfoWindow', _infoWindow2.default);
+    Vue.component('GmapPolyline', _polyline2.default);
+    Vue.component('GmapPolygon', _polygon2.default);
+    Vue.component('GmapCircle', _circle2.default);
+    Vue.component('GmapRectangle', _rectangle2.default);
+    Vue.component('GmapAutocomplete', _autocomplete2.default);
+    Vue.component('GmapPlaceInput', _placeInput2.default);
+    Vue.component('GmapStreetViewPanorama', _streetViewPanorama2.default);
+  }
+}
+
+function makeGmapApiPromiseLazy(options) {
+  // Things to do once the API is loaded
+  function onApiLoaded() {
+    GmapApi.gmapApi = {};
+    return window.google;
+  }
+
+  if (options.load) {
+    // If library should load the API
+    return (0, _lazyValue2.default)(function () {
+      // Load the
+      // This will only be evaluated once
+      if (typeof window === 'undefined') {
+        // server side -- never resolve this promise
+        return new Promise(function () {}).then(onApiLoaded);
+      } else {
+        return new Promise(function (resolve, reject) {
+          try {
+            window['vueGoogleMapsInit'] = resolve;
+            (0, _manager.loadGmapApi)(options.load, options.loadCn);
+          } catch (err) {
+            reject(err);
+          }
+        }).then(onApiLoaded);
+      }
+    });
+  } else {
+    // If library should not handle API, provide
+    // end-users with the global `vueGoogleMapsInit: () => undefined`
+    // when the Google Maps API has been loaded
+    var promise = new Promise(function (resolve) {
+      if (typeof window === 'undefined') {
+        // Do nothing if run from server-side
+        return;
+      }
+      window['vueGoogleMapsInit'] = resolve;
+    }).then(onApiLoaded);
+
+    return (0, _lazyValue2.default)(function () {
+      return promise;
+    });
+  }
+}
+
+function gmapApi() {
+  return GmapApi.gmapApi && window.google;
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/manager.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var isApiSetUp = false;
+
+/**
+ * @param apiKey    API Key, or object with the URL parameters. For example
+ *                  to use Google Maps Premium API, pass
+ *                    `{ client: <YOUR-CLIENT-ID> }`.
+ *                  You may pass the libraries and/or version (as `v`) parameter into
+ *                  this parameter and skip the next two parameters
+ * @param version   Google for Maps version
+ * @param libraries Libraries to load (@see
+ *                  https://developers.google.com/maps/documentation/javascript/libraries)
+ * @param loadCn    Boolean. If set to true, the map will be loaded form goole maps China
+ *                  (@see https://developers.google.com/maps/documentation/javascript/basics#GoogleMapsChina)
+ *
+ * Example:
+ * ```
+ *      import {load} from 'vue-google-maps'
+ *
+ *      load(<YOUR-API-KEY>)
+ *
+ *      load({
+ *              key: <YOUR-API-KEY>,
+ *      })
+ *
+ *      load({
+ *              client: <YOUR-CLIENT-ID>,
+ *              channel: <YOUR CHANNEL>
+ *      })
+ * ```
+ */
+var loadGmapApi = exports.loadGmapApi = function (options, loadCn) {
+  if (typeof document === 'undefined') {
+    // Do nothing if run from server-side
+    return;
+  }
+  if (!isApiSetUp) {
+    isApiSetUp = true;
+
+    var googleMapScript = document.createElement('SCRIPT');
+
+    // Allow options to be an object.
+    // This is to support more esoteric means of loading Google Maps,
+    // such as Google for business
+    // https://developers.google.com/maps/documentation/javascript/get-api-key#premium-auth
+    if ((typeof options === 'undefined' ? 'undefined' : _typeof(options)) !== 'object') {
+      throw new Error('options should  be an object');
+    }
+
+    // libraries
+    if (Array.prototype.isPrototypeOf(options.libraries)) {
+      options.libraries = options.libraries.join(',');
+    }
+    options['callback'] = 'vueGoogleMapsInit';
+
+    var baseUrl = 'https://maps.googleapis.com/';
+
+    if (typeof loadCn === 'boolean' && loadCn === true) {
+      baseUrl = 'http://maps.google.cn/';
+    }
+
+    var url = baseUrl + 'maps/api/js?' + Object.keys(options).map(function (key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(options[key]);
+    }).join('&');
+
+    googleMapScript.setAttribute('src', url);
+    googleMapScript.setAttribute('async', '');
+    googleMapScript.setAttribute('defer', '');
+    document.head.appendChild(googleMapScript);
+  } else {
+    throw new Error('You already started the loading of google maps');
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/TwoWayBindingWrapper.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = TwoWayBindingWrapper;
+/**
+ * When you have two-way bindings, but the actual bound value will not equal
+ * the value you initially passed in, then to avoid an infinite loop you
+ * need to increment a counter every time you pass in a value, decrement the
+ * same counter every time the bound value changed, but only bubble up
+ * the event when the counter is zero.
+ *
+Example:
+
+Let's say DrawingRecognitionCanvas is a deep-learning backed canvas
+that, when given the name of an object (e.g. 'dog'), draws a dog.
+But whenever the drawing on it changes, it also sends back its interpretation
+of the image by way of the @newObjectRecognized event.
+
+<input
+  type="text"
+  placeholder="an object, e.g. Dog, Cat, Frog"
+  v-model="identifiedObject" />
+<DrawingRecognitionCanvas
+  :object="identifiedObject"
+  @newObjectRecognized="identifiedObject = $event"
+  />
+
+new TwoWayBindingWrapper((increment, decrement, shouldUpdate) => {
+  this.$watch('identifiedObject', () => {
+    // new object passed in
+    increment()
+  })
+  this.$deepLearningBackend.on('drawingChanged', () => {
+    recognizeObject(this.$deepLearningBackend)
+      .then((object) => {
+        decrement()
+        if (shouldUpdate()) {
+          this.$emit('newObjectRecognized', object.name)
+        }
+      })
+  })
+})
+ */
+function TwoWayBindingWrapper(fn) {
+  var counter = 0;
+
+  fn(function () {
+    counter += 1;
+  }, function () {
+    counter = Math.max(0, counter - 1);
+  }, function () {
+    return counter === 0;
+  });
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/WatchPrimitiveProperties.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = WatchPrimitiveProperties;
+/**
+ * Watch the individual properties of a PoD object, instead of the object
+ * per se. This is different from a deep watch where both the reference
+ * and the individual values are watched.
+ *
+ * In effect, it throttles the multiple $watch to execute at most once per tick.
+ */
+function WatchPrimitiveProperties(vueInst, propertiesToTrack, handler) {
+  var immediate = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  var isHandled = false;
+
+  function requestHandle() {
+    if (!isHandled) {
+      isHandled = true;
+      vueInst.$nextTick(function () {
+        isHandled = false;
+        handler();
+      });
+    }
+  }
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = propertiesToTrack[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var prop = _step.value;
+
+      vueInst.$watch(prop, requestHandle, { immediate: immediate });
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/bindEvents.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+exports.default = function (vueInst, googleMapsInst, events) {
+  var _loop = function (eventName) {
+    if (vueInst.$gmapOptions.autobindAllEvents || vueInst.$listeners[eventName]) {
+      googleMapsInst.addListener(eventName, function (ev) {
+        vueInst.$emit(eventName, ev);
+      });
+    }
+  };
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = events[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var eventName = _step.value;
+
+      _loop(eventName);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/bindProps.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getPropsValues = getPropsValues;
+exports.bindProps = bindProps;
+
+var _WatchPrimitiveProperties = __webpack_require__("./node_modules/vue2-google-maps/dist/utils/WatchPrimitiveProperties.js");
+
+var _WatchPrimitiveProperties2 = _interopRequireDefault(_WatchPrimitiveProperties);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function getPropsValues(vueInst, props) {
+  return Object.keys(props).reduce(function (acc, prop) {
+    if (vueInst[prop] !== undefined) {
+      acc[prop] = vueInst[prop];
+    }
+    return acc;
+  }, {});
+}
+
+/**
+  * Binds the properties defined in props to the google maps instance.
+  * If the prop is an Object type, and we wish to track the properties
+  * of the object (e.g. the lat and lng of a LatLng), then we do a deep
+  * watch. For deep watch, we also prevent the _changed event from being
+  * emitted if the data source was external.
+  */
+function bindProps(vueInst, googleMapsInst, props) {
+  var _loop = function (attribute) {
+    var _props$attribute = props[attribute],
+        twoWay = _props$attribute.twoWay,
+        type = _props$attribute.type,
+        trackProperties = _props$attribute.trackProperties,
+        noBind = _props$attribute.noBind;
+
+
+    if (noBind) return 'continue';
+
+    var setMethodName = 'set' + capitalizeFirstLetter(attribute);
+    var getMethodName = 'get' + capitalizeFirstLetter(attribute);
+    var eventName = attribute.toLowerCase() + '_changed';
+    var initialValue = vueInst[attribute];
+
+    if (typeof googleMapsInst[setMethodName] === 'undefined') {
+      throw new Error(setMethodName + ' is not a method of (the Maps object corresponding to) ' + vueInst.$options._componentTag);
+    }
+
+    // We need to avoid an endless
+    // propChanged -> event emitted -> propChanged -> event emitted loop
+    // although this may really be the user's responsibility
+    if (type !== Object || !trackProperties) {
+      // Track the object deeply
+      vueInst.$watch(attribute, function () {
+        var attributeValue = vueInst[attribute];
+
+        googleMapsInst[setMethodName](attributeValue);
+      }, {
+        immediate: typeof initialValue !== 'undefined',
+        deep: type === Object
+      });
+    } else {
+      (0, _WatchPrimitiveProperties2.default)(vueInst, trackProperties.map(function (prop) {
+        return attribute + '.' + prop;
+      }), function () {
+        googleMapsInst[setMethodName](vueInst[attribute]);
+      }, vueInst[attribute] !== undefined);
+    }
+
+    if (twoWay && (vueInst.$gmapOptions.autobindAllEvents || vueInst.$listeners[eventName])) {
+      googleMapsInst.addListener(eventName, function () {
+        // eslint-disable-line no-unused-vars
+        vueInst.$emit(eventName, googleMapsInst[getMethodName]());
+      });
+    }
+  };
+
+  for (var attribute in props) {
+    var _ret = _loop(attribute);
+
+    if (_ret === 'continue') continue;
+  }
+}
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/lazyValue.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+// This piece of code was orignally written by sindresorhus and can be seen here
+// https://github.com/sindresorhus/lazy-value/blob/master/index.js
+
+exports.default = function (fn) {
+  var called = false;
+  var ret = void 0;
+
+  return function () {
+    if (!called) {
+      called = true;
+      ret = fn();
+    }
+
+    return ret;
+  };
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/mountableMixin.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/*
+Mixin for objects that are mounted by Google Maps
+Javascript API.
+
+These are objects that are sensitive to element resize
+operations so it exposes a property which accepts a bus
+
+*/
+
+exports.default = {
+  props: ['resizeBus'],
+
+  data: function data() {
+    return {
+      _actualResizeBus: null
+    };
+  },
+  created: function created() {
+    if (typeof this.resizeBus === 'undefined') {
+      this.$data._actualResizeBus = this.$gmapDefaultResizeBus;
+    } else {
+      this.$data._actualResizeBus = this.resizeBus;
+    }
+  },
+
+
+  methods: {
+    _resizeCallback: function _resizeCallback() {
+      this.resize();
+    },
+    _delayedResizeCallback: function _delayedResizeCallback() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        return _this._resizeCallback();
+      });
+    }
+  },
+
+  watch: {
+    resizeBus: function resizeBus(newVal) {
+      // eslint-disable-line no-unused-vars
+      this.$data._actualResizeBus = newVal;
+    },
+    '$data._actualResizeBus': function $data_actualResizeBus(newVal, oldVal) {
+      if (oldVal) {
+        oldVal.$off('resize', this._delayedResizeCallback);
+      }
+      if (newVal) {
+        newVal.$on('resize', this._delayedResizeCallback);
+      }
+    }
+  },
+
+  destroyed: function destroyed() {
+    if (this.$data._actualResizeBus) {
+      this.$data._actualResizeBus.$off('resize', this._delayedResizeCallback);
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/vue2-google-maps/dist/utils/simulateArrowDown.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+// This piece of code was orignally written by amirnissim and can be seen here
+// http://stackoverflow.com/a/11703018/2694653
+// This has been ported to Vanilla.js by GuillaumeLeclerc
+exports.default = function (input) {
+  var _addEventListener = input.addEventListener ? input.addEventListener : input.attachEvent;
+
+  function addEventListenerWrapper(type, listener) {
+    // Simulate a 'down arrow' keypress on hitting 'return' when no pac suggestion is selected,
+    // and then trigger the original listener.
+    if (type === 'keydown') {
+      var origListener = listener;
+      listener = function (event) {
+        var suggestionSelected = document.getElementsByClassName('pac-item-selected').length > 0;
+        if (event.which === 13 && !suggestionSelected) {
+          var simulatedEvent = document.createEvent('Event');
+          simulatedEvent.keyCode = 40;
+          simulatedEvent.which = 40;
+          origListener.apply(input, [simulatedEvent]);
+        }
+        origListener.apply(input, [event]);
+      };
+    }
+    _addEventListener.apply(input, [type, listener]);
+  }
+
+  input.addEventListener = addEventListenerWrapper;
+  input.attachEvent = addEventListenerWrapper;
+};
+
+/***/ }),
+
 /***/ "./node_modules/vuex/dist/vuex.esm.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -120208,7 +124416,6 @@ module.exports = function(module) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__("./resources/js/bootstrap.js");
-__webpack_require__("./resources/js/components/boostrap.js");
 __webpack_require__("./resources/js/pages/boostrap.js");
 
 /***/ }),
@@ -120219,9 +124426,13 @@ __webpack_require__("./resources/js/pages/boostrap.js");
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_recaptcha__ = __webpack_require__("./node_modules/vue-recaptcha/dist/vue-recaptcha.es.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_swal__ = __webpack_require__("./node_modules/vue-swal/dist/vue-swal.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_swal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_swal__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bootstrap_vue_es_components__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_the_mask__ = __webpack_require__("./node_modules/vue-the-mask/dist/vue-the-mask.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_the_mask___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_the_mask__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_swal__ = __webpack_require__("./node_modules/vue-swal/dist/vue-swal.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_swal___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_swal__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_bootstrap_vue_es_components__ = __webpack_require__("./node_modules/bootstrap-vue/es/components/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__ = __webpack_require__("./node_modules/vue2-google-maps/dist/main.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__);
 __webpack_require__("./resources/js/support/helpers.js");
 
 window._ = __webpack_require__("./node_modules/lodash/lodash.js");
@@ -120318,18 +124529,45 @@ var cheerio = __webpack_require__("./node_modules/cheerio/index.js");
 window.cheerio = cheerio;
 
 /**
+ * Vue The Mask
+ */
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_the_mask___default.a);
+
+/**
  * SweetAlert
  */
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_swal___default.a);
+Vue.use(__WEBPACK_IMPORTED_MODULE_2_vue_swal___default.a);
 
 /**
  * Vue Bootstrap
  */
 
 
-Vue.use(__WEBPACK_IMPORTED_MODULE_2_bootstrap_vue_es_components__["b" /* Modal */]);
-Vue.use(__WEBPACK_IMPORTED_MODULE_2_bootstrap_vue_es_components__["a" /* Button */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_3_bootstrap_vue_es_components__["b" /* Modal */]);
+Vue.use(__WEBPACK_IMPORTED_MODULE_3_bootstrap_vue_es_components__["a" /* Button */]);
+
+/**
+ * Vue Google Maps
+ */
+
+
+Vue.use(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__, {
+  load: {
+    key: laravel.google_maps.api_key,
+    libraries: 'places'
+  }
+});
+
+/**
+ * Autoload Vue components
+ */
+var files = __webpack_require__("./resources/js/components/app recursive \\.vue$/");
+files.keys().map(function (key) {
+  var name = 'App' + _.last(key.split('/')).split('.')[0];
+  return Vue.component(name, files(key));
+});
 
 /***/ }),
 
@@ -120463,7 +124701,9 @@ var Form = function () {
         value: function populateData(data) {
             this.fields = data;
 
-            this.original = Object.assign({}, this.fields);
+            this.original = clone(this.fields);
+
+            this.empty = clone(this.fields);
         }
 
         /**
@@ -120575,6 +124815,87 @@ var Form = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Form);
+
+/***/ }),
+
+/***/ "./resources/js/components/app recursive \\.vue$/":
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"./AddressForm.vue": "./resources/js/components/app/AddressForm.vue",
+	"./Input.vue": "./resources/js/components/app/Input.vue",
+	"./Pagination.vue": "./resources/js/components/app/Pagination.vue",
+	"./Panel.vue": "./resources/js/components/app/Panel.vue",
+	"./PerPage.vue": "./resources/js/components/app/PerPage.vue",
+	"./Select.vue": "./resources/js/components/app/Select.vue",
+	"./Table.vue": "./resources/js/components/app/Table.vue",
+	"./TablePanel.vue": "./resources/js/components/app/TablePanel.vue",
+	"./TextArea.vue": "./resources/js/components/app/TextArea.vue",
+	"./UploadFile.vue": "./resources/js/components/app/UploadFile.vue"
+};
+function webpackContext(req) {
+	return __webpack_require__(webpackContextResolve(req));
+};
+function webpackContextResolve(req) {
+	var id = map[req];
+	if(!(id + 1)) // check for number or string
+		throw new Error("Cannot find module '" + req + "'.");
+	return id;
+};
+webpackContext.keys = function webpackContextKeys() {
+	return Object.keys(map);
+};
+webpackContext.resolve = webpackContextResolve;
+module.exports = webpackContext;
+webpackContext.id = "./resources/js/components/app recursive \\.vue$/";
+
+/***/ }),
+
+/***/ "./resources/js/components/app/AddressForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/AddressForm.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-402ab162\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/AddressForm.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/app/AddressForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-402ab162", Component.options)
+  } else {
+    hotAPI.reload("data-v-402ab162", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 
@@ -120759,6 +125080,54 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-27b8797a", Component.options)
   } else {
     hotAPI.reload("data-v-27b8797a", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/js/components/app/Select.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/components/app/Select.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-7d8a7c55\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/components/app/Select.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/app/Select.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7d8a7c55", Component.options)
+  } else {
+    hotAPI.reload("data-v-7d8a7c55", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -120966,20 +125335,6 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ "./resources/js/components/boostrap.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-Vue.component('app-panel', __webpack_require__("./resources/js/components/app/Panel.vue"));
-Vue.component('app-upload-file', __webpack_require__("./resources/js/components/app/UploadFile.vue"));
-Vue.component('app-per-page', __webpack_require__("./resources/js/components/app/PerPage.vue"));
-Vue.component('app-pagination', __webpack_require__("./resources/js/components/app/Pagination.vue"));
-Vue.component('app-table', __webpack_require__("./resources/js/components/app/Table.vue"));
-Vue.component('app-input', __webpack_require__("./resources/js/components/app/Input.vue"));
-Vue.component('app-text-area', __webpack_require__("./resources/js/components/app/TextArea.vue"));
-Vue.component('app-table-panel', __webpack_require__("./resources/js/components/app/TablePanel.vue"));
-
-/***/ }),
-
 /***/ "./resources/js/pages/app.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -121032,14 +125387,14 @@ __webpack_require__("./resources/js/pages/app.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__("./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_router__ = __webpack_require__("./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm__ = __webpack_require__("./resources/js/views/AddressesForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_AddressesForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Dashboard__ = __webpack_require__("./resources/js/views/Dashboard.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_Dashboard__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm__ = __webpack_require__("./resources/js/views/PeopleForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_PeopleForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_People__ = __webpack_require__("./resources/js/views/People.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_People___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_People__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Dashboard__ = __webpack_require__("./resources/js/views/Dashboard.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__views_Dashboard___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__views_Dashboard__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm__ = __webpack_require__("./resources/js/views/PeopleForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__views_PeopleForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_People__ = __webpack_require__("./resources/js/views/People.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__views_People___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__views_People__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_CategorizablesForm__ = __webpack_require__("./resources/js/views/CategorizablesForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__views_CategorizablesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__views_CategorizablesForm__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Events__ = __webpack_require__("./resources/js/views/Events.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__views_Events___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__views_Events__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__views_Categories__ = __webpack_require__("./resources/js/views/Categories.vue");
@@ -121048,28 +125403,34 @@ __webpack_require__("./resources/js/pages/app.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__views_CategoriesForm__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm__ = __webpack_require__("./resources/js/views/PersonInstitutionsForm.vue");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_Roles__ = __webpack_require__("./resources/js/views/Roles.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_Roles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__views_Roles__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_RolesForm__ = __webpack_require__("./resources/js/views/RolesForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_RolesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__views_RolesForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_Institutions__ = __webpack_require__("./resources/js/views/Institutions.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_Institutions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__views_Institutions__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm__ = __webpack_require__("./resources/js/views/InstitutionsForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__views_ContactTypes__ = __webpack_require__("./resources/js/views/ContactTypes.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__views_ContactTypes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__views_ContactTypes__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm__ = __webpack_require__("./resources/js/views/ContactTypesForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__views_InviteForm__ = __webpack_require__("./resources/js/views/InviteForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__views_InviteForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__views_InviteForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__views_EventsForm__ = __webpack_require__("./resources/js/views/EventsForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__views_EventsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__views_EventsForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm__ = __webpack_require__("./resources/js/views/SubEventsForm.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__views_Import__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_util__ = __webpack_require__("./node_modules/util/util.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_util__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_PersonInstitutionsAddressesForm__ = __webpack_require__("./resources/js/views/PersonInstitutionsAddressesForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__views_PersonInstitutionsAddressesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__views_PersonInstitutionsAddressesForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_Roles__ = __webpack_require__("./resources/js/views/Roles.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__views_Roles___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__views_Roles__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_RolesForm__ = __webpack_require__("./resources/js/views/RolesForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__views_RolesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__views_RolesForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__views_Institutions__ = __webpack_require__("./resources/js/views/Institutions.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__views_Institutions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__views_Institutions__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__views_InstitutionsForm__ = __webpack_require__("./resources/js/views/InstitutionsForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__views_InstitutionsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__views_InstitutionsForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__views_ContactTypes__ = __webpack_require__("./resources/js/views/ContactTypes.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__views_ContactTypes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__views_ContactTypes__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__views_ContactTypesForm__ = __webpack_require__("./resources/js/views/ContactTypesForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__views_ContactTypesForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__views_ContactTypesForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm__ = __webpack_require__("./resources/js/views/ContactsForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__views_ContactsForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__views_InviteForm__ = __webpack_require__("./resources/js/views/InviteForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__views_InviteForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__views_InviteForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__views_EventsForm__ = __webpack_require__("./resources/js/views/EventsForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__views_EventsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__views_EventsForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__views_SubEventsForm__ = __webpack_require__("./resources/js/views/SubEventsForm.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__views_SubEventsForm___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__views_SubEventsForm__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__views_Import__ = __webpack_require__("./resources/js/views/Import.vue");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__views_Import___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__views_Import__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_util__ = __webpack_require__("./node_modules/util/util.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_util___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22_util__);
+
+
 
 
 
@@ -121099,41 +125460,41 @@ var routes = [{
     redirect: 'dashboard'
 }, {
     path: '/dashboard',
-    component: __WEBPACK_IMPORTED_MODULE_3__views_Dashboard___default.a
+    component: __WEBPACK_IMPORTED_MODULE_2__views_Dashboard___default.a
 }, {
     path: '/events',
     component: __WEBPACK_IMPORTED_MODULE_6__views_Events___default.a,
     children: []
 }, {
     path: '/events/:eventId/sub-events/create',
-    component: __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_20__views_SubEventsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/events/create',
-    component: __WEBPACK_IMPORTED_MODULE_17__views_EventsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_19__views_EventsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/events/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_17__views_EventsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_19__views_EventsForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/events/:eventId/sub-events/:subEventId/update',
-    component: __WEBPACK_IMPORTED_MODULE_18__views_SubEventsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_20__views_SubEventsForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/events/:eventId/sub-events/:subEventId/invitations/create',
-    component: __WEBPACK_IMPORTED_MODULE_16__views_InviteForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_18__views_InviteForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people',
-    component: __WEBPACK_IMPORTED_MODULE_5__views_People___default.a
+    component: __WEBPACK_IMPORTED_MODULE_4__views_People___default.a
 }, {
     path: '/people/create',
-    component: __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_4__views_PeopleForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_3__views_PeopleForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/people/:personId/person-institutions/create',
@@ -121156,26 +125517,30 @@ var routes = [{
 // },
 {
     path: '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
-    component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_10__views_PersonInstitutionsAddressesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_2__views_AddressesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_10__views_PersonInstitutionsAddressesForm___default.a,
     props: { mode: 'update' }
 }, {
+    path: '/people/:personId/categories/create',
+    component: __WEBPACK_IMPORTED_MODULE_5__views_CategorizablesForm___default.a,
+    props: { mode: 'create' }
+}, {
     path: '/roles',
-    component: __WEBPACK_IMPORTED_MODULE_10__views_Roles___default.a
+    component: __WEBPACK_IMPORTED_MODULE_11__views_Roles___default.a
 }, {
     path: '/roles/create',
-    component: __WEBPACK_IMPORTED_MODULE_11__views_RolesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_12__views_RolesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/roles/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_11__views_RolesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_12__views_RolesForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/import',
-    component: __WEBPACK_IMPORTED_MODULE_19__views_Import___default.a
+    component: __WEBPACK_IMPORTED_MODULE_21__views_Import___default.a
 }, {
     path: '/categories',
     component: __WEBPACK_IMPORTED_MODULE_7__views_Categories___default.a
@@ -121189,25 +125554,33 @@ var routes = [{
     props: { mode: 'update' }
 }, {
     path: '/institutions',
-    component: __WEBPACK_IMPORTED_MODULE_12__views_Institutions___default.a
+    component: __WEBPACK_IMPORTED_MODULE_13__views_Institutions___default.a
 }, {
     path: '/institutions/create',
-    component: __WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_14__views_InstitutionsForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/institutions/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_13__views_InstitutionsForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_14__views_InstitutionsForm___default.a,
     props: { mode: 'update' }
 }, {
     path: '/contact-types',
-    component: __WEBPACK_IMPORTED_MODULE_14__views_ContactTypes___default.a
+    component: __WEBPACK_IMPORTED_MODULE_15__views_ContactTypes___default.a
 }, {
     path: '/contact-types/create',
-    component: __WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_16__views_ContactTypesForm___default.a,
     props: { mode: 'create' }
 }, {
     path: '/contact-types/:id/update',
-    component: __WEBPACK_IMPORTED_MODULE_15__views_ContactTypesForm___default.a,
+    component: __WEBPACK_IMPORTED_MODULE_16__views_ContactTypesForm___default.a,
+    props: { mode: 'update' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/contacts/create',
+    component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
+    props: { mode: 'create' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/contacts/:contactId/update',
+    component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
     props: { mode: 'update' }
 }];
 
@@ -121269,7 +125642,20 @@ router.beforeEach(function (to, from, next) {
 
 
 
-var __emptyModel = { id: null };
+var __emptyModel = {
+    id: null,
+    addressable_id: null,
+    addressable_type: null,
+    zipcode: null,
+    street: null,
+    number: null,
+    complement: null,
+    neighbourhood: null,
+    city: null,
+    state: null,
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude
+};
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
@@ -121280,19 +125666,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         isForm: true
     },
 
-    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
-        addressable_id: null,
-        addressable_type: null,
-        zipcode: null,
-        street: null,
-        number: null,
-        complement: null,
-        neighbourhood: null,
-        city: null,
-        state: null,
-        latitude: null,
-        longitude: null
-    })
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
@@ -121312,39 +125686,6 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         context.commit('mutateSetSelected', __emptyModel);
 
         context.dispatch('load', payload);
-    },
-    typeKeyZipcode: function typeKeyZipcode(context, payload) {
-        clearTimeout(this.timeout);
-
-        this.timeout = setTimeout(function () {
-            axios.get('/api/v1/zipcode/' + payload).then(function (response) {
-                if (response.data.addresses[0].street_name) {
-                    context.commit('mutateSetFormField', {
-                        field: 'zipcode',
-                        value: response.data.addresses[0].zip
-                    });
-                    context.commit('mutateSetFormField', {
-                        field: 'street',
-                        value: response.data.addresses[0].street_name
-                    });
-                    context.commit('mutateSetFormField', {
-                        field: 'neighbourhood',
-                        value: response.data.addresses[0].neighborhood
-                    });
-                    context.commit('mutateSetFormField', {
-                        field: 'city',
-                        value: response.data.addresses[0].city
-                    });
-                    context.commit('mutateSetFormField', {
-                        field: 'state',
-                        value: response.data.addresses[0].state_id
-                    });
-                    document.getElementById('number').focus();
-                }
-            }).catch(function (error) {
-                console.log(error);
-            });
-        }, 500);
     }
 });
 
@@ -121390,6 +125731,76 @@ var state = merge_objects({
 
 var actions = __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__;
 var mutations = __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__;
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/categorizables.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: {
+        name: 'categorizables',
+        uri: 'people/{people.selected.id}/categories',
+        isForm: true
+    },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPerson: function setPerson(context, payload) {
+        context.commit('mutateSetCategorizable', payload);
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    },
+    unCategorize: function unCategorize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/').then(function () {
+            context.dispatch('load', payload);
+        });
+    },
+    categorize: function categorize(context, payload) {
+        post(makeDataUrl(context), payload).then(function () {
+            context.dispatch('load', payload);
+
+            context.dispatch('personCategories/load', payload, { root: true });
+        });
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetCategorizable: function mutateSetCategorizable(state, payload) {
+        state.categorizables = payload;
+    }
+});
+
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 /* harmony default export */ __webpack_exports__["a"] = ({
@@ -121459,7 +125870,11 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
 
-    service: { name: 'contacts', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts', isForm: true },
+    service: {
+        name: 'contacts',
+        uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
+        isForm: true
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         contact_type_id: null,
@@ -121472,7 +125887,10 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPersonInstitution: function setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload);
 
-        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'person_institution_id',
+            value: payload.id
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -121538,11 +125956,35 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-var state = {
-    loaded: false
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+var __emptyTable = {
+    filter: {
+        text: null
+    },
+
+    links: {
+        pagination: {
+            per_page: null,
+
+            current_page: null
+        }
+    },
+
+    rows: {}
 };
 
-var getters = {};
+var state = {
+    loaded: false,
+    tables: {
+        contact_types: __emptyTable,
+        institutions: __emptyTable,
+        roles: __emptyTable
+    }
+};
+
+var getters = __WEBPACK_IMPORTED_MODULE_0__mixins_getters_js__;
 
 var actions = {
     load: function load(context) {
@@ -121550,20 +125992,56 @@ var actions = {
             context.commit('mutateSetData', response.data);
         });
     },
+    loadContactTypes: function loadContactTypes(context) {
+        return axios.get('/api/v1/contact-types', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetContactTypes', response.data);
+        });
+    },
+    loadInstitutions: function loadInstitutions(context) {
+        return axios.get('/api/v1/institutions', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetInstitutions', response.data);
+        });
+    },
+    loadRoles: function loadRoles(context) {
+        return axios.get('/api/v1/roles', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetRoles', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
         context.dispatch('load');
+
+        context.dispatch('loadContactTypes');
+        context.dispatch('loadInstitutions');
+        context.dispatch('loadRoles');
     }
 };
 
 var mutations = {
     mutateSetData: function mutateSetData(state, payload) {
+        state['loaded'] = false;
+
         _.forIn(payload, function (val, key) {
             state[key] = val;
         });
 
         state['loaded'] = true;
+    },
+    mutateSetContactTypes: function mutateSetContactTypes(state, payload) {
+        state['tables']['contact_types'] = payload;
+    },
+    mutateSetInstitutions: function mutateSetInstitutions(state, payload) {
+        state['tables']['institutions'] = payload;
+    },
+    mutateSetRoles: function mutateSetRoles(state, payload) {
+        state['tables']['roles'] = payload;
     }
 };
 
@@ -121817,7 +126295,11 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     subEvent: { id: null },
 
-    service: { name: 'invitations', uri: 'events/{events.selected.id}/sub-events/{events.selected.id}/invitations', performLoad: false },
+    service: {
+        name: 'invitations',
+        uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations',
+        performLoad: false
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
         name: null
@@ -121953,14 +126435,23 @@ function select(context, payload) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (immutable) */ __webpack_exports__["getQueryFilter"] = getQueryFilter;
+/* harmony export (immutable) */ __webpack_exports__["getFullQueryFilter"] = getFullQueryFilter;
 /* harmony export (immutable) */ __webpack_exports__["getDataUrl"] = getDataUrl;
 /* harmony export (immutable) */ __webpack_exports__["getStoreUrl"] = getStoreUrl;
 /* harmony export (immutable) */ __webpack_exports__["getUpdateUrl"] = getUpdateUrl;
 function getQueryFilter(state, getters) {
     return {
-        filter: state.data.filter,
-        pagination: state.data.links.pagination,
-        order: state.data.order
+        filter: state.data ? state.data.filter : null,
+        pagination: state.data ? state.data.links.pagination : null,
+        order: state.data ? state.data.order : null
+    };
+}
+
+function getFullQueryFilter(state, getters) {
+    return {
+        filter: { text: null },
+        pagination: { per_page: 0, current_page: 0 },
+        order: {}
     };
 }
 
@@ -122010,9 +126501,9 @@ function mutateSetFormField(state, payload) {
 }
 
 function mutateSetErrors(state, payload) {
-    var errors = payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {};
-
-    state.form.errors.record(errors);
+    if (state.form && state.form.errors) {
+        state.form.errors.record(!payload.hasOwnProperty('errors') ? {} : payload.errors ? typeof payload.errors.errors === 'undefined' ? payload.errors : payload.errors.errors : {});
+    }
 }
 
 function mutateFormData(state, payload) {
@@ -122073,6 +126564,10 @@ var common = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+var _merge_objects;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -122090,31 +126585,43 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
     })
 });
 
-var actions = merge_objects({
+var actions = merge_objects((_merge_objects = {
     selectPerson: function selectPerson(context, payload) {
         context.dispatch('people/select', payload, { root: true });
 
-        context.dispatch('personInstitutions/setPerson', payload, { root: true });
+        context.dispatch('personInstitutions/setPerson', payload, {
+            root: true
+        });
+
+        context.dispatch('personCategories/setPerson', payload, {
+            root: true
+        });
     },
     selectContact: function selectContact(context, payload) {
         context.dispatch('contacts/select', payload, { root: true });
     },
-    selectAddress: function selectAddress(context, payload) {
-        context.dispatch('addresses/select', payload, { root: true });
+    selectPersonCategories: function selectPersonCategories(context, payload) {
+        context.dispatch('personCategories/select', payload, { root: true });
     },
     selectPersonInstitution: function selectPersonInstitution(context, payload) {
-        context.dispatch('personInstitutions/select', payload, { root: true });
+        context.dispatch('personInstitutions/select', payload, {
+            root: true
+        });
 
-        context.dispatch('contacts/setPersonInstitution', payload, { root: true });
-        context.dispatch('addresses/setPersonInstitution', payload, { root: true });
-    },
-    selectContacts: function selectContacts(context, payload) {
-        context.dispatch('contacts/select', payload, { root: true });
-    },
-    selectAddresses: function selectAddresses(context, payload) {
-        context.dispatch('addresses/select', payload, { root: true });
+        context.dispatch('contacts/setPersonInstitution', payload, {
+            root: true
+        });
+        context.dispatch('addresses/setPersonInstitution', payload, {
+            root: true
+        });
     }
-}, __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
+}, _defineProperty(_merge_objects, 'selectPersonCategories', function selectPersonCategories(context, payload) {
+    context.dispatch('categories/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectContacts', function selectContacts(context, payload) {
+    context.dispatch('contacts/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAddresses', function selectAddresses(context, payload) {
+    context.dispatch('addresses/select', payload, { root: true });
+}), _merge_objects), __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
 var mutations = merge_objects({
     selectPerson: function selectPerson(state, payload) {
@@ -122137,6 +126644,9 @@ var mutations = merge_objects({
     selectAddress: function selectAddress(state, payload) {
         state.selectedAddress = payload;
     },
+    setPersonCategories: function setPersonCategories(state, payload) {
+        state.personCategories = payload;
+    },
     setPersonInstitution: function setPersonInstitution(state, payload) {
         state.personInstitutions = payload;
     },
@@ -122147,6 +126657,73 @@ var mutations = merge_objects({
         state.addresses = payload;
     }
 }, __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__);
+
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/personCategories.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: {
+        name: 'personCategories',
+        uri: 'people/{people.selected.id}/categories',
+        isForm: true
+    },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPerson: function setPerson(context, payload) {
+        context.commit('mutateSetPersonCategory', payload);
+
+        //context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id })
+
+        //context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model })
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    },
+    unCategorize: function unCategorize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/').then(function () {
+            context.dispatch('load', payload);
+        });
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonCategory: function mutateSetPersonCategory(state, payload) {
+        state.personCategory = payload;
+    }
+});
 
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
@@ -122181,15 +126758,17 @@ var __emptyModel = { id: null };
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     person: { id: null },
 
-    service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
+    service: {
+        name: 'personInstitutions',
+        uri: 'people/{people.selected.id}/person-institutions',
+        isForm: true
+    },
 
     form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
-        name: null,
-        date: null,
-        time: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null
+        person_id: null,
+        role_id: null,
+        institution_id: null,
+        title: null
     })
 });
 
@@ -122197,7 +126776,10 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     setPerson: function setPerson(context, payload) {
         context.commit('mutateSetPerson', payload);
 
-        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'person_id',
+            value: payload.id
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -122305,28 +126887,57 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 
 
-var __emptyModel = { id: null };
+var __emptyAddress = {
+    zipcode: null,
+    street: null,
+    number: null,
+    complement: null,
+    neighbourhood: null,
+    city: null,
+    state: null,
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude
+};
+
+var __emptyModel = {
+    id: null,
+    name: null,
+    date: null,
+    time: null,
+    invitation_text: null,
+    confirmation_text: null,
+    address: __emptyAddress
+};
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
     event: { id: null },
 
-    service: { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false },
+    service: {
+        name: 'subEvents',
+        uri: 'events/{events.selected.id}/sub-events',
+        performLoad: false
+    },
 
-    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
-        name: null,
-        date: null,
-        time: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null
-    })
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    select: function select(context, payload) {
+        if (payload.address === null) {
+            payload.address = __emptyAddress;
+        }
+
+        context.commit('mutateSetSelected', payload);
+
+        context.commit('mutateFormData', payload);
+    },
     setEvent: function setEvent(context, payload) {
         context.commit('mutateSetEvent', payload);
 
-        context.commit('mutateSetFormField', { field: 'event_id', value: payload.id });
+        context.commit('mutateSetFormField', {
+            field: 'event_id',
+            value: payload.id
+        });
 
         context.commit('mutateSetSelected', __emptyModel);
 
@@ -122335,6 +126946,11 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
 
         context.dispatch('load', payload);
+    },
+    confirm: function confirm(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(function () {
+            context.dispatch('load', payload);
+        });
     }
 });
 
@@ -122391,10 +127007,12 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__modules_people__ = __webpack_require__("./resources/js/store/modules/people.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__modules_roles__ = __webpack_require__("./resources/js/store/modules/roles.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__modules_institutions__ = __webpack_require__("./resources/js/store/modules/institutions.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__ = __webpack_require__("./resources/js/store/modules/personCategories.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__modules_categorizables__ = __webpack_require__("./resources/js/store/modules/categorizables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
 /**
  * Imports
  */
@@ -122416,6 +127034,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /**
  * Modules
  */
+
+
 
 
 
@@ -122454,14 +127074,16 @@ var state = {
     events: __WEBPACK_IMPORTED_MODULE_8__modules_events__["a" /* default */],
     subEvents: __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__["a" /* default */],
     invitations: __WEBPACK_IMPORTED_MODULE_10__modules_invitations__["a" /* default */],
-    invitables: __WEBPACK_IMPORTED_MODULE_19__modules_invitables__["a" /* default */],
+    invitables: __WEBPACK_IMPORTED_MODULE_21__modules_invitables__["a" /* default */],
     addresses: __WEBPACK_IMPORTED_MODULE_12__modules_addresses__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */],
     roles: __WEBPACK_IMPORTED_MODULE_14__modules_roles__["a" /* default */],
-    contacts: __WEBPACK_IMPORTED_MODULE_18__modules_contacts__["a" /* default */],
+    contacts: __WEBPACK_IMPORTED_MODULE_20__modules_contacts__["a" /* default */],
     institutions: __WEBPACK_IMPORTED_MODULE_15__modules_institutions__["a" /* default */],
-    personInstitutions: __WEBPACK_IMPORTED_MODULE_16__modules_personInstitutions__["a" /* default */],
-    contactTypes: __WEBPACK_IMPORTED_MODULE_17__modules_contact_types__["a" /* default */]
+    personCategories: __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__["a" /* default */],
+    categorizables: __WEBPACK_IMPORTED_MODULE_17__modules_categorizables__["a" /* default */],
+    personInstitutions: __WEBPACK_IMPORTED_MODULE_18__modules_personInstitutions__["a" /* default */],
+    contactTypes: __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__["a" /* default */]
   }
 });
 
@@ -122593,7 +127215,11 @@ window.clone = function (object) {
 
 window.set_object_values = function (obj, val) {
     Object.keys(obj).forEach(function (k) {
-        obj[k] = val;
+        if (obj[k] !== null && _typeof(obj[k]) === 'object') {
+            set_object_values(obj[k], val);
+        } else {
+            obj[k] = val;
+        }
     });
 };
 
@@ -122650,57 +127276,11 @@ window.makeUpdateUrl = function (context) {
     return context.state.service && context.state.service.uri ? buildApiUrl(context.state.service.uri, context.rootState) : null;
 };
 
-/***/ }),
-
-/***/ "./resources/js/views/AddressesForm.vue":
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-function injectStyle (ssrContext) {
-  if (disposed) return
-  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4e2865f7\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/AddressesForm.vue")
-}
-var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
-/* script */
-var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/AddressesForm.vue")
-/* template */
-var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4e2865f7\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/AddressesForm.vue")
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = injectStyle
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/js/views/AddressesForm.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4e2865f7", Component.options)
-  } else {
-    hotAPI.reload("data-v-4e2865f7", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
+window.findById = function (data, id) {
+    return _.find(data.rows, function (item) {
+        return item.id == id;
+    });
+};
 
 /***/ }),
 
@@ -122808,6 +127388,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/js/views/CategorizablesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-3229bdd0\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/CategorizablesForm.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/CategorizablesForm.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-3229bdd0\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/CategorizablesForm.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/views/CategorizablesForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3229bdd0", Component.options)
+  } else {
+    hotAPI.reload("data-v-3229bdd0", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/js/views/ContactTypes.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -122901,6 +127533,58 @@ if (false) {(function () {
     hotAPI.createRecord("data-v-63db8b3c", Component.options)
   } else {
     hotAPI.reload("data-v-63db8b3c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ "./resources/js/views/ContactsForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4889b4d6\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/ContactsForm.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/ContactsForm.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4889b4d6\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/ContactsForm.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/views/ContactsForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-4889b4d6", Component.options)
+  } else {
+    hotAPI.reload("data-v-4889b4d6", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true
@@ -123380,6 +128064,58 @@ module.exports = Component.exports
 
 /***/ }),
 
+/***/ "./resources/js/views/PersonInstitutionsAddressesForm.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/vue-style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-ff1a2432\",\"scoped\":false,\"hasInlineConfig\":true}!./node_modules/vue-loader/lib/selector.js?type=styles&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue")
+}
+var normalizeComponent = __webpack_require__("./node_modules/vue-loader/lib/component-normalizer.js")
+/* script */
+var __vue_script__ = __webpack_require__("./node_modules/babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}]]}!./node_modules/vue-loader/lib/selector.js?type=script&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue")
+/* template */
+var __vue_template__ = __webpack_require__("./node_modules/vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-ff1a2432\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/vue-loader/lib/selector.js?type=template&index=0!./resources/js/views/PersonInstitutionsAddressesForm.vue")
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = injectStyle
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/views/PersonInstitutionsAddressesForm.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ff1a2432", Component.options)
+  } else {
+    hotAPI.reload("data-v-ff1a2432", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
 /***/ "./resources/js/views/PersonInstitutionsForm.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -123598,11 +128334,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["a"] = ({
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('addresses', ['clearForm', 'typeKeyZipcode'])),
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('addresses', ['clearForm'])),
 
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         addresses: function addresses(state) {
             return state.addresses;
+        },
+
+        personInstitutions: function personInstitutions(state) {
+            return state.personInstitutions;
         }
     }))
 });
@@ -123630,6 +128370,31 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+/***/ "./resources/js/views/mixins/categorizables.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('categorizables', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        people: function people(state) {
+            return state.people;
+        },
+
+        categorizables: function categorizables(state) {
+            return state.categorizables;
+        }
+    }))
+});
+
+/***/ }),
+
 /***/ "./resources/js/views/mixins/contact-types.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -123645,6 +128410,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         contactTypes: function contactTypes(state) {
             return state.contactTypes;
+        }
+    }))
+});
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/contacts.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('contacts', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        contacts: function contacts(state) {
+            return state.contacts;
         }
     }))
 });
@@ -123736,23 +128522,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
                 $this.load().then(function () {
                     $this.fillFormWhenEditing();
                 });
+            } else {
+                $this.fillFormWhenEditing();
             }
         },
         fillFormWhenEditing: function fillFormWhenEditing() {
             var $this = this;
 
-            if ($this.mode === 'update') {
-                var model = _.find(this.rows, function (model) {
-                    return model.id == $this.$route.params.id;
-                });
+            var model = $this.mode === 'update' ? _.find(this.rows, function (model) {
+                return model.id === $this.$route.params.id;
+            }) : $this.form ? clone($this.form.empty) : {};
 
-                $this.mutateFormData(model);
-            }
+            $this.mutateFormData(model);
 
-            if ($this.mode === 'create') {
-                $this.mutateFormData(set_null($this.form.fields));
-            }
+            $this.mutateSetErrors({});
+
+            $this.fillAdditionalFormFields();
         },
+        fillAdditionalFormFields: function fillAdditionalFormFields() {},
         back: function back() {
             this.$router.back();
         },
@@ -123915,9 +128702,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         addresses: function addresses(state) {
             return state.addresses;
+        },
+
+        personCategories: function personCategories(state) {
+            return state.personCategories;
         }
     }))
-
 });
 
 /***/ }),
@@ -123939,6 +128729,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+/***/ "./resources/js/views/mixins/personInstitutions.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('personInstitutions', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        personInstitutions: function personInstitutions(state) {
+            return state.personInstitutions;
+        }
+    }))
+});
+
+/***/ }),
+
 /***/ "./resources/js/views/mixins/roles.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -123954,6 +128765,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
         roles: function roles(state) {
             return state.roles;
+        }
+    }))
+});
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/sub-events.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('subEvents', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        addresses: function addresses(state) {
+            return state.addresses;
+        },
+
+        events: function events(state) {
+            return state.events;
+        },
+
+        subEvents: function subEvents(state) {
+            return state.subEvents;
         }
     }))
 });

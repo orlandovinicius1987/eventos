@@ -19,6 +19,8 @@ class Address extends BaseWithClient
         'addressable_id',
         'addressable_type',
         'client_id',
+        'latitude',
+        'longitude',
     ];
 
     public function addressable()

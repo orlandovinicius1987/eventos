@@ -3,9 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation;
-use App\Data\Models\PersonInstitution;
 use App\Data\Models\Invitation as InvitationModel;
-use Illuminate\Database\Eloquent\Builder;
 
 class Invitations extends Repository
 {
@@ -14,7 +12,7 @@ class Invitations extends Repository
      */
     protected $model = InvitationModel::class;
 
-    protected function filterAllColumns(Builder $query, $text)
+    protected function filterAllColumns($query, $text)
     {
         $query
             ->join(
@@ -49,8 +47,10 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
-        if ($invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId) {
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
             $invitation->delete();
 
             return true;
@@ -61,7 +61,6 @@ class Invitations extends Repository
 
     public function invite($eventId, $subEventId, $invitees)
     {
-        info($invitees);
         foreach ($invitees as $invitee) {
             Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
@@ -70,4 +69,3 @@ class Invitations extends Repository
         }
     }
 }
-

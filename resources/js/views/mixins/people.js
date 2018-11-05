@@ -14,8 +14,8 @@ export default {
             contacts: state => state.contacts,
 
             addresses: state => state.addresses,
+
+            personCategories: state => state.personCategories,
         }),
     },
-
-
 }

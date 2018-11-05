@@ -46,9 +46,6 @@ export default {
     },
 
     methods: {
-
-
-        
         uploadFile() {
             this.readFile()
         },

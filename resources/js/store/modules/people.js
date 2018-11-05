@@ -20,22 +20,38 @@ let actions = merge_objects(
         selectPerson(context, payload) {
             context.dispatch('people/select', payload, { root: true })
 
-            context.dispatch('personInstitutions/setPerson', payload, { root: true })
+            context.dispatch('personInstitutions/setPerson', payload, {
+                root: true,
+            })
+
+            context.dispatch('personCategories/setPerson', payload, {
+                root: true,
+            })
         },
 
         selectContact(context, payload) {
             context.dispatch('contacts/select', payload, { root: true })
         },
 
-        selectAddress(context, payload) {
-            context.dispatch('addresses/select', payload, { root: true })
+        selectPersonCategories(context, payload) {
+            context.dispatch('personCategories/select', payload, { root: true })
         },
 
         selectPersonInstitution(context, payload) {
-            context.dispatch('personInstitutions/select', payload, { root: true })
+            context.dispatch('personInstitutions/select', payload, {
+                root: true,
+            })
 
-            context.dispatch('contacts/setPersonInstitution', payload, { root: true })
-            context.dispatch('addresses/setPersonInstitution', payload, { root: true })
+            context.dispatch('contacts/setPersonInstitution', payload, {
+                root: true,
+            })
+            context.dispatch('addresses/setPersonInstitution', payload, {
+                root: true,
+            })
+        },
+
+        selectPersonCategories(context, payload) {
+            context.dispatch('categories/select', payload, { root: true })
         },
 
         selectContacts(context, payload) {
@@ -73,6 +89,10 @@ let mutations = merge_objects(
 
         selectAddress(state, payload) {
             state.selectedAddress = payload
+        },
+
+        setPersonCategories(state, payload) {
+            state.personCategories = payload
         },
 
         setPersonInstitution(state, payload) {

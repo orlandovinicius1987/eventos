@@ -30,6 +30,8 @@ import addresses from './modules/addresses'
 import people from './modules/people'
 import roles from './modules/roles'
 import institutions from './modules/institutions'
+import personCategories from './modules/personCategories'
+import categorizables from './modules/categorizables'
 import personInstitutions from './modules/personInstitutions'
 import contactTypes from './modules/contact-types'
 import contacts from './modules/contacts'
@@ -64,6 +66,8 @@ let store = new Vuex.Store({
         roles,
         contacts,
         institutions,
+        personCategories,
+        categorizables,
         personInstitutions,
         contactTypes,
     },

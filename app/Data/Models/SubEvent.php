@@ -11,17 +11,18 @@ class SubEvent extends Base
         'name',
         'date',
         'time',
+        'place',
         'invitation_text',
         'confirmation_text',
         'credential_send_text',
         'event_id',
     ];
 
-    protected $with = ['event'];
+    protected $with = ['event', 'address'];
 
-    public function addresses()
+    public function address()
     {
-        return $this->morphMany(Address::class, 'addressable');
+        return $this->morphOne(Address::class, 'addressable');
     }
 
     public function event()

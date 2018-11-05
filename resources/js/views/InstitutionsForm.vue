@@ -69,7 +69,11 @@ import crud from './mixins/crud'
 import institutions from './mixins/institutions'
 import { mapActions } from 'vuex'
 
-const service = { name: 'institutions', uri: 'institutions', performLoad: false }
+const service = {
+    name: 'institutions',
+    uri: 'institutions',
+    performLoad: false,
+}
 
 export default {
     props: ['mode'],
@@ -84,7 +88,7 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectInstitution']),
-    }
+    },
 }
 </script>
 

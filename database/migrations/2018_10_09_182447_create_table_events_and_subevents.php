@@ -18,10 +18,6 @@ class CreateTableEventsAndSubEvents extends Migration
 
             $table->string('name');
 
-            $table->integer('confirmed_by')->nullable();
-
-            $table->date('confirmed_at')->nullable();
-
             $table->integer('client_id');
 
             $table->timestamps();
@@ -34,11 +30,16 @@ class CreateTableEventsAndSubEvents extends Migration
             $table->date('date');
             $table->time('time');
 
+            $table->string('place')->nullable();
+
             $table->string('invitation_text')->nullable();
             $table->string('confirmation_text')->nullable();
             $table->string('credential_send_text')->nullable();
 
             $table->integer('event_id');
+
+            $table->integer('confirmed_by')->nullable();
+            $table->date('confirmed_at')->nullable();
 
             $table->timestamps();
         });

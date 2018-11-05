@@ -15,11 +15,9 @@ class PersonInstitution extends Base
         'advised_id',
     ];
 
-
-
-
-
     protected $with = ['person', 'institution', 'role'];
+
+    protected $filterableColumns = ['roles.name', 'institutions.name'];
 
     public function addresses()
     {

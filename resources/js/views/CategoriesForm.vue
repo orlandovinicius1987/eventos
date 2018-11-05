@@ -49,7 +49,7 @@ export default {
         return {
             service: service,
         }
-    }
+    },
 }
 </script>
 

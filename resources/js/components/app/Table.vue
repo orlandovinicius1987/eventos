@@ -23,6 +23,7 @@
                 </table>
 
                 <app-pagination
+                    v-if="pagination"
                     :pagination="pagination"
                     @goto-page="$emit('goto-page', $event)"
                 ></app-pagination>
@@ -38,7 +39,7 @@ export default {
     methods: {
         is_object(target) {
             return is_object(target)
-        }
-    }
+        },
+    },
 }
 </script>
