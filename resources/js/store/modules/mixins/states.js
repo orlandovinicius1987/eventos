@@ -14,9 +14,7 @@ export const common = {
             },
         },
 
-        order: {
-
-        }
+        order: {},
     },
 
     selected: { id: null },

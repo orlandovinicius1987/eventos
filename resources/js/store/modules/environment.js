@@ -13,9 +13,7 @@ const __emptyTable = {
         },
     },
 
-    rows: {
-
-    }
+    rows: {},
 }
 
 const state = {
@@ -37,27 +35,33 @@ const actions = {
     },
 
     loadContactTypes(context) {
-        return axios.get('/api/v1/contact-types', {
-            params: { query: context.getters.getFullQueryFilter },
-        }).then(response => {
-            context.commit('mutateSetContactTypes', response.data)
-        })
+        return axios
+            .get('/api/v1/contact-types', {
+                params: { query: context.getters.getFullQueryFilter },
+            })
+            .then(response => {
+                context.commit('mutateSetContactTypes', response.data)
+            })
     },
 
     loadInstitutions(context) {
-        return axios.get('/api/v1/institutions', {
-            params: { query: context.getters.getFullQueryFilter },
-        }).then(response => {
-            context.commit('mutateSetInstitutions', response.data)
-        })
+        return axios
+            .get('/api/v1/institutions', {
+                params: { query: context.getters.getFullQueryFilter },
+            })
+            .then(response => {
+                context.commit('mutateSetInstitutions', response.data)
+            })
     },
 
     loadRoles(context) {
-        return axios.get('/api/v1/roles', {
-            params: { query: context.getters.getFullQueryFilter },
-        }).then(response => {
-            context.commit('mutateSetRoles', response.data)
-        })
+        return axios
+            .get('/api/v1/roles', {
+                params: { query: context.getters.getFullQueryFilter },
+            })
+            .then(response => {
+                context.commit('mutateSetRoles', response.data)
+            })
     },
 
     absorbLaravel(context) {
@@ -82,15 +86,15 @@ const mutations = {
         state['loaded'] = true
     },
 
-    mutateSetContactTypes(state, payload){
+    mutateSetContactTypes(state, payload) {
         state['tables']['contact_types'] = payload
     },
 
-    mutateSetInstitutions(state, payload){
+    mutateSetInstitutions(state, payload) {
         state['tables']['institutions'] = payload
     },
 
-    mutateSetRoles(state, payload){
+    mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload
     },
 }

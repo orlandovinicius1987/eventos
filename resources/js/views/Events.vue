@@ -171,7 +171,7 @@
                                 {{ invitation.checkin_at }}
                             </td>
 
-                            <td class="align-middle">
+                            <td class="align-middle text-right">
                                 <a
                                     @click="confirmUnInvite(invitation)"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
@@ -256,9 +256,7 @@ export default {
             const $this = this
 
             confirm(
-                'Deseja realmente confirmar ' +
-                subEvent.name +
-                '?',
+                'Deseja realmente confirmar ' + subEvent.name + '?',
                 this,
             ).then(function(value) {
                 if (value) {

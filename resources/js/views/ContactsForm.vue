@@ -59,64 +59,70 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import contacts from './mixins/contacts'
+import crud from './mixins/crud'
+import contacts from './mixins/contacts'
 
-    const service = { name: 'contacts', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts', isForm: true }
+const service = {
+    name: 'contacts',
+    uri:
+        'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
+    isForm: true,
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, contacts],
+    mixins: [crud, contacts],
 
-        data() {
-            return {
-                service: service,
+    data() {
+        return {
+            service: service,
+        }
+    },
+    methods: {
+        makeMask(id) {
+            if (id == null) {
+                return ''
+            }
+
+            const type = findById(this.environment.tables.contact_types, id)
+
+            switch (type.code) {
+                case 'mobile':
+                    return '(##)#####-####'
+                case 'whatsapp':
+                    return '(##)#####-####'
+                case 'phone':
+                    return '(##)####-####'
             }
         },
-        methods:{
-            makeMask(id) {
-                if(id == null) {
-                    return ''
-                }
 
-                const type = findById(this.environment.tables.contact_types,id)
-
-                switch (type.code) {
-                    case 'mobile':
-                        return '(##)#####-####'
-                    case 'whatsapp':
-                        return '(##)#####-####'
-                    case 'phone':
-                        return '(##)####-####'
-                }
-            },
-
-            makeType(id) {
-                if(id == null){
-                    return ''
-                }
-                const type = findById(this.environment.tables.contact_types,id);
-                if(type.code == 'email'){
-
-                    return 'email'
-                }
-            },
-
-            isEmail(id) {
-                if(id == null){
-                    return false;
-                }
-                const type = findById(this.environment.tables.contact_types,id);
-                return type.code == 'email'
-            },
-
-            fillAdditionalFormFields() {
-                this.$store.commit('contacts/mutateSetFormField', { field: 'person_institution_id', value: this.contacts.personInstitution.id })
-            },
+        makeType(id) {
+            if (id == null) {
+                return ''
+            }
+            const type = findById(this.environment.tables.contact_types, id)
+            if (type.code == 'email') {
+                return 'email'
+            }
         },
 
-    }
+        isEmail(id) {
+            if (id == null) {
+                return false
+            }
+            const type = findById(this.environment.tables.contact_types, id)
+            return type.code == 'email'
+        },
+
+        fillAdditionalFormFields() {
+            this.$store.commit('contacts/mutateSetFormField', {
+                field: 'person_institution_id',
+                value: this.contacts.personInstitution.id,
+            })
+        },
+    },
+}
 </script>
 
 <style>

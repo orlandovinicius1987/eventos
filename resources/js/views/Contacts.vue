@@ -49,21 +49,21 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import contactTypes from './mixins/contact-types'
-    import permissions from './mixins/permissions'
+import crud from './mixins/crud'
+import contactTypes from './mixins/contact-types'
+import permissions from './mixins/permissions'
 
-    const service = { name: 'contactTypes', uri: 'contact-types' }
+const service = { name: 'contactTypes', uri: 'contact-types' }
 
-    export default {
-        mixins: [crud, contactTypes, permissions],
+export default {
+    mixins: [crud, contactTypes, permissions],
 
-        data() {
-            return {
-                service: service,
-            }
+    data() {
+        return {
+            service: service,
         }
-    }
+    },
+}
 </script>
 
 <style>
