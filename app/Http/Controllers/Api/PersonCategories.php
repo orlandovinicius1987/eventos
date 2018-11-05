@@ -9,8 +9,7 @@ use App\Data\Repositories\PersonCategories as PersonCategoriesRepository;
 class PersonCategories extends Controller
 {
     /**
-     * @param Request $request
-     * @param $personInstitutionId
+     * @param $personId
      * @return mixed
      */
     public function all($personId)
@@ -19,8 +18,8 @@ class PersonCategories extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $personInstitutionId
+     * @param $personId
+     * @param $id
      * @return mixed
      */
     public function unCategorize($personId, $id)
@@ -32,13 +31,14 @@ class PersonCategories extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $personInstitutionId
+     * @param $personId
      * @return mixed
      */
-    public function categorizables()
+    public function categorizables($personId)
     {
-        return app(PersonCategoriesRepository::class)->all();
+        return app(PersonCategoriesRepository::class)->categorizables(
+            $personId
+        );
     }
 
     /**

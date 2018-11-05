@@ -1,27 +1,41 @@
 <?php
+
 namespace App\Data\Repositories;
 
-use App\Data\Models\Category as CategoryModel;
 use App\Data\Models\Category;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 class PersonCategories extends Repository
 {
     protected $model = Category::class;
+
     /**
      * @param $personId
      * @return mixed
      */
     public function allByPerson($personId)
     {
-        return $this->makePaginationResult(
-            new LengthAwarePaginator(
-                app(People::class)->findById($personId)->categories,
-                1,
-                5,
-                1
-            )
+        return $this->applyFilter($this->getPersonCategories($personId));
+    }
+
+    public function categorizables($personId)
+    {
+        return $this->applyFilter(
+            app(Categories::class)
+                ->newQuery()
+                ->whereNotIn(
+                    'id',
+                    $this->getPersonCategories($personId)
+                        ->get()
+                        ->pluck('id')
+                )
         );
+    }
+
+    private function getPersonCategories($personId)
+    {
+        return app(People::class)
+            ->findById($personId)
+            ->categories();
     }
 
     public function unCategorize($personId, $id)
