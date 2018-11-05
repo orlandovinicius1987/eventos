@@ -19,6 +19,16 @@
                             ></app-select>
 
                             <app-select
+                                    v-if="source == 'advisor'"
+                                    name="advised_id"
+                                    label="Assessor"
+                                    v-model="form.fields.person_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.people"
+                            ></app-select>
+
+                            <app-select
                                     name="role_id"
                                     label="Funções"
                                     v-model="form.fields.role_id"
@@ -60,6 +70,8 @@
 <script>
 import crud from './mixins/crud'
 import personInstitutions from './mixins/personInstitutions'
+import people from './mixins/people'
+import advisors from './mixins/advisors'
 
 const service = {
     name: 'personInstitutions',
@@ -67,10 +79,10 @@ const service = {
     isForm: true,
 }
 
-export default {
-    props: ['mode'],
+    export default {
+        props: ['mode','source'],
 
-    mixins: [crud, personInstitutions],
+    mixins: [crud, personInstitutions,people,advisors],
 
     data() {
         return {
@@ -80,10 +92,26 @@ export default {
 
     methods: {
         fillAdditionalFormFields() {
-            this.$store.commit('personInstitutions/mutateSetFormField', {
-                field: 'person_id',
-                value: this.personInstitutions.person.id,
-            })
+           const $this = this
+
+            if(this.mode == 'create') {
+                this.$store.dispatch('personInstitutions/clearForm', {root: true})
+            }else if(this.mode == 'update'){
+                this.$store.commit('personInstitutions/mutateFormData', $this.advisors.selected)
+            }
+
+            if(this.source == 'advisor') {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'advised_id',
+                    value: this.personInstitutions.selected.id,
+                })
+
+            }else{
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'person_id',
+                    value: this.personInstitutions.person.id,
+                })
+            }
         },
     },
 }

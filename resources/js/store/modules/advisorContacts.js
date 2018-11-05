@@ -10,40 +10,39 @@ const __emptyModel = { id: null }
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
-    service: {
-        name: 'contacts',
-        uri:
-            'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
-        isForm: true,
-    },
+    service: { name: 'advisorContacts', uri: 'people/{advisors.person.id}/person-institutions/{advisorContacts.personInstitution.id}/contacts', isForm: true },
+
 
     form: new Form({
         contact_type_id: null,
         contact: null,
         person_institution_id: null,
     }),
+
 })
 
 const actions = merge_objects(actionsMixin, {
     setPersonInstitution(context, payload) {
         context.commit('mutateSetPersonInstitution', payload)
 
-        context.commit('mutateSetFormField', {
-            field: 'person_institution_id',
-            value: payload.id,
-        })
+        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id })
 
         context.commit('mutateSetSelected', __emptyModel)
 
         context.dispatch('load', payload)
-
     },
+
+    selectAdvisorContact(context, payload){
+
+    }
+
 })
 
 const mutations = merge_objects(mutationsMixin, {
-    mutateSetPersonInstitution(state, payload) {
+    mutateSetPersonInstitution(state, payload) { 
         state.personInstitution = payload
     },
+
 })
 
 let getters = gettersMixin

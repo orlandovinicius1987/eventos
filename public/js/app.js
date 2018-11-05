@@ -2725,6 +2725,7 @@ var service = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__ = __webpack_require__("./resources/js/views/mixins/contacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_advisorContacts__ = __webpack_require__("./resources/js/views/mixins/advisorContacts.js");
 //
 //
 //
@@ -2785,6 +2786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2796,9 +2798,9 @@ var service = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['mode'],
+    props: ['mode', 'source'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_advisorContacts__["a" /* default */]],
 
     data: function data() {
         return {
@@ -2840,10 +2842,18 @@ var service = {
             return type.code == 'email';
         },
         fillAdditionalFormFields: function fillAdditionalFormFields() {
-            this.$store.commit('contacts/mutateSetFormField', {
-                field: 'person_institution_id',
-                value: this.contacts.personInstitution.id
-            });
+            if (this.source == 'advisor') {
+                this.$store.commit('contacts/mutateSetFormField', {
+                    field: 'person_institution_id',
+                    value: this.advisorContacts.personInstitution.id
+                });
+            } else {
+
+                this.$store.commit('contacts/mutateSetFormField', {
+                    field: 'person_institution_id',
+                    value: this.contacts.personInstitution.id
+                });
+            }
         }
     }
 });
@@ -4026,6 +4036,90 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4044,7 +4138,7 @@ var service = { name: 'people', uri: 'people' };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectPerson', 'selectPersonInstitution', 'selectAddress', 'selectContact']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectPerson', 'selectPersonInstitution', 'selectAddress', 'selectContact', 'selectAdvisor', 'selectAdvisorContacts']), {
         peopleGotoPage: function peopleGotoPage(page) {
             this.gotoPage(page, 'people', this.people.data.links.pagination);
         },
@@ -4057,8 +4151,14 @@ var service = { name: 'people', uri: 'people' };
         contactsGotoPage: function contactsGotoPage(page) {
             this.gotoPage(page, 'contacts', this.contacts.data.links.pagination);
         },
+        advisorContactsGotoPage: function advisorContactsGotoPage(page) {
+            this.gotoPage(page, 'advisorContacts', this.contacts.data.links.pagination);
+        },
         personCategoriesGotoPage: function personCategoriesGotoPage(page) {
             this.gotoPage(page, 'personCategories', this.personCategories.data.links.pagination);
+        },
+        advisorsGotoPage: function advisorsGotoPage(page) {
+            this.gotoPage(page, 'advisors', this.advisors.data.links.pagination);
         },
         confirmDeletePersonCategory: function confirmDeletePersonCategory(personCategory) {
             var $this = this;
@@ -4162,6 +4262,40 @@ var service = { name: 'people', uri: 'people' };
             },
             set: function set(perPage) {
                 return this.$store.dispatch('personCategories/setPerPage', perPage);
+            }
+        },
+        advisorsFilterText: {
+            get: function get() {
+                return this.$store.state['advisors'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('advisors/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        advisorsPerPage: {
+            get: function get() {
+                return this.$store.state['advisors'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('advisors/setPerPage', perPage);
+            }
+        },
+        advisorContactsFilterText: {
+            get: function get() {
+                return this.$store.state['advisorContacts'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('advisorContacts/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        advisorContactsPerPage: {
+            get: function get() {
+                return this.$store.state['advisorContacts'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('advisorContacts/setPerPage', perPage);
             }
         }
     }
@@ -4346,6 +4480,8 @@ var service = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__ = __webpack_require__("./resources/js/views/mixins/personInstitutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_people__ = __webpack_require__("./resources/js/views/mixins/people.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_advisors__ = __webpack_require__("./resources/js/views/mixins/advisors.js");
 //
 //
 //
@@ -4405,6 +4541,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -4416,9 +4564,9 @@ var service = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['mode'],
+    props: ['mode', 'source'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_people__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__mixins_advisors__["a" /* default */]],
 
     data: function data() {
         return {
@@ -4429,10 +4577,25 @@ var service = {
 
     methods: {
         fillAdditionalFormFields: function fillAdditionalFormFields() {
-            this.$store.commit('personInstitutions/mutateSetFormField', {
-                field: 'person_id',
-                value: this.personInstitutions.person.id
-            });
+            var $this = this;
+
+            if (this.mode == 'create') {
+                this.$store.dispatch('personInstitutions/clearForm', { root: true });
+            } else if (this.mode == 'update') {
+                this.$store.commit('personInstitutions/mutateFormData', $this.advisors.selected);
+            }
+
+            if (this.source == 'advisor') {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'advised_id',
+                    value: this.personInstitutions.selected.id
+                });
+            } else {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'person_id',
+                    value: this.personInstitutions.person.id
+                });
+            }
         }
     }
 });
@@ -27078,7 +27241,7 @@ exports.isHtml = function(str) {
 /***/ "./node_modules/cheerio/package.json":
 /***/ (function(module, exports) {
 
-module.exports = {"_from":"cheerio@^1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"range","registry":true,"raw":"cheerio@^1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"^1.0.0-rc.2","saveSpec":null,"fetchSpec":"^1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_shasum":"4b9f53a81b27e4d5dac31c0ffd0cfa03cc6830db","_spec":"cheerio@^1.0.0-rc.2","_where":"/Users/antoniocarlosribeiro/code/alerj/eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"bundleDependencies":false,"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"deprecated":false,"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
+module.exports = {"_args":[["cheerio@1.0.0-rc.2","C:\\code\\alerj\\eventos"]],"_development":true,"_from":"cheerio@1.0.0-rc.2","_id":"cheerio@1.0.0-rc.2","_inBundle":false,"_integrity":"sha1-S59TqBsn5NXawxwP/Qz6A8xoMNs=","_location":"/cheerio","_phantomChildren":{},"_requested":{"type":"version","registry":true,"raw":"cheerio@1.0.0-rc.2","name":"cheerio","escapedName":"cheerio","rawSpec":"1.0.0-rc.2","saveSpec":null,"fetchSpec":"1.0.0-rc.2"},"_requiredBy":["#DEV:/"],"_resolved":"https://registry.npmjs.org/cheerio/-/cheerio-1.0.0-rc.2.tgz","_spec":"1.0.0-rc.2","_where":"C:\\code\\alerj\\eventos","author":{"name":"Matt Mueller","email":"mattmuelle@gmail.com","url":"mat.io"},"bugs":{"url":"https://github.com/cheeriojs/cheerio/issues"},"dependencies":{"css-select":"~1.2.0","dom-serializer":"~0.1.0","entities":"~1.1.1","htmlparser2":"^3.9.1","lodash":"^4.15.0","parse5":"^3.0.1"},"description":"Tiny, fast, and elegant implementation of core jQuery designed specifically for the server","devDependencies":{"benchmark":"^2.1.0","coveralls":"^2.11.9","expect.js":"~0.3.1","istanbul":"^0.4.3","jquery":"^3.0.0","jsdom":"^9.2.1","jshint":"^2.9.2","mocha":"^3.1.2","xyz":"~1.1.0"},"engines":{"node":">= 0.6"},"files":["index.js","lib"],"homepage":"https://github.com/cheeriojs/cheerio#readme","keywords":["htmlparser","jquery","selector","scraper","parser","html"],"license":"MIT","main":"./index.js","name":"cheerio","repository":{"type":"git","url":"git://github.com/cheeriojs/cheerio.git"},"scripts":{"test":"make test"},"version":"1.0.0-rc.2"}
 
 /***/ }),
 
@@ -27353,7 +27516,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27503,7 +27666,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27533,7 +27696,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -28827,7 +28990,7 @@ module.exports = parse;
 var re_name = /^(?:\\.|[\w\-\u00c0-\uFFFF])+/,
     re_escape = /\\([\da-f]{1,6}\s?|(\s)|.)/ig,
     //modified version of https://github.com/jquery/sizzle/blob/master/src/sizzle.js#L87
-    re_attr = /^\s*((?:\\.|[\w\u00c0-\uFFFF\-])+)\s*(?:(\S?)=\s*(?:(['"])(.*?)\3|(#?(?:\\.|[\w\u00c0-\uFFFF\-])*)|)|)\s*(i)?\]/;
+    re_attr = /^\s*((?:\\.|[\w\u00c0-\uFFFF\-])+)\s*(?:(\S?)=\s*(?:(['"])([^]*?)\3|(#?(?:\\.|[\w\u00c0-\uFFFF\-])*)|)|)\s*(i)?\]/;
 
 var actionTypes = {
 	__proto__: null,
@@ -28924,6 +29087,13 @@ function parseSelector(subselects, selector, options){
 	function stripWhitespace(start){
 		while(isWhitespace(selector.charAt(start))) start++;
 		selector = selector.substr(start);
+	}
+
+	function isEscaped(pos) {
+		var slashCount = 0;
+
+		while (selector.charAt(--pos) === "\\") slashCount++;
+		return (slashCount & 1) === 1;
 	}
 
 	stripWhitespace(0);
@@ -29033,8 +29203,8 @@ function parseSelector(subselects, selector, options){
 						var pos = 1, counter = 1;
 
 						for(; counter > 0 && pos < selector.length; pos++){
-							if(selector.charAt(pos) === "(") counter++;
-							else if(selector.charAt(pos) === ")") counter--;
+							if(selector.charAt(pos) === "(" && !isEscaped(pos)) counter++;
+							else if(selector.charAt(pos) === ")" && !isEscaped(pos)) counter--;
 						}
 
 						if(counter){
@@ -30134,34 +30304,27 @@ exports.getName = function(elem){
 var encode = __webpack_require__("./node_modules/entities/lib/encode.js"),
     decode = __webpack_require__("./node_modules/entities/lib/decode.js");
 
-exports.decode = function(data, level){
-	return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
+exports.decode = function(data, level) {
+    return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
 };
 
-exports.decodeStrict = function(data, level){
-	return (!level || level <= 0 ? decode.XML : decode.HTMLStrict)(data);
+exports.decodeStrict = function(data, level) {
+    return (!level || level <= 0 ? decode.XML : decode.HTMLStrict)(data);
 };
 
-exports.encode = function(data, level){
-	return (!level || level <= 0 ? encode.XML : encode.HTML)(data);
+exports.encode = function(data, level) {
+    return (!level || level <= 0 ? encode.XML : encode.HTML)(data);
 };
 
 exports.encodeXML = encode.XML;
 
-exports.encodeHTML4 =
-exports.encodeHTML5 =
-exports.encodeHTML  = encode.HTML;
+exports.encodeHTML4 = exports.encodeHTML5 = exports.encodeHTML = encode.HTML;
 
-exports.decodeXML =
-exports.decodeXMLStrict = decode.XML;
+exports.decodeXML = exports.decodeXMLStrict = decode.XML;
 
-exports.decodeHTML4 =
-exports.decodeHTML5 =
-exports.decodeHTML = decode.HTML;
+exports.decodeHTML4 = exports.decodeHTML5 = exports.decodeHTML = decode.HTML;
 
-exports.decodeHTML4Strict =
-exports.decodeHTML5Strict =
-exports.decodeHTMLStrict = decode.HTMLStrict;
+exports.decodeHTML4Strict = exports.decodeHTML5Strict = exports.decodeHTMLStrict = decode.HTMLStrict;
 
 exports.escape = encode.escape;
 
@@ -30173,76 +30336,75 @@ exports.escape = encode.escape;
 
 var entityMap = __webpack_require__("./node_modules/entities/maps/entities.json"),
     legacyMap = __webpack_require__("./node_modules/entities/maps/legacy.json"),
-    xmlMap    = __webpack_require__("./node_modules/entities/maps/xml.json"),
+    xmlMap = __webpack_require__("./node_modules/entities/maps/xml.json"),
     decodeCodePoint = __webpack_require__("./node_modules/entities/lib/decode_codepoint.js");
 
-var decodeXMLStrict  = getStrictDecoder(xmlMap),
+var decodeXMLStrict = getStrictDecoder(xmlMap),
     decodeHTMLStrict = getStrictDecoder(entityMap);
 
-function getStrictDecoder(map){
-	var keys = Object.keys(map).join("|"),
-	    replace = getReplacer(map);
+function getStrictDecoder(map) {
+    var keys = Object.keys(map).join("|"),
+        replace = getReplacer(map);
 
-	keys += "|#[xX][\\da-fA-F]+|#\\d+";
+    keys += "|#[xX][\\da-fA-F]+|#\\d+";
 
-	var re = new RegExp("&(?:" + keys + ");", "g");
+    var re = new RegExp("&(?:" + keys + ");", "g");
 
-	return function(str){
-		return String(str).replace(re, replace);
-	};
+    return function(str) {
+        return String(str).replace(re, replace);
+    };
 }
 
-var decodeHTML = (function(){
-	var legacy = Object.keys(legacyMap)
-		.sort(sorter);
+var decodeHTML = (function() {
+    var legacy = Object.keys(legacyMap).sort(sorter);
 
-	var keys = Object.keys(entityMap)
-		.sort(sorter);
+    var keys = Object.keys(entityMap).sort(sorter);
 
-	for(var i = 0, j = 0; i < keys.length; i++){
-		if(legacy[j] === keys[i]){
-			keys[i] += ";?";
-			j++;
-		} else {
-			keys[i] += ";";
-		}
-	}
+    for (var i = 0, j = 0; i < keys.length; i++) {
+        if (legacy[j] === keys[i]) {
+            keys[i] += ";?";
+            j++;
+        } else {
+            keys[i] += ";";
+        }
+    }
 
-	var re = new RegExp("&(?:" + keys.join("|") + "|#[xX][\\da-fA-F]+;?|#\\d+;?)", "g"),
-	    replace = getReplacer(entityMap);
+    var re = new RegExp("&(?:" + keys.join("|") + "|#[xX][\\da-fA-F]+;?|#\\d+;?)", "g"),
+        replace = getReplacer(entityMap);
 
-	function replacer(str){
-		if(str.substr(-1) !== ";") str += ";";
-		return replace(str);
-	}
+    function replacer(str) {
+        if (str.substr(-1) !== ";") str += ";";
+        return replace(str);
+    }
 
-	//TODO consider creating a merged map
-	return function(str){
-		return String(str).replace(re, replacer);
-	};
-}());
+    //TODO consider creating a merged map
+    return function(str) {
+        return String(str).replace(re, replacer);
+    };
+})();
 
-function sorter(a, b){
-	return a < b ? 1 : -1;
+function sorter(a, b) {
+    return a < b ? 1 : -1;
 }
 
-function getReplacer(map){
-	return function replace(str){
-		if(str.charAt(1) === "#"){
-			if(str.charAt(2) === "X" || str.charAt(2) === "x"){
-				return decodeCodePoint(parseInt(str.substr(3), 16));
-			}
-			return decodeCodePoint(parseInt(str.substr(2), 10));
-		}
-		return map[str.slice(1, -1)];
-	};
+function getReplacer(map) {
+    return function replace(str) {
+        if (str.charAt(1) === "#") {
+            if (str.charAt(2) === "X" || str.charAt(2) === "x") {
+                return decodeCodePoint(parseInt(str.substr(3), 16));
+            }
+            return decodeCodePoint(parseInt(str.substr(2), 10));
+        }
+        return map[str.slice(1, -1)];
+    };
 }
 
 module.exports = {
-	XML: decodeXMLStrict,
-	HTML: decodeHTML,
-	HTMLStrict: decodeHTMLStrict
+    XML: decodeXMLStrict,
+    HTML: decodeHTML,
+    HTMLStrict: decodeHTMLStrict
 };
+
 
 /***/ }),
 
@@ -30254,26 +30416,25 @@ var decodeMap = __webpack_require__("./node_modules/entities/maps/decode.json");
 module.exports = decodeCodePoint;
 
 // modified version of https://github.com/mathiasbynens/he/blob/master/src/he.js#L94-L119
-function decodeCodePoint(codePoint){
+function decodeCodePoint(codePoint) {
+    if ((codePoint >= 0xd800 && codePoint <= 0xdfff) || codePoint > 0x10ffff) {
+        return "\uFFFD";
+    }
 
-	if((codePoint >= 0xD800 && codePoint <= 0xDFFF) || codePoint > 0x10FFFF){
-		return "\uFFFD";
-	}
+    if (codePoint in decodeMap) {
+        codePoint = decodeMap[codePoint];
+    }
 
-	if(codePoint in decodeMap){
-		codePoint = decodeMap[codePoint];
-	}
+    var output = "";
 
-	var output = "";
+    if (codePoint > 0xffff) {
+        codePoint -= 0x10000;
+        output += String.fromCharCode(((codePoint >>> 10) & 0x3ff) | 0xd800);
+        codePoint = 0xdc00 | (codePoint & 0x3ff);
+    }
 
-	if(codePoint > 0xFFFF){
-		codePoint -= 0x10000;
-		output += String.fromCharCode(codePoint >>> 10 & 0x3FF | 0xD800);
-		codePoint = 0xDC00 | codePoint & 0x3FF;
-	}
-
-	output += String.fromCharCode(codePoint);
-	return output;
+    output += String.fromCharCode(codePoint);
+    return output;
 }
 
 
@@ -30292,66 +30453,75 @@ var inverseHTML = getInverseObj(__webpack_require__("./node_modules/entities/map
 
 exports.HTML = getInverse(inverseHTML, htmlReplacer);
 
-function getInverseObj(obj){
-	return Object.keys(obj).sort().reduce(function(inverse, name){
-		inverse[obj[name]] = "&" + name + ";";
-		return inverse;
-	}, {});
+function getInverseObj(obj) {
+    return Object.keys(obj)
+        .sort()
+        .reduce(function(inverse, name) {
+            inverse[obj[name]] = "&" + name + ";";
+            return inverse;
+        }, {});
 }
 
-function getInverseReplacer(inverse){
-	var single = [],
-	    multiple = [];
+function getInverseReplacer(inverse) {
+    var single = [],
+        multiple = [];
 
-	Object.keys(inverse).forEach(function(k){
-		if(k.length === 1){
-			single.push("\\" + k);
-		} else {
-			multiple.push(k);
-		}
-	});
+    Object.keys(inverse).forEach(function(k) {
+        if (k.length === 1) {
+            single.push("\\" + k);
+        } else {
+            multiple.push(k);
+        }
+    });
 
-	//TODO add ranges
-	multiple.unshift("[" + single.join("") + "]");
+    //TODO add ranges
+    multiple.unshift("[" + single.join("") + "]");
 
-	return new RegExp(multiple.join("|"), "g");
+    return new RegExp(multiple.join("|"), "g");
 }
 
 var re_nonASCII = /[^\0-\x7F]/g,
     re_astralSymbols = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
 
-function singleCharReplacer(c){
-	return "&#x" + c.charCodeAt(0).toString(16).toUpperCase() + ";";
+function singleCharReplacer(c) {
+    return (
+        "&#x" +
+        c
+            .charCodeAt(0)
+            .toString(16)
+            .toUpperCase() +
+        ";"
+    );
 }
 
-function astralReplacer(c){
-	// http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-	var high = c.charCodeAt(0);
-	var low  = c.charCodeAt(1);
-	var codePoint = (high - 0xD800) * 0x400 + low - 0xDC00 + 0x10000;
-	return "&#x" + codePoint.toString(16).toUpperCase() + ";";
+function astralReplacer(c) {
+    // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+    var high = c.charCodeAt(0);
+    var low = c.charCodeAt(1);
+    var codePoint = (high - 0xd800) * 0x400 + low - 0xdc00 + 0x10000;
+    return "&#x" + codePoint.toString(16).toUpperCase() + ";";
 }
 
-function getInverse(inverse, re){
-	function func(name){
-		return inverse[name];
-	}
+function getInverse(inverse, re) {
+    function func(name) {
+        return inverse[name];
+    }
 
-	return function(data){
-		return data
-				.replace(re, func)
-				.replace(re_astralSymbols, astralReplacer)
-				.replace(re_nonASCII, singleCharReplacer);
-	};
+    return function(data) {
+        return data
+            .replace(re, func)
+            .replace(re_astralSymbols, astralReplacer)
+            .replace(re_nonASCII, singleCharReplacer);
+    };
 }
 
 var re_xmlChars = getInverseReplacer(inverseXML);
 
-function escapeXML(data){
-	return data
-			.replace(re_xmlChars, singleCharReplacer)
-			.replace(re_astralSymbols, astralReplacer)
-			.replace(re_nonASCII, singleCharReplacer);
+function escapeXML(data) {
+    return data
+        .replace(re_xmlChars, singleCharReplacer)
+        .replace(re_astralSymbols, astralReplacer)
+        .replace(re_nonASCII, singleCharReplacer);
 }
 
 exports.escape = escapeXML;
@@ -30761,9 +30931,9 @@ CollectingHandler.prototype.restart = function(){
 /***/ "./node_modules/htmlparser2/lib/FeedHandler.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-var index = __webpack_require__("./node_modules/htmlparser2/lib/index.js"),
-    DomHandler = index.DomHandler,
-    DomUtils = index.DomUtils;
+var index = __webpack_require__("./node_modules/htmlparser2/lib/index.js");
+var DomHandler = index.DomHandler;
+var DomUtils = index.DomUtils;
 
 //TODO: make this a streamable handler
 function FeedHandler(callback, options){
@@ -30942,18 +31112,25 @@ var voidElements = {
 	source: true,
 	track: true,
 	wbr: true,
-
-	//common self closing svg elements
-	path: true,
-	circle: true,
-	ellipse: true,
-	line: true,
-	rect: true,
-	use: true,
-	stop: true,
-	polyline: true,
-	polygon: true
 };
+
+var foreignContextElements = {
+	__proto__: null,
+	math: true,
+	svg: true
+}
+var htmlIntegrationElements = {
+	__proto__: null,
+	mi: true,
+	mo: true,
+	mn: true,
+	ms: true,
+	mtext: true,
+	"annotation-xml": true,
+	foreignObject: true,
+	desc: true,
+	title: true
+}
 
 var re_nameEnd = /\s|\//;
 
@@ -30966,16 +31143,17 @@ function Parser(cbs, options){
 	this._attribvalue = "";
 	this._attribs = null;
 	this._stack = [];
+	this._foreignContext = [];
 
 	this.startIndex = 0;
 	this.endIndex = null;
 
 	this._lowerCaseTagNames = "lowerCaseTags" in this._options ?
-									!!this._options.lowerCaseTags :
-									!this._options.xmlMode;
+		!!this._options.lowerCaseTags :
+		!this._options.xmlMode;
 	this._lowerCaseAttributeNames = "lowerCaseAttributeNames" in this._options ?
-									!!this._options.lowerCaseAttributeNames :
-									!this._options.xmlMode;
+		!!this._options.lowerCaseAttributeNames :
+		!this._options.xmlMode;
 
 	if(this._options.Tokenizer) {
 		Tokenizer = this._options.Tokenizer;
@@ -31024,6 +31202,8 @@ Parser.prototype.onopentagname = function(name){
 
 	if(this._options.xmlMode || !(name in voidElements)){
 		this._stack.push(name);
+		if(name in foreignContextElements) this._foreignContext.push(true);
+		else if(name in htmlIntegrationElements) this._foreignContext.push(false);
 	}
 
 	if(this._cbs.onopentagname) this._cbs.onopentagname(name);
@@ -31071,7 +31251,8 @@ Parser.prototype.onclosetag = function(name){
 };
 
 Parser.prototype.onselfclosingtag = function(){
-	if(this._options.xmlMode || this._options.recognizeSelfClosing){
+	if(this._options.xmlMode || this._options.recognizeSelfClosing
+		|| this._foreignContext[this._foreignContext.length - 1]){
 		this._closeCurrentTag();
 	} else {
 		this.onopentagend();
@@ -31090,6 +31271,9 @@ Parser.prototype._closeCurrentTag = function(){
 			this._cbs.onclosetag(name);
 		}
 		this._stack.pop();
+		if((name in foreignContextElements) || (name in htmlIntegrationElements)){
+			this._foreignContext.pop();
+		}
 	}
 };
 
@@ -31299,98 +31483,92 @@ Object.keys(EVENTS).forEach(function(name){
 
 module.exports = Tokenizer;
 
-var decodeCodePoint = __webpack_require__("./node_modules/entities/lib/decode_codepoint.js"),
-    entityMap = __webpack_require__("./node_modules/entities/maps/entities.json"),
-    legacyMap = __webpack_require__("./node_modules/entities/maps/legacy.json"),
-    xmlMap    = __webpack_require__("./node_modules/entities/maps/xml.json"),
+var decodeCodePoint = __webpack_require__("./node_modules/entities/lib/decode_codepoint.js");
+var entityMap = __webpack_require__("./node_modules/entities/maps/entities.json");
+var legacyMap = __webpack_require__("./node_modules/entities/maps/legacy.json");
+var xmlMap    = __webpack_require__("./node_modules/entities/maps/xml.json");
 
-    i = 0,
+var i = 0;
 
-    TEXT                      = i++,
-    BEFORE_TAG_NAME           = i++, //after <
-    IN_TAG_NAME               = i++,
-    IN_SELF_CLOSING_TAG       = i++,
-    BEFORE_CLOSING_TAG_NAME   = i++,
-    IN_CLOSING_TAG_NAME       = i++,
-    AFTER_CLOSING_TAG_NAME    = i++,
+var TEXT                      = i++;
+var BEFORE_TAG_NAME           = i++; //after <
+var IN_TAG_NAME               = i++;
+var IN_SELF_CLOSING_TAG       = i++;
+var BEFORE_CLOSING_TAG_NAME   = i++;
+var IN_CLOSING_TAG_NAME       = i++;
+var AFTER_CLOSING_TAG_NAME    = i++;
 
-    //attributes
-    BEFORE_ATTRIBUTE_NAME     = i++,
-    IN_ATTRIBUTE_NAME         = i++,
-    AFTER_ATTRIBUTE_NAME      = i++,
-    BEFORE_ATTRIBUTE_VALUE    = i++,
-    IN_ATTRIBUTE_VALUE_DQ     = i++, // "
-    IN_ATTRIBUTE_VALUE_SQ     = i++, // '
-    IN_ATTRIBUTE_VALUE_NQ     = i++,
+//attributes
+var BEFORE_ATTRIBUTE_NAME     = i++;
+var IN_ATTRIBUTE_NAME         = i++;
+var AFTER_ATTRIBUTE_NAME      = i++;
+var BEFORE_ATTRIBUTE_VALUE    = i++;
+var IN_ATTRIBUTE_VALUE_DQ     = i++; // "
+var IN_ATTRIBUTE_VALUE_SQ     = i++; // '
+var IN_ATTRIBUTE_VALUE_NQ     = i++;
 
-    //declarations
-    BEFORE_DECLARATION        = i++, // !
-    IN_DECLARATION            = i++,
+//declarations
+var BEFORE_DECLARATION        = i++; // !
+var IN_DECLARATION            = i++;
 
-    //processing instructions
-    IN_PROCESSING_INSTRUCTION = i++, // ?
+//processing instructions
+var IN_PROCESSING_INSTRUCTION = i++; // ?
 
-    //comments
-    BEFORE_COMMENT            = i++,
-    IN_COMMENT                = i++,
-    AFTER_COMMENT_1           = i++,
-    AFTER_COMMENT_2           = i++,
+//comments
+var BEFORE_COMMENT            = i++;
+var IN_COMMENT                = i++;
+var AFTER_COMMENT_1           = i++;
+var AFTER_COMMENT_2           = i++;
 
-    //cdata
-    BEFORE_CDATA_1            = i++, // [
-    BEFORE_CDATA_2            = i++, // C
-    BEFORE_CDATA_3            = i++, // D
-    BEFORE_CDATA_4            = i++, // A
-    BEFORE_CDATA_5            = i++, // T
-    BEFORE_CDATA_6            = i++, // A
-    IN_CDATA                  = i++, // [
-    AFTER_CDATA_1             = i++, // ]
-    AFTER_CDATA_2             = i++, // ]
+//cdata
+var BEFORE_CDATA_1            = i++; // [
+var BEFORE_CDATA_2            = i++; // C
+var BEFORE_CDATA_3            = i++; // D
+var BEFORE_CDATA_4            = i++; // A
+var BEFORE_CDATA_5            = i++; // T
+var BEFORE_CDATA_6            = i++; // A
+var IN_CDATA                  = i++; // [
+var AFTER_CDATA_1             = i++; // ]
+var AFTER_CDATA_2             = i++; // ]
 
-    //special tags
-    BEFORE_SPECIAL            = i++, //S
-    BEFORE_SPECIAL_END        = i++,   //S
+//special tags
+var BEFORE_SPECIAL            = i++; //S
+var BEFORE_SPECIAL_END        = i++;   //S
 
-    BEFORE_SCRIPT_1           = i++, //C
-    BEFORE_SCRIPT_2           = i++, //R
-    BEFORE_SCRIPT_3           = i++, //I
-    BEFORE_SCRIPT_4           = i++, //P
-    BEFORE_SCRIPT_5           = i++, //T
-    AFTER_SCRIPT_1            = i++, //C
-    AFTER_SCRIPT_2            = i++, //R
-    AFTER_SCRIPT_3            = i++, //I
-    AFTER_SCRIPT_4            = i++, //P
-    AFTER_SCRIPT_5            = i++, //T
+var BEFORE_SCRIPT_1           = i++; //C
+var BEFORE_SCRIPT_2           = i++; //R
+var BEFORE_SCRIPT_3           = i++; //I
+var BEFORE_SCRIPT_4           = i++; //P
+var BEFORE_SCRIPT_5           = i++; //T
+var AFTER_SCRIPT_1            = i++; //C
+var AFTER_SCRIPT_2            = i++; //R
+var AFTER_SCRIPT_3            = i++; //I
+var AFTER_SCRIPT_4            = i++; //P
+var AFTER_SCRIPT_5            = i++; //T
 
-    BEFORE_STYLE_1            = i++, //T
-    BEFORE_STYLE_2            = i++, //Y
-    BEFORE_STYLE_3            = i++, //L
-    BEFORE_STYLE_4            = i++, //E
-    AFTER_STYLE_1             = i++, //T
-    AFTER_STYLE_2             = i++, //Y
-    AFTER_STYLE_3             = i++, //L
-    AFTER_STYLE_4             = i++, //E
+var BEFORE_STYLE_1            = i++; //T
+var BEFORE_STYLE_2            = i++; //Y
+var BEFORE_STYLE_3            = i++; //L
+var BEFORE_STYLE_4            = i++; //E
+var AFTER_STYLE_1             = i++; //T
+var AFTER_STYLE_2             = i++; //Y
+var AFTER_STYLE_3             = i++; //L
+var AFTER_STYLE_4             = i++; //E
 
-    BEFORE_ENTITY             = i++, //&
-    BEFORE_NUMERIC_ENTITY     = i++, //#
-    IN_NAMED_ENTITY           = i++,
-    IN_NUMERIC_ENTITY         = i++,
-    IN_HEX_ENTITY             = i++, //X
+var BEFORE_ENTITY             = i++; //&
+var BEFORE_NUMERIC_ENTITY     = i++; //#
+var IN_NAMED_ENTITY           = i++;
+var IN_NUMERIC_ENTITY         = i++;
+var IN_HEX_ENTITY             = i++; //X
 
-    j = 0,
+var j = 0;
 
-    SPECIAL_NONE              = j++,
-    SPECIAL_SCRIPT            = j++,
-    SPECIAL_STYLE             = j++;
+var SPECIAL_NONE              = j++;
+var SPECIAL_SCRIPT            = j++;
+var SPECIAL_STYLE             = j++;
 
 function whitespace(c){
 	return c === " " || c === "\n" || c === "\t" || c === "\f" || c === "\r";
-}
-
-function characterState(char, SUCCESS){
-	return function(c){
-		if(c === char) this._state = SUCCESS;
-	};
 }
 
 function ifElseState(upper, SUCCESS, FAILURE){
@@ -31478,7 +31656,7 @@ Tokenizer.prototype._stateBeforeTagName = function(c){
 		this._sectionStart = this._index + 1;
 	} else {
 		this._state = (!this._xmlMode && (c === "s" || c === "S")) ?
-						BEFORE_SPECIAL : IN_TAG_NAME;
+			BEFORE_SPECIAL : IN_TAG_NAME;
 		this._sectionStart = this._index;
 	}
 };
@@ -31627,8 +31805,8 @@ Tokenizer.prototype._stateInAttributeValueNoQuotes = function(c){
 
 Tokenizer.prototype._stateBeforeDeclaration = function(c){
 	this._state = c === "[" ? BEFORE_CDATA_1 :
-					c === "-" ? BEFORE_COMMENT :
-						IN_DECLARATION;
+		c === "-" ? BEFORE_COMMENT :
+			IN_DECLARATION;
 };
 
 Tokenizer.prototype._stateInDeclaration = function(c){
@@ -31700,7 +31878,10 @@ Tokenizer.prototype._stateInCdata = function(c){
 	if(c === "]") this._state = AFTER_CDATA_1;
 };
 
-Tokenizer.prototype._stateAfterCdata1 = characterState("]", AFTER_CDATA_2);
+Tokenizer.prototype._stateAfterCdata1 = function(c){
+	if(c === "]") this._state = AFTER_CDATA_2;
+	else this._state = IN_CDATA;
+};
 
 Tokenizer.prototype._stateAfterCdata2 = function(c){
 	if(c === ">"){
@@ -32212,10 +32393,10 @@ Tokenizer.prototype._emitPartial = function(value){
 
 module.exports = Stream;
 
-var Parser = __webpack_require__("./node_modules/htmlparser2/lib/Parser.js"),
-    WritableStream = __webpack_require__("./node_modules/stream-browserify/index.js").Writable || __webpack_require__(3).Writable,
-    StringDecoder = __webpack_require__("./node_modules/string_decoder/lib/string_decoder.js").StringDecoder,
-    Buffer = __webpack_require__("./node_modules/buffer/index.js").Buffer;
+var Parser = __webpack_require__("./node_modules/htmlparser2/lib/Parser.js");
+var WritableStream = __webpack_require__(1).Writable;
+var StringDecoder = __webpack_require__("./node_modules/string_decoder/lib/string_decoder.js").StringDecoder;
+var Buffer = __webpack_require__("./node_modules/buffer/index.js").Buffer;
 
 function Stream(cbs, options){
 	var parser = this._parser = new Parser(cbs, options);
@@ -32236,13 +32417,14 @@ WritableStream.prototype._write = function(chunk, encoding, cb){
 	cb();
 };
 
+
 /***/ }),
 
 /***/ "./node_modules/htmlparser2/lib/index.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-var Parser = __webpack_require__("./node_modules/htmlparser2/lib/Parser.js"),
-    DomHandler = __webpack_require__("./node_modules/domhandler/index.js");
+var Parser = __webpack_require__("./node_modules/htmlparser2/lib/Parser.js");
+var DomHandler = __webpack_require__("./node_modules/domhandler/index.js");
 
 function defineProp(name, value){
 	delete module.exports[name];
@@ -32253,7 +32435,7 @@ function defineProp(name, value){
 module.exports = {
 	Parser: Parser,
 	Tokenizer: __webpack_require__("./node_modules/htmlparser2/lib/Tokenizer.js"),
-	ElementType: __webpack_require__("./node_modules/domelementtype/index.js"),
+	ElementType: __webpack_require__("./node_modules/htmlparser2/node_modules/domelementtype/index.js"),
 	DomHandler: DomHandler,
 	get FeedHandler(){
 		return defineProp("FeedHandler", __webpack_require__("./node_modules/htmlparser2/lib/FeedHandler.js"));
@@ -32307,6 +32489,28 @@ module.exports = {
 		opentagname: 1,
 		error: 1,
 		end: 0
+	}
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/htmlparser2/node_modules/domelementtype/index.js":
+/***/ (function(module, exports) {
+
+//Types of elements found in the DOM
+module.exports = {
+	Text: "text", //Text
+	Directive: "directive", //<? ... ?>
+	Comment: "comment", //<!-- ... -->
+	Script: "script", //<script> tags
+	Style: "style", //<style> tags
+	Tag: "tag", //Any tag
+	CDATA: "cdata", //<![CDATA[ ... ]]>
+	Doctype: "doctype",
+
+	isTag: function(elem){
+		return elem.type === "tag" || elem.type === "script" || elem.type === "style";
 	}
 };
 
@@ -97210,15 +97414,572 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/duplex-browser.js":
+/***/ "./node_modules/safe-buffer/index.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
+/* eslint-disable node/no-deprecated-api */
+var buffer = __webpack_require__("./node_modules/buffer/index.js")
+var Buffer = buffer.Buffer
+
+// alternative to using Object.keys for old browsers
+function copyProps (src, dst) {
+  for (var key in src) {
+    dst[key] = src[key]
+  }
+}
+if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
+  module.exports = buffer
+} else {
+  // Copy properties from require('buffer')
+  copyProps(buffer, exports)
+  exports.Buffer = SafeBuffer
+}
+
+function SafeBuffer (arg, encodingOrOffset, length) {
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+// Copy static methods from Buffer
+copyProps(Buffer, SafeBuffer)
+
+SafeBuffer.from = function (arg, encodingOrOffset, length) {
+  if (typeof arg === 'number') {
+    throw new TypeError('Argument must not be a number')
+  }
+  return Buffer(arg, encodingOrOffset, length)
+}
+
+SafeBuffer.alloc = function (size, fill, encoding) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  var buf = Buffer(size)
+  if (fill !== undefined) {
+    if (typeof encoding === 'string') {
+      buf.fill(fill, encoding)
+    } else {
+      buf.fill(fill)
+    }
+  } else {
+    buf.fill(0)
+  }
+  return buf
+}
+
+SafeBuffer.allocUnsafe = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return Buffer(size)
+}
+
+SafeBuffer.allocUnsafeSlow = function (size) {
+  if (typeof size !== 'number') {
+    throw new TypeError('Argument must be a number')
+  }
+  return buffer.SlowBuffer(size)
+}
 
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/_stream_duplex.js":
+/***/ "./node_modules/setimmediate/setImmediate.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
+    "use strict";
+
+    if (global.setImmediate) {
+        return;
+    }
+
+    var nextHandle = 1; // Spec says greater than zero
+    var tasksByHandle = {};
+    var currentlyRunningATask = false;
+    var doc = global.document;
+    var registerImmediate;
+
+    function setImmediate(callback) {
+      // Callback can either be a function or a string
+      if (typeof callback !== "function") {
+        callback = new Function("" + callback);
+      }
+      // Copy function arguments
+      var args = new Array(arguments.length - 1);
+      for (var i = 0; i < args.length; i++) {
+          args[i] = arguments[i + 1];
+      }
+      // Store and register the task
+      var task = { callback: callback, args: args };
+      tasksByHandle[nextHandle] = task;
+      registerImmediate(nextHandle);
+      return nextHandle++;
+    }
+
+    function clearImmediate(handle) {
+        delete tasksByHandle[handle];
+    }
+
+    function run(task) {
+        var callback = task.callback;
+        var args = task.args;
+        switch (args.length) {
+        case 0:
+            callback();
+            break;
+        case 1:
+            callback(args[0]);
+            break;
+        case 2:
+            callback(args[0], args[1]);
+            break;
+        case 3:
+            callback(args[0], args[1], args[2]);
+            break;
+        default:
+            callback.apply(undefined, args);
+            break;
+        }
+    }
+
+    function runIfPresent(handle) {
+        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
+        // So if we're currently running a task, we'll need to delay this invocation.
+        if (currentlyRunningATask) {
+            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
+            // "too much recursion" error.
+            setTimeout(runIfPresent, 0, handle);
+        } else {
+            var task = tasksByHandle[handle];
+            if (task) {
+                currentlyRunningATask = true;
+                try {
+                    run(task);
+                } finally {
+                    clearImmediate(handle);
+                    currentlyRunningATask = false;
+                }
+            }
+        }
+    }
+
+    function installNextTickImplementation() {
+        registerImmediate = function(handle) {
+            process.nextTick(function () { runIfPresent(handle); });
+        };
+    }
+
+    function canUsePostMessage() {
+        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
+        // where `global.postMessage` means something completely different and can't be used for this purpose.
+        if (global.postMessage && !global.importScripts) {
+            var postMessageIsAsynchronous = true;
+            var oldOnMessage = global.onmessage;
+            global.onmessage = function() {
+                postMessageIsAsynchronous = false;
+            };
+            global.postMessage("", "*");
+            global.onmessage = oldOnMessage;
+            return postMessageIsAsynchronous;
+        }
+    }
+
+    function installPostMessageImplementation() {
+        // Installs an event handler on `global` for the `message` event: see
+        // * https://developer.mozilla.org/en/DOM/window.postMessage
+        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
+
+        var messagePrefix = "setImmediate$" + Math.random() + "$";
+        var onGlobalMessage = function(event) {
+            if (event.source === global &&
+                typeof event.data === "string" &&
+                event.data.indexOf(messagePrefix) === 0) {
+                runIfPresent(+event.data.slice(messagePrefix.length));
+            }
+        };
+
+        if (global.addEventListener) {
+            global.addEventListener("message", onGlobalMessage, false);
+        } else {
+            global.attachEvent("onmessage", onGlobalMessage);
+        }
+
+        registerImmediate = function(handle) {
+            global.postMessage(messagePrefix + handle, "*");
+        };
+    }
+
+    function installMessageChannelImplementation() {
+        var channel = new MessageChannel();
+        channel.port1.onmessage = function(event) {
+            var handle = event.data;
+            runIfPresent(handle);
+        };
+
+        registerImmediate = function(handle) {
+            channel.port2.postMessage(handle);
+        };
+    }
+
+    function installReadyStateChangeImplementation() {
+        var html = doc.documentElement;
+        registerImmediate = function(handle) {
+            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
+            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
+            var script = doc.createElement("script");
+            script.onreadystatechange = function () {
+                runIfPresent(handle);
+                script.onreadystatechange = null;
+                html.removeChild(script);
+                script = null;
+            };
+            html.appendChild(script);
+        };
+    }
+
+    function installSetTimeoutImplementation() {
+        registerImmediate = function(handle) {
+            setTimeout(runIfPresent, 0, handle);
+        };
+    }
+
+    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
+    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
+    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
+
+    // Don't get fooled by e.g. browserify environments.
+    if ({}.toString.call(global.process) === "[object process]") {
+        // For Node.js before 0.9
+        installNextTickImplementation();
+
+    } else if (canUsePostMessage()) {
+        // For non-IE10 modern browsers
+        installPostMessageImplementation();
+
+    } else if (global.MessageChannel) {
+        // For web workers, where supported
+        installMessageChannelImplementation();
+
+    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
+        // For IE 6–8
+        installReadyStateChangeImplementation();
+
+    } else {
+        // For older browsers
+        installSetTimeoutImplementation();
+    }
+
+    attachTo.setImmediate = setImmediate;
+    attachTo.clearImmediate = clearImmediate;
+}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/sha256/lib/sha256.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+!function(globals) {
+'use strict'
+
+var _imports = {}
+
+if (typeof module !== 'undefined' && module.exports) { //CommonJS
+  _imports.bytesToHex = __webpack_require__("./node_modules/convert-hex/convert-hex.js").bytesToHex
+  _imports.convertString = __webpack_require__("./node_modules/convert-string/convert-string.js")
+  module.exports = sha256
+} else {
+  _imports.bytesToHex = globals.convertHex.bytesToHex
+  _imports.convertString = globals.convertString
+  globals.sha256 = sha256
+}
+
+/*
+CryptoJS v3.1.2
+code.google.com/p/crypto-js
+(c) 2009-2013 by Jeff Mott. All rights reserved.
+code.google.com/p/crypto-js/wiki/License
+*/
+
+// Initialization round constants tables
+var K = []
+
+// Compute constants
+!function () {
+  function isPrime(n) {
+    var sqrtN = Math.sqrt(n);
+    for (var factor = 2; factor <= sqrtN; factor++) {
+      if (!(n % factor)) return false
+    }
+
+    return true
+  }
+
+  function getFractionalBits(n) {
+    return ((n - (n | 0)) * 0x100000000) | 0
+  }
+
+  var n = 2
+  var nPrime = 0
+  while (nPrime < 64) {
+    if (isPrime(n)) {
+      K[nPrime] = getFractionalBits(Math.pow(n, 1 / 3))
+      nPrime++
+    }
+
+    n++
+  }
+}()
+
+var bytesToWords = function (bytes) {
+  var words = []
+  for (var i = 0, b = 0; i < bytes.length; i++, b += 8) {
+    words[b >>> 5] |= bytes[i] << (24 - b % 32)
+  }
+  return words
+}
+
+var wordsToBytes = function (words) {
+  var bytes = []
+  for (var b = 0; b < words.length * 32; b += 8) {
+    bytes.push((words[b >>> 5] >>> (24 - b % 32)) & 0xFF)
+  }
+  return bytes
+}
+
+// Reusable object
+var W = []
+
+var processBlock = function (H, M, offset) {
+  // Working variables
+  var a = H[0], b = H[1], c = H[2], d = H[3]
+  var e = H[4], f = H[5], g = H[6], h = H[7]
+
+    // Computation
+  for (var i = 0; i < 64; i++) {
+    if (i < 16) {
+      W[i] = M[offset + i] | 0
+    } else {
+      var gamma0x = W[i - 15]
+      var gamma0  = ((gamma0x << 25) | (gamma0x >>> 7))  ^
+                    ((gamma0x << 14) | (gamma0x >>> 18)) ^
+                    (gamma0x >>> 3)
+
+      var gamma1x = W[i - 2];
+      var gamma1  = ((gamma1x << 15) | (gamma1x >>> 17)) ^
+                    ((gamma1x << 13) | (gamma1x >>> 19)) ^
+                    (gamma1x >>> 10)
+
+      W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16];
+    }
+
+    var ch  = (e & f) ^ (~e & g);
+    var maj = (a & b) ^ (a & c) ^ (b & c);
+
+    var sigma0 = ((a << 30) | (a >>> 2)) ^ ((a << 19) | (a >>> 13)) ^ ((a << 10) | (a >>> 22));
+    var sigma1 = ((e << 26) | (e >>> 6)) ^ ((e << 21) | (e >>> 11)) ^ ((e << 7)  | (e >>> 25));
+
+    var t1 = h + sigma1 + ch + K[i] + W[i];
+    var t2 = sigma0 + maj;
+
+    h = g;
+    g = f;
+    f = e;
+    e = (d + t1) | 0;
+    d = c;
+    c = b;
+    b = a;
+    a = (t1 + t2) | 0;
+  }
+
+  // Intermediate hash value
+  H[0] = (H[0] + a) | 0;
+  H[1] = (H[1] + b) | 0;
+  H[2] = (H[2] + c) | 0;
+  H[3] = (H[3] + d) | 0;
+  H[4] = (H[4] + e) | 0;
+  H[5] = (H[5] + f) | 0;
+  H[6] = (H[6] + g) | 0;
+  H[7] = (H[7] + h) | 0;
+}
+
+function sha256(message, options) {;
+  if (message.constructor === String) {
+    message = _imports.convertString.UTF8.stringToBytes(message);
+  }
+
+  var H =[ 0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A,
+           0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19 ];
+
+  var m = bytesToWords(message);
+  var l = message.length * 8;
+
+  m[l >> 5] |= 0x80 << (24 - l % 32);
+  m[((l + 64 >> 9) << 4) + 15] = l;
+
+  for (var i=0 ; i<m.length; i += 16) {
+    processBlock(H, m, i);
+  }
+
+  var digestbytes = wordsToBytes(H);
+  return options && options.asBytes ? digestbytes :
+         options && options.asString ? _imports.convertString.bytesToString(digestbytes) :
+         _imports.bytesToHex(digestbytes)
+}
+
+sha256.x2 = function(message, options) {
+  return sha256(sha256(message, { asBytes:true }), options)
+}
+
+}(this);
+
+
+/***/ }),
+
+/***/ "./node_modules/stream-browserify/index.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+module.exports = Stream;
+
+var EE = __webpack_require__("./node_modules/events/events.js").EventEmitter;
+var inherits = __webpack_require__("./node_modules/inherits/inherits_browser.js");
+
+inherits(Stream, EE);
+Stream.Readable = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/readable-browser.js");
+Stream.Writable = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/writable-browser.js");
+Stream.Duplex = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/duplex-browser.js");
+Stream.Transform = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/transform.js");
+Stream.PassThrough = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/passthrough.js");
+
+// Backwards-compat with node 0.4.x
+Stream.Stream = Stream;
+
+
+
+// old-style streams.  Note that the pipe method (the only relevant
+// part of this class) is overridden in the Readable class.
+
+function Stream() {
+  EE.call(this);
+}
+
+Stream.prototype.pipe = function(dest, options) {
+  var source = this;
+
+  function ondata(chunk) {
+    if (dest.writable) {
+      if (false === dest.write(chunk) && source.pause) {
+        source.pause();
+      }
+    }
+  }
+
+  source.on('data', ondata);
+
+  function ondrain() {
+    if (source.readable && source.resume) {
+      source.resume();
+    }
+  }
+
+  dest.on('drain', ondrain);
+
+  // If the 'end' option is not supplied, dest.end() will be called when
+  // source gets the 'end' or 'close' events.  Only dest.end() once.
+  if (!dest._isStdio && (!options || options.end !== false)) {
+    source.on('end', onend);
+    source.on('close', onclose);
+  }
+
+  var didOnEnd = false;
+  function onend() {
+    if (didOnEnd) return;
+    didOnEnd = true;
+
+    dest.end();
+  }
+
+
+  function onclose() {
+    if (didOnEnd) return;
+    didOnEnd = true;
+
+    if (typeof dest.destroy === 'function') dest.destroy();
+  }
+
+  // don't leave dangling pipes when there are errors.
+  function onerror(er) {
+    cleanup();
+    if (EE.listenerCount(this, 'error') === 0) {
+      throw er; // Unhandled stream error in pipe.
+    }
+  }
+
+  source.on('error', onerror);
+  dest.on('error', onerror);
+
+  // remove all the event listeners that were added.
+  function cleanup() {
+    source.removeListener('data', ondata);
+    dest.removeListener('drain', ondrain);
+
+    source.removeListener('end', onend);
+    source.removeListener('close', onclose);
+
+    source.removeListener('error', onerror);
+    dest.removeListener('error', onerror);
+
+    source.removeListener('end', cleanup);
+    source.removeListener('close', cleanup);
+
+    dest.removeListener('close', cleanup);
+  }
+
+  source.on('end', cleanup);
+  source.on('close', cleanup);
+
+  dest.on('close', cleanup);
+
+  dest.emit('pipe', source);
+
+  // Allow for unix-like usage: A.pipe(B).pipe(C)
+  return dest;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/duplex-browser.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
+
+
+/***/ }),
+
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97271,8 +98032,8 @@ var util = __webpack_require__("./node_modules/core-util-is/lib/util.js");
 util.inherits = __webpack_require__("./node_modules/inherits/inherits_browser.js");
 /*</replacement>*/
 
-var Readable = __webpack_require__("./node_modules/readable-stream/lib/_stream_readable.js");
-var Writable = __webpack_require__("./node_modules/readable-stream/lib/_stream_writable.js");
+var Readable = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_readable.js");
+var Writable = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_writable.js");
 
 util.inherits(Duplex, Readable);
 
@@ -97356,7 +98117,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/_stream_passthrough.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_passthrough.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97389,7 +98150,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
 module.exports = PassThrough;
 
-var Transform = __webpack_require__("./node_modules/readable-stream/lib/_stream_transform.js");
+var Transform = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_transform.js");
 
 /*<replacement>*/
 var util = __webpack_require__("./node_modules/core-util-is/lib/util.js");
@@ -97410,7 +98171,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/_stream_readable.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_readable.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97463,7 +98224,7 @@ var EElistenerCount = function (emitter, type) {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__("./node_modules/readable-stream/lib/internal/streams/stream-browser.js");
+var Stream = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/stream-browser.js");
 /*</replacement>*/
 
 /*<replacement>*/
@@ -97485,7 +98246,7 @@ util.inherits = __webpack_require__("./node_modules/inherits/inherits_browser.js
 /*</replacement>*/
 
 /*<replacement>*/
-var debugUtil = __webpack_require__(1);
+var debugUtil = __webpack_require__(2);
 var debug = void 0;
 if (debugUtil && debugUtil.debuglog) {
   debug = debugUtil.debuglog('stream');
@@ -97494,8 +98255,8 @@ if (debugUtil && debugUtil.debuglog) {
 }
 /*</replacement>*/
 
-var BufferList = __webpack_require__("./node_modules/readable-stream/lib/internal/streams/BufferList.js");
-var destroyImpl = __webpack_require__("./node_modules/readable-stream/lib/internal/streams/destroy.js");
+var BufferList = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/BufferList.js");
+var destroyImpl = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/destroy.js");
 var StringDecoder;
 
 util.inherits(Readable, Stream);
@@ -97515,7 +98276,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
+  Duplex = Duplex || __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
 
   options = options || {};
 
@@ -97592,7 +98353,7 @@ function ReadableState(options, stream) {
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
+  Duplex = Duplex || __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -98437,7 +99198,7 @@ function indexOf(xs, x) {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/_stream_transform.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_transform.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98508,7 +99269,7 @@ function indexOf(xs, x) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
+var Duplex = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
 
 /*<replacement>*/
 var util = __webpack_require__("./node_modules/core-util-is/lib/util.js");
@@ -98658,7 +99419,7 @@ function done(stream, er, data) {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/_stream_writable.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_writable.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -98739,7 +99500,7 @@ var internalUtil = {
 /*</replacement>*/
 
 /*<replacement>*/
-var Stream = __webpack_require__("./node_modules/readable-stream/lib/internal/streams/stream-browser.js");
+var Stream = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/stream-browser.js");
 /*</replacement>*/
 
 /*<replacement>*/
@@ -98755,14 +99516,14 @@ function _isUint8Array(obj) {
 
 /*</replacement>*/
 
-var destroyImpl = __webpack_require__("./node_modules/readable-stream/lib/internal/streams/destroy.js");
+var destroyImpl = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/destroy.js");
 
 util.inherits(Writable, Stream);
 
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
+  Duplex = Duplex || __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
 
   options = options || {};
 
@@ -98912,7 +99673,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
+  Duplex = Duplex || __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -99353,7 +100114,7 @@ Writable.prototype._destroy = function (err, cb) {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/internal/streams/BufferList.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/BufferList.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99362,7 +100123,7 @@ Writable.prototype._destroy = function (err, cb) {
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Buffer = __webpack_require__("./node_modules/safe-buffer/index.js").Buffer;
-var util = __webpack_require__(2);
+var util = __webpack_require__(3);
 
 function copyBuffer(src, target, offset) {
   src.copy(target, offset);
@@ -99439,7 +100200,7 @@ if (util && util.inspect && util.inspect.custom) {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/internal/streams/destroy.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/destroy.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -99520,7 +100281,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/lib/internal/streams/stream-browser.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/lib/internal/streams/stream-browser.js":
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__("./node_modules/events/events.js").EventEmitter;
@@ -99528,597 +100289,40 @@ module.exports = __webpack_require__("./node_modules/events/events.js").EventEmi
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/passthrough.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/passthrough.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./node_modules/readable-stream/readable-browser.js").PassThrough
+module.exports = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/readable-browser.js").PassThrough
 
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/readable-browser.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/readable-browser.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__("./node_modules/readable-stream/lib/_stream_readable.js");
+exports = module.exports = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_readable.js");
 exports.Stream = exports;
 exports.Readable = exports;
-exports.Writable = __webpack_require__("./node_modules/readable-stream/lib/_stream_writable.js");
-exports.Duplex = __webpack_require__("./node_modules/readable-stream/lib/_stream_duplex.js");
-exports.Transform = __webpack_require__("./node_modules/readable-stream/lib/_stream_transform.js");
-exports.PassThrough = __webpack_require__("./node_modules/readable-stream/lib/_stream_passthrough.js");
+exports.Writable = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_writable.js");
+exports.Duplex = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_duplex.js");
+exports.Transform = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_transform.js");
+exports.PassThrough = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_passthrough.js");
 
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/transform.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/transform.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./node_modules/readable-stream/readable-browser.js").Transform
+module.exports = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/readable-browser.js").Transform
 
 
 /***/ }),
 
-/***/ "./node_modules/readable-stream/writable-browser.js":
+/***/ "./node_modules/stream-browserify/node_modules/readable-stream/writable-browser.js":
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__("./node_modules/readable-stream/lib/_stream_writable.js");
-
-
-/***/ }),
-
-/***/ "./node_modules/safe-buffer/index.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* eslint-disable node/no-deprecated-api */
-var buffer = __webpack_require__("./node_modules/buffer/index.js")
-var Buffer = buffer.Buffer
-
-// alternative to using Object.keys for old browsers
-function copyProps (src, dst) {
-  for (var key in src) {
-    dst[key] = src[key]
-  }
-}
-if (Buffer.from && Buffer.alloc && Buffer.allocUnsafe && Buffer.allocUnsafeSlow) {
-  module.exports = buffer
-} else {
-  // Copy properties from require('buffer')
-  copyProps(buffer, exports)
-  exports.Buffer = SafeBuffer
-}
-
-function SafeBuffer (arg, encodingOrOffset, length) {
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-// Copy static methods from Buffer
-copyProps(Buffer, SafeBuffer)
-
-SafeBuffer.from = function (arg, encodingOrOffset, length) {
-  if (typeof arg === 'number') {
-    throw new TypeError('Argument must not be a number')
-  }
-  return Buffer(arg, encodingOrOffset, length)
-}
-
-SafeBuffer.alloc = function (size, fill, encoding) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  var buf = Buffer(size)
-  if (fill !== undefined) {
-    if (typeof encoding === 'string') {
-      buf.fill(fill, encoding)
-    } else {
-      buf.fill(fill)
-    }
-  } else {
-    buf.fill(0)
-  }
-  return buf
-}
-
-SafeBuffer.allocUnsafe = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return Buffer(size)
-}
-
-SafeBuffer.allocUnsafeSlow = function (size) {
-  if (typeof size !== 'number') {
-    throw new TypeError('Argument must be a number')
-  }
-  return buffer.SlowBuffer(size)
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/setimmediate/setImmediate.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
-    "use strict";
-
-    if (global.setImmediate) {
-        return;
-    }
-
-    var nextHandle = 1; // Spec says greater than zero
-    var tasksByHandle = {};
-    var currentlyRunningATask = false;
-    var doc = global.document;
-    var registerImmediate;
-
-    function setImmediate(callback) {
-      // Callback can either be a function or a string
-      if (typeof callback !== "function") {
-        callback = new Function("" + callback);
-      }
-      // Copy function arguments
-      var args = new Array(arguments.length - 1);
-      for (var i = 0; i < args.length; i++) {
-          args[i] = arguments[i + 1];
-      }
-      // Store and register the task
-      var task = { callback: callback, args: args };
-      tasksByHandle[nextHandle] = task;
-      registerImmediate(nextHandle);
-      return nextHandle++;
-    }
-
-    function clearImmediate(handle) {
-        delete tasksByHandle[handle];
-    }
-
-    function run(task) {
-        var callback = task.callback;
-        var args = task.args;
-        switch (args.length) {
-        case 0:
-            callback();
-            break;
-        case 1:
-            callback(args[0]);
-            break;
-        case 2:
-            callback(args[0], args[1]);
-            break;
-        case 3:
-            callback(args[0], args[1], args[2]);
-            break;
-        default:
-            callback.apply(undefined, args);
-            break;
-        }
-    }
-
-    function runIfPresent(handle) {
-        // From the spec: "Wait until any invocations of this algorithm started before this one have completed."
-        // So if we're currently running a task, we'll need to delay this invocation.
-        if (currentlyRunningATask) {
-            // Delay by doing a setTimeout. setImmediate was tried instead, but in Firefox 7 it generated a
-            // "too much recursion" error.
-            setTimeout(runIfPresent, 0, handle);
-        } else {
-            var task = tasksByHandle[handle];
-            if (task) {
-                currentlyRunningATask = true;
-                try {
-                    run(task);
-                } finally {
-                    clearImmediate(handle);
-                    currentlyRunningATask = false;
-                }
-            }
-        }
-    }
-
-    function installNextTickImplementation() {
-        registerImmediate = function(handle) {
-            process.nextTick(function () { runIfPresent(handle); });
-        };
-    }
-
-    function canUsePostMessage() {
-        // The test against `importScripts` prevents this implementation from being installed inside a web worker,
-        // where `global.postMessage` means something completely different and can't be used for this purpose.
-        if (global.postMessage && !global.importScripts) {
-            var postMessageIsAsynchronous = true;
-            var oldOnMessage = global.onmessage;
-            global.onmessage = function() {
-                postMessageIsAsynchronous = false;
-            };
-            global.postMessage("", "*");
-            global.onmessage = oldOnMessage;
-            return postMessageIsAsynchronous;
-        }
-    }
-
-    function installPostMessageImplementation() {
-        // Installs an event handler on `global` for the `message` event: see
-        // * https://developer.mozilla.org/en/DOM/window.postMessage
-        // * http://www.whatwg.org/specs/web-apps/current-work/multipage/comms.html#crossDocumentMessages
-
-        var messagePrefix = "setImmediate$" + Math.random() + "$";
-        var onGlobalMessage = function(event) {
-            if (event.source === global &&
-                typeof event.data === "string" &&
-                event.data.indexOf(messagePrefix) === 0) {
-                runIfPresent(+event.data.slice(messagePrefix.length));
-            }
-        };
-
-        if (global.addEventListener) {
-            global.addEventListener("message", onGlobalMessage, false);
-        } else {
-            global.attachEvent("onmessage", onGlobalMessage);
-        }
-
-        registerImmediate = function(handle) {
-            global.postMessage(messagePrefix + handle, "*");
-        };
-    }
-
-    function installMessageChannelImplementation() {
-        var channel = new MessageChannel();
-        channel.port1.onmessage = function(event) {
-            var handle = event.data;
-            runIfPresent(handle);
-        };
-
-        registerImmediate = function(handle) {
-            channel.port2.postMessage(handle);
-        };
-    }
-
-    function installReadyStateChangeImplementation() {
-        var html = doc.documentElement;
-        registerImmediate = function(handle) {
-            // Create a <script> element; its readystatechange event will be fired asynchronously once it is inserted
-            // into the document. Do so, thus queuing up the task. Remember to clean up once it's been called.
-            var script = doc.createElement("script");
-            script.onreadystatechange = function () {
-                runIfPresent(handle);
-                script.onreadystatechange = null;
-                html.removeChild(script);
-                script = null;
-            };
-            html.appendChild(script);
-        };
-    }
-
-    function installSetTimeoutImplementation() {
-        registerImmediate = function(handle) {
-            setTimeout(runIfPresent, 0, handle);
-        };
-    }
-
-    // If supported, we should attach to the prototype of global, since that is where setTimeout et al. live.
-    var attachTo = Object.getPrototypeOf && Object.getPrototypeOf(global);
-    attachTo = attachTo && attachTo.setTimeout ? attachTo : global;
-
-    // Don't get fooled by e.g. browserify environments.
-    if ({}.toString.call(global.process) === "[object process]") {
-        // For Node.js before 0.9
-        installNextTickImplementation();
-
-    } else if (canUsePostMessage()) {
-        // For non-IE10 modern browsers
-        installPostMessageImplementation();
-
-    } else if (global.MessageChannel) {
-        // For web workers, where supported
-        installMessageChannelImplementation();
-
-    } else if (doc && "onreadystatechange" in doc.createElement("script")) {
-        // For IE 6–8
-        installReadyStateChangeImplementation();
-
-    } else {
-        // For older browsers
-        installSetTimeoutImplementation();
-    }
-
-    attachTo.setImmediate = setImmediate;
-    attachTo.clearImmediate = clearImmediate;
-}(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("./node_modules/webpack/buildin/global.js"), __webpack_require__("./node_modules/process/browser.js")))
-
-/***/ }),
-
-/***/ "./node_modules/sha256/lib/sha256.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-!function(globals) {
-'use strict'
-
-var _imports = {}
-
-if (typeof module !== 'undefined' && module.exports) { //CommonJS
-  _imports.bytesToHex = __webpack_require__("./node_modules/convert-hex/convert-hex.js").bytesToHex
-  _imports.convertString = __webpack_require__("./node_modules/convert-string/convert-string.js")
-  module.exports = sha256
-} else {
-  _imports.bytesToHex = globals.convertHex.bytesToHex
-  _imports.convertString = globals.convertString
-  globals.sha256 = sha256
-}
-
-/*
-CryptoJS v3.1.2
-code.google.com/p/crypto-js
-(c) 2009-2013 by Jeff Mott. All rights reserved.
-code.google.com/p/crypto-js/wiki/License
-*/
-
-// Initialization round constants tables
-var K = []
-
-// Compute constants
-!function () {
-  function isPrime(n) {
-    var sqrtN = Math.sqrt(n);
-    for (var factor = 2; factor <= sqrtN; factor++) {
-      if (!(n % factor)) return false
-    }
-
-    return true
-  }
-
-  function getFractionalBits(n) {
-    return ((n - (n | 0)) * 0x100000000) | 0
-  }
-
-  var n = 2
-  var nPrime = 0
-  while (nPrime < 64) {
-    if (isPrime(n)) {
-      K[nPrime] = getFractionalBits(Math.pow(n, 1 / 3))
-      nPrime++
-    }
-
-    n++
-  }
-}()
-
-var bytesToWords = function (bytes) {
-  var words = []
-  for (var i = 0, b = 0; i < bytes.length; i++, b += 8) {
-    words[b >>> 5] |= bytes[i] << (24 - b % 32)
-  }
-  return words
-}
-
-var wordsToBytes = function (words) {
-  var bytes = []
-  for (var b = 0; b < words.length * 32; b += 8) {
-    bytes.push((words[b >>> 5] >>> (24 - b % 32)) & 0xFF)
-  }
-  return bytes
-}
-
-// Reusable object
-var W = []
-
-var processBlock = function (H, M, offset) {
-  // Working variables
-  var a = H[0], b = H[1], c = H[2], d = H[3]
-  var e = H[4], f = H[5], g = H[6], h = H[7]
-
-    // Computation
-  for (var i = 0; i < 64; i++) {
-    if (i < 16) {
-      W[i] = M[offset + i] | 0
-    } else {
-      var gamma0x = W[i - 15]
-      var gamma0  = ((gamma0x << 25) | (gamma0x >>> 7))  ^
-                    ((gamma0x << 14) | (gamma0x >>> 18)) ^
-                    (gamma0x >>> 3)
-
-      var gamma1x = W[i - 2];
-      var gamma1  = ((gamma1x << 15) | (gamma1x >>> 17)) ^
-                    ((gamma1x << 13) | (gamma1x >>> 19)) ^
-                    (gamma1x >>> 10)
-
-      W[i] = gamma0 + W[i - 7] + gamma1 + W[i - 16];
-    }
-
-    var ch  = (e & f) ^ (~e & g);
-    var maj = (a & b) ^ (a & c) ^ (b & c);
-
-    var sigma0 = ((a << 30) | (a >>> 2)) ^ ((a << 19) | (a >>> 13)) ^ ((a << 10) | (a >>> 22));
-    var sigma1 = ((e << 26) | (e >>> 6)) ^ ((e << 21) | (e >>> 11)) ^ ((e << 7)  | (e >>> 25));
-
-    var t1 = h + sigma1 + ch + K[i] + W[i];
-    var t2 = sigma0 + maj;
-
-    h = g;
-    g = f;
-    f = e;
-    e = (d + t1) | 0;
-    d = c;
-    c = b;
-    b = a;
-    a = (t1 + t2) | 0;
-  }
-
-  // Intermediate hash value
-  H[0] = (H[0] + a) | 0;
-  H[1] = (H[1] + b) | 0;
-  H[2] = (H[2] + c) | 0;
-  H[3] = (H[3] + d) | 0;
-  H[4] = (H[4] + e) | 0;
-  H[5] = (H[5] + f) | 0;
-  H[6] = (H[6] + g) | 0;
-  H[7] = (H[7] + h) | 0;
-}
-
-function sha256(message, options) {;
-  if (message.constructor === String) {
-    message = _imports.convertString.UTF8.stringToBytes(message);
-  }
-
-  var H =[ 0x6A09E667, 0xBB67AE85, 0x3C6EF372, 0xA54FF53A,
-           0x510E527F, 0x9B05688C, 0x1F83D9AB, 0x5BE0CD19 ];
-
-  var m = bytesToWords(message);
-  var l = message.length * 8;
-
-  m[l >> 5] |= 0x80 << (24 - l % 32);
-  m[((l + 64 >> 9) << 4) + 15] = l;
-
-  for (var i=0 ; i<m.length; i += 16) {
-    processBlock(H, m, i);
-  }
-
-  var digestbytes = wordsToBytes(H);
-  return options && options.asBytes ? digestbytes :
-         options && options.asString ? _imports.convertString.bytesToString(digestbytes) :
-         _imports.bytesToHex(digestbytes)
-}
-
-sha256.x2 = function(message, options) {
-  return sha256(sha256(message, { asBytes:true }), options)
-}
-
-}(this);
-
-
-/***/ }),
-
-/***/ "./node_modules/stream-browserify/index.js":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-module.exports = Stream;
-
-var EE = __webpack_require__("./node_modules/events/events.js").EventEmitter;
-var inherits = __webpack_require__("./node_modules/inherits/inherits_browser.js");
-
-inherits(Stream, EE);
-Stream.Readable = __webpack_require__("./node_modules/readable-stream/readable-browser.js");
-Stream.Writable = __webpack_require__("./node_modules/readable-stream/writable-browser.js");
-Stream.Duplex = __webpack_require__("./node_modules/readable-stream/duplex-browser.js");
-Stream.Transform = __webpack_require__("./node_modules/readable-stream/transform.js");
-Stream.PassThrough = __webpack_require__("./node_modules/readable-stream/passthrough.js");
-
-// Backwards-compat with node 0.4.x
-Stream.Stream = Stream;
-
-
-
-// old-style streams.  Note that the pipe method (the only relevant
-// part of this class) is overridden in the Readable class.
-
-function Stream() {
-  EE.call(this);
-}
-
-Stream.prototype.pipe = function(dest, options) {
-  var source = this;
-
-  function ondata(chunk) {
-    if (dest.writable) {
-      if (false === dest.write(chunk) && source.pause) {
-        source.pause();
-      }
-    }
-  }
-
-  source.on('data', ondata);
-
-  function ondrain() {
-    if (source.readable && source.resume) {
-      source.resume();
-    }
-  }
-
-  dest.on('drain', ondrain);
-
-  // If the 'end' option is not supplied, dest.end() will be called when
-  // source gets the 'end' or 'close' events.  Only dest.end() once.
-  if (!dest._isStdio && (!options || options.end !== false)) {
-    source.on('end', onend);
-    source.on('close', onclose);
-  }
-
-  var didOnEnd = false;
-  function onend() {
-    if (didOnEnd) return;
-    didOnEnd = true;
-
-    dest.end();
-  }
-
-
-  function onclose() {
-    if (didOnEnd) return;
-    didOnEnd = true;
-
-    if (typeof dest.destroy === 'function') dest.destroy();
-  }
-
-  // don't leave dangling pipes when there are errors.
-  function onerror(er) {
-    cleanup();
-    if (EE.listenerCount(this, 'error') === 0) {
-      throw er; // Unhandled stream error in pipe.
-    }
-  }
-
-  source.on('error', onerror);
-  dest.on('error', onerror);
-
-  // remove all the event listeners that were added.
-  function cleanup() {
-    source.removeListener('data', ondata);
-    dest.removeListener('drain', ondrain);
-
-    source.removeListener('end', onend);
-    source.removeListener('close', onclose);
-
-    source.removeListener('error', onerror);
-    dest.removeListener('error', onerror);
-
-    source.removeListener('end', cleanup);
-    source.removeListener('close', cleanup);
-
-    dest.removeListener('close', cleanup);
-  }
-
-  source.on('end', cleanup);
-  source.on('close', cleanup);
-
-  dest.on('close', cleanup);
-
-  dest.emit('pipe', source);
-
-  // Allow for unix-like usage: A.pipe(B).pipe(C)
-  return dest;
-};
+module.exports = __webpack_require__("./node_modules/stream-browserify/node_modules/readable-stream/lib/_stream_writable.js");
 
 
 /***/ }),
@@ -101172,7 +101376,7 @@ var debugs = {};
 var debugEnviron;
 exports.debuglog = function(set) {
   if (isUndefined(debugEnviron))
-    debugEnviron = Object({"MIX_PUSHER_APP_KEY":"","MIX_PUSHER_APP_CLUSTER":"mt1","NODE_ENV":"development"}).NODE_DEBUG || '';
+    debugEnviron = Object({"MIX_PUSHER_APP_CLUSTER":"mt1","MIX_PUSHER_APP_KEY":"","NODE_ENV":"development"}).NODE_DEBUG || '';
   set = set.toUpperCase();
   if (!debugs[set]) {
     if (new RegExp('\\b' + set + '\\b', 'i').test(debugEnviron)) {
@@ -102106,31 +102310,33 @@ var render = function() {
                                 _vm._v(_vm._s(personInstitution.role.name))
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "align-middle text-right" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-danger btn-sm ml-1 pull-right",
-                                      attrs: {
-                                        to:
-                                          "people/" +
-                                          _vm.personInstitutions.person.id +
-                                          "/person-institutions/" +
-                                          personInstitution.id +
-                                          "/update",
-                                        tag: "div",
-                                        disabled: _vm.cannot("update")
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
+                              personInstitution.advised_id == null
+                                ? _c(
+                                    "td",
+                                    { staticClass: "align-middle text-right" },
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "people/" +
+                                              _vm.personInstitutions.person.id +
+                                              "/person-institutions/" +
+                                              personInstitution.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              )
+                                : _vm._e()
                             ]
                           )
                         })
@@ -102256,36 +102462,175 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c(
+          _vm.personInstitutions.selected.advised_id == null
+            ? _c(
+                "div",
+                { staticClass: "col-12" },
+                [
+                  _vm.personInstitutions.selected.id && _vm.addresses.data.links
+                    ? _c(
+                        "app-table-panel",
+                        {
+                          attrs: {
+                            title:
+                              "Endereços: " +
+                              _vm.addresses.data.links.pagination.total,
+                            "add-button": {
+                              uri:
+                                "/people/" +
+                                _vm.personInstitutions.person.id +
+                                "/person-institutions/" +
+                                _vm.addresses.personInstitution.id +
+                                "/addresses/create",
+                              disabled: _vm.cannot("create")
+                            },
+                            "per-page": _vm.addressesPerPage,
+                            "filter-text": _vm.addressesFilterText
+                          },
+                          on: {
+                            "set-per-page": function($event) {
+                              _vm.addressesPerPage = $event
+                            },
+                            "input-filter-text": function($event) {
+                              _vm.addressesFilterText = $event.target.value
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "app-table",
+                            {
+                              attrs: {
+                                pagination: _vm.addresses.data.links.pagination,
+                                columns: [
+                                  "#",
+                                  "Rua",
+                                  "Numero",
+                                  "Complemento",
+                                  "Bairro",
+                                  "Cidade"
+                                ],
+                                rows: _vm.addresses.data.rows
+                              },
+                              on: {
+                                "goto-page": function($event) {
+                                  _vm.addressesGotoPage($event)
+                                }
+                              }
+                            },
+                            _vm._l(_vm.addresses.data.rows, function(address) {
+                              return _c(
+                                "tr",
+                                {
+                                  staticClass: "cursor-pointer",
+                                  class: {
+                                    "cursor-pointer": true,
+                                    "bg-primary text-white": _vm.isCurrent(
+                                      address,
+                                      _vm.addresses.selected
+                                    )
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.selectAddress(address)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("td", [_vm._v(_vm._s(address.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.street))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.number))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(address.complement))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(address.neighbourhood))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.zipcode))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.city))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.state))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "align-middle text-right" },
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "/people/" +
+                                              _vm.personInstitutions.person.id +
+                                              "/person-institutions/" +
+                                              _vm.addresses.personInstitution
+                                                .id +
+                                              "/addresses/" +
+                                              address.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            })
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e()
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _vm.personInstitutions.selected.advised_id == null
+        ? _c(
             "div",
-            { staticClass: "col-12" },
+            { staticClass: "col-4" },
             [
-              _vm.personInstitutions.selected.id && _vm.addresses.data.links
+              _vm.personInstitutions.selected.id && _vm.advisors.data.links
                 ? _c(
                     "app-table-panel",
                     {
                       attrs: {
-                        title:
-                          "Endereços: " +
-                          _vm.addresses.data.links.pagination.total,
+                        title: "Assessores",
                         "add-button": {
                           uri:
                             "/people/" +
                             _vm.personInstitutions.person.id +
                             "/person-institutions/" +
-                            _vm.addresses.personInstitution.id +
-                            "/addresses/create",
+                            _vm.advisors.personInstitution.id +
+                            "/advisors/create",
                           disabled: _vm.cannot("create")
                         },
-                        "per-page": _vm.addressesPerPage,
-                        "filter-text": _vm.addressesFilterText
+                        "per-page": _vm.advisorsPerPage,
+                        "filter-text": _vm.advisorsFilterText
                       },
                       on: {
                         "set-per-page": function($event) {
-                          _vm.addressesPerPage = $event
+                          _vm.advisorsPerPage = $event
                         },
                         "input-filter-text": function($event) {
-                          _vm.addressesFilterText = $event.target.value
+                          _vm.advisorsFilterText = $event.target.value
                         }
                       }
                     },
@@ -102294,24 +102639,16 @@ var render = function() {
                         "app-table",
                         {
                           attrs: {
-                            pagination: _vm.addresses.data.links.pagination,
-                            columns: [
-                              "#",
-                              "Rua",
-                              "Numero",
-                              "Complemento",
-                              "Bairro",
-                              "Cidade"
-                            ],
-                            rows: _vm.addresses.data.rows
+                            pagination: _vm.advisors.data.links.pagination,
+                            columns: ["#", "Tratamento", "Nome", "Nome Público"]
                           },
                           on: {
                             "goto-page": function($event) {
-                              _vm.addressesGotoPage($event)
+                              _vm.advisorsGotoPage($event)
                             }
                           }
                         },
-                        _vm._l(_vm.addresses.data.rows, function(address) {
+                        _vm._l(_vm.advisors.data.rows, function(advisor) {
                           return _c(
                             "tr",
                             {
@@ -102319,36 +102656,29 @@ var render = function() {
                               class: {
                                 "cursor-pointer": true,
                                 "bg-primary text-white": _vm.isCurrent(
-                                  address,
-                                  _vm.addresses.selected
+                                  advisor,
+                                  _vm.advisors.selected
                                 )
                               },
                               on: {
                                 click: function($event) {
-                                  _vm.selectAddress(address)
+                                  _vm.selectAdvisor(advisor)
                                 }
                               }
                             },
                             [
-                              _c("td", [_vm._v(_vm._s(address.id))]),
+                              _c("td", [_vm._v(_vm._s(advisor.id))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.street))]),
+                              _c("td", [_vm._v(_vm._s(advisor.person.title))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.number))]),
+                              _c("td", [_vm._v(_vm._s(advisor.person.name))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.complement))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.neighbourhood))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.zipcode))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.city))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.state))]),
+                              _c("td", [
+                                _vm._v(_vm._s(advisor.person.nickname))
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "td",
-                                { staticClass: "align-middle text-right" },
                                 [
                                   _c(
                                     "router-link",
@@ -102360,9 +102690,9 @@ var render = function() {
                                           "/people/" +
                                           _vm.personInstitutions.person.id +
                                           "/person-institutions/" +
-                                          _vm.addresses.personInstitution.id +
-                                          "/addresses/" +
-                                          address.id +
+                                          _vm.advisors.personInstitution.id +
+                                          "/advisors/" +
+                                          advisor.id +
                                           "/update",
                                         tag: "div",
                                         disabled: _vm.cannot("update")
@@ -102384,8 +102714,126 @@ var render = function() {
             ],
             1
           )
-        ])
-      ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-12" },
+        [
+          _vm.advisors.selected.id && _vm.advisorContacts.data.links
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title:
+                      "Contatos: " +
+                      _vm.advisorContacts.data.links.pagination.total,
+                    "add-button": {
+                      uri:
+                        "/people/" +
+                        _vm.advisors.person.id +
+                        "/person-institutions/" +
+                        _vm.personInstitutions.selected.id +
+                        "/advisors/" +
+                        _vm.advisorContacts.personInstitution.id +
+                        "/contacts/create",
+                      disabled: _vm.cannot("create")
+                    },
+                    "per-page": _vm.advisorContactsPerPage,
+                    "filter-text": _vm.advisorContactsFilterText
+                  },
+                  on: {
+                    "set-per-page": function($event) {
+                      _vm.advisorContactsPerPage = $event
+                    },
+                    "input-filter-text": function($event) {
+                      _vm.advisorContactsFilterText = $event.target.value
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.advisorContacts.data.links.pagination,
+                        columns: ["#", "Tipo", "Contato"]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          _vm.advisorContactsGotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.advisorContacts.data.rows, function(
+                      advisorContact
+                    ) {
+                      return _c(
+                        "tr",
+                        {
+                          staticClass: "cursor-pointer",
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary text-white": _vm.isCurrent(
+                              advisorContact,
+                              _vm.advisorContacts.selected
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              _vm.selectAdvisorContacts(advisorContact)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", [_vm._v(_vm._s(advisorContact.id))]),
+                          _vm._v(" "),
+                          _c("td", [
+                            _vm._v(_vm._s(advisorContact.contact_type.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", [_vm._v(_vm._s(advisorContact.contact))]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "align-middle text-right" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-sm ml-1 pull-right",
+                                  attrs: {
+                                    to:
+                                      "/people/" +
+                                      _vm.advisors.person.id +
+                                      "/person-institutions/" +
+                                      _vm.personInstitutions.selected.id +
+                                      "/advisors/" +
+                                      _vm.advisorContacts.personInstitution.id +
+                                      "/contacts/" +
+                                      advisorContact.id +
+                                      "/update",
+                                    tag: "div",
+                                    disabled: _vm.cannot("update")
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    })
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
     ])
   ])
 }
@@ -104693,6 +105141,25 @@ var render = function() {
                     expression: "form.fields.institution_id"
                   }
                 }),
+                _vm._v(" "),
+                _vm.source == "advisor"
+                  ? _c("app-select", {
+                      attrs: {
+                        name: "advised_id",
+                        label: "Assessor",
+                        required: true,
+                        form: _vm.form,
+                        elements: _vm.environment.tables.people
+                      },
+                      model: {
+                        value: _vm.form.fields.person_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form.fields, "person_id", $$v)
+                        },
+                        expression: "form.fields.person_id"
+                      }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("app-select", {
                   attrs: {
@@ -109212,7 +109679,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("8737124e", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("0b2ccec6", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109239,7 +109706,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("cb605db8", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("c0de365e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109266,7 +109733,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("40b1c132", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("e10bcdc2", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109293,7 +109760,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("0449a838", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("020b30d7", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109320,7 +109787,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("229de1f8", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("72add425", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109347,7 +109814,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("25c8ab62", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3c181bbc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109374,7 +109841,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("10dea45c", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6bacfe6e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109401,7 +109868,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("2294e8ec", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("b734fb4e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109428,7 +109895,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("6bb0c17c", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("8b0dcd2e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109455,7 +109922,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("1e4d852a", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("72a9d6d8", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109482,7 +109949,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5fbb7553", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("a0693100", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109509,7 +109976,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("499326d4", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5d070603", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109536,7 +110003,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5afb6a80", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("fd0f6f26", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109563,7 +110030,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("8086e27a", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("71aae236", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109590,7 +110057,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("ad7cdb5a", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("a2fab400", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109617,7 +110084,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("197185bc", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("7f23580f", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109644,7 +110111,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("563aaee0", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("24f29abd", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109671,7 +110138,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("78dc4eec", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("325be528", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109698,7 +110165,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("451055fe", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("5f486e6e", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109725,7 +110192,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("53cb248f", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("57fb2982", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109752,7 +110219,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("c23339c2", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("de264cdc", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109779,7 +110246,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("9762adce", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("09541a99", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -109806,7 +110273,7 @@ var content = __webpack_require__("./node_modules/css-loader/index.js!./node_mod
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("23969dd2", content, false, {});
+var update = __webpack_require__("./node_modules/vue-style-loader/lib/addStylesClient.js")("3c43a46c", content, false, {});
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
@@ -125499,11 +125966,11 @@ var routes = [{
 }, {
     path: '/people/:personId/person-institutions/create',
     component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
-    props: { mode: 'create' }
+    props: { mode: 'create', source: 'personInstitution' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/update',
     component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
-    props: { mode: 'update' }
+    props: { mode: 'update', source: 'personInstitution' }
 },
 // {
 //     path: '/contacts/create',
@@ -125577,11 +126044,27 @@ var routes = [{
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/contacts/create',
     component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
-    props: { mode: 'create' }
+    props: { mode: 'create', source: 'personInstitution' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/contacts/:contactId/update',
     component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
-    props: { mode: 'update' }
+    props: { mode: 'update', source: 'personInstitution' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/contacts/create',
+    component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
+    props: { mode: 'create', source: 'advisor' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/contacts/:contactId/update',
+    component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
+    props: { mode: 'update', source: 'advisor' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/create',
+    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
+    props: { mode: 'create', source: 'advisor' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/update',
+    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
+    props: { mode: 'update', source: 'advisor' }
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
@@ -125696,6 +126179,144 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
 });
 
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/advisorContacts.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: { name: 'advisorContacts', uri: 'people/{advisors.person.id}/person-institutions/{advisorContacts.personInstitution.id}/contacts', isForm: true },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        contact_type_id: null,
+        contact: null,
+        person_institution_id: null
+    })
+
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    },
+    selectAdvisorContact: function selectAdvisorContact(context, payload) {}
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    }
+});
+
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/advisors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: { name: 'advisors', uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/advisors', isForm: true },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        name: null,
+        nickname: null,
+        title: null
+    })
+
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', { field: 'person_institution_id', value: payload.id });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+
+        context.dispatch('personInstitutions/loadAdvisors', 'loadAdvisors', { root: true });
+    },
+    setPerson: function setPerson(context, payload) {
+        context.commit('mutateSetPerson', payload);
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    },
+    mutateSetPerson: function mutateSetPerson(state, payload) {
+        state.person = payload;
+    },
+    mutateSetAdvisors: function mutateSetAdvisors(state, payload) {
+        state.advisor = payload;
+    }
+});
+
+var getters = merge_objects(__WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__, {
+    getAdvisors: function getAdvisors(state, getters) {
+        return state.data;
+    }
+});
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
@@ -125980,7 +126601,8 @@ var state = {
     tables: {
         contact_types: __emptyTable,
         institutions: __emptyTable,
-        roles: __emptyTable
+        roles: __emptyTable,
+        people: __emptyTable
     }
 };
 
@@ -126013,6 +126635,13 @@ var actions = {
             context.commit('mutateSetRoles', response.data);
         });
     },
+    loadPeople: function loadPeople(context) {
+        return axios.get('/api/v1/people', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetPeople', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
@@ -126021,6 +126650,7 @@ var actions = {
         context.dispatch('loadContactTypes');
         context.dispatch('loadInstitutions');
         context.dispatch('loadRoles');
+        context.dispatch('loadPeople');
     }
 };
 
@@ -126042,6 +126672,9 @@ var mutations = {
     },
     mutateSetRoles: function mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload;
+    },
+    mutateSetPeople: function mutateSetPeople(state, payload) {
+        state['tables']['people'] = payload;
     }
 };
 
@@ -126593,6 +127226,10 @@ var actions = merge_objects((_merge_objects = {
             root: true
         });
 
+        context.dispatch('advisors/setPerson', payload, {
+            root: true
+        });
+
         context.dispatch('personCategories/setPerson', payload, {
             root: true
         });
@@ -126614,6 +127251,11 @@ var actions = merge_objects((_merge_objects = {
         context.dispatch('addresses/setPersonInstitution', payload, {
             root: true
         });
+        context.dispatch('advisors/setPersonInstitution', payload, { root: true });
+    },
+    selectAdvisor: function selectAdvisor(context, payload) {
+        context.dispatch('advisors/select', payload, { root: true });
+        context.dispatch('advisorContacts/setPersonInstitution', payload, { root: true });
     }
 }, _defineProperty(_merge_objects, 'selectPersonCategories', function selectPersonCategories(context, payload) {
     context.dispatch('categories/select', payload, { root: true });
@@ -126621,6 +127263,10 @@ var actions = merge_objects((_merge_objects = {
     context.dispatch('contacts/select', payload, { root: true });
 }), _defineProperty(_merge_objects, 'selectAddresses', function selectAddresses(context, payload) {
     context.dispatch('addresses/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAdvisors', function selectAdvisors(context, payload) {
+    context.dispatch('advisors/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAdvisorContacts', function selectAdvisorContacts(context, payload) {
+    context.dispatch('advisorContacts/select', payload, { root: true });
 }), _merge_objects), __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
 var mutations = merge_objects({
@@ -126631,6 +127277,8 @@ var mutations = merge_objects({
 
         state.selectedContact = __emptyModel;
         state.selectedAddress = __emptyModel;
+
+        state.selectedAdvisors = __emptyModel;
     },
     selectPersonInstitution: function selectPersonInstitution(state, payload) {
         state.selectedPersonInstitution = payload;
@@ -126644,6 +127292,9 @@ var mutations = merge_objects({
     selectAddress: function selectAddress(state, payload) {
         state.selectedAddress = payload;
     },
+    selectAdvisors: function selectAdvisors(state, payload) {
+        state.selectedAdvisors = payload;
+    },
     setPersonCategories: function setPersonCategories(state, payload) {
         state.personCategories = payload;
     },
@@ -126652,6 +127303,9 @@ var mutations = merge_objects({
     },
     setContacts: function setContacts(state, payload) {
         state.contacts = payload;
+    },
+    setAdvisors: function setAdvisors(state, payload) {
+        state.advisors = payload;
     },
     setAddresses: function setAddresses(state, payload) {
         state.addresses = payload;
@@ -126769,7 +127423,9 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         role_id: null,
         institution_id: null,
         title: null
-    })
+    }),
+
+    advisors: null
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
@@ -126791,13 +127447,24 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
             root: true
         });
 
+        context.dispatch('advisors/setPersonInstitution', __emptyModel, {
+            root: true
+        });
+
         context.dispatch('load', payload);
+        context.dispatch('loadAdvisors');
+    },
+    loadAdvisors: function loadAdvisors(context, payload) {
+        context.commit('mutateSetAdvisors', payload);
     }
 });
 
 var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
     mutateSetPerson: function mutateSetPerson(state, payload) {
         state.person = payload;
+    },
+    mutateSetAdvisors: function mutateSetAdvisors(state, payload) {
+        state.advisors = payload;
     }
 });
 
@@ -127012,7 +127679,9 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_advisors__ = __webpack_require__("./resources/js/store/modules/advisors.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__modules_advisorContacts__ = __webpack_require__("./resources/js/store/modules/advisorContacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
 /**
  * Imports
  */
@@ -127034,6 +127703,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /**
  * Modules
  */
+
+
 
 
 
@@ -127074,7 +127745,7 @@ var state = {
     events: __WEBPACK_IMPORTED_MODULE_8__modules_events__["a" /* default */],
     subEvents: __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__["a" /* default */],
     invitations: __WEBPACK_IMPORTED_MODULE_10__modules_invitations__["a" /* default */],
-    invitables: __WEBPACK_IMPORTED_MODULE_21__modules_invitables__["a" /* default */],
+    invitables: __WEBPACK_IMPORTED_MODULE_23__modules_invitables__["a" /* default */],
     addresses: __WEBPACK_IMPORTED_MODULE_12__modules_addresses__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */],
     roles: __WEBPACK_IMPORTED_MODULE_14__modules_roles__["a" /* default */],
@@ -127083,7 +127754,9 @@ var state = {
     personCategories: __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__["a" /* default */],
     categorizables: __WEBPACK_IMPORTED_MODULE_17__modules_categorizables__["a" /* default */],
     personInstitutions: __WEBPACK_IMPORTED_MODULE_18__modules_personInstitutions__["a" /* default */],
-    contactTypes: __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__["a" /* default */]
+    contactTypes: __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__["a" /* default */],
+    advisors: __WEBPACK_IMPORTED_MODULE_21__modules_advisors__["a" /* default */],
+    advisorContacts: __WEBPACK_IMPORTED_MODULE_22__modules_advisorContacts__["a" /* default */]
   }
 });
 
@@ -128349,6 +129022,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+/***/ "./resources/js/views/mixins/advisorContacts.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('advisorContacts', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        advisorContacts: function advisorContacts(state) {
+            return state.advisorContacts;
+        }
+    }))
+});
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/advisors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('advisors', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        advisors: function advisors(state) {
+            return state.advisors;
+        }
+    }))
+});
+
+/***/ }),
+
 /***/ "./resources/js/views/mixins/categories.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -128706,7 +129421,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         personCategories: function personCategories(state) {
             return state.personCategories;
+        },
+
+        advisors: function advisors(state) {
+            return state.advisors;
+        },
+
+        advisorContacts: function advisorContacts(state) {
+            return state.advisorContacts;
         }
+
     }))
 });
 
