@@ -19,6 +19,18 @@ class PersonInstitution extends Base
 
     protected $filterableColumns = ['roles.name', 'institutions.name'];
 
+    protected $selectColumns = [
+        'person_institutions.id',
+        'person_institutions.person_id',
+        'person_institutions.institution_id',
+        'person_institutions.role_id',
+        'person_institutions.advised_id',
+        'person_institutions.advised_id',
+        'person_institutions.title',
+        'person_institutions.created_at',
+        'person_institutions.updated_at',
+    ];
+
     public function addresses()
     {
         return $this->morphMany('App\Data\Models\Address', 'addressable');
