@@ -16,13 +16,13 @@
                     @input-filter-text="categorizablesFilterText = $event.target.value"
                 >
                     <template slot="buttons">
-                        <a
-                            href="#"
+                        <button
+                            v-if="categorizablesChecked.length > 0"
                             class="btn btn-primary btn-sm pull-right"
                             @click="categorize()"
                         >
-                            gravar associação de categorias
-                        </a>
+                            associar categorias
+                        </button>
                     </template>
 
                     <app-table
@@ -76,6 +76,8 @@ export default {
     data() {
         return {
             service: service,
+
+            categorizablesChecked: {},
 
             checkedCategory: {},
         }
@@ -135,20 +137,26 @@ export default {
 
             this.checkedCategory[categorizable.id].checked = !this
                 .checkedCategory[categorizable.id].checked
+
+            this.categorizablesChecked = this.getCategorizablesChecked()
         },
 
         categorize() {
             const categories = {
                 personId: this.people.selected.id,
 
-                categories: _.filter(this.checkedCategory, category => {
-                    return category.checked
-                }),
+                categories: this.categorizablesChecked,
             }
 
             this.$store.dispatch('categorizables/categorize', categories)
 
             this.$router.go(-1)
+        },
+
+        getCategorizablesChecked() {
+            return _.filter(this.checkedCategory, category => {
+                return category.checked
+            })
         },
     },
 }

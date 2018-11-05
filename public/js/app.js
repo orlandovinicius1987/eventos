@@ -2499,6 +2499,8 @@ var service = {
         return {
             service: service,
 
+            categorizablesChecked: {},
+
             checkedCategory: {}
         };
     },
@@ -2540,19 +2542,24 @@ var service = {
             }
 
             this.checkedCategory[categorizable.id].checked = !this.checkedCategory[categorizable.id].checked;
+
+            this.categorizablesChecked = this.getCategorizablesChecked();
         },
         categorize: function categorize() {
             var categories = {
                 personId: this.people.selected.id,
 
-                categories: _.filter(this.checkedCategory, function (category) {
-                    return category.checked;
-                })
+                categories: this.categorizablesChecked
             };
 
             this.$store.dispatch('categorizables/categorize', categories);
 
             this.$router.go(-1);
+        },
+        getCategorizablesChecked: function getCategorizablesChecked() {
+            return _.filter(this.checkedCategory, function (category) {
+                return category.checked;
+            });
         }
     }
 });
@@ -27414,7 +27421,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103530,23 +103537,24 @@ var render = function() {
                 },
                 [
                   _c("template", { slot: "buttons" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "btn btn-primary btn-sm pull-right",
-                        attrs: { href: "#" },
-                        on: {
-                          click: function($event) {
-                            _vm.categorize()
-                          }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                        gravar associação de categorias\n                    "
+                    _vm.categorizablesChecked.length > 0
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary btn-sm pull-right",
+                            on: {
+                              click: function($event) {
+                                _vm.categorize()
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                        associar categorias\n                    "
+                            )
+                          ]
                         )
-                      ]
-                    )
+                      : _vm._e()
                   ]),
                   _vm._v(" "),
                   _c(
