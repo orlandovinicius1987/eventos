@@ -111,8 +111,7 @@ let routes = [
         props: { mode: 'update' },
     },
     {
-        path:
-            '/people/:personId/categories/create',
+        path: '/people/:personId/categories/create',
         component: CategorizablesForm,
         props: { mode: 'create' },
     },
