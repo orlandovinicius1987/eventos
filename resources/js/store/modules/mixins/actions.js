@@ -26,6 +26,7 @@ export function save(context, payload) {
 }
 
 export function clearForm(context) {
+    dd('clearForm')
     set_null(context.state.form.fields)
 }
 

@@ -18,6 +18,7 @@ const state = merge_objects(statesMixin.common, {
         nickname: null,
         title: null,
     }),
+
 })
 
 const actions = merge_objects(actionsMixin, {

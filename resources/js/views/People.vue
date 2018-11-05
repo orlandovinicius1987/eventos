@@ -133,7 +133,7 @@
 
                                     <td>{{ personInstitution.role.name }}</td>
 
-                                    <td class="align-middle text-right">
+                                    <td class="align-middle text-right" v-if="personInstitution.advised_id == null">
                                         <router-link
                                                 :to="'people/'+personInstitutions.person.id+'/person-institutions/'+personInstitution.id+'/update'"
                                                 tag="div"

@@ -4379,6 +4379,7 @@ var service = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__ = __webpack_require__("./resources/js/views/mixins/personInstitutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_people__ = __webpack_require__("./resources/js/views/mixins/people.js");
 //
 //
 //
@@ -4448,6 +4449,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -4461,7 +4463,7 @@ var service = {
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['mode', 'source'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_people__["a" /* default */]],
 
     data: function data() {
         return {
@@ -4472,10 +4474,19 @@ var service = {
 
     methods: {
         fillAdditionalFormFields: function fillAdditionalFormFields() {
-            this.$store.commit('personInstitutions/mutateSetFormField', {
-                field: 'person_id',
-                value: this.personInstitutions.person.id
-            });
+            this.$store.dispatch('personInstitutions/clearForm', { root: true });
+
+            if (this.source == 'advisor') {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'advised_id',
+                    value: this.personInstitutions.selected.id
+                });
+            } else {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'person_id',
+                    value: this.personInstitutions.person.id
+                });
+            }
         }
     }
 });
@@ -27576,7 +27587,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -102190,31 +102201,33 @@ var render = function() {
                                 _vm._v(_vm._s(personInstitution.role.name))
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "align-middle text-right" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-danger btn-sm ml-1 pull-right",
-                                      attrs: {
-                                        to:
-                                          "people/" +
-                                          _vm.personInstitutions.person.id +
-                                          "/person-institutions/" +
-                                          personInstitution.id +
-                                          "/update",
-                                        tag: "div",
-                                        disabled: _vm.cannot("update")
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
+                              personInstitution.advised_id == null
+                                ? _c(
+                                    "td",
+                                    { staticClass: "align-middle text-right" },
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "people/" +
+                                              _vm.personInstitutions.person.id +
+                                              "/person-institutions/" +
+                                              personInstitution.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              )
+                                : _vm._e()
                             ]
                           )
                         })
@@ -104842,14 +104855,14 @@ var render = function() {
                         label: "Assessor",
                         required: true,
                         form: _vm.form,
-                        elements: _vm.advisors.data.rows
+                        elements: _vm.environment.tables.people
                       },
                       model: {
-                        value: _vm.form.fields.advised_id,
+                        value: _vm.form.fields.person_id,
                         callback: function($$v) {
-                          _vm.$set(_vm.form.fields, "advised_id", $$v)
+                          _vm.$set(_vm.form.fields, "person_id", $$v)
                         },
-                        expression: "form.fields.advised_id"
+                        expression: "form.fields.person_id"
                       }
                     })
                   : _vm._e(),
@@ -125906,6 +125919,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         nickname: null,
         title: null
     })
+
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
@@ -126225,7 +126239,8 @@ var state = {
     tables: {
         contact_types: __emptyTable,
         institutions: __emptyTable,
-        roles: __emptyTable
+        roles: __emptyTable,
+        people: __emptyTable
     }
 };
 
@@ -126258,6 +126273,13 @@ var actions = {
             context.commit('mutateSetRoles', response.data);
         });
     },
+    loadPeople: function loadPeople(context) {
+        return axios.get('/api/v1/people', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetPeople', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
@@ -126266,6 +126288,7 @@ var actions = {
         context.dispatch('loadContactTypes');
         context.dispatch('loadInstitutions');
         context.dispatch('loadRoles');
+        context.dispatch('loadPeople');
     }
 };
 
@@ -126287,6 +126310,9 @@ var mutations = {
     },
     mutateSetRoles: function mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload;
+    },
+    mutateSetPeople: function mutateSetPeople(state, payload) {
+        state['tables']['people'] = payload;
     }
 };
 
@@ -126629,6 +126655,7 @@ function save(context, payload) {
 }
 
 function clearForm(context) {
+    dd('clearForm');
     set_null(context.state.form.fields);
 }
 
