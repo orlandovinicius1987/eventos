@@ -125741,12 +125741,10 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         });
     },
     categorize: function categorize(context, payload) {
-        dd(context);
-        dd(payload);
-        dd(makeDataUrl(context));
-        post(makeDataUrl(context)).then(function () {
-            dd(context.dispatch('load', payload));
+        post(makeDataUrl(context), payload).then(function () {
             context.dispatch('load', payload);
+
+            context.dispatch('personCategories/load', payload, { root: true });
         });
     }
 });

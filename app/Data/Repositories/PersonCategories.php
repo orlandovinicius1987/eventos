@@ -32,11 +32,16 @@ class PersonCategories extends Repository
             ->detach($id);
     }
 
-    public function categorize()
+    public function categorize($personId, $categories)
     {
-        //        return app(People::class)
-        //            ->findById()
-        //            ->categories()
-        //            ->sync();
+        $person = app(People::class)->findById($personId);
+
+        coollect($categories)->each(function ($category) use ($person) {
+            if ($category->checked) {
+                $person->categories()->attach($category->id);
+            }
+        });
+
+        return $person;
     }
 }
