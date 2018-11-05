@@ -71,6 +71,7 @@
 import crud from './mixins/crud'
 import personInstitutions from './mixins/personInstitutions'
 import people from './mixins/people'
+import advisors from './mixins/advisors'
 
 const service = {
     name: 'personInstitutions',
@@ -81,7 +82,7 @@ const service = {
     export default {
         props: ['mode','source'],
 
-    mixins: [crud, personInstitutions,people],
+    mixins: [crud, personInstitutions,people,advisors],
 
     data() {
         return {
@@ -91,7 +92,13 @@ const service = {
 
     methods: {
         fillAdditionalFormFields() {
-            this.$store.dispatch('personInstitutions/clearForm',{root:true})
+           const $this = this
+
+            if(this.mode == 'create') {
+                this.$store.dispatch('personInstitutions/clearForm', {root: true})
+            }else if(this.mode == 'update'){
+                this.$store.commit('personInstitutions/mutateFormData', $this.advisors.selected)
+            }
 
             if(this.source == 'advisor') {
                 this.$store.commit('personInstitutions/mutateSetFormField', {

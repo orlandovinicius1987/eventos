@@ -8,7 +8,6 @@ export default {
     computed: {
         ...mapState({
             advisors: state => state.advisors,
-            dd('advisors:::',advisors)
         }),
     },
 }
