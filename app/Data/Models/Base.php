@@ -42,6 +42,13 @@ abstract class Base extends Model implements AuditableContract
      */
     protected $flushKeys = [];
 
+    /**
+     * Columns which can be used on filter
+     *
+     * @var array
+     */
+    protected $filterableColumns = ['name'];
+
     private function flushKeys()
     {
         coollect($this->flushKeys)->each(function ($key) {
@@ -106,5 +113,10 @@ abstract class Base extends Model implements AuditableContract
     public function getModelAttribute()
     {
         return get_class($this);
+    }
+
+    public function getFilterableColumns()
+    {
+        return coollect($this->filterableColumns);
     }
 }

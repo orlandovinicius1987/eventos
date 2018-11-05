@@ -17,6 +17,8 @@ class PersonInstitution extends Base
 
     protected $with = ['person', 'institution', 'role'];
 
+    protected $filterableColumns = ['roles.name', 'institutions.name'];
+
     public function addresses()
     {
         return $this->morphMany('App\Data\Models\Address', 'addressable');

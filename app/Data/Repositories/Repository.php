@@ -25,7 +25,9 @@ abstract class Repository
     {
         $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
             ? new $this->model()
-            : $this->model::find($id);
+            : $this->newQuery()
+                ->where('id', $id)
+                ->first();
 
         $model->fill($data);
 
@@ -74,9 +76,23 @@ abstract class Repository
         );
     }
 
-    protected function filterAllColumns(Builder $query, $text)
+    protected function filterAllColumns($query, $text)
     {
-        return $query->where('name', 'ilike', "%{$text}%");
+        if (
+            $this->model()
+                ->getFilterableColumns()
+                ->count() > 0
+        ) {
+            $query->where(function ($newQuery) use ($query, $text) {
+                $this->model()
+                    ->getFilterableColumns()
+                    ->each(function ($column) use ($newQuery, $text) {
+                        $newQuery->orWhere($column, 'ilike', "%{$text}%");
+                    });
+            });
+        }
+
+        return $query;
     }
 
     /**
@@ -136,7 +152,7 @@ abstract class Repository
     {
         $columnName = snake_case(Str::after($name, $startsWith));
 
-        return $this->model::where($columnName, $arguments);
+        return $this->newQuery()->where($columnName, $arguments);
     }
 
     /**
@@ -156,6 +172,14 @@ abstract class Repository
     public function new()
     {
         return new $this->model();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function model()
+    {
+        return $this->new();
     }
 
     private function order($query)
