@@ -2,10 +2,7 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Invitation;
 use App\Data\Models\PersonInstitution;
-use App\Data\Models\Invitation as InvitationModel;
-use Illuminate\Database\Eloquent\Builder;
 
 class Invitables extends Repository
 {
@@ -14,7 +11,7 @@ class Invitables extends Repository
      */
     protected $model = PersonInstitution::class;
 
-    protected function filterAllColumns(Builder $query, $text)
+    protected function filterAllColumns($query, $text)
     {
         $query
             ->join(
