@@ -276,7 +276,21 @@ abstract class Repository
      */
     protected function newQuery()
     {
-        return $this->model::query();
+        $query = $this->model::query();
+
+        if (
+            $this->model()
+                ->getSelectColumns()
+                ->count() > 0
+        ) {
+            $query->select(
+                $this->model()
+                    ->getSelectColumns()
+                    ->toArray()
+            );
+        }
+
+        return $query;
     }
 
     /**
