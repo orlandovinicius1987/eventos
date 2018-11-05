@@ -40,12 +40,10 @@ const actions = merge_objects(actionsMixin, {
         dd(context)
         dd(payload)
         dd(makeDataUrl(context))
-        post(makeDataUrl(context)).then(
-            function() {
-                dd(context.dispatch('load', payload))
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context)).then(function() {
+            dd(context.dispatch('load', payload))
+            context.dispatch('load', payload)
+        })
     },
 })
 

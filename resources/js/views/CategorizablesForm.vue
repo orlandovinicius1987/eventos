@@ -82,7 +82,6 @@ export default {
     },
 
     computed: {
-
         categorizablesFilterText: {
             get() {
                 return this.$store.state['categorizables'].data.filter.text
@@ -103,7 +102,10 @@ export default {
             },
 
             set(perPage) {
-                return this.$store.dispatch('categorizables/setPerPage', perPage)
+                return this.$store.dispatch(
+                    'categorizables/setPerPage',
+                    perPage,
+                )
             },
         },
     },
@@ -131,9 +133,8 @@ export default {
                 }
             }
 
-            this.checkedCategory[categorizable.id].checked = !this.checkedCategory[
-                categorizable.id
-            ].checked
+            this.checkedCategory[categorizable.id].checked = !this
+                .checkedCategory[categorizable.id].checked
         },
 
         categorize() {

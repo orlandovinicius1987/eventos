@@ -2505,7 +2505,6 @@ var service = {
 
 
     computed: {
-
         categorizablesFilterText: {
             get: function get() {
                 return this.$store.state['categorizables'].data.filter.text;
@@ -27415,7 +27414,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -105295,7 +105294,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-4 p-0" },
+                { staticClass: "col-2 p-0" },
                 [
                   _c("app-per-page", {
                     attrs: { value: _vm.perPage },
@@ -105311,7 +105310,7 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "col-2 text-right" },
+                { staticClass: "col-4 text-right" },
                 [
                   _vm.addButton
                     ? _c(

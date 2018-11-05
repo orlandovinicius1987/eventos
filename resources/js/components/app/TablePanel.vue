@@ -18,14 +18,14 @@
                         >
                     </div>
 
-                    <div class="col-4 p-0">
+                    <div class="col-2 p-0">
                         <app-per-page
                             :value="perPage"
                             @input="$emit('set-per-page', $event)"
                         ></app-per-page>
                     </div>
 
-                    <div class="col-2 text-right">
+                    <div class="col-4 text-right">
                         <router-link
                             v-if="addButton"
                             :to="addButton.uri"
