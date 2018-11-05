@@ -15712,6 +15712,41 @@ a.text-dark:focus {
   }
 }
 
+.login {
+  margin-left: 0;
+}
+
+.login .card {
+  background: #ffffff;
+  border-top: 0px solid #3490dc !important;
+  padding: 2rem;
+  border-radius: 1rem;
+  -webkit-box-shadow: 0px 2px 4px #dce8ee;
+          box-shadow: 0px 2px 4px #dce8ee;
+}
+
+@media screen and (max-width: 479px) {
+  .login {
+    /* start of phone styles */
+  }
+
+  .login .card {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+    border: none;
+  }
+
+  .login .card .card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: none;
+    border-bottom: none;
+  }
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
