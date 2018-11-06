@@ -100,20 +100,20 @@
 
                             <td class="align-middle text-right">
                                 <button
-                                    v-if="!subEvent.finalized_at && subEvent.confirmed_at"
+                                    v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm ml-1 pull-right"
-                                    @click="finalizeSubEvent(subEvent)"
-                                    title="Finalizar Sub-evento"
+                                    @click="confirmSubEvent(subEvent)"
+                                    title="Confirmar Sub-evento"
                                     :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
 
                                 <button
-                                    v-if="!subEvent.confirmed_at"
-                                    class="btn btn-success btn-sm ml-1 pull-right"
-                                    @click="confirmSubEvent(subEvent)"
-                                    title="Confirmar Sub-evento"
+                                    v-if="!subEvent.finalized_at && subEvent.confirmed_at"
+                                    class="btn btn-primary btn-sm ml-1 pull-right"
+                                    @click="finalizeSubEvent(subEvent)"
+                                    title="Finalizar Sub-evento"
                                     :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-check"></i>

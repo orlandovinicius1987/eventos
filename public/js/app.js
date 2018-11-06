@@ -103363,26 +103363,6 @@ var render = function() {
                             "td",
                             { staticClass: "align-middle text-right" },
                             [
-                              !subEvent.finalized_at && subEvent.confirmed_at
-                                ? _c(
-                                    "button",
-                                    {
-                                      staticClass:
-                                        "btn btn-success btn-sm ml-1 pull-right",
-                                      attrs: {
-                                        title: "Finalizar Sub-evento",
-                                        disabled: _vm.cannot("update")
-                                      },
-                                      on: {
-                                        click: function($event) {
-                                          _vm.finalizeSubEvent(subEvent)
-                                        }
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-check" })]
-                                  )
-                                : _vm._e(),
-                              _vm._v(" "),
                               !subEvent.confirmed_at
                                 ? _c(
                                     "button",
@@ -103396,6 +103376,26 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           _vm.confirmSubEvent(subEvent)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !subEvent.finalized_at && subEvent.confirmed_at
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        title: "Finalizar Sub-evento",
+                                        disabled: _vm.cannot("update")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.finalizeSubEvent(subEvent)
                                         }
                                       }
                                     },
