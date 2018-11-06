@@ -74,6 +74,14 @@ const actions = merge_objects(actionsMixin, {
             },
         )
     },
+
+    finalize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(
+            function() {
+                context.dispatch('load', payload)
+            },
+        )
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
