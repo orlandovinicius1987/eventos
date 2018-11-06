@@ -16,9 +16,10 @@ class SubEvent extends Base
         'confirmation_text',
         'credential_send_text',
         'event_id',
+        'costume_id',
     ];
 
-    protected $with = ['event', 'address'];
+    protected $with = ['event', 'address', 'costume'];
 
     public function address()
     {
@@ -28,5 +29,10 @@ class SubEvent extends Base
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function costume()
+    {
+        return $this->belongsTo(Costume::class);
     }
 }
