@@ -63,6 +63,8 @@ class Service
 
     public function importCSV($rows, $client = null)
     {
+        ini_set('memory_limit', '2500M');
+
         (new CSV())->parse($rows)->each(function ($row) use ($client) {
             if (!$this->rowIsEmpty($row)) {
                 $this->importRow($row, $client);
