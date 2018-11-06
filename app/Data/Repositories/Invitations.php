@@ -61,10 +61,20 @@ class Invitations extends Repository
 
     public function invite($eventId, $subEventId, $invitees)
     {
+        do {
+            $codeInvitation = collect(
+                array_merge(
+                    array_random(range('A', 'Z'), 3),
+                    array_random(range(0, 9), 3)
+                )
+            )->implode('');
+        } while (!Invitation::where('code_invitation', $codeInvitation));
+
         foreach ($invitees as $invitee) {
             Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
                 'person_institution_id' => $invitee['id'],
+                'code_invitation' => $codeInvitation,
             ]);
         }
     }
