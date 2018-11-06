@@ -1,6 +1,7 @@
 <?php
 namespace App\Data\Models;
 
+use App\Data\Models\Traits\Selectable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -8,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 abstract class Base extends Model implements AuditableContract
 {
-    use AuditableTrait;
+    use AuditableTrait, Selectable;
 
     /**
      * @var bool
@@ -48,13 +49,6 @@ abstract class Base extends Model implements AuditableContract
      * @var array
      */
     protected $filterableColumns = ['name'];
-
-    /**
-     * Columns to be selected in usual queries
-     *
-     * @var array|null
-     */
-    protected $selectColumns;
 
     private function flushKeys()
     {
@@ -125,10 +119,5 @@ abstract class Base extends Model implements AuditableContract
     public function getFilterableColumns()
     {
         return coollect($this->filterableColumns);
-    }
-
-    public function getSelectColumns()
-    {
-        return coollect($this->selectColumns);
     }
 }
