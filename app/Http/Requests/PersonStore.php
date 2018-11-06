@@ -13,7 +13,6 @@ class PersonStore extends Request
     {
         return [
             'name' => 'required',
-            'birthdate' => 'required',
         ];
     }
 }
