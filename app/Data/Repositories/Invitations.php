@@ -61,14 +61,7 @@ class Invitations extends Repository
 
     public function invite($eventId, $subEventId, $invitees)
     {
-        do {
-            $codeInvitation = collect(
-                array_merge(
-                    array_random(range('A', 'Z'), 3),
-                    array_random(range(0, 9), 3)
-                )
-            )->implode('');
-        } while (!Invitation::where('code_invitation', $codeInvitation));
+        $codeInvitation = $this->codeInvitationGenerator();
 
         foreach ($invitees as $invitee) {
             Invitation::firstOrCreate([
@@ -77,5 +70,20 @@ class Invitations extends Repository
                 'code_invitation' => $codeInvitation,
             ]);
         }
+    }
+
+    private function codeInvitationGenerator()
+    {
+        $codeInvitation = '';
+        do {
+            $codeInvitation = collect(
+                array_merge(
+                    array_random(range('A', 'Z'), 3),
+                    array_random(range(0, 9), 3)
+                )
+            )->implode('');
+        } while (!Invitation::where('code_invitation', $codeInvitation)->get());
+
+        return $codeInvitation;
     }
 }
