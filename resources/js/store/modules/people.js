@@ -24,6 +24,10 @@ let actions = merge_objects(
                 root: true,
             })
 
+            context.dispatch('advisors/setPerson', payload, {
+                root: true,
+            })
+
             context.dispatch('personCategories/setPerson', payload, {
                 root: true,
             })
@@ -48,6 +52,16 @@ let actions = merge_objects(
             context.dispatch('addresses/setPersonInstitution', payload, {
                 root: true,
             })
+            context.dispatch('advisors/setPersonInstitution', payload, {
+                root: true,
+            })
+        },
+
+        selectAdvisor(context, payload) {
+            context.dispatch('advisors/select', payload, { root: true })
+            context.dispatch('advisorContacts/setPersonInstitution', payload, {
+                root: true,
+            })
         },
 
         selectPersonCategories(context, payload) {
@@ -60,6 +74,13 @@ let actions = merge_objects(
 
         selectAddresses(context, payload) {
             context.dispatch('addresses/select', payload, { root: true })
+        },
+
+        selectAdvisors(context, payload) {
+            context.dispatch('advisors/select', payload, { root: true })
+        },
+        selectAdvisorContacts(context, payload) {
+            context.dispatch('advisorContacts/select', payload, { root: true })
         },
     },
     actionsMixin,
@@ -74,6 +95,8 @@ let mutations = merge_objects(
 
             state.selectedContact = __emptyModel
             state.selectedAddress = __emptyModel
+
+            state.selectedAdvisors = __emptyModel
         },
 
         selectPersonInstitution(state, payload) {
@@ -90,6 +113,9 @@ let mutations = merge_objects(
         selectAddress(state, payload) {
             state.selectedAddress = payload
         },
+        selectAdvisors(state, payload) {
+            state.selectedAdvisors = payload
+        },
 
         setPersonCategories(state, payload) {
             state.personCategories = payload
@@ -101,6 +127,10 @@ let mutations = merge_objects(
 
         setContacts(state, payload) {
             state.contacts = payload
+        },
+
+        setAdvisors(state, payload) {
+            state.advisors = payload
         },
 
         setAddresses(state, payload) {

@@ -30,6 +30,19 @@ class SubEvents extends Repository
     }
 
     /**
+     * @param $eventId
+     * @param $subEventId
+     */
+    public function finalize($eventId, $subEventId)
+    {
+        $subEvent = $this->findById($subEventId);
+
+        $subEvent->finalized_at = now();
+
+        $subEvent->save();
+    }
+
+    /**
      * @return mixed
      */
     public function getAvailableAddresses()

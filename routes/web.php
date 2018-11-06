@@ -39,6 +39,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'sub-events.confirm'
                 );
 
+                Route::post('/{id}/finalize', 'SubEvents@finalize')->name(
+                    'sub-events.finalize'
+                );
+
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
                     function () {
@@ -110,6 +114,26 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                                 '/{id}',
                                 'Contacts@updateForPersonInstitution'
                             )->name('contacts.update');
+                        }
+                    );
+
+                    Route::group(
+                        ['prefix' => '{personInstitutionId}/advisors'],
+                        function () {
+                            Route::get(
+                                '/',
+                                'PersonInstitutions@allAdvisorsByPersonInstitution'
+                            )->name(
+                                'advisors.all-advisors-by-person-institution'
+                            );
+
+                            Route::post('/', 'Advisors@store')->name(
+                                'advisors.store'
+                            );
+
+                            Route::post('/{id}', 'Advisors@update')->name(
+                                'advisors.update'
+                            );
                         }
                     );
 

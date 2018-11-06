@@ -1,7 +1,29 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>Eventos</h2>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Eventos</h2>
+                </div>
+            </div>
+
+            <div
+                v-if="selected.id && events.data.links"
+                class="row bg-primary text-white"
+            >
+                <div class="col-12 mt-2">
+                    <h3
+
+                    >
+                        {{ selected.name }}
+
+                        <span v-if="subEvents.selected && subEvents.selected.id == events.selected.id && subEvents.selected.name">
+                            - {{ subEvents.selected.name }}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
@@ -18,7 +40,7 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['#','Nome','Confirmado em', '']"
+                        :columns="['#','Nome','']"
                     >
                         <tr
                             @click="selectEvent(event)"
@@ -28,8 +50,6 @@
                             <td class="align-middle">{{ event.id }}</td>
 
                             <td class="align-middle">{{ event.name }}</td>
-
-                            <td class="align-middle">{{ event.confirmed_at }}</td>
 
                             <td class="align-middle text-right">
                                 <router-link
@@ -59,7 +79,7 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora','Confirmado em','']"
+                        :columns="['#','Nome','Data','Hora','Confirmado em','Realizado em','']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -76,7 +96,19 @@
 
                             <td class="align-middle">{{ subEvent.confirmed_at }}</td>
 
+                            <td class="align-middle">{{ subEvent.finalized_at }}</td>
+
                             <td class="align-middle text-right">
+                                <button
+                                    v-if="!subEvent.finalized_at && subEvent.confirmed_at"
+                                    class="btn btn-success btn-sm ml-1 pull-right"
+                                    @click="finalizeSubEvent(subEvent)"
+                                    title="Finalizar Sub-evento"
+                                    :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </button>
+
                                 <button
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm ml-1 pull-right"
@@ -267,6 +299,23 @@ export default {
 
         doConfirmSubEvent(subEvent) {
             return this.$store.dispatch('subEvents/confirm', subEvent)
+        },
+
+        finalizeSubEvent(subEvent) {
+            const $this = this
+
+            confirm(
+                'Deseja realmente confirmar que o evento foi realizado ' + subEvent.name + '?',
+                this,
+            ).then(function(value) {
+                if (value) {
+                    $this.doFinalizeSubEvent(subEvent)
+                }
+            })
+        },
+
+        doFinalizeSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/finalize', subEvent)
         },
     },
 

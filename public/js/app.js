@@ -2725,6 +2725,7 @@ var service = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__ = __webpack_require__("./resources/js/views/mixins/contacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_advisorContacts__ = __webpack_require__("./resources/js/views/mixins/advisorContacts.js");
 //
 //
 //
@@ -2785,6 +2786,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -2796,9 +2798,9 @@ var service = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['mode'],
+    props: ['mode', 'source'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_contacts__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_advisorContacts__["a" /* default */]],
 
     data: function data() {
         return {
@@ -2840,10 +2842,17 @@ var service = {
             return type.code == 'email';
         },
         fillAdditionalFormFields: function fillAdditionalFormFields() {
-            this.$store.commit('contacts/mutateSetFormField', {
-                field: 'person_institution_id',
-                value: this.contacts.personInstitution.id
-            });
+            if (this.source == 'advisor') {
+                this.$store.commit('contacts/mutateSetFormField', {
+                    field: 'person_institution_id',
+                    value: this.advisorContacts.personInstitution.id
+                });
+            } else {
+                this.$store.commit('contacts/mutateSetFormField', {
+                    field: 'person_institution_id',
+                    value: this.contacts.personInstitution.id
+                });
+            }
         }
     }
 });
@@ -3115,6 +3124,38 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3166,6 +3207,18 @@ var service = { name: 'events', uri: 'events' };
         },
         doConfirmSubEvent: function doConfirmSubEvent(subEvent) {
             return this.$store.dispatch('subEvents/confirm', subEvent);
+        },
+        finalizeSubEvent: function finalizeSubEvent(subEvent) {
+            var $this = this;
+
+            confirm('Deseja realmente confirmar que o evento foi realizado ' + subEvent.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.doFinalizeSubEvent(subEvent);
+                }
+            });
+        },
+        doFinalizeSubEvent: function doFinalizeSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/finalize', subEvent);
         }
     }),
 
@@ -4004,6 +4057,87 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4022,7 +4156,7 @@ var service = { name: 'people', uri: 'people' };
     },
 
 
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectPerson', 'selectPersonInstitution', 'selectAddress', 'selectContact']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_3_vuex__["mapActions"])(service.name, ['selectPerson', 'selectPersonInstitution', 'selectAddress', 'selectContact', 'selectAdvisor', 'selectAdvisorContacts']), {
         peopleGotoPage: function peopleGotoPage(page) {
             this.gotoPage(page, 'people', this.people.data.links.pagination);
         },
@@ -4035,8 +4169,14 @@ var service = { name: 'people', uri: 'people' };
         contactsGotoPage: function contactsGotoPage(page) {
             this.gotoPage(page, 'contacts', this.contacts.data.links.pagination);
         },
+        advisorContactsGotoPage: function advisorContactsGotoPage(page) {
+            this.gotoPage(page, 'advisorContacts', this.contacts.data.links.pagination);
+        },
         personCategoriesGotoPage: function personCategoriesGotoPage(page) {
             this.gotoPage(page, 'personCategories', this.personCategories.data.links.pagination);
+        },
+        advisorsGotoPage: function advisorsGotoPage(page) {
+            this.gotoPage(page, 'advisors', this.advisors.data.links.pagination);
         },
         confirmDeletePersonCategory: function confirmDeletePersonCategory(personCategory) {
             var $this = this;
@@ -4140,6 +4280,40 @@ var service = { name: 'people', uri: 'people' };
             },
             set: function set(perPage) {
                 return this.$store.dispatch('personCategories/setPerPage', perPage);
+            }
+        },
+        advisorsFilterText: {
+            get: function get() {
+                return this.$store.state['advisors'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('advisors/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        advisorsPerPage: {
+            get: function get() {
+                return this.$store.state['advisors'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('advisors/setPerPage', perPage);
+            }
+        },
+        advisorContactsFilterText: {
+            get: function get() {
+                return this.$store.state['advisorContacts'].data.filter.text;
+            },
+            set: function set(filter) {
+                return this.$store.dispatch('advisorContacts/mutateSetQueryFilterText', filter);
+            }
+        },
+
+        advisorContactsPerPage: {
+            get: function get() {
+                return this.$store.state['advisorContacts'].data.links.pagination.per_page;
+            },
+            set: function set(perPage) {
+                return this.$store.dispatch('advisorContacts/setPerPage', perPage);
             }
         }
     }
@@ -4324,6 +4498,8 @@ var service = {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_crud__ = __webpack_require__("./resources/js/views/mixins/crud.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__ = __webpack_require__("./resources/js/views/mixins/personInstitutions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_people__ = __webpack_require__("./resources/js/views/mixins/people.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_advisors__ = __webpack_require__("./resources/js/views/mixins/advisors.js");
 //
 //
 //
@@ -4383,6 +4559,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -4394,9 +4582,9 @@ var service = {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['mode'],
+    props: ['mode', 'source'],
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */]],
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins_crud__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1__mixins_personInstitutions__["a" /* default */], __WEBPACK_IMPORTED_MODULE_2__mixins_people__["a" /* default */], __WEBPACK_IMPORTED_MODULE_3__mixins_advisors__["a" /* default */]],
 
     data: function data() {
         return {
@@ -4407,10 +4595,27 @@ var service = {
 
     methods: {
         fillAdditionalFormFields: function fillAdditionalFormFields() {
-            this.$store.commit('personInstitutions/mutateSetFormField', {
-                field: 'person_id',
-                value: this.personInstitutions.person.id
-            });
+            var $this = this;
+
+            if (this.mode == 'create') {
+                this.$store.dispatch('personInstitutions/clearForm', {
+                    root: true
+                });
+            } else if (this.mode == 'update') {
+                this.$store.commit('personInstitutions/mutateFormData', $this.advisors.selected);
+            }
+
+            if (this.source == 'advisor') {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'advised_id',
+                    value: this.personInstitutions.selected.id
+                });
+            } else {
+                this.$store.commit('personInstitutions/mutateSetFormField', {
+                    field: 'person_id',
+                    value: this.personInstitutions.person.id
+                });
+            }
         }
     }
 });
@@ -27331,7 +27536,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27361,7 +27566,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27481,7 +27686,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27511,7 +27716,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -102125,31 +102330,33 @@ var render = function() {
                                 _vm._v(_vm._s(personInstitution.role.name))
                               ]),
                               _vm._v(" "),
-                              _c(
-                                "td",
-                                { staticClass: "align-middle text-right" },
-                                [
-                                  _c(
-                                    "router-link",
-                                    {
-                                      staticClass:
-                                        "btn btn-danger btn-sm ml-1 pull-right",
-                                      attrs: {
-                                        to:
-                                          "people/" +
-                                          _vm.personInstitutions.person.id +
-                                          "/person-institutions/" +
-                                          personInstitution.id +
-                                          "/update",
-                                        tag: "div",
-                                        disabled: _vm.cannot("update")
-                                      }
-                                    },
-                                    [_c("i", { staticClass: "fa fa-edit" })]
+                              personInstitution.advised_id == null
+                                ? _c(
+                                    "td",
+                                    { staticClass: "align-middle text-right" },
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "people/" +
+                                              _vm.personInstitutions.person.id +
+                                              "/person-institutions/" +
+                                              personInstitution.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
                                   )
-                                ],
-                                1
-                              )
+                                : _vm._e()
                             ]
                           )
                         })
@@ -102275,36 +102482,302 @@ var render = function() {
             1
           ),
           _vm._v(" "),
+          _vm.personInstitutions.selected.advised_id == null
+            ? _c(
+                "div",
+                { staticClass: "col-12" },
+                [
+                  _vm.personInstitutions.selected.id && _vm.addresses.data.links
+                    ? _c(
+                        "app-table-panel",
+                        {
+                          attrs: {
+                            title:
+                              "Endereços: " +
+                              _vm.addresses.data.links.pagination.total,
+                            "add-button": {
+                              uri:
+                                "/people/" +
+                                _vm.personInstitutions.person.id +
+                                "/person-institutions/" +
+                                _vm.addresses.personInstitution.id +
+                                "/addresses/create",
+                              disabled: _vm.cannot("create")
+                            },
+                            "per-page": _vm.addressesPerPage,
+                            "filter-text": _vm.addressesFilterText
+                          },
+                          on: {
+                            "set-per-page": function($event) {
+                              _vm.addressesPerPage = $event
+                            },
+                            "input-filter-text": function($event) {
+                              _vm.addressesFilterText = $event.target.value
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "app-table",
+                            {
+                              attrs: {
+                                pagination: _vm.addresses.data.links.pagination,
+                                columns: [
+                                  "#",
+                                  "Rua",
+                                  "Numero",
+                                  "Complemento",
+                                  "Bairro",
+                                  "Cidade"
+                                ],
+                                rows: _vm.addresses.data.rows
+                              },
+                              on: {
+                                "goto-page": function($event) {
+                                  _vm.addressesGotoPage($event)
+                                }
+                              }
+                            },
+                            _vm._l(_vm.addresses.data.rows, function(address) {
+                              return _c(
+                                "tr",
+                                {
+                                  staticClass: "cursor-pointer",
+                                  class: {
+                                    "cursor-pointer": true,
+                                    "bg-primary text-white": _vm.isCurrent(
+                                      address,
+                                      _vm.addresses.selected
+                                    )
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.selectAddress(address)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("td", [_vm._v(_vm._s(address.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.street))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.number))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(address.complement))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(address.neighbourhood))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.zipcode))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.city))]),
+                                  _vm._v(" "),
+                                  _c("td", [_vm._v(_vm._s(address.state))]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    { staticClass: "align-middle text-right" },
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "/people/" +
+                                              _vm.personInstitutions.person.id +
+                                              "/person-institutions/" +
+                                              _vm.addresses.personInstitution
+                                                .id +
+                                              "/addresses/" +
+                                              address.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            })
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.personInstitutions.selected.advised_id == null
+            ? _c(
+                "div",
+                { staticClass: "col-12" },
+                [
+                  _vm.personInstitutions.selected.id && _vm.advisors.data.links
+                    ? _c(
+                        "app-table-panel",
+                        {
+                          attrs: {
+                            title:
+                              "Assessores: " +
+                              _vm.advisors.data.links.pagination.total,
+                            "add-button": {
+                              uri:
+                                "/people/" +
+                                _vm.personInstitutions.person.id +
+                                "/person-institutions/" +
+                                _vm.advisors.personInstitution.id +
+                                "/advisors/create",
+                              disabled: _vm.cannot("create")
+                            },
+                            "per-page": _vm.advisorsPerPage,
+                            "filter-text": _vm.advisorsFilterText
+                          },
+                          on: {
+                            "set-per-page": function($event) {
+                              _vm.advisorsPerPage = $event
+                            },
+                            "input-filter-text": function($event) {
+                              _vm.advisorsFilterText = $event.target.value
+                            }
+                          }
+                        },
+                        [
+                          _c(
+                            "app-table",
+                            {
+                              attrs: {
+                                pagination: _vm.advisors.data.links.pagination,
+                                columns: [
+                                  "#",
+                                  "Tratamento",
+                                  "Nome",
+                                  "Nome Público"
+                                ]
+                              },
+                              on: {
+                                "goto-page": function($event) {
+                                  _vm.advisorsGotoPage($event)
+                                }
+                              }
+                            },
+                            _vm._l(_vm.advisors.data.rows, function(advisor) {
+                              return _c(
+                                "tr",
+                                {
+                                  staticClass: "cursor-pointer",
+                                  class: {
+                                    "cursor-pointer": true,
+                                    "bg-primary text-white": _vm.isCurrent(
+                                      advisor,
+                                      _vm.advisors.selected
+                                    )
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.selectAdvisor(advisor)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("td", [_vm._v(_vm._s(advisor.id))]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(advisor.person.title))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(advisor.person.name))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("td", [
+                                    _vm._v(_vm._s(advisor.person.nickname))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "td",
+                                    [
+                                      _c(
+                                        "router-link",
+                                        {
+                                          staticClass:
+                                            "btn btn-danger btn-sm ml-1 pull-right",
+                                          attrs: {
+                                            to:
+                                              "/people/" +
+                                              _vm.personInstitutions.person.id +
+                                              "/person-institutions/" +
+                                              _vm.advisors.personInstitution
+                                                .id +
+                                              "/advisors/" +
+                                              advisor.id +
+                                              "/update",
+                                            tag: "div",
+                                            disabled: _vm.cannot("update")
+                                          }
+                                        },
+                                        [_c("i", { staticClass: "fa fa-edit" })]
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ]
+                              )
+                            })
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e()
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "col-12" },
             [
-              _vm.personInstitutions.selected.id && _vm.addresses.data.links
+              _vm.advisors.selected.id && _vm.advisorContacts.data.links
                 ? _c(
                     "app-table-panel",
                     {
                       attrs: {
                         title:
-                          "Endereços: " +
-                          _vm.addresses.data.links.pagination.total,
+                          "Contatos de " +
+                          _vm.advisors.selected.person.name +
+                          ": " +
+                          _vm.advisorContacts.data.links.pagination.total,
                         "add-button": {
                           uri:
                             "/people/" +
-                            _vm.personInstitutions.person.id +
+                            _vm.advisors.person.id +
                             "/person-institutions/" +
-                            _vm.addresses.personInstitution.id +
-                            "/addresses/create",
+                            _vm.personInstitutions.selected.id +
+                            "/advisors/" +
+                            _vm.advisorContacts.personInstitution.id +
+                            "/contacts/create",
                           disabled: _vm.cannot("create")
                         },
-                        "per-page": _vm.addressesPerPage,
-                        "filter-text": _vm.addressesFilterText
+                        "per-page": _vm.advisorContactsPerPage,
+                        "filter-text": _vm.advisorContactsFilterText
                       },
                       on: {
                         "set-per-page": function($event) {
-                          _vm.addressesPerPage = $event
+                          _vm.advisorContactsPerPage = $event
                         },
                         "input-filter-text": function($event) {
-                          _vm.addressesFilterText = $event.target.value
+                          _vm.advisorContactsFilterText = $event.target.value
                         }
                       }
                     },
@@ -102313,24 +102786,19 @@ var render = function() {
                         "app-table",
                         {
                           attrs: {
-                            pagination: _vm.addresses.data.links.pagination,
-                            columns: [
-                              "#",
-                              "Rua",
-                              "Numero",
-                              "Complemento",
-                              "Bairro",
-                              "Cidade"
-                            ],
-                            rows: _vm.addresses.data.rows
+                            pagination:
+                              _vm.advisorContacts.data.links.pagination,
+                            columns: ["#", "Tipo", "Contato"]
                           },
                           on: {
                             "goto-page": function($event) {
-                              _vm.addressesGotoPage($event)
+                              _vm.advisorContactsGotoPage($event)
                             }
                           }
                         },
-                        _vm._l(_vm.addresses.data.rows, function(address) {
+                        _vm._l(_vm.advisorContacts.data.rows, function(
+                          advisorContact
+                        ) {
                           return _c(
                             "tr",
                             {
@@ -102338,32 +102806,26 @@ var render = function() {
                               class: {
                                 "cursor-pointer": true,
                                 "bg-primary text-white": _vm.isCurrent(
-                                  address,
-                                  _vm.addresses.selected
+                                  advisorContact,
+                                  _vm.advisorContacts.selected
                                 )
                               },
                               on: {
                                 click: function($event) {
-                                  _vm.selectAddress(address)
+                                  _vm.selectAdvisorContacts(advisorContact)
                                 }
                               }
                             },
                             [
-                              _c("td", [_vm._v(_vm._s(address.id))]),
+                              _c("td", [_vm._v(_vm._s(advisorContact.id))]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.street))]),
+                              _c("td", [
+                                _vm._v(_vm._s(advisorContact.contact_type.name))
+                              ]),
                               _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.number))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.complement))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.neighbourhood))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.zipcode))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.city))]),
-                              _vm._v(" "),
-                              _c("td", [_vm._v(_vm._s(address.state))]),
+                              _c("td", [
+                                _vm._v(_vm._s(advisorContact.contact))
+                              ]),
                               _vm._v(" "),
                               _c(
                                 "td",
@@ -102377,11 +102839,14 @@ var render = function() {
                                       attrs: {
                                         to:
                                           "/people/" +
-                                          _vm.personInstitutions.person.id +
+                                          _vm.advisors.person.id +
                                           "/person-institutions/" +
-                                          _vm.addresses.personInstitution.id +
-                                          "/addresses/" +
-                                          address.id +
+                                          _vm.personInstitutions.selected.id +
+                                          "/advisors/" +
+                                          _vm.advisorContacts.personInstitution
+                                            .id +
+                                          "/contacts/" +
+                                          advisorContact.id +
                                           "/update",
                                         tag: "div",
                                         disabled: _vm.cannot("update")
@@ -102667,7 +103132,34 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "py-2 mb-4 text-center" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _vm.selected.id && _vm.events.data.links
+        ? _c("div", { staticClass: "row bg-primary text-white" }, [
+            _c("div", { staticClass: "col-12 mt-2" }, [
+              _c("h3", [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.selected.name) +
+                    "\n\n                    "
+                ),
+                _vm.subEvents.selected &&
+                _vm.subEvents.selected.id == _vm.events.selected.id &&
+                _vm.subEvents.selected.name
+                  ? _c("span", [
+                      _vm._v(
+                        "\n                        - " +
+                          _vm._s(_vm.subEvents.selected.name) +
+                          "\n                    "
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ])
+          ])
+        : _vm._e()
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
       _c(
@@ -102703,7 +103195,7 @@ var render = function() {
                     {
                       attrs: {
                         pagination: _vm.events.data.links.pagination,
-                        columns: ["#", "Nome", "Confirmado em", ""]
+                        columns: ["#", "Nome", ""]
                       },
                       on: {
                         "goto-page": function($event) {
@@ -102735,10 +103227,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "align-middle" }, [
                             _vm._v(_vm._s(event.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "align-middle" }, [
-                            _vm._v(_vm._s(event.confirmed_at))
                           ]),
                           _vm._v(" "),
                           _c(
@@ -102818,6 +103306,7 @@ var render = function() {
                           "Data",
                           "Hora",
                           "Confirmado em",
+                          "Realizado em",
                           ""
                         ]
                       },
@@ -102866,10 +103355,34 @@ var render = function() {
                             _vm._v(_vm._s(subEvent.confirmed_at))
                           ]),
                           _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(subEvent.finalized_at))
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "td",
                             { staticClass: "align-middle text-right" },
                             [
+                              !subEvent.finalized_at && subEvent.confirmed_at
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-success btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        title: "Finalizar Sub-evento",
+                                        disabled: _vm.cannot("update")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.finalizeSubEvent(subEvent)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
                               !subEvent.confirmed_at
                                 ? _c(
                                     "button",
@@ -103191,8 +103704,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "py-2 mb-4 text-center" }, [
-      _c("h2", [_vm._v("Eventos")])
+    return _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "col-12" }, [_c("h2", [_vm._v("Eventos")])])
     ])
   }
 ]
@@ -104685,6 +105198,25 @@ var render = function() {
                     expression: "form.fields.institution_id"
                   }
                 }),
+                _vm._v(" "),
+                _vm.source == "advisor"
+                  ? _c("app-select", {
+                      attrs: {
+                        name: "advised_id",
+                        label: "Assessor",
+                        required: true,
+                        form: _vm.form,
+                        elements: _vm.environment.tables.people
+                      },
+                      model: {
+                        value: _vm.form.fields.person_id,
+                        callback: function($$v) {
+                          _vm.$set(_vm.form.fields, "person_id", $$v)
+                        },
+                        expression: "form.fields.person_id"
+                      }
+                    })
+                  : _vm._e(),
                 _vm._v(" "),
                 _c("app-select", {
                   attrs: {
@@ -125491,11 +126023,11 @@ var routes = [{
 }, {
     path: '/people/:personId/person-institutions/create',
     component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
-    props: { mode: 'create' }
+    props: { mode: 'create', source: 'personInstitution' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/update',
     component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
-    props: { mode: 'update' }
+    props: { mode: 'update', source: 'personInstitution' }
 },
 // {
 //     path: '/contacts/create',
@@ -125569,11 +126101,27 @@ var routes = [{
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/contacts/create',
     component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
-    props: { mode: 'create' }
+    props: { mode: 'create', source: 'personInstitution' }
 }, {
     path: '/people/:personId/person-institutions/:personInstitutionId/contacts/:contactId/update',
     component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
-    props: { mode: 'update' }
+    props: { mode: 'update', source: 'personInstitution' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/contacts/create',
+    component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
+    props: { mode: 'create', source: 'advisor' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/contacts/:contactId/update',
+    component: __WEBPACK_IMPORTED_MODULE_17__views_ContactsForm___default.a,
+    props: { mode: 'update', source: 'advisor' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/create',
+    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
+    props: { mode: 'create', source: 'advisor' }
+}, {
+    path: '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/update',
+    component: __WEBPACK_IMPORTED_MODULE_9__views_PersonInstitutionsForm___default.a,
+    props: { mode: 'update', source: 'advisor' }
 }];
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]({
@@ -125688,6 +126236,158 @@ var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__
 });
 
 var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/advisorContacts.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: {
+        name: 'advisorContacts',
+        uri: 'people/{advisors.person.id}/person-institutions/{advisorContacts.personInstitution.id}/contacts',
+        isForm: true
+    },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        contact_type_id: null,
+        contact: null,
+        person_institution_id: null
+    })
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', {
+            field: 'person_institution_id',
+            value: payload.id
+        });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+    },
+    selectAdvisorContact: function selectAdvisorContact(context, payload) {}
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    }
+});
+
+var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    state: state,
+    actions: actions,
+    mutations: mutations,
+    getters: getters,
+    namespaced: true
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/advisors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_Form__ = __webpack_require__("./resources/js/classes/Form.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__ = __webpack_require__("./resources/js/store/modules/mixins/mutations.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__ = __webpack_require__("./resources/js/store/modules/mixins/actions.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins_states_js__ = __webpack_require__("./resources/js/store/modules/mixins/states.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__ = __webpack_require__("./resources/js/store/modules/mixins/getters.js");
+
+
+
+
+
+
+
+var __emptyModel = { id: null };
+
+var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
+    person: { id: null },
+
+    service: {
+        name: 'advisors',
+        uri: 'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/advisors',
+        isForm: true
+    },
+
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */]({
+        name: null,
+        nickname: null,
+        title: null
+    })
+});
+
+var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
+    setPersonInstitution: function setPersonInstitution(context, payload) {
+        context.commit('mutateSetPersonInstitution', payload);
+
+        context.commit('mutateSetFormField', {
+            field: 'person_institution_id',
+            value: payload.id
+        });
+
+        context.commit('mutateSetSelected', __emptyModel);
+
+        context.dispatch('load', payload);
+
+        context.dispatch('personInstitutions/loadAdvisors', 'loadAdvisors', {
+            root: true
+        });
+    },
+    setPerson: function setPerson(context, payload) {
+        context.commit('mutateSetPerson', payload);
+    }
+});
+
+var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
+    mutateSetPersonInstitution: function mutateSetPersonInstitution(state, payload) {
+        state.personInstitution = payload;
+    },
+    mutateSetPerson: function mutateSetPerson(state, payload) {
+        state.person = payload;
+    },
+    mutateSetAdvisors: function mutateSetAdvisors(state, payload) {
+        state.advisor = payload;
+    }
+});
+
+var getters = merge_objects(__WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__, {
+    getAdvisors: function getAdvisors(state, getters) {
+        return state.data;
+    }
+});
 
 /* harmony default export */ __webpack_exports__["a"] = ({
     state: state,
@@ -125972,7 +126672,8 @@ var state = {
     tables: {
         contact_types: __emptyTable,
         institutions: __emptyTable,
-        roles: __emptyTable
+        roles: __emptyTable,
+        people: __emptyTable
     }
 };
 
@@ -126005,6 +126706,13 @@ var actions = {
             context.commit('mutateSetRoles', response.data);
         });
     },
+    loadPeople: function loadPeople(context) {
+        return axios.get('/api/v1/people', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetPeople', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
@@ -126013,6 +126721,7 @@ var actions = {
         context.dispatch('loadContactTypes');
         context.dispatch('loadInstitutions');
         context.dispatch('loadRoles');
+        context.dispatch('loadPeople');
     }
 };
 
@@ -126034,6 +126743,9 @@ var mutations = {
     },
     mutateSetRoles: function mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload;
+    },
+    mutateSetPeople: function mutateSetPeople(state, payload) {
+        state['tables']['people'] = payload;
     }
 };
 
@@ -126585,6 +127297,10 @@ var actions = merge_objects((_merge_objects = {
             root: true
         });
 
+        context.dispatch('advisors/setPerson', payload, {
+            root: true
+        });
+
         context.dispatch('personCategories/setPerson', payload, {
             root: true
         });
@@ -126606,6 +127322,15 @@ var actions = merge_objects((_merge_objects = {
         context.dispatch('addresses/setPersonInstitution', payload, {
             root: true
         });
+        context.dispatch('advisors/setPersonInstitution', payload, {
+            root: true
+        });
+    },
+    selectAdvisor: function selectAdvisor(context, payload) {
+        context.dispatch('advisors/select', payload, { root: true });
+        context.dispatch('advisorContacts/setPersonInstitution', payload, {
+            root: true
+        });
     }
 }, _defineProperty(_merge_objects, 'selectPersonCategories', function selectPersonCategories(context, payload) {
     context.dispatch('categories/select', payload, { root: true });
@@ -126613,6 +127338,10 @@ var actions = merge_objects((_merge_objects = {
     context.dispatch('contacts/select', payload, { root: true });
 }), _defineProperty(_merge_objects, 'selectAddresses', function selectAddresses(context, payload) {
     context.dispatch('addresses/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAdvisors', function selectAdvisors(context, payload) {
+    context.dispatch('advisors/select', payload, { root: true });
+}), _defineProperty(_merge_objects, 'selectAdvisorContacts', function selectAdvisorContacts(context, payload) {
+    context.dispatch('advisorContacts/select', payload, { root: true });
 }), _merge_objects), __WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__);
 
 var mutations = merge_objects({
@@ -126623,6 +127352,8 @@ var mutations = merge_objects({
 
         state.selectedContact = __emptyModel;
         state.selectedAddress = __emptyModel;
+
+        state.selectedAdvisors = __emptyModel;
     },
     selectPersonInstitution: function selectPersonInstitution(state, payload) {
         state.selectedPersonInstitution = payload;
@@ -126636,6 +127367,9 @@ var mutations = merge_objects({
     selectAddress: function selectAddress(state, payload) {
         state.selectedAddress = payload;
     },
+    selectAdvisors: function selectAdvisors(state, payload) {
+        state.selectedAdvisors = payload;
+    },
     setPersonCategories: function setPersonCategories(state, payload) {
         state.personCategories = payload;
     },
@@ -126644,6 +127378,9 @@ var mutations = merge_objects({
     },
     setContacts: function setContacts(state, payload) {
         state.contacts = payload;
+    },
+    setAdvisors: function setAdvisors(state, payload) {
+        state.advisors = payload;
     },
     setAddresses: function setAddresses(state, payload) {
         state.addresses = payload;
@@ -126761,7 +127498,9 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         role_id: null,
         institution_id: null,
         title: null
-    })
+    }),
+
+    advisors: null
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
@@ -126783,13 +127522,24 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
             root: true
         });
 
+        context.dispatch('advisors/setPersonInstitution', __emptyModel, {
+            root: true
+        });
+
         context.dispatch('load', payload);
+        context.dispatch('loadAdvisors');
+    },
+    loadAdvisors: function loadAdvisors(context, payload) {
+        context.commit('mutateSetAdvisors', payload);
     }
 });
 
 var mutations = merge_objects(__WEBPACK_IMPORTED_MODULE_1__mixins_mutations_js__, {
     mutateSetPerson: function mutateSetPerson(state, payload) {
         state.person = payload;
+    },
+    mutateSetAdvisors: function mutateSetAdvisors(state, payload) {
+        state.advisors = payload;
     }
 });
 
@@ -126943,6 +127693,11 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
         post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(function () {
             context.dispatch('load', payload);
         });
+    },
+    finalize: function finalize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(function () {
+            context.dispatch('load', payload);
+        });
     }
 });
 
@@ -127004,7 +127759,9 @@ function rootSetMounted(state, mounted) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__modules_personInstitutions__ = __webpack_require__("./resources/js/store/modules/personInstitutions.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__ = __webpack_require__("./resources/js/store/modules/contact-types.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__modules_contacts__ = __webpack_require__("./resources/js/store/modules/contacts.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__modules_advisors__ = __webpack_require__("./resources/js/store/modules/advisors.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__modules_advisorContacts__ = __webpack_require__("./resources/js/store/modules/advisorContacts.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__modules_invitables__ = __webpack_require__("./resources/js/store/modules/invitables.js");
 /**
  * Imports
  */
@@ -127026,6 +127783,8 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vuex
 /**
  * Modules
  */
+
+
 
 
 
@@ -127066,7 +127825,7 @@ var state = {
     events: __WEBPACK_IMPORTED_MODULE_8__modules_events__["a" /* default */],
     subEvents: __WEBPACK_IMPORTED_MODULE_9__modules_subEvents__["a" /* default */],
     invitations: __WEBPACK_IMPORTED_MODULE_10__modules_invitations__["a" /* default */],
-    invitables: __WEBPACK_IMPORTED_MODULE_21__modules_invitables__["a" /* default */],
+    invitables: __WEBPACK_IMPORTED_MODULE_23__modules_invitables__["a" /* default */],
     addresses: __WEBPACK_IMPORTED_MODULE_12__modules_addresses__["a" /* default */],
     gate: __WEBPACK_IMPORTED_MODULE_7__modules_gate__["a" /* default */],
     roles: __WEBPACK_IMPORTED_MODULE_14__modules_roles__["a" /* default */],
@@ -127075,7 +127834,9 @@ var state = {
     personCategories: __WEBPACK_IMPORTED_MODULE_16__modules_personCategories__["a" /* default */],
     categorizables: __WEBPACK_IMPORTED_MODULE_17__modules_categorizables__["a" /* default */],
     personInstitutions: __WEBPACK_IMPORTED_MODULE_18__modules_personInstitutions__["a" /* default */],
-    contactTypes: __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__["a" /* default */]
+    contactTypes: __WEBPACK_IMPORTED_MODULE_19__modules_contact_types__["a" /* default */],
+    advisors: __WEBPACK_IMPORTED_MODULE_21__modules_advisors__["a" /* default */],
+    advisorContacts: __WEBPACK_IMPORTED_MODULE_22__modules_advisorContacts__["a" /* default */]
   }
 });
 
@@ -128341,6 +129102,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /***/ }),
 
+/***/ "./resources/js/views/mixins/advisorContacts.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('advisorContacts', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        advisorContacts: function advisorContacts(state) {
+            return state.advisorContacts;
+        }
+    }))
+});
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/advisors.js":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapActions"])('advisors', ['clearForm'])),
+
+    computed: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_0_vuex__["mapState"])({
+        advisors: function advisors(state) {
+            return state.advisors;
+        }
+    }))
+});
+
+/***/ }),
+
 /***/ "./resources/js/views/mixins/categories.js":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -128698,6 +129501,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
         personCategories: function personCategories(state) {
             return state.personCategories;
+        },
+
+        advisors: function advisors(state) {
+            return state.advisors;
+        },
+
+        advisorContacts: function advisorContacts(state) {
+            return state.advisorContacts;
         }
     }))
 });

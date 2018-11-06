@@ -1,6 +1,7 @@
 <?php
 namespace App\Data\Models;
 
+use App\Data\Models\Traits\Selectable;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -8,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 abstract class Base extends Model implements AuditableContract
 {
-    use AuditableTrait;
+    use AuditableTrait, Selectable;
 
     /**
      * @var bool
