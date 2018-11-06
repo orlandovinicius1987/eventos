@@ -15,11 +15,11 @@ class AlterTableInvitationsCodeAndUUID extends Migration
     {
         Schema::table('invitations', function (Blueprint $table) {
             $table
-                ->string('code_invitation')
+                ->string('code')
                 ->nullable()
                 ->index();
             $table
-                ->string('uuid_invitation')
+                ->string('uuid')
                 ->nullable()
                 ->index();
         });
@@ -33,8 +33,8 @@ class AlterTableInvitationsCodeAndUUID extends Migration
     public function down()
     {
         Schema::table('invitations', function (Blueprint $table) {
-            $table->dropColumn('code_invitation');
-            $table->dropColumn('uuid_invitation');
+            $table->dropColumn('code');
+            $table->dropColumn('uuid');
         });
     }
 }

@@ -150,6 +150,7 @@
                         @goto-page="invitationsGotoPage($event)"
                         :columns="[
                                     '#',
+                                    'Código',
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
@@ -166,6 +167,8 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
                         >
                             <td class="align-middle">{{ invitation.id }}</td>
+
+                            <td class="align-middle">{{ invitation.code }}</td>
 
                             <td class="align-middle">{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
 
@@ -305,7 +308,9 @@ export default {
             const $this = this
 
             confirm(
-                'Deseja realmente confirmar que o evento foi realizado ' + subEvent.name + '?',
+                'Deseja realmente confirmar que o evento foi realizado ' +
+                    subEvent.name +
+                    '?',
                 this,
             ).then(function(value) {
                 if (value) {
