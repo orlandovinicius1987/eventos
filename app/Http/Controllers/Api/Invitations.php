@@ -19,7 +19,7 @@ class Invitations extends Controller
      */
     public function all(Request $request, $eventId, $subEventId)
     {
-        UUID
+        app(InvitationsRepository::class)->invite(0, 0, 0);
         return app(InvitationsRepository::class)->filterBySubEventId(
             $subEventId
         );

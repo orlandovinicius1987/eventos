@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableInvitationsCode extends Migration
+class AlterTableInvitationsCodeAndUUID extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,9 @@ class AlterTableInvitationsCode extends Migration
     {
         Schema::table('invitations', function (Blueprint $table) {
             $table->string('code_invitation')->nullable();
+            $table->string('uuid_invitation')->nullable();
+
+            $table->index(['code_invitation', 'uuid_invitation']);
         });
     }
 
@@ -27,6 +30,9 @@ class AlterTableInvitationsCode extends Migration
     {
         Schema::table('invitations', function (Blueprint $table) {
             $table->dropColumn('code_invitation');
+            $table->dropColumn('uuid_invitation');
+
+            $table->dropIndex(['code_invitation', 'uuid_invitation']);
         });
     }
 }

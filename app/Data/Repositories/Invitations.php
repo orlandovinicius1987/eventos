@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
+use Ramsey\Uuid\Uuid;
 
 class Invitations extends Repository
 {
@@ -61,13 +62,12 @@ class Invitations extends Repository
 
     public function invite($eventId, $subEventId, $invitees)
     {
-        $codeInvitation = $this->codeInvitationGenerator();
-
         foreach ($invitees as $invitee) {
             Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
                 'person_institution_id' => $invitee['id'],
-                'code_invitation' => $codeInvitation,
+                'code_invitation' => codeInvitationGenerator(),
+                'uuid_invitation' => (string) Uuid::uuid4(),
             ]);
         }
     }
