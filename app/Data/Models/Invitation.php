@@ -35,22 +35,22 @@ class Invitation extends Base
 
     public function save(array $options = [])
     {
-        $this->code_invitation = $this->codeInvitationGenerator();
-        $this->uuid_invitation = (string) Uuid::uuid4();
+        $this->code = $this->invitationCodeGenerator();
+        $this->uuid = (string) Uuid::uuid4();
         return parent::save($options);
     }
 
-    private function codeInvitationGenerator()
+    private function invitationCodeGenerator()
     {
         do {
-            $codeInvitation = collect(
+            $code = collect(
                 array_merge(
                     array_random(range('A', 'Z'), 3),
                     array_random(range(0, 9), 3)
                 )
             )->implode('');
-        } while ($this->where('code_invitation', $codeInvitation)->first());
+        } while ($this->where('code', $code)->first());
 
-        return $codeInvitation;
+        return $code;
     }
 }
