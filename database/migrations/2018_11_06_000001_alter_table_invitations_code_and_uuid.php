@@ -14,10 +14,14 @@ class AlterTableInvitationsCodeAndUUID extends Migration
     public function up()
     {
         Schema::table('invitations', function (Blueprint $table) {
-            $table->string('code_invitation')->nullable();
-            $table->string('uuid_invitation')->nullable();
-
-            $table->index(['code_invitation', 'uuid_invitation']);
+            $table
+                ->string('code_invitation')
+                ->nullable()
+                ->index();
+            $table
+                ->string('uuid_invitation')
+                ->nullable()
+                ->index();
         });
     }
 
@@ -31,8 +35,6 @@ class AlterTableInvitationsCodeAndUUID extends Migration
         Schema::table('invitations', function (Blueprint $table) {
             $table->dropColumn('code_invitation');
             $table->dropColumn('uuid_invitation');
-
-            $table->dropIndex(['code_invitation', 'uuid_invitation']);
         });
     }
 }
