@@ -23,6 +23,16 @@ class SubEvents extends Controller
     }
 
     /**
+     * Get all data
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function associateableSubEvent()
+    {
+        return app(SubEventsRepository::class)->all();
+    }
+
+    /**
      * Store
      *
      * @param SubeventStore $request

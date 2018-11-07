@@ -27,9 +27,10 @@ const __emptyForm = {
     invitation_text: null,
     confirmation_text: null,
     address: __emptyAddress,
-    costume_id: __emptyModel,
-    sector_id: __emptyModel,
+    costume_id: null,
+    sector_id: null,
     event_id: __emptyModel,
+    associated_subevent_id: null,
 }
 
 const state = merge_objects(statesMixin.common, {

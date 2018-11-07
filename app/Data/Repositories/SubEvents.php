@@ -37,7 +37,7 @@ class SubEvents extends Repository
     {
         $subEvent = $this->findById($subEventId);
 
-        $subEvent->finalized_at = now();
+        $subEvent->ended_at = now();
 
         $subEvent->save();
     }
@@ -66,10 +66,10 @@ class SubEvents extends Repository
 
     public function storeFromArray($array)
     {
-        $this->createAddress(
-            ($subEvent = parent::storeFromArray($array)),
-            $array['address']
-        );
+        $subEvent = parent::storeFromArray($array);
+        if ($array['address']['zipcode']) {
+            $this->createAddress($subEvent, $array['address']);
+        }
 
         return $subEvent;
     }
@@ -78,7 +78,7 @@ class SubEvents extends Repository
     {
         $subEvent = parent::update($id, $attributes);
 
-        if (!$subEvent->address) {
+        if (!$subEvent->address && $array['address']['zipcode']) {
             $this->createAddress($subEvent, $attributes['address']);
         } else {
             app(AddressesRepository::class)->updateAddress(
