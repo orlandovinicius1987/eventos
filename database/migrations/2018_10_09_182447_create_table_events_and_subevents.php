@@ -37,6 +37,7 @@ class CreateTableEventsAndSubEvents extends Migration
             $table->string('credential_send_text')->nullable();
 
             $table->integer('event_id');
+            $table->integer('associated_subevent_id')->nullable();
 
             $table->integer('confirmed_by')->nullable();
             $table->date('confirmed_at')->nullable();

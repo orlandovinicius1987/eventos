@@ -19,6 +19,12 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
     Route::get('/dashboard', 'Dashboard@data');
 
     Route::group(['middleware' => 'auth'], function () {
+        Route::group(['prefix' => '/sub-events'], function () {
+            Route::get('/', 'SubEvents@associateableSubEvent')->name(
+                'sub-events.associateableSubEvent'
+            );
+        });
+
         Route::group(['prefix' => '/events'], function () {
             Route::get('/', 'Events@all')->name('events.all');
 
