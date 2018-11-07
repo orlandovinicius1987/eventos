@@ -11,8 +11,12 @@
             height: 100%;
             background-image: url("/images/alerj-logo-horizontal.png") ;
             background-repeat: no-repeat ;
-            background-position: bottom;
+            background-position: bottom 100px center;
             background-size: 300px;
+        }
+
+        .container-fluid {
+            display: none !important;
         }
     </style>
 
@@ -27,7 +31,9 @@
     <div class="row align-self-center w-100 login">
         <div class="col-md-8 col-lg-6 mx-auto">
             <div class="card">
-                <div class="card-header">Entrar</div>
+                <div class="card-header">
+                    <img src="/svg/logo-eventos-alerj.svg" class="eventos-logo-login img-responsive" alt="Eventos - Alerj">
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
@@ -35,8 +41,8 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="email" class="col-form-label">Login Alerj</label>
-                                <input id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                {{--<label for="email" class="col-form-label">Login Alerj</label>--}}
+                                <input id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus  placeholder="Login Alerj">
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -48,8 +54,8 @@
 
                         <div class="form-group row">
                             <div class="col-md-12">
-                                <label for="password" class="col-form-label">Senha</label>
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                                {{--<label for="password" class="col-form-label">Senha</label>--}}
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Senha" >
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
