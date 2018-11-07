@@ -3,8 +3,7 @@
         <label :for="name" class="mb-0 mt-4">{{ label }}</label>
 
         <vue-select
-            v-bind:value="value"
-            v-on:input="$emit('input', $event.target.value)"
+            v-model="selected"
             :id="name"
             :name="name"
             :required="required"
@@ -27,6 +26,20 @@ export default {
             return _.map(rows, value => {
                 return { label: value.name, value: value.id }
             })
+        },
+    },
+
+    computed: {
+        selected: {
+            get() {
+                return this.value
+            },
+
+            set(selected) {
+                if (selected !== null && typeof selected != 'object') {
+                    this.$emit('input', selected.value)
+                }
+            },
         },
     },
 }
