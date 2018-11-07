@@ -19,6 +19,8 @@ class SubEvent extends Base
         'costume_id',
         'sector_id',
         'associated_subevent_id',
+        'ended_at',
+        'ended_by',
     ];
 
     protected $with = ['event', 'address', 'costume', 'sector'];

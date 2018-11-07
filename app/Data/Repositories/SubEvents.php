@@ -37,7 +37,7 @@ class SubEvents extends Repository
     {
         $subEvent = $this->findById($subEventId);
 
-        $subEvent->finalized_at = now();
+        $subEvent->ended_at = now();
 
         $subEvent->save();
     }

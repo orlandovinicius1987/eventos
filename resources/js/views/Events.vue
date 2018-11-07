@@ -96,7 +96,7 @@
 
                             <td class="align-middle">{{ subEvent.confirmed_at }}</td>
 
-                            <td class="align-middle">{{ subEvent.finalized_at }}</td>
+                            <td class="align-middle">{{ subEvent.ended_at }}</td>
 
                             <td class="align-middle text-right">
                                 <button
@@ -110,7 +110,7 @@
                                 </button>
 
                                 <button
-                                    v-if="!subEvent.finalized_at && subEvent.confirmed_at"
+                                    v-if="!subEvent.ended_at && subEvent.confirmed_at"
                                     class="btn btn-primary btn-sm ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
                                     title="Finalizar Sub-evento"
@@ -311,6 +311,18 @@ export default {
                 'Deseja realmente confirmar que o evento foi realizado ' +
                     subEvent.name +
                     '?',
+                this,
+            ).then(function(value) {
+                if(value){
+                    $this.finalizeSubEventReconfirmed(subEvent);
+                }
+            })
+        },
+
+        finalizeSubEventReconfirmed(subEvent){
+            const $this = this
+            confirm(
+                'Você tem realmente certeza de marcar o evento como realizado ?',
                 this,
             ).then(function(value) {
                 if (value) {
