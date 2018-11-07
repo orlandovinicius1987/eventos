@@ -25,6 +25,7 @@ const state = {
         people: __emptyTable,
         costumes: __emptyTable,
         sectors: __emptyTable,
+        sub_events: __emptyTable,
     },
 }
 
@@ -97,6 +98,16 @@ const actions = {
             })
     },
 
+    loadSubEvents(context) {
+        return axios
+            .get('/api/v1/sub-events', {
+                params: { query: context.getters.getFullQueryFilter },
+            })
+            .then(response => {
+                context.commit('mutateSetSubEvents', response.data)
+            })
+    },
+
     absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel)
 
@@ -108,6 +119,7 @@ const actions = {
         context.dispatch('loadPeople')
         context.dispatch('loadCostumes')
         context.dispatch('loadSectors')
+        context.dispatch('loadSubEvents')
     },
 }
 
@@ -142,6 +154,10 @@ const mutations = {
 
     mutateSetSectors(state, payload) {
         state['tables']['sectors'] = payload
+    },
+
+    mutateSetSubEvents(state, payload) {
+        state['tables']['sub_events'] = payload
     },
 }
 

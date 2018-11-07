@@ -30,6 +30,7 @@ const __emptyForm = {
     costume_id: null,
     sector_id: null,
     event_id: __emptyModel,
+    associated_subevent_id: null,
 }
 
 const state = merge_objects(statesMixin.common, {
