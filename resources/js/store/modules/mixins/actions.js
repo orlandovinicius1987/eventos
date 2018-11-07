@@ -3,6 +3,8 @@ export function load(context) {
         return
     }
 
+    dd('load', context.state.service ? context.state.service.name : context)
+
     return axios
         .get(makeDataUrl(context), {
             params: { query: context.getters.getQueryFilter },

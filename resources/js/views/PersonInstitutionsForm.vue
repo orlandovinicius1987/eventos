@@ -10,53 +10,58 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-select
-                                    name="institution_id"
-                                    label="Instituição"
-                                    v-model="form.fields.institution_id"
-                                    :required="true"
-                                    :form="form"
-                                    :elements="environment.tables.institutions"
+                                name="institution_id"
+                                label="Instituição"
+                                v-model="form.fields.institution_id"
+                                :required="true"
+                                :form="form"
+                                :elements="environment.tables.institutions"
                             ></app-select>
 
                             <app-select
-                                    v-if="source == 'advisor'"
-                                    name="advised_id"
-                                    label="Assessor"
-                                    v-model="form.fields.person_id"
-                                    :required="true"
-                                    :form="form"
-                                    :elements="environment.tables.people"
+                                v-if="source == 'advisor'"
+                                name="advised_id"
+                                label="Assessor"
+                                v-model="form.fields.person_id"
+                                :required="true"
+                                :form="form"
+                                :elements="environment.tables.people"
                             ></app-select>
 
                             <app-select
-                                    name="role_id"
-                                    label="Funções"
-                                    v-model="form.fields.role_id"
-                                    :required="true"
-                                    :form="form"
-                                    :elements="environment.tables.roles"
+                                name="role_id"
+                                label="Funções"
+                                v-model="form.fields.role_id"
+                                :required="true"
+                                :form="form"
+                                :elements="environment.tables.roles"
                             ></app-select>
 
                             <app-input
-                                    name="title"
-                                    label="Título"
-                                    v-model="form.fields.title"
-                                    :required="true"
-                                    :form="form"
+                                name="title"
+                                label="Título"
+                                v-model="form.fields.title"
+                                :required="true"
+                                :form="form"
                             ></app-input>
-
-
                         </div>
                     </div>
 
-
-
-
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button
+                                @click.prevent="saveModel()"
+                                class="btn btn-outline-secondary"
+                                type="submit"
+                            >
+                                gravar
+                            </button>
 
-                            <router-link to="/" tag="button" class="btn btn-success">
+                            <router-link
+                                to="/"
+                                tag="button"
+                                class="btn btn-success"
+                            >
                                 cancelar
                             </router-link>
                         </div>
@@ -76,7 +81,7 @@ import advisors from './mixins/advisors'
 const service = {
     name: 'personInstitutions',
     uri: 'people/{people.selected.id}/person-institutions',
-    isForm: true,
+    isForm: true
 }
 
 export default {
@@ -86,7 +91,7 @@ export default {
 
     data() {
         return {
-            service: service,
+            service: service
         }
     },
 
@@ -94,32 +99,35 @@ export default {
         fillAdditionalFormFields() {
             const $this = this
 
-            if (this.mode == 'create') {
+            if (this.mode === 'create') {
                 this.$store.dispatch('personInstitutions/clearForm', {
-                    root: true,
+                    root: true
                 })
-            } else if (this.mode == 'update') {
+            } else if (this.mode === 'update') {
                 this.$store.commit(
                     'personInstitutions/mutateFormData',
-                    $this.advisors.selected,
+                    $this.personInstitutions.selected
                 )
             }
-
-            if (this.source == 'advisor') {
+            Controllers /
+                Api /
+                PersonInstitutions.phpControllers /
+                Api /
+                PersonInstitutions.php
+            if (this.source === 'advisor') {
                 this.$store.commit('personInstitutions/mutateSetFormField', {
                     field: 'advised_id',
-                    value: this.personInstitutions.selected.id,
+                    value: this.personInstitutions.selected.id
                 })
             } else {
                 this.$store.commit('personInstitutions/mutateSetFormField', {
                     field: 'person_id',
-                    value: this.personInstitutions.person.id,
+                    value: this.personInstitutions.person.id
                 })
             }
-        },
-    },
+        }
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

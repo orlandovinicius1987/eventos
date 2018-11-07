@@ -16,6 +16,11 @@ abstract class Repository
      */
     protected $model;
 
+    private function qualifyColumn($name)
+    {
+        return $this->model()->qualifyColumn($name);
+    }
+
     /**
      * @param $data
      *
@@ -111,6 +116,8 @@ abstract class Repository
 
     protected function findByAnyColumnName($name, $arguments)
     {
+        info($this->qualifyColumn($name));
+
         return $this->makeQueryByAnyColumnName(
             'findBy',
             $name,
@@ -152,7 +159,10 @@ abstract class Repository
     {
         $columnName = snake_case(Str::after($name, $startsWith));
 
-        return $this->newQuery()->where($columnName, $arguments);
+        return $this->newQuery()->where(
+            $this->qualifyColumn($columnName),
+            $arguments
+        );
     }
 
     /**

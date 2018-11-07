@@ -24,23 +24,38 @@ export default {
     methods: {
         makeOptions(rows) {
             return _.map(rows, value => {
-                return { label: value.name, value: value.id }
+                return this.makeObject(value)
             })
         },
+
+        select(value) {
+            this.$emit('input', value)
+        },
+
+        findById(id) {
+            if (!this.elements) {
+                return { name: null, id: null }
+            }
+
+            return _.find(this.elements.rows, value => {
+                return value.id === id
+            })
+        },
+
+        makeObject(value) {
+            return { label: value.name, value: value.id }
+        }
     },
 
     computed: {
         selected: {
             get() {
-                return this.value
+                return this.makeObject(this.findById(this.value))
             },
-
-            set(selected) {
-                if (selected !== null && typeof selected != 'object') {
-                    this.$emit('input', selected.value)
-                }
-            },
-        },
-    },
+            set(item) {
+                return this.$emit('input', item.value)
+            }
+        }
+    }
 }
 </script>
