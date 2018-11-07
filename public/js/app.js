@@ -4928,6 +4928,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -27743,7 +27752,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -105440,6 +105449,23 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
+                _c("app-select", {
+                  attrs: {
+                    name: "sector_id",
+                    label: "Galeria",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.sectors
+                  },
+                  model: {
+                    value: _vm.form.fields.sector_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "sector_id", $$v)
+                    },
+                    expression: "form.fields.sector_id"
+                  }
+                }),
+                _vm._v(" "),
                 _c("app-text-area", {
                   attrs: {
                     name: "invitation_text",
@@ -126708,7 +126734,8 @@ var state = {
         institutions: __emptyTable,
         roles: __emptyTable,
         people: __emptyTable,
-        costumes: __emptyTable
+        costumes: __emptyTable,
+        sectors: __emptyTable
     }
 };
 
@@ -126755,6 +126782,13 @@ var actions = {
             context.commit('mutateSetCostumes', response.data);
         });
     },
+    loadSectors: function loadSectors(context) {
+        return axios.get('/api/v1/sectors', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetSectors', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
@@ -126765,6 +126799,7 @@ var actions = {
         context.dispatch('loadRoles');
         context.dispatch('loadPeople');
         context.dispatch('loadCostumes');
+        context.dispatch('loadSectors');
     }
 };
 
@@ -126792,6 +126827,9 @@ var mutations = {
     },
     mutateSetCostumes: function mutateSetCostumes(state, payload) {
         state['tables']['costumes'] = payload;
+    },
+    mutateSetSectors: function mutateSetSectors(state, payload) {
+        state['tables']['sectors'] = payload;
     }
 };
 
@@ -127697,7 +127735,8 @@ var __emptyForm = {
     invitation_text: null,
     confirmation_text: null,
     address: __emptyAddress,
-    costume_id: __emptyAddress,
+    costume_id: __emptyModel,
+    sector_id: __emptyModel,
     event_id: __emptyModel
 };
 

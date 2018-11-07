@@ -198,6 +198,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::get('/', 'Costumes@all')->name('costumes.all');
         });
 
+        Route::group(['prefix' => '/sectors'], function () {
+            Route::get('/', 'Sectors@all')->name('sectors.all');
+        });
+
         Route::group(['prefix' => '/addresses'], function () {
             Route::get('/', 'Addresses@all')->name('addresses.all');
 
