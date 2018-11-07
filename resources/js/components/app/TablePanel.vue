@@ -15,7 +15,7 @@
                             :value="filterText"
                             @input="$emit('input-filter-text', $event)"
                             placeholder="filtrar"
-                        >
+                        />
                     </div>
 
                     <div class="col-2 p-0">
@@ -44,9 +44,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12">
-                <slot></slot>
-            </div>
+            <div class="col-12"><slot></slot></div>
         </div>
     </div>
 </template>

@@ -78,7 +78,7 @@ class SubEvents extends Repository
     {
         $subEvent = parent::update($id, $attributes);
 
-        if (!$subEvent->address) {
+        if (!$subEvent->address && $array['address']['zipcode']) {
             $this->createAddress($subEvent, $attributes['address']);
         } else {
             app(AddressesRepository::class)->updateAddress(
