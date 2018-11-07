@@ -194,6 +194,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/', 'Roles@store')->name('roles.store');
         });
 
+        Route::group(['prefix' => '/costumes'], function () {
+            Route::get('/', 'Costumes@all')->name('costumes.all');
+        });
+
         Route::group(['prefix' => '/addresses'], function () {
             Route::get('/', 'Addresses@all')->name('addresses.all');
 
