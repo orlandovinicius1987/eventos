@@ -99,6 +99,14 @@
                             <td class="align-middle">{{ subEvent.confirmed_at }}</td>
 
                             <td class="align-middle text-right">
+                                <router-link
+                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/detail'"
+                                        tag="div"
+                                        class="btn btn-primary btn-sm ml-1 pull-right"
+                                >
+                                    <i class="fas fa-info-circle"></i>
+                                </router-link>
+
                                 <button
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm ml-1 pull-right"

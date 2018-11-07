@@ -19,6 +19,7 @@ import ContactsForm from './views/ContactsForm'
 import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
+import Checkin from './views/Checkin'
 import Import from './views/Import'
 import { format } from 'util'
 
@@ -56,6 +57,11 @@ let routes = [
     {
         path: '/events/:eventId/sub-events/:subEventId/update',
         component: SubEventsForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/events/:eventId/sub-events/:subEventId/detail',
+        component: Checkin,
         props: { mode: 'update' },
     },
     {
