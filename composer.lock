@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "13a6667f5abb2687673523a8f4d4e405",
+    "content-hash": "f78f35cd5dfaa07b7c8e55b140adffb6",
     "packages": [
         {
             "name": "cakephp/chronos",
@@ -430,6 +430,43 @@
             "description": "Set trusted proxies for Laravel",
             "keywords": ["load balancing", "proxy", "trusted proxy"],
             "time": "2018-02-07T20:20:57+00:00"
+        },
+        {
+            "name": "geekcom/validator-docs",
+            "version": "v1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geekcom/validator-docs.git",
+                "reference": "43a83ee2e1a31a4e1ac3ef8741de5ac63bdb6081"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geekcom/validator-docs/zipball/43a83ee2e1a31a4e1ac3ef8741de5ac63bdb6081",
+                "reference": "43a83ee2e1a31a4e1ac3ef8741de5ac63bdb6081",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "5.*"
+            },
+            "require-dev": {
+                "laravel/laravel": "5.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "geekcom\\ValidatorDocs\\": "src/validator-docs"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": ["MIT"],
+            "authors": [
+                {
+                    "name": "Daniel Rodrigues Lima",
+                    "email": "danielrodrigues-ti@hotmail.com"
+                }
+            ],
+            "description": "Biblioteca para validação de Título de Eleitor, CPF, CNPJ e CNH",
+            "time": "2018-04-20T14:49:42+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
