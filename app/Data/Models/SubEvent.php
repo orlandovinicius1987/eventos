@@ -16,17 +16,29 @@ class SubEvent extends Base
         'confirmation_text',
         'credential_send_text',
         'event_id',
+        'costume_id',
+        'sector_id',
     ];
 
-    protected $with = ['event'];
+    protected $with = ['event', 'address', 'costume', 'sector'];
 
-    public function addresses()
+    public function address()
     {
-        return $this->morphMany(Address::class, 'addressable');
+        return $this->morphOne(Address::class, 'addressable');
     }
 
     public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function costume()
+    {
+        return $this->belongsTo(Costume::class);
+    }
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
     }
 }

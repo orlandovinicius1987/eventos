@@ -25,13 +25,16 @@
                                 :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contactType, selected)}"
                         >
                             <td class="align-middle">{{ contactType.id }}</td>
+
                             <td class="align-middle">{{ contactType.name }}</td>
+
                             <td class="align-middle">{{ contactType.code }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                         :to="'/contact-types/'+contactType.id+'/update'"
                                         tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('create')"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -46,21 +49,21 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import contactTypes from './mixins/contact-types'
-    import permissions from './mixins/permissions'
+import crud from './mixins/crud'
+import contactTypes from './mixins/contact-types'
+import permissions from './mixins/permissions'
 
-    const service = { name: 'contactTypes', uri: 'contact-types' }
+const service = { name: 'contactTypes', uri: 'contact-types' }
 
-    export default {
-        mixins: [crud, contactTypes, permissions],
+export default {
+    mixins: [crud, contactTypes, permissions],
 
-        data() {
-            return {
-                service: service,
-            }
+    data() {
+        return {
+            service: service,
         }
-    }
+    },
+}
 </script>
 
 <style>

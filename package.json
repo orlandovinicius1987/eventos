@@ -40,8 +40,13 @@
         "vue-router": "^3.0.1",
         "vue-swal": "^0.1.0",
         "vue-template-compiler": "^2.5.17",
+        "vue-the-mask": "^0.11.1",
+        "vue2-google-maps": "^0.10.2",
         "vuetable-2": "^1.7.5",
         "vuex": "^3.0.1",
         "webpack-livereload-plugin": "^1.2.0"
+    },
+    "dependencies": {
+        "vue-select": "^2.5.1"
     }
 }

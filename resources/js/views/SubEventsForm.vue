@@ -46,6 +46,24 @@
                                 cols="100"
                             ></app-input>
 
+                            <app-select
+                                    name="costume_id"
+                                    label="Traje"
+                                    v-model="form.fields.costume_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.costumes"
+                            ></app-select>
+
+                            <app-select
+                                    name="sector_id"
+                                    label="Galeria"
+                                    v-model="form.fields.sector_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.sectors"
+                            ></app-select>
+
                             <app-text-area
                                 name="invitation_text"
                                 label="Texto de convite"
@@ -75,6 +93,47 @@
                                 rows="10"
                                 cols="100"
                             ></app-text-area>
+
+
+                            <!--:add-button="{ uri: 'events/{events.selected.id}/sub-event/'+subEvent.selected.id+'/addresses/create', disabled: cannot('create') }"-->
+
+                            <app-table-panel
+                                    v-if="mode == 'create'"
+                                    :title="'Endereços disponíveis (' +subEvents.data.available_addresses.length+ ' endereços)'"
+                            >
+                                <app-table
+                                        :columns="['#', 'Endereço']"
+                                        :rows="subEvents.data.available_addresses"
+                                >
+                                    <tr
+                                            @click="selectAddressInsideEvent(address)"
+                                            v-for="address in subEvents.data.available_addresses" class="cursor-pointer"
+                                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address, addresses.selected)}"
+                                    >
+                                        <td>{{ address.id }}</td>
+
+                                        <td>{{ address.street + ', ' + address.number + (address.complement ? ' - '+address.complement : '')}}</td>
+
+                                        <td class="align-middle text-right">
+                                            <router-link
+                                                    :to="'events/{events.selected.id}/sub-event/'+subEvents.selected.id+'/addresses/'+address.id+'/update'"
+                                                    tag="div"
+                                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                                    :disabled="cannot('update')"
+                                            >
+                                                <i class="fa fa-edit"></i>
+                                            </router-link>
+                                        </td>
+                                    </tr>
+                                </app-table>
+                            </app-table-panel>
+
+                            <app-address-form
+                                :form="subEvents.form"
+                                :address="subEvents.form.fields.address"
+                                :google-maps="environment.google_maps"
+                            >
+                            </app-address-form>
                         </div>
                     </div>
 
@@ -94,27 +153,79 @@
 </template>
 
 <script>
-    import crud from './mixins/crud'
-    import events from './mixins/events'
-    import { mapState } from 'vuex'
+import crud from './mixins/crud'
+import subEvents from './mixins/sub-events'
+import permissions from './mixins/permissions'
+import { mapState } from 'vuex'
+import * as VueGoogleMaps from 'vue2-google-maps'
 
-    const service = { name: 'subEvents', uri: 'events/{events.selected.id}/sub-events', performLoad: false }
+const service = {
+    name: 'subEvents',
+    uri: 'events/{events.selected.id}/sub-events',
+    performLoad: false,
+}
 
-    export default {
-        props: ['mode'],
+export default {
+    props: ['mode'],
 
-        mixins: [crud, events],
+    mixins: [crud, subEvents, permissions],
 
-        data() {
-            return {
-                service: service,
-            }
+    data() {
+        return {
+            service: service,
+        }
+    },
+
+    methods: {
+        selectAddressInsideEvent(address) {
+            context.commit('mutateSetFormField', {
+                field: 'zipcode',
+                value: address.zipcode,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'street',
+                value: address.street,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'number',
+                value: address.number,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'complement',
+                value: address.complement,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'neighbourhood',
+                value: address.neighbourhood,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'city',
+                value: address.city,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'state',
+                value: address.state,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'latitude',
+                value: address.latitude,
+            })
+            context.commit('mutateSetFormField', {
+                field: 'longitude',
+                value: address.longitude,
+            })
         },
 
-        computed: {
-            ...mapState('events', ['selectedEvent', 'selectedSubEvent']),
-        }
-    }
+        fillAdditionalFormFields() {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                field: 'event_id',
+                value: this.events.selected.id,
+            })
+        },
+    },
+
+    mounted() {},
+}
 </script>
 
 <style>

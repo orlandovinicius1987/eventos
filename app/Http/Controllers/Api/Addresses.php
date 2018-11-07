@@ -11,17 +11,13 @@ use Illuminate\Http\Request;
 class Addresses extends Controller
 {
     /**
-     * @param Request $request
-     * @param $personInstitutionId
-     * @return mixed
+     * Get all data
+     *
+     * @return array
      */
-    public function allByPersonInstitution(
-        Request $request,
-        $personInstitutionId
-    ) {
-        return app(AddressesRepository::class)->allByPersonInstitutionId(
-            $personInstitutionId
-        );
+    public function all()
+    {
+        return app(AddressesRepository::class)->all();
     }
 
     /**

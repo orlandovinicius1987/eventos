@@ -8,6 +8,8 @@ class Role extends Base
      */
     protected $fillable = ['name'];
 
+    protected $orderBy = ['name' => 'asc'];
+
     public function people()
     {
         return $this->hasMany(Contact::class);

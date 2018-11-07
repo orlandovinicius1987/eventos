@@ -2,6 +2,10 @@
 
 namespace App\Services\Environment;
 
+use App\Data\Repositories\ContactTypes as ContactTypesRepository;
+use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
+use App\Data\Repositories\Institutions as InstitutionsRepository;
+use App\Data\Repositories\Roles as RolesRepository;
 use PragmaRX\Version\Package\Facade as Version;
 
 class Service
@@ -33,12 +37,12 @@ class Service
 
             'token' => csrf_token(),
 
-            'captchaEnabled' =>
+            'captcha_enabled' =>
                 app()->environment() == 'local' && env('DISABLE_CAPTCHA')
                     ? false
                     : true,
 
-            'captchaSiteKey' => config('services.recaptcha.siteKey'),
+            'captcha_siteKey' => config('services.recaptcha.siteKey'),
 
             'debug' => config('app.debug'),
 
@@ -59,6 +63,15 @@ class Service
             'old' => coollect(old())
                 ->except('password', 'password_confirmation')
                 ->toArray(),
+
+            'google_maps' => [
+                'api_key' => config('services.google_maps.api_key'),
+
+                'geolocation' => [
+                    'latitude' => -22.90337724433402,
+                    'longitude' => -43.17343861373911,
+                ],
+            ],
         ]);
     }
 }

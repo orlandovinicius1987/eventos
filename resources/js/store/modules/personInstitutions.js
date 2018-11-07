@@ -10,24 +10,30 @@ const __emptyModel = { id: null }
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
 
-    service: { name: 'personInstitutions', uri: 'people/{people.selected.id}/person-institutions', isForm: true },
+    service: {
+        name: 'personInstitutions',
+        uri: 'people/{people.selected.id}/person-institutions',
+        isForm: true,
+    },
 
     form: new Form({
-        name: null,
-        date: null,
-        time: null,
-        place: null,
-        invitation_text: null,
-        confirmation_text: null,
-        credential_send_text: null,
+        person_id: null,
+        role_id: null,
+        institution_id: null,
+        title: null,
     }),
+
+    advisors: null,
 })
 
 const actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
         context.commit('mutateSetPerson', payload)
 
-        context.commit('mutateSetFormField', { field: 'person_id', value: payload.id })
+        context.commit('mutateSetFormField', {
+            field: 'person_id',
+            value: payload.id,
+        })
 
         context.commit('mutateSetSelected', __emptyModel)
 
@@ -39,13 +45,26 @@ const actions = merge_objects(actionsMixin, {
             root: true,
         })
 
+        context.dispatch('advisors/setPersonInstitution', __emptyModel, {
+            root: true,
+        })
+
         context.dispatch('load', payload)
+        context.dispatch('loadAdvisors')
+    },
+
+    loadAdvisors(context, payload) {
+        context.commit('mutateSetAdvisors', payload)
     },
 })
 
 const mutations = merge_objects(mutationsMixin, {
     mutateSetPerson(state, payload) {
         state.person = payload
+    },
+
+    mutateSetAdvisors(state, payload) {
+        state.advisors = payload
     },
 })
 

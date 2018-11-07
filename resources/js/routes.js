@@ -1,19 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import AddressesForm from './views/AddressesForm'
 import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
 import People from './views/People'
+import CategorizablesForm from './views/CategorizablesForm'
 import Events from './views/Events'
 import Categories from './views/Categories'
 import CategoriesForm from './views/CategoriesForm'
 import PersonInstitutionsForm from './views/PersonInstitutionsForm'
+import PersonInstitutionsAddressesForm from './views/PersonInstitutionsAddressesForm'
 import Roles from './views/Roles'
 import RolesForm from './views/RolesForm'
 import Institutions from './views/Institutions'
 import InstitutionsForm from './views/InstitutionsForm'
 import ContactTypes from './views/ContactTypes'
 import ContactTypesForm from './views/ContactTypesForm'
+import ContactsForm from './views/ContactsForm'
 import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
@@ -78,13 +80,13 @@ let routes = [
     {
         path: '/people/:personId/person-institutions/create',
         component: PersonInstitutionsForm,
-        props: { mode: 'create' },
+        props: { mode: 'create', source: 'personInstitution' },
     },
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/update',
         component: PersonInstitutionsForm,
-        props: { mode: 'update' },
+        props: { mode: 'update', source: 'personInstitution' },
     },
     // {
     //     path: '/contacts/create',
@@ -99,14 +101,19 @@ let routes = [
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
-        component: AddressesForm,
+        component: PersonInstitutionsAddressesForm,
         props: { mode: 'create' },
     },
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/addresses/:id/update',
-        component: AddressesForm,
+        component: PersonInstitutionsAddressesForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/people/:personId/categories/create',
+        component: CategorizablesForm,
+        props: { mode: 'create' },
     },
     {
         path: '/roles',
@@ -167,6 +174,43 @@ let routes = [
         path: '/contact-types/:id/update',
         component: ContactTypesForm,
         props: { mode: 'update' },
+    },
+    {
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/contacts/create',
+        component: ContactsForm,
+        props: { mode: 'create', source: 'personInstitution' },
+    },
+    {
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/contacts/:contactId/update',
+        component: ContactsForm,
+        props: { mode: 'update', source: 'personInstitution' },
+    },
+
+    {
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/contacts/create',
+        component: ContactsForm,
+        props: { mode: 'create', source: 'advisor' },
+    },
+    {
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/contacts/:contactId/update',
+        component: ContactsForm,
+        props: { mode: 'update', source: 'advisor' },
+    },
+    {
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/advisors/create',
+        component: PersonInstitutionsForm,
+        props: { mode: 'create', source: 'advisor' },
+    },
+    {
+        path:
+            '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/update',
+        component: PersonInstitutionsForm,
+        props: { mode: 'update', source: 'advisor' },
     },
 ]
 

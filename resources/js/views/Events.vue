@@ -1,7 +1,29 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>Eventos</h2>
+            <div class="row">
+                <div class="col-12">
+                    <h2>Eventos</h2>
+                </div>
+            </div>
+
+            <div
+                v-if="selected.id && events.data.links"
+                class="row bg-primary text-white"
+            >
+                <div class="col-12 mt-2">
+                    <h3
+
+                    >
+                        {{ selected.name }}
+
+                        <span v-if="subEvents.selected && subEvents.selected.id == events.selected.id && subEvents.selected.name">
+                            - {{ subEvents.selected.name }}
+                        </span>
+                    </h3>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
@@ -18,7 +40,7 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['#','Nome','Confirmado em', '']"
+                        :columns="['#','Nome','']"
                     >
                         <tr
                             @click="selectEvent(event)"
@@ -26,14 +48,15 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
                         >
                             <td class="align-middle">{{ event.id }}</td>
+
                             <td class="align-middle">{{ event.name }}</td>
-                            <td class="align-middle">{{ event.confirmed_at }}</td>
-                            <td class="align-middle">
+
+                            <td class="align-middle text-right">
                                 <router-link
-                                        :to="'/events/'+event.id+'/update'"
-                                        tag="div"
-                                        class="btn btn-danger btn-sm mr-1 pull-right"
-                                        :disabled="cannot('update')"
+                                    :to="'/events/'+event.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -56,7 +79,7 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora','']"
+                        :columns="['#','Nome','Data','Hora','Confirmado em','Realizado em','']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -64,15 +87,43 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
                             <td class="align-middle">{{ subEvent.id }}</td>
+
                             <td class="align-middle">{{ subEvent.name }}</td>
+
                             <td class="align-middle">{{ subEvent.date }}</td>
+
                             <td class="align-middle">{{ subEvent.time }}</td>
+
+                            <td class="align-middle">{{ subEvent.confirmed_at }}</td>
+
+                            <td class="align-middle">{{ subEvent.finalized_at }}</td>
+
                             <td class="align-middle text-right">
-                                <router-link
-                                    :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
-                                    tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                <button
+                                    v-if="!subEvent.confirmed_at"
+                                    class="btn btn-success btn-sm ml-1 pull-right"
+                                    @click="confirmSubEvent(subEvent)"
+                                    title="Confirmar Sub-evento"
                                     :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </button>
+
+                                <button
+                                    v-if="!subEvent.finalized_at && subEvent.confirmed_at"
+                                    class="btn btn-primary btn-sm ml-1 pull-right"
+                                    @click="finalizeSubEvent(subEvent)"
+                                    title="Finalizar Sub-evento"
+                                    :disabled="cannot('update')"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </button>
+
+                                <router-link
+                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                        tag="div"
+                                        class="btn btn-danger btn-sm ml-1 pull-right"
+                                        :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -99,6 +150,7 @@
                         @goto-page="invitationsGotoPage($event)"
                         :columns="[
                                     '#',
+                                    'Código',
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
@@ -115,6 +167,8 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
                         >
                             <td class="align-middle">{{ invitation.id }}</td>
+
+                            <td class="align-middle">{{ invitation.code }}</td>
 
                             <td class="align-middle">{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
 
@@ -152,10 +206,10 @@
                                 {{ invitation.checkin_at }}
                             </td>
 
-                            <td class="align-middle">
+                            <td class="align-middle text-right">
                                 <a
                                     @click="confirmUnInvite(invitation)"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
                                     href="#"
                                 >
@@ -231,6 +285,42 @@ export default {
 
         unInvite(invitation) {
             return this.$store.dispatch('invitations/unInvite', invitation)
+        },
+
+        confirmSubEvent(subEvent) {
+            const $this = this
+
+            confirm(
+                'Deseja realmente confirmar ' + subEvent.name + '?',
+                this,
+            ).then(function(value) {
+                if (value) {
+                    $this.doConfirmSubEvent(subEvent)
+                }
+            })
+        },
+
+        doConfirmSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/confirm', subEvent)
+        },
+
+        finalizeSubEvent(subEvent) {
+            const $this = this
+
+            confirm(
+                'Deseja realmente confirmar que o evento foi realizado ' +
+                    subEvent.name +
+                    '?',
+                this,
+            ).then(function(value) {
+                if (value) {
+                    $this.doFinalizeSubEvent(subEvent)
+                }
+            })
+        },
+
+        doFinalizeSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/finalize', subEvent)
         },
     },
 
@@ -313,10 +403,6 @@ export default {
 
         this.$store.dispatch('invitations/load')
     },
-
-    created() {
-        console.log(this.$router.options.routes);
-    }
 }
 </script>
 

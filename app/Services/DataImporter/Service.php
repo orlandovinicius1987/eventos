@@ -63,6 +63,8 @@ class Service
 
     public function importCSV($rows, $client = null)
     {
+        ini_set('memory_limit', '2500M');
+
         (new CSV())->parse($rows)->each(function ($row) use ($client) {
             if (!$this->rowIsEmpty($row)) {
                 $this->importRow($row, $client);
@@ -107,11 +109,7 @@ class Service
             $role
         );
 
-        Categorized::create([
-            'category_id' => $category->id,
-            'categorizable_id' => $person->id,
-            'categorizable_type' => Person::class,
-        ]);
+        $person->categories()->save($category);
 
         $this->importAddress($row, $personInstitution);
 

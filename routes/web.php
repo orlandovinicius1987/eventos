@@ -35,6 +35,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'sub-events.update'
                 );
 
+                Route::post('/{id}/confirm', 'SubEvents@confirm')->name(
+                    'sub-events.confirm'
+                );
+
+                Route::post('/{id}/finalize', 'SubEvents@finalize')->name(
+                    'sub-events.finalize'
+                );
+
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
                     function () {
@@ -93,16 +101,38 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     Route::group(
                         ['prefix' => '{personInstitutionId}/contacts'],
                         function () {
-                            Route::get('/', 'Contacts@all')->name(
-                                'contacts.all'
-                            );
+                            Route::get(
+                                '/',
+                                'Contacts@allByPersonInstitution'
+                            )->name('contacts.all-by-person-institution');
 
                             Route::post('/', 'Contacts@store')->name(
                                 'contacts.store'
                             );
 
-                            Route::post('/{id}', 'Contacts@update')->name(
-                                'contacts.update'
+                            Route::post(
+                                '/{id}',
+                                'Contacts@updateForPersonInstitution'
+                            )->name('contacts.update');
+                        }
+                    );
+
+                    Route::group(
+                        ['prefix' => '{personInstitutionId}/advisors'],
+                        function () {
+                            Route::get(
+                                '/',
+                                'PersonInstitutions@allAdvisorsByPersonInstitution'
+                            )->name(
+                                'advisors.all-advisors-by-person-institution'
+                            );
+
+                            Route::post('/', 'Advisors@store')->name(
+                                'advisors.store'
+                            );
+
+                            Route::post('/{id}', 'Advisors@update')->name(
+                                'advisors.update'
                             );
                         }
                     );
@@ -112,20 +142,48 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                         function () {
                             Route::get(
                                 '/',
-                                'Addresses@allByPersonInstitution'
-                            )->name('addresses.all-by-person-institution');
+                                'PersonInstitutionsAddresses@all'
+                            )->name('person-institutions-addresses.store.all');
 
-                            Route::post('/', 'Addresses@store')->name(
-                                'addresses.store'
-                            );
+                            Route::post(
+                                '/',
+                                'PersonInstitutionsAddresses@store'
+                            )->name('person-institutions-addresses.store');
 
-                            Route::post('/{id}', 'Addresses@update')->name(
-                                'addresses.update'
-                            );
+                            Route::post(
+                                '/{id}',
+                                'PersonInstitutionsAddresses@update'
+                            )->name('person-institutions-addresses.update');
                         }
                     );
                 }
             );
+
+            Route::group(['prefix' => '{personId}/categories'], function () {
+                Route::get('/', 'PersonCategories@all')->name(
+                    'person-categories.all'
+                );
+
+                Route::post(
+                    '/{id}/un-categorize/',
+                    'PersonCategories@unCategorize'
+                )->name('person-categories.un-categorize');
+
+                Route::post(
+                    '/categorizables/',
+                    'PersonCategories@categorize'
+                )->name('person-categories.categorize');
+
+                Route::get(
+                    '/categorizables/',
+                    'PersonCategories@categorizables'
+                )->name('person-categories.categorizables');
+
+                Route::post(
+                    '/categorize/',
+                    'PersonCategories@categorize'
+                )->name('person-categories.categorize');
+            });
         });
 
         Route::group(['prefix' => '/roles'], function () {
@@ -134,6 +192,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'Roles@update')->name('roles.update');
 
             Route::post('/', 'Roles@store')->name('roles.store');
+        });
+
+        Route::group(['prefix' => '/costumes'], function () {
+            Route::get('/', 'Costumes@all')->name('costumes.all');
+        });
+
+        Route::group(['prefix' => '/sectors'], function () {
+            Route::get('/', 'Sectors@all')->name('sectors.all');
         });
 
         Route::group(['prefix' => '/addresses'], function () {
@@ -174,6 +240,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'ContactTypes@update')->name(
                 'contactTypes.update'
             );
+
+            Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
+        });
+
+        Route::group(['prefix' => '/contacts'], function () {
+            Route::get('/', 'Contacts@all')->name('contacts.all');
+
+            Route::post('/{id}', 'Contacts@update')->name('contacts.update');
 
             Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
         });

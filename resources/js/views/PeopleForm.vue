@@ -18,6 +18,15 @@
                             ></app-input>
 
                             <app-input
+                                name="cpf"
+                                label="CPF"
+                                v-model="form.fields.cpf"
+                                :required="true"
+                                :form="form"
+                                v-mask="'###.###.###-##'"
+                            ></app-input>
+
+                            <app-input
                                 name="nickname"
                                 label="Nome público"
                                 v-model="form.fields.nickname"
@@ -30,6 +39,14 @@
                                 label="Tratamento"
                                 v-model="form.fields.title"
                                 :required="true"
+                                :form="form"
+                            ></app-input>
+
+                            <app-input
+                                name="birthdate"
+                                label="Data de nascimento"
+                                v-model="form.fields.birthdate"
+                                type="date"
                                 :form="form"
                             ></app-input>
                         </div>
@@ -70,7 +87,7 @@ export default {
 
     methods: {
         ...mapActions(service.name, ['selectPerson']),
-    }
+    },
 }
 </script>
 

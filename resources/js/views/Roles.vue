@@ -25,12 +25,14 @@
                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selected)}"
                         >
                             <td class="align-middle">{{ role.id }}</td>
+
                             <td class="align-middle">{{ role.name }}</td>
-                            <td>
+
+                            <td class="align-middle text-right">
                                 <router-link
                                     :to="'/roles/'+role.id+'/update'"
                                     tag="div"
-                                    class="btn btn-danger btn-sm mr-1 pull-right"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
                                 >
                                     <i class="fa fa-edit"></i>

@@ -5,6 +5,8 @@ class Address extends BaseWithClient
 {
     protected $table = 'addresses';
 
+    protected $orderBy = ['street' => 'asc'];
+
     /**
      * @var array
      */
@@ -19,6 +21,8 @@ class Address extends BaseWithClient
         'addressable_id',
         'addressable_type',
         'client_id',
+        'latitude',
+        'longitude',
     ];
 
     public function addressable()

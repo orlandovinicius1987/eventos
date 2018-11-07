@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
@@ -24,13 +25,25 @@ abstract class Repository
     {
         $model = is_null(($id = isset($data['id']) ? $data['id'] : null))
             ? new $this->model()
-            : $this->model::find($id);
+            : $this->newQuery()
+                ->where('id', $id)
+                ->first();
 
         $model->fill($data);
 
         $model->save();
 
         return $model;
+    }
+
+    protected function allElements($queryFilter)
+    {
+        $array = $queryFilter->toArray();
+
+        $array['pagination']['per_page'] = $this->count();
+        $array['pagination']['current_page'] = 1;
+
+        return coollect($array);
     }
 
     protected function applyFilter($query)
@@ -40,6 +53,14 @@ abstract class Repository
         $this->filterText($queryFilter, $query);
 
         $this->order($query);
+
+        if (
+            isset($queryFilter->toArray()['pagination']['current_page']) &&
+            $queryFilter->toArray()['pagination']['current_page'] == 0
+        ) {
+            info($queryFilter->pagination->currentPage);
+            $queryFilter = $this->allElements($queryFilter);
+        }
 
         return $this->makePaginationResult(
             $query->paginate(
@@ -55,9 +76,23 @@ abstract class Repository
         );
     }
 
-    protected function filterAllColumns(Builder $query, $text)
+    protected function filterAllColumns($query, $text)
     {
-        return $query->where('name', 'ilike', "%{$text}%");
+        if (
+            $this->model()
+                ->getFilterableColumns()
+                ->count() > 0
+        ) {
+            $query->where(function ($newQuery) use ($query, $text) {
+                $this->model()
+                    ->getFilterableColumns()
+                    ->each(function ($column) use ($newQuery, $text) {
+                        $newQuery->orWhere($column, 'ilike', "%{$text}%");
+                    });
+            });
+        }
+
+        return $query;
     }
 
     /**
@@ -117,7 +152,7 @@ abstract class Repository
     {
         $columnName = snake_case(Str::after($name, $startsWith));
 
-        return $this->model::where($columnName, $arguments);
+        return $this->newQuery()->where($columnName, $arguments);
     }
 
     /**
@@ -139,10 +174,20 @@ abstract class Repository
         return new $this->model();
     }
 
-    private function order(Builder $query)
+    /**
+     * @return mixed
+     */
+    public function model()
     {
-        foreach ($this->new()->getOrderBy() as $field => $direction) {
-            $query->orderBy($field, $direction);
+        return $this->new();
+    }
+
+    private function order($query)
+    {
+        if ($query instanceof QueryBuilder) {
+            foreach ($this->new()->getOrderBy() as $field => $direction) {
+                $query->orderBy($field, $direction);
+            }
         }
 
         return $query;
@@ -231,7 +276,21 @@ abstract class Repository
      */
     protected function newQuery()
     {
-        return $this->model::query();
+        $query = $this->model::query();
+
+        if (
+            $this->model()
+                ->getSelectColumns()
+                ->count() > 0
+        ) {
+            $query->select(
+                $this->model()
+                    ->getSelectColumns()
+                    ->toArray()
+            );
+        }
+
+        return $query;
     }
 
     /**
@@ -316,27 +375,3 @@ abstract class Repository
         return $this->model::count();
     }
 }
-
-// select count(*)
-//     as aggregate
-//     from "person_institutions"
-//     inner join "person_institutions" on "person_institutions" . "id" = "invitations" . "person_institution_id"
-//     inner join "institutions" on "person_institutions" . "institution_id" = "institutions" . "id"
-//     inner join "people" on "person_institutions" . "person_id" = "people" . "id"
-//     inner join "roles" on "person_institutions" . "role_id" = "roles" . "id"
-//     where id not in(select person_institution_id from invitations where sub_event_id = 1)
-//     and ("institutions" . "name"::text ilike % ferreira %
-//     or "people" . "name"::text ilike % ferreira %
-//     or "roles" . "name"::text ilike % ferreira %))
-
-//     select
-//     count (*) as aggregate
-//     from
-//     "person_institutions"
-//     where
-//     id not in (select
-//     person_institution_id
-//     from
-//     invitations
-//     where
-//     sub_event_id = 1)

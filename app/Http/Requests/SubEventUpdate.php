@@ -12,10 +12,18 @@ class SubEventUpdate extends BaseStore
     public function rules()
     {
         return [
+            'id' => 'required',
+
             'name' => 'required',
             'date' => 'required',
             'time' => 'required',
             'event_id' => 'required|exists:events,id',
+
+            'address.zipcode' => 'required',
+            'address.street' => 'required',
+            'address.neighbourhood' => 'required',
+            'address.city' => 'required',
+            'address.state' => 'required',
         ];
     }
 }
