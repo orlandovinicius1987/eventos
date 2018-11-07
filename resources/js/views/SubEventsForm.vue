@@ -49,7 +49,7 @@
                             <app-select
                                     name="costume_id"
                                     label="Traje"
-                                    v-model="form.fields.costume_id"
+                                    v-model="subEvents.form.fields.costume_id"
                                     :required="true"
                                     :form="form"
                                     :elements="environment.tables.costumes"
@@ -58,7 +58,7 @@
                             <app-select
                                     name="sector_id"
                                     label="Galeria"
-                                    v-model="form.fields.sector_id"
+                                    v-model="subEvents.form.fields.sector_id"
                                     :required="true"
                                     :form="form"
                                     :elements="environment.tables.sectors"

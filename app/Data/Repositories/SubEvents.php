@@ -66,10 +66,10 @@ class SubEvents extends Repository
 
     public function storeFromArray($array)
     {
-        $this->createAddress(
-            ($subEvent = parent::storeFromArray($array)),
-            $array['address']
-        );
+        $subEvent = parent::storeFromArray($array);
+        if (false && $array['address']) {
+            $this->createAddress($subEvent, $array['address']);
+        }
 
         return $subEvent;
     }
