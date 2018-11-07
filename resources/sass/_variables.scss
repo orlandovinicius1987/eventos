@@ -3,12 +3,28 @@
 $body-bg: #f8fafc;
 
 // Typography
-$font-family-sans-serif: "Nunito", sans-serif;
+
+$font-family-sans-serif:  'Open Sans', "Nunito", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
+
 // Colors
-$blue: #3490dc;
+
+$blue-lighter05: #f4f7fc;
+$blue-lighter04: #d9e2f5;
+$blue-lighter03: #b1c4ea;
+$blue-lighter02: #7c9cdb;
+$blue-lighter01: #547ed0;
+
+$blue: #305bb0;
+
+$blue-darken01: #305bb0;
+$blue-darken02: #254688;
+$blue-darken03: #1a3260;
+$blue-darken04: #132445;
+
+
 $indigo: #6574cd;
 $purple: #9561e2;
 $pink: #f66D9b;
@@ -18,3 +34,22 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+
+$grey-light03: #dce8ee;
+
+
+$grey-darken05: #21252a;
+$grey-darken04: #343a40;
+$grey-darken03: #495057;
+$grey-darken02: #495057;
+
+$grey-darken01: #868e96;
+
+$grey: #adb5bd;
+
+$grey-lighter01: #ced4da;
+$grey-lighter02: #dee2e6;
+$grey-lighter03: #e9ecef;
+$grey-lighter04: #f1f3f5;
+$grey-lighter05: #f8f9fa;
