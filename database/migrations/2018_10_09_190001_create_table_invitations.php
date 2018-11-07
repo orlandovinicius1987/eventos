@@ -28,6 +28,16 @@ class CreateTableInvitations extends Migration
 
             $table->timestamp('checkin_at')->nullable();
 
+            $table
+                ->string('code')
+                ->nullable()
+                ->index();
+
+            $table
+                ->uuid('uuid')
+                ->nullable()
+                ->index();
+
             $table->timestamps();
         });
     }

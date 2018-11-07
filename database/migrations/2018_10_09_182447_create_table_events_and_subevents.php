@@ -41,6 +41,18 @@ class CreateTableEventsAndSubEvents extends Migration
             $table->integer('confirmed_by')->nullable();
             $table->date('confirmed_at')->nullable();
 
+            $table->timestamp('started_at')->nullable();
+            $table
+                ->integer('started_by')
+                ->nullable()
+                ->unsigned();
+
+            $table->timestamp('ended_at')->nullable();
+            $table
+                ->integer('ended_by')
+                ->nullable()
+                ->unsigned();
+
             $table->timestamps();
         });
     }
