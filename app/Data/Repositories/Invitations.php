@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
+use Ramsey\Uuid\Uuid;
 
 class Invitations extends Repository
 {

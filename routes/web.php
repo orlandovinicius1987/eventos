@@ -39,6 +39,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'sub-events.confirm'
                 );
 
+                Route::post('/{id}/finalize', 'SubEvents@finalize')->name(
+                    'sub-events.finalize'
+                );
+
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
                     function () {

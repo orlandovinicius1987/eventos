@@ -47,4 +47,9 @@ class SubEvents extends Controller
     {
         return app(SubEventsRepository::class)->confirm($eventId, $subEventId);
     }
+
+    public function finalize(ConfirmSubEvent $request, $eventId, $subEventId)
+    {
+        return app(SubEventsRepository::class)->finalize($eventId, $subEventId);
+    }
 }

@@ -3217,6 +3217,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3268,6 +3281,18 @@ var service = { name: 'events', uri: 'events' };
         },
         doConfirmSubEvent: function doConfirmSubEvent(subEvent) {
             return this.$store.dispatch('subEvents/confirm', subEvent);
+        },
+        finalizeSubEvent: function finalizeSubEvent(subEvent) {
+            var $this = this;
+
+            confirm('Deseja realmente confirmar que o evento foi realizado ' + subEvent.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.doFinalizeSubEvent(subEvent);
+                }
+            });
+        },
+        doFinalizeSubEvent: function doFinalizeSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/finalize', subEvent);
         }
     }),
 
@@ -27615,7 +27640,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103259,7 +103284,7 @@ var render = function() {
                     {
                       attrs: {
                         pagination: _vm.events.data.links.pagination,
-                        columns: ["#", "Nome", "Confirmado em", ""]
+                        columns: ["#", "Nome", ""]
                       },
                       on: {
                         "goto-page": function($event) {
@@ -103291,10 +103316,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "align-middle" }, [
                             _vm._v(_vm._s(event.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "align-middle" }, [
-                            _vm._v(_vm._s(event.confirmed_at))
                           ]),
                           _vm._v(" "),
                           _c(
@@ -103374,6 +103395,7 @@ var render = function() {
                           "Data",
                           "Hora",
                           "Confirmado em",
+                          "Realizado em",
                           ""
                         ]
                       },
@@ -103422,6 +103444,10 @@ var render = function() {
                             _vm._v(_vm._s(subEvent.confirmed_at))
                           ]),
                           _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(subEvent.finalized_at))
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "td",
                             { staticClass: "align-middle text-right" },
@@ -103457,6 +103483,26 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           _vm.confirmSubEvent(subEvent)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !subEvent.finalized_at && subEvent.confirmed_at
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        title: "Finalizar Sub-evento",
+                                        disabled: _vm.cannot("update")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.finalizeSubEvent(subEvent)
                                         }
                                       }
                                     },
@@ -103544,6 +103590,7 @@ var render = function() {
                             pagination: _vm.invitations.data.links.pagination,
                             columns: [
                               "#",
+                              "Código",
                               "Nome",
                               "Instituição",
                               "Cargo",
@@ -103580,6 +103627,10 @@ var render = function() {
                             [
                               _c("td", { staticClass: "align-middle" }, [
                                 _vm._v(_vm._s(invitation.id))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "align-middle" }, [
+                                _vm._v(_vm._s(invitation.code))
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "align-middle" }, [
@@ -127866,6 +127917,11 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     },
     confirm: function confirm(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(function () {
+            context.dispatch('load', payload);
+        });
+    },
+    finalize: function finalize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(function () {
             context.dispatch('load', payload);
         });
     }
