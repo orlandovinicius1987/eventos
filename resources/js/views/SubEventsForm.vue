@@ -55,6 +55,15 @@
                                     :elements="environment.tables.costumes"
                             ></app-select>
 
+                            <app-select
+                                    name="sector_id"
+                                    label="Galeria"
+                                    v-model="form.fields.sector_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.sectors"
+                            ></app-select>
+
                             <app-text-area
                                 name="invitation_text"
                                 label="Texto de convite"

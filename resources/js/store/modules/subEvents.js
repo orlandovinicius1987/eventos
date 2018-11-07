@@ -27,7 +27,8 @@ const __emptyForm = {
     invitation_text: null,
     confirmation_text: null,
     address: __emptyAddress,
-    costume_id: __emptyAddress,
+    costume_id: __emptyModel,
+    sector_id: __emptyModel,
     event_id: __emptyModel,
 }
 
