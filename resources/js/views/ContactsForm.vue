@@ -10,36 +10,34 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-select
-                                    name="contact_type_id"
-                                    label="Tipo de Contato"
-                                    v-model="form.fields.contact_type_id"
-                                    :required="true"
-                                    :form="form"
-                                    :elements="environment.tables.contact_types"
+                                name="contact_type_id"
+                                label="Tipo de Contato"
+                                v-model="form.fields.contact_type_id"
+                                :required="true"
+                                :form="form"
+                                :elements="environment.tables.contact_types"
                             ></app-select>
 
-                                <app-input
-                                    v-if="!isEmail(form.fields.contact_type_id)"
-                                    name="contact"
-                                    label="Contato"
-                                    v-model="form.fields.contact"
-                                    :required="true"
-                                    :form="form"
-                                    v-mask='makeMask(form.fields.contact_type_id)'
-                                    :type="makeType(form.fields.contact_type_id)"
-                                ></app-input>
+                            <app-input
+                                v-if="!isEmail(form.fields.contact_type_id)"
+                                name="contact"
+                                label="Contato"
+                                v-model="form.fields.contact"
+                                :required="true"
+                                :form="form"
+                                v-mask='makeMask(form.fields.contact_type_id)'
+                                :type="makeType(form.fields.contact_type_id)"
+                            ></app-input>
 
-                                <app-input
-                                        v-else
-                                        name="contact"
-                                        label="Contato"
-                                        v-model="form.fields.contact"
-                                        :required="true"
-                                        :form="form"
-                                        type="email"
-                                ></app-input>
-
-
+                            <app-input
+                                v-else
+                                name="contact"
+                                label="Contato"
+                                v-model="form.fields.contact"
+                                :required="true"
+                                :form="form"
+                                type="email"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -90,7 +88,7 @@ export default {
 
             switch (type.code) {
                 case 'mobile':
-                    return '(##)#####-####'
+                    return 'c'
                 case 'whatsapp':
                     return '(##)#####-####'
                 case 'phone':

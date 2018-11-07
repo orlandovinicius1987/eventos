@@ -8,6 +8,8 @@ class Sector extends Base
      */
     protected $fillable = ['name', 'color'];
 
+    protected $orderBy = ['name' => 'asc'];
+
     public function subEvents()
     {
         return $this->hasMany(SubEvent::class);

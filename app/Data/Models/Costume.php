@@ -8,6 +8,8 @@ class Costume extends Base
      */
     protected $fillable = ['name'];
 
+    protected $orderBy = ['name' => 'asc'];
+
     public function subEvents()
     {
         return $this->hasMany(SubEvent::class);

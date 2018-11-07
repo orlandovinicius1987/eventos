@@ -11,6 +11,8 @@ class Category extends Base
 
     protected $table = 'categories';
 
+    protected $orderBy = ['name' => 'asc'];
+
     public function persons()
     {
         return $this->morphedByMany(Person::class, 'categorizable');

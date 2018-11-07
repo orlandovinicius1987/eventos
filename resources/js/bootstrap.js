@@ -135,3 +135,9 @@ files.keys().map(key => {
     const name = 'App' + _.last(key.split('/')).split('.')[0]
     return Vue.component(name, files(key))
 })
+
+/**
+ * VueSelect
+ */
+import VueSelect from 'vue-select'
+Vue.component('vue-select', VueSelect)

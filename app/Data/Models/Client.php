@@ -7,4 +7,6 @@ class Client extends Base
      * @var array
      */
     protected $fillable = ['name'];
+
+    protected $orderBy = ['name' => 'asc'];
 }

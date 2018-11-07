@@ -18,6 +18,15 @@
                             ></app-input>
 
                             <app-input
+                                name="cpf"
+                                label="CPF"
+                                v-model="form.fields.cpf"
+                                :required="true"
+                                :form="form"
+                                v-mask="'###.###.###-##'"
+                            ></app-input>
+
+                            <app-input
                                 name="nickname"
                                 label="Nome público"
                                 v-model="form.fields.nickname"

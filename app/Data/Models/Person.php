@@ -13,6 +13,7 @@ class Person extends BaseWithClient
         'title',
         'client_id',
         'birthdate',
+        'cpf',
     ];
 
     protected $orderBy = ['name' => 'asc'];
