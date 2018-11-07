@@ -37,7 +37,6 @@ export default {
 
             set(selected) {
                 if (selected !== null && typeof selected != 'object') {
-                    dd(selected, selected)
                     this.$emit('input', selected.value)
                 }
             },
