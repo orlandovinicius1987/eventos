@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class PersonStore extends Request
+class CostumeUpdate extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

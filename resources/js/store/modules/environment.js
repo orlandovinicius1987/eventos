@@ -23,6 +23,7 @@ const state = {
         institutions: __emptyTable,
         roles: __emptyTable,
         people: __emptyTable,
+        costumes: __emptyTable,
     },
 }
 
@@ -75,6 +76,16 @@ const actions = {
             })
     },
 
+    loadCostumes(context) {
+        return axios
+            .get('/api/v1/costumes', {
+                params: { query: context.getters.getFullQueryFilter },
+            })
+            .then(response => {
+                context.commit('mutateSetCostumes', response.data)
+            })
+    },
+
     absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel)
 
@@ -84,6 +95,7 @@ const actions = {
         context.dispatch('loadInstitutions')
         context.dispatch('loadRoles')
         context.dispatch('loadPeople')
+        context.dispatch('loadCostumes')
     },
 }
 
@@ -111,6 +123,9 @@ const mutations = {
     },
     mutateSetPeople(state, payload) {
         state['tables']['people'] = payload
+    },
+    mutateSetCostumes(state, payload) {
+        state['tables']['costumes'] = payload
     },
 }
 

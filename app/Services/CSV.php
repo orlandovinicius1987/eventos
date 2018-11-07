@@ -45,7 +45,9 @@ class CSV
         $csv = [];
 
         foreach ($data as $key => $row) {
-            $csv[] = array_combine($header, $row);
+            if (count($header) == count($row)) {
+                $csv[] = array_combine($header, $row);
+            }
         }
 
         $csv = coollect($csv);

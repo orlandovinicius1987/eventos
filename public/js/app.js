@@ -3146,6 +3146,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -3197,6 +3210,18 @@ var service = { name: 'events', uri: 'events' };
         },
         doConfirmSubEvent: function doConfirmSubEvent(subEvent) {
             return this.$store.dispatch('subEvents/confirm', subEvent);
+        },
+        finalizeSubEvent: function finalizeSubEvent(subEvent) {
+            var $this = this;
+
+            confirm('Deseja realmente confirmar que o evento foi realizado ' + subEvent.name + '?', this).then(function (value) {
+                if (value) {
+                    $this.doFinalizeSubEvent(subEvent);
+                }
+            });
+        },
+        doFinalizeSubEvent: function doFinalizeSubEvent(subEvent) {
+            return this.$store.dispatch('subEvents/finalize', subEvent);
         }
     }),
 
@@ -4758,6 +4783,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__("./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__ = __webpack_require__("./node_modules/vue2-google-maps/dist/main.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue2_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue2_google_maps__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -27544,7 +27578,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -27709,7 +27743,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", ""]);
 
 // exports
 
@@ -103173,7 +103207,7 @@ var render = function() {
                     {
                       attrs: {
                         pagination: _vm.events.data.links.pagination,
-                        columns: ["#", "Nome", "Confirmado em", ""]
+                        columns: ["#", "Nome", ""]
                       },
                       on: {
                         "goto-page": function($event) {
@@ -103205,10 +103239,6 @@ var render = function() {
                           _vm._v(" "),
                           _c("td", { staticClass: "align-middle" }, [
                             _vm._v(_vm._s(event.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "align-middle" }, [
-                            _vm._v(_vm._s(event.confirmed_at))
                           ]),
                           _vm._v(" "),
                           _c(
@@ -103288,6 +103318,7 @@ var render = function() {
                           "Data",
                           "Hora",
                           "Confirmado em",
+                          "Realizado em",
                           ""
                         ]
                       },
@@ -103336,6 +103367,10 @@ var render = function() {
                             _vm._v(_vm._s(subEvent.confirmed_at))
                           ]),
                           _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(subEvent.finalized_at))
+                          ]),
+                          _vm._v(" "),
                           _c(
                             "td",
                             { staticClass: "align-middle text-right" },
@@ -103353,6 +103388,26 @@ var render = function() {
                                       on: {
                                         click: function($event) {
                                           _vm.confirmSubEvent(subEvent)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fa fa-check" })]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              !subEvent.finalized_at && subEvent.confirmed_at
+                                ? _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "btn btn-primary btn-sm ml-1 pull-right",
+                                      attrs: {
+                                        title: "Finalizar Sub-evento",
+                                        disabled: _vm.cannot("update")
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          _vm.finalizeSubEvent(subEvent)
                                         }
                                       }
                                     },
@@ -103440,6 +103495,7 @@ var render = function() {
                             pagination: _vm.invitations.data.links.pagination,
                             columns: [
                               "#",
+                              "Código",
                               "Nome",
                               "Instituição",
                               "Cargo",
@@ -103476,6 +103532,10 @@ var render = function() {
                             [
                               _c("td", { staticClass: "align-middle" }, [
                                 _vm._v(_vm._s(invitation.id))
+                              ]),
+                              _vm._v(" "),
+                              _c("td", { staticClass: "align-middle" }, [
+                                _vm._v(_vm._s(invitation.code))
                               ]),
                               _vm._v(" "),
                               _c("td", { staticClass: "align-middle" }, [
@@ -105360,6 +105420,23 @@ var render = function() {
                       _vm.$set(_vm.subEvents.form.fields, "place", $$v)
                     },
                     expression: "subEvents.form.fields.place"
+                  }
+                }),
+                _vm._v(" "),
+                _c("app-select", {
+                  attrs: {
+                    name: "costume_id",
+                    label: "Traje",
+                    required: true,
+                    form: _vm.form,
+                    elements: _vm.environment.tables.costumes
+                  },
+                  model: {
+                    value: _vm.form.fields.costume_id,
+                    callback: function($$v) {
+                      _vm.$set(_vm.form.fields, "costume_id", $$v)
+                    },
+                    expression: "form.fields.costume_id"
                   }
                 }),
                 _vm._v(" "),
@@ -126630,7 +126707,8 @@ var state = {
         contact_types: __emptyTable,
         institutions: __emptyTable,
         roles: __emptyTable,
-        people: __emptyTable
+        people: __emptyTable,
+        costumes: __emptyTable
     }
 };
 
@@ -126670,6 +126748,13 @@ var actions = {
             context.commit('mutateSetPeople', response.data);
         });
     },
+    loadCostumes: function loadCostumes(context) {
+        return axios.get('/api/v1/costumes', {
+            params: { query: context.getters.getFullQueryFilter }
+        }).then(function (response) {
+            context.commit('mutateSetCostumes', response.data);
+        });
+    },
     absorbLaravel: function absorbLaravel(context) {
         context.commit('mutateSetData', window.laravel);
 
@@ -126679,6 +126764,7 @@ var actions = {
         context.dispatch('loadInstitutions');
         context.dispatch('loadRoles');
         context.dispatch('loadPeople');
+        context.dispatch('loadCostumes');
     }
 };
 
@@ -126703,6 +126789,9 @@ var mutations = {
     },
     mutateSetPeople: function mutateSetPeople(state, payload) {
         state['tables']['people'] = payload;
+    },
+    mutateSetCostumes: function mutateSetCostumes(state, payload) {
+        state['tables']['costumes'] = payload;
     }
 };
 
@@ -127586,6 +127675,8 @@ var getters = __WEBPACK_IMPORTED_MODULE_4__mixins_getters_js__;
 
 
 
+var __emptyModel = { id: null };
+
 var __emptyAddress = {
     zipcode: null,
     street: null,
@@ -127598,14 +127689,16 @@ var __emptyAddress = {
     longitude: laravel.google_maps.geolocation.longitude
 };
 
-var __emptyModel = {
+var __emptyForm = {
     id: null,
     name: null,
     date: null,
     time: null,
     invitation_text: null,
     confirmation_text: null,
-    address: __emptyAddress
+    address: __emptyAddress,
+    costume_id: __emptyAddress,
+    event_id: __emptyModel
 };
 
 var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /* common */], {
@@ -127617,7 +127710,7 @@ var state = merge_objects(__WEBPACK_IMPORTED_MODULE_3__mixins_states_js__["a" /*
         performLoad: false
     },
 
-    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyModel)
+    form: new __WEBPACK_IMPORTED_MODULE_0__classes_Form__["a" /* default */](__emptyForm)
 });
 
 var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
@@ -127648,6 +127741,11 @@ var actions = merge_objects(__WEBPACK_IMPORTED_MODULE_2__mixins_actions_js__, {
     },
     confirm: function confirm(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(function () {
+            context.dispatch('load', payload);
+        });
+    },
+    finalize: function finalize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(function () {
             context.dispatch('load', payload);
         });
     }

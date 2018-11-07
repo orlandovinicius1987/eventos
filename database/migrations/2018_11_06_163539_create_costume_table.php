@@ -27,7 +27,7 @@ class CreateCostumeTable extends Migration
         foreach ($this->insertArray as $item) {
             $row = new CostumeModel();
             $row->name = $item;
-            $row->save;
+            $row->save();
         }
 
         Schema::table('sub_events', function (Blueprint $table) {

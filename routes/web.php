@@ -39,6 +39,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'sub-events.confirm'
                 );
 
+                Route::post('/{id}/finalize', 'SubEvents@finalize')->name(
+                    'sub-events.finalize'
+                );
+
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
                     function () {
@@ -188,6 +192,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'Roles@update')->name('roles.update');
 
             Route::post('/', 'Roles@store')->name('roles.store');
+        });
+
+        Route::group(['prefix' => '/costumes'], function () {
+            Route::get('/', 'Costumes@all')->name('costumes.all');
         });
 
         Route::group(['prefix' => '/addresses'], function () {

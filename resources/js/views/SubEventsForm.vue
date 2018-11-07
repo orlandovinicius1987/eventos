@@ -46,6 +46,15 @@
                                 cols="100"
                             ></app-input>
 
+                            <app-select
+                                    name="costume_id"
+                                    label="Traje"
+                                    v-model="form.fields.costume_id"
+                                    :required="true"
+                                    :form="form"
+                                    :elements="environment.tables.costumes"
+                            ></app-select>
+
                             <app-text-area
                                 name="invitation_text"
                                 label="Texto de convite"
