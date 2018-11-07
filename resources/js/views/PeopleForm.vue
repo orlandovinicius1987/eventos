@@ -54,9 +54,19 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button
+                                @click.prevent="saveModel()"
+                                class="btn btn-outline-secondary"
+                                type="submit"
+                            >
+                                gravar
+                            </button>
 
-                            <router-link to="/people" tag="button" class="btn btn-success">
+                            <router-link
+                                to="/people"
+                                tag="button"
+                                class="btn btn-success"
+                            >
                                 cancelar
                             </router-link>
                         </div>
@@ -81,15 +91,14 @@ export default {
 
     data() {
         return {
-            service: service,
+            service: service
         }
     },
 
     methods: {
-        ...mapActions(service.name, ['selectPerson']),
-    },
+        ...mapActions(service.name, ['selectPerson'])
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

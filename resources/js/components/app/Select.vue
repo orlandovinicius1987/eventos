@@ -44,7 +44,7 @@ export default {
 
         makeObject(value) {
             return { label: value.name, value: value.id }
-        },
+        }
     },
 
     computed: {
@@ -54,8 +54,8 @@ export default {
             },
             set(item) {
                 return this.$emit('input', item.value)
-            },
-        },
-    },
+            }
+        }
+    }
 }
 </script>
