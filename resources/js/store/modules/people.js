@@ -13,6 +13,7 @@ const state = merge_objects(statesMixin.common, {
         nickname: null,
         title: null,
         cpf: null,
+        photo: null,
     }),
 })
 
@@ -65,9 +66,9 @@ let actions = merge_objects(
             })
         },
 
-        selectPersonCategories(context, payload) {
-            context.dispatch('categories/select', payload, { root: true })
-        },
+        // selectPersonCategories(context, payload) {
+        //     context.dispatch('categories/select', payload, { root: true })
+        // },
 
         selectContacts(context, payload) {
             context.dispatch('contacts/select', payload, { root: true })
