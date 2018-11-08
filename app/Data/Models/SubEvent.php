@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use Illuminate\Support\Facades\DB;
+
 class SubEvent extends Base
 {
     /**
@@ -43,5 +45,21 @@ class SubEvent extends Base
     public function sector()
     {
         return $this->belongsTo(Sector::class);
+    }
+
+    /**
+     * Scope a query to only include subEvents that will happen in 7 days.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeToHappen($query)
+    {
+        return $query
+            ->select(DB::raw('*'))
+            ->from('sub_events')
+            ->whereRaw(
+                'abs(TRUNC(DATE_PART(\'day\', sub_events.date - now())/7)) < 2'
+            );
     }
 }

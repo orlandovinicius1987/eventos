@@ -89,4 +89,15 @@ class SubEvents extends Repository
 
         return $subEvent;
     }
+
+    /**
+     *
+     * Return all subEvents to happen in 7 days
+     *
+     * @return array
+     */
+    public function allToHappen()
+    {
+        return $this->applyFilter($this->newQuery()->toHappen());
+    }
 }
