@@ -11,7 +11,7 @@
                         <div class="col-12">
                             <img
                                 @click="showCropper = true"
-                                :src="photoUrl"
+                                :src="form.fields.photoUrl"
                                 class="img-thumbnail rounded mx-auto d-block"
                                 width="200"
                                 height="200"
@@ -140,11 +140,11 @@ export default {
         ...mapActions(service.name, ['selectPerson']),
 
         generatePhoto() {
-            this.photoUrl = this.photo.generateDataUrl()
+            this.mutatePhotoUrl(this.photo.generateDataUrl())
 
             this.photo.generateBlob(
                 blob => {
-                    this.photoBlob = blob
+                    this.mutatePhoto(blob)
                 },
                 'image/jpeg',
                 0.85
@@ -155,6 +155,22 @@ export default {
             this.generatePhoto()
 
             this.showCropper = false
+        },
+
+        mutatePhoto(blob) {
+            blob_to_base64(blob, (result) => {
+                this.mutateSetFormField({
+                    field: 'photo',
+                    value: blob.type + ';' + result,
+                })
+            })
+        },
+
+        mutatePhotoUrl(url) {
+            this.mutateSetFormField({
+                field: 'photoUrl',
+                value: url,
+            })
         },
     }
 }

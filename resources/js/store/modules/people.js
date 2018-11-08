@@ -14,6 +14,7 @@ const state = merge_objects(statesMixin.common, {
         title: null,
         cpf: null,
         photo: null,
+        photoUrl: null,
     }),
 })
 

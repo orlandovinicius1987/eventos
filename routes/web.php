@@ -89,6 +89,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
             Route::post('/{id}', 'People@update')->name('people.update');
 
+            Route::get('/{id}/photo', 'People@photo')->name('people.photo');
+
             Route::post('/', 'People@store')->name('people.store');
 
             Route::group(
