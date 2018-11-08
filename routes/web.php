@@ -26,7 +26,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
         });
 
         Route::group(['prefix' => '/events'], function () {
-            Route::get('/', 'Events@all')->name('events.all');
+            Route::get('/', 'Events@allHasSubEventsNotFinalized')->name(
+                'events.all'
+            );
 
             Route::post('/', 'Events@store')->name('events.store');
 
