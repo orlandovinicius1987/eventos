@@ -8,6 +8,42 @@
             <div class="col-8">
                 <form>
                     <div class="row">
+                        <div class="col-12">
+                            <img
+                                @click="showCropper = true"
+                                :src="photoUrl"
+                                class="img-thumbnail rounded mx-auto d-block"
+                                width="200"
+                                height="200"
+                            >
+
+                            <b-modal
+                                id="croppaModal"
+                                body-class="mx-auto"
+                                v-model="showCropper"
+                                centered
+                            >
+                                <vue-croppa
+                                    v-model="photo"
+                                    placeholder="Selecione uma imagem"
+                                    :width="400"
+                                    :height="400"
+                                ></vue-croppa>
+
+                                <div slot="modal-footer" class="w-100">
+                                    <button class="float-right btn btn-success" variant="primary" @click="showCropper = true">
+                                        Cancelar
+                                    </button>
+
+                                    <button class="float-right btn btn-outline-secondary mr-2" variant="primary" @click="usePhoto()">
+                                        OK
+                                    </button>
+                                </div>
+                            </b-modal>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
                                 name="name"
@@ -91,12 +127,25 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
+            photo: null,
+            photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
+            showCropper: false,
         }
     },
 
     methods: {
-        ...mapActions(service.name, ['selectPerson'])
+        ...mapActions(service.name, ['selectPerson']),
+
+        generatePhoto() {
+            this.photoUrl = this.photo.generateDataUrl()
+        },
+
+        usePhoto() {
+            this.generatePhoto()
+
+            this.showCropper = false
+        },
     }
 }
 </script>

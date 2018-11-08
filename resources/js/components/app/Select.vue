@@ -43,6 +43,10 @@ export default {
         },
 
         makeObject(value) {
+            if (!value) {
+                return null
+            }
+
             return { label: value.name, value: value.id }
         }
     },

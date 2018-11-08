@@ -66,7 +66,7 @@
 
                             <app-select
                                     name="sector_id"
-                                    label="Galeria"
+                                    label="Setor"
                                     v-model="subEvents.form.fields.sector_id"
                                     :required="true"
                                     :form="form"

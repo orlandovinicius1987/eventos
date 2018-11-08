@@ -109,11 +109,7 @@ export default {
                     $this.personInstitutions.selected
                 )
             }
-            Controllers /
-                Api /
-                PersonInstitutions.phpControllers /
-                Api /
-                PersonInstitutions.php
+
             if (this.source === 'advisor') {
                 this.$store.commit('personInstitutions/mutateSetFormField', {
                     field: 'advised_id',
