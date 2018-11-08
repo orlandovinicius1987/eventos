@@ -33,7 +33,7 @@ class Event extends BaseWithClient
     }
 
     /**
-     * Scope a query to only include events that have subEvents not finalized.
+     * Scope a query to only include events that have subEvents not ended.
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -45,7 +45,7 @@ class Event extends BaseWithClient
                 ->select(DB::raw('*'))
                 ->from('sub_events')
                 ->whereRaw('sub_events.event_id = events.id')
-                ->whereRaw('sub_events.finalized_at IS NULL');
+                ->whereRaw('sub_events.ended_at IS NULL');
         });
     }
 }
