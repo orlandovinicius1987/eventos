@@ -28,6 +28,7 @@
                                     placeholder="Selecione uma imagem"
                                     :width="400"
                                     :height="400"
+                                    :prevent-white-space="true"
                                 ></vue-croppa>
 
                                 <div slot="modal-footer" class="w-100">
@@ -130,6 +131,7 @@ export default {
             service: service,
             photo: null,
             photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
+            photoBlob: null,
             showCropper: false,
         }
     },
@@ -139,6 +141,14 @@ export default {
 
         generatePhoto() {
             this.photoUrl = this.photo.generateDataUrl()
+
+            this.photo.generateBlob(
+                blob => {
+                    this.photoBlob = blob
+                },
+                'image/jpeg',
+                0.85
+            );
         },
 
         usePhoto() {

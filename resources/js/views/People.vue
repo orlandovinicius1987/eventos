@@ -658,7 +658,7 @@ export default {
 
         deletePersonCategory(personCategory) {
             return this.$store.dispatch(
-                'personCategories/disassociate',
+                'personCategories/unCategorize',
                 personCategory
             )
         }

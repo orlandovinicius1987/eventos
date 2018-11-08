@@ -57,6 +57,10 @@ export default {
                 return this.makeObject(this.findById(this.value))
             },
             set(item) {
+                if (!item) {
+                    return null
+                }
+
                 return this.$emit('input', item.value)
             }
         }

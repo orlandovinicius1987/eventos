@@ -15,14 +15,14 @@ Vale tudo! Vestido, saia, calça, bermuda, blusa, bata... A maquiagem e o cabelo
 Masculino:
 Calça jeans ou de sarja, bermuda, camiseta, camisa polo, "sapatênis", sandália...',
 
-        'Passeio ou esporte fino' => 'Também chamado de tenue de ville ("roupa de cidade", em francês), esse tipo de traje deixa o casual um pouco mais formal e arrumado. Os materiais devem ser mais sofisticados, o salto pode aumentar e a bolsa, diminuir. Até as 18h, pode ser mais informal; depois deste horário, é bom apostar em uma dose maior de glamour.
+        'Passeio, esporte fino' => 'Também chamado de tenue de ville ("roupa de cidade", em francês), esse tipo de traje deixa o casual um pouco mais formal e arrumado. Os materiais devem ser mais sofisticados, o salto pode aumentar e a bolsa, diminuir. Até as 18h, pode ser mais informal; depois deste horário, é bom apostar em uma dose maior de glamour.
 Emma Watson e Cauã Reymond no estilo esporte fino: nem muito casual, nem exageradamente arrumado. Fotos: AP e TV Globo
 Feminino:
 O cocktail dress, um clássico das festas, é a melhor pedida neste caso. Simples, discreto e na altura do joelho, ele pode ser usado com paletós e casaquinhos. A calça também está liberada, mas em materiais mais sofisticados. A maquiagem também é mais elaborada, embora ainda discreta. As joias ou bijuterias não devem ser exageradamente glamourosas.
 Masculino:
 O homem deve usar terno neste caso. Antes das 18h, o uso da gravata é dispensável; depois deste horário, o uso do acessório é recomendável. É sempre bom atentar para os detalhes e lembrar de verificar se os sapatos estão engraxados, se o cinto está com boa aparência etc.',
 
-        'Social ou passeio completo' => 'O passeio completo é bem formal e fica apenas um passo atrás do traje de gala em termos de sofisticação.
+        'Social, passeio completo ou uniforme correspondente' => 'O passeio completo é bem formal e fica apenas um passo atrás do traje de gala em termos de sofisticação.
 Thalia e Tom Hanks. Fotos: AP
 Feminino:
 A mulher deve investir em looks mais elaborados com materiais e detalhes nobres, como seda, chiffon, bordados e brilhos. O ideal é apostar em uma joia poderosa ou em uma bijuteria que imite joia. O sapato deve ser de salto alto e a bolsa, em modelo clutch ou carteira. Se a festa tiver pista de dança, uma bolsinha de festa pequena com alça a tiracolo também é ótima pedida para dançar à vontade.
