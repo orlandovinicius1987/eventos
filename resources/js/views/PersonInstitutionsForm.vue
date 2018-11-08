@@ -58,7 +58,7 @@
                             </button>
 
                             <router-link
-                                to="/"
+                                to="/people/"
                                 tag="button"
                                 class="btn btn-success"
                             >
