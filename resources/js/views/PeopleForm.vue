@@ -31,7 +31,7 @@
                                 ></vue-croppa>
 
                                 <div slot="modal-footer" class="w-100">
-                                    <button class="float-right btn btn-success" variant="primary" @click="showCropper = true">
+                                    <button class="float-right btn btn-success" variant="primary" @click="showCropper = false">
                                         Cancelar
                                     </button>
 
@@ -57,7 +57,7 @@
                                 name="cpf"
                                 label="CPF"
                                 v-model="form.fields.cpf"
-                                :required="true"
+                                :required="false"
                                 :form="form"
                                 v-mask="'###.###.###-##'"
                             ></app-input>
