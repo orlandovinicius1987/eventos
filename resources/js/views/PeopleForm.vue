@@ -8,6 +8,29 @@
             <div class="col-8">
                 <form>
                     <div class="row">
+                        <div class="col-12">
+                            <img
+                                @click="showCroppa = true"
+                                :src="'https://placeimg.com/200/200/any?'+Math.floor((Math.random() * 100000) + 1)"
+                                class="img-thumbnail rounded mx-auto d-block"
+                            >
+
+                            <b-modal
+                                id="croppaModal"
+                                body-class="mx-auto"
+                                v-model="showCroppa"
+                            >
+                                <vue-croppa
+                                    v-model="image"
+                                    placeholder="Selecione uma imagem"
+                                    :width="400"
+                                    :height="400"
+                                ></vue-croppa>
+                            </b-modal>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
                                 name="name"
@@ -91,7 +114,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
+            image: null,
+            showCroppa: false,
         }
     },
 

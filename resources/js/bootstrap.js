@@ -141,3 +141,9 @@ files.keys().map(key => {
  */
 import VueSelect from 'vue-select'
 Vue.component('vue-select', VueSelect)
+
+/**
+ * Vue Croppa
+ */
+import Croppa from 'vue-croppa'
+Vue.use(Croppa, { componentName: 'vue-croppa' })
