@@ -116,8 +116,8 @@ export default {
                           return model.id === $this.$route.params.id
                       })
                     : $this.form
-                        ? clone($this.form.empty)
-                        : {}
+                    ? clone($this.form.empty)
+                    : {}
 
             $this.mutateFormData(model)
 
