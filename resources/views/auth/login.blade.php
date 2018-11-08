@@ -1,21 +1,48 @@
 @extends('layouts.simple')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+
+    <style>
+        html {
+            height: 100%;
+        }
+
+        body {
+            height: 100%;
+            background-image: url("/images/alerj-logo-sotexto-op20.png") ;
+            background-repeat: no-repeat ;
+            background-position: bottom 100px center;
+            background-size: 300px;
+        }
+
+        .container-fluid {
+            display: none !important;
+        }
+    </style>
+
+<div class="login-bg">
+
+
+</div>
+
+
+
+<div class="container d-flex h-100">
+    <div class="row align-self-center w-100 login">
+        <div class="col-md-8 col-lg-6 mx-auto">
             <div class="card">
-                <div class="card-header">Entrar</div>
+                <div class="card-header">
+                    <img src="/svg/logo-eventos-alerj.svg" class="eventos-logo-login img-responsive" alt="Eventos - Alerj">
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">Login Alerj</label>
-
-                            <div class="col-md-6">
-                                <input id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                            <div class="col-md-12">
+                                {{--<label for="email" class="col-form-label">Login Alerj</label>--}}
+                                <input id="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus  placeholder="Login Alerj">
 
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" role="alert">
@@ -26,10 +53,9 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">Senha</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+                            <div class="col-md-12">
+                                {{--<label for="password" class="col-form-label">Senha</label>--}}
+                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Senha" >
 
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" role="alert">
@@ -40,7 +66,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-12 ">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -52,8 +78,8 @@
                         </div>
 
                         <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button dusk="login_button" type="submit" class="btn btn-primary">
+                            <div class="col-md-12">
+                                <button dusk="login_button" type="submit" class="btn btn-primary btn-block">
                                     Entrar
                                 </button>
                             </div>
@@ -64,4 +90,9 @@
         </div>
     </div>
 </div>
+
+
+
+
+
 @endsection
