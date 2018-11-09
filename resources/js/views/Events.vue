@@ -100,7 +100,7 @@
 
                             <td class="align-middle text-right">
                                 <router-link
-                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/detail'"
+                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/receptive'"
                                         tag="div"
                                         class="btn btn-primary btn-sm ml-1 pull-right"
                                 >

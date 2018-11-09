@@ -19,7 +19,7 @@ import ContactsForm from './views/ContactsForm'
 import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
-import Checkin from './views/Checkin'
+import Receptive from './views/Receptive.vue'
 import Import from './views/Import'
 import { format } from 'util'
 
@@ -60,8 +60,8 @@ let routes = [
         props: { mode: 'update' },
     },
     {
-        path: '/events/:eventId/sub-events/:subEventId/detail',
-        component: Checkin,
+        path: '/events/:eventId/sub-events/:subEventId/receptive',
+        component: Receptive,
         props: { mode: 'update' },
     },
     {

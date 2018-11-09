@@ -42,6 +42,19 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                 Route::post('/{id}/finalize', 'SubEvents@finalize')->name(
                     'sub-events.finalize'
                 );
+                Route::group(
+                    ['prefix' => '{subEventtId}/receptive'],
+                    function () {
+                        Route::get('/', 'Receptive@invitationAccepted')->name(
+                            'receptive.invitationAccepted'
+                        );
+
+                        /*Route::post('/{id}', 'Contacts@update')->name('contacts.update');
+
+                    Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
+                    */
+                    }
+                );
 
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
