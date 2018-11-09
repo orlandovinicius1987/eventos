@@ -53,7 +53,7 @@ class SubEvent extends Base
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeToHappen($query)
+    public function scopeNearToHappen($query)
     {
         return $query
             ->select(DB::raw('*'))
