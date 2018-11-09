@@ -15865,6 +15865,30 @@ a.text-dark:focus {
 
 .card .card-header {
   border-bottom: none;
+  background-color: #fff;
+  padding: 0.75rem 0.9rem;
+}
+
+.card .card-header .form-control,
+.card .card-header .custom-select {
+  border: none;
+  font-size: 110%;
+  color: #adb5bd;
+}
+
+.card .card-header .form-control::-webkit-input-placeholder,
+.card .card-header .custom-select::-webkit-input-placeholder {
+  color: #adb5bd;
+}
+
+.card .card-header .form-control::-ms-input-placeholder,
+.card .card-header .custom-select::-ms-input-placeholder {
+  color: #adb5bd;
+}
+
+.card .card-header .form-control::placeholder,
+.card .card-header .custom-select::placeholder {
+  color: #adb5bd;
 }
 
 .shadow-sm {
@@ -15909,5 +15933,9 @@ html {
   border-right: none;
   border-bottom: none;
   border-left: none;
+}
+
+.bg-filters {
+  background: #f1f3f5;
 }
 
