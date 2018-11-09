@@ -38,6 +38,7 @@ import contacts from './modules/contacts'
 import advisors from './modules/advisors'
 import advisorContacts from './modules/advisorContacts'
 import invitables from './modules/invitables'
+import subEventsDashBoard from './modules/subEventsDashBoard'
 
 /**
  * State
@@ -74,6 +75,7 @@ let store = new Vuex.Store({
         contactTypes,
         advisors,
         advisorContacts,
+        subEventsDashBoard,
     },
 })
 

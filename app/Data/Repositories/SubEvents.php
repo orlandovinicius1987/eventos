@@ -110,8 +110,8 @@ class SubEvents extends Repository
      *
      * @return array
      */
-    public function allToHappen()
+    public function allNearToHappen()
     {
-        return $this->applyFilter($this->newQuery()->toHappen());
+        return $this->applyFilter($this->newQuery()->nearToHappen());
     }
 }
