@@ -57,8 +57,6 @@ class Form {
 
         append_form_data(data, this.fields)
 
-        dd('data -----', data, this)
-
         return post(url, data).catch(error => {
             this.onFail(error.response.data.errors)
 

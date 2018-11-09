@@ -28,15 +28,12 @@ const state = merge_objects(statesMixin.common, {
         performLoad: false,
     },
 
-    data : __emptyTable,
+    data: __emptyTable,
 })
 
-const actions = merge_objects(actionsMixin, {
-})
+const actions = merge_objects(actionsMixin, {})
 
-const mutations = merge_objects(mutationsMixin, {
-
-})
+const mutations = merge_objects(mutationsMixin, {})
 
 let getters = gettersMixin
 
