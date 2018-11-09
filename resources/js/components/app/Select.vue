@@ -8,6 +8,8 @@
             :name="name"
             :required="required"
             :options="makeOptions(options.rows)"
+            :disabled="disabled()"
+            :placeholder="placeholder()"
         >
         </vue-select>
 
@@ -48,6 +50,14 @@ export default {
             }
 
             return { label: value.name, value: value.id }
+        },
+
+        disabled() {
+            return this.options.length === 0
+        },
+
+        placeholder() {
+            return this.options.length === 0 ? 'NENHUM ITEM DISPONÍVEL' : ''
         }
     },
 

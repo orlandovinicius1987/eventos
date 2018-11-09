@@ -52,7 +52,7 @@
                                 v-model="subEvents.form.fields.associated_subevent_id"
                                 :required="true"
                                 :form="form"
-                                :options="except(environment.tables.sub_events, subEvents.form.id)"
+                                :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
                             ></app-select>
 
                             <app-select
@@ -233,7 +233,11 @@ export default {
         },
 
         except(list, id) {
-            return except(list, id)
+            let items = clone(list)
+
+            items.rows = except(list.rows, id)
+
+            return items
         }
     },
 

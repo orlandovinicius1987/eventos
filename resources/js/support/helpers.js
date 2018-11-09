@@ -220,9 +220,7 @@ window.blob_to_base64 = (blob, callback) => {
 }
 
 window.except = (list, id) => {
-    dd('subevents', list)
     return _.filter(list, item => {
-        dd('subevent', item)
-        return !id || !item.id || item.id === id
+        return !id || !item.id || item.id !== id
     })
 }
