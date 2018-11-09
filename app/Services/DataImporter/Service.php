@@ -97,16 +97,7 @@ class Service
 
         $event = $this->importEvent($row);
 
-        $subEvent = SubEvent::firstOrCreate(
-            [
-                'name' => 'Cerimônia',
-                'event_id' => $event->id,
-            ],
-            [
-                'date' => now(),
-                'time' => now(),
-            ]
-        );
+        $subEvent = $this->importSubEvent($event);
 
         $institution = $this->importInstitution(
             $row,
@@ -132,12 +123,12 @@ class Service
 
         $this->importContacts($row, $personInstitution);
 
-        $invitation = Invitation::firstOrCreate([
+        $this->importAdvisor($row, $personInstitution);
+
+        Invitation::firstOrCreate([
             'sub_event_id' => $subEvent->id,
             'person_institution_id' => $personInstitution->id,
         ]);
-
-        $this->importAdvisor($row, $personInstitution);
     }
 
     protected function checkMandatoryFields($row)
@@ -407,6 +398,26 @@ class Service
                 'person_institution_id' => $personInstitution->id,
             ]);
         }
+    }
+
+    /**
+     * @param $event
+     * @return mixed
+     */
+    protected function importSubEvent($event)
+    {
+        $subEvent = SubEvent::firstOrCreate(
+            [
+                'name' => 'Cerimônia',
+                'event_id' => $event->id,
+            ],
+            [
+                'date' => now(),
+                'time' => now(),
+            ]
+        );
+
+        return $subEvent;
     }
 
     /**
