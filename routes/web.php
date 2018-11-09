@@ -23,6 +23,11 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::get('/', 'SubEvents@associateableSubEvent')->name(
                 'sub-events.associateableSubEvent'
             );
+
+            Route::get(
+                '/all-near-to-happen',
+                'SubEvents@allNearToHappen'
+            )->name('sub-events.all-near-to-happen');
         });
 
         Route::group(['prefix' => '/events'], function () {
