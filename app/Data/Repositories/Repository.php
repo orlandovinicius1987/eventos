@@ -5,6 +5,7 @@ namespace App\Data\Repositories;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
@@ -194,7 +195,10 @@ abstract class Repository
 
     private function order($query)
     {
-        if ($query instanceof QueryBuilder) {
+        if (
+            $query instanceof QueryBuilder ||
+            $query instanceof EloquentBuilder
+        ) {
             foreach ($this->new()->getOrderBy() as $field => $direction) {
                 $query->orderBy($field, $direction);
             }

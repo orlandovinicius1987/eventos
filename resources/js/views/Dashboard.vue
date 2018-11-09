@@ -13,7 +13,7 @@
                                 <h4 class="my-0 font-weight-normal">{{ item.name }}</h4>
                             </div>
                             <div class="card-body">
-                                <h1 class="card-title pricing-card-title">{{ item.count }}</small></h1>
+                                <h1 class="card-title pricing-card-title">{{ item.count }}</h1>
 
                                 <router-link :to="item.route" tag="button" class="btn btn-sm btn-block btn-primary">
                                     ver
@@ -24,16 +24,45 @@
                 </div>
             </div>
         </div>
+        <div class="row" v-if="can('read')">
+            <div class="col-12">
+                <app-table-panel
+                        v-if="subEventsDashBoard.data.links"
+                        :title="'Eventos a serem iniciados (' + subEventsDashBoard.data.rows.length + ')'"
+                        :filter-text="subEventsDashboardFilterText"
+                        @input-filter-text="subEventsDashboardFilterText = $event.target.value"
+                >
+                    <app-table
+                            :columns="['#','Nome do Evento','Nome do Subevento', 'Dia', 'Horário']"
+                    >
+                        <router-link
+                            :to="'/rotaDaPaginaDeRecepção'"
+                            tag="tr"
+                            :disabled="cannot('update')"
+                            v-for="subEventDashBoard in subEventsDashBoard.data.rows"
+                            style="cursor: pointer;"
+                        >
+                            <td class="align-middle">{{ subEventDashBoard.id }}</td>
+                            <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
+                            <td class="align-middle">{{ subEventDashBoard.name }}</td>
+                            <td class="align-middle">{{ subEventDashBoard.date}}</td>
+                            <td class="align-middle">{{ subEventDashBoard.time }}</td>
+                        </router-link>
+                    </app-table>
+                </app-table-panel>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
 import crud from './mixins/crud'
 import permissions from './mixins/permissions'
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
+import subEventsDashBoard from "../store/modules/subEventsDashBoard";
 
 export default {
-    mixins: [crud, permissions],
+    mixins: [crud, subEventsDashBoard, permissions],
 
     data() {
         return {
@@ -41,10 +70,33 @@ export default {
         }
     },
 
+    methods: {
+        ...mapActions('subEventsDashboard', ['clearForm']),
+    },
+
     computed: {
         ...mapState({
             dashboard: state => state.dashboard.data.rows,
+
+            subEventsDashBoard: state => state.subEventsDashBoard,
         }),
+
+        subEventsDashboardFilterText: {
+            get() {
+                return this.$store.state['subEventsDashBoard'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'subEventsDashBoard/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+    },
+
+    mounted() {
+        this.$store.dispatch('subEventsDashBoard/load')
     },
 }
 </script>
