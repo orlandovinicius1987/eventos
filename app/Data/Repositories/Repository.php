@@ -135,11 +135,23 @@ abstract class Repository
         return range($firstPage, $lastPage);
     }
 
-    protected function filterByAnyColumnName($name, $arguments)
+    protected function filterByAnyColumnName($columns, $arguments)
     {
-        return $this->applyFilter(
-            $this->makeQueryByAnyColumnName('filterBy', $name, $arguments)
-        );
+        $query = $this->newQuery();
+
+        coollect((array) $columns)->each(function ($column) use (
+            $query,
+            $arguments
+        ) {
+            $this->makeQueryByAnyColumnName(
+                'filterBy',
+                $column,
+                $arguments,
+                $query
+            );
+        });
+
+        return $this->applyFilter($query);
     }
 
     protected function getByAnyColumnName($name, $arguments)
@@ -156,14 +168,19 @@ abstract class Repository
         return coollect(json_decode(request()->get('query'), true));
     }
 
-    protected function makeQueryByAnyColumnName($startsWith, $name, $arguments)
-    {
+    protected function makeQueryByAnyColumnName(
+        $startsWith,
+        $name,
+        $arguments,
+        $query = null
+    ) {
+        if (!$query) {
+            $query = $this->newQuery();
+        }
+
         $columnName = snake_case(Str::after($name, $startsWith));
 
-        return $this->newQuery()->where(
-            $this->qualifyColumn($columnName),
-            $arguments
-        );
+        return $query->where($this->qualifyColumn($columnName), $arguments);
     }
 
     /**
