@@ -61,8 +61,23 @@ class Service
 
     protected $client_id;
 
-    public function importCSV($rows, $client = null)
+    protected $command;
+
+    /**
+     * @param $person
+     * @param $category
+     */
+    protected function associateCategoryToPerson($person, $category): void
     {
+        if ($person->categories->where('name', $category->name)->count() == 0) {
+            $person->categories()->save($category);
+        }
+    }
+
+    public function importCSV($rows, $client = null, $command = null)
+    {
+        $this->command = $command;
+
         ini_set('memory_limit', '2500M');
 
         (new CSV())->parse($rows)->each(function ($row) use ($client) {
@@ -100,6 +115,8 @@ class Service
 
         $person = $this->importPerson($row, $party);
 
+        $this->info($person->name);
+
         $role = $this->imporRole($row);
 
         $personInstitution = $this->importPersonInstitution(
@@ -109,7 +126,7 @@ class Service
             $role
         );
 
-        $person->categories()->save($category);
+        $this->associateCategoryToPerson($person, $category);
 
         $this->importAddress($row, $personInstitution);
 
@@ -308,15 +325,19 @@ class Service
      */
     protected function importPerson($row, $party = null)
     {
-        return Person::create([
-            'name' => trim($row->nome),
-            'nickname' => trim(
-                isset($row->apelido) ? $row->apelido : $row->nome
-            ),
-            'party_id' => $party ? $party->id : null,
-            'title' => trim($row->tratamento),
-            'client_id' => $this->client_id,
-        ]);
+        return Person::firstOrCreate(
+            [
+                'name' => trim($row->nome),
+            ],
+            [
+                'nickname' => trim(
+                    isset($row->apelido) ? $row->apelido : $row->nome
+                ),
+                'party_id' => $party ? $party->id : null,
+                'title' => trim($row->tratamento),
+                'client_id' => $this->client_id,
+            ]
+        );
     }
 
     /**
@@ -334,13 +355,17 @@ class Service
         $role,
         $advised = null
     ) {
-        return PersonInstitution::create([
-            'person_id' => $person->id,
-            'institution_id' => $institution->id,
-            'role_id' => $role->id,
-            'title' => $row->tratamento,
-            'advised_id' => $advised ? $advised->id : null,
-        ]);
+        return PersonInstitution::firstOrCreate(
+            [
+                'person_id' => $person->id,
+                'institution_id' => $institution->id,
+                'role_id' => $role->id,
+            ],
+            [
+                'title' => $row->tratamento,
+                'advised_id' => $advised ? $advised->id : null,
+            ]
+        );
     }
 
     protected function importContacts($row, $personInstitution)
@@ -408,5 +433,12 @@ class Service
         throw ValidationException::withMessages([
             'field' => $string,
         ]);
+    }
+
+    public function info($message)
+    {
+        if ($this->command) {
+            $this->command->info($message);
+        }
     }
 }
