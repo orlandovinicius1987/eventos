@@ -1,13 +1,13 @@
 <template>
-    <div>
+    <div class="card shadow-sm">
         <div class="row align-items-end">
             <div class="col-12">
-                <div class="bg-dark text-white p-2 mb-2 mt-4 text-center">
+                <div class="p-2 mb-2 mt-4">
                     <h4 class="mb-0">{{ title }}</h4>
                 </div>
             </div>
 
-            <div v-if="perPage" class="col-12">
+            <div v-if="perPage" class="col-12 card-filters bg-secondary">
                 <div class="row">
                     <div class="col-6">
                         <input

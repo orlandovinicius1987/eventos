@@ -1,7 +1,7 @@
 <template>
     <div class="row mt-1">
         <div class="col-12">
-            <div class="card p-4">
+            <div class="p-4">
                 <table class="table table-sm table-hover table-borderless table-striped">
                     <thead>
                         <tr>
