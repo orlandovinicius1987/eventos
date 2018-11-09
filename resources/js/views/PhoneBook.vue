@@ -30,9 +30,8 @@
         </div>
 
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <app-table-panel
-                    v-if="people.data.links"
                     :title="'Pessoas (' + pagination.total + ')'"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -54,8 +53,8 @@
                             @click="selectPerson(person)"
                             v-for="person in people.data.rows"
                             :class="{
-                                'cursor-pointer': true,
-                                'bg-primary text-white': isCurrent(
+                            'cursor-pointer': true,
+                            'bg-primary text-white': isCurrent(
                                     person,
                                     selected
                                 )
@@ -72,19 +71,52 @@
                     </app-table>
                 </app-table-panel>
             </div>
+
+            <div class="col-8">
+                <app-table-panel
+                    v-if="phoneBook.data && phoneBook.data.rows && phoneBook.data.rows.length > 0"
+                    :title="'Contatos (' + phoneBook.data.rows.length + ')'"
+                >
+                    <app-table
+                            :columns="[
+                                'Pertence a',
+                                'Função',
+                                'Instituição',
+                                'Tipo',
+                                'Contato'
+                            ]"
+                    >
+                        <tr
+                            @click="selectPerson(person)"
+                            v-for="person in phoneBook.data.rows"
+                        >
+                            <td class="align-middle">{{ person.from }}</td>
+
+                            <td class="align-middle">{{ person.role }}</td>
+
+                            <td class="align-middle">{{ person.institution }}</td>
+
+                            <td class="align-middle">{{ person.type }}</td>
+
+                            <td class="align-middle">{{ person.contact }}</td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import crud from './mixins/crud'
+    import phoneBook from './mixins/phoneBook'
     import people from './mixins/people'
     import { mapActions } from 'vuex'
 
     const service = { name: 'people', uri: 'people' }
 
     export default {
-        mixins: [crud, people],
+        mixins: [crud, people, phoneBook],
 
         data() {
             return {
