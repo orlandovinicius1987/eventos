@@ -36,19 +36,16 @@
                             :columns="['#','Nome do Evento','Nome do Subevento', 'Dia', 'Horário']"
                     >
                         <router-link
-                                :to="'/rotaDaPaginaDeRecepção'"
-                                tag="div"
-                                :disabled="cannot('update')"
+                            :to="'/rotaDaPaginaDeRecepção'"
+                            tag="tr"
+                            :disabled="cannot('update')"
+                            v-for="subEventDashBoard in subEventsDashBoard.data.rows"
                         >
-                            <tr
-                                    v-for="subEventDashBoard in subEventsDashBoard.data.rows"
-                            >
-                                <td class="align-middle">{{ subEventDashBoard.id }}</td>
-                                <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
-                                <td class="align-middle">{{ subEventDashBoard.name }}</td>
-                                <td class="align-middle">{{ subEventDashBoard.date}}</td>
-                                <td class="align-middle">{{ subEventDashBoard.time }}</td>
-                            </tr>
+                            <td class="align-middle">{{ subEventDashBoard.id }}</td>
+                            <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
+                            <td class="align-middle">{{ subEventDashBoard.name }}</td>
+                            <td class="align-middle">{{ subEventDashBoard.date}}</td>
+                            <td class="align-middle">{{ subEventDashBoard.time }}</td>
                         </router-link>
                     </app-table>
                 </app-table-panel>
