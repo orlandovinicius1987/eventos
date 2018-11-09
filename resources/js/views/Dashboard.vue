@@ -40,6 +40,7 @@
                             tag="tr"
                             :disabled="cannot('update')"
                             v-for="subEventDashBoard in subEventsDashBoard.data.rows"
+                            style="cursor: pointer;"
                         >
                             <td class="align-middle">{{ subEventDashBoard.id }}</td>
                             <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
