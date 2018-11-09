@@ -8,6 +8,43 @@
             <div class="col-8">
                 <form>
                     <div class="row">
+                        <div class="col-12">
+                            <img
+                                @click="showCropper = true"
+                                :src="form.fields.photoUrl"
+                                class="img-thumbnail rounded mx-auto d-block"
+                                width="200"
+                                height="200"
+                            >
+
+                            <b-modal
+                                id="croppaModal"
+                                body-class="mx-auto"
+                                v-model="showCropper"
+                                centered
+                            >
+                                <vue-croppa
+                                    v-model="photo"
+                                    placeholder="Selecione uma imagem"
+                                    :width="400"
+                                    :height="400"
+                                    :prevent-white-space="true"
+                                ></vue-croppa>
+
+                                <div slot="modal-footer" class="w-100">
+                                    <button class="float-right btn btn-success" variant="primary" @click="showCropper = false">
+                                        Cancelar
+                                    </button>
+
+                                    <button class="float-right btn btn-outline-secondary mr-2" variant="primary" @click="usePhoto()">
+                                        OK
+                                    </button>
+                                </div>
+                            </b-modal>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
                                 name="name"
@@ -15,6 +52,15 @@
                                 v-model="form.fields.name"
                                 :required="true"
                                 :form="form"
+                            ></app-input>
+
+                            <app-input
+                                name="cpf"
+                                label="CPF"
+                                v-model="form.fields.cpf"
+                                :required="false"
+                                :form="form"
+                                v-mask="'###.###.###-##'"
                             ></app-input>
 
                             <app-input
@@ -45,9 +91,19 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button
+                                @click.prevent="saveModel()"
+                                class="btn btn-outline-secondary"
+                                type="submit"
+                            >
+                                gravar
+                            </button>
 
-                            <router-link to="/people" tag="button" class="btn btn-success">
+                            <router-link
+                                to="/people"
+                                tag="button"
+                                class="btn btn-success"
+                            >
                                 cancelar
                             </router-link>
                         </div>
@@ -73,14 +129,51 @@ export default {
     data() {
         return {
             service: service,
+            photo: null,
+            photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
+            photoBlob: null,
+            showCropper: false,
         }
     },
 
     methods: {
         ...mapActions(service.name, ['selectPerson']),
-    },
+
+        generatePhoto() {
+            this.mutatePhotoUrl(this.photo.generateDataUrl())
+
+            this.photo.generateBlob(
+                blob => {
+                    this.mutatePhoto(blob)
+                },
+                'image/jpeg',
+                0.85
+            );
+        },
+
+        usePhoto() {
+            this.generatePhoto()
+
+            this.showCropper = false
+        },
+
+        mutatePhoto(blob) {
+            blob_to_base64(blob, (result) => {
+                this.mutateSetFormField({
+                    field: 'photo',
+                    value: blob.type + ';' + result,
+                })
+            })
+        },
+
+        mutatePhotoUrl(url) {
+            this.mutateSetFormField({
+                field: 'photoUrl',
+                value: url,
+            })
+        },
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

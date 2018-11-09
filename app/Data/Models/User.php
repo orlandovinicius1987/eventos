@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Data\Models;
 
 use App\Data\Models\Traits\Selectable;
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'permissions',
         'profiles',
     ];
+
+    protected $orderBy = ['name' => 'asc'];
 
     /**
      * The attributes that should be hidden for arrays.

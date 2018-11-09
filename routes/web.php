@@ -19,8 +19,16 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
     Route::get('/dashboard', 'Dashboard@data');
 
     Route::group(['middleware' => 'auth'], function () {
+        Route::group(['prefix' => '/sub-events'], function () {
+            Route::get('/', 'SubEvents@associateableSubEvent')->name(
+                'sub-events.associateableSubEvent'
+            );
+        });
+
         Route::group(['prefix' => '/events'], function () {
-            Route::get('/', 'Events@all')->name('events.all');
+            Route::get('/', 'Events@allHasSubEventsNotFinalized')->name(
+                'events.all'
+            );
 
             Route::post('/', 'Events@store')->name('events.store');
 
@@ -93,6 +101,8 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::get('/', 'People@all')->name('people.all');
 
             Route::post('/{id}', 'People@update')->name('people.update');
+
+            Route::get('/{id}/photo', 'People@photo')->name('people.photo');
 
             Route::post('/', 'People@store')->name('people.store');
 
@@ -205,6 +215,14 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             Route::post('/{id}', 'Roles@update')->name('roles.update');
 
             Route::post('/', 'Roles@store')->name('roles.store');
+        });
+
+        Route::group(['prefix' => '/costumes'], function () {
+            Route::get('/', 'Costumes@all')->name('costumes.all');
+        });
+
+        Route::group(['prefix' => '/sectors'], function () {
+            Route::get('/', 'Sectors@all')->name('sectors.all');
         });
 
         Route::group(['prefix' => '/addresses'], function () {

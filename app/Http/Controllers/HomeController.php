@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 //TEST
 use App\Data\Models\User as UserModel;
 use App\Data\Repositories\Users as UsersRepository;
+use App\Data\Repositories\Events as EventsRepository;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
 use Illuminate\Support\Facades\Gate;
 //TEST
@@ -40,8 +42,8 @@ class HomeController extends Controller
      */
     public function testRoute()
     {
-        $pi = app(PersonInstitutionsRepository::class)->findById(2);
-
-        dd($pi);
+        //        dd(app(EventsRepository::class)->allHasSubEventsToHappen());
+        //        dd(app(SubEventsRepository::class)->allToHappen());
+        dd(app(EventsRepository::class)->allHasSubEventsNotFinalized());
     }
 }

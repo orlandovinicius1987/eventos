@@ -16,10 +16,10 @@ export function mutateSetErrors(state, payload) {
             !payload.hasOwnProperty('errors')
                 ? {}
                 : payload.errors
-                    ? typeof payload.errors.errors === 'undefined'
-                        ? payload.errors
-                        : payload.errors.errors
-                    : {},
+                ? typeof payload.errors.errors === 'undefined'
+                    ? payload.errors
+                    : payload.errors.errors
+                : {},
         )
     }
 }

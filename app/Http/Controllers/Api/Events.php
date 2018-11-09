@@ -20,6 +20,16 @@ class Events extends Controller
     }
 
     /**
+     * Get all data with scope
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function allHasSubEventsNotFinalized()
+    {
+        return app(EventsRepository::class)->allHasSubEventsNotFinalized();
+    }
+
+    /**
      * Store
      *
      * @param EventStore $request

@@ -6,6 +6,9 @@
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 
+// Vue Croppa
+@import '~vue-croppa/dist/vue-croppa.css';
+
 // Variables
 @import 'variables';
 
@@ -41,4 +44,22 @@ html {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+
+
+
+
+
+
+
+.v-select {
+  .dropdown-toggle {
+    &:after{
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+    }
+  }
 }

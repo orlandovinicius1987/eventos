@@ -5,6 +5,8 @@ class Address extends BaseWithClient
 {
     protected $table = 'addresses';
 
+    protected $orderBy = ['street' => 'asc'];
+
     /**
      * @var array
      */

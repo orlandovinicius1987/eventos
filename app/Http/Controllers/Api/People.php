@@ -39,4 +39,13 @@ class People extends Controller
     {
         return app(PeopleRepository::class)->update($id, $request->all());
     }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function photo($id)
+    {
+        return app(PeopleRepository::class)->getPhotoResponse($id);
+    }
 }

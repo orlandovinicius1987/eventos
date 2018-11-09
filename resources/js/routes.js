@@ -40,6 +40,10 @@ let routes = [
         children: [],
     },
     {
+        path: '/sub-events',
+        component: SubEventsForm,
+    },
+    {
         path: '/events/:eventId/sub-events/create',
         component: SubEventsForm,
         props: { mode: 'create' },

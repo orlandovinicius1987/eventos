@@ -126,8 +126,8 @@
                 return null == t
                     ? ''
                     : 'object' == typeof t
-                        ? JSON.stringify(t, null, 2)
-                        : String(t)
+                    ? JSON.stringify(t, null, 2)
+                    : String(t)
             }
             function d(t) {
                 var e = parseFloat(t)
@@ -333,8 +333,8 @@
                 return t._isVue || (r && r.vmCount)
                     ? n
                     : r
-                        ? (N(r.value, e, n), r.dep.notify(), n)
-                        : ((t[e] = n), n)
+                    ? (N(r.value, e, n), r.dep.notify(), n)
+                    : ((t[e] = n), n)
             }
             function j(t, e) {
                 if (Array.isArray(t) && c(e)) return void t.splice(e, 1)
@@ -371,15 +371,15 @@
                           }
                         : void 0
                     : e
-                        ? t
-                            ? function() {
-                                  return W(
-                                      'function' == typeof e ? e.call(this) : e,
-                                      'function' == typeof t ? t.call(this) : t,
-                                  )
-                              }
-                            : e
-                        : t
+                    ? t
+                        ? function() {
+                              return W(
+                                  'function' == typeof e ? e.call(this) : e,
+                                  'function' == typeof t ? t.call(this) : t,
+                              )
+                          }
+                        : e
+                    : t
             }
             function V(t, e) {
                 return e ? (t ? t.concat(e) : Array.isArray(e) ? e : [e]) : t
@@ -477,8 +477,8 @@
                         void 0 !== t._props[n]
                         ? t._props[n]
                         : 'function' == typeof r && 'Function' !== K(e.type)
-                            ? r.call(t)
-                            : r
+                        ? r.call(t)
+                        : r
                 }
             }
             function K(t) {
@@ -552,8 +552,8 @@
                 n(u)
                     ? (s = et([a]))
                     : r(u.fns) && i(u.merged)
-                        ? ((s = u), s.fns.push(a))
-                        : (s = et([u, a])),
+                    ? ((s = u), s.fns.push(a))
+                    : (s = et([u, a])),
                     (s.merged = !0),
                     (t[e] = s)
             }
@@ -603,22 +603,17 @@
                             Array.isArray(s)
                                 ? l.push.apply(l, lt(s, (e || '') + '_' + o))
                                 : a(s)
-                                    ? ut(u)
-                                        ? (u.text += String(s))
-                                        : '' !== s && l.push(X(s))
-                                    : ut(s) && ut(u)
-                                        ? (l[l.length - 1] = X(u.text + s.text))
-                                        : (i(t._isVList) &&
-                                              r(s.tag) &&
-                                              n(s.key) &&
-                                              r(e) &&
-                                              (s.key =
-                                                  '__vlist' +
-                                                  e +
-                                                  '_' +
-                                                  o +
-                                                  '__'),
-                                          l.push(s)))
+                                ? ut(u)
+                                    ? (u.text += String(s))
+                                    : '' !== s && l.push(X(s))
+                                : ut(s) && ut(u)
+                                ? (l[l.length - 1] = X(u.text + s.text))
+                                : (i(t._isVList) &&
+                                      r(s.tag) &&
+                                      n(s.key) &&
+                                      r(e) &&
+                                      (s.key = '__vlist' + e + '_' + o + '__'),
+                                  l.push(s)))
                 return l
             }
             function ct(t, e) {
@@ -1175,8 +1170,8 @@
                                   t,
                               )
                             : r((u = q(t.$options, 'components', e)))
-                                ? Xt(u, n, t, i, e)
-                                : new Yr(e, n, i, void 0, void 0, t))
+                            ? Xt(u, n, t, i, e)
+                            : new Yr(e, n, i, void 0, void 0, t))
                 } else a = Xt(e, n, t, i)
                 return r(a) ? (s && oe(a, s), a) : Jr()
             }
@@ -1449,8 +1444,8 @@
                 return Array.isArray(t)
                     ? t.indexOf(e) > -1
                     : 'string' == typeof t
-                        ? t.split(',').indexOf(e) > -1
-                        : !!l(t) && t.test(e)
+                    ? t.split(',').indexOf(e) > -1
+                    : !!l(t) && t.test(e)
             }
             function Oe(t, e, n) {
                 for (var r in t) {
@@ -1487,10 +1482,10 @@
                 return Array.isArray(t)
                     ? je(t)
                     : s(t)
-                        ? Fe(t)
-                        : 'string' == typeof t
-                            ? t
-                            : ''
+                    ? Fe(t)
+                    : 'string' == typeof t
+                    ? t
+                    : ''
             }
             function je(t) {
                 for (var e, n = '', i = 0, o = t.length; i < o; i++)
@@ -1577,10 +1572,10 @@
                             ? p(o[n], i)
                             : o[n] === i && (o[n] = void 0)
                         : t.data.refInFor
-                            ? Array.isArray(o[n])
-                                ? o[n].indexOf(i) < 0 && o[n].push(i)
-                                : (o[n] = [i])
-                            : (o[n] = i)
+                        ? Array.isArray(o[n])
+                            ? o[n].indexOf(i) < 0 && o[n].push(i)
+                            : (o[n] = [i])
+                        : (o[n] = i)
                 }
             }
             function en(t, e) {
@@ -1712,17 +1707,17 @@
                         ? t.removeAttribute(e)
                         : t.setAttribute(e, e)
                     : wi(e)
-                        ? t.setAttribute(
-                              e,
-                              Ai(n) || 'false' === n ? 'false' : 'true',
-                          )
-                        : Si(e)
-                            ? Ai(n)
-                                ? t.removeAttributeNS(ki, Ti(e))
-                                : t.setAttributeNS(ki, e, n)
-                            : Ai(n)
-                                ? t.removeAttribute(e)
-                                : t.setAttribute(e, n)
+                    ? t.setAttribute(
+                          e,
+                          Ai(n) || 'false' === n ? 'false' : 'true',
+                      )
+                    : Si(e)
+                    ? Ai(n)
+                        ? t.removeAttributeNS(ki, Ti(e))
+                        : t.setAttributeNS(ki, e, n)
+                    : Ai(n)
+                    ? t.removeAttribute(e)
+                    : t.setAttribute(e, n)
             }
             function dn(t, e) {
                 var i = e.elm,
@@ -1817,8 +1812,8 @@
                 return r(i) && i.number
                     ? d(n) !== d(e)
                     : r(i) && i.trim
-                        ? n.trim() !== e.trim()
-                        : n !== e
+                    ? n.trim() !== e.trim()
+                    : n !== e
             }
             function xn(t) {
                 var e = wn(t.style)
@@ -1828,8 +1823,8 @@
                 return Array.isArray(t)
                     ? b(t)
                     : 'string' == typeof t
-                        ? Yi(t)
-                        : t
+                    ? Yi(t)
+                    : t
             }
             function Cn(t, e) {
                 var n,
@@ -1962,10 +1957,10 @@
                     e === eo
                         ? a > 0 && ((n = eo), (c = a), (f = o.length))
                         : e === no
-                            ? l > 0 && ((n = no), (c = l), (f = u.length))
-                            : ((c = Math.max(a, l)),
-                              (n = c > 0 ? (a > l ? eo : no) : null),
-                              (f = n ? (n === eo ? o.length : u.length) : 0)),
+                        ? l > 0 && ((n = no), (c = l), (f = u.length))
+                        : ((c = Math.max(a, l)),
+                          (n = c > 0 ? (a > l ? eo : no) : null),
+                          (f = n ? (n === eo ? o.length : u.length) : 0)),
                     {
                         type: n,
                         timeout: c,
@@ -2462,8 +2457,8 @@
                 return n
                     ? H(t, e, n)
                     : e && 'function' != typeof e
-                        ? t
-                        : H.call(this, t, e)
+                    ? t
+                    : H.call(this, t, e)
             }),
                 hr.forEach(function(t) {
                     Ur[t] = V
@@ -2486,8 +2481,8 @@
                             (n[r] = i
                                 ? i.concat(o)
                                 : Array.isArray(o)
-                                    ? o
-                                    : [o])
+                                ? o
+                                : [o])
                     }
                     return n
                 }),
@@ -2619,8 +2614,8 @@
                     this.lazy
                         ? (this.dirty = !0)
                         : this.sync
-                            ? this.run()
-                            : Pt(this)
+                        ? this.run()
+                        : Pt(this)
                 }),
                 (oi.prototype.run = function() {
                     if (this.active) {
@@ -3194,10 +3189,10 @@
                                   r(s) && v(t, e),
                                   d(n, t.elm, o))
                                 : i(t.isComment)
-                                    ? ((t.elm = O.createComment(t.text)),
-                                      d(n, t.elm, o))
-                                    : ((t.elm = O.createTextNode(t.text)),
-                                      d(n, t.elm, o))
+                                ? ((t.elm = O.createComment(t.text)),
+                                  d(n, t.elm, o))
+                                : ((t.elm = O.createTextNode(t.text)),
+                                  d(n, t.elm, o))
                         }
                     }
                     function l(t, e, n, o) {
@@ -3337,64 +3332,43 @@
                             n(g)
                                 ? (g = e[++d])
                                 : n(v)
-                                    ? (v = e[--p])
-                                    : en(g, _)
-                                        ? (C(g, _, o),
-                                          (g = e[++d]),
-                                          (_ = i[++h]))
-                                        : en(v, x)
-                                            ? (C(v, x, o),
-                                              (v = e[--p]),
-                                              (x = i[--m]))
-                                            : en(g, x)
-                                                ? (C(g, x, o),
-                                                  w &&
-                                                      O.insertBefore(
-                                                          t,
-                                                          g.elm,
-                                                          O.nextSibling(v.elm),
-                                                      ),
-                                                  (g = e[++d]),
-                                                  (x = i[--m]))
-                                                : en(v, _)
-                                                    ? (C(v, _, o),
-                                                      w &&
-                                                          O.insertBefore(
-                                                              t,
-                                                              v.elm,
-                                                              g.elm,
-                                                          ),
-                                                      (v = e[--p]),
-                                                      (_ = i[++h]))
-                                                    : (n(s) &&
-                                                          (s = rn(e, d, p)),
-                                                      (l = r(_.key)
-                                                          ? s[_.key]
-                                                          : null),
-                                                      n(l)
-                                                          ? (u(_, o, t, g.elm),
-                                                            (_ = i[++h]))
-                                                          : ((c = e[l]),
-                                                            en(c, _)
-                                                                ? (C(c, _, o),
-                                                                  (e[
-                                                                      l
-                                                                  ] = void 0),
-                                                                  w &&
-                                                                      O.insertBefore(
-                                                                          t,
-                                                                          c.elm,
-                                                                          g.elm,
-                                                                      ),
-                                                                  (_ = i[++h]))
-                                                                : (u(
-                                                                      _,
-                                                                      o,
-                                                                      t,
-                                                                      g.elm,
-                                                                  ),
-                                                                  (_ =
-                                                                      i[++h]))))
+                                ? (v = e[--p])
+                                : en(g, _)
+                                ? (C(g, _, o), (g = e[++d]), (_ = i[++h]))
+                                : en(v, x)
+                                ? (C(v, x, o), (v = e[--p]), (x = i[--m]))
+                                : en(g, x)
+                                ? (C(g, x, o),
+                                  w &&
+                                      O.insertBefore(
+                                          t,
+                                          g.elm,
+                                          O.nextSibling(v.elm),
+                                      ),
+                                  (g = e[++d]),
+                                  (x = i[--m]))
+                                : en(v, _)
+                                ? (C(v, _, o),
+                                  w && O.insertBefore(t, v.elm, g.elm),
+                                  (v = e[--p]),
+                                  (_ = i[++h]))
+                                : (n(s) && (s = rn(e, d, p)),
+                                  (l = r(_.key) ? s[_.key] : null),
+                                  n(l)
+                                      ? (u(_, o, t, g.elm), (_ = i[++h]))
+                                      : ((c = e[l]),
+                                        en(c, _)
+                                            ? (C(c, _, o),
+                                              (e[l] = void 0),
+                                              w &&
+                                                  O.insertBefore(
+                                                      t,
+                                                      c.elm,
+                                                      g.elm,
+                                                  ),
+                                              (_ = i[++h]))
+                                            : (u(_, o, t, g.elm),
+                                              (_ = i[++h]))))
                         d > p
                             ? ((f = n(i[m + 1]) ? null : i[m + 1].elm),
                               y(t, f, i, h, m, o))
@@ -3432,12 +3406,11 @@
                                 ? r(c) && r(f)
                                     ? c !== f && w(s, c, f, o, a)
                                     : r(f)
-                                        ? (r(t.text) && O.setTextContent(s, ''),
-                                          y(s, null, f, 0, f.length - 1, o))
-                                        : r(c)
-                                            ? b(s, c, 0, c.length - 1)
-                                            : r(t.text) &&
-                                              O.setTextContent(s, '')
+                                    ? (r(t.text) && O.setTextContent(s, ''),
+                                      y(s, null, f, 0, f.length - 1, o))
+                                    : r(c)
+                                    ? b(s, c, 0, c.length - 1)
+                                    : r(t.text) && O.setTextContent(s, '')
                                 : t.text !== e.text &&
                                   O.setTextContent(s, e.text),
                                 r(l) &&
@@ -3671,10 +3644,10 @@
                                         ? s + 'comment'
                                         : s + o.tag
                                     : a(o.key)
-                                        ? 0 === String(o.key).indexOf(s)
-                                            ? o.key
-                                            : s + o.key
-                                        : o.key
+                                    ? 0 === String(o.key).indexOf(s)
+                                        ? o.key
+                                        : s + o.key
+                                    : o.key
                             var u = ((o.data || (o.data = {})).transition = qn(
                                     this,
                                 )),
@@ -4033,8 +4006,8 @@
                             ? (r += c)
                             : 'right' === u && (r -= c)
                         : 'left' === u
-                            ? (r -= f)
-                            : 'right' === u && (r += f),
+                        ? (r -= f)
+                        : 'right' === u && (r += f),
                     { x: r, y: i }
                 )
             }
@@ -4265,12 +4238,10 @@
                             ('left' === f
                                 ? ((i = h + c + l), (r = i - l), (o = i + l))
                                 : 'right' === f
-                                    ? ((i = h + g - c - l),
-                                      (r = i - l),
-                                      (o = i + l))
-                                    : ((i = h + g / 2),
-                                      (r = i - l),
-                                      (o = i + l)),
+                                ? ((i = h + g - c - l),
+                                  (r = i - l),
+                                  (o = i + l))
+                                : ((i = h + g / 2), (r = i - l), (o = i + l)),
                             'top' === d)
                         )
                             (a = p), (s = a - l), (u = a)
@@ -4645,8 +4616,8 @@
                                 radius: i
                                     ? 0
                                     : l.radius
-                                        ? l.radius
-                                        : o.getRadius(f),
+                                    ? l.radius
+                                    : o.getRadius(f),
                                 hitRadius: l.hitRadius
                                     ? l.hitRadius
                                     : e.getValueAtIndexOrDefault(
@@ -4863,27 +4834,22 @@
                                                 s === o.end
                                                     ? o.top
                                                     : s === o.minNotZero
-                                                        ? o.top + 0.02 * n
-                                                        : o.top +
-                                                          0.02 * n +
-                                                          ((0.98 * n) / i) *
-                                                              (e.log10(s) -
-                                                                  e.log10(
-                                                                      o.minNotZero,
-                                                                  ))))
+                                                    ? o.top + 0.02 * n
+                                                    : o.top +
+                                                      0.02 * n +
+                                                      ((0.98 * n) / i) *
+                                                          (e.log10(s) -
+                                                              e.log10(
+                                                                  o.minNotZero,
+                                                              ))))
                                           : 0 === s
-                                              ? (r = l.reverse
-                                                    ? o.top
-                                                    : o.bottom)
-                                              : ((i =
-                                                    e.log10(o.end) -
-                                                    e.log10(a)),
-                                                (n = o.height),
-                                                (r =
-                                                    o.bottom -
-                                                    (n / i) *
-                                                        (e.log10(s) -
-                                                            e.log10(a))))
+                                          ? (r = l.reverse ? o.top : o.bottom)
+                                          : ((i = e.log10(o.end) - e.log10(a)),
+                                            (n = o.height),
+                                            (r =
+                                                o.bottom -
+                                                (n / i) *
+                                                    (e.log10(s) - e.log10(a))))
                                       : ((i =
                                             e.log10(o.end) -
                                             e.log10(o.minNotZero)),
@@ -4891,14 +4857,14 @@
                                             s === a
                                                 ? o.bottom
                                                 : s === o.minNotZero
-                                                    ? o.bottom - 0.02 * n
-                                                    : o.bottom -
-                                                      0.02 * n -
-                                                      ((0.98 * n) / i) *
-                                                          (e.log10(s) -
-                                                              e.log10(
-                                                                  o.minNotZero,
-                                                              ))))),
+                                                ? o.bottom - 0.02 * n
+                                                : o.bottom -
+                                                  0.02 * n -
+                                                  ((0.98 * n) / i) *
+                                                      (e.log10(s) -
+                                                          e.log10(
+                                                              o.minNotZero,
+                                                          ))))),
                             r
                         )
                     },
@@ -5059,23 +5025,15 @@
                               : t.lineTo(n.x, e.y),
                           void t.lineTo(n.x, n.y))
                         : n.tension
-                            ? void t.bezierCurveTo(
-                                  r
-                                      ? e.controlPointPreviousX
-                                      : e.controlPointNextX,
-                                  r
-                                      ? e.controlPointPreviousY
-                                      : e.controlPointNextY,
-                                  r
-                                      ? n.controlPointNextX
-                                      : n.controlPointPreviousX,
-                                  r
-                                      ? n.controlPointNextY
-                                      : n.controlPointPreviousY,
-                                  n.x,
-                                  n.y,
-                              )
-                            : void t.lineTo(n.x, n.y)
+                        ? void t.bezierCurveTo(
+                              r ? e.controlPointPreviousX : e.controlPointNextX,
+                              r ? e.controlPointPreviousY : e.controlPointNextY,
+                              r ? n.controlPointNextX : n.controlPointPreviousX,
+                              r ? n.controlPointNextY : n.controlPointPreviousY,
+                              n.x,
+                              n.y,
+                          )
+                        : void t.lineTo(n.x, n.y)
                 }),
                 (t.helpers.canvas = e)
         }
@@ -5156,8 +5114,8 @@
                                     fill: a.fill
                                         ? a.fill
                                         : void 0 !== s.fill
-                                            ? s.fill
-                                            : u.fill,
+                                        ? s.fill
+                                        : u.fill,
                                     borderCapStyle: a.borderCapStyle
                                         ? a.borderCapStyle
                                         : s.borderCapStyle || u.borderCapStyle,
@@ -7029,22 +6987,19 @@
                           return !!e.call(t, r, t) !== n
                       })
                     : e.nodeType
-                        ? yt.grep(t, function(t) {
-                              return (t === e) !== n
-                          })
-                        : 'string' != typeof e
-                            ? yt.grep(t, function(t) {
-                                  return ft.call(e, t) > -1 !== n
-                              })
-                            : Dt.test(e)
-                                ? yt.filter(e, t, n)
-                                : ((e = yt.filter(e, t)),
-                                  yt.grep(t, function(t) {
-                                      return (
-                                          ft.call(e, t) > -1 !== n &&
-                                          1 === t.nodeType
-                                      )
-                                  }))
+                    ? yt.grep(t, function(t) {
+                          return (t === e) !== n
+                      })
+                    : 'string' != typeof e
+                    ? yt.grep(t, function(t) {
+                          return ft.call(e, t) > -1 !== n
+                      })
+                    : Dt.test(e)
+                    ? yt.filter(e, t, n)
+                    : ((e = yt.filter(e, t)),
+                      yt.grep(t, function(t) {
+                          return ft.call(e, t) > -1 !== n && 1 === t.nodeType
+                      }))
             }
             function c(t, e) {
                 for (; (t = t[e]) && 1 !== t.nodeType; );
@@ -7074,8 +7029,8 @@
                               .done(e)
                               .fail(n)
                         : t && yt.isFunction((i = t.then))
-                            ? i.call(t, e, n)
-                            : e.apply(void 0, [t].slice(r))
+                        ? i.call(t, e, n)
+                        : e.apply(void 0, [t].slice(r))
                 } catch (t) {
                     n.apply(void 0, [t])
                 }
@@ -7095,10 +7050,10 @@
                         ('null' === t
                             ? null
                             : t === +t + ''
-                                ? +t
-                                : Ht.test(t)
-                                    ? JSON.parse(t)
-                                    : t))
+                            ? +t
+                            : Ht.test(t)
+                            ? JSON.parse(t)
+                            : t))
                 )
             }
             function y(t, e, n) {
@@ -7185,8 +7140,8 @@
                         void 0 !== t.getElementsByTagName
                             ? t.getElementsByTagName(e || '*')
                             : void 0 !== t.querySelectorAll
-                                ? t.querySelectorAll(e || '*')
-                                : []),
+                            ? t.querySelectorAll(e || '*')
+                            : []),
                     void 0 === e || (e && u(t, e)) ? yt.merge([t], n) : n
                 )
             }
@@ -7459,8 +7414,8 @@
                         n === (r ? 'border' : 'content')
                             ? 4
                             : 'width' === e
-                                ? 1
-                                : 0;
+                            ? 1
+                            : 0;
                     o < 4;
                     o += 2
                 )
@@ -7923,8 +7878,8 @@
                     return null == t
                         ? ut.call(this)
                         : t < 0
-                            ? this[t + this.length]
-                            : this[t]
+                        ? this[t + this.length]
+                        : this[t]
                 },
                 pushStack: function(t) {
                     var e = yt.merge(this.constructor(), t)
@@ -8047,8 +8002,8 @@
                         return null == t
                             ? t + ''
                             : 'object' == typeof t || 'function' == typeof t
-                                ? dt[ht.call(t)] || 'object'
-                                : typeof t
+                            ? dt[ht.call(t)] || 'object'
+                            : typeof t
                     },
                     globalEval: function(t) {
                         a(t)
@@ -8663,11 +8618,11 @@
                         return r !== r || n
                             ? e
                             : r < 0
-                                ? String.fromCharCode(r + 65536)
-                                : String.fromCharCode(
-                                      (r >> 10) | 55296,
-                                      (1023 & r) | 56320,
-                                  )
+                            ? String.fromCharCode(r + 65536)
+                            : String.fromCharCode(
+                                  (r >> 10) | 55296,
+                                  (1023 & r) | 56320,
+                              )
                     },
                     _t = /([\0-\x1f\x7f]|^-?\d)|^-$|[^\0-\x1f\x7f-\uFFFF\w-]/g,
                     bt = function(t, e) {
@@ -8811,8 +8766,8 @@
                                         return void 0 !== e.getElementsByTagName
                                             ? e.getElementsByTagName(t)
                                             : b.qsa
-                                                ? e.querySelectorAll(t)
-                                                : void 0
+                                            ? e.querySelectorAll(t)
+                                            : void 0
                                     }
                                   : function(t, e) {
                                         var n,
@@ -8965,13 +8920,13 @@
                                                     : e === M ||
                                                       (e.ownerDocument === W &&
                                                           j(W, e))
-                                                        ? 1
-                                                        : D
-                                                            ? X(D, t) - X(D, e)
-                                                            : 0
+                                                    ? 1
+                                                    : D
+                                                    ? X(D, t) - X(D, e)
+                                                    : 0
                                                 : 4 & n
-                                                    ? -1
-                                                    : 1)
+                                                ? -1
+                                                : 1)
                                         )
                                     }
                                   : function(t, e) {
@@ -8986,15 +8941,14 @@
                                             return t === M
                                                 ? -1
                                                 : e === M
-                                                    ? 1
-                                                    : i
-                                                        ? -1
-                                                        : o
-                                                            ? 1
-                                                            : D
-                                                                ? X(D, t) -
-                                                                  X(D, e)
-                                                                : 0
+                                                ? 1
+                                                : i
+                                                ? -1
+                                                : o
+                                                ? 1
+                                                : D
+                                                ? X(D, t) - X(D, e)
+                                                : 0
                                         if (i === o) return a(t, e)
                                         for (n = t; (n = n.parentNode); )
                                             s.unshift(n)
@@ -9004,10 +8958,10 @@
                                         return r
                                             ? a(s[r], u[r])
                                             : s[r] === W
-                                                ? -1
-                                                : u[r] === W
-                                                    ? 1
-                                                    : 0
+                                            ? -1
+                                            : u[r] === W
+                                            ? 1
+                                            : 0
                                     }),
                               M)
                             : M
@@ -9049,10 +9003,10 @@
                         return void 0 !== r
                             ? r
                             : b.attributes || !P
-                                ? t.getAttribute(e)
-                                : (r = t.getAttributeNode(e)) && r.specified
-                                    ? r.value
-                                    : null
+                            ? t.getAttribute(e)
+                            : (r = t.getAttributeNode(e)) && r.specified
+                            ? r.value
+                            : null
                     }),
                     (e.escape = function(t) {
                         return (t + '').replace(_t, bt)
@@ -9200,41 +9154,27 @@
                                               '=' === n
                                                   ? o === r
                                                   : '!=' === n
-                                                      ? o !== r
-                                                      : '^=' === n
-                                                          ? r &&
-                                                            0 === o.indexOf(r)
-                                                          : '*=' === n
-                                                              ? r &&
-                                                                o.indexOf(r) >
-                                                                    -1
-                                                              : '$=' === n
-                                                                  ? r &&
-                                                                    o.slice(
-                                                                        -r.length,
-                                                                    ) === r
-                                                                  : '~=' === n
-                                                                      ? (
-                                                                            ' ' +
-                                                                            o.replace(
-                                                                                it,
-                                                                                ' ',
-                                                                            ) +
-                                                                            ' '
-                                                                        ).indexOf(
-                                                                            r,
-                                                                        ) > -1
-                                                                      : '|=' ===
-                                                                            n &&
-                                                                        (o ===
-                                                                            r ||
-                                                                            o.slice(
-                                                                                0,
-                                                                                r.length +
-                                                                                    1,
-                                                                            ) ===
-                                                                                r +
-                                                                                    '-'))
+                                                  ? o !== r
+                                                  : '^=' === n
+                                                  ? r && 0 === o.indexOf(r)
+                                                  : '*=' === n
+                                                  ? r && o.indexOf(r) > -1
+                                                  : '$=' === n
+                                                  ? r &&
+                                                    o.slice(-r.length) === r
+                                                  : '~=' === n
+                                                  ? (
+                                                        ' ' +
+                                                        o.replace(it, ' ') +
+                                                        ' '
+                                                    ).indexOf(r) > -1
+                                                  : '|=' === n &&
+                                                    (o === r ||
+                                                        o.slice(
+                                                            0,
+                                                            r.length + 1,
+                                                        ) ===
+                                                            r + '-'))
                                 }
                             },
                             CHILD: function(t, e, n, r, i) {
@@ -9373,26 +9313,25 @@
                                 return o[F]
                                     ? o(n)
                                     : o.length > 1
-                                        ? ((i = [t, t, '', n]),
-                                          x.setFilters.hasOwnProperty(
-                                              t.toLowerCase(),
-                                          )
-                                              ? r(function(t, e) {
-                                                    for (
-                                                        var r,
-                                                            i = o(t, n),
-                                                            a = i.length;
-                                                        a--;
+                                    ? ((i = [t, t, '', n]),
+                                      x.setFilters.hasOwnProperty(
+                                          t.toLowerCase(),
+                                      )
+                                          ? r(function(t, e) {
+                                                for (
+                                                    var r,
+                                                        i = o(t, n),
+                                                        a = i.length;
+                                                    a--;
 
-                                                    )
-                                                        (r = X(t, i[a])),
-                                                            (t[r] = !(e[r] =
-                                                                i[a]))
-                                                })
-                                              : function(t) {
-                                                    return o(t, 0, i)
-                                                })
-                                        : o
+                                                )
+                                                    (r = X(t, i[a])),
+                                                        (t[r] = !(e[r] = i[a]))
+                                            })
+                                          : function(t) {
+                                                return o(t, 0, i)
+                                            })
+                                    : o
                             },
                         },
                         pseudos: {
@@ -9737,8 +9676,8 @@
                                 return !0 === t[e]
                                     ? e.toLowerCase()
                                     : (r = t.getAttributeNode(e)) && r.specified
-                                        ? r.value
-                                        : null
+                                    ? r.value
+                                    : null
                         }),
                     e
                 )
@@ -9866,10 +9805,10 @@
                 return t.nodeType
                     ? ((this[0] = t), (this.length = 1), this)
                     : yt.isFunction(t)
-                        ? void 0 !== n.ready
-                            ? n.ready(t)
-                            : t(yt)
-                        : yt.makeArray(t, this)
+                    ? void 0 !== n.ready
+                        ? n.ready(t)
+                        : t(yt)
+                    : yt.makeArray(t, this)
             }).prototype = yt.fn),
                 (Et = yt(at))
             var Mt = /^(?:parents|prev(?:Until|All))/,
@@ -9910,8 +9849,8 @@
                             ? ft.call(yt(t), this[0])
                             : ft.call(this, t.jquery ? t[0] : t)
                         : this[0] && this[0].parentNode
-                            ? this.first().prevAll().length
-                            : -1
+                        ? this.first().prevAll().length
+                        : -1
                 },
                 add: function(t, e) {
                     return this.pushStack(
@@ -10600,14 +10539,14 @@
                             arguments.length < n
                                 ? yt.queue(this[0], t)
                                 : void 0 === e
-                                    ? this
-                                    : this.each(function() {
-                                          var n = yt.queue(this, t, e)
-                                          yt._queueHooks(this, t),
-                                              'fx' === t &&
-                                                  'inprogress' !== n[0] &&
-                                                  yt.dequeue(this, t)
-                                      })
+                                ? this
+                                : this.each(function() {
+                                      var n = yt.queue(this, t, e)
+                                      yt._queueHooks(this, t),
+                                          'fx' === t &&
+                                              'inprogress' !== n[0] &&
+                                              yt.dequeue(this, t)
+                                  })
                         )
                     },
                     dequeue: function(t) {
@@ -11090,14 +11029,14 @@
                                     ? t.charCode
                                     : t.keyCode
                                 : !t.which && void 0 !== e && ee.test(t.type)
-                                    ? 1 & e
-                                        ? 1
-                                        : 2 & e
-                                            ? 3
-                                            : 4 & e
-                                                ? 2
-                                                : 0
-                                    : t.which
+                                ? 1 & e
+                                    ? 1
+                                    : 2 & e
+                                    ? 3
+                                    : 4 & e
+                                    ? 2
+                                    : 0
+                                : t.which
                         },
                     },
                     yt.event.addProp,
@@ -11689,8 +11628,8 @@
                                 : 1 !== t.elem.nodeType ||
                                   (null == t.elem.style[yt.cssProps[t.prop]] &&
                                       !yt.cssHooks[t.prop])
-                                    ? (t.elem[t.prop] = t.now)
-                                    : yt.style(t.elem, t.prop, t.now + t.unit)
+                                ? (t.elem[t.prop] = t.now)
+                                : yt.style(t.elem, t.prop, t.now + t.unit)
                         },
                     },
                 }),
@@ -11948,14 +11887,14 @@
                                           : i &&
                                             'set' in i &&
                                             void 0 !== (r = i.set(t, n, e))
-                                              ? r
-                                              : (t.setAttribute(e, n + ''), n)
+                                          ? r
+                                          : (t.setAttribute(e, n + ''), n)
                                       : i &&
                                         'get' in i &&
                                         null !== (r = i.get(t, e))
-                                          ? r
-                                          : ((r = yt.find.attr(t, e)),
-                                            null == r ? void 0 : r))
+                                      ? r
+                                      : ((r = yt.find.attr(t, e)),
+                                        null == r ? void 0 : r))
                     },
                     attrHooks: {
                         type: {
@@ -12043,8 +11982,8 @@
                                     : i &&
                                       'get' in i &&
                                       null !== (r = i.get(t, e))
-                                        ? r
-                                        : t[e]
+                                    ? r
+                                    : t[e]
                             )
                     },
                     propHooks: {
@@ -12055,8 +11994,8 @@
                                     ? parseInt(e, 10)
                                     : Ce.test(t.nodeName) ||
                                       (ke.test(t.nodeName) && t.href)
-                                        ? 0
-                                        : -1
+                                    ? 0
+                                    : -1
                             },
                         },
                     },
@@ -12158,45 +12097,40 @@
                                 ? this.addClass(t)
                                 : this.removeClass(t)
                             : yt.isFunction(t)
-                                ? this.each(function(n) {
-                                      yt(this).toggleClass(
-                                          t.call(this, n, X(this), e),
-                                          e,
-                                      )
-                                  })
-                                : this.each(function() {
-                                      var e, r, i, o
-                                      if ('string' === n)
-                                          for (
-                                              r = 0,
-                                                  i = yt(this),
-                                                  o = t.match(Pt) || [];
-                                              (e = o[r++]);
+                            ? this.each(function(n) {
+                                  yt(this).toggleClass(
+                                      t.call(this, n, X(this), e),
+                                      e,
+                                  )
+                              })
+                            : this.each(function() {
+                                  var e, r, i, o
+                                  if ('string' === n)
+                                      for (
+                                          r = 0,
+                                              i = yt(this),
+                                              o = t.match(Pt) || [];
+                                          (e = o[r++]);
 
-                                          )
-                                              i.hasClass(e)
-                                                  ? i.removeClass(e)
-                                                  : i.addClass(e)
-                                      else
-                                          (void 0 !== t && 'boolean' !== n) ||
-                                              ((e = X(this)),
-                                              e &&
-                                                  Ft.set(
-                                                      this,
-                                                      '__className__',
-                                                      e,
-                                                  ),
-                                              this.setAttribute &&
-                                                  this.setAttribute(
-                                                      'class',
-                                                      e || !1 === t
-                                                          ? ''
-                                                          : Ft.get(
-                                                                this,
-                                                                '__className__',
-                                                            ) || '',
-                                                  ))
-                                  })
+                                      )
+                                          i.hasClass(e)
+                                              ? i.removeClass(e)
+                                              : i.addClass(e)
+                                  else
+                                      (void 0 !== t && 'boolean' !== n) ||
+                                          ((e = X(this)),
+                                          e && Ft.set(this, '__className__', e),
+                                          this.setAttribute &&
+                                              this.setAttribute(
+                                                  'class',
+                                                  e || !1 === t
+                                                      ? ''
+                                                      : Ft.get(
+                                                            this,
+                                                            '__className__',
+                                                        ) || '',
+                                              ))
+                              })
                     },
                     hasClass: function(t) {
                         var e,
@@ -12231,13 +12165,11 @@
                                         null == i
                                             ? (i = '')
                                             : 'number' == typeof i
-                                                ? (i += '')
-                                                : Array.isArray(i) &&
-                                                  (i = yt.map(i, function(t) {
-                                                      return null == t
-                                                          ? ''
-                                                          : t + ''
-                                                  })),
+                                            ? (i += '')
+                                            : Array.isArray(i) &&
+                                              (i = yt.map(i, function(t) {
+                                                  return null == t ? '' : t + ''
+                                              })),
                                         ((e =
                                             yt.valHooks[this.type] ||
                                             yt.valHooks[
@@ -12260,8 +12192,8 @@
                                   'string' == typeof n
                                       ? n.replace(Se, '')
                                       : null == n
-                                          ? ''
-                                          : n)
+                                      ? ''
+                                      : n)
                     }
                 },
             }),
@@ -12539,16 +12471,16 @@
                                 return null == n
                                     ? null
                                     : Array.isArray(n)
-                                        ? yt.map(n, function(t) {
-                                              return {
-                                                  name: e.name,
-                                                  value: t.replace(Me, '\r\n'),
-                                              }
-                                          })
-                                        : {
+                                    ? yt.map(n, function(t) {
+                                          return {
                                               name: e.name,
-                                              value: n.replace(Me, '\r\n'),
+                                              value: t.replace(Me, '\r\n'),
                                           }
+                                      })
+                                    : {
+                                          name: e.name,
+                                          value: n.replace(Me, '\r\n'),
+                                      }
                             })
                             .get()
                     },
@@ -12638,11 +12570,11 @@
                                       204 === t || 'HEAD' === p.type
                                           ? (w = 'nocontent')
                                           : 304 === t
-                                              ? (w = 'notmodified')
-                                              : ((w = b.state),
-                                                (d = b.data),
-                                                (h = b.error),
-                                                (l = !h)))
+                                          ? (w = 'notmodified')
+                                          : ((w = b.state),
+                                            (d = b.data),
+                                            (h = b.error),
+                                            (l = !h)))
                                     : ((h = w),
                                       (!t && w) ||
                                           ((w = 'error'), t < 0 && (t = 0))),
@@ -12808,9 +12740,9 @@
                                 'Accept',
                                 p.dataTypes[0] && p.accepts[p.dataTypes[0]]
                                     ? p.accepts[p.dataTypes[0]] +
-                                      ('*' !== p.dataTypes[0]
-                                          ? ', ' + ze + '; q=0.01'
-                                          : '')
+                                          ('*' !== p.dataTypes[0]
+                                              ? ', ' + ze + '; q=0.01'
+                                              : '')
                                     : p.accepts['*'],
                             )
                         for (d in p.headers) C.setRequestHeader(d, p.headers[d])
@@ -12988,32 +12920,27 @@
                                             'abort' === t
                                                 ? s.abort()
                                                 : 'error' === t
-                                                    ? 'number' !=
-                                                      typeof s.status
-                                                        ? o(0, 'error')
-                                                        : o(
-                                                              s.status,
-                                                              s.statusText,
-                                                          )
-                                                    : o(
-                                                          $e[s.status] ||
-                                                              s.status,
-                                                          s.statusText,
-                                                          'text' !==
-                                                              (s.responseType ||
-                                                                  'text') ||
+                                                ? 'number' != typeof s.status
+                                                    ? o(0, 'error')
+                                                    : o(s.status, s.statusText)
+                                                : o(
+                                                      $e[s.status] || s.status,
+                                                      s.statusText,
+                                                      'text' !==
+                                                          (s.responseType ||
+                                                              'text') ||
                                                           'string' !=
                                                               typeof s.responseText
-                                                              ? {
-                                                                    binary:
-                                                                        s.response,
-                                                                }
-                                                              : {
-                                                                    text:
-                                                                        s.responseText,
-                                                                },
-                                                          s.getAllResponseHeaders(),
-                                                      ))
+                                                          ? {
+                                                                binary:
+                                                                    s.response,
+                                                            }
+                                                          : {
+                                                                text:
+                                                                    s.responseText,
+                                                            },
+                                                      s.getAllResponseHeaders(),
+                                                  ))
                                     }
                                 }),
                                     (s.onload = e()),
@@ -13417,17 +13344,17 @@
                                                       'client' + t
                                                   ]
                                             : 9 === e.nodeType
-                                                ? ((o = e.documentElement),
-                                                  Math.max(
-                                                      e.body['scroll' + t],
-                                                      o['scroll' + t],
-                                                      e.body['offset' + t],
-                                                      o['offset' + t],
-                                                      o['client' + t],
-                                                  ))
-                                                : void 0 === i
-                                                    ? yt.css(e, n, s)
-                                                    : yt.style(e, n, i, s)
+                                            ? ((o = e.documentElement),
+                                              Math.max(
+                                                  e.body['scroll' + t],
+                                                  o['scroll' + t],
+                                                  e.body['offset' + t],
+                                                  o['offset' + t],
+                                                  o['client' + t],
+                                              ))
+                                            : void 0 === i
+                                            ? yt.css(e, n, s)
+                                            : yt.style(e, n, i, s)
                                     },
                                     e,
                                     a ? i : void 0,
@@ -13682,8 +13609,8 @@
                                     fill: o.fill
                                         ? o.fill
                                         : void 0 !== h.fill
-                                            ? h.fill
-                                            : f.fill,
+                                        ? h.fill
+                                        : f.fill,
                                     steppedLine: o.steppedLine
                                         ? o.steppedLine
                                         : n.getValueOrDefault(
@@ -13724,13 +13651,12 @@
                             o.backgroundColor
                                 ? (r = o.backgroundColor)
                                 : i.pointBackgroundColor
-                                    ? (r = n.getValueAtIndexOrDefault(
-                                          i.pointBackgroundColor,
-                                          e,
-                                          r,
-                                      ))
-                                    : i.backgroundColor &&
-                                      (r = i.backgroundColor),
+                                ? (r = n.getValueAtIndexOrDefault(
+                                      i.pointBackgroundColor,
+                                      e,
+                                      r,
+                                  ))
+                                : i.backgroundColor && (r = i.backgroundColor),
                             r
                         )
                     },
@@ -13742,12 +13668,12 @@
                             o.borderColor
                                 ? (r = o.borderColor)
                                 : i.pointBorderColor
-                                    ? (r = n.getValueAtIndexOrDefault(
-                                          i.pointBorderColor,
-                                          e,
-                                          r,
-                                      ))
-                                    : i.borderColor && (r = i.borderColor),
+                                ? (r = n.getValueAtIndexOrDefault(
+                                      i.pointBorderColor,
+                                      e,
+                                      r,
+                                  ))
+                                : i.borderColor && (r = i.borderColor),
                             r
                         )
                     },
@@ -14061,12 +13987,12 @@
                                   ? r.bottom
                                   : n.scaleBottom)
                         : 'end' === i
-                            ? (o = void 0 === n.scaleTop ? r.top : n.scaleTop)
-                            : void 0 !== n.scaleZero
-                                ? (o = n.scaleZero)
-                                : r.getBasePosition
-                                    ? (o = r.getBasePosition())
-                                    : r.getBasePixel && (o = r.getBasePixel()),
+                        ? (o = void 0 === n.scaleTop ? r.top : n.scaleTop)
+                        : void 0 !== n.scaleZero
+                        ? (o = n.scaleZero)
+                        : r.getBasePosition
+                        ? (o = r.getBasePosition())
+                        : r.getBasePixel && (o = r.getBasePixel()),
                     void 0 !== o && null !== o)
                 ) {
                     if (void 0 !== o.x && void 0 !== o.y) return o
@@ -15369,17 +15295,16 @@
                               }),
                           ])
                         : t.pending
-                            ? t._e()
-                            : n('svg', { staticClass: 'fill-danger' }, [
-                                  n('use', {
-                                      attrs: {
-                                          'xmlns:xlink':
-                                              'http://www.w3.org/1999/xlink',
-                                          'xlink:href':
-                                              '#zondicon-close-outline',
-                                      },
-                                  }),
-                              ]),
+                        ? t._e()
+                        : n('svg', { staticClass: 'fill-danger' }, [
+                              n('use', {
+                                  attrs: {
+                                      'xmlns:xlink':
+                                          'http://www.w3.org/1999/xlink',
+                                      'xlink:href': '#zondicon-close-outline',
+                                  },
+                              }),
+                          ]),
                     t._v(' '),
                     t.pending
                         ? n('svg', { staticClass: 'fill-warning' }, [
@@ -15896,8 +15821,8 @@
                               5 === i ||
                               0 === n ||
                               n === r.length - 1
-                                ? t.toExponential()
-                                : ''
+                            ? t.toExponential()
+                            : ''
                     },
                 },
             }
@@ -19586,20 +19511,17 @@
                                 i.isBlob(t)
                                     ? t
                                     : i.isArrayBufferView(t)
-                                        ? t.buffer
-                                        : i.isURLSearchParams(t)
-                                            ? (r(
-                                                  e,
-                                                  'application/x-www-form-urlencoded;charset=utf-8',
-                                              ),
-                                              t.toString())
-                                            : i.isObject(t)
-                                                ? (r(
-                                                      e,
-                                                      'application/json;charset=utf-8',
-                                                  ),
-                                                  JSON.stringify(t))
-                                                : t
+                                    ? t.buffer
+                                    : i.isURLSearchParams(t)
+                                    ? (r(
+                                          e,
+                                          'application/x-www-form-urlencoded;charset=utf-8',
+                                      ),
+                                      t.toString())
+                                    : i.isObject(t)
+                                    ? (r(e, 'application/json;charset=utf-8'),
+                                      JSON.stringify(t))
+                                    : t
                             )
                         },
                     ],
@@ -20975,8 +20897,8 @@
                                     ? ie
                                     : Qt
                                 : Pc && Pc in sc(t)
-                                    ? To(t)
-                                    : Yo(t)
+                                ? To(t)
+                                : Yo(t)
                         }
                         function _r(t, e) {
                             return t > e
@@ -21147,12 +21069,12 @@
                             return 'function' == typeof t
                                 ? t
                                 : null == t
-                                    ? Ol
-                                    : 'object' == typeof t
-                                        ? md(t)
-                                            ? zr(t[0], t[1])
-                                            : Br(t)
-                                        : Fl(t)
+                                ? Ol
+                                : 'object' == typeof t
+                                ? md(t)
+                                    ? zr(t[0], t[1])
+                                    : Br(t)
+                                : Fl(t)
                         }
                         function Fr(t) {
                             if (!Vo(t)) return Uc(t)
@@ -21235,21 +21157,19 @@
                                         ? md(s)
                                             ? (c = s)
                                             : qs(s)
-                                                ? (c = ji(s))
-                                                : h
-                                                    ? ((f = !1),
-                                                      (c = Si(u, !0)))
-                                                    : p
-                                                        ? ((f = !1),
-                                                          (c = Ii(u, !0)))
-                                                        : (c = [])
+                                            ? (c = ji(s))
+                                            : h
+                                            ? ((f = !1), (c = Si(u, !0)))
+                                            : p
+                                            ? ((f = !1), (c = Ii(u, !0)))
+                                            : (c = [])
                                         : hu(u) || vd(u)
-                                            ? ((c = s),
-                                              vd(s)
-                                                  ? (c = Su(s))
-                                                  : (!iu(s) || (r && eu(s))) &&
-                                                    (c = Mo(u)))
-                                            : (f = !1)
+                                        ? ((c = s),
+                                          vd(s)
+                                              ? (c = Su(s))
+                                              : (!iu(s) || (r && eu(s))) &&
+                                                (c = Mo(u)))
+                                        : (f = !1)
                             }
                             f && (a.set(u, c), i(c, u, r, o, a), a.delete(u)),
                                 Fn(t, n, c)
@@ -21377,8 +21297,8 @@
                                             (l = iu(c)
                                                 ? c
                                                 : No(e[i + 1])
-                                                    ? []
-                                                    : {})
+                                                ? []
+                                                : {})
                                 }
                                 $n(s, u, l), (s = s[u])
                             }
@@ -21445,12 +21365,10 @@
                                     v = l
                                         ? p && (r || d)
                                         : s
-                                            ? p && d && (r || !h)
-                                            : u
-                                                ? p && d && !h && (r || !g)
-                                                : !h &&
-                                                  !g &&
-                                                  (r ? f <= e : f < e)
+                                        ? p && d && (r || !h)
+                                        : u
+                                        ? p && d && !h && (r || !g)
+                                        : !h && !g && (r ? f <= e : f < e)
                                 v ? (i = c + 1) : (o = c)
                             }
                             return Yc(o, jt)
@@ -21890,8 +21808,8 @@
                                       )
                                     : s(
                                           this &&
-                                          this !== Pn &&
-                                          this instanceof r
+                                              this !== Pn &&
+                                              this instanceof r
                                               ? i
                                               : t,
                                           this,
@@ -21938,8 +21856,8 @@
                                         1 == l[9]
                                             ? s[bo(l[0])].apply(s, l[3])
                                             : 1 == a.length && Wo(a)
-                                                ? s[u]()
-                                                : s.thru(a)
+                                            ? s[u]()
+                                            : s.thru(a)
                                 }
                                 return function() {
                                     var t = arguments,
@@ -22142,8 +22060,8 @@
                                 return n == Jt
                                     ? Y(e)
                                     : n == ee
-                                        ? K(e)
-                                        : L(e, t(e))
+                                    ? K(e)
+                                    : L(e, t(e))
                             }
                         }
                         function lo(t, e, n, r, i, o, a, s) {
@@ -22184,8 +22102,8 @@
                                         ? Ji(t, e, s)
                                         : (e != xt && e != (vt | xt)) ||
                                           i.length
-                                            ? Xi.apply(it, h)
-                                            : ro(t, e, n, r)
+                                        ? Xi.apply(it, h)
+                                        : ro(t, e, n, r)
                             else var p = $i(t, e, n)
                             return Ko((d ? _f : Ef)(p, h), t, e)
                         }
@@ -23537,8 +23455,8 @@
                             return n || qe.test(t)
                                 ? On(t.slice(2), n ? 2 : 8)
                                 : Ue.test(t)
-                                    ? Nt
-                                    : +t
+                                ? Nt
+                                : +t
                         }
                         function Su(t) {
                             return Fi(t, Vu(t))
@@ -23658,8 +23576,8 @@
                                         ? new o()
                                         : []
                                     : iu(t) && eu(o)
-                                        ? pf(Ac(t))
-                                        : {}
+                                    ? pf(Ac(t))
+                                    : {}
                             }
                             return (
                                 (i ? l : hr)(t, function(t, r, i) {
@@ -24125,8 +24043,8 @@
                             return md(t)
                                 ? g(t, Zo)
                                 : vu(t)
-                                    ? [t]
-                                    : ji(If(Au(t)))
+                                ? [t]
+                                : ji(If(Au(t)))
                         }
                         function ql(t) {
                             var e = ++mc
@@ -25596,7 +25514,7 @@
                                                                                         3,
                                                                                     ),
                                                                                 ) +
-                                                                                's'
+                                                                                    's'
                                                                               : '-',
                                                                       ),
                                                                   ),
@@ -26051,8 +25969,8 @@
                             (r(t[n]) && r(e[n])
                                 ? ((i[n] = {}), c(i[n], t[n]), c(i[n], e[n]))
                                 : null != e[n]
-                                    ? (i[n] = e[n])
-                                    : delete i[n])
+                                ? (i[n] = e[n])
+                                : delete i[n])
                     for (n in t)
                         l(t, n) && !l(e, n) && r(t[n]) && (i[n] = c({}, i[n]))
                     return i
@@ -26274,8 +26192,8 @@
                                       : 'standalone'
                               ][t.month()]
                         : n(this._months)
-                            ? this._months
-                            : this._months.standalone
+                        ? this._months
+                        : this._months.standalone
                 }
                 function at(t, e) {
                     return t
@@ -26285,8 +26203,8 @@
                                   hi.test(e) ? 'format' : 'standalone'
                               ][t.month()]
                         : n(this._monthsShort)
-                            ? this._monthsShort
-                            : this._monthsShort.standalone
+                        ? this._monthsShort
+                        : this._monthsShort.standalone
                 }
                 function st(t, e, n) {
                     var r,
@@ -26318,14 +26236,14 @@
                             : ((i = di.call(this._longMonthsParse, a)),
                               -1 !== i ? i : null)
                         : 'MMM' === e
-                            ? -1 !== (i = di.call(this._shortMonthsParse, a))
-                                ? i
-                                : ((i = di.call(this._longMonthsParse, a)),
-                                  -1 !== i ? i : null)
-                            : -1 !== (i = di.call(this._longMonthsParse, a))
-                                ? i
-                                : ((i = di.call(this._shortMonthsParse, a)),
-                                  -1 !== i ? i : null)
+                        ? -1 !== (i = di.call(this._shortMonthsParse, a))
+                            ? i
+                            : ((i = di.call(this._longMonthsParse, a)),
+                              -1 !== i ? i : null)
+                        : -1 !== (i = di.call(this._longMonthsParse, a))
+                        ? i
+                        : ((i = di.call(this._shortMonthsParse, a)),
+                          -1 !== i ? i : null)
                 }
                 function ut(t, e, n) {
                     var r, i, o
@@ -26500,8 +26418,8 @@
                         l <= 0
                             ? ((o = t - 1), (a = gt(o) + l))
                             : l > gt(t)
-                                ? ((o = t + 1), (a = l - gt(t)))
-                                : ((o = t), (a = l)),
+                            ? ((o = t + 1), (a = l - gt(t)))
+                            : ((o = t), (a = l)),
                         { year: o, dayOfYear: a }
                     )
                 }
@@ -26514,9 +26432,8 @@
                         a < 1
                             ? ((i = t.year() - 1), (r = a + Ct(i, e, n)))
                             : a > Ct(t.year(), e, n)
-                                ? ((r = a - Ct(t.year(), e, n)),
-                                  (i = t.year() + 1))
-                                : ((i = t.year()), (r = a)),
+                            ? ((r = a - Ct(t.year(), e, n)), (i = t.year() + 1))
+                            : ((i = t.year()), (r = a)),
                         { week: r, year: i }
                     )
                 }
@@ -26546,16 +26463,16 @@
                     return 'string' != typeof t
                         ? t
                         : isNaN(t)
-                            ? ((t = e.weekdaysParse(t)),
-                              'number' == typeof t ? t : null)
-                            : parseInt(t, 10)
+                        ? ((t = e.weekdaysParse(t)),
+                          'number' == typeof t ? t : null)
+                        : parseInt(t, 10)
                 }
                 function Ot(t, e) {
                     return 'string' == typeof t
                         ? e.weekdaysParse(t) % 7 || 7
                         : isNaN(t)
-                            ? null
-                            : t
+                        ? null
+                        : t
                 }
                 function Mt(t, e) {
                     return t
@@ -26567,8 +26484,8 @@
                                       : 'standalone'
                               ][t.day()]
                         : n(this._weekdays)
-                            ? this._weekdays
-                            : this._weekdays.standalone
+                        ? this._weekdays
+                        : this._weekdays.standalone
                 }
                 function It(t) {
                     return t
@@ -26612,41 +26529,30 @@
                             ? ((i = di.call(this._weekdaysParse, a)),
                               -1 !== i ? i : null)
                             : 'ddd' === e
-                                ? ((i = di.call(this._shortWeekdaysParse, a)),
-                                  -1 !== i ? i : null)
-                                : ((i = di.call(this._minWeekdaysParse, a)),
-                                  -1 !== i ? i : null)
+                            ? ((i = di.call(this._shortWeekdaysParse, a)),
+                              -1 !== i ? i : null)
+                            : ((i = di.call(this._minWeekdaysParse, a)),
+                              -1 !== i ? i : null)
                         : 'dddd' === e
-                            ? -1 !== (i = di.call(this._weekdaysParse, a))
-                                ? i
-                                : -1 !==
-                                  (i = di.call(this._shortWeekdaysParse, a))
-                                    ? i
-                                    : ((i = di.call(this._minWeekdaysParse, a)),
-                                      -1 !== i ? i : null)
-                            : 'ddd' === e
-                                ? -1 !==
-                                  (i = di.call(this._shortWeekdaysParse, a))
-                                    ? i
-                                    : -1 !==
-                                      (i = di.call(this._weekdaysParse, a))
-                                        ? i
-                                        : ((i = di.call(
-                                              this._minWeekdaysParse,
-                                              a,
-                                          )),
-                                          -1 !== i ? i : null)
-                                : -1 !==
-                                  (i = di.call(this._minWeekdaysParse, a))
-                                    ? i
-                                    : -1 !==
-                                      (i = di.call(this._weekdaysParse, a))
-                                        ? i
-                                        : ((i = di.call(
-                                              this._shortWeekdaysParse,
-                                              a,
-                                          )),
-                                          -1 !== i ? i : null)
+                        ? -1 !== (i = di.call(this._weekdaysParse, a))
+                            ? i
+                            : -1 !== (i = di.call(this._shortWeekdaysParse, a))
+                            ? i
+                            : ((i = di.call(this._minWeekdaysParse, a)),
+                              -1 !== i ? i : null)
+                        : 'ddd' === e
+                        ? -1 !== (i = di.call(this._shortWeekdaysParse, a))
+                            ? i
+                            : -1 !== (i = di.call(this._weekdaysParse, a))
+                            ? i
+                            : ((i = di.call(this._minWeekdaysParse, a)),
+                              -1 !== i ? i : null)
+                        : -1 !== (i = di.call(this._minWeekdaysParse, a))
+                        ? i
+                        : -1 !== (i = di.call(this._weekdaysParse, a))
+                        ? i
+                        : ((i = di.call(this._shortWeekdaysParse, a)),
+                          -1 !== i ? i : null)
                 }
                 function Nt(t, e, n) {
                     var r, i, o
@@ -26970,21 +26876,21 @@
                                 n[ii] < 0 || n[ii] > 11
                                     ? ii
                                     : n[oi] < 1 || n[oi] > it(n[ri], n[ii])
-                                        ? oi
-                                        : n[ai] < 0 ||
-                                          n[ai] > 24 ||
-                                          (24 === n[ai] &&
-                                              (0 !== n[si] ||
-                                                  0 !== n[ui] ||
-                                                  0 !== n[li]))
-                                            ? ai
-                                            : n[si] < 0 || n[si] > 59
-                                                ? si
-                                                : n[ui] < 0 || n[ui] > 59
-                                                    ? ui
-                                                    : n[li] < 0 || n[li] > 999
-                                                        ? li
-                                                        : -1),
+                                    ? oi
+                                    : n[ai] < 0 ||
+                                      n[ai] > 24 ||
+                                      (24 === n[ai] &&
+                                          (0 !== n[si] ||
+                                              0 !== n[ui] ||
+                                              0 !== n[li]))
+                                    ? ai
+                                    : n[si] < 0 || n[si] > 59
+                                    ? si
+                                    : n[ui] < 0 || n[ui] > 59
+                                    ? ui
+                                    : n[li] < 0 || n[li] > 999
+                                    ? li
+                                    : -1),
                             h(t)._overflowDayOfYear &&
                                 (e < ri || e > oi) &&
                                 (e = oi),
@@ -27188,17 +27094,17 @@
                             null != e.d
                                 ? ((i = e.d) < 0 || i > 6) && (u = !0)
                                 : null != e.e
-                                    ? ((i = e.e + o),
-                                      (e.e < 0 || e.e > 6) && (u = !0))
-                                    : (i = o)
+                                ? ((i = e.e + o),
+                                  (e.e < 0 || e.e > 6) && (u = !0))
+                                : (i = o)
                     }
                     r < 1 || r > Ct(n, o, a)
                         ? (h(t)._overflowWeeks = !0)
                         : null != u
-                            ? (h(t)._overflowWeekday = !0)
-                            : ((s = xt(n, r, i, o, a)),
-                              (t._a[ri] = s.year),
-                              (t._dayOfYear = s.dayOfYear))
+                        ? (h(t)._overflowWeekday = !0)
+                        : ((s = xt(n, r, i, o, a)),
+                          (t._a[ri] = s.year),
+                          (t._dayOfYear = s.dayOfYear))
                 }
                 function fe(t) {
                     if (t._f === e.ISO_8601) return void ie(t)
@@ -27247,13 +27153,13 @@
                     return null == n
                         ? e
                         : null != t.meridiemHour
-                            ? t.meridiemHour(e, n)
-                            : null != t.isPM
-                                ? ((r = t.isPM(n)),
-                                  r && e < 12 && (e += 12),
-                                  r || 12 !== e || (e = 0),
-                                  e)
-                                : e
+                        ? t.meridiemHour(e, n)
+                        : null != t.isPM
+                        ? ((r = t.isPM(n)),
+                          r && e < 12 && (e += 12),
+                          r || 12 !== e || (e = 0),
+                          e)
+                        : e
                 }
                 function he(t) {
                     var e, n, r, i, o
@@ -27315,10 +27221,10 @@
                                   : (s(e)
                                         ? (t._d = e)
                                         : n(r)
-                                            ? he(t)
-                                            : r
-                                                ? fe(t)
-                                                : me(t),
+                                        ? he(t)
+                                        : r
+                                        ? fe(t)
+                                        : me(t),
                                     p(t) || (t._d = null),
                                     t))
                     )
@@ -27328,19 +27234,19 @@
                     o(i)
                         ? (t._d = new Date(e.now()))
                         : s(i)
-                            ? (t._d = new Date(i.valueOf()))
-                            : 'string' == typeof i
-                                ? ae(t)
-                                : n(i)
-                                    ? ((t._a = u(i.slice(0), function(t) {
-                                          return parseInt(t, 10)
-                                      })),
-                                      le(t))
-                                    : r(i)
-                                        ? pe(t)
-                                        : a(i)
-                                            ? (t._d = new Date(i))
-                                            : e.createFromInputFallback(t)
+                        ? (t._d = new Date(i.valueOf()))
+                        : 'string' == typeof i
+                        ? ae(t)
+                        : n(i)
+                        ? ((t._a = u(i.slice(0), function(t) {
+                              return parseInt(t, 10)
+                          })),
+                          le(t))
+                        : r(i)
+                        ? pe(t)
+                        : a(i)
+                        ? (t._d = new Date(i))
+                        : e.createFromInputFallback(t)
                 }
                 function ye(t, e, o, a, s) {
                     var u = {}
@@ -27559,37 +27465,36 @@
                                   M: t._months,
                               })
                             : a(t)
-                                ? ((o = {}),
-                                  e ? (o[e] = t) : (o.milliseconds = t))
-                                : (s = Ui.exec(t))
-                                    ? ((n = '-' === s[1] ? -1 : 1),
-                                      (o = {
-                                          y: 0,
-                                          d: b(s[oi]) * n,
-                                          h: b(s[ai]) * n,
-                                          m: b(s[si]) * n,
-                                          s: b(s[ui]) * n,
-                                          ms: b(De(1e3 * s[li])) * n,
-                                      }))
-                                    : (s = $i.exec(t))
-                                        ? ((n = '-' === s[1] ? -1 : 1),
-                                          (o = {
-                                              y: $e(s[2], n),
-                                              M: $e(s[3], n),
-                                              w: $e(s[4], n),
-                                              d: $e(s[5], n),
-                                              h: $e(s[6], n),
-                                              m: $e(s[7], n),
-                                              s: $e(s[8], n),
-                                          }))
-                                        : null == o
-                                            ? (o = {})
-                                            : 'object' == typeof o &&
-                                              ('from' in o || 'to' in o) &&
-                                              ((i = qe(_e(o.from), _e(o.to))),
-                                              (o = {}),
-                                              (o.ms = i.milliseconds),
-                                              (o.M = i.months)),
+                            ? ((o = {}), e ? (o[e] = t) : (o.milliseconds = t))
+                            : (s = Ui.exec(t))
+                            ? ((n = '-' === s[1] ? -1 : 1),
+                              (o = {
+                                  y: 0,
+                                  d: b(s[oi]) * n,
+                                  h: b(s[ai]) * n,
+                                  m: b(s[si]) * n,
+                                  s: b(s[ui]) * n,
+                                  ms: b(De(1e3 * s[li])) * n,
+                              }))
+                            : (s = $i.exec(t))
+                            ? ((n = '-' === s[1] ? -1 : 1),
+                              (o = {
+                                  y: $e(s[2], n),
+                                  M: $e(s[3], n),
+                                  w: $e(s[4], n),
+                                  d: $e(s[5], n),
+                                  h: $e(s[6], n),
+                                  m: $e(s[7], n),
+                                  s: $e(s[8], n),
+                              }))
+                            : null == o
+                            ? (o = {})
+                            : 'object' == typeof o &&
+                              ('from' in o || 'to' in o) &&
+                              ((i = qe(_e(o.from), _e(o.to))),
+                              (o = {}),
+                              (o.ms = i.milliseconds),
+                              (o.M = i.months)),
                         (r = new Te(o)),
                         Ae(t) && l(t, '_locale') && (r._locale = t._locale),
                         r
@@ -27664,16 +27569,16 @@
                     return n < -6
                         ? 'sameElse'
                         : n < -1
-                            ? 'lastWeek'
-                            : n < 0
-                                ? 'lastDay'
-                                : n < 1
-                                    ? 'sameDay'
-                                    : n < 2
-                                        ? 'nextDay'
-                                        : n < 7
-                                            ? 'nextWeek'
-                                            : 'sameElse'
+                        ? 'lastWeek'
+                        : n < 0
+                        ? 'lastDay'
+                        : n < 1
+                        ? 'sameDay'
+                        : n < 2
+                        ? 'nextDay'
+                        : n < 7
+                        ? 'nextWeek'
+                        : 'sameElse'
                 }
                 function Qe(t, n) {
                     var r = t || _e(),
@@ -27764,14 +27669,14 @@
                                           'second' === e
                                               ? o / 1e3
                                               : 'minute' === e
-                                                  ? o / 6e4
-                                                  : 'hour' === e
-                                                      ? o / 36e5
-                                                      : 'day' === e
-                                                          ? (o - i) / 864e5
-                                                          : 'week' === e
-                                                              ? (o - i) / 6048e5
-                                                              : o)),
+                                              ? o / 6e4
+                                              : 'hour' === e
+                                              ? o / 36e5
+                                              : 'day' === e
+                                              ? (o - i) / 864e5
+                                              : 'week' === e
+                                              ? (o - i) / 6048e5
+                                              : o)),
                                 n ? a : _(a))
                               : NaN)
                         : NaN
@@ -27803,8 +27708,8 @@
                     return t.year() < 0 || t.year() > 9999
                         ? J(t, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
                         : S(Date.prototype.toISOString)
-                            ? this.toDate().toISOString()
-                            : J(t, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
+                        ? this.toDate().toISOString()
+                        : J(t, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]')
                 }
                 function cn() {
                     if (!this.isValid())
@@ -28949,12 +28854,12 @@
                                 (1 === b((t % 100) / 10)
                                     ? 'th'
                                     : 1 === e
-                                        ? 'st'
-                                        : 2 === e
-                                            ? 'nd'
-                                            : 3 === e
-                                                ? 'rd'
-                                                : 'th')
+                                    ? 'st'
+                                    : 2 === e
+                                    ? 'nd'
+                                    : 3 === e
+                                    ? 'rd'
+                                    : 'th')
                             )
                         },
                     }),
@@ -29215,12 +29120,11 @@
                                 (a.x < e.left
                                     ? (h = (c - a.x) / (e.left - a.x))
                                     : 1.01 * e.right < a.x
-                                        ? (h = (a.x - c) / (a.x - e.right))
-                                        : a.y < e.top
-                                            ? (h = (f - a.y) / (e.top - a.y))
-                                            : 1.01 * e.bottom < a.y &&
-                                              (h =
-                                                  (a.y - f) / (a.y - e.bottom)),
+                                    ? (h = (a.x - c) / (a.x - e.right))
+                                    : a.y < e.top
+                                    ? (h = (f - a.y) / (e.top - a.y))
+                                    : 1.01 * e.bottom < a.y &&
+                                      (h = (a.y - f) / (a.y - e.bottom)),
                                 (h = Math.round(100 * h) / 100),
                                 (s.strokeStyle = d(s.strokeStyle)
                                     .alpha(h)
@@ -29663,8 +29567,8 @@
                                       t.margins.right
                                     : t.maxWidth
                                 : l && u.drawTicks
-                                    ? h
-                                    : 0),
+                                ? h
+                                : 0),
                             (i.height = c
                                 ? l && u.drawTicks
                                     ? h
@@ -29760,14 +29664,14 @@
                         return null === t || void 0 === t
                             ? NaN
                             : 'number' != typeof t || isFinite(t)
-                                ? 'object' == typeof t
-                                    ? t instanceof Date || t.isValid
-                                        ? t
-                                        : this.getRightValue(
-                                              this.isHorizontal() ? t.x : t.y,
-                                          )
-                                    : t
-                                : NaN
+                            ? 'object' == typeof t
+                                ? t instanceof Date || t.isValid
+                                    ? t
+                                    : this.getRightValue(
+                                          this.isHorizontal() ? t.x : t.y,
+                                      )
+                                : t
+                            : NaN
                     },
                     getLabelForIndex: r.noop,
                     getPixelForValue: r.noop,
@@ -29813,10 +29717,10 @@
                         return t.beginAtZero
                             ? 0
                             : e < 0 && n < 0
-                                ? n
-                                : e > 0 && n > 0
-                                    ? e
-                                    : 0
+                            ? n
+                            : e > 0 && n > 0
+                            ? e
+                            : 0
                     },
                     draw: function(e) {
                         var i = this,
@@ -30497,8 +30401,8 @@
                                             r.relativePoints
                                                 ? (c[e] = 100)
                                                 : i < 0
-                                                    ? (f[e] += i)
-                                                    : (c[e] += i))
+                                                ? (f[e] += i)
+                                                : (c[e] += i))
                                     })
                             }),
                                 e.each(l, function(t) {
@@ -30811,10 +30715,10 @@
                 u == s
                     ? (e = 0)
                     : i == u
-                        ? (e = (o - a) / l)
-                        : o == u
-                            ? (e = 2 + (a - i) / l)
-                            : a == u && (e = 4 + (i - o) / l),
+                    ? (e = (o - a) / l)
+                    : o == u
+                    ? (e = 2 + (a - i) / l)
+                    : a == u && (e = 4 + (i - o) / l),
                 (e = Math.min(60 * e, 360)),
                 e < 0 && (e += 360),
                 (r = (s + u) / 2),
@@ -30837,10 +30741,10 @@
                 u == s
                     ? (e = 0)
                     : i == u
-                        ? (e = (o - a) / l)
-                        : o == u
-                            ? (e = 2 + (a - i) / l)
-                            : a == u && (e = 4 + (i - o) / l),
+                    ? (e = (o - a) / l)
+                    : o == u
+                    ? (e = 2 + (a - i) / l)
+                    : a == u && (e = 4 + (i - o) / l),
                 (e = Math.min(60 * e, 360)),
                 e < 0 && (e += 360),
                 (r = ((u / 255) * 1e3) / 10),
@@ -30944,10 +30848,10 @@
                         6 * r < 1
                             ? e + 6 * (n - e) * r
                             : 2 * r < 1
-                                ? n
-                                : 3 * r < 2
-                                    ? e + (n - e) * (2 / 3 - r) * 6
-                                    : e),
+                            ? n
+                            : 3 * r < 2
+                            ? e + (n - e) * (2 / 3 - r) * 6
+                            : e),
                     (i[l] = 255 * o)
             return i
         }
@@ -31502,8 +31406,8 @@
                             ? u(e)
                             : e
                         : t
-                            ? t.ownerDocument.documentElement
-                            : window.document.documentElement
+                        ? t.ownerDocument.documentElement
+                        : window.document.documentElement
                 }
                 function l(t) {
                     var e = t.nodeName
@@ -31577,11 +31481,14 @@
                         n['scroll' + t],
                         pt()
                             ? n['offset' + t] +
-                              r['margin' + ('Height' === t ? 'Top' : 'Left')] +
-                              r[
-                                  'margin' +
-                                      ('Height' === t ? 'Bottom' : 'Right')
-                              ]
+                                  r[
+                                      'margin' +
+                                          ('Height' === t ? 'Top' : 'Left')
+                                  ] +
+                                  r[
+                                      'margin' +
+                                          ('Height' === t ? 'Bottom' : 'Right')
+                                  ]
                             : 0,
                     )
                 }
@@ -32277,10 +32184,8 @@
                                         -1 !== ['+', '-'].indexOf(e)
                                         ? ((t[t.length - 1] = e), (a = !0), t)
                                         : a
-                                            ? ((t[t.length - 1] += e),
-                                              (a = !1),
-                                              t)
-                                            : t.concat(e)
+                                        ? ((t[t.length - 1] += e), (a = !1), t)
+                                        : t.concat(e)
                                 }, [])
                                 .map(function(t) {
                                     return tt(t, i, e, n)
@@ -32308,11 +32213,11 @@
                         'left' === s
                             ? ((o.top += u[0]), (o.left -= u[1]))
                             : 'right' === s
-                                ? ((o.top += u[0]), (o.left += u[1]))
-                                : 'top' === s
-                                    ? ((o.left += u[0]), (o.top -= u[1]))
-                                    : 'bottom' === s &&
-                                      ((o.left += u[0]), (o.top += u[1])),
+                            ? ((o.top += u[0]), (o.left += u[1]))
+                            : 'top' === s
+                            ? ((o.left += u[0]), (o.top -= u[1]))
+                            : 'bottom' === s &&
+                              ((o.left += u[0]), (o.top += u[1])),
                         (t.popper = o),
                         t
                     )
@@ -33229,9 +33134,10 @@
                                                               t._s(
                                                                   t.job.payload
                                                                       .tags &&
-                                                                  t.job.payload
-                                                                      .tags
-                                                                      .length
+                                                                      t.job
+                                                                          .payload
+                                                                          .tags
+                                                                          .length
                                                                       ? t.job.payload.tags.join(
                                                                             ', ',
                                                                         )
@@ -34003,10 +33909,10 @@
                         return '\0' !== t.charAt(0)
                             ? t
                             : (i = t.indexOf('\0', 1)) > 0
-                                ? ((n = t.substring(1, i)),
-                                  (r = t.substr(i + 1)),
-                                  '*' === n ? r : e === n ? r : n + '::' + r)
-                                : void 0
+                            ? ((n = t.substring(1, i)),
+                              (r = t.substr(i + 1)),
+                              '*' === n ? r : e === n ? r : n + '::' + r)
+                            : void 0
                     },
                     v = function() {
                         var t,
@@ -35219,7 +35125,7 @@
                                                                               ).toFixed(
                                                                                   3,
                                                                               ) +
-                                                                              's'
+                                                                                  's'
                                                                             : '-',
                                                                     ),
                                                                 ),
@@ -35234,7 +35140,7 @@
                                                                               ).toFixed(
                                                                                   3,
                                                                               ) +
-                                                                              's'
+                                                                                  's'
                                                                             : '-',
                                                                     ),
                                                                 ),
@@ -35527,21 +35433,21 @@
                                     'scales' === r
                                         ? (n[r] = o.scaleMerge(a, e))
                                         : 'scale' === r
-                                            ? (n[r] = o.configMerge(
-                                                  a,
-                                                  t.scaleService.getScaleDefaults(
-                                                      e.type,
-                                                  ),
-                                                  e,
-                                              ))
-                                            : !i ||
-                                              'object' != typeof a ||
-                                              o.isArray(a) ||
-                                              null === a ||
-                                              'object' != typeof e ||
-                                              o.isArray(e)
-                                                ? (n[r] = e)
-                                                : (n[r] = o.configMerge(a, e))
+                                        ? (n[r] = o.configMerge(
+                                              a,
+                                              t.scaleService.getScaleDefaults(
+                                                  e.type,
+                                              ),
+                                              e,
+                                          ))
+                                        : !i ||
+                                          'object' != typeof a ||
+                                          o.isArray(a) ||
+                                          null === a ||
+                                          'object' != typeof e ||
+                                          o.isArray(e)
+                                        ? (n[r] = e)
+                                        : (n[r] = o.configMerge(a, e))
                                 })
                             },
                         ),
@@ -35568,15 +35474,15 @@
                                               ? r[n].push(o.configMerge(s, e))
                                               : e.type &&
                                                 e.type !== r[n][i].type
-                                                  ? (r[n][i] = o.configMerge(
-                                                        r[n][i],
-                                                        s,
-                                                        e,
-                                                    ))
-                                                  : (r[n][i] = o.configMerge(
-                                                        r[n][i],
-                                                        e,
-                                                    ))
+                                              ? (r[n][i] = o.configMerge(
+                                                    r[n][i],
+                                                    s,
+                                                    e,
+                                                ))
+                                              : (r[n][i] = o.configMerge(
+                                                    r[n][i],
+                                                    e,
+                                                ))
                                       })
                                     : ((r[n] = []),
                                       o.each(e, function(e) {
@@ -35599,8 +35505,8 @@
                                   'object' == typeof r[n] &&
                                   null !== r[n] &&
                                   'object' == typeof e
-                                    ? (r[n] = o.configMerge(r[n], e))
-                                    : (r[n] = e)
+                                ? (r[n] = o.configMerge(r[n], e))
+                                : (r[n] = e)
                         }),
                         r
                     )
@@ -35609,10 +35515,10 @@
                     return void 0 === t || null === t
                         ? n
                         : o.isArray(t)
-                            ? e < t.length
-                                ? t[e]
-                                : n
-                            : t
+                        ? e < t.length
+                            ? t[e]
+                            : n
+                        : t
                 }),
                 (o.getValueOrDefault = function(t, e) {
                     return void 0 === t ? e : t
@@ -35798,11 +35704,10 @@
                             !n || n.model.skip
                                 ? (r.mK = r.deltaK)
                                 : !i || i.model.skip
-                                    ? (r.mK = n.deltaK)
-                                    : this.sign(n.deltaK) !==
-                                      this.sign(r.deltaK)
-                                        ? (r.mK = 0)
-                                        : (r.mK = (n.deltaK + r.deltaK) / 2)
+                                ? (r.mK = n.deltaK)
+                                : this.sign(n.deltaK) !== this.sign(r.deltaK)
+                                ? (r.mK = 0)
+                                : (r.mK = (n.deltaK + r.deltaK) / 2)
                         }
                     var l, c, f, d
                     for (e = 0; e < s - 1; ++e)
@@ -35845,8 +35750,8 @@
                             ? t[0]
                             : t[e + 1]
                         : e >= t.length - 1
-                            ? t[t.length - 1]
-                            : t[e + 1]
+                        ? t[t.length - 1]
+                        : t[e + 1]
                 }),
                 (o.previousItem = function(t, e, n) {
                     return n
@@ -35854,8 +35759,8 @@
                             ? t[t.length - 1]
                             : t[e - 1]
                         : e <= 0
-                            ? t[0]
-                            : t[e - 1]
+                        ? t[0]
+                        : t[e - 1]
                 }),
                 (o.niceNum = function(t, e) {
                     var n = Math.floor(o.log10(t)),
@@ -35865,17 +35770,17 @@
                             ? r < 1.5
                                 ? 1
                                 : r < 3
-                                    ? 2
-                                    : r < 7
-                                        ? 5
-                                        : 10
+                                ? 2
+                                : r < 7
+                                ? 5
+                                : 10
                             : r <= 1
-                                ? 1
-                                : r <= 2
-                                    ? 2
-                                    : r <= 5
-                                        ? 5
-                                        : 10) * Math.pow(10, n)
+                            ? 1
+                            : r <= 2
+                            ? 2
+                            : r <= 5
+                            ? 5
+                            : 10) * Math.pow(10, n)
                     )
                 })
             var a = (o.easingEffects = {
@@ -35945,10 +35850,10 @@
                     return 0 === t
                         ? 0
                         : 1 === t
-                            ? 1
-                            : (t /= 0.5) < 1
-                                ? 0.5 * Math.pow(2, 10 * (t - 1))
-                                : 0.5 * (2 - Math.pow(2, -10 * --t))
+                        ? 1
+                        : (t /= 0.5) < 1
+                        ? 0.5 * Math.pow(2, 10 * (t - 1))
+                        : 0.5 * (2 - Math.pow(2, -10 * --t))
                 },
                 easeInCirc: function(t) {
                     return t >= 1 ? t : -1 * (Math.sqrt(1 - (t /= 1) * t) - 1)
@@ -35968,15 +35873,14 @@
                     return 0 === t
                         ? 0
                         : 1 == (t /= 1)
-                            ? 1
-                            : (n || (n = 0.3),
-                              r < Math.abs(1)
-                                  ? ((r = 1), (e = n / 4))
-                                  : (e =
-                                        (n / (2 * Math.PI)) * Math.asin(1 / r)),
-                              -r *
-                                  Math.pow(2, 10 * (t -= 1)) *
-                                  Math.sin(((1 * t - e) * (2 * Math.PI)) / n))
+                        ? 1
+                        : (n || (n = 0.3),
+                          r < Math.abs(1)
+                              ? ((r = 1), (e = n / 4))
+                              : (e = (n / (2 * Math.PI)) * Math.asin(1 / r)),
+                          -r *
+                              Math.pow(2, 10 * (t -= 1)) *
+                              Math.sin(((1 * t - e) * (2 * Math.PI)) / n))
                 },
                 easeOutElastic: function(t) {
                     var e = 1.70158,
@@ -35985,16 +35889,15 @@
                     return 0 === t
                         ? 0
                         : 1 == (t /= 1)
-                            ? 1
-                            : (n || (n = 0.3),
-                              r < Math.abs(1)
-                                  ? ((r = 1), (e = n / 4))
-                                  : (e =
-                                        (n / (2 * Math.PI)) * Math.asin(1 / r)),
-                              r *
-                                  Math.pow(2, -10 * t) *
-                                  Math.sin(((1 * t - e) * (2 * Math.PI)) / n) +
-                                  1)
+                        ? 1
+                        : (n || (n = 0.3),
+                          r < Math.abs(1)
+                              ? ((r = 1), (e = n / 4))
+                              : (e = (n / (2 * Math.PI)) * Math.asin(1 / r)),
+                          r *
+                              Math.pow(2, -10 * t) *
+                              Math.sin(((1 * t - e) * (2 * Math.PI)) / n) +
+                              1)
                 },
                 easeInOutElastic: function(t) {
                     var e = 1.70158,
@@ -36003,26 +35906,23 @@
                     return 0 === t
                         ? 0
                         : 2 == (t /= 0.5)
-                            ? 1
-                            : (n || (n = 0.3 * 1.5 * 1),
-                              r < Math.abs(1)
-                                  ? ((r = 1), (e = n / 4))
-                                  : (e =
-                                        (n / (2 * Math.PI)) * Math.asin(1 / r)),
-                              t < 1
-                                  ? r *
-                                    Math.pow(2, 10 * (t -= 1)) *
+                        ? 1
+                        : (n || (n = 0.3 * 1.5 * 1),
+                          r < Math.abs(1)
+                              ? ((r = 1), (e = n / 4))
+                              : (e = (n / (2 * Math.PI)) * Math.asin(1 / r)),
+                          t < 1
+                              ? r *
+                                Math.pow(2, 10 * (t -= 1)) *
+                                Math.sin(((1 * t - e) * (2 * Math.PI)) / n) *
+                                -0.5
+                              : r *
+                                    Math.pow(2, -10 * (t -= 1)) *
                                     Math.sin(
                                         ((1 * t - e) * (2 * Math.PI)) / n,
                                     ) *
-                                    -0.5
-                                  : r *
-                                        Math.pow(2, -10 * (t -= 1)) *
-                                        Math.sin(
-                                            ((1 * t - e) * (2 * Math.PI)) / n,
-                                        ) *
-                                        0.5 +
-                                    1)
+                                    0.5 +
+                                1)
                 },
                 easeInBack: function(t) {
                     var e = 1.70158
@@ -36046,11 +35946,10 @@
                     return (t /= 1) < 1 / 2.75
                         ? 7.5625 * t * t * 1
                         : t < 2 / 2.75
-                            ? 1 * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75)
-                            : t < 2.5 / 2.75
-                                ? 1 * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375)
-                                : 1 *
-                                  (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375)
+                        ? 1 * (7.5625 * (t -= 1.5 / 2.75) * t + 0.75)
+                        : t < 2.5 / 2.75
+                        ? 1 * (7.5625 * (t -= 2.25 / 2.75) * t + 0.9375)
+                        : 1 * (7.5625 * (t -= 2.625 / 2.75) * t + 0.984375)
                 },
                 easeInOutBounce: function(t) {
                     return t < 0.5
@@ -36104,15 +36003,15 @@
                     t.addEventListener
                         ? t.addEventListener(e, n)
                         : t.attachEvent
-                            ? t.attachEvent('on' + e, n)
-                            : (t['on' + e] = n)
+                        ? t.attachEvent('on' + e, n)
+                        : (t['on' + e] = n)
                 }),
                 (o.removeEvent = function(t, e, n) {
                     t.removeEventListener
                         ? t.removeEventListener(e, n, !1)
                         : t.detachEvent
-                            ? t.detachEvent('on' + e, n)
-                            : (t['on' + e] = o.noop)
+                        ? t.detachEvent('on' + e, n)
+                        : (t['on' + e] = o.noop)
                 }),
                 (o.getConstraintWidth = function(t) {
                     return i(t, 'max-width', 'clientWidth')
@@ -37022,20 +36921,20 @@
                       e
                           ? this.setValues('rgb', e)
                           : (e = i.getHsla(t))
-                              ? this.setValues('hsl', e)
-                              : (e = i.getHwb(t)) && this.setValues('hwb', e))
+                          ? this.setValues('hsl', e)
+                          : (e = i.getHwb(t)) && this.setValues('hwb', e))
                     : 'object' == typeof t &&
                       ((e = t),
                       void 0 !== e.r || void 0 !== e.red
                           ? this.setValues('rgb', e)
                           : void 0 !== e.l || void 0 !== e.lightness
-                              ? this.setValues('hsl', e)
-                              : void 0 !== e.v || void 0 !== e.value
-                                  ? this.setValues('hsv', e)
-                                  : void 0 !== e.w || void 0 !== e.whiteness
-                                      ? this.setValues('hwb', e)
-                                      : (void 0 === e.c && void 0 === e.cyan) ||
-                                        this.setValues('cmyk', e))
+                          ? this.setValues('hsl', e)
+                          : void 0 !== e.v || void 0 !== e.value
+                          ? this.setValues('hsv', e)
+                          : void 0 !== e.w || void 0 !== e.whiteness
+                          ? this.setValues('hwb', e)
+                          : (void 0 === e.c && void 0 === e.cyan) ||
+                            this.setValues('cmyk', e))
             }
         ;(o.prototype = {
             isValid: function() {
@@ -37335,8 +37234,8 @@
                 return void 0 === n
                     ? r[e]
                     : n === r[e]
-                        ? this
-                        : ((r[e] = n), this.setValues(t, r), this)
+                    ? this
+                    : ((r[e] = n), this.setValues(t, r), this)
             }),
             'undefined' != typeof window && (window.Color = o),
             (t.exports = o)
@@ -37590,11 +37489,9 @@
                                     r && u.animateRotate
                                         ? 0
                                         : t.hidden
-                                            ? 0
-                                            : i.calculateCircumference(
-                                                  h.data[n],
-                                              ) *
-                                              (s.circumference / (2 * Math.PI)),
+                                        ? 0
+                                        : i.calculateCircumference(h.data[n]) *
+                                          (s.circumference / (2 * Math.PI)),
                                 g = r && u.animateScale ? 0 : i.innerRadius,
                                 v = r && u.animateScale ? 0 : i.outerRadius,
                                 m = e.getValueAtIndexOrDefault
@@ -37709,8 +37606,8 @@
                 return t === r || t === i
                     ? { start: e - n / 2, end: e + n / 2 }
                     : t < r || t > i
-                        ? { start: e - n - 5, end: e }
-                        : { start: e, end: e + n + 5 }
+                    ? { start: e - n - 5, end: e }
+                    : { start: e, end: e + n + 5 }
             }
             function o(t) {
                 var o,
@@ -37745,8 +37642,8 @@
                 return 0 === t || 180 === t
                     ? 'center'
                     : t < 180
-                        ? 'left'
-                        : 'right'
+                    ? 'left'
+                    : 'right'
             }
             function u(t, e, n, r) {
                 if (h.isArray(e))
@@ -37986,10 +37883,10 @@
                             t.beginAtZero
                                 ? 0
                                 : e < 0 && n < 0
-                                    ? n
-                                    : e > 0 && n > 0
-                                        ? e
-                                        : 0,
+                                ? n
+                                : e > 0 && n > 0
+                                ? e
+                                : 0,
                         )
                     },
                     draw: function() {
@@ -38093,8 +37990,8 @@
                       void 0 === e[r]
                           ? (e[r] = i)
                           : Array.isArray(e[r])
-                              ? e[r].push(i)
-                              : (e[r] = [e[r], i])
+                          ? e[r].push(i)
+                          : (e[r] = [e[r], i])
                   }),
                   e)
                 : e
@@ -38565,8 +38462,8 @@
                     null == r.props
                         ? {}
                         : r.components
-                            ? r.props
-                            : { default: r.props },
+                        ? r.props
+                        : { default: r.props },
             }
             if (
                 (r.children &&
@@ -38733,8 +38630,8 @@
                 return t && t.redirect
                     ? i(t, r || n)
                     : t && t.matchAs
-                        ? o(t, n, t.matchAs)
-                        : l(t, n, r, e)
+                    ? o(t, n, t.matchAs)
+                    : l(t, n, r, e)
             }
             var s = j(t),
                 u = s.pathList,
@@ -38845,10 +38742,10 @@
                 i >= t.length
                     ? n()
                     : t[i]
-                        ? e(t[i], function() {
-                              r(i + 1)
-                          })
-                        : r(i + 1)
+                    ? e(t[i], function() {
+                          r(i + 1)
+                      })
+                    : r(i + 1)
             }
             r(0)
         }
@@ -39270,11 +39167,11 @@
                                   ('object' == typeof t &&
                                       ('string' == typeof t.path ||
                                           'string' == typeof t.name))
-                                    ? (s(),
-                                      'object' == typeof t && t.replace
-                                          ? o.replace(t)
-                                          : o.push(t))
-                                    : n(t)
+                                ? (s(),
+                                  'object' == typeof t && t.replace
+                                      ? o.replace(t)
+                                      : o.push(t))
+                                : n(t)
                         })
                     } catch (t) {
                         s(t)
@@ -40093,8 +39990,8 @@
                                                       t._v(
                                                           t._s(
                                                               e.payload.tags &&
-                                                              e.payload.tags
-                                                                  .length
+                                                                  e.payload.tags
+                                                                      .length
                                                                   ? e.payload.tags.join(
                                                                         ', ',
                                                                     )
@@ -40131,7 +40028,7 @@
                                                                               ).toFixed(
                                                                                   3,
                                                                               ) +
-                                                                              's'
+                                                                                  's'
                                                                             : '-',
                                                                     ),
                                                                 ),
@@ -40146,7 +40043,7 @@
                                                                               ).toFixed(
                                                                                   3,
                                                                               ) +
-                                                                              's'
+                                                                                  's'
                                                                             : '-',
                                                                     ),
                                                                 ),

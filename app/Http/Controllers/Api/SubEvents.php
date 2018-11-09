@@ -23,6 +23,16 @@ class SubEvents extends Controller
     }
 
     /**
+     * Get all data
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function associateableSubEvent()
+    {
+        return app(SubEventsRepository::class)->all();
+    }
+
+    /**
      * Store
      *
      * @param SubeventStore $request
@@ -38,9 +48,12 @@ class SubEvents extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(SubEventUpdate $request, $id)
+    public function update(SubEventUpdate $request, $eventId, $subEventId)
     {
-        return app(SubEventsRepository::class)->update($id, $request->all());
+        return app(SubEventsRepository::class)->update(
+            $subEventId,
+            $request->all()
+        );
     }
 
     public function confirm(ConfirmSubEvent $request, $eventId, $subEventId)
