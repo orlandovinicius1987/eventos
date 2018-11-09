@@ -13,6 +13,7 @@ class PersonStore extends Request
     {
         return [
             'name' => 'required',
+            'cpf' => 'nullable|cpf',
         ];
     }
 }

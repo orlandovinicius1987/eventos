@@ -2,10 +2,10 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Models\SubEvent;
-use App\Data\Repositories\Addresses as AddressesRepository;
+use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
+use App\Data\Repositories\Addresses as AddressesRepository;
 
 class SubEvents extends Repository
 {
@@ -29,6 +29,22 @@ class SubEvents extends Repository
         $subEvent->save();
     }
 
+    private function createOrUpdateAddress($subEvent, $address)
+    {
+        if (!$subEvent->address) {
+            info(['not found address']);
+
+            return $this->createAddress($subEvent, $address);
+        }
+
+        info(['subEvent', $subEvent->address]);
+
+        return app(AddressesRepository::class)->updateAddress(
+            $subEvent->address,
+            $address
+        );
+    }
+
     /**
      * @param $eventId
      * @param $subEventId
@@ -37,7 +53,7 @@ class SubEvents extends Repository
     {
         $subEvent = $this->findById($subEventId);
 
-        $subEvent->finalized_at = now();
+        $subEvent->ended_at = now();
 
         $subEvent->save();
     }
@@ -54,6 +70,7 @@ class SubEvents extends Repository
 
     /**
      * @param $eventId
+     * @return mixed
      */
     public function filterByEventId($eventId)
     {
@@ -66,10 +83,11 @@ class SubEvents extends Repository
 
     public function storeFromArray($array)
     {
-        $this->createAddress(
-            ($subEvent = parent::storeFromArray($array)),
-            $array['address']
-        );
+        $subEvent = parent::storeFromArray($array);
+
+        if (isset($array['address']['zipcode'])) {
+            $this->createAddress($subEvent, $array['address']);
+        }
 
         return $subEvent;
     }
@@ -78,15 +96,22 @@ class SubEvents extends Repository
     {
         $subEvent = parent::update($id, $attributes);
 
-        if (!$subEvent->address) {
-            $this->createAddress($subEvent, $attributes['address']);
-        } else {
-            app(AddressesRepository::class)->updateAddress(
-                $subEvent->address,
-                $attributes['address']
-            );
-        }
+        $subEvent->address = $this->createOrUpdateAddress(
+            $subEvent,
+            $attributes['address']
+        );
 
         return $subEvent;
+    }
+
+    /**
+     *
+     * Return all subEvents to happen in 7 days
+     *
+     * @return array
+     */
+    public function allNearToHappen()
+    {
+        return $this->applyFilter($this->newQuery()->nearToHappen());
     }
 }

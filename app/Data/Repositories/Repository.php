@@ -5,6 +5,7 @@ namespace App\Data\Repositories;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,6 +16,11 @@ abstract class Repository
      * @var
      */
     protected $model;
+
+    private function qualifyColumn($name)
+    {
+        return $this->model()->qualifyColumn($name);
+    }
 
     /**
      * @param $data
@@ -111,6 +117,8 @@ abstract class Repository
 
     protected function findByAnyColumnName($name, $arguments)
     {
+        info($this->qualifyColumn($name));
+
         return $this->makeQueryByAnyColumnName(
             'findBy',
             $name,
@@ -152,7 +160,10 @@ abstract class Repository
     {
         $columnName = snake_case(Str::after($name, $startsWith));
 
-        return $this->newQuery()->where($columnName, $arguments);
+        return $this->newQuery()->where(
+            $this->qualifyColumn($columnName),
+            $arguments
+        );
     }
 
     /**
@@ -184,7 +195,10 @@ abstract class Repository
 
     private function order($query)
     {
-        if ($query instanceof QueryBuilder) {
+        if (
+            $query instanceof QueryBuilder ||
+            $query instanceof EloquentBuilder
+        ) {
             foreach ($this->new()->getOrderBy() as $field => $direction) {
                 $query->orderBy($field, $direction);
             }

@@ -189,3 +189,38 @@ window.findById = (data, id) => {
         return item.id == id
     })
 }
+
+window.append_form_data = (FormData, data, name) => {
+    name = name || ''
+    if (typeof data === 'object') {
+        $.each(data, function(index, value) {
+            if (name === '') {
+                append_form_data(FormData, value, index)
+            } else {
+                append_form_data(FormData, value, name + '[' + index + ']')
+            }
+        })
+    } else {
+        FormData.append(name, data)
+    }
+}
+
+window.blob_to_base64 = (blob, callback) => {
+    let reader = new FileReader()
+
+    reader.onload = function() {
+        let dataUrl = reader.result
+
+        let base64 = dataUrl.split(',')[1]
+
+        callback(base64)
+    }
+
+    reader.readAsDataURL(blob)
+}
+
+window.except = (list, id) => {
+    return _.filter(list, item => {
+        return !id || !item.id || item.id !== id
+    })
+}

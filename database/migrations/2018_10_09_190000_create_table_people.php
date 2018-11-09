@@ -28,6 +28,10 @@ class CreateTablePeople extends Migration
 
             $table->date('birthdate')->nullable();
 
+            $table->string('cpf')->nullable();
+
+            $table->text('photo')->nullable();
+
             $table->timestamps();
         });
     }

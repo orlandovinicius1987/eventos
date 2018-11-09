@@ -8,6 +8,8 @@ class ContactType extends Base
      */
     protected $fillable = ['name', 'code'];
 
+    protected $orderBy = ['name' => 'asc'];
+
     public function contacts()
     {
         return $this->hasMany(Contact::class);

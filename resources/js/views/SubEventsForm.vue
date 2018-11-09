@@ -46,6 +46,33 @@
                                 cols="100"
                             ></app-input>
 
+                            <app-select
+                                name="associated_subevent_id"
+                                label="Subevento Associado"
+                                v-model="subEvents.form.fields.associated_subevent_id"
+                                :required="true"
+                                :form="form"
+                                :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                            ></app-select>
+
+                            <app-select
+                                    name="costume_id"
+                                    label="Traje"
+                                    v-model="subEvents.form.fields.costume_id"
+                                    :required="true"
+                                    :form="form"
+                                    :options="environment.tables.costumes"
+                            ></app-select>
+
+                            <app-select
+                                    name="sector_id"
+                                    label="Setor"
+                                    v-model="subEvents.form.fields.sector_id"
+                                    :required="true"
+                                    :form="form"
+                                    :options="environment.tables.sectors"
+                            ></app-select>
+
                             <app-text-area
                                 name="invitation_text"
                                 label="Texto de convite"
@@ -204,6 +231,14 @@ export default {
                 value: this.events.selected.id,
             })
         },
+
+        except(list, id) {
+            let items = clone(list)
+
+            items.rows = except(list.rows, id)
+
+            return items
+        }
     },
 
     mounted() {},

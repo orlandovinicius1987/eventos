@@ -13,7 +13,7 @@ class PersonUpdate extends Request
     {
         return [
             'name' => 'required',
-            'birthdate' => 'required',
+            'cpf' => 'nullable|cpf',
         ];
     }
 }

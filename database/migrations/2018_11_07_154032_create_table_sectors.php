@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterTableEventsAndSubEventsFinalized extends Migration
+class CreateTableSectors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,17 @@ class AlterTableEventsAndSubEventsFinalized extends Migration
      */
     public function up()
     {
+        Schema::create('sectors', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->string('name');
+            $table->string('color');
+
+            $table->timestamps();
+        });
+
         Schema::table('sub_events', function (Blueprint $table) {
-            $table->integer('finalized_by')->nullable();
-            $table->date('finalized_at')->nullable();
+            $table->integer('sector_id')->nullable();
         });
     }
 
@@ -26,9 +34,10 @@ class AlterTableEventsAndSubEventsFinalized extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('sectors');
+
         Schema::table('sub_events', function (Blueprint $table) {
-            $table->dropColumn('finalized_by');
-            $table->dropColumn('finalized_at');
+            $table->dropColumn('sector_id');
         });
     }
 }

@@ -15,6 +15,8 @@ class Contact extends Base
 
     protected $with = ['contactType'];
 
+    protected $orderBy = ['contact_type_id' => 'asc'];
+
     public function personInstitution()
     {
         return $this->belongsTo(PersonInstitution::class);

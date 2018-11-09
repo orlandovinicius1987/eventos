@@ -49,11 +49,15 @@ class Form {
 
     /**
      * Send a POST request to the given URL.
-     * .
+     *
      * @param {string} url
      */
     post(url) {
-        return post(url, this.fields).catch(error => {
+        let data = new FormData()
+
+        append_form_data(data, this.fields)
+
+        return post(url, data).catch(error => {
             this.onFail(error.response.data.errors)
 
             throw new Error('Higher-level error. ' + error.message)

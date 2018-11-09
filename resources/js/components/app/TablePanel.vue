@@ -7,18 +7,18 @@
                 </div>
             </div>
 
-            <div v-if="perPage" class="col-12">
+            <div class="col-12">
                 <div class="row">
-                    <div class="col-6">
+                    <div v-if="perPage" class="col-6">
                         <input
                             class="form-control form-control-sm"
                             :value="filterText"
                             @input="$emit('input-filter-text', $event)"
                             placeholder="filtrar"
-                        >
+                        />
                     </div>
 
-                    <div class="col-2 p-0">
+                    <div v-if="perPage" class="col-2 p-0">
                         <app-per-page
                             :value="perPage"
                             @input="$emit('set-per-page', $event)"
@@ -44,9 +44,7 @@
         </div>
 
         <div class="row">
-            <div class="col-12">
-                <slot></slot>
-            </div>
+            <div class="col-12"><slot></slot></div>
         </div>
     </div>
 </template>

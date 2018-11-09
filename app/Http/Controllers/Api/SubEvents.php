@@ -13,6 +13,17 @@ use Illuminate\Http\Request;
 class SubEvents extends Controller
 {
     /**
+     *
+     * Return all subEvents to happen in 7 days
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function allNearToHappen()
+    {
+        return app(SubEventsRepository::class)->allNearToHappen();
+    }
+
+    /**
      * Get all data
      *
      * @return \Illuminate\Http\Response|Collection
@@ -20,6 +31,16 @@ class SubEvents extends Controller
     public function all(Request $request, $eventId)
     {
         return app(SubEventsRepository::class)->filterByEventId($eventId);
+    }
+
+    /**
+     * Get all data
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function associateableSubEvent()
+    {
+        return app(SubEventsRepository::class)->all();
     }
 
     /**
@@ -38,9 +59,12 @@ class SubEvents extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(SubEventUpdate $request, $id)
+    public function update(SubEventUpdate $request, $eventId, $subEventId)
     {
-        return app(SubEventsRepository::class)->update($id, $request->all());
+        return app(SubEventsRepository::class)->update(
+            $subEventId,
+            $request->all()
+        );
     }
 
     public function confirm(ConfirmSubEvent $request, $eventId, $subEventId)
