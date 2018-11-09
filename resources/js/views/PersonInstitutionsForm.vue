@@ -15,7 +15,7 @@
                                 v-model="form.fields.institution_id"
                                 :required="true"
                                 :form="form"
-                                :elements="environment.tables.institutions"
+                                :options="environment.tables.institutions"
                             ></app-select>
 
                             <app-select
@@ -25,7 +25,7 @@
                                 v-model="form.fields.person_id"
                                 :required="true"
                                 :form="form"
-                                :elements="environment.tables.people"
+                                :options="environment.tables.people"
                             ></app-select>
 
                             <app-select
@@ -34,7 +34,7 @@
                                 v-model="form.fields.role_id"
                                 :required="true"
                                 :form="form"
-                                :elements="environment.tables.roles"
+                                :options="environment.tables.roles"
                             ></app-select>
 
                             <app-input

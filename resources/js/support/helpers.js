@@ -218,3 +218,9 @@ window.blob_to_base64 = (blob, callback) => {
 
     reader.readAsDataURL(blob)
 }
+
+window.except = (list, id) => {
+    return _.filter(list, item => {
+        return !id || !item.id || item.id !== id
+    })
+}
