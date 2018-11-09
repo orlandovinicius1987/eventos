@@ -20,7 +20,7 @@ import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
-import { format } from 'util'
+import PhoneBook from './views/PhoneBook'
 
 Vue.use(VueRouter)
 
@@ -92,16 +92,6 @@ let routes = [
         component: PersonInstitutionsForm,
         props: { mode: 'update', source: 'personInstitution' },
     },
-    // {
-    //     path: '/contacts/create',
-    //     component: ContactsForm,
-    //     props: { mode: 'create' },
-    // },
-    // {
-    //     path: '/contacts/:id/update',
-    //     component: ContactsForm,
-    //     props: { mode: 'update' },
-    // },
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/addresses/create',
@@ -215,6 +205,11 @@ let routes = [
             '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/update',
         component: PersonInstitutionsForm,
         props: { mode: 'update', source: 'advisor' },
+    },
+    {
+        path: '/phone-book',
+        component: PhoneBook,
+        props: { mode: 'view' },
     },
 ]
 
