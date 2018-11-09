@@ -3,7 +3,7 @@
         <div class="col-12 p-0">
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   <img src="/svg/alerj-logo-horizontal.svg" class="img-fluid">
+                   <img src="/svg/logo-eventos-alerj.svg" class="img-fluid"> <span class="brand-complement">cerimonial</span>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

@@ -15793,10 +15793,24 @@ a.text-dark:focus {
 
 .navbar .navbar-brand {
   margin-left: 30px;
+  padding-bottom: 20px;
 }
 
 .navbar .navbar-brand img {
-  min-width: 150px;
+  border-right: 2px solid #B2B1B7;
+  padding-right: 10px;
+}
+
+.navbar .navbar-brand .brand-complement {
+  color: #8C9D45;
+  text-transform: uppercase;
+  font-family: 'DIN';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.7rem;
+  margin-left: 4px;
+  position: relative;
+  bottom: -6px;
 }
 
 .navbar .navbar-nav {
