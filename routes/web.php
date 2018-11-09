@@ -96,6 +96,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
 
             Route::get('/{id}/photo', 'People@photo')->name('people.photo');
 
+            Route::get('/{id}/phone-book', 'People@phoneBook')->name(
+                'people.phone-book'
+            );
+
             Route::post('/', 'People@store')->name('people.store');
 
             Route::group(

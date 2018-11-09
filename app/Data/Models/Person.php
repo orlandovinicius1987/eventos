@@ -23,6 +23,11 @@ class Person extends BaseWithClient
 
     protected $appends = ['photoUrl'];
 
+    public function person_institutions()
+    {
+        return $this->hasMany(PersonInstitution::class);
+    }
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable');

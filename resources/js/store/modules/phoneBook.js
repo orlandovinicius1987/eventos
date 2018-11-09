@@ -5,6 +5,12 @@ import * as gettersMixin from './mixins/getters.js'
 
 const state = merge_objects(statesMixin.common, {
     selectedPerson: null,
+
+    service: {
+        name: 'phoneBook',
+        uri: 'people/{phoneBook.selectedPerson.id}/phone-book',
+        isForm: true,
+    },
 })
 
 let actions = merge_objects(actionsMixin, {
