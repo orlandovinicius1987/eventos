@@ -15,7 +15,7 @@
                                 v-model="form.fields.contact_type_id"
                                 :required="true"
                                 :form="form"
-                                :elements="environment.tables.contact_types"
+                                :options="environment.tables.contact_types"
                             ></app-select>
 
                             <app-input

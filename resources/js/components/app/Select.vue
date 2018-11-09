@@ -7,7 +7,7 @@
             :id="name"
             :name="name"
             :required="required"
-            :options="makeOptions(elements.rows)"
+            :options="makeOptions(options.rows)"
         >
         </vue-select>
 
@@ -19,7 +19,7 @@
 
 <script>
 export default {
-    props: ['value', 'name', 'label', 'required', 'form', 'elements'],
+    props: ['value', 'name', 'label', 'required', 'form', 'options'],
 
     methods: {
         makeOptions(rows) {
@@ -33,11 +33,11 @@ export default {
         },
 
         findById(id) {
-            if (!this.elements) {
+            if (!this.options) {
                 return { name: null, id: null }
             }
 
-            return _.find(this.elements.rows, value => {
+            return _.find(this.options.rows, value => {
                 return value.id === id
             })
         },

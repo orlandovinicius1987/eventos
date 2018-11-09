@@ -218,3 +218,11 @@ window.blob_to_base64 = (blob, callback) => {
 
     reader.readAsDataURL(blob)
 }
+
+window.except = (list, id) => {
+    dd('subevents', list)
+    return _.filter(list, item => {
+        dd('subevent', item)
+        return !id || !item.id || item.id === id
+    })
+}

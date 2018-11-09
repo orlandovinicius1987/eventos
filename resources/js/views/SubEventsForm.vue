@@ -52,7 +52,7 @@
                                 v-model="subEvents.form.fields.associated_subevent_id"
                                 :required="true"
                                 :form="form"
-                                :elements="environment.tables.sub_events"
+                                :options="except(environment.tables.sub_events, subEvents.form.id)"
                             ></app-select>
 
                             <app-select
@@ -61,7 +61,7 @@
                                     v-model="subEvents.form.fields.costume_id"
                                     :required="true"
                                     :form="form"
-                                    :elements="environment.tables.costumes"
+                                    :options="environment.tables.costumes"
                             ></app-select>
 
                             <app-select
@@ -70,7 +70,7 @@
                                     v-model="subEvents.form.fields.sector_id"
                                     :required="true"
                                     :form="form"
-                                    :elements="environment.tables.sectors"
+                                    :options="environment.tables.sectors"
                             ></app-select>
 
                             <app-text-area
@@ -231,6 +231,10 @@ export default {
                 value: this.events.selected.id,
             })
         },
+
+        except(list, id) {
+            return except(list, id)
+        }
     },
 
     mounted() {},
