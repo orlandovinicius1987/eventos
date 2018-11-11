@@ -32,13 +32,13 @@
                                 ></vue-croppa>
 
                                 <div slot="modal-footer" class="w-100">
-                                    <button class="float-right btn btn-success" variant="primary" @click="showCropper = false">
+                                    <div class="float-right btn btn-success" @click="showCropper = false">
                                         Cancelar
-                                    </button>
+                                    </div>
 
-                                    <button class="float-right btn btn-outline-secondary mr-2" variant="primary" @click="usePhoto()">
+                                    <div class="float-right btn btn-outline-secondary mr-2" @click="usePhoto()">
                                         OK
-                                    </button>
+                                    </div>
                                 </div>
                             </b-modal>
                         </div>

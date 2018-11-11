@@ -96,11 +96,11 @@
             ></app-input>
 
             <GmapMap
-                ref="map"
+                ref="addressMap"
                 :center="{ lat: getLatitude(), lng: getLongitude() }"
                 :zoom="getZoom()"
                 map-type-id="roadmap"
-                style="width: 100%; height: 300px"
+                style="width: 100%; height: 400px"
                 @center_changed="makeUrl($event)"
             >
                 <GmapMarker
@@ -209,5 +209,18 @@ export default {
             },
         },
     },
+
+    mounted () {
+        const $this = this
+
+        dd($this.address)
+
+        this.$refs.addressMap.$mapPromise.then((map) => {
+            map.panTo({
+                lat: parseFloat($this.address.latitude),
+                lng: parseFloat($this.address.longitude)
+            })
+        })
+    }
 }
 </script>
