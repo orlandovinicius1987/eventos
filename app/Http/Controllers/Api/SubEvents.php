@@ -13,6 +13,17 @@ use Illuminate\Http\Request;
 class SubEvents extends Controller
 {
     /**
+     *
+     * Return all subEvents to happen in 7 days
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function allNearToHappen()
+    {
+        return app(SubEventsRepository::class)->allNearToHappen();
+    }
+
+    /**
      * Get all data
      *
      * @return \Illuminate\Http\Response|Collection

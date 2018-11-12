@@ -23,6 +23,18 @@ class Person extends BaseWithClient
 
     protected $appends = ['photoUrl'];
 
+    /**
+     * Columns which can be used on filter
+     *
+     * @var array
+     */
+    protected $filterableColumns = ['name', 'nickname', 'title'];
+
+    public function person_institutions()
+    {
+        return $this->hasMany(PersonInstitution::class);
+    }
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable');
