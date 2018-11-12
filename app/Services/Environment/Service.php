@@ -73,7 +73,7 @@ class Service
                 'confirmation' => [
                     'enabled' => config('events.confirmation.enabled'),
                 ],
-            ]
+            ],
         ]);
     }
 }
