@@ -21,7 +21,7 @@
                             <app-select
                                 v-if="source == 'advisor'"
                                 name="advised_id"
-                                label="Assessor de"
+                                label="Assessor"
                                 v-model="form.fields.person_id"
                                 :required="true"
                                 :form="form"
