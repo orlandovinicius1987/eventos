@@ -308,8 +308,6 @@ abstract class Repository
     {
         $query = $this->model::query();
 
-        info($type);
-
         if ($type !== 'findBy') {
             $columns = $this->model()->getSelectColumns();
 
