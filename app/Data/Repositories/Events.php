@@ -17,10 +17,10 @@ class Events extends Repository
      *
      * @return array
      */
-    public function allHasSubEventsNearToHappen()
+    public function allHasSubEventsAboutToHappen()
     {
         return $this->applyFilter(
-            $this->newQuery()->hasSubEventsNearToHappen()
+            $this->newQuery()->hasSubEventsAboutToHappen()
         );
     }
 

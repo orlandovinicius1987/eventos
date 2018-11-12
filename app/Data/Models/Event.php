@@ -19,7 +19,7 @@ class Event extends BaseWithClient
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeHasSubEventsNearToHappen($query)
+    public function scopeHasSubEventsAboutToHappen($query)
     {
         return $query->whereExists(function ($query) {
             $query

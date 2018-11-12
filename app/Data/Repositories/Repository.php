@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Repositories\Traits\DataProcessing;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Builder;
 
 abstract class Repository
 {
+    use DataProcessing;
+
     /**
      * @var
      */
@@ -226,7 +229,7 @@ abstract class Repository
 
     public function transform($data)
     {
-        return $data;
+        return $this->processData($data);
     }
 
     /**
@@ -270,7 +273,12 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
-        info($this->getQueryFilter()->toArray());
+        $ddd1 = count($data->items());
+        $ddd2 = count($this->transform($data->items()));
+
+        info(['makePaginationResult 1', $ddd1]);
+
+        info(['makePaginationResult 2', $ddd2]);
 
         return [
             "links" => [
