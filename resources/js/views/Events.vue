@@ -154,6 +154,7 @@
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
+                                    {title: 'Pendências', trClass: 'text-center'},
                                     {title: 'Convite', trClass: 'text-center'},
                                     {title: 'Recebido', trClass: 'text-center'},
                                     {title: 'Aceito', trClass: 'text-center'},
@@ -175,6 +176,13 @@
                             <td class="align-middle">{{ invitation.person_institution.institution.name }}</td>
 
                             <td class="align-middle">{{ invitation.person_institution.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <!--<span class="badge badge-danger">não possui e-mail</span>-->
+                                    <span class="badge badge-success">nenhuma</span>
+                                </h6>
+                            </td>
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
