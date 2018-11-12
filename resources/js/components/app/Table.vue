@@ -1,7 +1,7 @@
 <template>
 
             <div class="">
-                <table class="table table-sm table-hover table-borderless card-body">
+                <table class="table table-sm table-hover table-borderless card-body mb-0">
                     <thead>
                         <tr>
                             <slot name="thead"></slot>
