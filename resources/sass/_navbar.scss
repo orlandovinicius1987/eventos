@@ -30,12 +30,13 @@
 
   .navbar-nav {
     font-weight: 600;
+    font-size: 16px;
 
     .active{
-      border-bottom: 3px solid $blue;
+      border-bottom: 3px solid $blue-lighter03;
 
       .nav-link{
-        color: $blue !important;
+        color: $blue-lighter02 !important;
       }
       &:hover {
         border-bottom: none;
@@ -44,7 +45,11 @@
 
 
     .nav-item {
-      margin-right: 5px;
+      margin-right: 20px;
+
+      &:last-child {
+        margin-right: 45px;
+      }
 
       i {
         /*font-size: 130%;*/
