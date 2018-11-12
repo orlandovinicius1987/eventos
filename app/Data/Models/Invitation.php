@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Data\Repositories\ContactTypes;
 use Ramsey\Uuid\Uuid;
 
 class Invitation extends Base
@@ -45,12 +46,22 @@ class Invitation extends Base
         do {
             $code = collect(
                 array_merge(
-                    array_random(range('A', 'Z'), 3),
-                    array_random(range(0, 9), 3)
+                    array_random(range('A', 'Z'), 4),
+                    array_random(range(0, 9), 4)
                 )
             )->implode('');
         } while ($this->where('code', $code)->first());
 
         return $code;
+    }
+
+    public function hasEmail()
+    {
+        return $this->personInstitution->contacts
+            ->where(
+                'contact_type_id',
+                app(ContactTypes::class)->findByCode('email')->id
+            )
+            ->count() > 0;
     }
 }
