@@ -50,4 +50,13 @@ class PersonInstitutions extends Repository
 
         return $query;
     }
+
+    /**
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function allAdvisorsByPersonInstitution($personInstitutionId)
+    {
+        return $this->filterByAdvisedId($personInstitutionId);
+    }
 }
