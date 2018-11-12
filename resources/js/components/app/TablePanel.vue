@@ -1,5 +1,5 @@
 <template>
-    <div class="card shadow-sm">
+    <div class="card shadow-sm mb-4">
         <div class="align-items-end card-header">
             <div class="row">
                 <div class="col-12">
@@ -47,11 +47,8 @@
 
         </div>
 
-        <div class="row">
-            <div class="col-12">
-                <slot></slot>
-            </div>
-        </div>
+        <slot></slot>
+
     </div>
 </template>
 

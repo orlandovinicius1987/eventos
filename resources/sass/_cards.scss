@@ -3,10 +3,11 @@
 .card {
   border: none;
 
+
   .card-header {
     border-bottom: none;
     background-color: $white;
-    padding: 0.75rem 0.9rem;
+    padding: 0.75rem 0.9rem 0;
 
     .form-control, .custom-select {
       border: none;
@@ -16,10 +17,11 @@
       &::placeholder {
         color: $grey;
       }
-
-
-
     }
+  }
+  .card-footer {
+    border: none;
+    background: $grey-lighter03;
   }
 }
 

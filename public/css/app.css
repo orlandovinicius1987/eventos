@@ -15866,7 +15866,7 @@ a.text-dark:focus {
 .card .card-header {
   border-bottom: none;
   background-color: #fff;
-  padding: 0.75rem 0.9rem;
+  padding: 0.75rem 0.9rem 0;
 }
 
 .card .card-header .form-control,
@@ -15891,9 +15891,39 @@ a.text-dark:focus {
   color: #adb5bd;
 }
 
+.card .card-footer {
+  border: none;
+  background: #e9ecef;
+}
+
 .shadow-sm {
   -webkit-box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.075) !important;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.075) !important;
+}
+
+.table thead {
+  background: #f8f9fa;
+  border-top: 1px solid #ffffff;
+}
+
+.table td {
+  border-top: 1px solid #f1f3f5;
+}
+
+.table-hover tbody tr:hover {
+  background: #f4f7fc;
+}
+
+.table-sm td {
+  padding: 0.7rem 0.3rem;
+}
+
+.table-sm td:first-child {
+  padding-left: 1rem;
+}
+
+.table-sm td:last-child {
+  padding-right: 1rem;
 }
 
 .navbar-laravel {
@@ -15936,6 +15966,6 @@ html {
 }
 
 .bg-filters {
-  background: #f1f3f5;
+  background: #f8f9fa;
 }
 
