@@ -34,10 +34,6 @@ let actions = merge_objects(
             context.dispatch('personCategories/setPerson', payload, {
                 root: true,
             })
-
-            context.dispatch('phoneBook/setPerson', payload, {
-                root: true,
-            })
         },
 
         selectContact(context, payload) {

@@ -4,9 +4,7 @@ import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
 const state = merge_objects(statesMixin.common, {
-    phoneBook: {
-        photoUrl: null
-    },
+    selectedPerson: null,
 
     service: {
         name: 'phoneBook',
@@ -18,16 +16,13 @@ const state = merge_objects(statesMixin.common, {
 let actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
         context.commit('mutateSetPerson', payload)
-        context.dispatch('load', payload)
-
-        context.commit('mutateSetPerson', payload)
-        context.dispatch('select', payload)
+        context.dispatch('load')
     },
 })
 
 let mutations = merge_objects(mutationsMixin, {
     mutateSetPerson(state, payload) {
-        state.phoneBook = payload
+        state.selectedPerson = payload
     },
 })
 
