@@ -137,12 +137,12 @@
                                 </app-table>
                             </app-table-panel>
 
-                            <app-address-form
+                            <app-address-field
                                 :form="subEvents.form"
                                 :address="subEvents.form.fields.address"
                                 :google-maps="environment.google_maps"
                             >
-                            </app-address-form>
+                            </app-address-field>
                         </div>
                     </div>
 

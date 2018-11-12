@@ -11,12 +11,12 @@
                     <div class="row">
                         <div class="col-12 mb-3">
 
-                            <app-address-form
+                            <app-address-field
                                 :address="addresses.form.fields"
                                 :form="addresses.form"
                                 :google-maps="environment.google_maps"
                             >
-                            </app-address-form>
+                            </app-address-field>
 
                         </div>
                     </div>
