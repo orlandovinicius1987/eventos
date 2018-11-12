@@ -178,9 +178,8 @@
                             <td class="align-middle">{{ invitation.person_institution.role.name }}</td>
 
                             <td class="align-middle text-center">
-                                <h6 class="mb-0">
-                                    <!--<span class="badge badge-danger">não possui e-mail</span>-->
-                                    <span class="badge badge-success">nenhuma</span>
+                                <h6 v-for="pending in invitation.pending" class="m-0">
+                                    <span :class="'badge badge-' + pending.type">{{ pending.label }}</span>
                                 </h6>
                             </td>
 

@@ -4,7 +4,6 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
-use Ramsey\Uuid\Uuid;
 
 class Invitations extends Repository
 {
@@ -12,6 +11,24 @@ class Invitations extends Repository
      * @var string
      */
     protected $model = InvitationModel::class;
+
+    public function filterBySubEventId($subEventId)
+    {
+        $this->addDataProcessingPlugin(function ($invitation) {
+            $invitation['pending'] = [
+                [
+                    'type' => $invitation->hasEmail() ? 'success' : 'danger',
+                    'label' => $invitation->hasEmail()
+                        ? 'nenhuma'
+                        : 'não possui e-mail',
+                ],
+            ];
+
+            return $invitation;
+        });
+
+        return parent::filterBySubEventId($subEventId);
+    }
 
     protected function filterAllColumns($query, $text)
     {
@@ -37,11 +54,6 @@ class Invitations extends Repository
             });
 
         return $query;
-    }
-
-    private function getPersonInstitutionsRepository()
-    {
-        return app(PersonInstitutions::class);
     }
 
     public function unInvite($eventId, $subEventId, $invitationId)
