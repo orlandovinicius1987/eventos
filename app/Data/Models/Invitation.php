@@ -24,7 +24,7 @@ class Invitation extends Base
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
-    protected $selectColumns = ['person_institutions.*', 'invitations.*'];
+    // protected $selectColumns = ['person_institutions.*', 'invitations.*'];
 
     public function personInstitution()
     {
