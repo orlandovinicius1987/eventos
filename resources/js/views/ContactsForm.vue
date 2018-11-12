@@ -50,7 +50,7 @@ const service = {
 export default {
     props: ['mode', 'source'],
 
-    mixins: [crud, contacts, advisorContacts],
+    mixins: [crud, contacts],
 
     data() {
         return {
@@ -60,17 +60,10 @@ export default {
     methods: {
 
         fillAdditionalFormFields() {
-            if (this.source == 'advisor') {
-                this.$store.commit('contacts/mutateSetFormField', {
-                    field: 'person_institution_id',
-                    value: this.advisorContacts.personInstitution.id,
-                })
-            } else {
                 this.$store.commit('contacts/mutateSetFormField', {
                     field: 'person_institution_id',
                     value: this.contacts.personInstitution.id,
                 })
-            }
         },
     },
 }
