@@ -24,7 +24,7 @@ const __emptyTable = {
 const state = merge_objects(statesMixin.common, {
     service: {
         name: 'subEventsDashboard',
-        uri: 'sub-events/all-near-to-happen',
+        uri: 'sub-events/all-about-to-happen',
         performLoad: false,
     },
 
