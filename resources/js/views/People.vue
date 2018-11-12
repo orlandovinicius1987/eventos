@@ -172,7 +172,7 @@
                                 @goto-page="personInstitutionsGotoPage($event)"
                                 :columns="[
                                     '#',
-                                    'Title',
+                                    'Tratamento',
                                     'Instituição',
                                     'Função'
                                 ]"
