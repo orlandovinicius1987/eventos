@@ -7,11 +7,31 @@ import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = { id: null }
 
-let state = merge_objects({}, statesMixin.common)
+const state = merge_objects(statesMixin.common, {
+    form: new Form({
+        name: null,
+    }),
+})
 
-let actions = actionsMixin
+const actions = merge_objects(actionsMixin, {
+    selectInvitation(context, payload) {
+        context.commit('invitations/mutateSetSelected', payload, {
+            root: true,
+        })
+    },
+})
 
-let mutations = mutationsMixin
+
+let mutations = merge_objects(mutationsMixin, {
+
+    selectInvitation(state, payload) {
+        state.selectedInvitation = payload
+    },
+
+    setInvitations(state, payload) {
+        state.invitations = payload
+    },
+})
 
 let getters = gettersMixin
 

@@ -31,20 +31,6 @@
             </div>
 
             <div class="col-4">
-                <form>
-                    <!--<app-input-->
-                    <!--name="code"-->
-                    <!--label="Código"-->
-                    <!--:required="true"-->
-                    <!--:form="form"-->
-                    <!--&gt;</app-input>-->
-
-
-
-                </form>
-            </div>
-
-            <div class="col-4">
                 <p class="one-line">Last result: <b>{{ result }}</b></p>
                 <qrcode-drop-zone @decode="onDecode">
                     <qrcode-stream @decode="onDecode" @init="onInit" />
@@ -61,7 +47,7 @@
     import crud from './mixins/crud'
     import permissions from './mixins/permissions'
     import receptive from './mixins/receptive'
-    import { mapState } from 'vuex'
+    import { mapActions, mapState } from 'vuex'
     import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 
     const service = {
@@ -93,6 +79,10 @@
         },
 
         methods: {
+            ...mapActions(service.name, [
+                'selectInvitation',
+            ]),
+
             onDecode (result) {
                 this.result = result
             },
