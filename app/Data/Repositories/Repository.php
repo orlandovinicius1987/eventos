@@ -67,7 +67,6 @@ abstract class Repository
             isset($queryFilter->toArray()['pagination']['current_page']) &&
             $queryFilter->toArray()['pagination']['current_page'] == 0
         ) {
-            info($queryFilter->pagination->currentPage);
             $queryFilter = $this->allElements($queryFilter);
         }
 
@@ -120,8 +119,6 @@ abstract class Repository
 
     protected function findByAnyColumnName($name, $arguments)
     {
-        info($this->qualifyColumn($name));
-
         return $this->makeQueryByAnyColumnName(
             'findBy',
             $name,
@@ -172,16 +169,16 @@ abstract class Repository
     }
 
     protected function makeQueryByAnyColumnName(
-        $startsWith,
+        $type,
         $name,
         $arguments,
         $query = null
     ) {
         if (!$query) {
-            $query = $this->newQuery();
+            $query = $this->newQuery($type);
         }
 
-        $columnName = snake_case(Str::after($name, $startsWith));
+        $columnName = snake_case(Str::after($name, $type));
 
         return $query->where($this->qualifyColumn($columnName), $arguments);
     }
@@ -273,13 +270,6 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
-        $ddd1 = count($data->items());
-        $ddd2 = count($this->transform($data->items()));
-
-        info(['makePaginationResult 1', $ddd1]);
-
-        info(['makePaginationResult 2', $ddd2]);
-
         return [
             "links" => [
                 "pagination" => [
@@ -311,22 +301,21 @@ abstract class Repository
     }
 
     /**
+     * @param null $type
      * @return Builder
      */
-    protected function newQuery()
+    protected function newQuery($type = null)
     {
         $query = $this->model::query();
 
-        if (
-            $this->model()
-                ->getSelectColumns()
-                ->count() > 0
-        ) {
-            $query->select(
-                $this->model()
-                    ->getSelectColumns()
-                    ->toArray()
-            );
+        info($type);
+
+        if ($type !== 'findBy') {
+            $columns = $this->model()->getSelectColumns();
+
+            if ($columns->count() > 0) {
+                $query->select($columns->toArray());
+            }
         }
 
         return $query;

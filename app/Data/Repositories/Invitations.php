@@ -53,6 +53,7 @@ class Invitations extends Repository
                 $query->orWhere('roles.name', 'ilike', "%{$text}%");
             });
 
+        info($query->toSql());
         return $query;
     }
 
