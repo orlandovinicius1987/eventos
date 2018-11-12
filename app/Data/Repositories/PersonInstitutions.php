@@ -3,7 +3,9 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\PersonInstitution as PersonInstitutionModel;
+use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Http\Request;
 
 class PersonInstitutions extends Repository
 {
@@ -47,10 +49,5 @@ class PersonInstitutions extends Repository
         );
 
         return $query;
-    }
-
-    public function allAdvisorsByPersonInstitution($personInstitutionId)
-    {
-        return $this->filterByAdvisedId($personInstitutionId);
     }
 }

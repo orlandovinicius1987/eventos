@@ -52,7 +52,7 @@ export default {
 
             switch (type.code) {
                 case 'mobile':
-                    return 'c'
+                    return '(##)#####-####'
                 case 'whatsapp':
                     return '(##)#####-####'
                 case 'phone':
