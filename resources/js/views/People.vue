@@ -212,7 +212,7 @@
                                     >
                                         <router-link
                                             :to="
-                                                'people/' +
+                                                '/people/' +
                                                     personInstitutions.person
                                                         .id +
                                                     '/person-institutions/' +
