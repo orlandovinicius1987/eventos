@@ -213,8 +213,6 @@ export default {
     mounted () {
         const $this = this
 
-        dd($this.address)
-
         this.$refs.addressMap.$mapPromise.then((map) => {
             map.panTo({
                 lat: parseFloat($this.address.latitude),
