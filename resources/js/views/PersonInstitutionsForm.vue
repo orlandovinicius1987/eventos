@@ -77,6 +77,7 @@ import crud from './mixins/crud'
 import personInstitutions from './mixins/personInstitutions'
 import people from './mixins/people'
 import advisors from './mixins/advisors'
+import roles from './mixins/roles'
 
 const service = {
     name: 'personInstitutions',
@@ -85,11 +86,13 @@ const service = {
 }
 
 export default {
+
     props: ['mode', 'source'],
 
-    mixins: [crud, personInstitutions, people, advisors],
+    mixins: [crud, personInstitutions, people, advisors, roles],
 
     data() {
+        this.$store.dispatch('environment/loadRoles')
         return {
             service: service
         }
