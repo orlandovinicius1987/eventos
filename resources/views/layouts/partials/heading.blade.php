@@ -24,23 +24,19 @@
                                 <a class="nav-link" href="{{ route('login') }}">Entrar</a>
                             </li>
                         @else
-                            <li class="nav-item">
-                                <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_dashboard"></i>
-                                        <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_dashboard"></i>
+                                    <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
+                                </a>
+                            </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/events" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="events-menu" to="/events" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
+                                </a>
+                            </router-link>
 
                             <li class="nav-item dropdown">
                                 <a

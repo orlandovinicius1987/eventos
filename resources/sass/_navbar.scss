@@ -37,6 +37,9 @@
       .nav-link{
         color: $blue !important;
       }
+      &:hover {
+        border-bottom: none;
+      }
     }
 
 
@@ -53,6 +56,7 @@
         i {
           color: $blue;
         }
+        border-bottom: 3px solid $blue-lighter02;
       }
 
       .nav-link {
