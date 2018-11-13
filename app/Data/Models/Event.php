@@ -40,12 +40,21 @@ class Event extends BaseWithClient
      */
     public function scopeHasSubEventsNotFinalized($query)
     {
-        return $query->whereExists(function ($query) {
-            $query
-                ->select(DB::raw('*'))
-                ->from('sub_events')
-                ->whereRaw('sub_events.event_id = events.id')
-                ->whereRaw('sub_events.ended_at IS NULL');
+        return $query->where(function ($query) {
+            $query->whereExists(function ($query) {
+                $query
+                    ->select(DB::raw('*'))
+                    ->from('sub_events')
+                    ->whereRaw('sub_events.event_id = events.id')
+                    ->whereRaw('sub_events.ended_at IS NULL');
+            });
+
+            $query->orWhereNotExists(function ($query) {
+                $query
+                    ->select(DB::raw('*'))
+                    ->from('sub_events')
+                    ->whereRaw('sub_events.event_id = events.id');
+            });
         });
     }
 }
