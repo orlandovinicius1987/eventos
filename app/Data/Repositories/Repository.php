@@ -2,14 +2,14 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Repositories\Traits\DataProcessing;
 use Exception;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Query\Builder as QueryBuilder;
-use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use App\Data\Repositories\Traits\DataProcessing;
+use Illuminate\Database\Query\Builder as QueryBuilder;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 abstract class Repository
 {
@@ -20,7 +20,7 @@ abstract class Repository
      */
     protected $model;
 
-    private function buildJoins($query)
+    protected function buildJoins($query)
     {
         $this->model()
             ->getJoins()
@@ -41,7 +41,12 @@ abstract class Repository
         }
     }
 
-    private function qualifyColumn($name)
+    protected function filterCheckboxes($query, array $filter)
+    {
+        return $query;
+    }
+
+    protected function qualifyColumn($name)
     {
         return $this->model()->qualifyColumn($name);
     }
@@ -131,8 +136,15 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if (($filter = $filter['filter']['text'])) {
-            $this->filterAllColumns($query, $filter);
+        if (($text = $filter['filter']['text'])) {
+            $this->filterAllColumns($query, $text);
+        }
+
+        if (
+            isset($filter['filter']['checkboxes']) &&
+            ($checkboxes = array_filter($filter['filter']['checkboxes']))
+        ) {
+            $this->filterCheckboxes($query, $checkboxes);
         }
 
         return $query;
@@ -231,7 +243,7 @@ abstract class Repository
         return $this->new();
     }
 
-    private function order($query)
+    protected function order($query)
     {
         if (
             $query instanceof QueryBuilder ||
@@ -263,7 +275,7 @@ abstract class Repository
      * @param $total
      * @return float
      */
-    private function maxPage($perPage, $total)
+    protected function maxPage($perPage, $total)
     {
         return ceil($total / $perPage);
     }
@@ -274,7 +286,7 @@ abstract class Repository
      * @param $total
      * @return int
      */
-    private function fixCurrentPage($current, $perPage, $total)
+    protected function fixCurrentPage($current, $perPage, $total)
     {
         if ($current > $this->maxPage($perPage, $total)) {
             return 1;
@@ -291,6 +303,8 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
+        info(['query filter', $this->getQueryFilter()['filter']]);
+
         return [
             "links" => [
                 "pagination" => [
@@ -327,8 +341,6 @@ abstract class Repository
      */
     protected function newQuery($type = null)
     {
-        info(['newQuery', $type]);
-
         $query = $this->model::query();
 
         $this->buildSelect($query);
