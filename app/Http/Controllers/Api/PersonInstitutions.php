@@ -61,6 +61,12 @@ class PersonInstitutions extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param $personId
+     * @param $personInstitutionId
+     * @return mixed
+     */
     public function allAdvisorsByPersonInstitution(
         Request $request,
         $personId,
