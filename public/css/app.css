@@ -15827,7 +15827,7 @@ a.text-dark:focus {
 }
 
 .navbar .navbar-nav .active:hover {
-  border-bottom: none;
+  border-bottom: 3px solid #b1c4ea;
 }
 
 .navbar .navbar-nav .nav-item {
@@ -15845,7 +15845,7 @@ a.text-dark:focus {
 }
 
 .navbar .navbar-nav .nav-item:hover {
-  border-bottom: 3px solid #7c9cdb;
+  /*border-bottom: 3px solid $blue-lighter02;*/
 }
 
 .navbar .navbar-nav .nav-item:hover i {
@@ -15939,6 +15939,19 @@ a.text-dark:focus {
   padding-right: 1rem;
 }
 
+body {
+  color: #495057;
+}
+
+h2 {
+  color: #adb5bd;
+  font-weight: 600;
+}
+
+h2 i {
+  color: #b1c4ea;
+}
+
 .navbar-laravel {
   background-color: #fff;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -15980,5 +15993,9 @@ html {
 
 .bg-filters {
   background: #f8f9fa;
+}
+
+.bg-primary {
+  background: #7c9cdb;
 }
 

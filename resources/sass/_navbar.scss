@@ -39,7 +39,7 @@
         color: $blue-lighter02 !important;
       }
       &:hover {
-        border-bottom: none;
+        border-bottom: 3px solid $blue-lighter03;
       }
     }
 
@@ -61,7 +61,7 @@
         i {
           color: $blue;
         }
-        border-bottom: 3px solid $blue-lighter02;
+        /*border-bottom: 3px solid $blue-lighter02;*/
       }
 
       .nav-link {
