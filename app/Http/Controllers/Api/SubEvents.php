@@ -18,9 +18,9 @@ class SubEvents extends Controller
      *
      * @return \Illuminate\Http\Response|Collection
      */
-    public function allNearToHappen()
+    public function allAboutToHappen()
     {
-        return app(SubEventsRepository::class)->allNearToHappen();
+        return app(SubEventsRepository::class)->allAboutToHappen();
     }
 
     /**

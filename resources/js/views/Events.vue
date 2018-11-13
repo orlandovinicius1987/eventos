@@ -104,7 +104,7 @@
                                     class="btn btn-success btn-sm ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
                                     title="Confirmar Sub-evento"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('update') || !environment.events.confirmation.enabled"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
@@ -120,10 +120,10 @@
                                 </button>
 
                                 <router-link
-                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
-                                        tag="div"
-                                        class="btn btn-danger btn-sm ml-1 pull-right"
-                                        :disabled="cannot('update')"
+                                    :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                    tag="div"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -154,6 +154,7 @@
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
+                                    {title: 'Pendências', trClass: 'text-center'},
                                     {title: 'Convite', trClass: 'text-center'},
                                     {title: 'Recebido', trClass: 'text-center'},
                                     {title: 'Aceito', trClass: 'text-center'},
@@ -175,6 +176,12 @@
                             <td class="align-middle">{{ invitation.person_institution.institution.name }}</td>
 
                             <td class="align-middle">{{ invitation.person_institution.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 v-for="pending in invitation.pending" class="m-0">
+                                    <span :class="'badge badge-' + pending.type">{{ pending.label }}</span>
+                                </h6>
+                            </td>
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
@@ -207,14 +214,13 @@
                             </td>
 
                             <td class="align-middle text-right">
-                                <a
+                                <div
                                     @click="confirmUnInvite(invitation)"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
-                                    href="#"
                                 >
                                     <i class="fa fa-trash"></i>
-                                </a>
+                                </div>
                             </td>
                         </tr>
                     </app-table>

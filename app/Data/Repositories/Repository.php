@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Repositories\Traits\DataProcessing;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -12,10 +13,33 @@ use Illuminate\Database\Eloquent\Builder;
 
 abstract class Repository
 {
+    use DataProcessing;
+
     /**
      * @var
      */
     protected $model;
+
+    private function buildJoins($query)
+    {
+        $this->model()
+            ->getJoins()
+            ->each(function ($join, $table) use ($query) {
+                $query->join($table, $join[0], $join[1], $join[2]);
+            });
+    }
+
+    /**
+     * @param $query
+     */
+    protected function buildSelect($query)
+    {
+        $columns = $this->model()->getSelectColumns();
+
+        if ($columns->count() > 0) {
+            $query->select($columns->toArray());
+        }
+    }
 
     private function qualifyColumn($name)
     {
@@ -64,7 +88,6 @@ abstract class Repository
             isset($queryFilter->toArray()['pagination']['current_page']) &&
             $queryFilter->toArray()['pagination']['current_page'] == 0
         ) {
-            info($queryFilter->pagination->currentPage);
             $queryFilter = $this->allElements($queryFilter);
         }
 
@@ -117,8 +140,6 @@ abstract class Repository
 
     protected function findByAnyColumnName($name, $arguments)
     {
-        info($this->qualifyColumn($name));
-
         return $this->makeQueryByAnyColumnName(
             'findBy',
             $name,
@@ -169,16 +190,16 @@ abstract class Repository
     }
 
     protected function makeQueryByAnyColumnName(
-        $startsWith,
+        $type,
         $name,
         $arguments,
         $query = null
     ) {
         if (!$query) {
-            $query = $this->newQuery();
+            $query = $this->newQuery($type);
         }
 
-        $columnName = snake_case(Str::after($name, $startsWith));
+        $columnName = snake_case(Str::after($name, $type));
 
         return $query->where($this->qualifyColumn($columnName), $arguments);
     }
@@ -226,7 +247,7 @@ abstract class Repository
 
     public function transform($data)
     {
-        return $data;
+        return $this->processData($data);
     }
 
     /**
@@ -270,8 +291,6 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
-        info($this->getQueryFilter()->toArray());
-
         return [
             "links" => [
                 "pagination" => [
@@ -303,23 +322,18 @@ abstract class Repository
     }
 
     /**
+     * @param null $type
      * @return Builder
      */
-    protected function newQuery()
+    protected function newQuery($type = null)
     {
+        info(['newQuery', $type]);
+
         $query = $this->model::query();
 
-        if (
-            $this->model()
-                ->getSelectColumns()
-                ->count() > 0
-        ) {
-            $query->select(
-                $this->model()
-                    ->getSelectColumns()
-                    ->toArray()
-            );
-        }
+        $this->buildSelect($query);
+
+        $this->buildJoins($query);
 
         return $query;
     }
