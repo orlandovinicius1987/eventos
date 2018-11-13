@@ -134,7 +134,8 @@
                                     title="Imprimir lista de convidados"
                                     v-if="environment.debug"
                                 >
-                                    <i class="fa fa-print"></i>
+                                    <i v-if="!printing" class="fa fa-print"></i>
+                                    <i v-if="printing" class="fa fa-cog fa-spin"></i>
                                 </button>
                             </td>
                         </tr>
@@ -253,6 +254,7 @@ export default {
     data() {
         return {
             service: service,
+            printing: false,
         }
     },
 
@@ -351,7 +353,27 @@ export default {
         },
 
         printSubEvent(subEvent) {
-            window.location = this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/print'
+            const $this = this
+
+            $this.printing = true
+
+            axios({
+                method: 'get',
+                url: $this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/print',
+                responseType: 'arraybuffer',
+            }).then(function(response) {
+                let blob = new Blob([response.data], { type: 'application/pdf' })
+
+                let link = document.createElement('a')
+
+                link.href = window.URL.createObjectURL(blob)
+
+                link.download = extractFileNameFromResponse(response)
+
+                link.click()
+
+                $this.printing = false
+            })
         }
     },
 

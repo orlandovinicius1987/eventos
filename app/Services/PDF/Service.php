@@ -6,9 +6,9 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class Service
 {
-    public function generate($html, $fileName = null)
+    public function download($html, $fileName = null)
     {
-        return PDF::loadHTML($html)->save($this->makeFileName($fileName));
+        return PDF::loadHTML($html)->download($this->makeFileName($fileName));
     }
 
     private function makeFileName($fileName)
