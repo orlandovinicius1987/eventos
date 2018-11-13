@@ -51,11 +51,17 @@ class Advisors extends Controller
 
     /**
      * @param AdvisorUpdate $request
+     * @param $personId
+     * @param $personInstitutionId
      * @param $id
      * @return mixed
      */
-    public function update(AdvisorUpdate $request, $id)
-    {
+    public function update(
+        AdvisorUpdate $request,
+        $personId,
+        $personInstitutionId,
+        $id
+    ) {
         return app(PersonInstitutionsRepository::class)->update(
             $id,
             $request->all()
