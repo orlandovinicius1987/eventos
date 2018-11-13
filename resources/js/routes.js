@@ -17,6 +17,7 @@ import ContactTypes from './views/ContactTypes'
 import ContactTypesForm from './views/ContactTypesForm'
 import ContactsForm from './views/ContactsForm'
 import AdvisorContactsForm from './views/AdvisorContactsForm'
+import AdvisorsForm from './views/AdvisorsForm'
 import InviteForm from './views/InviteForm'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
@@ -198,13 +199,13 @@ let routes = [
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/advisors/create',
-        component: PersonInstitutionsForm,
+        component: AdvisorsForm,
         props: { mode: 'create', source: 'advisor' },
     },
     {
         path:
             '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/update',
-        component: PersonInstitutionsForm,
+        component: AdvisorsForm,
         props: { mode: 'update', source: 'advisor' },
     },
     {

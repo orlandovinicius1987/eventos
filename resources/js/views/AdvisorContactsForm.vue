@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>{{ form.fields.name ? form.fields.name : 'Novo Contato' }}</h2>
+            <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}{{ form.fields.name ? form.fields.name : 'Contato de Assessor' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -52,6 +52,7 @@ export default {
     mixins: [crud, advisorContacts],
 
     data() {
+        this.$store.dispatch('environment/loadContactTypes')
         return {
             service: service,
         }

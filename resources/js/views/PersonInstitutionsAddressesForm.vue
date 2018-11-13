@@ -1,8 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>Novo Endereço</h2>
-            <!--<h2>{{ addresses.form.fields.name ? addresses.form.fields.name : 'Novo Endereço' }}</h2>-->
+            <h2>{{ this.mode === 'create' ? 'Nova ':'Editar '}}{{ addresses.form.fields.name ? addresses.form.fields.name : 'Endereço' }}</h2>
         </div>
 
         <div class="row justify-content-center">

@@ -2,7 +2,7 @@
     <div>
         <div class="py-2 mb-4 text-center">
             <h1>{{ events.selected.name }}</h1>
-            <h2>{{ subEvents.form.fields.name ? subEvents.form.fields.name : 'Novo Sub Evento' }}</h2>
+            <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}{{ subEvents.form.fields.name ? subEvents.form.fields.name : 'Sub Evento' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -180,6 +180,9 @@ export default {
     mixins: [crud, subEvents, permissions],
 
     data() {
+        this.$store.dispatch('environment/loadSubEvents')
+        this.$store.dispatch('environment/loadCostumes')
+        this.$store.dispatch('environment/loadSectors')
         return {
             service: service,
         }

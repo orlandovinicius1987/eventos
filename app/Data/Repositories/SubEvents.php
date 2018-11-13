@@ -32,12 +32,8 @@ class SubEvents extends Repository
     private function createOrUpdateAddress($subEvent, $address)
     {
         if (!$subEvent->address) {
-            info(['not found address']);
-
             return $this->createAddress($subEvent, $address);
         }
-
-        info(['subEvent', $subEvent->address]);
 
         return app(AddressesRepository::class)->updateAddress(
             $subEvent->address,
@@ -110,8 +106,8 @@ class SubEvents extends Repository
      *
      * @return array
      */
-    public function allNearToHappen()
+    public function allAboutToHappen()
     {
-        return $this->applyFilter($this->newQuery()->nearToHappen());
+        return $this->applyFilter($this->newQuery()->AboutToHappen());
     }
 }

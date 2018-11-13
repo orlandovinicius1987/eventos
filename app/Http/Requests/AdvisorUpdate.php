@@ -12,9 +12,10 @@ class AdvisorUpdate extends BaseStore
     public function rules()
     {
         return [
-            'name' => 'required',
             'role_id' => 'required|exists:roles,id',
-            'person_institution_id' => 'required|exists:person_institutions,id',
+            'person_id' => 'required|exists:people,id',
+            'institution_id' => 'required|exists:institutions,id',
+            'advised_id' => 'required|exists:person_institutions,id',
         ];
     }
 }

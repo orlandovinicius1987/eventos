@@ -2,10 +2,6 @@
 
 namespace App\Services\Environment;
 
-use App\Data\Repositories\ContactTypes as ContactTypesRepository;
-use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
-use App\Data\Repositories\Institutions as InstitutionsRepository;
-use App\Data\Repositories\Roles as RolesRepository;
 use PragmaRX\Version\Package\Facade as Version;
 
 class Service
@@ -70,6 +66,12 @@ class Service
                 'geolocation' => [
                     'latitude' => -22.90337724433402,
                     'longitude' => -43.17343861373911,
+                ],
+            ],
+
+            'events' => [
+                'confirmation' => [
+                    'enabled' => config('events.confirmation.enabled'),
                 ],
             ],
         ]);
