@@ -56,7 +56,7 @@ export default {
                 case 'whatsapp':
                     return '(##)#####-####'
                 case 'phone':
-                    return '(##)####-####'
+                    return ['(##)####-####', '(##)####-#### ramal #####']
             }
         },
 
