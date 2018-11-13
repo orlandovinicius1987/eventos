@@ -78,6 +78,6 @@ class SubEvents extends Controller
 
     public function print($eventId, $subEventId)
     {
-        app(SubEventsRepository::class)->print($subEventId);
+        return app(SubEventsRepository::class)->print($subEventId);
     }
 }
