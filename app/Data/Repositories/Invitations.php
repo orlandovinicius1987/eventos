@@ -30,6 +30,18 @@ class Invitations extends Repository
         return parent::filterBySubEventId($subEventId);
     }
 
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['hasNoEmail']) && $filter['hasNoEmail']) {
+            $query->whereRaw('(
+                select count(*) count
+                    from contacts c
+                    where person_institution_id = invitations.person_institution_id
+                    and c.contact_type_id = (select id from contact_types where code = \'email\')
+                ) = 0');
+        }
+    }
+
     protected function filterAllColumns($query, $text)
     {
         $query
