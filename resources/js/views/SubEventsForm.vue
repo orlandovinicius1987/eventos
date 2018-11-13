@@ -180,6 +180,9 @@ export default {
     mixins: [crud, subEvents, permissions],
 
     data() {
+        this.$store.dispatch('environment/loadSubEvents')
+        this.$store.dispatch('environment/loadCostumes')
+        this.$store.dispatch('environment/loadSectors')
         return {
             service: service,
         }

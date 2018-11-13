@@ -69,6 +69,8 @@
 
         data() {
             this.$store.dispatch('environment/loadRoles')
+            this.$store.dispatch('environment/loadInstitutions')
+            this.$store.dispatch('environment/loadPeople')
             return {
                 service: service
             }

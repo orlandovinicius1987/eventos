@@ -52,6 +52,7 @@ export default {
     mixins: [crud, advisorContacts],
 
     data() {
+        this.$store.dispatch('environment/loadContactTypes')
         return {
             service: service,
         }
