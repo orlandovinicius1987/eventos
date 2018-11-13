@@ -42,8 +42,8 @@ class HomeController extends Controller
      */
     public function testRoute()
     {
-        //        dd(app(EventsRepository::class)->allHasSubEventsNearToHappen());
-        //        dd(app(SubEventsRepository::class)->allNearToHappen());
+        //        dd(app(EventsRepository::class)->allHasSubEventsAboutToHappen());
+        //        dd(app(SubEventsRepository::class)->allAboutToHappen());
         dd(app(EventsRepository::class)->allHasSubEventsNotFinalized());
     }
 }

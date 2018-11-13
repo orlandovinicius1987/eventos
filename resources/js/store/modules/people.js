@@ -75,7 +75,7 @@ let actions = merge_objects(
             context.dispatch('contacts/select', payload, { root: true })
         },
 
-        selectAddresses(context, payload) {
+        selectAddress(context, payload) {
             context.dispatch('addresses/select', payload, { root: true })
         },
 

@@ -25,9 +25,9 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
             );
 
             Route::get(
-                '/all-near-to-happen',
-                'SubEvents@allNearToHappen'
-            )->name('sub-events.all-near-to-happen');
+                '/all-about-to-happen',
+                'SubEvents@allAboutToHappen'
+            )->name('sub-events.all-about-to-happen');
         });
 
         Route::group(['prefix' => '/events'], function () {

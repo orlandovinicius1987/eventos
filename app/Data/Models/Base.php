@@ -44,6 +44,13 @@ abstract class Base extends Model implements AuditableContract
     protected $flushKeys = [];
 
     /**
+     * Default joins for the table
+     *
+     * @var array
+     */
+    protected $joins = [];
+
+    /**
      * Columns which can be used on filter
      *
      * @var array
@@ -72,7 +79,15 @@ abstract class Base extends Model implements AuditableContract
     /**
      * @return array
      */
-    public function getOrderBy(): array
+    public function getJoins()
+    {
+        return coollect($this->joins);
+    }
+
+    /**
+     * @return array
+     */
+    public function getOrderBy()
     {
         return $this->orderBy;
     }
