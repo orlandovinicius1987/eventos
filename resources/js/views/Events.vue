@@ -132,7 +132,6 @@
                                     class="btn btn-warning btn-sm ml-1 pull-right"
                                     @click="printSubEvent(subEvent)"
                                     title="Imprimir lista de convidados"
-                                    v-if="environment.debug"
                                 >
                                     <i v-if="!printing" class="fa fa-print"></i>
                                     <i v-if="printing" class="fa fa-cog fa-spin"></i>
