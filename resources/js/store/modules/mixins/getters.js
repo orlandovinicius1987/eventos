@@ -14,20 +14,20 @@ export function getFullQueryFilter(state, getters) {
     }
 }
 
-export function getDataUrl(state, getters) {
+export function getDataUrl(state, getters, rootState) {
     if (state.service && state.service.uri) {
-        return buildApiUrl(state.service.uri, state)
+        return buildApiUrl(state.service.uri, rootState)
     }
 }
 
-export function getStoreUrl(state, getters) {
+export function getStoreUrl(state, getters, rootState) {
     if (state.service && state.service.uri) {
-        return buildApiUrl(state.service.uri, state)
+        return buildApiUrl(state.service.uri, rootState)
     }
 }
 
-export function getUpdateUrl(state, getters) {
+export function getUpdateUrl(state, getters, rootState) {
     if (state.service && state.service.uri) {
-        return buildApiUrl(state.service.uri, state)
+        return buildApiUrl(state.service.uri, rootState)
     }
 }

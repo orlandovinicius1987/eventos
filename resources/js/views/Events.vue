@@ -127,6 +127,14 @@
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
+
+                                <button
+                                    class="btn btn-warning btn-sm ml-1 pull-right"
+                                    @click="printSubEvent(subEvent)"
+                                    title="Imprimir lista de convidados"
+                                >
+                                    <i class="fa fa-print"></i>
+                                </button>
                             </td>
                         </tr>
                     </app-table>
@@ -340,6 +348,10 @@ export default {
         doFinalizeSubEvent(subEvent) {
             return this.$store.dispatch('subEvents/finalize', subEvent)
         },
+
+        printSubEvent(subEvent) {
+            window.location = this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/print'
+        }
     },
 
     computed: {
