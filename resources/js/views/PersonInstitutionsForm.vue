@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>{{ form.fields.name ? form.fields.name : 'Novo Cargo' }}</h2>
+            <h2>{{ this.mode === 'create' ? 'Nova ':'Editar '}}{{form.fields.name ? form.fields.name : 'Função' }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -9,41 +9,11 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <app-select
-                                name="institution_id"
-                                label="Instituição"
-                                v-model="form.fields.institution_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.institutions"
-                            ></app-select>
-
-                            <app-select
-                                v-if="source == 'advisor'"
-                                name="advised_id"
-                                label="Assessor de"
-                                v-model="form.fields.person_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.people"
-                            ></app-select>
-
-                            <app-select
-                                name="role_id"
-                                label="Funções"
-                                v-model="form.fields.role_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.roles"
-                            ></app-select>
-
-                            <app-input
-                                name="title"
-                                label="Título"
-                                v-model="form.fields.title"
-                                :required="true"
-                                :form="form"
-                            ></app-input>
+                            <app-person-institution-field
+                                    :form="form"
+                                    :environment="environment"
+                            >
+                            </app-person-institution-field>
                         </div>
                     </div>
 
@@ -93,6 +63,7 @@ export default {
 
     data() {
         this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service
         }
@@ -112,18 +83,10 @@ export default {
                     $this.personInstitutions.selected
                 )
             }
-
-            if (this.source === 'advisor') {
-                this.$store.commit('personInstitutions/mutateSetFormField', {
-                    field: 'advised_id',
-                    value: this.personInstitutions.selected.id
-                })
-            } else {
-                this.$store.commit('personInstitutions/mutateSetFormField', {
-                    field: 'person_id',
-                    value: this.personInstitutions.person.id
-                })
-            }
+            this.$store.commit('personInstitutions/mutateSetFormField', {
+                field: 'person_id',
+                value: this.personInstitutions.person.id
+            })
         }
     }
 }

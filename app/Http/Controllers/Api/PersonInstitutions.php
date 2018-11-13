@@ -61,8 +61,17 @@ class PersonInstitutions extends Controller
         );
     }
 
-    public function allAdvisorsByPersonInstitution($personInstitutionId)
-    {
+    /**
+     * @param Request $request
+     * @param $personId
+     * @param $personInstitutionId
+     * @return mixed
+     */
+    public function allAdvisorsByPersonInstitution(
+        Request $request,
+        $personId,
+        $personInstitutionId
+    ) {
         return app(
             PersonInstitutionsRepository::class
         )->allAdvisorsByPersonInstitution($personInstitutionId);
