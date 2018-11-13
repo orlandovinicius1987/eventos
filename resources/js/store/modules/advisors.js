@@ -18,10 +18,11 @@ const state = merge_objects(statesMixin.common, {
     },
 
     form: new Form({
-        name: null,
-        nickname: null,
+        person_id: null,
+        role_id: null,
+        institution_id: null,
+        advised_id: null,
         title: null,
-        cpf: null,
     }),
 })
 
