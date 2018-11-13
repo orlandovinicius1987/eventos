@@ -154,6 +154,11 @@
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
                 >
+                    <template slot="buttons">
+                        <input v-model="hasNoEmailCheckbox" type="checkbox" id="filterWithoutEmail">
+                        <label for="filterWithoutEmail">sem e-mail</label>
+                    </template>
+
                     <app-table
                         :pagination="invitations.data.links.pagination"
                         @goto-page="invitationsGotoPage($event)"
@@ -434,6 +439,23 @@ export default {
                 return this.$store.dispatch(
                     'invitations/mutateSetQueryFilterText',
                     filter,
+                )
+            },
+        },
+
+        hasNoEmailCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.hasNoEmail
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'hasNoEmail', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
                 )
             },
         },
