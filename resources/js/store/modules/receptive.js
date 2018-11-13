@@ -10,26 +10,38 @@ const __emptyModel = { id: null }
 const state = merge_objects(statesMixin.common, {
     form: new Form({
         name: null,
+        code: null,
     }),
 })
 
+const service = {
+    name: 'receptive',
+    uri: 'events/{events.selected.id}/sub-events/{sub-events.selected.id}/receptive',
+}
+
 const actions = merge_objects(actionsMixin, {
-    selectInvitation(context, payload) {
-        context.commit('invitations/mutateSetSelected', payload, {
-            root: true,
+    selectReceptiveInvitation(context, payload) {
+        dd('receptive - selectReceptiveInvitation - payload dd: ',payload)
+        context.commit('mutateSetReceptiveInvitation/mutateSetSelected', payload, {
         })
+    },
+
+    load(context,payload){
+
     },
 })
 
 
 let mutations = merge_objects(mutationsMixin, {
 
-    selectInvitation(state, payload) {
-        state.selectedInvitation = payload
+    selectReceptiveInvitation(state, payload) {
+        dd('receptive - selectReceptiveInvitation - payload dd: ',payload)
+        state.selectedReceptiveInvitation = payload
     },
 
-    setInvitations(state, payload) {
-        state.invitations = payload
+    setReceptiveInvitations(state, payload) {
+        dd('receptive - setReceptiveInvitations - payload dd: ',payload)
+        state.receptiveInvitations = payload
     },
 })
 

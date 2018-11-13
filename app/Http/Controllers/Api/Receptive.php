@@ -16,7 +16,7 @@ class Receptive extends Controller
      */
     public function invitationAccepted(Request $request, $subEventId)
     {
-        return app(InvitationsRepository::class)->fillteredAcceptedBySubEventid(
+        return app(InvitationsRepository::class)->fillteredAcceptedBySubEventId(
             $subEventId
         );
     }

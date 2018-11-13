@@ -8,23 +8,29 @@
             <div class="col-4">
                 <app-table-panel
                         :title="'Convidados'"
-                        :per-page="perPage"
-                        :filter-text="filterText"
-                        @input-filter-text="filterText = $event.target.value"
-                        @set-per-page="perPage = $event"
+                        :per-page="receptiveInvitationsPerPage"
+                        @set-per-page="receptiveInvitationsPerPage = $event"
+                        :filter-text="receptiveInvitationsFilterText"
                 >
                     <app-table
-                            :pagination="pagination"
+                            :pagination="receptiveInvitations.data.links.pagination"
                             @goto-page="gotoPage($event)"
-                            :columns="['#', 'Convidado', 'Código']"
+                            :columns="['#', 'Convidado', 'Código', 'Checkin']"
+
                     >
                         <tr
-                                v-for="invitation in invitations" class="cursor-pointer"
-
+                                v-for="invitation in receptiveInvitations.data.rows" class="cursor-pointer"
+                                @click="confirmCheckin(invitation)"
                         >
-                            <td v-if="invitation.accepted_at != null">{{invitation.id}}</td>
-                            <td v-if="invitation.accepted_at != null">{{invitation.person_institution.person.name}}</td>
-                            <td v-if="invitation.accepted_at != null">{{invitation.code}}</td>
+                            <td>{{invitation.id}}</td>
+                            <td>{{invitation.person_institution.person.name}}</td>
+                            <td>{{invitation.code}}</td>
+                            <td>
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.checkin_at" class="badge badge-success">Feito as {{invitation.checkin_at}}</span>
+                                    <span v-if="!invitation.checkin_at" class="badge badge-danger">Não chegou</span>
+                                </h6>
+                                </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -47,19 +53,21 @@
     import crud from './mixins/crud'
     import permissions from './mixins/permissions'
     import receptive from './mixins/receptive'
+    import events from './mixins/events'
+    import subEvents from './mixins/sub-events'
     import { mapActions, mapState } from 'vuex'
     import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 
     const service = {
         name: 'receptive',
-        uri: 'events/{events.selected.id}/sub-events/{sub-events.selected.id}/receptive',
+        uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/receptive',
         isForm: true,
     }
 
     export default {
         props: ['mode'],
 
-        mixins: [crud, receptive, permissions],
+        mixins: [crud, receptive, permissions, events,subEvents],
 
         components: { QrcodeStream, QrcodeDropZone, QrcodeCapture },
 
@@ -74,14 +82,49 @@
 
         computed: {
             ...mapState({
-                //invitations: state=> state.invitations.data.rows,
+                invitations: state=> state.receptive.invitations,
             }),
+
+            receptiveInvitationsFilterText: {
+                get() {
+                    return this.$store.state['receptiveInvitations'].data.filter.text
+                },
+
+                set(filter) {
+                    return this.$store.dispatch(
+                        'receptiveInvitations/mutateSetQueryFilterText',
+                        filter
+                    )
+                }
+            },
+
+            receptiveInvitationsPerPage: {
+                get() {
+                    return this.$store.state['receptiveInvitations'].data.links.pagination.per_page
+                },
+
+                set(perPage) {
+                    return this.$store.dispatch(
+                        'receptiveInvitations/setPerPage',
+                        perPage
+                    )
+                }
+            },
         },
 
         methods: {
             ...mapActions(service.name, [
-                'selectInvitation',
+                'selectReceptiveInvitation',
             ]),
+
+            confirmCheckin(invitation){
+                confirm(
+                    'Deseja realizar o checkin de ' +
+                    invitation.person_institution.person.name +
+                    '?',this,)
+
+
+            },
 
             onDecode (result) {
                 this.result = result
@@ -95,6 +138,10 @@
                     }
                 }
             }
+        },
+
+        mounted(){
+            this.$store.dispatch('receptiveInvitations/load')
         }
     }
 </script>

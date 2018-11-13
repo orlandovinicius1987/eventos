@@ -60,7 +60,7 @@ class Invitations extends Repository
         return false;
     }
 
-    public function fillteredAcceptedBySubEventid($subEventId)
+    public function fillteredAcceptedBySubEventId($subEventId)
     {
         return $this->applyFilter(
             InvitationModel::whereNotNull('accepted_at')->where(

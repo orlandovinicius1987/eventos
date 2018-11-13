@@ -36,7 +36,7 @@
                             :columns="['#','Nome do Evento','Nome do Subevento', 'Dia', 'Horário']"
                     >
                         <router-link
-                            :to="'/rotaDaPaginaDeRecepção'"
+                            :to="'/events/1/sub-events/1/receptive'"
                             tag="tr"
                             :disabled="cannot('update')"
                             v-for="subEventDashBoard in subEventsDashBoard.data.rows"
