@@ -39,7 +39,7 @@ const actions = merge_objects(actionsMixin, {
                 params: { query: context.getters.getQueryFilter },
             },
         ).then(response => {
-            context.commit('mutateSetData', response.data)
+            context.dispatch('setDataAfterLoad', response.data)
         })
     },
 
