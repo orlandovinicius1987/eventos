@@ -3,14 +3,14 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\SubEvent;
-use App\Services\PDF\Service as PDF;
+use App\Data\Repositories\Traits\SubEventsPrint;
 use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
 use App\Data\Repositories\Addresses as AddressesRepository;
 
 class SubEvents extends Repository
 {
-    use AddressesTraits;
+    use AddressesTraits, SubEventsPrint;
 
     /**
      * @var string
@@ -110,29 +110,5 @@ class SubEvents extends Repository
     public function allAboutToHappen()
     {
         return $this->applyFilter($this->newQuery()->AboutToHappen());
-    }
-
-    public function print($id)
-    {
-        $subEvent = $this->findById($id);
-
-        PDF::initialize()
-            ->printHeader('head')
-            ->printFooter('foot')
-            ->contents(function ($pdf) {
-                $pdf->Write(
-                    0,
-                    'subevent whatever',
-                    '',
-                    0,
-                    'C',
-                    true,
-                    0,
-                    false,
-                    false,
-                    0
-                );
-            })
-            ->generate(app_path('subevent.pdf'));
     }
 }
