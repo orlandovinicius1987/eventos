@@ -43,6 +43,15 @@
                             </li>
 
                             <li class="nav-item">
+                                <router-link id="events-menu" to="/people" tag="li" class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="vl_events"></i>
+                                        <span class="nav-link-text">Pessoas</span>
+                                    </a>
+                                </router-link>
+                            </li>
+
+                            <li class="nav-item">
                                 <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="vl_events"></i>
@@ -64,8 +73,16 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                    <router-link id="events-menu" to="/events" tag="li" class="dropdown-item">
+                                        Eventos
+                                    </router-link>
+
                                     <router-link id="people-menu" to="/people" tag="a" class="dropdown-item">
                                         Pessoas
+                                    </router-link>
+
+                                    <router-link id="people-menu" to="/phone-book" tag="a" class="dropdown-item">
+                                        Lista telefônica
                                     </router-link>
 
                                     <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">

@@ -17,7 +17,13 @@ class PersonInstitution extends Base
 
     protected $with = ['person', 'institution', 'role'];
 
-    protected $filterableColumns = ['roles.name', 'institutions.name'];
+    protected $filterableColumns = [
+        'roles.name',
+        'institutions.name',
+        'people.name',
+        'people.nickname',
+        'people.title',
+    ];
 
     protected $selectColumns = [
         'person_institutions.id',
@@ -29,6 +35,10 @@ class PersonInstitution extends Base
         'person_institutions.title',
         'person_institutions.created_at',
         'person_institutions.updated_at',
+    ];
+
+    protected $joins = [
+        'people' => ['people.id', '=', 'person_institutions.person_id'],
     ];
 
     public function addresses()
