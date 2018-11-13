@@ -16,7 +16,6 @@ const state = merge_objects(statesMixin.common, {
 let actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
         context.commit('mutateSetPerson', payload)
-
         context.dispatch('load')
     },
 })

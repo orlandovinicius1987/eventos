@@ -33,9 +33,10 @@ class PersonInstitutions extends Repository
     }
 
     /**
+     * @param null $type
      * @return Builder
      */
-    protected function newQuery()
+    protected function newQuery($type = null)
     {
         $query = parent::newQuery();
 

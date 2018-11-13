@@ -106,8 +106,6 @@ class Service
 
         $person = $this->importPerson($row, $party);
 
-        $this->info($person->name);
-
         $role = $this->imporRole($row);
 
         $personInstitution = $this->importPersonInstitution(
