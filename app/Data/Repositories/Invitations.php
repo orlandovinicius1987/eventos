@@ -34,12 +34,6 @@ class Invitations extends Repository
     {
         $query
             ->join(
-                'person_institutions',
-                'person_institutions.id',
-                '=',
-                'invitations.person_institution_id'
-            )
-            ->join(
                 'institutions',
                 'person_institutions.institution_id',
                 '=',
@@ -48,7 +42,7 @@ class Invitations extends Repository
             ->join('people', 'person_institutions.person_id', '=', 'people.id')
             ->join('roles', 'person_institutions.role_id', '=', 'roles.id')
             ->where(function ($query) use ($text) {
-                $query->orWhere('code', 'ilike', "%{$text}%");
+                $query->orWhere('code', 'i≤like', "%{$text}%");
                 $query->orWhere('institutions.name', 'ilike', "%{$text}%");
                 $query->orWhere('people.name', 'ilike', "%{$text}%");
                 $query->orWhere('roles.name', 'ilike', "%{$text}%");

@@ -24,6 +24,16 @@ class Invitation extends Base
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
+    protected $selectColumns = ['person_institutions.*', 'invitations.*'];
+
+    protected $joins = [
+        'person_institutions' => [
+            'person_institutions.id',
+            '=',
+            'invitations.person_institution_id',
+        ],
+    ];
+
     public function personInstitution()
     {
         return $this->belongsTo(PersonInstitution::class);
@@ -38,6 +48,7 @@ class Invitation extends Base
     {
         $this->code = $this->invitationCodeGenerator();
         $this->uuid = (string) Uuid::uuid4();
+
         return parent::save($options);
     }
 
