@@ -116,6 +116,7 @@ let mutations = merge_objects(
         selectAddress(state, payload) {
             state.selectedAddress = payload
         },
+
         selectAdvisors(state, payload) {
             state.selectedAdvisors = payload
         },

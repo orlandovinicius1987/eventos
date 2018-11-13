@@ -56,6 +56,10 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                     'sub-events.finalize'
                 );
 
+                Route::get('/{id}/print', 'SubEvents@print')->name(
+                    'sub-events.print'
+                );
+
                 Route::group(
                     ['prefix' => '{subEventId}/invitations'],
                     function () {
