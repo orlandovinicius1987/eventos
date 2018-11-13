@@ -135,6 +135,7 @@ window.merge_objects = (target, ...sources) => {
 window._ = require('lodash')
 
 window.loadDebounced = _.debounce(context => {
+    dd('loadDebounced')
     context.dispatch('load')
 }, 650)
 
