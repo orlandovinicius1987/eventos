@@ -172,7 +172,7 @@
                                 @goto-page="personInstitutionsGotoPage($event)"
                                 :columns="[
                                     '#',
-                                    'Title',
+                                    'Tratamento',
                                     'Instituição',
                                     'Função'
                                 ]"
@@ -212,7 +212,7 @@
                                     >
                                         <router-link
                                             :to="
-                                                'people/' +
+                                                '/people/' +
                                                     personInstitutions.person
                                                         .id +
                                                     '/person-institutions/' +
