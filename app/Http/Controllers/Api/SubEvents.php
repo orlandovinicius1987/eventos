@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\ConfirmSubEvent;
-use App\Data\Repositories\Addresses as AddressesRepository;
-use App\Data\Repositories\SubEvents as SubEventsRepository;
-use App\Http\Requests\SubEventStore;
-use App\Http\Requests\SubEventUpdate;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\SubEventStore;
+use App\Http\Requests\ConfirmSubEvent;
+use App\Http\Requests\SubEventUpdate;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 
 class SubEvents extends Controller
 {
@@ -75,5 +74,10 @@ class SubEvents extends Controller
     public function finalize(ConfirmSubEvent $request, $eventId, $subEventId)
     {
         return app(SubEventsRepository::class)->finalize($eventId, $subEventId);
+    }
+
+    public function print($eventId, $subEventId)
+    {
+        app(SubEventsRepository::class)->print($subEventId);
     }
 }

@@ -190,6 +190,19 @@ export default {
                 lng: Number(this.getLongitude()),
             }
         },
+
+        centerMap() {
+            const $this = this
+
+            if ($this.address.latitude && $this.address.longitude) {
+                this.$refs.addressMap.$mapPromise.then((map) => {
+                    map.panTo({
+                        lat: parseFloat($this.address.latitude),
+                        lng: parseFloat($this.address.longitude)
+                    })
+                })
+            }
+        }
     },
 
     computed: {
@@ -211,14 +224,7 @@ export default {
     },
 
     mounted () {
-        const $this = this
-
-        this.$refs.addressMap.$mapPromise.then((map) => {
-            map.panTo({
-                lat: parseFloat($this.address.latitude),
-                lng: parseFloat($this.address.longitude)
-            })
-        })
+        this.centerMap()
     }
 }
 </script>
