@@ -10,7 +10,7 @@ trait SubEventsPrint
     {
         $subEvent = $this->findById($id);
 
-        return app(PDF::class)->generate(
+        return app(PDF::class)->download(
             $this->generateHtml($subEvent),
             $this->makePdfFileName($subEvent)
         );
@@ -18,20 +18,35 @@ trait SubEventsPrint
 
     public function makePdfFileName($subEvent)
     {
-        return base_path(
-            str_slug($subEvent->event->name . ' ' . $subEvent->name . ' ') .
-                '.pdf'
-        );
+        return str_slug(
+            $subEvent->event->name .
+                ' ' .
+                $subEvent->name .
+                ' ' .
+                now()->format('Y m d H i')
+        ) . '.pdf';
     }
 
     public function generateHtml($subEvent)
     {
         return view('pdf.sub-events')
             ->with([
-                'title' => $subEvent->event->name . ' - ' . $subEvent->name,
-                'subTitle' => 'Lista Geral de Convidados',
+                'heading' => $subEvent->event->name . ' - ' . $subEvent->name,
+                'title' => 'Lista Geral de Convidados',
                 'date' => now()->format('m/d/Y H i'),
+                'subEvent' => $subEvent,
+                'invitations' => $this->orderInvitations(
+                    $subEvent->invitations
+                ),
             ])
             ->render();
+    }
+
+    public function orderInvitations($invitations)
+    {
+        return $invitations->sortBy(function ($invitation) {
+            return $invitation->personInstitution->institution->name .
+                $invitation->personInstitution->person->name;
+        });
     }
 }
