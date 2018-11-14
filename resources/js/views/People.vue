@@ -10,7 +10,20 @@
                 class="row bg-primary text-white"
             >
                 <div class="col-12 mt-2">
-                    <h3>{{ selected.name }}</h3>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-8">
+                            <h1 class="display-4 mb-0">{{ selected.name }}</h1>
+                        </div>
+
+                        <div class="col-4">
+                            <img
+                                :src="form.fields.photoUrl ? form.fields.photoUrl : selected.photoUrl"
+                                class="img-thumbnail rounded mx-auto d-block mb-2"
+                                width="200"
+                                height="200"
+                            >
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,6 +43,11 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
+                    <template slot="buttons">
+                        <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
+                        <label for="filterHasNoPhoto">sem foto</label>
+                    </template>
+
                     <app-table
                         :pagination="people.data.links.pagination"
                         @goto-page="peopleGotoPage($event)"
@@ -489,7 +507,7 @@
                             :title="
                                 'Contatos de ' +
                                     advisors.selected.person.name +
-                                    ': ' +
+                                    ': '+
                                     advisorContacts.data.links.pagination.total
                             "
                             :add-button="{
@@ -838,7 +856,24 @@ export default {
                     perPage
                 )
             }
-        }
+        },
+
+        hasNoPhotoCheckbox: {
+            get() {
+                return this.$store.state['people'].data.filter.checkboxes.hasNoPhoto
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'people/mutateFilterCheckbox',
+                    {field: 'hasNoPhoto', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'people/load'
+                )
+            },
+        },
     }
 }
 </script>
