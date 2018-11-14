@@ -78,4 +78,11 @@ class People extends Repository
             new LengthAwarePaginator($phoneBook, 1, 5, 1)
         );
     }
+
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['hasNoPhoto']) && $filter['hasNoPhoto']) {
+            $query->hasNoPhoto();
+        }
+    }
 }
