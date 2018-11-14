@@ -61,6 +61,7 @@ window.confirm = (title, vue) => {
 }
 
 window.post = (...args) => {
+    dd(...args)
     return axios.post(...args)
 }
 

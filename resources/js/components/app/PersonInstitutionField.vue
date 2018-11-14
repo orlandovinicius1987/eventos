@@ -26,17 +26,15 @@
                 :form="form"
         ></app-input>
 
-        <app-input
-            name="active"
-            label="Ativo"
-            type="checkbox"
-            v-model="form.fields.active"
-            value="1"
-            :value="1"
-            :required="true"
-            :form="form"
-            :checked="checked = form.fields.institution_id ? form.fields.active : 'checked'"
-        ></app-input>
+        <div class="col-4">
+            <div class="form-check mt-4">
+                <input v-model="form.fields.is_active" class="form-check-input" type="checkbox" value="" id="is_active" >
+                <label class="form-check-label" for="is_active">
+                    Ativo
+                </label>
+            </div>
+        </div>
+
     </div>
 </template>
 
