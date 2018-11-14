@@ -13,9 +13,21 @@ class Contact extends Base
         'client_id',
     ];
 
+    protected $filterableColumns = ['contact', 'contact_types.name'];
+
     protected $with = ['contactType'];
 
     protected $orderBy = ['contact_type_id' => 'asc'];
+
+    protected $selectColumns = ['contacts.*'];
+
+    protected $joins = [
+        'contact_types' => [
+            'contact_types.id',
+            '=',
+            'contacts.contact_type_id',
+        ],
+    ];
 
     public function personInstitution()
     {

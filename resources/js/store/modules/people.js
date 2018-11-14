@@ -75,7 +75,7 @@ let actions = merge_objects(
             context.dispatch('contacts/select', payload, { root: true })
         },
 
-        selectAddresses(context, payload) {
+        selectAddress(context, payload) {
             context.dispatch('addresses/select', payload, { root: true })
         },
 
@@ -116,6 +116,7 @@ let mutations = merge_objects(
         selectAddress(state, payload) {
             state.selectedAddress = payload
         },
+
         selectAdvisors(state, payload) {
             state.selectedAdvisors = payload
         },

@@ -32,6 +32,7 @@
                         :columns="[
                                     '#',
                                     'Convidar',
+                                    'Tratamento',
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
@@ -52,7 +53,9 @@
                                 >
                             </td>
 
-                            <td class="align-middle">{{ invitable.title }} {{ invitable.person.name }}</td>
+                            <td class="align-middle">{{ invitable.title }}</td>
+
+                            <td class="align-middle">{{ invitable.person.name }}</td>
 
                             <td class="align-middle">{{ invitable.institution.name }}</td>
 

@@ -42,7 +42,6 @@ const actions = merge_objects(actionsMixin, {
 })
 
 const mutations = merge_objects(mutationsMixin, {
-
     mutateSetPersonCategory(state, payload) {
         state.personCategory = payload
     },

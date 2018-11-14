@@ -30,15 +30,21 @@ class Invitations extends Repository
         return parent::filterBySubEventId($subEventId);
     }
 
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['hasNoEmail']) && $filter['hasNoEmail']) {
+            $query->whereRaw('(
+                select count(*) count
+                    from contacts c
+                    where person_institution_id = invitations.person_institution_id
+                    and c.contact_type_id = (select id from contact_types where code = \'email\')
+                ) = 0');
+        }
+    }
+
     protected function filterAllColumns($query, $text)
     {
         $query
-            ->join(
-                'person_institutions',
-                'person_institutions.id',
-                '=',
-                'invitations.person_institution_id'
-            )
             ->join(
                 'institutions',
                 'person_institutions.institution_id',
@@ -48,7 +54,7 @@ class Invitations extends Repository
             ->join('people', 'person_institutions.person_id', '=', 'people.id')
             ->join('roles', 'person_institutions.role_id', '=', 'roles.id')
             ->where(function ($query) use ($text) {
-                $query->orWhere('code', 'ilike', "%{$text}%");
+                $query->orWhere('code', 'i≤like', "%{$text}%");
                 $query->orWhere('institutions.name', 'ilike', "%{$text}%");
                 $query->orWhere('people.name', 'ilike', "%{$text}%");
                 $query->orWhere('roles.name', 'ilike', "%{$text}%");

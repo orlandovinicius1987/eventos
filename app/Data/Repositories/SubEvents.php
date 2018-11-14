@@ -3,13 +3,14 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\SubEvent;
+use App\Data\Repositories\Traits\SubEventsPrint;
 use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
 use App\Data\Repositories\Addresses as AddressesRepository;
 
 class SubEvents extends Repository
 {
-    use AddressesTraits;
+    use AddressesTraits, SubEventsPrint;
 
     /**
      * @var string
@@ -32,12 +33,8 @@ class SubEvents extends Repository
     private function createOrUpdateAddress($subEvent, $address)
     {
         if (!$subEvent->address) {
-            info(['not found address']);
-
             return $this->createAddress($subEvent, $address);
         }
-
-        info(['subEvent', $subEvent->address]);
 
         return app(AddressesRepository::class)->updateAddress(
             $subEvent->address,
