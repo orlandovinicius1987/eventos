@@ -17,7 +17,6 @@
 
                         <div class="col-4">
                             <img
-                                @click="showCropper = true"
                                 :src="form.fields.photoUrl ? form.fields.photoUrl : selected.photoUrl"
                                 class="img-thumbnail rounded mx-auto d-block mb-2"
                                 width="200"
