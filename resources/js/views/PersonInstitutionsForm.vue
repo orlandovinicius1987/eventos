@@ -44,6 +44,15 @@
                                 :required="true"
                                 :form="form"
                             ></app-input>
+
+                            <app-input
+                                name="active"
+                                label="Ativo"
+                                v-model="form.fields.active"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
+
                         </div>
                     </div>
 
