@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <img
                                 @click="showCropper = true"
-                                :src="uploadedPhoto ? form.fields.photoUrl : form.fields.photoUrl + '?' + Date.now()"
+                                :src="makePhotoUrl()"
                                 class="img-thumbnail rounded mx-auto d-block"
                                 width="200"
                                 height="200"
@@ -133,8 +133,7 @@ export default {
             photo: null,
             photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
             photoBlob: null,
-            showCropper: false,
-            uploadedPhoto: false,
+            showCropper: false
         }
     },
 
@@ -151,7 +150,6 @@ export default {
                 'image/jpeg',
                 0.85
             );
-            this.uploadedPhoto = true;
         },
 
         usePhoto() {
@@ -176,13 +174,20 @@ export default {
             })
         },
 
-
+        flushImageCache(imageUrl) {
+            return flush_image_cache(imageUrl)
+        }
     },
 
-    mounted(){
-        this.uploadedPhoto = false;
-    }
+    computed: {
+        photoUrlField() {
+            return flush_image_cache(this.form.fields.photoUrl)
+        }
+    },
 }
 </script>
 
 <style></style>
+
+
+
