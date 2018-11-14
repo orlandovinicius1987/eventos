@@ -9,7 +9,7 @@
 
             <div class="col-12">
                 <div class="row">
-                    <div v-if="perPage" class="col-6">
+                    <div v-if="perPage" class="col-4">
                         <input
                             class="form-control form-control-sm"
                             :value="filterText"
@@ -25,7 +25,7 @@
                         ></app-per-page>
                     </div>
 
-                    <div class="col-4 text-right">
+                    <div class="col-6 text-right">
                         <div class="row">
                             <div class="col-6">
                                 <slot name="buttons"></slot>
