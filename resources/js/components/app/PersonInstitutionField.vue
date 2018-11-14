@@ -29,9 +29,13 @@
         <app-input
             name="active"
             label="Ativo"
+            type="checkbox"
             v-model="form.fields.active"
+            value="1"
+            :value="1"
             :required="true"
             :form="form"
+            :checked="checked = form.fields.institution_id ? form.fields.active : 'checked'"
         ></app-input>
     </div>
 </template>

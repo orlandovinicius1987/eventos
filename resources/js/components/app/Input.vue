@@ -11,6 +11,8 @@
             :required="required"
             :dusk="dusk"
             :readonly="readonly"
+            :value="value"
+            :checked="checked"
         >
 
         <small class="text-danger" v-if="form.errors.has(name)" >
@@ -30,6 +32,7 @@ export default {
         'type',
         'dusk',
         'readonly',
+        'checked',
     ],
 }
 </script>
