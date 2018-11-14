@@ -44,4 +44,15 @@ class Person extends BaseWithClient
     {
         return route('people.photo', $this->id);
     }
+
+    /**
+     * Filter users with no photo
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeHasNoPhoto($query)
+    {
+        return $query->whereNull('photo');
+    }
 }
