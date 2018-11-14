@@ -20,4 +20,13 @@ class Receptive extends Controller
             $subEventId
         );
     }
+
+    public function makeCheckin(
+        Request $request,
+        $eventId,
+        $subEventId,
+        $invitationId
+    ) {
+        return app(InvitationsRepository::class)->makeCheckin($invitationId);
+    }
 }

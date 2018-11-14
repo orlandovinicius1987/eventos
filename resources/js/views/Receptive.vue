@@ -27,7 +27,7 @@
                             <td>{{invitation.code}}</td>
                             <td>
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.checkin_at" class="badge badge-success">Feito as {{invitation.checkin_at}}</span>
+                                    <span v-if="invitation.checkin_at" class="badge badge-success">Feito às {{invitation.checkin_at}}</span>
                                     <span v-if="!invitation.checkin_at" class="badge badge-danger">Não chegou</span>
                                 </h6>
                                 </td>
@@ -118,12 +118,27 @@
             ]),
 
             confirmCheckin(invitation){
-                confirm(
-                    'Deseja realizar o checkin de ' +
-                    invitation.person_institution.person.name +
-                    '?',this,)
+                const $this = this
 
+                dd('invitation.ckeckin_at - ',invitation.checkin_at)
+                if(invitation.checkin_at == null) {
 
+                    confirm(
+                        'Deseja realizar o checkin de ' +
+                        invitation.person_institution.person.name +
+                        '?', this,
+                    ).then(function (value) {
+                        if (value) {
+                            $this.makeCheckin(invitation)
+                        }
+                    })
+
+                }
+
+            },
+
+            makeCheckin(invitation) {
+                return this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
             },
 
             onDecode (result) {

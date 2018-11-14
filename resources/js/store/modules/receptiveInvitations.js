@@ -38,6 +38,17 @@ const actions = merge_objects(actionsMixin, {
         context.dispatch('load', payload)
     },
 
+    makeCheckin(context, payload) {
+        dd('context',context);
+        dd('payload',payload);
+
+        post(makeDataUrl(context) + '/' + payload.id + '/checkin').then(
+            function() {
+                context.dispatch('load', payload)
+            },
+        )
+    },
+
 })
 
 const mutations = merge_objects(mutationsMixin, {

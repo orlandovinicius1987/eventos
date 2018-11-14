@@ -86,4 +86,19 @@ class Invitations extends Repository
             ]);
         }
     }
+
+    public function makeCheckin($invitationId)
+    {
+        $this->model = $this->findById($invitationId);
+
+        info($this->model);
+
+        $data = date('m-d-Y');
+        $data .= ' ' . date('H:i:s');
+
+        $this->model->checkin_at = $data;
+        $this->model->save();
+
+        return $this->model;
+    }
 }

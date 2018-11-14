@@ -62,6 +62,11 @@ Route::group(['prefix' => 'api/v1', 'namespace' => 'Api'], function () {
                             'receptive.invitationAccepted'
                         );
 
+                        Route::post(
+                            '/{invitationId}/checkin',
+                            'Receptive@makeCheckin'
+                        )->name('receptive.makeCheckin');
+
                         /*Route::post('/{id}', 'Contacts@update')->name('contacts.update');
 
                     Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
