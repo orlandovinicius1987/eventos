@@ -29,11 +29,6 @@ class CreatePersonInstitutions extends Migration
 
             $table->string('title')->nullable();
 
-            $table
-                ->boolean('active')
-                ->default(true)
-                ->nullable();
-
             $table->timestamps();
         });
     }
