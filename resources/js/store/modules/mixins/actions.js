@@ -45,6 +45,8 @@ export function mutateSetQueryFilterText(context, payload) {
     context.commit('mutateSetData', data)
 
     loadDebounced(context)
+
+    dd('data.filter.text',data.filter.text)
 }
 
 export function setCurrentPage(context, payload) {

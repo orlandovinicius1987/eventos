@@ -39,15 +39,20 @@ const actions = merge_objects(actionsMixin, {
     },
 
     makeCheckin(context, payload) {
-        dd('context',context);
-        dd('payload',payload);
-
         post(makeDataUrl(context) + '/' + payload.id + '/checkin').then(
             function() {
                 context.dispatch('load', payload)
             },
         )
     },
+
+    makeCheckinWithCode(context,payload){
+        post(makeDataUrl(context) + '/' + payload + '/checkin-with-code').then(
+            function() {
+                context.dispatch('load', payload)
+            },
+        )
+    }
 
 })
 

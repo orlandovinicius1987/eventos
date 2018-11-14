@@ -82,10 +82,9 @@ class Invitations extends Repository
     public function fillteredAcceptedBySubEventId($subEventId)
     {
         return $this->applyFilter(
-            InvitationModel::whereNotNull('accepted_at')->where(
-                'sub_event_id',
-                $subEventId
-            )
+            $this->newQuery()
+                ->whereNotNull('accepted_at')
+                ->where('sub_event_id', $subEventId)
         );
     }
 
@@ -112,5 +111,27 @@ class Invitations extends Repository
         $this->model->save();
 
         return $this->model;
+    }
+
+    public function makeCheckinWithCode($subEventId, $code)
+    {
+        $this->model = $this->findBySubEventIdAndCode($subEventId, $code);
+
+        info($this->model);
+
+        $data = date('m-d-Y');
+        $data .= ' ' . date('H:i:s');
+
+        $this->model->checkin_at = $data;
+        $this->model->save();
+
+        return $this->model;
+    }
+
+    public function findBySubEventIdAndCode($subEventId, $code)
+    {
+        return InvitationModel::where('sub_event_id', $subEventId)
+            ->where('code', $code)
+            ->first();
     }
 }

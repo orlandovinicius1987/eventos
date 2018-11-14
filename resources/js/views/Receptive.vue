@@ -8,9 +8,10 @@
             <div class="col-4">
                 <app-table-panel
                         :title="'Convidados'"
-                        :per-page="receptiveInvitationsPerPage"
-                        @set-per-page="receptiveInvitationsPerPage = $event"
-                        :filter-text="receptiveInvitationsFilterText"
+                        :per-page="perPage"
+                        :filter-text="filterText"
+                        @input-filter-text="filterText = $event.target.value"
+                        @set-per-page="perPage = $event"
                 >
                     <app-table
                             :pagination="receptiveInvitations.data.links.pagination"
@@ -59,7 +60,7 @@
     import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
 
     const service = {
-        name: 'receptive',
+        name: 'receptiveInvitations',
         uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/receptive',
         isForm: true,
     }
@@ -84,32 +85,6 @@
             ...mapState({
                 invitations: state=> state.receptive.invitations,
             }),
-
-            receptiveInvitationsFilterText: {
-                get() {
-                    return this.$store.state['receptiveInvitations'].data.filter.text
-                },
-
-                set(filter) {
-                    return this.$store.dispatch(
-                        'receptiveInvitations/mutateSetQueryFilterText',
-                        filter
-                    )
-                }
-            },
-
-            receptiveInvitationsPerPage: {
-                get() {
-                    return this.$store.state['receptiveInvitations'].data.links.pagination.per_page
-                },
-
-                set(perPage) {
-                    return this.$store.dispatch(
-                        'receptiveInvitations/setPerPage',
-                        perPage
-                    )
-                }
-            },
         },
 
         methods: {
@@ -143,6 +118,11 @@
 
             onDecode (result) {
                 this.result = result
+              return this.makeCheckinWithCode(result)
+            },
+
+            makeCheckinWithCode(code){
+                return this.$store.dispatch('receptiveInvitations/makeCheckinWithCode', code)
             },
             async onInit (promise) {
                 try {
@@ -152,7 +132,11 @@
                         this.noStreamApiSupport = true
                     }
                 }
-            }
+            },
+
+            findInvitationByCode(code){
+                dd(this.$store.state['receptiveInvitations'].data.filter.text = code)
+            },
         },
 
         mounted(){
@@ -163,3 +147,13 @@
 
 <style>
 </style>
+
+
+select count(*) as aggregate
+from "invitations"
+    inner join "institutions" on "person_institutions"."institution_id" = "institutions"."id"
+    inner join "people" on "person_institutions"."person_id" = "people"."id"
+    inner join "roles" on "person_institutions"."role_id" = "roles"."id"
+where "accepted_at" is not null and "sub_event_id" = 1 and
+("code" = i≤like or "institutions"."name"::text ilike %An% or "people"."name"::text ilike %An% or "roles"."name"::text ilike %An%)
+
