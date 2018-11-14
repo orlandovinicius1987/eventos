@@ -225,3 +225,15 @@ window.except = (list, id) => {
         return !id || !item.id || item.id !== id
     })
 }
+
+window.extractFileNameFromResponse = (response, filename = 'eventos.pdf') => {
+    var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/
+
+    var matches = filenameRegex.exec(response['headers']['content-disposition'])
+
+    if (matches != null && matches[1]) {
+        filename = matches[1].replace(/['"]/g, '')
+    }
+
+    return filename
+}

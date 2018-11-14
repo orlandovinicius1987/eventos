@@ -47,6 +47,11 @@ class SubEvent extends Base
         return $this->belongsTo(Sector::class);
     }
 
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
     /**
      * Scope a query to only include subEvents that will happen in 7 days.
      *

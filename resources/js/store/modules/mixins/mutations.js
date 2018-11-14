@@ -41,3 +41,7 @@ export function mutateSetSelected(state, payload) {
 export function mutateSetService(state, payload) {
     state.service = payload
 }
+
+export function mutateFilterCheckbox(state, payload) {
+    state.data.filter.checkboxes[payload.field] = payload.value
+}

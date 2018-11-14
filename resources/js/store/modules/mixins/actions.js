@@ -8,8 +8,14 @@ export function load(context) {
             params: { query: context.getters.getQueryFilter },
         })
         .then(response => {
-            context.commit('mutateSetData', response.data)
+            context.dispatch('setDataAfterLoad', response.data)
         })
+}
+
+export function setDataAfterLoad(context, payload) {
+    payload.filter.text = context.state.data.filter.text
+
+    context.commit('mutateSetData', payload)
 }
 
 export function save(context, payload) {
