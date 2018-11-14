@@ -19,7 +19,6 @@ class MustBeAppUser
     {
         if (!Gate::allows('canRead')) {
             abort(403, 'Você não está autorizado a usar este sistema');
-            \Auth::logout();
         }
 
         return $next($request);
