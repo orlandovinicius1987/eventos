@@ -5,7 +5,11 @@ Auth::routes();
 Route::get('/', 'Home@index')->name('home');
 
 Route::group(
-    ['prefix' => '/admin', 'namespace' => 'Admin', 'middleware' => 'auth'],
+    [
+        'prefix' => '/admin',
+        'namespace' => 'Admin',
+        'middleware' => ['auth', 'app.users'],
+    ],
     function () {
         Route::get('/', 'Home@index')->name('admin.index');
     }
