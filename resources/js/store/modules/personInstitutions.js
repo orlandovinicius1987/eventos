@@ -21,6 +21,7 @@ const state = merge_objects(statesMixin.common, {
         role_id: null,
         institution_id: null,
         title: null,
+        is_active: null,
     }),
 
     advisors: null,

@@ -25,6 +25,16 @@
                 :required="true"
                 :form="form"
         ></app-input>
+
+        <div class="col-4">
+            <div class="form-check mt-4">
+                <input v-model="form.fields.is_active" class="form-check-input" type="checkbox" value="" id="is_active" >
+                <label class="form-check-label" for="is_active">
+                    Ativo
+                </label>
+            </div>
+        </div>
+
     </div>
 </template>
 
