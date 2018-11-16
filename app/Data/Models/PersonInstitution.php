@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class PersonInstitution extends Base
+class PersonInstitution extends BaseWithPersonInstituion
 {
     /**
      * @var array
@@ -13,7 +13,7 @@ class PersonInstitution extends Base
         'role_id',
         'title',
         'advised_id',
-        'active',
+        'is_active',
     ];
 
     protected $with = ['person', 'institution', 'role'];
@@ -36,7 +36,7 @@ class PersonInstitution extends Base
         'person_institutions.title',
         'person_institutions.created_at',
         'person_institutions.updated_at',
-        'person_institutions.active',
+        'person_institutions.is_active',
     ];
 
     protected $joins = [
