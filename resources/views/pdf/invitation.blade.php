@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -7,7 +6,6 @@
     <title>Printed document</title>
 
     <style type="text/css">
-
         @font-face {
             font-family: 'Centennial-Roman';
             src:  url(data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAFfIAA4AAAAAlvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABjbWFwAABSxAAAAQcA

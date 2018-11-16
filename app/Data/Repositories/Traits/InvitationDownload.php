@@ -12,7 +12,7 @@ trait InvitationDownload
 
         return app(PDF::class)->download(
             $this->generateHtml($invitation),
-            make_pdf_filename($invitation->person_institution->person->name)
+            make_pdf_filename($invitation->personInstitution->person->name)
         );
     }
 

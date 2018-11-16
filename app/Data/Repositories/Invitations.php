@@ -91,14 +91,4 @@ class Invitations extends Repository
             ]);
         }
     }
-
-    public function download($id)
-    {
-        $subEvent = $this->findById($id);
-
-        return app(PDF::class)->download(
-            $this->generateHtml($subEvent),
-            $this->makePdfFileName($subEvent)
-        );
-    }
 }

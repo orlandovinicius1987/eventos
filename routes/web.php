@@ -97,7 +97,7 @@ Route::group(
                                 'invitations.update'
                             );
 
-                            Route::post(
+                            Route::get(
                                 '/{id}/download',
                                 'Invitations@download'
                             )->name('invitations.download');
