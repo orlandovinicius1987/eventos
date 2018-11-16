@@ -234,9 +234,9 @@
                                 </div>
 
                                 <div
-                                    @click="downloadInvite(invitation)"
+                                    @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm ml-1 pull-right"
-                                    v-if="can('update')"
+                                    v-if="can('update') && environment.debug"
                                 >
                                     <i class="fa fa-id-badge"></i>
                                 </div>
@@ -309,7 +309,7 @@ export default {
             })
         },
 
-        downloadInvite(invitation) {
+        downloadInvitation(invitation) {
             invitation.busy = true
 
             downloadPDF(this.$store.getters['invitations/getDataUrl'] + '/' + invitation.id + '/download').then(() => {
