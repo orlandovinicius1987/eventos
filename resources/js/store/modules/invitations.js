@@ -53,7 +53,7 @@ const actions = merge_objects(actionsMixin, {
 
     unInvite(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(
-            function() {
+            () => {
                 context.dispatch('load', payload)
             },
         )

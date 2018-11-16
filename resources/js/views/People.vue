@@ -681,14 +681,12 @@ export default {
         },
 
         confirmDeletePersonCategory(personCategory) {
-            const $this = this
-
             confirm(
                 'Deseja realmente desassociar ' + personCategory.name + '?',
                 this
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.deletePersonCategory(personCategory)
+                    this.deletePersonCategory(personCategory)
                 }
             })
         },

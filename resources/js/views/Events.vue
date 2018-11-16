@@ -295,16 +295,14 @@ export default {
         },
 
         confirmUnInvite(invitation) {
-            const $this = this
-
             confirm(
                 'Deseja realmente desconvidar ' +
                     invitation.person_institution.person.name +
                     '?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.unInvite(invitation)
+                    this.unInvite(invitation)
                 }
             })
         },
@@ -322,14 +320,12 @@ export default {
         },
 
         confirmSubEvent(subEvent) {
-            const $this = this
-
             confirm(
                 'Deseja realmente confirmar ' + subEvent.name + '?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.doConfirmSubEvent(subEvent)
+                    this.doConfirmSubEvent(subEvent)
                 }
             })
         },
@@ -339,28 +335,25 @@ export default {
         },
 
         finalizeSubEvent(subEvent) {
-            const $this = this
-
             confirm(
                 'Deseja realmente confirmar que o evento foi realizado ' +
                     subEvent.name +
                     '?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if(value){
-                    $this.finalizeSubEventReconfirmed(subEvent);
+                    this.finalizeSubEventReconfirmed(subEvent);
                 }
             })
         },
 
         finalizeSubEventReconfirmed(subEvent){
-            const $this = this
             confirm(
                 'Você tem realmente certeza de marcar o evento como realizado ?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.doFinalizeSubEvent(subEvent)
+                    this.doFinalizeSubEvent(subEvent)
                 }
             })
         },

@@ -72,7 +72,7 @@ window.get = (...args) => {
 window.object_get = (obj, descendants) => {
     const arr = descendants.split('.')
 
-    arr.forEach(function(element) {
+    arr.forEach(element => {
         if (!obj.hasOwnProperty(element)) {
             return null
         }
@@ -116,7 +116,7 @@ window.clone = object => {
 }
 
 window.set_object_values = (obj, val) => {
-    Object.keys(obj).forEach(function(k) {
+    Object.keys(obj).forEach(k => {
         if (obj[k] !== null && typeof obj[k] === 'object') {
             set_object_values(obj[k], val)
         } else {
@@ -148,7 +148,7 @@ window.buildApiUrl = (uri, state) => {
 
         let result = _.reduce(
             elements,
-            function(carry, value) {
+            (carry, value) => {
                 carry =
                     carry && carry.hasOwnProperty(value) ? carry[value] : null
 
@@ -194,7 +194,7 @@ window.findById = (data, id) => {
 window.append_form_data = (FormData, data, name) => {
     name = name || ''
     if (typeof data === 'object') {
-        $.each(data, function(index, value) {
+        $.each(data, (index, value) => {
             if (name === '') {
                 append_form_data(FormData, value, index)
             } else {
@@ -209,7 +209,7 @@ window.append_form_data = (FormData, data, name) => {
 window.blob_to_base64 = (blob, callback) => {
     let reader = new FileReader()
 
-    reader.onload = function() {
+    reader.onload = () => {
         let dataUrl = reader.result
 
         let base64 = dataUrl.split(',')[1]

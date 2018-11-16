@@ -1,5 +1,5 @@
 export default {
-    data: function() {
+    data: () => {
         return {
             loading: {
                 environment: false,
@@ -91,39 +91,35 @@ export default {
         },
 
         boot() {
-            const $this = this
-
-            $this.mutateSetService(this.service)
+            this.mutateSetService(this.service)
 
             if (
-                !$this.service.hasOwnProperty('performLoad') ||
-                $this.service.performLoad
+                !this.service.hasOwnProperty('performLoad') ||
+                this.service.performLoad
             ) {
-                $this.load().then(function() {
-                    $this.fillFormWhenEditing()
+                this.load().then(() => {
+                    this.fillFormWhenEditing()
                 })
             } else {
-                $this.fillFormWhenEditing()
+                this.fillFormWhenEditing()
             }
         },
 
         fillFormWhenEditing() {
-            const $this = this
-
             const model =
-                $this.mode === 'update'
-                    ? _.find(this.rows, function(model) {
-                          return model.id === $this.$route.params.id
+                this.mode === 'update'
+                    ? _.find(this.rows, model => {
+                          return model.id === this.$route.params.id
                       })
-                    : $this.form
-                    ? clone($this.form.empty)
+                    : this.form
+                    ? clone(this.form.empty)
                     : {}
 
-            $this.mutateFormData(model)
+            this.mutateFormData(model)
 
-            $this.mutateSetErrors({})
+            this.mutateSetErrors({})
 
-            $this.fillAdditionalFormFields()
+            this.fillAdditionalFormFields()
         },
 
         fillAdditionalFormFields() {},
