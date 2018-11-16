@@ -192,7 +192,8 @@
                                     '#',
                                     'Tratamento',
                                     'Instituição',
-                                    'Função'
+                                    'Função',
+                                    'Status',
                                 ]"
                             >
                                 <tr
@@ -212,15 +213,33 @@
                                         )
                                     }"
                                 >
-                                    <td>{{ personInstitution.id }}</td>
+                                    <td class="align-middle">
+                                        {{ personInstitution.id }}
+                                    </td>
 
-                                    <td>{{ personInstitution.title }}</td>
+                                    <td class="align-middle">
+                                        {{ personInstitution.title }}
+                                    </td>
 
-                                    <td>
+                                    <td class="align-middle">
                                         {{ personInstitution.institution.name }}
                                     </td>
 
-                                    <td>{{ personInstitution.role.name }}</td>
+                                    <td class="align-middle">
+                                        {{ personInstitution.role.name }}
+                                    </td>
+
+                                    <td class="align-middle">
+                                        <h6 class="m-0">
+                                            <span v-if="personInstitution.is_active" class="badge badge-primary">
+                                                ativo
+                                            </span>
+
+                                            <span v-if="!personInstitution.is_active" class="badge badge-danger">
+                                                inativo
+                                            </span>
+                                        </h6>
+                                    </td>
 
                                     <td
                                         class="align-middle text-right"
@@ -292,11 +311,11 @@
                                         )
                                     }"
                                 >
-                                    <td>{{ contact.id }}</td>
+                                    <td class="align-middle">{{ contact.id }}</td>
 
-                                    <td>{{ contact.contact_type.name }}</td>
+                                    <td class="align-middle">{{ contact.contact_type.name }}</td>
 
-                                    <td>{{ contact.contact }}</td>
+                                    <td class="align-middle">{{ contact.contact }}</td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -377,21 +396,21 @@
                                         )
                                     }"
                                 >
-                                    <td>{{ address.id }}</td>
+                                    <td class="align-middle">{{ address.id }}</td>
 
-                                    <td>{{ address.street }}</td>
+                                    <td class="align-middle">{{ address.street }}</td>
 
-                                    <td>{{ address.number }}</td>
+                                    <td class="align-middle">{{ address.number }}</td>
 
-                                    <td>{{ address.complement }}</td>
+                                    <td class="align-middle">{{ address.complement }}</td>
 
-                                    <td>{{ address.neighbourhood }}</td>
+                                    <td class="align-middle">{{ address.neighbourhood }}</td>
 
-                                    <td>{{ address.zipcode }}</td>
+                                    <td class="align-middle">{{ address.zipcode }}</td>
 
-                                    <td>{{ address.city }}</td>
+                                    <td class="align-middle">{{ address.city }}</td>
 
-                                    <td>{{ address.state }}</td>
+                                    <td class="align-middle">{{ address.state }}</td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -469,11 +488,11 @@
                                         )
                                     }"
                                 >
-                                    <td>{{ advisor.id }}</td>
-                                    <td>{{ advisor.person.title }}</td>
-                                    <td>{{ advisor.person.name }}</td>
-                                    <td>{{ advisor.person.nickname }}</td>
-                                    <td>
+                                    <td class="align-middle">{{ advisor.id }}</td>
+                                    <td class="align-middle">{{ advisor.person.title }}</td>
+                                    <td class="align-middle">{{ advisor.person.name }}</td>
+                                    <td class="align-middle">{{ advisor.person.nickname }}</td>
+                                    <td class="align-middle">
                                         <router-link
                                             :to="
                                                 '/people/' +
@@ -550,13 +569,13 @@
                                         )
                                     }"
                                 >
-                                    <td>{{ advisorContact.id }}</td>
+                                    <td class="align-middle">{{ advisorContact.id }}</td>
 
-                                    <td>
+                                    <td class="align-middle">
                                         {{ advisorContact.contact_type.name }}
                                     </td>
 
-                                    <td>{{ advisorContact.contact }}</td>
+                                    <td class="align-middle">{{ advisorContact.contact }}</td>
 
                                     <td class="align-middle text-right">
                                         <router-link

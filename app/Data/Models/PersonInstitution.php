@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class PersonInstitution extends BaseWithPersonInstituion
+class PersonInstitution extends Base
 {
     /**
      * @var array
@@ -80,5 +80,10 @@ class PersonInstitution extends BaseWithPersonInstituion
     public function advises()
     {
         return $this->hasMany(PersonInstitution::class, 'id', 'advised_id');
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('is_active', '=', true);
     }
 }
