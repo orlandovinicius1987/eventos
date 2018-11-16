@@ -3,14 +3,14 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\SubEvent;
-use App\Data\Repositories\Traits\SubEventsPrint;
+use App\Data\Repositories\Traits\SubEventsDownload;
 use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
 use App\Data\Repositories\Addresses as AddressesRepository;
 
 class SubEvents extends Repository
 {
-    use AddressesTraits, SubEventsPrint;
+    use AddressesTraits, SubEventsDownload;
 
     /**
      * @var string

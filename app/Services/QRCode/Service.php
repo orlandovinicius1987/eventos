@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\PDF;
+namespace App\Services\QRCode;
 
 use BaconQrCode\Writer;
 use BaconQrCode\Renderer\ImageRenderer;
