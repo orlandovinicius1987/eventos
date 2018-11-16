@@ -61,6 +61,7 @@ window.confirm = (title, vue) => {
 }
 
 window.post = (...args) => {
+    dd(...args)
     return axios.post(...args)
 }
 
@@ -235,4 +236,12 @@ window.extractFileNameFromResponse = (response, filename = 'eventos.pdf') => {
     }
 
     return filename
+}
+
+window.flush_image_cache = imageUrl => {
+    if (imageUrl && !imageUrl.includes('data:image/')) {
+        imageUrl = imageUrl + '?' + Math.random()
+    }
+
+    return imageUrl
 }

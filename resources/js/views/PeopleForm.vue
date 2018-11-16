@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <img
                                 @click="showCropper = true"
-                                :src="form.fields.photoUrl"
+                                :src="makePhotoUrl()"
                                 class="img-thumbnail rounded mx-auto d-block"
                                 width="200"
                                 height="200"
@@ -133,7 +133,7 @@ export default {
             photo: null,
             photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
             photoBlob: null,
-            showCropper: false,
+            showCropper: false
         }
     },
 
@@ -173,8 +173,21 @@ export default {
                 value: url,
             })
         },
-    }
+
+        flushImageCache(imageUrl) {
+            return flush_image_cache(imageUrl)
+        }
+    },
+
+    computed: {
+        photoUrlField() {
+            return flush_image_cache(this.form.fields.photoUrl)
+        }
+    },
 }
 </script>
 
 <style></style>
+
+
+
