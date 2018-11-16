@@ -109,7 +109,9 @@ Route::group(
             Route::group(['prefix' => '/people'], function () {
                 Route::get('/', 'People@all')->name('people.all');
 
-                Route::post('/{id}', 'People@update')->name('people.update');
+                Route::post('/validate-name', 'People@validateName')->name(
+                    'people.validate-name'
+                );
 
                 Route::get('/{id}/photo', 'People@photo')->name('people.photo');
 
@@ -118,6 +120,8 @@ Route::group(
                 );
 
                 Route::post('/', 'People@store')->name('people.store');
+
+                Route::post('/{id}', 'People@update')->name('people.update');
 
                 Route::group(
                     ['prefix' => '{personId}/person-institutions'],
