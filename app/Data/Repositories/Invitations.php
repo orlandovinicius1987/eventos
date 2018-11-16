@@ -4,9 +4,12 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
+use App\Data\Repositories\Traits\InvitationDownload;
 
 class Invitations extends Repository
 {
+    use InvitationDownload;
+
     /**
      * @var string
      */
@@ -87,5 +90,15 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
         }
+    }
+
+    public function download($id)
+    {
+        $subEvent = $this->findById($id);
+
+        return app(PDF::class)->download(
+            $this->generateHtml($subEvent),
+            $this->makePdfFileName($subEvent)
+        );
     }
 }

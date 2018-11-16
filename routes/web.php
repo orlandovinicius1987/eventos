@@ -68,8 +68,8 @@ Route::group(
                         'sub-events.finalize'
                     );
 
-                    Route::get('/{id}/print', 'SubEvents@print')->name(
-                        'sub-events.print'
+                    Route::get('/{id}/download', 'SubEvents@download')->name(
+                        'sub-events.download'
                     );
 
                     Route::group(
@@ -96,6 +96,11 @@ Route::group(
                             Route::post('/{id}', 'Invitations@update')->name(
                                 'invitations.update'
                             );
+
+                            Route::post(
+                                '/{id}/download',
+                                'Invitations@download'
+                            )->name('invitations.download');
 
                             Route::post(
                                 '/{id}/un-invite',
