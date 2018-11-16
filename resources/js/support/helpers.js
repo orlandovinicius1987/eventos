@@ -244,3 +244,21 @@ window.flush_image_cache = imageUrl => {
 
     return imageUrl
 }
+
+window.downloadPDF = fileUrl => {
+    return axios({
+        method: 'get',
+        url: fileUrl,
+        responseType: 'arraybuffer',
+    }).then(response => {
+        let blob = new Blob([response.data], { type: 'application/pdf' })
+
+        let link = document.createElement('a')
+
+        link.href = window.URL.createObjectURL(blob)
+
+        link.download = extractFileNameFromResponse(response)
+
+        link.click()
+    })
+}
