@@ -22,6 +22,15 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
+    private function registerLogging()
+    {
+        if ($this->app->environment(['staging', 'production'])) {
+            $this->app->register(
+                \Rollbar\Laravel\RollbarServiceProvider::class
+            );
+        }
+    }
+
     /**
      * Register any application services.
      *
@@ -29,6 +38,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerLogging();
     }
 }
