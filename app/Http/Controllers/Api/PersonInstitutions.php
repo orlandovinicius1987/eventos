@@ -55,19 +55,10 @@ class PersonInstitutions extends Controller
         $id,
         PersonInstitutionUpdateRequest $request
     ) {
-        $request->merge(['is_active', false]);
-        $request->merge(['is_active', false]);
-        info($request->all());
-        $pi = app(PersonInstitutionsRepository::class)->findById($id);
-        $pi->is_active = false;
-        $pi->title = "999999999999999";
-        info([$pi]);
-        $pi->save();
-        return $pi;
-        //        return app(PersonInstitutionsRepository::class)->update(
-        //            $id,
-        //            $request->all()
-        //        );
+        return app(PersonInstitutionsRepository::class)->update(
+            $id,
+            $request->all()
+        );
     }
 
     /**

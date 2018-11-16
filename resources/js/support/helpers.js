@@ -243,7 +243,5 @@ window.flush_image_cache = imageUrl => {
         imageUrl = imageUrl + '?' + Math.random()
     }
 
-    dd('imageUrl --- after', imageUrl)
-
     return imageUrl
 }
