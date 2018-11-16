@@ -71,8 +71,6 @@ export default {
 
     methods: {
         fillAdditionalFormFields() {
-            const $this = this
-
             if (this.mode === 'create') {
                 this.$store.dispatch('personInstitutions/clearForm', {
                     root: true
@@ -80,7 +78,7 @@ export default {
             } else if (this.mode === 'update') {
                 this.$store.commit(
                     'personInstitutions/mutateFormData',
-                    $this.personInstitutions.selected
+                    this.personInstitutions.selected
                 )
             }
             this.$store.commit('personInstitutions/mutateSetFormField', {
