@@ -21,13 +21,12 @@ const service = {
 
 const actions = merge_objects(actionsMixin, {
     selectReceptiveInvitation(context, payload) {
-        dd('receptive - selectReceptiveInvitation - payload dd: ',payload)
-        context.commit('mutateSetReceptiveInvitation/mutateSetSelected', payload, {
+        dd('action - receptive - selectReceptiveInvitation - payload dd: ',payload)
+        context.dispatch('receptiveInvitations/select', payload, { root: true })
+
+        context.dispatch('receptiveInvitations/setInvitation', payload, {
+            root: true,
         })
-    },
-
-    load(context,payload){
-
     },
 })
 
@@ -35,7 +34,7 @@ const actions = merge_objects(actionsMixin, {
 let mutations = merge_objects(mutationsMixin, {
 
     selectReceptiveInvitation(state, payload) {
-        dd('receptive - selectReceptiveInvitation - payload dd: ',payload)
+        dd('mutation - receptive - selectReceptiveInvitation - payload dd: ',payload)
         state.selectedReceptiveInvitation = payload
     },
 

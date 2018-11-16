@@ -16,7 +16,7 @@
                     <app-table
                             :pagination="receptiveInvitations.data.links.pagination"
                             @goto-page="gotoPage($event)"
-                            :columns="['#', 'Convidado', 'Código', 'Checkin']"
+                            :columns="['#', 'Convidado', 'Código', 'Check-in']"
 
                     >
                         <tr
@@ -45,6 +45,21 @@
 
                 <qrcode-capture v-if="noStreamApiSupport" @decode="onDecode" />
 
+            </div>
+
+            <div class="col-4">
+                <p class="one-line">Ultimo Check-in Realizado:</p>
+                <div class="col-4">
+                    <img
+                            :src="form.fields.photoUrl ? form.fields.photoUrl : selected.photoUrl"
+                            class="img-thumbnail rounded mx-auto d-block mb-2"
+                            width="200"
+                            height="200"
+                    >
+                </div>
+                <div v-if="selected.id">
+                    {{invitation.person_institution.person.name}}
+                </div>
             </div>
         </div>
     </div>
@@ -107,7 +122,7 @@
                             $this.makeCheckin(invitation)
                         }
                     })
-
+                    this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
                 }
 
             },

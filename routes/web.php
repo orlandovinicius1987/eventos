@@ -44,29 +44,6 @@ Route::group(
                 Route::get('/', 'Events@allHasSubEventsNotFinalized')->name(
                     'events.all'
                 );
-                Route::group(
-                    ['prefix' => '{subEventtId}/receptive'],
-                    function () {
-                        Route::get('/', 'Receptive@invitationAccepted')->name(
-                            'receptive.invitationAccepted'
-                        );
-
-                        Route::post(
-                            '/{invitationId}/checkin',
-                            'Receptive@makeCheckin'
-                        )->name('receptive.makeCheckin');
-
-                        Route::post(
-                            '/{invitationId}/checkin-with-code',
-                            'Receptive@makeCheckinWithCode'
-                        )->name('receptive.make-checkin-with-code');
-
-                        /*Route::post('/{id}', 'Contacts@update')->name('contacts.update');
-
-                    Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
-                    */
-                    }
-                );
 
                 Route::post('/', 'Events@store')->name('events.store');
 
@@ -93,6 +70,31 @@ Route::group(
 
                     Route::get('/{id}/print', 'SubEvents@print')->name(
                         'sub-events.print'
+                    );
+
+                    Route::group(
+                        ['prefix' => '{subEventId}/receptive'],
+                        function () {
+                            Route::get(
+                                '/',
+                                'Receptive@invitationAccepted'
+                            )->name('receptive.invitationAccepted');
+
+                            Route::post(
+                                '/{invitationId}/checkin',
+                                'Receptive@makeCheckin'
+                            )->name('receptive.makeCheckin');
+
+                            Route::post(
+                                '/{invitationId}/checkin-with-code',
+                                'Receptive@makeCheckinWithCode'
+                            )->name('receptive.make-checkin-with-code');
+
+                            /*Route::post('/{id}', 'Contacts@update')->name('contacts.update');
+
+                        Route::post('/', 'ContactTypes@store')->name('contactTypes.store');
+                        */
+                        }
                     );
 
                     Route::group(
