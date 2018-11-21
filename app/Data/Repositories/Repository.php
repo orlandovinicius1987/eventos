@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use Exception;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -43,6 +44,39 @@ abstract class Repository
 
     protected function filterCheckboxes($query, array $filter)
     {
+        return $query;
+    }
+
+    protected function filterSelects($query, array $filter)
+    {
+        foreach ($filter as $item) {
+            $query->whereExists(function ($query) use ($item) {
+                $query->select('*')->from($item['from_table']['table_name']);
+
+                foreach ($item['from_table']['joins'] as $joinStatement) {
+                    $query->join(
+                        $joinStatement['first_table_name'],
+                        $joinStatement['first_join_table_name'] .
+                            '.' .
+                            $joinStatement['first_table_field'],
+                        $joinStatement['second_table_name'] .
+                            '.' .
+                            $joinStatement['second_table_field']
+                    );
+                }
+
+                foreach ($item['where'] as $whereStatement) {
+                    $query->where(
+                        $whereStatement['table_name'] .
+                            '.' .
+                            $whereStatement['field_name'],
+                        '=',
+                        $whereStatement['filter']
+                    );
+                }
+            });
+        }
+
         return $query;
     }
 
@@ -147,6 +181,13 @@ abstract class Repository
             $this->filterCheckboxes($query, $checkboxes);
         }
 
+        if (
+            isset($filter['filter']['selects']) &&
+            ($selects = array_filter($filter['filter']['selects']))
+        ) {
+            $this->filterSelects($query, $selects);
+        }
+
         return $query;
     }
 
@@ -189,11 +230,9 @@ abstract class Repository
 
     protected function getByAnyColumnName($name, $arguments)
     {
-        return $this->makeQueryByAnyColumnName(
-            'getBy',
-            $name,
-            $arguments
-        )->get();
+        return $this->makeQueryByAnyColumnName('getBy', $name, $arguments)
+            ->count('id')
+            ->get();
     }
 
     protected function getQueryFilter()

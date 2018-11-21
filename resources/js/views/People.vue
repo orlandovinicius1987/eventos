@@ -43,10 +43,24 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
-                    <template slot="buttons">
-                        <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
-                        <label for="filterHasNoPhoto">sem foto</label>
-                    </template>
+
+                    <app-select
+                            name="institution_id"
+                            label="Instituição"
+                            v-model="institutionSelectFilter"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                    ></app-select>
+
+                    <app-select
+                            name="role_id"
+                            label="Funções"
+                            v-model="roleSelectFilter"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                    ></app-select>
 
                     <app-table
                         :pagination="people.data.links.pagination"
@@ -602,6 +616,8 @@ export default {
     mixins: [crud, people, permissions],
 
     data() {
+        this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service
         }
@@ -868,6 +884,95 @@ export default {
                     'people/mutateFilterCheckbox',
                     {field: 'hasNoPhoto', value: filter},
                 )
+
+                this.$store.dispatch(
+                    'people/load'
+                )
+            },
+        },
+
+        roleSelectFilter: {
+            get() {
+                return this.$store.state['people'].data.filter.selects.role
+            },
+
+            set(filter) {
+                if(filter == null){
+                    this.$store.commit(
+                        'people/mutateFilterSelect',{field: 'role', value:null})
+                }else {
+                    this.$store.commit(
+                        'people/mutateFilterSelect',
+                        {
+                            field: 'role', value: {
+                                from_table: {
+                                    table_name: 'person_institutions', joins: [
+                                        {
+                                            first_table_name: 'roles',
+                                            first_join_table_name: 'roles',
+                                            first_table_field: 'id',
+                                            second_table_name: 'person_institutions',
+                                            second_table_field: 'role_id'
+                                        },
+                                        {
+                                            first_table_name: 'people',
+                                            first_join_table_name: 'peopleAlias',
+                                            first_table_field: 'id',
+                                            second_table_name: 'person_institutions',
+                                            second_table_field: 'person_id'
+                                        }
+                                    ]
+                                }, where: [
+                                    {table_name: 'roles', field_name: 'id', filter: filter},
+                                ]
+                            }
+                        },
+                    )
+                }
+                this.$store.dispatch(
+                    'people/load'
+                )
+            },
+        },
+
+        institutionSelectFilter: {
+            get() {
+                return this.$store.state['people'].data.filter.selects.institution
+            },
+
+            set(filter) {
+                if(filter == null){
+                    this.$store.commit(
+                        'people/mutateFilterSelect',{field: 'institution', value:null})
+                }else {
+                    this.$store.commit(
+                        'people/mutateFilterSelect',
+                        {
+                            field: 'institution', value: {
+                                from_table: {
+                                    table_name: 'person_institutions', joins: [
+                                        {
+                                            first_table_name: 'institutions',
+                                            first_join_table_name: 'institutions',
+                                            first_table_field: 'id',
+                                            second_table_name: 'person_institutions',
+                                            second_table_field: 'institution_id'
+                                        },
+                                        {
+                                            first_table_name: 'people',
+                                            first_join_table_name: 'peopleAlias',
+                                            first_table_field: 'id',
+                                            second_table_name: 'person_institutions',
+                                            second_table_field: 'person_id'
+                                        }
+                                    ]
+                                }, where: [
+                                    {table_name: 'institutions', field_name: 'id', filter: filter},
+                                ]
+                            }
+                        },
+                    )
+                }
 
                 this.$store.dispatch(
                     'people/load'
