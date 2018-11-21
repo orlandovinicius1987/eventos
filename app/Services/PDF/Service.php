@@ -6,11 +6,21 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class Service
 {
-    public function download($html, $fileName = null)
-    {
-        return PDF::setOptions([
-            'defaultFont' => 'Helvetica',
-        ])
+    public function download(
+        $html,
+        $fileName = null,
+        $paperSize = 'A4',
+        $extraOptions = []
+    ) {
+        return PDF::setOptions(
+            array_merge(
+                [
+                    'defaultFont' => 'Helvetica',
+                ],
+                $extraOptions
+            )
+        )
+            ->setPaper($paperSize)
             ->loadHTML($html)
             ->download($this->makeFileName($fileName));
     }
