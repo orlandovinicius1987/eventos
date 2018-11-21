@@ -68,7 +68,7 @@
             padding: 10px 30px 25px ;
             font-weight: 500;
             font-size: 90%;
-            height: 70px;
+            height: 80px;
         }
 
         .notice {
@@ -89,11 +89,11 @@
         }
 
         .info01 {
-            padding-top: 15px;
+            padding-top: 10px;
         }
 
         .info01 .data {
-            margin-bottom: 5px;
+            margin-bottom: 0px;
         }
 
         .info02 {
