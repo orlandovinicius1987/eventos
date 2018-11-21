@@ -13,8 +13,6 @@ class People extends Repository
      */
     protected $model = PersonModel::class;
 
-    protected $tableAlias;
-
     private function dummyPhotoAddress()
     {
         return public_path('img/no-image.jpg');
@@ -86,11 +84,5 @@ class People extends Repository
         if (isset($filter['hasNoPhoto']) && $filter['hasNoPhoto']) {
             $query->hasNoPhoto();
         }
-    }
-
-    public function all()
-    {
-        //        return $this->newQuery()->get();
-        return $this->applyFilter($this->newQuery());
     }
 }

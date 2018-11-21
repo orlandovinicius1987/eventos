@@ -21,9 +21,9 @@ class PersonInstitution extends Base
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
-        'advisors.name',
-        'advisors.nickname',
-        'advisors.title',
+        'advisor.name',
+        'advisor.nickname',
+        'advisor.title',
     ];
 
     protected $selectColumns = [
@@ -40,8 +40,8 @@ class PersonInstitution extends Base
     ];
 
     protected $joins = [
-        'people as advisors' => [
-            'advisors.id',
+        'people as advisor' => [
+            'advisor.id',
             '=',
             'person_institutions.person_id',
         ],

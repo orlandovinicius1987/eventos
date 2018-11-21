@@ -8,7 +8,7 @@ class Role extends Base
      */
     protected $fillable = ['name'];
 
-    protected $orderBy = ['roles.name' => 'asc'];
+    protected $orderBy = ['name' => 'asc'];
 
     public function people()
     {

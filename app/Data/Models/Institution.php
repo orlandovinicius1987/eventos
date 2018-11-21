@@ -8,5 +8,5 @@ class Institution extends Base
      */
     protected $fillable = ['name', 'initials', 'party_number', 'is_party'];
 
-    protected $orderBy = ['institutions.name' => 'asc'];
+    protected $orderBy = ['name' => 'asc'];
 }
