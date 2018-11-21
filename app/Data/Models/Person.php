@@ -25,12 +25,6 @@ class Person extends BaseWithClient
 
     protected $appends = ['photoUrl'];
 
-    protected $selectColumns = ['people.*'];
-
-    protected $joins = [
-        'people as peopleAlias' => ['people.id', '=', 'peopleAlias.id'],
-    ];
-
     /**
      * Columns which can be used on filter
      *

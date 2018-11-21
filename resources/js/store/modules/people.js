@@ -140,6 +140,12 @@ let mutations = merge_objects(
         setAddresses(state, payload) {
             state.addresses = payload
         },
+
+        mutateFilterSelectPersonInstitutionField(state, payload) {
+            state.data.filter.selects.personInstitution['select_original_field'] = 'people.id'
+            state.data.filter.selects.personInstitution['select_field'] = 'person_id'
+            state.data.filter.selects.personInstitution.tables[payload.field] = payload.value
+        },
     },
     mutationsMixin,
 )
