@@ -8,6 +8,10 @@ export const common = {
             checkboxes: {
                 filler: false,
             },
+
+            selects: {
+                filler: false,
+            },
         },
 
         links: {
