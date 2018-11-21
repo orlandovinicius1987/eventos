@@ -60,14 +60,6 @@ abstract class Repository
 
     public function hasFilterSelects(array $filter)
     {
-        //        foreach ($filter as $item) {
-        //            foreach ($item['tables'] as $table) {
-        //                if ($this->hasWhereFilter($table['where'])) {
-        //                    return true;
-        //                }
-        //            }
-        //        }
-
         foreach ($filter as $item) {
             foreach ($item['tables'] as $table) {
                 if (!is_null($table)) {
