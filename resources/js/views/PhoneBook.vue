@@ -135,12 +135,6 @@
                     root: true,
                 })
             },
-        },
-
-        mounted(){
-            this.$store.commit(
-                'people/mutateResetSelectPersonInstitution'
-            )
         }
     }
 </script>
