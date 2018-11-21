@@ -127,7 +127,7 @@ const mutations = {
     mutateSetData(state, payload) {
         state['loaded'] = false
 
-        _.forIn(payload, function(val, key) {
+        _.forIn(payload, (val, key) => {
             state[key] = val
         })
 

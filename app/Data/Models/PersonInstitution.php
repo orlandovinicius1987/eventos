@@ -13,6 +13,7 @@ class PersonInstitution extends Base
         'role_id',
         'title',
         'advised_id',
+        'is_active',
     ];
 
     protected $with = ['person', 'institution', 'role'];
@@ -35,6 +36,7 @@ class PersonInstitution extends Base
         'person_institutions.title',
         'person_institutions.created_at',
         'person_institutions.updated_at',
+        'person_institutions.is_active',
     ];
 
     protected $joins = [
@@ -78,5 +80,10 @@ class PersonInstitution extends Base
     public function advises()
     {
         return $this->hasMany(PersonInstitution::class, 'id', 'advised_id');
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('is_active', '=', true);
     }
 }

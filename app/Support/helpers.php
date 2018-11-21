@@ -70,6 +70,11 @@ function get_current_client_id()
     return Session::get('current_client_id') ?: auth()->user()->client_id;
 }
 
+function make_pdf_filename($baseName)
+{
+    return str_slug($baseName . ' ' . now()->format('Y m d H i')) . '.pdf';
+}
+
 class Timer
 {
     public static $starttime;

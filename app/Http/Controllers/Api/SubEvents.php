@@ -76,8 +76,8 @@ class SubEvents extends Controller
         return app(SubEventsRepository::class)->finalize($eventId, $subEventId);
     }
 
-    public function print($eventId, $subEventId)
+    public function download($eventId, $subEventId)
     {
-        return app(SubEventsRepository::class)->print($subEventId);
+        return app(SubEventsRepository::class)->download($subEventId);
     }
 }

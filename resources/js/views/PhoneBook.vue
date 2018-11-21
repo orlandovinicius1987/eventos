@@ -17,7 +17,7 @@
 
                         <div class="col-4">
                             <img
-                                :src="form.fields.photoUrl ? form.fields.photoUrl : selected.photoUrl"
+                                :src="makePhotoUrl(selected.photoUrl)"
                                 class="img-thumbnail rounded mx-auto d-block mb-2"
                                 width="200"
                                 height="200"

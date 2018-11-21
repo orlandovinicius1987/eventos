@@ -79,8 +79,6 @@
 
         methods: {
             fillAdditionalFormFields() {
-                const $this = this
-
                 if (this.mode === 'create') {
                     this.$store.dispatch('advisors/clearForm', {
                         root: true
@@ -88,7 +86,7 @@
                 } else if (this.mode === 'update') {
                     this.$store.commit(
                         'advisors/mutateFormData',
-                        $this.advisors.selected
+                        this.advisors.selected
                     )
                 }
                 this.$store.commit('advisors/mutateSetFormField', {

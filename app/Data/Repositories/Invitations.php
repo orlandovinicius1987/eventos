@@ -4,9 +4,12 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
+use App\Data\Repositories\Traits\InvitationDownload;
 
 class Invitations extends Repository
 {
+    use InvitationDownload;
+
     /**
      * @var string
      */

@@ -12,9 +12,7 @@
                 class="row bg-primary text-white"
             >
                 <div class="col-12 mt-2">
-                    <h3
-
-                    >
+                    <h3>
                         {{ selected.name }}
 
                         <span v-if="subEvents.selected && subEvents.selected.id == events.selected.id && subEvents.selected.name">
@@ -23,7 +21,6 @@
                     </h3>
                 </div>
             </div>
-
         </div>
 
         <div class="row">
@@ -133,8 +130,8 @@
                                     @click="printSubEvent(subEvent)"
                                     title="Imprimir lista de convidados"
                                 >
-                                    <i v-if="!printing" class="fa fa-print"></i>
-                                    <i v-if="printing" class="fa fa-cog fa-spin"></i>
+                                    <i v-if="!downloading" class="fa fa-print"></i>
+                                    <i v-if="downloading" class="fa fa-cog fa-spin"></i>
                                 </button>
                             </td>
                         </tr>
@@ -235,6 +232,14 @@
                                 >
                                     <i class="fa fa-trash"></i>
                                 </div>
+
+                                <div
+                                    @click="downloadInvitation(invitation)"
+                                    class="btn btn-warning btn-sm ml-1 pull-right"
+                                    v-if="can('update') && environment.debug"
+                                >
+                                    <i class="fa fa-id-badge"></i>
+                                </div>
                             </td>
                         </tr>
                     </app-table>
@@ -258,7 +263,7 @@ export default {
     data() {
         return {
             service: service,
-            printing: false,
+            downloading: false,
         }
     },
 
@@ -290,17 +295,23 @@ export default {
         },
 
         confirmUnInvite(invitation) {
-            const $this = this
-
             confirm(
                 'Deseja realmente desconvidar ' +
                     invitation.person_institution.person.name +
                     '?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.unInvite(invitation)
+                    this.unInvite(invitation)
                 }
+            })
+        },
+
+        downloadInvitation(invitation) {
+            invitation.busy = true
+
+            downloadPDF(this.$store.getters['invitations/getDataUrl'] + '/' + invitation.id + '/download').then(() => {
+                invitation.busy = false
             })
         },
 
@@ -309,14 +320,12 @@ export default {
         },
 
         confirmSubEvent(subEvent) {
-            const $this = this
-
             confirm(
                 'Deseja realmente confirmar ' + subEvent.name + '?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.doConfirmSubEvent(subEvent)
+                    this.doConfirmSubEvent(subEvent)
                 }
             })
         },
@@ -326,28 +335,25 @@ export default {
         },
 
         finalizeSubEvent(subEvent) {
-            const $this = this
-
             confirm(
                 'Deseja realmente confirmar que o evento foi realizado ' +
                     subEvent.name +
                     '?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if(value){
-                    $this.finalizeSubEventReconfirmed(subEvent);
+                    this.finalizeSubEventReconfirmed(subEvent);
                 }
             })
         },
 
         finalizeSubEventReconfirmed(subEvent){
-            const $this = this
             confirm(
                 'Você tem realmente certeza de marcar o evento como realizado ?',
                 this,
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.doFinalizeSubEvent(subEvent)
+                    this.doFinalizeSubEvent(subEvent)
                 }
             })
         },
@@ -357,26 +363,10 @@ export default {
         },
 
         printSubEvent(subEvent) {
-            const $this = this
+            this.downloading = true
 
-            $this.printing = true
-
-            axios({
-                method: 'get',
-                url: $this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/print',
-                responseType: 'arraybuffer',
-            }).then(function(response) {
-                let blob = new Blob([response.data], { type: 'application/pdf' })
-
-                let link = document.createElement('a')
-
-                link.href = window.URL.createObjectURL(blob)
-
-                link.download = extractFileNameFromResponse(response)
-
-                link.click()
-
-                $this.printing = false
+            downloadPDF(this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/download').then(() => {
+                this.downloading = false
             })
         }
     },

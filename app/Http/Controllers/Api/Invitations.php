@@ -74,4 +74,9 @@ class Invitations extends Controller
 
         return $this->emptyResponse();
     }
+
+    public function download($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->download($id);
+    }
 }

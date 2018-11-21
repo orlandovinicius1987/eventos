@@ -12,7 +12,7 @@
                         <div class="col-12">
                             <img
                                 @click="showCropper = true"
-                                :src="form.fields.photoUrl"
+                                :src="makePhotoUrl()"
                                 class="img-thumbnail rounded mx-auto d-block"
                                 width="200"
                                 height="200"
@@ -47,13 +47,20 @@
 
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <app-input
+
+                            <label for="name" class="mb-0 mt-2">Nome</label>
+
+                            <input
                                 name="name"
-                                label="Nome"
+                                @keyup="verifyDuplicateName(form.fields.name)"
                                 v-model="form.fields.name"
-                                :required="true"
-                                :form="form"
-                            ></app-input>
+                                class="form-control"
+                                id="name"
+                                required="required"
+                            >
+                            <div class="alert alert-warning" role="alert" v-if="currentNameIsDuplicate" id="nameDuplicate">
+                                Foi encontrado uma pessoa com este mesmo nome: {{form.fields.name}}, recomenda-se verificar as pessoas cadastradas.
+                            </div>
 
                             <app-input
                                 name="cpf"
@@ -93,7 +100,7 @@
                     <div class="row">
                         <div class="col-12 text-right mb-3">
                             <button
-                                @click.prevent="saveModel()"
+                                @click.prevent="savePerson()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
                             >
@@ -134,6 +141,7 @@ export default {
             photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
             photoBlob: null,
             showCropper: false,
+            currentNameIsDuplicate: false
         }
     },
 
@@ -173,8 +181,54 @@ export default {
                 value: url,
             })
         },
-    }
+
+        flushImageCache(imageUrl) {
+            return flush_image_cache(imageUrl)
+        },
+
+        verifyDuplicateName(payload) {
+            clearTimeout(this.timeout)
+
+            this.currentNameIsDuplicate = false;
+
+            this.timeout = setTimeout(() => {
+                post('/api/v1/people/validate-name', { name: payload })
+                    .catch(error => {
+                        this.currentNameIsDuplicate = true;
+                        console.log(error)
+                    })
+            }, 500)
+        },
+
+        confirmNameDuplicate() {
+            confirm(
+                'Deseja realmente cadastrar novamente o nome: ' + this.form.fields.name + '?',
+                this
+            ).then(value => {
+                if(value) {
+                    this.saveModel()
+                }
+            })
+        },
+
+        savePerson(){
+            if (this.currentNameIsDuplicate) {
+                this.confirmNameDuplicate()
+            } else {
+                this.saveModel()
+            }
+        },
+    },
+
+    computed: {
+        photoUrlField() {
+            return flush_image_cache(this.form.fields.photoUrl)
+        }
+    },
 }
 </script>
 
 <style></style>
+
+
+
