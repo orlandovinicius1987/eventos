@@ -1,8 +1,12 @@
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=92425a4cfafcffee25c3",
 =======
     "/js/app.js": "/js/app.js?id=d8c40be6a3abb98bbb8a",
 >>>>>>> b393a01... Working on institution and role filter
+=======
+    "/js/app.js": "/js/app.js?id=6e4a7170bc1eee4e4385",
+>>>>>>> 5382aec... Fixed Select when clearing
     "/css/app.css": "/css/app.css?id=9dd46f68473e6e4031dd"
 }
