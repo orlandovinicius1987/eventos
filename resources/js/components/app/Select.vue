@@ -68,10 +68,10 @@ export default {
             },
             set(item) {
                 if (!item) {
-                    return null
+                    return this.$emit('input', null)
+                }else {
+                    return this.$emit('input', item.value)
                 }
-
-                return this.$emit('input', item.value)
             }
         }
     }
