@@ -47,32 +47,76 @@ abstract class Repository
         return $query;
     }
 
+    public function hasWhereFilter(array $filter)
+    {
+        foreach ($filter as $whereStatement) {
+            if (!is_null($whereStatement['filter'])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasFilterSelects(array $filter)
+    {
+        //        foreach ($filter as $item) {
+        //            foreach ($item['tables'] as $table) {
+        //                if ($this->hasWhereFilter($table['where'])) {
+        //                    return true;
+        //                }
+        //            }
+        //        }
+
+        foreach ($filter as $item) {
+            foreach ($item['tables'] as $table) {
+                if (!is_null($table)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     protected function filterSelects($query, array $filter)
     {
-        foreach ($filter as $item) {
-            $query->whereExists(function ($query) use ($item) {
-                $query->select('*')->from($item['from_table']['table_name']);
+        if (!$this->hasFilterSelects($filter)) {
+            return $query;
+        }
 
-                foreach ($item['from_table']['joins'] as $joinStatement) {
-                    $query->join(
-                        $joinStatement['first_table_name'],
-                        $joinStatement['first_join_table_name'] .
-                            '.' .
-                            $joinStatement['first_table_field'],
-                        $joinStatement['second_table_name'] .
-                            '.' .
-                            $joinStatement['second_table_field']
-                    );
-                }
+        foreach ($filter as $secondTable) {
+            $query->whereIn('id', function ($query) use ($secondTable) {
+                $query
+                    ->select($secondTable['select_field'])
+                    ->from($secondTable['from_table']);
 
-                foreach ($item['where'] as $whereStatement) {
-                    $query->where(
-                        $whereStatement['table_name'] .
-                            '.' .
-                            $whereStatement['field_name'],
-                        '=',
-                        $whereStatement['filter']
-                    );
+                foreach ($secondTable['tables'] as $key => $firstTable) {
+                    if (is_null($firstTable)) {
+                        continue;
+                    }
+
+                    foreach ($firstTable['joins'] as $joinStatement) {
+                        $query->join(
+                            $joinStatement['first_table_name'],
+                            $joinStatement['first_table_name'] .
+                                '.' .
+                                $joinStatement['first_table_field'],
+                            $secondTable['from_table'] .
+                                '.' .
+                                $joinStatement['second_table_field']
+                        );
+                    }
+
+                    foreach ($firstTable['where'] as $whereStatement) {
+                        $query->where(
+                            $whereStatement['table_name'] .
+                                '.' .
+                                $whereStatement['field_name'],
+                            '=',
+                            $whereStatement['filter']
+                        );
+                    }
                 }
             });
         }

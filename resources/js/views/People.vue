@@ -910,36 +910,27 @@ export default {
 
         roleSelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects.role
+                return this.$store.state['people'].data.filter.selects.personInstitution.tables.role ? this.$store.state['people'].data.filter.selects.personInstitution.tables.role.where[0].filter : null
             },
 
             set(filter) {
                 if(filter == null){
                     this.$store.commit(
-                        'people/mutateFilterSelect',{field: 'role', value:null})
+                        'people/mutateFilterSelectPersonInstitutionField',{field: 'role', value: null}
+                        )
                 }else {
                     this.$store.commit(
-                        'people/mutateFilterSelect',
+                        'people/mutateFilterSelectPersonInstitutionField',
                         {
                             field: 'role', value: {
-                                from_table: {
-                                    table_name: 'person_institutions', joins: [
+                                    joins: [
                                         {
                                             first_table_name: 'roles',
-                                            first_join_table_name: 'roles',
                                             first_table_field: 'id',
-                                            second_table_name: 'person_institutions',
                                             second_table_field: 'role_id'
                                         },
-                                        {
-                                            first_table_name: 'people',
-                                            first_join_table_name: 'peopleAlias',
-                                            first_table_field: 'id',
-                                            second_table_name: 'person_institutions',
-                                            second_table_field: 'person_id'
-                                        }
-                                    ]
-                                }, where: [
+                                    ],
+                                where: [
                                     {table_name: 'roles', field_name: 'id', filter: filter},
                                 ]
                             }
@@ -954,36 +945,28 @@ export default {
 
         institutionSelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects.institution
+                return this.$store.state['people'].data.filter.selects.personInstitution.tables.institution ? this.$store.state['people'].data.filter.selects.personInstitution.tables.institution.where[0].filter : null
             },
 
             set(filter) {
                 if(filter == null){
                     this.$store.commit(
-                        'people/mutateFilterSelect',{field: 'institution', value:null})
+                        'people/mutateFilterSelectPersonInstitutionField',{field: 'institution', value:null}
+                        )
                 }else {
                     this.$store.commit(
-                        'people/mutateFilterSelect',
+                        'people/mutateFilterSelectPersonInstitutionField',
                         {
                             field: 'institution', value: {
-                                from_table: {
-                                    table_name: 'person_institutions', joins: [
+                                    joins: [
                                         {
                                             first_table_name: 'institutions',
                                             first_join_table_name: 'institutions',
                                             first_table_field: 'id',
-                                            second_table_name: 'person_institutions',
                                             second_table_field: 'institution_id'
                                         },
-                                        {
-                                            first_table_name: 'people',
-                                            first_join_table_name: 'peopleAlias',
-                                            first_table_field: 'id',
-                                            second_table_name: 'person_institutions',
-                                            second_table_field: 'person_id'
-                                        }
-                                    ]
-                                }, where: [
+                                    ],
+                                where: [
                                     {table_name: 'institutions', field_name: 'id', filter: filter},
                                 ]
                             }
