@@ -129,26 +129,24 @@ export default {
         typeKeyZipcode(payload) {
             clearTimeout(this.timeout)
 
-            const $this = this
-
-            this.timeout = setTimeout(function() {
+            this.timeout = setTimeout(() => {
                 axios
                     .get('/api/v1/zipcode/' + payload)
-                    .then(function(response) {
+                    .then(response => {
                         if (response.data.addresses[0].street_name) {
-                            $this.address.zipcode =
+                            this.address.zipcode =
                                 response.data.addresses[0].zip
-                            $this.address.street =
+                            this.address.street =
                                 response.data.addresses[0].street_name
-                            $this.address.neighbourhood =
+                            this.address.neighbourhood =
                                 response.data.addresses[0].neighborhood
-                            $this.address.city = response.data.addresses[0].city
-                            $this.address.state =
+                            this.address.city = response.data.addresses[0].city
+                            this.address.state =
                                 response.data.addresses[0].state_id
                             document.getElementById('number').focus()
                         }
                     })
-                    .catch(function(error) {
+                    .catch(error => {
                         console.log(error)
                     })
             }, 500)
@@ -192,13 +190,11 @@ export default {
         },
 
         centerMap() {
-            const $this = this
-
-            if ($this.address.latitude && $this.address.longitude) {
-                this.$refs.addressMap.$mapPromise.then((map) => {
+            if (this.address.latitude && this.address.longitude) {
+                this.$refs.addressMap.$mapPromise.then(map => {
                     map.panTo({
-                        lat: parseFloat($this.address.latitude),
-                        lng: parseFloat($this.address.longitude)
+                        lat: parseFloat(this.address.latitude),
+                        lng: parseFloat(this.address.longitude)
                     })
                 })
             }

@@ -68,8 +68,8 @@ Route::group(
                         'sub-events.finalize'
                     );
 
-                    Route::get('/{id}/print', 'SubEvents@print')->name(
-                        'sub-events.print'
+                    Route::get('/{id}/download', 'SubEvents@download')->name(
+                        'sub-events.download'
                     );
 
                     Route::group(
@@ -122,6 +122,11 @@ Route::group(
                                 'invitations.update'
                             );
 
+                            Route::get(
+                                '/{id}/download',
+                                'Invitations@download'
+                            )->name('invitations.download');
+
                             Route::post(
                                 '/{id}/un-invite',
                                 'Invitations@unInvite'
@@ -134,7 +139,9 @@ Route::group(
             Route::group(['prefix' => '/people'], function () {
                 Route::get('/', 'People@all')->name('people.all');
 
-                Route::post('/{id}', 'People@update')->name('people.update');
+                Route::post('/validate-name', 'People@validateName')->name(
+                    'people.validate-name'
+                );
 
                 Route::get('/{id}/photo', 'People@photo')->name('people.photo');
 
@@ -143,6 +150,8 @@ Route::group(
                 );
 
                 Route::post('/', 'People@store')->name('people.store');
+
+                Route::post('/{id}', 'People@update')->name('people.update');
 
                 Route::group(
                     ['prefix' => '{personId}/person-institutions'],

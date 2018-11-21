@@ -25,7 +25,7 @@ export function mutateSetErrors(state, payload) {
 }
 
 export function mutateFormData(state, payload) {
-    _.each(payload, function(value, key) {
+    _.each(payload, (value, key) => {
         state.form.fields[key] = value
     })
 }

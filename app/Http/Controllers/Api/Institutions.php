@@ -39,6 +39,7 @@ class Institutions extends Controller
      */
     public function update(InstitutionUpdate $request, $id)
     {
+        info($request->all());
         return app(InstitutionsRepository::class)->update($id, $request->all());
     }
 }

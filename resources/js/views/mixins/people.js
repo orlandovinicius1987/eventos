@@ -3,6 +3,18 @@ import { mapState, mapActions } from 'vuex'
 export default {
     methods: {
         ...mapActions('people', ['clearForm']),
+
+        makePhotoUrl(photoUrl = null) {
+            if (!photoUrl) {
+                photoUrl = this.people.form.fields.photoUrl
+            }
+
+            if (!photoUrl) {
+                photoUrl = this.people.selected.photoUrl
+            }
+
+            return flush_image_cache(photoUrl)
+        },
     },
 
     computed: {

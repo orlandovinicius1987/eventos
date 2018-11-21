@@ -4,27 +4,16 @@ namespace App\Data\Repositories\Traits;
 
 use App\Services\PDF\Service as PDF;
 
-trait SubEventsPrint
+trait SubEventsDownload
 {
-    public function print($id)
+    public function download($id)
     {
         $subEvent = $this->findById($id);
 
         return app(PDF::class)->download(
             $this->generateHtml($subEvent),
-            $this->makePdfFileName($subEvent)
+            make_pdf_filename($subEvent->event->name . ' ' . $subEvent->name)
         );
-    }
-
-    public function makePdfFileName($subEvent)
-    {
-        return str_slug(
-            $subEvent->event->name .
-                ' ' .
-                $subEvent->name .
-                ' ' .
-                now()->format('Y m d H i')
-        ) . '.pdf';
     }
 
     public function generateHtml($subEvent)

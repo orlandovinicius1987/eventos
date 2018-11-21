@@ -19,7 +19,7 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     invite(context, payload) {
-        post(makeDataUrl(context), payload).then(function() {
+        post(makeDataUrl(context), payload).then(() => {
             context.dispatch('load', payload)
         })
 

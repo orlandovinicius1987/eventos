@@ -46,10 +46,9 @@ class Invitation extends Base
 
     public function save(array $options = [])
     {
-        if (is_null($this->code)) {
-            $this->code = $this->invitationCodeGenerator();
-            $this->uuid = (string) Uuid::uuid4();
-        }
+        $this->code = $this->code ?? $this->invitationCodeGenerator();
+
+        $this->uuid = $this->uuid ?? (string) Uuid::uuid4();
 
         return parent::save($options);
     }

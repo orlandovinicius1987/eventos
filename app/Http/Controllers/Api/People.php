@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Data\Repositories\People as PeopleRepository;
+use App\Http\Requests\NewPersonName;
 use App\Http\Requests\PersonStore;
 use App\Http\Requests\PersonUpdate;
 
@@ -56,5 +57,10 @@ class People extends Controller
     public function phoneBook($id)
     {
         return app(PeopleRepository::class)->phoneBook($id);
+    }
+
+    public function validateName(NewPersonName $request)
+    {
+        return $this->emptyResponse();
     }
 }
