@@ -12,17 +12,18 @@ class Service
         $paperSize = 'A4',
         $extraOptions = []
     ) {
-        return PDF::setOptions(
+        $pdf = PDF::setOptions(
             array_merge(
                 [
                     'defaultFont' => 'Helvetica',
                 ],
                 $extraOptions
             )
-        )
-            ->setPaper($paperSize)
-            ->loadHTML($html)
-            ->download($this->makeFileName($fileName));
+        )->setPaper($paperSize);
+
+        $pdf->getDomPDF()->set_base_path(realpath(public_path('css')));
+
+        return $pdf->loadHTML($html)->download($this->makeFileName($fileName));
     }
 
     private function makeFileName($fileName)

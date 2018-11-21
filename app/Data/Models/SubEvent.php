@@ -25,6 +25,15 @@ class SubEvent extends Base
         'ended_by',
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'date',
+        'confirmed_at',
+        'started_at',
+        'ended_at',
+    ];
+
     protected $with = ['event', 'address', 'costume', 'sector'];
 
     public function address()

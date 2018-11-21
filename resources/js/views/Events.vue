@@ -76,7 +76,7 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora','Confirmado em','Realizado em','']"
+                        :columns="['#', 'Nome', 'Local', 'Setor', 'Data', 'Hora', 'Confirmado em', 'Realizado em', '']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -86,6 +86,10 @@
                             <td class="align-middle">{{ subEvent.id }}</td>
 
                             <td class="align-middle">{{ subEvent.name }}</td>
+
+                            <td class="align-middle">{{ subEvent.place }}</td>
+
+                            <td class="align-middle">{{ subEvent.sector ? subEvent.sector.name : '' }}</td>
 
                             <td class="align-middle">{{ subEvent.date }}</td>
 
