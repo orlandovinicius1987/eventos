@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     "/js/app.js": "/js/app.js?id=92425a4cfafcffee25c3",
 =======
     "/js/app.js": "/js/app.js?id=d8c40be6a3abb98bbb8a",
@@ -12,5 +13,8 @@
 =======
     "/js/app.js": "/js/app.js?id=ecafeccccbc6257d4b95",
 >>>>>>> 74c4148... Institution and Roles filter in People
+=======
+    "/js/app.js": "/js/app.js?id=06cd0f812b1bd0408ef2",
+>>>>>>> 63c7d36... Reset table filters when opening PhoneBook
     "/css/app.css": "/css/app.css?id=9dd46f68473e6e4031dd"
 }

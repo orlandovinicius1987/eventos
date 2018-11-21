@@ -146,6 +146,12 @@ let mutations = merge_objects(
             state.data.filter.selects.personInstitution['select_field'] = 'person_id'
             state.data.filter.selects.personInstitution.tables[payload.field] = payload.value
         },
+
+        mutateResetSelectPersonInstitution(state) {
+            for(const tableName in state.data.filter.selects.personInstitution.tables){
+                state.data.filter.selects.personInstitution.tables[tableName] = null
+            }
+        },
     },
     mutationsMixin,
 )
