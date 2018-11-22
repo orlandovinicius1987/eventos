@@ -303,8 +303,6 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
-        info(['query filter', $this->getQueryFilter()['filter']]);
-
         return [
             "links" => [
                 "pagination" => [
