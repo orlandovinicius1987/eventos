@@ -61,7 +61,7 @@ const mutations = merge_objects(mutationsMixin, {
         dd('receptiveInvitation - mutateSetReceptiveInvitation - payload dd: ',payload)
         state.receptiveInvitation = payload
     },
-})
+})  
 
 let getters = gettersMixin
 
