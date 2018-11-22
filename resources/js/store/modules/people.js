@@ -16,6 +16,21 @@ const state = merge_objects(statesMixin.common, {
         photo: null,
         photoUrl: null,
     }),
+
+    data: {
+        filter: {
+            selects: {
+                personInstitution: {
+                    from_table: 'person_institutions',
+
+                    tables: {
+                        role: null,
+                        institution: null,
+                    },
+                }
+            },
+        },
+    }
 })
 
 let actions = merge_objects(
