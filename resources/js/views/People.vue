@@ -231,13 +231,10 @@
 
                                     <td class="align-middle">
                                         <h6 class="m-0">
-                                            <span v-if="personInstitution.is_active" class="badge badge-primary">
-                                                ativo
-                                            </span>
-
-                                            <span v-if="!personInstitution.is_active" class="badge badge-danger">
-                                                inativo
-                                            </span>
+                                            <app-active-badge
+                                                :value="personInstitution.is_active"
+                                                :labels="['ativo', 'inativo']"
+                                            ></app-active-badge>
                                         </h6>
                                     </td>
 
@@ -297,7 +294,7 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato']"
+                                :columns="['#', 'Tipo', 'Contato', 'Status']"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -316,6 +313,15 @@
                                     <td class="align-middle">{{ contact.contact_type.name }}</td>
 
                                     <td class="align-middle">{{ contact.contact }}</td>
+
+                                    <td class="align-middle">
+                                        <h6 class="m-0">
+                                            <app-active-badge
+                                                :value="contact.is_active"
+                                                :labels="['ativo', 'inativo']"
+                                            ></app-active-badge>
+                                        </h6>
+                                    </td>
 
                                     <td class="align-middle text-right">
                                         <router-link
