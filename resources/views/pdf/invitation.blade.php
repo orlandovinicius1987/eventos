@@ -41,10 +41,12 @@
                 background: #082953;
                 /*border-bottom: #E4E7E8 2px solid;*/
                 color: #8C9D45;
-                padding: 11px 10px 11px 10px;
-                font-size: 80%;
+                padding: 11px 15px 11px 15px;
                 font-family: "Times New Roman";
                 font-weight: bold;
+                height: 38px;
+                font-size: 16px;
+
             }
 
 
@@ -60,6 +62,7 @@
                 background: #004695;
             }
 
+
             .invited-name {
                 color: #082953;
                 background: #8C9D45;
@@ -72,7 +75,7 @@
             .notice {
                 text-align: center;
                 background: #B9C1C2;
-                padding: 12px 10px;
+                padding: 12px 12px;
                 display: block;
                 font-size: 65%;
                 font-weight: 500;
@@ -84,6 +87,10 @@
                 text-transform: uppercase;
                 font-weight: 500;
 
+            }
+
+            .data-height {
+                height: 13px;
             }
 
             .info01 {
@@ -134,11 +141,11 @@
             }
             .qrcode {
                 width: 50%;
-                margin-bottom: 5px;
+                margin-bottom: 7px;
             }
             .qrcode-number {
-                margin-top: 5px;
-                margin-bottom: 5px;
+                margin-bottom: 7px;
+                font-size: 16px;
             }
         </style>
 
@@ -146,7 +153,7 @@
 
     <body>
         <header>
-            <div class="invited-sector" style="background-color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->color : '#000000' }};">
+            <div class="invited-sector" style="background-color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->color : '#004695' }};">
                 Convidado {{ $invitation->subEvent->sector->name ?? '' }}
             </div>
 
@@ -171,17 +178,17 @@
         <div class="info01">
             <div style="float:left; width:32%; padding-bottom: 5px">
                 <div class="label">Data</div>
-                <div class="data">{{ $invitation->subEvent->date->format('d/m/Y') }}</div>
+                <div class="data data-height">{{ $invitation->subEvent->date->format('d/m/Y') }}</div>
             </div>
 
             <div style="float:left; width:32%; margin:0 1%; padding-bottom: 15px">
                 <div class="label">Horário</div>
-                <div class="data">{{ substr($invitation->subEvent->time, 0, 5) }}</div>
+                <div class="data data-height">{{ substr($invitation->subEvent->time, 0, 5) }}</div>
             </div>
 
             <div style="float:left; width:33%; padding-bottom: 15px">
                 <div class="label">Setor</div>
-                <div class="data">{{ $invitation->subEvent->sector->name ?? '' }}</div>
+                <div class="data data-height">{{ $invitation->subEvent->sector->name ?? '' }}</div>
             </div>
         </div>
 
@@ -189,12 +196,12 @@
 
         <div class="info02">
             <div class="label">Local</div>
-            {{ $invitation->subEvent->place ?? '' }}
+            <div class="data-height">  teste {{ $invitation->subEvent->place ?? '' }}</div>
         </div>
 
         <div class="info03">
             <div class="label">Traje</div>
-            <div class="dresscode">{{ $invitation->subEvent->costume->name ?? '' }}</div>
+            <div class="dresscode data-height">teste{{ $invitation->subEvent->costume->name ?? '' }}</div>
         </div>
 
         <div class="notice" >
