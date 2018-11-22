@@ -38,7 +38,7 @@
             </div>
 
             <div class="col-4">
-                <p class="one-line">Last result: <b>{{ result }}</b></p>
+                <p class="one-line">Código: <b>{{ result }}</b></p>
                 <qrcode-drop-zone @decode="onDecode">
                     <qrcode-stream @decode="onDecode" @init="onInit" />
                 </qrcode-drop-zone>
@@ -49,16 +49,29 @@
 
             <div class="col-4">
                 <p class="one-line">Ultimo Check-in Realizado:</p>
+                <div v-if="receptiveInvitations.receptiveInvitation">
                 <div class="col-4">
                     <img
-                            :src="form.fields.photoUrl ? form.fields.photoUrl : selected.photoUrl"
+                            :src="receptiveInvitations.receptiveInvitation.person_institution.person.photoUrl"
                             class="img-thumbnail rounded mx-auto d-block mb-2"
                             width="200"
                             height="200"
                     >
+                    <div class="row">
+                        <b>Nome:</b> {{receptiveInvitations.receptiveInvitation.person_institution.person.name}}
+                    </div>
+                    <div class="row">
+                        <b>Check-in:</b> {{receptiveInvitations.receptiveInvitation.checkin_at}}
+                    </div>
+                    <!--<div class="row">-->
+                        <!--<b>Categoria:</b> {{receptiveInvitations.receptiveInvitation.person_institution.category.name}}-->
+                    <!--</div>-->
+                    <div class="row">
+                        <b>Categoria:</b> {{receptiveInvitations.receptiveInvitation.person_institution.role.name}}
+                    </div>
                 </div>
-                <div v-if="selected.id">
-                    {{invitation.person_institution.person.name}}
+
+
                 </div>
             </div>
         </div>
@@ -120,9 +133,10 @@
                     ).then(function (value) {
                         if (value) {
                             $this.makeCheckin(invitation)
+                            $this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
                         }
                     })
-                    this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
+
                 }
 
             },
