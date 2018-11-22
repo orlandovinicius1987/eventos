@@ -202,12 +202,12 @@
 
             <div class="info02">
                 <div class="label">Local</div>
-                <div class="data-height">  teste {{ $invitation->subEvent->place ?? '' }}</div>
+                <div class="data-height">{{ $invitation->subEvent->place ?? '' }}</div>
             </div>
 
             <div class="info03">
                 <div class="label">Traje</div>
-                <div class="dresscode data-height">teste{{ $invitation->subEvent->costume->name ?? '' }}</div>
+                <div class="dresscode data-height">{{ $invitation->subEvent->costume->name ?? '' }}</div>
             </div>
 
         </div>
