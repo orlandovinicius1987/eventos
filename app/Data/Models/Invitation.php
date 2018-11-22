@@ -76,4 +76,23 @@ class Invitation extends Base
             )
             ->count() > 0;
     }
+
+    public function related()
+    {
+        $related = [];
+
+        foreach ($this->subEvent->event->subEvents as $subEvent) {
+            foreach ($subEvent->invitations as $invitation) {
+                if (
+                    $this->person_institution_id ===
+                        $invitation->person_institution_id &&
+                    $invitation->id !== $this->id
+                ) {
+                    $related[] = $invitation;
+                }
+            }
+        }
+
+        return $related;
+    }
 }

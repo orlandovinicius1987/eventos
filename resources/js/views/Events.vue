@@ -233,7 +233,7 @@
                                 <div
                                     @click="acceptInvitation(invitation)"
                                     class="btn btn-success btn-sm ml-1 pull-right"
-                                    v-if="can('update') && !invitation.confirmed_at"
+                                    v-if="can('update') && !invitation.confirmed_at && !invitation.accepted_at"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
