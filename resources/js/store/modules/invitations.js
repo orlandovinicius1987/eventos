@@ -58,6 +58,12 @@ const actions = merge_objects(actionsMixin, {
             },
         )
     },
+
+    acceptInvitation(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/accept').then(() => {
+            context.dispatch('load', payload)
+        })
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
