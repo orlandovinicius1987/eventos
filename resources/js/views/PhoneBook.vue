@@ -153,7 +153,7 @@
                     root: true,
                 })
             },
-        },
+        }
     }
 </script>
 

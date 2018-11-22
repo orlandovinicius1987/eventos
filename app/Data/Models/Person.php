@@ -17,9 +17,7 @@ class Person extends BaseWithClient
         'photo',
     ];
 
-    protected $table = 'people';
-
-    protected $orderBy = ['people.name' => 'asc'];
+    protected $orderBy = ['name' => 'asc'];
 
     protected $hidden = ['photo'];
 
@@ -30,16 +28,7 @@ class Person extends BaseWithClient
      *
      * @var array
      */
-    protected $filterableColumns = [
-        'people.name',
-        'people.nickname',
-        'people.title',
-    ];
-
-    public function getSelectColumns()
-    {
-        return coollect($this->selectColumns);
-    }
+    protected $filterableColumns = ['name', 'nickname', 'title'];
 
     public function person_institutions()
     {
@@ -66,15 +55,4 @@ class Person extends BaseWithClient
     {
         return $query->whereNull('photo');
     }
-
-    //    /**
-    //     * Select distinct id
-    //     *
-    //     * @param \Illuminate\Database\Eloquent\Builder $query
-    //     * @return \Illuminate\Database\Eloquent\Builder
-    //     */
-    //    public function scopeDistinctId($query)
-    //    {
-    //        return $query->select(\DB::raw("DISTINCT ON (\"people\".\"id\") *"));
-    //    }
 }

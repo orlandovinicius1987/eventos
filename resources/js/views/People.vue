@@ -43,7 +43,6 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
-
                     <app-institution-filter-for-person
                             name="institution_id"
                             label="Instituição"
@@ -59,6 +58,10 @@
                             :form="form"
                             :options="environment.tables.roles"
                     ></app-role-filter-for-person>
+                    <template slot="buttons">
+                        <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
+                        <label for="filterHasNoPhoto">sem foto</label>
+                    </template>
 
                     <app-table
                         :pagination="people.data.links.pagination"
@@ -633,8 +636,6 @@ export default {
     mixins: [crud, people, permissions],
 
     data() {
-        this.$store.dispatch('environment/loadRoles')
-        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service
         }
@@ -905,10 +906,6 @@ export default {
                 )
             },
         },
-
-
-
-
     }
 }
 </script>
