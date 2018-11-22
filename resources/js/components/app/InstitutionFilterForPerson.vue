@@ -18,34 +18,16 @@ export default {
     computed: {
         institutionSelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects.personInstitution.tables.institution ? this.$store.state['people'].data.filter.selects.personInstitution.tables.institution.where[0].filter : null
+                return this.$store.state['people'].data.filter.selects.institution
             },
 
-            set(filter) {
-                if(filter == null){
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',{field: 'institution', value:null}
-                    )
-                }else {
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',
-                        {
-                            field: 'institution', value: {
-                                joins: [
-                                    {
-                                        first_table_name: 'institutions',
-                                        first_join_table_name: 'institutions',
-                                        first_table_field: 'id',
-                                        second_table_field: 'institution_id'
-                                    },
-                                ],
-                                where: [
-                                    {table_name: 'institutions', field_name: 'id', filter: filter},
-                                ]
-                            }
-                        },
-                    )
-                }
+            set(id) {
+                this.$store.commit(
+                    'people/mutateFilterSelect',
+                    {
+                        field: 'institution', value: id
+                    },
+                )
 
                 this.$store.dispatch(
                     'people/load'

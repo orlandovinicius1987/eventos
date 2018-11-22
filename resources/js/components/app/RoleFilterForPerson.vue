@@ -18,33 +18,17 @@ export default {
     computed: {
         roleSelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects.personInstitution.tables.role ? this.$store.state['people'].data.filter.selects.personInstitution.tables.role.where[0].filter : null
+                return this.$store.state['people'].data.filter.selects.role
             },
 
-            set(filter) {
-                if(filter == null){
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',{field: 'role', value: null}
-                    )
-                }else {
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',
-                        {
-                            field: 'role', value: {
-                                joins: [
-                                    {
-                                        first_table_name: 'roles',
-                                        first_table_field: 'id',
-                                        second_table_field: 'role_id'
-                                    },
-                                ],
-                                where: [
-                                    {table_name: 'roles', field_name: 'id', filter: filter},
-                                ]
-                            }
-                        },
-                    )
-                }
+            set(id) {
+                this.$store.commit(
+                    'people/mutateFilterSelect',
+                    {
+                        field: 'role', value: id
+                    },
+                )
+
                 this.$store.dispatch(
                     'people/load'
                 )

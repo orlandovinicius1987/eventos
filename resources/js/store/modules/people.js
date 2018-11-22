@@ -20,14 +20,8 @@ const state = merge_objects(statesMixin.common, {
     data: {
         filter: {
             selects: {
-                personInstitution: {
-                    from_table: 'person_institutions',
-
-                    tables: {
-                        role: null,
-                        institution: null,
-                    },
-                }
+                institution: null,
+                role: null,
             },
         },
     }
@@ -81,10 +75,6 @@ let actions = merge_objects(
                 root: true,
             })
         },
-
-        // selectPersonCategories(context, payload) {
-        //     context.dispatch('categories/select', payload, { root: true })
-        // },
 
         selectContacts(context, payload) {
             context.dispatch('contacts/select', payload, { root: true })
@@ -154,18 +144,6 @@ let mutations = merge_objects(
 
         setAddresses(state, payload) {
             state.addresses = payload
-        },
-
-        mutateFilterSelectPersonInstitutionField(state, payload) {
-            state.data.filter.selects.personInstitution['select_original_field'] = 'people.id'
-            state.data.filter.selects.personInstitution['select_field'] = 'person_id'
-            state.data.filter.selects.personInstitution.tables[payload.field] = payload.value
-        },
-
-        mutateResetSelectPersonInstitution(state) {
-            for(const tableName in state.data.filter.selects.personInstitution.tables){
-                state.data.filter.selects.personInstitution.tables[tableName] = null
-            }
         },
     },
     mutationsMixin,

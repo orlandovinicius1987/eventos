@@ -90,7 +90,19 @@ class People extends Repository
 
     public function all()
     {
-        //        return $this->newQuery()->get();
         return $this->applyFilter($this->newQuery());
+    }
+
+    protected function filterSelects($query, array $filter)
+    {
+        if (isset($filter['institution']) && !is_null($filter['institution'])) {
+            $query->presentInInstitution($filter['institution']);
+        }
+
+        if (isset($filter['role']) && !is_null($filter['role'])) {
+            $query->presentInRole($filter['role']);
+        }
+
+        return $query;
     }
 }

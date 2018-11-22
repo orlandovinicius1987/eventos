@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use function Sodium\crypto_box_publickey_from_secretkey;
+
 class Person extends BaseWithClient
 {
     /**
@@ -67,14 +69,39 @@ class Person extends BaseWithClient
         return $query->whereNull('photo');
     }
 
-    //    /**
-    //     * Select distinct id
-    //     *
-    //     * @param \Illuminate\Database\Eloquent\Builder $query
-    //     * @return \Illuminate\Database\Eloquent\Builder
-    //     */
-    //    public function scopeDistinctId($query)
-    //    {
-    //        return $query->select(\DB::raw("DISTINCT ON (\"people\".\"id\") *"));
-    //    }
+    /**
+     * Select people
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopePresentInInstitution($query, $institution_id)
+    {
+        $query->whereIn('id', function ($query) use ($institution_id) {
+            $query->select('person_id')->from('person_institutions');
+
+            $query->join(
+                'institutions',
+                'institutions.id',
+                'person_institutions.institution_id'
+            );
+
+            $query->where('institutions.id', '=', $institution_id);
+        });
+
+        return $query;
+    }
+
+    public function scopePresentInRole($query, $role_id)
+    {
+        $query->whereIn('id', function ($query) use ($role_id) {
+            $query->select('person_id')->from('person_institutions');
+
+            $query->join('roles', 'roles.id', 'person_institutions.role_id');
+
+            $query->where('roles.id', '=', $role_id);
+        });
+
+        return $query;
+    }
 }
