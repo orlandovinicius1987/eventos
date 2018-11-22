@@ -1,3 +1,5 @@
+import DeepMerger from '../classes/DeepMerger.js'
+
 window.dd = (...args) => {
     if (
         !window.laravel ||
@@ -129,7 +131,9 @@ window.set_null = obj => {
 }
 
 window.merge_objects = (target, ...sources) => {
-    return Object.assign({}, target, ...sources)
+    let deepMerger = new DeepMerger()
+
+    return deepMerger.mergeAll([target, ...sources])
 }
 
 window._ = require('lodash')
