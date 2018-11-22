@@ -156,7 +156,11 @@
 
     <body>
         <header>
-            <div class="invited-sector" style="background-color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->color : '#004695' }};">
+            @php
+                info($invitation->subEvent->sector);
+            @endphp
+
+            <div class="invited-sector" style="background-color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->color : '#000000' }};">
                 Convidado {{ $invitation->subEvent->sector->name ?? '' }}
             </div>
 

@@ -82,6 +82,30 @@ class Invitations extends Repository
         return false;
     }
 
+    public function accept($eventId, $subEventId, $invitationId)
+    {
+        info(['1', $invitationId]);
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            info('2');
+            $invitation->accepted_at = now();
+
+            $invitation->declined_at = null;
+
+            $invitation->save();
+
+            return true;
+        }
+
+        info('3');
+
+        return false;
+    }
+
     public function invite($eventId, $subEventId, $invitees)
     {
         foreach ($invitees as $invitee) {
