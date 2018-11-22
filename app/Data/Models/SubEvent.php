@@ -61,6 +61,11 @@ class SubEvent extends Base
         return $this->hasMany(Invitation::class);
     }
 
+    public function associated()
+    {
+        return $this->belongsTo(SubEvent::class, 'associated_subevent_id');
+    }
+
     /**
      * Scope a query to only include subEvents that will happen in 7 days.
      *

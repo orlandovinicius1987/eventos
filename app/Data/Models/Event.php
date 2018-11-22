@@ -57,4 +57,9 @@ class Event extends BaseWithClient
             });
         });
     }
+
+    public function subEvents()
+    {
+        return $this->hasMany(SubEvent::class);
+    }
 }
