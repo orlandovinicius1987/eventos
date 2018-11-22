@@ -42,11 +42,25 @@ abstract class Repository
         }
     }
 
+    /**
+     * Filter Checkboxes
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
     protected function filterCheckboxes($query, array $filter)
     {
         return $query;
     }
 
+    /**
+     * Filter Selects
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
     protected function filterSelects($query, array $filter)
     {
         return $query;

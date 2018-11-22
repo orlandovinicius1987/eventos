@@ -70,7 +70,7 @@ class Person extends BaseWithClient
     }
 
     /**
-     * Select people
+     * Select all people that has institution
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -92,6 +92,13 @@ class Person extends BaseWithClient
         return $query;
     }
 
+    /**
+     * Select all people that has role
+     *
+     * @param $query
+     * @param $role_id
+     * @return mixed
+     */
     public function scopePresentInRole($query, $role_id)
     {
         $query->whereIn('id', function ($query) use ($role_id) {

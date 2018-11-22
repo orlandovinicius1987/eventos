@@ -93,6 +93,13 @@ class People extends Repository
         return $this->applyFilter($this->newQuery());
     }
 
+    /**
+     * Filter Selects
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
     protected function filterSelects($query, array $filter)
     {
         if (isset($filter['institution']) && !is_null($filter['institution'])) {
