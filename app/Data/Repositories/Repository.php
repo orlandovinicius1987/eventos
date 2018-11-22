@@ -266,9 +266,11 @@ abstract class Repository
 
     protected function getByAnyColumnName($name, $arguments)
     {
-        return $this->makeQueryByAnyColumnName('getBy', $name, $arguments)
-            ->count('id')
-            ->get();
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            $name,
+            $arguments
+        )->get();
     }
 
     protected function getQueryFilter()

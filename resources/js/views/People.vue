@@ -44,23 +44,21 @@
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
 
-                    <app-select
+                    <app-institution-filter-for-person
                             name="institution_id"
                             label="Instituição"
-                            v-model="institutionSelectFilter"
                             :required="true"
                             :form="form"
                             :options="environment.tables.institutions"
-                    ></app-select>
+                    ></app-institution-filter-for-person>
 
-                    <app-select
+                    <app-role-filter-for-person
                             name="role_id"
                             label="Funções"
-                            v-model="roleSelectFilter"
                             :required="true"
                             :form="form"
                             :options="environment.tables.roles"
-                    ></app-select>
+                    ></app-role-filter-for-person>
 
                     <app-table
                         :pagination="people.data.links.pagination"
@@ -908,77 +906,9 @@ export default {
             },
         },
 
-        roleSelectFilter: {
-            get() {
-                return this.$store.state['people'].data.filter.selects.personInstitution.tables.role ? this.$store.state['people'].data.filter.selects.personInstitution.tables.role.where[0].filter : null
-            },
 
-            set(filter) {
-                if(filter == null){
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',{field: 'role', value: null}
-                        )
-                }else {
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',
-                        {
-                            field: 'role', value: {
-                                    joins: [
-                                        {
-                                            first_table_name: 'roles',
-                                            first_table_field: 'id',
-                                            second_table_field: 'role_id'
-                                        },
-                                    ],
-                                where: [
-                                    {table_name: 'roles', field_name: 'id', filter: filter},
-                                ]
-                            }
-                        },
-                    )
-                }
-                this.$store.dispatch(
-                    'people/load'
-                )
-            },
-        },
 
-        institutionSelectFilter: {
-            get() {
-                return this.$store.state['people'].data.filter.selects.personInstitution.tables.institution ? this.$store.state['people'].data.filter.selects.personInstitution.tables.institution.where[0].filter : null
-            },
 
-            set(filter) {
-                if(filter == null){
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',{field: 'institution', value:null}
-                        )
-                }else {
-                    this.$store.commit(
-                        'people/mutateFilterSelectPersonInstitutionField',
-                        {
-                            field: 'institution', value: {
-                                    joins: [
-                                        {
-                                            first_table_name: 'institutions',
-                                            first_join_table_name: 'institutions',
-                                            first_table_field: 'id',
-                                            second_table_field: 'institution_id'
-                                        },
-                                    ],
-                                where: [
-                                    {table_name: 'institutions', field_name: 'id', filter: filter},
-                                ]
-                            }
-                        },
-                    )
-                }
-
-                this.$store.dispatch(
-                    'people/load'
-                )
-            },
-        },
     }
 }
 </script>
