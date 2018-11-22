@@ -2,6 +2,7 @@
     <div>
         <div class="py-2 mb-4 text-center">
             <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}Contato</h2>
+
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
 
@@ -10,7 +11,6 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-
                             <app-contact-field
                                 :contact="form.fields.contact"
                                 :form="form"
@@ -18,6 +18,14 @@
                             >
                             </app-contact-field>
 
+                            <app-input
+                                name="is_active"
+                                label="Ativo"
+                                v-model="form.fields.is_active"
+                                type="checkbox"
+                                :required="true"
+                                :form="form"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -55,17 +63,18 @@ export default {
 
     data() {
         this.$store.dispatch('environment/loadContactTypes')
+
         return {
             service: service,
         }
     },
-    methods: {
 
+    methods: {
         fillAdditionalFormFields() {
-                this.$store.commit('contacts/mutateSetFormField', {
-                    field: 'person_institution_id',
-                    value: this.contacts.personInstitution.id,
-                })
+            this.$store.commit('contacts/mutateSetFormField', {
+                field: 'person_institution_id',
+                value: this.contacts.personInstitution.id,
+            })
         },
     },
 }

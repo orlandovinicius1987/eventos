@@ -11,6 +11,7 @@ class Contact extends Base
         'contact',
         'person_institution_id',
         'client_id',
+        'is_active',
     ];
 
     protected $filterableColumns = ['contact', 'contact_types.name'];
