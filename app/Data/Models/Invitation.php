@@ -95,4 +95,40 @@ class Invitation extends Base
 
         return $related;
     }
+
+    /**
+     * Scope a query to only include some person_institutions invitations
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilterByPersonInstitutions($query, $personInstitutions)
+    {
+        $idsArray = array_pluck($personInstitutions, 'id');
+
+        return $query->whereIn('invitations.person_institution_id', $idsArray);
+    }
+
+    /**
+     * Scope a query to only include invitations from subEvent
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilterBySubEvent($query, $subEventId)
+    {
+        $query->whereIn('invitations.id', function ($query) use ($subEventId) {
+            $query->select('invitations.id')->from('invitations');
+
+            $query->join(
+                'sub_events',
+                'invitations.sub_event_id',
+                'sub_events.id'
+            );
+
+            $query->where('sub_events.id', '=', $subEventId);
+        });
+
+        return $query;
+    }
 }

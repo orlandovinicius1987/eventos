@@ -3,7 +3,6 @@
 namespace App\Data\Repositories;
 
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;

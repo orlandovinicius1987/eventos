@@ -16,13 +16,14 @@
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
-                    <app-sub-event-filter-for-invitations
+                    <app-select
                             name="sub_event_id"
-                            label="Sub Eventos"
+                            label="Buscar convidados do Sub Evento"
+                            v-model="subEventSelectFilter"
                             :required="true"
                             :form="form"
-                            :options="environment.tables.sub_events"
-                    ></app-sub-event-filter-for-invitations>
+                            :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                    ></app-select>
 
                     <template slot="buttons">
                         <a
@@ -30,7 +31,15 @@
                                 class="btn btn-primary btn-sm pull-right"
                                 @click="invite()"
                         >
-                            gravar convidados
+                            {{recordButtonText}}
+                        </a>
+
+                        <a
+                                href="#"
+                                class="btn btn-primary btn-sm pull-right"
+                                @click="moveInvitations()"
+                        >
+                            mover convidados
                         </a>
                     </template>
 
@@ -89,6 +98,7 @@
 
 <script>
 import crud from './mixins/crud'
+import subEvents from './mixins/sub-events'
 import invitables from './mixins/invitables'
 import { mapState } from 'vuex'
 
@@ -101,7 +111,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, invitables],
+    mixins: [crud, invitables, subEvents],
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
@@ -119,12 +129,26 @@ export default {
             subEvents: state => state.subEvents,
         }),
 
+        selectedSubEvent:{
+            get(){
+                return this.$store.state['invitables'].data.filter.selects['sub_event']
+            }
+        },
+
+        recordButtonText:{
+            get() {
+                return this.selectedSubEvent ? 'copiar convidados' : 'convidar'
+            },
+        },
+
         invitablesFilterText: {
             get() {
                 return this.$store.state['invitables'].data.filter.text
             },
 
             set(filter) {
+                this.resetCheckedPeople()
+
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
                     filter,
@@ -139,7 +163,25 @@ export default {
             },
 
             set(perPage) {
+                this.checkedPeople = {}
+
                 return this.$store.dispatch('invitables/setPerPage', perPage)
+            },
+        },
+
+        subEventSelectFilter: {
+            get() {
+                return this.$store.state['invitables'].data.filter.selects['sub_event']
+            },
+
+            set(id) {
+                this.resetCheckedPeople()
+
+                this.$store.dispatch(
+                    'invitables/mutateFilterSelect', {
+                        field: 'sub_event', value: id
+                    }
+                )
             },
         },
     },
@@ -151,6 +193,14 @@ export default {
                 'invitables',
                 this.invitables.data.links.pagination,
             )
+        },
+
+        resetCheckedPeople(){
+            for (let key in this.checkedPeople) {
+                if (this.checkedPeople.hasOwnProperty(key)) {
+                    this.checkedPeople[key].checked = false
+                }
+            }
         },
 
         isChecked(invitation) {
@@ -187,6 +237,32 @@ export default {
 
             this.$router.go(-1)
         },
+
+        moveInvitations() {
+            const invitees = {
+                eventId: this.events.selected.id,
+
+                newSubEventId: this.subEvents.selected.id,
+
+                currentSubEventId: this.selectedSubEvent,
+
+                invitees: _.filter(this.checkedPeople, person => {
+                    return person.checked
+                }),
+            }
+
+            this.$store.dispatch('invitables/moveInvitations', invitees)
+
+            this.$router.go(-1)
+        },
+
+        except(list, id) {
+            let items = clone(list)
+
+            items.rows = except(list.rows, id)
+
+            return items
+        }
     },
 }
 </script>

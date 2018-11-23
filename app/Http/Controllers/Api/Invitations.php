@@ -9,6 +9,7 @@ use App\Http\Requests\UnInvite as UninviteRequest;
 use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Data\Repositories\Invitations as InvitationsRepository;
 use App\Data\Repositories\Invitables as InvitablesRepository;
+use App\Http\Requests\MoveInvitations as MoveInvitationsRequest;
 
 class Invitations extends Controller
 {
@@ -94,6 +95,20 @@ class Invitations extends Controller
             $eventId,
             $subEventId,
             request()->get('invitees')
+        );
+
+        return $this->emptyResponse();
+    }
+
+    public function moveInvitations(
+        MoveInvitationsRequest $request,
+        $eventId,
+        $subEventId
+    ) {
+        app(InvitationsRepository::class)->moveInvitations(
+            $request->get('newSubEventId'),
+            $request->get('currentSubEventId'),
+            $request->get('invitees')
         );
 
         return $this->emptyResponse();

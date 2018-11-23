@@ -111,4 +111,19 @@ class Invitations extends Repository
             ]);
         }
     }
+
+    public function moveInvitations(
+        $newSubEventId,
+        $currentSubEventId,
+        $invitees
+    ) {
+        $invitations = InvitationModel::filterByPersonInstitutions($invitees)
+            ->filterBySubEvent($currentSubEventId)
+            ->get();
+
+        foreach ($invitations as $invitation) {
+            $invitation->sub_event_id = $newSubEventId;
+            $invitation->save();
+        }
+    }
 }
