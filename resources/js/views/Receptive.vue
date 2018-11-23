@@ -49,25 +49,25 @@
 
             <div class="col-4">
                 <p class="one-line">Ultimo Check-in Realizado:</p>
-                <div v-if="receptiveInvitations.receptiveInvitation">
+                <div v-if="receptiveInvitations.selected.id">
                 <div class="col-4">
                     <img
-                            :src="receptiveInvitations.receptiveInvitation.person_institution.person.photoUrl"
+                            :src="receptiveInvitations.selected.person_institution.person.photoUrl"
                             class="img-thumbnail rounded mx-auto d-block mb-2"
                             width="200"
                             height="200"
                     >
                     <div class="row">
-                        <b>Nome:</b> {{receptiveInvitations.receptiveInvitation.person_institution.person.name}}
+                        <b>Nome:</b> {{receptiveInvitations.selected.person_institution.person.name}}
                     </div>
                     <div class="row">
-                        <b>Check-in:</b> {{receptiveInvitations.receptiveInvitation.checkin_at}}
+                        <b>Check-in:</b> {{receptiveInvitations.selected.checkin_at}}
                     </div>
                     <!--<div class="row">-->
                         <!--<b>Categoria:</b> {{receptiveInvitations.receptiveInvitation.person_institution.category.name}}-->
                     <!--</div>-->
                     <div class="row">
-                        <b>Categoria:</b> {{receptiveInvitations.receptiveInvitation.person_institution.role.name}}
+                        <b>Categoria:</b> {{receptiveInvitations.selected.person_institution.role.name}}
                     </div>
                 </div>
 
@@ -104,7 +104,9 @@
             return {
                 service: service,
                 result: '',
-                noStreamApiSupport: false
+                noStreamApiSupport: false,
+                inv: '',
+
             }
 
         },
@@ -151,7 +153,16 @@
             },
 
             makeCheckinWithCode(code){
-                return this.$store.dispatch('receptiveInvitations/makeCheckinWithCode', code)
+                const $this = this
+
+                dd('this.receptiveInvitations.data.rows',this.receptiveInvitations.data.rows)
+                this.receptiveInvitations.data.rows.forEach(function(invitation){
+                        if(invitation.code == code){
+                            $this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
+                            $this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
+                        }
+                })
+
             },
             async onInit (promise) {
                 try {
@@ -177,12 +188,4 @@
 <style>
 </style>
 
-
-select count(*) as aggregate
-from "invitations"
-    inner join "institutions" on "person_institutions"."institution_id" = "institutions"."id"
-    inner join "people" on "person_institutions"."person_id" = "people"."id"
-    inner join "roles" on "person_institutions"."role_id" = "roles"."id"
-where "accepted_at" is not null and "sub_event_id" = 1 and
-("code" = i≤like or "institutions"."name"::text ilike %An% or "people"."name"::text ilike %An% or "roles"."name"::text ilike %An%)
 

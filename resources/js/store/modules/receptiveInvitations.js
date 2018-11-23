@@ -31,9 +31,8 @@ const actions = merge_objects(actionsMixin, {
 
     setInvitation(context, payload) {
         dd('receptiveInvitation - setInvitation - payload dd: ',payload)
-        context.commit('mutateSetReceptiveInvitation', payload)
 
-        context.commit('mutateSetSelected', __emptyModel)
+        context.commit('mutateSetSelected', payload)
 
         context.dispatch('load', payload)
     },
@@ -41,6 +40,7 @@ const actions = merge_objects(actionsMixin, {
     makeCheckin(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/checkin').then(
             function() {
+                dd('makeCheckin - receptiveInvitations - load', payload)
                 context.dispatch('load', payload)
             },
         )
@@ -49,6 +49,7 @@ const actions = merge_objects(actionsMixin, {
     makeCheckinWithCode(context,payload){
         post(makeDataUrl(context) + '/' + payload + '/checkin-with-code').then(
             function() {
+
                 context.dispatch('load', payload)
             },
         )
@@ -61,7 +62,7 @@ const mutations = merge_objects(mutationsMixin, {
         dd('receptiveInvitation - mutateSetReceptiveInvitation - payload dd: ',payload)
         state.receptiveInvitation = payload
     },
-})  
+})
 
 let getters = gettersMixin
 

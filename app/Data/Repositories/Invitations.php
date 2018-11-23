@@ -120,8 +120,6 @@ class Invitations extends Repository
     {
         $this->model = $this->findBySubEventIdAndCode($subEventId, $code);
 
-        info($this->model);
-
         $data = date('m-d-Y');
         $data .= ' ' . date('H:i:s');
 
