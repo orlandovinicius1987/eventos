@@ -6,24 +6,54 @@ use Illuminate\Database\Eloquent\Model;
 
 trait DataProcessing
 {
-    protected $dataProcessingPlugins = [];
+    protected $plugins = ['data' => [], 'transformation' => []];
 
     /**
      * @param callable $plugin
      */
-    public function addDataProcessingPlugin($plugin)
+    public function addDataPlugin($plugin)
     {
-        $this->dataProcessingPlugins[] = $plugin;
+        $this->plugins['data'][] = $plugin;
+
+        return $this;
     }
 
-    public function processData($data)
+    /**
+     * @param callable $plugin
+     */
+    public function addTransformationPlugin($plugin)
     {
-        collect($this->dataProcessingPlugins)->each(function ($plugin) use (
-            &$data
+        $this->plugins['transformation'][] = $plugin;
+
+        return $this;
+    }
+
+    public function processTransformationPlugins($data)
+    {
+        return $this->processPlugins(
+            $data,
+            $this->plugins['transformation'],
+            true
+        );
+    }
+
+    public function processDataPlugins($data)
+    {
+        return $this->processPlugins($data, $this->plugins['data'], false);
+    }
+
+    public function processPlugins($data, $plugins, $convertToArray)
+    {
+        collect($plugins)->each(function ($plugin) use (
+            &$data,
+            $convertToArray
         ) {
-            $data = coollect($data)->map(function ($item) use ($plugin) {
-                if ($item instanceof Model) {
-                    $item = $item->getAttributes();
+            $data = coollect($data)->map(function ($item) use (
+                $plugin,
+                $convertToArray
+            ) {
+                if ($convertToArray && $item instanceof Model) {
+                    $item = $item->toArray();
                 }
 
                 $item = $plugin($item);
@@ -32,6 +62,18 @@ trait DataProcessing
             });
         });
 
+        return $data;
+    }
+
+    public function transform($data)
+    {
+        return $this->processTransformationPlugins(
+            $this->processDataPlugins($data)
+        );
+    }
+
+    public function processDataTransformation($data)
+    {
         return $data;
     }
 }
