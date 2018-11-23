@@ -2,8 +2,6 @@
 
 namespace App\Data\Models;
 
-use function Sodium\crypto_box_publickey_from_secretkey;
-
 class Person extends BaseWithClient
 {
     /**
