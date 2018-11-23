@@ -16,11 +16,19 @@
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
+                    <app-sub-event-filter-for-invitations
+                            name="sub_event_id"
+                            label="Sub Eventos"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.sub_events"
+                    ></app-sub-event-filter-for-invitations>
+
                     <template slot="buttons">
                         <a
-                            href="#"
-                            class="btn btn-primary btn-sm pull-right"
-                            @click="invite()"
+                                href="#"
+                                class="btn btn-primary btn-sm pull-right"
+                                @click="invite()"
                         >
                             gravar convidados
                         </a>
@@ -96,6 +104,7 @@ export default {
     mixins: [crud, invitables],
 
     data() {
+        this.$store.dispatch('environment/loadSubEvents')
         return {
             service: service,
 

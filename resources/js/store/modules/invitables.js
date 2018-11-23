@@ -15,6 +15,14 @@ const state = merge_objects(statesMixin.common, {
     form: new Form({
         name: null,
     }),
+
+    data: {
+        filter: {
+            selects: {
+                sub_event: null,
+            },
+        },
+    }
 })
 
 const actions = merge_objects(actionsMixin, {
