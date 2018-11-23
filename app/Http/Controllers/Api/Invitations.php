@@ -59,6 +59,30 @@ class Invitations extends Controller
         return $this->emptyResponse();
     }
 
+    /**
+     * UnInvite a person
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function accept(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId
+    ) {
+        app(InvitationsRepository::class)->accept(
+            $eventId,
+            $subEventId,
+            $invitationId
+        );
+
+        return $this->emptyResponse();
+    }
+
     public function invitables($eventId, $subEventId)
     {
         return app(InvitablesRepository::class)->getInvitables($subEventId);
