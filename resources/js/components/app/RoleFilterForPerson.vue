@@ -22,15 +22,10 @@ export default {
             },
 
             set(id) {
-                this.$store.commit(
-                    'people/mutateFilterSelect',
-                    {
-                        field: 'role', value: id
-                    },
-                )
-
                 this.$store.dispatch(
-                    'people/load'
+                    'people/mutateFilterSelect', {
+                        field: 'role', value: id
+                    }
                 )
             },
         },

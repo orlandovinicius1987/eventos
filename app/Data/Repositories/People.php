@@ -88,11 +88,6 @@ class People extends Repository
         }
     }
 
-    public function all()
-    {
-        return $this->applyFilter($this->newQuery());
-    }
-
     /**
      * Filter Selects
      *

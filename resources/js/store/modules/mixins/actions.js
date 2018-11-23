@@ -74,3 +74,15 @@ export function select(context, payload) {
 
     context.commit('mutateFormData', payload)
 }
+
+export function mutateFilterCheckbox(context, payload) {
+    context.commit('mutateFilterCheckbox', payload)
+
+    loadDebounced(context)
+}
+
+export function mutateFilterSelect(context, payload) {
+    context.commit('mutateFilterSelect', payload)
+
+    loadDebounced(context)
+}

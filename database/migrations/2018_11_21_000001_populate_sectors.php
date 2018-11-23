@@ -20,6 +20,7 @@ class PopulateSectors extends Migration
                     ['name' => 'Galeria', 'color' => '#739735'],
                     ['name' => 'Tribuna de Honra', 'color' => '#997220'],
                     ['name' => 'Plenário', 'color' => '#224792'],
+                    ['name' => 'Estacionamento', 'color' => '#000000'],
                 ]
                 as $item
             ) {
