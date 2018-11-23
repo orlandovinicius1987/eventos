@@ -71,9 +71,4 @@ trait DataProcessing
             $this->processDataPlugins($data)
         );
     }
-
-    public function processDataTransformation($data)
-    {
-        return $data;
-    }
 }
