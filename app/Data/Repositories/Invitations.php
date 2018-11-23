@@ -17,7 +17,7 @@ class Invitations extends Repository
 
     public function filterBySubEventId($subEventId)
     {
-        $this->addDataProcessingPlugin(function ($invitation) {
+        $this->addDataPlugin(function ($invitation) {
             $invitation['pending'] = [
                 [
                     'type' => $invitation->hasEmail() ? 'success' : 'danger',

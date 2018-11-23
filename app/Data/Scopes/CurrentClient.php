@@ -18,6 +18,9 @@ class CurrentClient implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('client_id', get_current_client_id());
+        $builder->where(
+            $model->getTable() . '.client_id',
+            get_current_client_id()
+        );
     }
 }

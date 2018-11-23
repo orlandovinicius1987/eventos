@@ -102,6 +102,10 @@ Route::group(
                                 'Invitations@download'
                             )->name('invitations.download');
 
+                            Route::get('/{id}/html', 'Invitations@html')->name(
+                                'invitations.html'
+                            );
+
                             Route::post(
                                 '/{id}/un-invite',
                                 'Invitations@unInvite'
