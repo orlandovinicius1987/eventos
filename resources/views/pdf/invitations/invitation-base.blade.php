@@ -50,7 +50,9 @@
                 padding: 11px 15px 11px 15px;
                 font-family: "Times New Roman";
                 font-weight: bold;
-                font-size: 16px;
+                font-size: 14px;
+                text-transform: uppercase;
+                margin-bottom: 0px;
 
             }
 
@@ -71,10 +73,18 @@
             .invited-name {
                 color: #082953;
                 background: #8C9D45;
-                padding: 10px 30px 25px ;
+                padding: 10px 30px 12px ;
                 font-weight: 500;
                 font-size: 90%;
-                /*height: 80px;*/
+                margin: 0px;
+            }
+
+
+            .bg-qrcode-top {
+                background: #8C9D45;
+                height: 40px;
+                margin-top: 0px;
+                margin-top: -2px;
             }
 
             .notice {
@@ -88,7 +98,7 @@
 
             .label{
                 color: #819193;
-                font-size: 80%;
+                font-size: 75%;
                 text-transform: uppercase;
                 font-weight: 500;
 
@@ -96,6 +106,7 @@
 
             .info01 {
                 padding-top: 10px;
+                border-top: 1px solid #8C9D45;
             }
 
             .info01 .data {
@@ -126,15 +137,18 @@
                 width: 50%;
             }
 
-            .qrcode-block {
-                /*position: relative;*/
+/*            .qrcode-block {
+                !*position: relative;*!
                 border-bottom: 1px solid #8C9D45;
                 padding-bottom: 5px;
                 margin-bottom: 0px;
                 padding-bottom: 5px;
             }
+
+            */
+
             .qrcode {
-                margin-top: -15px;
+                margin-top: -35px;
                 width: 50%;
                 margin-bottom: 7px;
             }
