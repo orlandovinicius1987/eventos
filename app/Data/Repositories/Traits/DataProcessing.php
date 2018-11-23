@@ -2,6 +2,8 @@
 
 namespace App\Data\Repositories\Traits;
 
+use Illuminate\Database\Eloquent\Model;
+
 trait DataProcessing
 {
     protected $dataProcessingPlugins = [];
@@ -20,6 +22,10 @@ trait DataProcessing
             &$data
         ) {
             $data = coollect($data)->map(function ($item) use ($plugin) {
+                if ($item instanceof Model) {
+                    $item = $item->getAttributes();
+                }
+
                 $item = $plugin($item);
 
                 return $item;
