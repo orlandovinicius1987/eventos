@@ -52,6 +52,7 @@
                 font-weight: bold;
                 font-size: 14px;
                 text-transform: uppercase;
+                margin-bottom: 0px;
 
             }
 
@@ -72,15 +73,18 @@
             .invited-name {
                 color: #082953;
                 background: #8C9D45;
-                padding: 10px 30px 10px ;
+                padding: 10px 30px 12px ;
                 font-weight: 500;
                 font-size: 90%;
+                margin: 0px;
             }
 
 
             .bg-qrcode-top {
                 background: #8C9D45;
                 height: 40px;
+                margin-top: 0px;
+                margin-top: -2px;
             }
 
             .notice {
