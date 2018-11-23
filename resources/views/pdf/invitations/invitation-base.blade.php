@@ -9,11 +9,14 @@
             @page {margin: 20px}
 
             body {
-                position: relative;
+                /*position: relative;*/
                 margin: 0 ;
                 font-family: Helvetica;
                 font-size: 14px;
                 text-align: center;
+                background: #ffffff;
+                height: 300px;
+                display: block;
             }
 
             p {
@@ -26,7 +29,6 @@
 
             header {
                 background: #082953;
-                border-bottom: #E4E7E8 1px solid;
             }
 
             .invited-sector {
@@ -35,15 +37,19 @@
                 font-size: 115%;
             }
 
+            .invited-sector-place {
+                text-transform: uppercase;
+                font-size: 11px;
+                margin-top: 3px;
+            }
+
 
             .event-name {
                 background: #082953;
-                /*border-bottom: #E4E7E8 2px solid;*/
                 color: #8C9D45;
                 padding: 11px 15px 11px 15px;
                 font-family: "Times New Roman";
                 font-weight: bold;
-                height: 38px;
                 font-size: 16px;
 
             }
@@ -68,7 +74,7 @@
                 padding: 10px 30px 25px ;
                 font-weight: 500;
                 font-size: 90%;
-                height: 80px;
+                /*height: 80px;*/
             }
 
             .notice {
@@ -88,10 +94,6 @@
 
             }
 
-            .data-height {
-                height: 13px;
-            }
-
             .info01 {
                 padding-top: 10px;
             }
@@ -101,19 +103,13 @@
             }
 
             .info02 {
-                border-bottom: 1px solid #819193;
                 border-top: 1px solid #819193;
                 width: 100% ;
                 clear: both;
                 padding: 10px 0;
             }
 
-            .info03 {
-                border-bottom: 1px solid #819193;
-                width: 100% ;
-                clear: both;
-                padding: 10px 0;
-            }
+
 
             footer {
                 background: #ffffff;
