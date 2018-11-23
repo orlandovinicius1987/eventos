@@ -152,7 +152,7 @@
 
     <body>
         @foreach ($invitations as $invitation)
-            @include('pdf.invitations.invitation-detail', ['invitation' => $invitation])
+            @include('pdf.invitations.invitation-detail', ['invitation' => $invitation, 'lastId' => $invitations->pluck('id')->last()])
         @endforeach
     </body>
 </html>
