@@ -112,9 +112,13 @@ Route::group(
                             )->name('invitations.un-invite');
 
                             Route::post(
-                                '/{id}/accept',
-                                'Invitations@accept'
-                            )->name('invitations.accept');
+                                '/{id}/mark-as-accepted',
+                                'Invitations@markAsAccepted'
+                            )->name('invitations.mark-as-accepted');
+
+                            Route::post('/{id}/send', 'Invitations@send')->name(
+                                'invitations.send'
+                            );
                         }
                     );
                 });

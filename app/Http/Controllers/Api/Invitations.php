@@ -68,13 +68,13 @@ class Invitations extends Controller
      * @param $invitationId
      * @return mixed
      */
-    public function accept(
+    public function markAsAccepted(
         UninviteRequest $request,
         $eventId,
         $subEventId,
         $invitationId
     ) {
-        app(InvitationsRepository::class)->accept(
+        app(InvitationsRepository::class)->markAsAccepted(
             $eventId,
             $subEventId,
             $invitationId
@@ -107,5 +107,14 @@ class Invitations extends Controller
     public function html($eventId, $subEventId, $id)
     {
         return app(InvitationsRepository::class)->html($id);
+    }
+
+    public function send($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->send(
+            $eventId,
+            $subEventId,
+            $id
+        );
     }
 }

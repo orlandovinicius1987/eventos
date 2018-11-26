@@ -2,7 +2,6 @@
 
 namespace App\Data\Scopes;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -18,9 +17,11 @@ class CurrentClient implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where(
-            $model->getTable() . '.client_id',
-            get_current_client_id()
-        );
+        if (get_current_client_id()) {
+            $builder->where(
+                $model->getTable() . '.client_id',
+                get_current_client_id()
+            );
+        }
     }
 }
