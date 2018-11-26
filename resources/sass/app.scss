@@ -46,13 +46,6 @@ html {
   cursor: pointer;
 }
 
-
-
-
-
-
-
-
 .v-select {
   .dropdown-toggle {
     &:after{
@@ -63,3 +56,8 @@ html {
     }
   }
 }
+
+@import '~codemirror/lib/codemirror.css';
+@import '~tui-editor/dist/tui-editor.css';
+@import '~tui-editor/dist/tui-editor-contents.css';
+@import '~highlight.js/styles/github.css';
