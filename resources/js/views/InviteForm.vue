@@ -26,21 +26,19 @@
                     ></app-select>
 
                     <template slot="buttons">
-                        <a
-                                href="#"
+                        <div
                                 class="btn btn-primary btn-sm pull-right"
                                 @click="invite()"
                         >
                             {{recordButtonText}}
-                        </a>
+                        </div>
 
-                        <a
-                                href="#"
-                                class="btn btn-primary btn-sm pull-right"
+                        <div
+                                class="btn btn-danger btn-sm pull-right"
                                 @click="moveInvitations()"
                         >
                             mover convidados
-                        </a>
+                        </div>
                     </template>
 
                     <app-table
@@ -163,7 +161,7 @@ export default {
             },
 
             set(perPage) {
-                this.checkedPeople = {}
+                this.resetCheckedPeople()
 
                 return this.$store.dispatch('invitables/setPerPage', perPage)
             },
@@ -171,13 +169,15 @@ export default {
 
         subEventSelectFilter: {
             get() {
-                return this.$store.state['invitables'].data.filter.selects['sub_event']
+                return _.debounce( () => {
+                    this.$store.state['invitables'].data.filter.selects['sub_event']
+                }, 650)
             },
 
             set(id) {
                 this.resetCheckedPeople()
 
-                this.$store.dispatch(
+                return this.$store.dispatch(
                     'invitables/mutateFilterSelect', {
                         field: 'sub_event', value: id
                     }
@@ -235,7 +235,7 @@ export default {
 
             this.$store.dispatch('invitables/invite', invitees)
 
-            this.$router.go(-1)
+            // this.$router.go(0)
         },
 
         moveInvitations() {
@@ -253,7 +253,7 @@ export default {
 
             this.$store.dispatch('invitables/moveInvitations', invitees)
 
-            this.$router.go(-1)
+            // this.$router.go(0)
         },
 
         except(list, id) {
