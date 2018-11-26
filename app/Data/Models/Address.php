@@ -7,6 +7,8 @@ class Address extends BaseWithClient
 
     protected $orderBy = ['street' => 'asc'];
 
+    protected $appends = ['model', 'full_address'];
+
     /**
      * @var array
      */
@@ -28,5 +30,20 @@ class Address extends BaseWithClient
     public function addressable()
     {
         return $this->morphTo();
+    }
+
+    public function getFullAddressAttribute()
+    {
+        return $this->street .
+            ', ' .
+            $this->number .
+            ', ' .
+            $this->complement .
+            ' - ' .
+            $this->neighbourhood .
+            '. ' .
+            $this->city .
+            '/' .
+            $this->state;
     }
 }

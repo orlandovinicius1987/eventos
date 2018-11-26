@@ -18,6 +18,8 @@ class PersonInstitution extends Base
 
     protected $with = ['person', 'institution', 'role'];
 
+    protected $appends = ['model', 'correct_title'];
+
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
@@ -85,6 +87,15 @@ class PersonInstitution extends Base
     public function scopeActive($query)
     {
         $query->where('is_active', '=', true);
+    }
+
+    public function getCorrectTitleAttribute()
+    {
+        return ($this->title
+                ? $this->title
+                : $this->person->title)
+            ? $this->person->title
+            : '';
     }
 
     /**
