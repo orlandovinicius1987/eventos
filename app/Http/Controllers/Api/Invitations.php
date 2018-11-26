@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\AcceptableStore;
+use App\Http\Requests\InstitutionStore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubEventStore;
@@ -68,7 +70,7 @@ class Invitations extends Controller
      * @param $invitationId
      * @return mixed
      */
-    public function accept(
+    public function accept_____(
         UninviteRequest $request,
         $eventId,
         $subEventId,
@@ -104,9 +106,55 @@ class Invitations extends Controller
         return app(InvitationsRepository::class)->download($id);
     }
 
-    public function acceptable($invitationId)
+    public function acceptable($eventId, $subEventId, $uuid)
     {
-        dd($invitationId);
+        $invite = app(InvitationsRepository::class)->findByUuid($uuid);
+        $msg = null;
+        return view('pages.invite-acceptable')
+            ->with('invite', $invite)
+            ->with('eventId', $eventId)
+            ->with('subEventId', $subEventId)
+            ->with('uuid', $uuid)
+            ->with('msg', $msg);
+    }
+
+    public function accept(
+        AcceptableStore $request,
+        $eventId,
+        $subEventId,
+        $uuid
+    ) {
+        $invite = app(InvitationsRepository::class)->findByUuid($uuid);
+        $cpf = only_numbers($request['cpf']);
+        if (
+            !is_null($invite->personInstitution->person->cpf) &&
+            $invite->personInstitution->person->cpf != $cpf
+        ) {
+            $this->showErrorMessage(
+                'Parece que há algo errado com a seu convite, por favor entre em contato com o Cerimonial Alerj.'
+            );
+        } else {
+            if (is_null($invite->personInstitution->person->cpf)) {
+                $invite->personInstitution->person->cpf = $cpf;
+                $invite->personInstitution->person->save();
+            }
+            app(InvitationsRepository::class)->accept(
+                $eventId,
+                $subEventId,
+                $invite->id
+            );
+            $this->showSuccessMessage(
+                'Muito obrigado por confirmar presença no evento, em breve enviaremos a sua credencial para acesso ao evento.'
+            );
+        }
+
+        return //->view('pages.invite-acceptable')
+            redirect()
+                ->back()
+                ->with('invite', $invite)
+                ->with('eventId', $eventId)
+                ->with('subEventId', $subEventId)
+                ->with('uuid', $uuid);
     }
 
     public function html($eventId, $subEventId, $id)
