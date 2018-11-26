@@ -138,17 +138,15 @@ class Invitations extends Repository
             '{traje_nome}' => $invitation->subEvent->costume->name,
             '{traje_descricao}' => $invitation->subEvent->costume->description,
             '{data_evento}' => $invitation->subEvent->date, //data do subevento
-            '{hora_evento}' => $invitation->subEvent->time,
+            '{hora_evento}' => $invitation->subEvent->time, //hora do subevento
             '{convidado_tratamento}' =>
                 $invitation->personInstitution->correct_title,
             '{setor_nome}' => $invitation->subEvent->sector->name,
             '{local}' => $invitation->subEvent->place,
             '{convite_codigo}' => $invitation->code,
-
             '{instituicao_nome}' =>
                 $invitation->personInstitution->institution->name,
             '{cargo}' => $invitation->personInstitution->role->name,
-
             '{endereco_rua}' => $invitation->subEvent->address->street,
             '{endereco_numero}' => $invitation->subEvent->address->number,
             '{endereco_complemento}' =>
@@ -162,7 +160,8 @@ class Invitations extends Repository
             '{longitude}' => $invitation->subEvent->address->longitude,
             '{endereco_completo}' =>
                 $invitation->subEvent->address->full_address,
-            //            '{google_maps_link}' => $invitation,
+            '{google_maps_link}' =>
+                $invitation->subEvent->address->google_maps_url,
             //            '{google_maps_imagem} (url - pensar)' => $invitation,
         ];
 
