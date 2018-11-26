@@ -118,4 +118,9 @@ class Invitations extends Controller
     {
         return app(InvitationsRepository::class)->download($id);
     }
+
+    public function html($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->html($id);
+    }
 }

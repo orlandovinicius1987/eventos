@@ -111,4 +111,17 @@ class SubEvents extends Repository
     {
         return $this->applyFilter($this->newQuery()->AboutToHappen());
     }
+
+    public function transform($data)
+    {
+        $this->addTransformationPlugin(function ($subEvent) {
+            $subEvent['date'] = substr((string) $subEvent['date'], 0, 10);
+
+            $subEvent['time'] = substr($subEvent['time'], 0, 5);
+
+            return $subEvent;
+        });
+
+        return parent::transform($data);
+    }
 }

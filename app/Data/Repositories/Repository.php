@@ -283,11 +283,6 @@ abstract class Repository
         return $query;
     }
 
-    public function transform($data)
-    {
-        return $this->processData($data);
-    }
-
     /**
      * @return mixed
      */

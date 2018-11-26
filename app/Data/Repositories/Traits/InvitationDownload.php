@@ -17,6 +17,13 @@ trait InvitationDownload
         );
     }
 
+    public function html($id)
+    {
+        return $this->generateHtml(
+            $this->getAllInvitationsFor($this->findById($id))
+        );
+    }
+
     public function generateHtml($invitations)
     {
         return view('pdf.invitations.invitation-base')
