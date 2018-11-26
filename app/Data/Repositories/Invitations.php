@@ -111,6 +111,16 @@ class Invitations extends Repository
         );
     }
 
+    public function fillteredAcceptedByEventId($eventId)
+    {
+        return $this->applyFilter(
+            $this->newQuery()
+                ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
+                ->whereNotNull('accepted_at')
+                ->where('event_id', $eventId)
+        );
+    }
+
     public function invite($eventId, $subEventId, $invitees)
     {
         foreach ($invitees as $invitee) {

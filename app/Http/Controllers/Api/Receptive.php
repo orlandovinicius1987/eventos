@@ -14,10 +14,10 @@ class Receptive extends Controller
      *
      * @return array
      */
-    public function invitationAccepted(Request $request, $subEventId)
+    public function invitationAccepted(Request $request, $eventId, $subEventId)
     {
-        return app(InvitationsRepository::class)->fillteredAcceptedBySubEventId(
-            $subEventId
+        return app(InvitationsRepository::class)->fillteredAcceptedByEventId(
+            $eventId
         );
     }
 
