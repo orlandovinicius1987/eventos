@@ -7,6 +7,8 @@ class Address extends BaseWithClient
 
     protected $orderBy = ['street' => 'asc'];
 
+    protected $appends = ['model', 'full_address', 'google_maps_url'];
+
     /**
      * @var array
      */
@@ -28,5 +30,33 @@ class Address extends BaseWithClient
     public function addressable()
     {
         return $this->morphTo();
+    }
+
+    public function getFullAddressAttribute()
+    {
+        return $this->street .
+            ', ' .
+            $this->number .
+            ', ' .
+            $this->complement .
+            ' - ' .
+            $this->neighbourhood .
+            '. ' .
+            $this->city .
+            '/' .
+            $this->state;
+    }
+
+    public function getGoogleMapsUrlAttribute()
+    {
+        if ($this->latitude && $this->longitude) {
+            return 'https://www.google.com/maps/@' .
+                $this->latitude .
+                ',' .
+                $this->longitude .
+                ',17z';
+        } else {
+            return '';
+        }
     }
 }

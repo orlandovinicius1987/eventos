@@ -20,7 +20,7 @@ class Invitation extends Base
         'checkin_at',
     ];
 
-    protected $with = ['personInstitution'];
+    protected $with = ['personInstitution', 'subEvent'];
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
@@ -41,7 +41,7 @@ class Invitation extends Base
 
     public function subEvent()
     {
-        return $this->belongsTo(SubEvent::class);
+        return $this->belongsTo(SubEvent::class, 'sub_event_id');
     }
 
     public function save(array $options = [])
