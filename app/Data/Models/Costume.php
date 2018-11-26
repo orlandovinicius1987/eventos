@@ -6,7 +6,7 @@ class Costume extends Base
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'description'];
 
     protected $orderBy = ['name' => 'asc'];
 

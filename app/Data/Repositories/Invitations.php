@@ -149,4 +149,92 @@ class Invitations extends Repository
 
         return $this;
     }
+
+    public function moveInvitations(
+        $newSubEventId,
+        $currentSubEventId,
+        $invitees
+    ) {
+        $invitations = InvitationModel::filterByPersonInstitutions($invitees)
+            ->filterBySubEvent($currentSubEventId)
+            ->get();
+
+        foreach ($invitations as $invitation) {
+            $invitation->sub_event_id = $newSubEventId;
+            $invitation->save();
+        }
+    }
+
+    public function transformInvitationText($invitation, $text)
+    {
+        $replaces = [
+            '{convidado_nome}' => $invitation->personInstitution->person->name,
+            '{convidado_nome_publico}' =>
+                $invitation->personInstitution->person->nickname,
+            '{evento_nome}' => $invitation->subEvent->event->name,
+            '{subevento_nome}' => $invitation->subEvent->name,
+            '{traje_nome}' => $invitation->subEvent->costume->name,
+            '{traje_descricao}' => $invitation->subEvent->costume->description,
+            '{data_evento}' => $invitation->subEvent->date, //data do subevento
+            '{hora_evento}' => $invitation->subEvent->time, //hora do subevento
+            '{convidado_tratamento}' =>
+                $invitation->personInstitution->correct_title,
+            '{setor_nome}' => $invitation->subEvent->sector->name,
+            '{local}' => $invitation->subEvent->place,
+            '{convite_codigo}' => $invitation->code,
+            '{instituicao_nome}' =>
+                $invitation->personInstitution->institution->name,
+            '{cargo}' => $invitation->personInstitution->role->name,
+            '{endereco_rua}' => $invitation->subEvent->address->street,
+            '{endereco_numero}' => $invitation->subEvent->address->number,
+            '{endereco_complemento}' =>
+                $invitation->subEvent->address->complement,
+            '{endereco_bairro}' =>
+                $invitation->subEvent->address->neighbourhood,
+            '{endereco_cidade}' => $invitation->subEvent->address->city,
+            '{endereco_uf}' => $invitation->subEvent->address->state,
+            '{endereco_cep}' => $invitation->subEvent->address->zipcode,
+            '{latitude}' => $invitation->subEvent->address->latitude,
+            '{longitude}' => $invitation->subEvent->address->longitude,
+            '{endereco_completo}' =>
+                $invitation->subEvent->address->full_address,
+            '{google_maps_link}' =>
+                $invitation->subEvent->address->google_maps_url,
+            //            '{google_maps_imagem} (url - pensar)' => $invitation,
+        ];
+
+        foreach ($replaces as $key => $newWord) {
+            $keys[] = $key;
+            $newWords[] = $newWord;
+        }
+
+        $text = str_replace($keys, $newWords, $text);
+
+        return $text;
+    }
+
+    public function transform($data)
+    {
+        $this->addTransformationPlugin(function ($invitation) {
+            $invitation['invitation_text'] = $this->transformInvitationText(
+                $invitation,
+                $invitation->subEvent->invitation_text
+            );
+
+            $invitation['confirmation_text'] = $this->transformInvitationText(
+                $invitation,
+                $invitation->subEvent->confirmation_text
+            );
+
+            $invitation[
+                'credential_send_text'
+            ] = $this->transformInvitationText(
+                $invitation,
+                $invitation->subEvent->credential_send_text
+            );
+            return $invitation;
+        });
+
+        return parent::transform($data);
+    }
 }

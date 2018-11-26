@@ -18,6 +18,8 @@ class PersonInstitution extends Base
 
     protected $with = ['person', 'institution', 'role'];
 
+    protected $appends = ['model', 'correct_title'];
+
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
@@ -85,5 +87,47 @@ class PersonInstitution extends Base
     public function scopeActive($query)
     {
         $query->where('is_active', '=', true);
+    }
+
+    public function getCorrectTitleAttribute()
+    {
+        return ($this->title
+                ? $this->title
+                : $this->person->title)
+            ? $this->person->title
+            : '';
+    }
+
+    /**
+     * Select all people that has institution
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInvitedToSubEvent($query, $sub_event_id)
+    {
+        $query->whereIn('person_institutions.id', function ($query) use (
+            $sub_event_id
+        ) {
+            $query
+                ->select('person_institutions.id')
+                ->from('person_institutions');
+
+            $query->join(
+                'invitations',
+                'invitations.person_institution_id',
+                'person_institutions.id'
+            );
+
+            $query->join(
+                'sub_events',
+                'sub_events.id',
+                'invitations.sub_event_id'
+            );
+
+            $query->where('sub_events.id', '=', $sub_event_id);
+        });
+
+        return $query;
     }
 }

@@ -45,5 +45,8 @@
         "vuetable-2": "^1.7.5",
         "vuex": "^3.0.1",
         "webpack-livereload-plugin": "^1.2.0"
+    },
+    "dependencies": {
+        "tui-editor": "^1.2.7"
     }
 }

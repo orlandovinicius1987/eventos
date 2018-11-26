@@ -89,6 +89,11 @@ Route::group(
                                 'Invitations@invite'
                             )->name('invitations.invite');
 
+                            Route::post(
+                                '/invitables/move',
+                                'Invitations@moveInvitations'
+                            )->name('invitations.moveInvitations');
+
                             Route::post('/', 'Invitations@store')->name(
                                 'invitations.store'
                             );
@@ -336,4 +341,31 @@ Route::group(
     }
 );
 
-Route::get('/test', 'HomeController@testRoute')->name('test');
+Route::group(
+    [
+        'prefix' => '',
+        'namespace' => 'Api',
+        'middleware' => ['auth', 'app.users'],
+    ],
+    function () {
+        Route::group(
+            [
+                'prefix' =>
+                    '/events/{eventId}/sub-events/{subEventId}/invitations/{id}',
+            ],
+            function () {
+                Route::post('/acceptable', 'Invitations@acceptable')->name(
+                    'invitations.acceptable'
+                );
+
+                Route::get('/accept', 'Invitations@accept')->name(
+                    'invitations.accept'
+                );
+
+                Route::get('/reject', 'Invitations@reject')->name(
+                    'invitations.reject'
+                );
+            }
+        );
+    }
+);
