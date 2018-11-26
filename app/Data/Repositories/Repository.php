@@ -41,7 +41,26 @@ abstract class Repository
         }
     }
 
+    /**
+     * Filter Checkboxes
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
     protected function filterCheckboxes($query, array $filter)
+    {
+        return $query;
+    }
+
+    /**
+     * Filter Selects
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
+    protected function filterSelects($query, array $filter)
     {
         return $query;
     }
@@ -145,6 +164,13 @@ abstract class Repository
             ($checkboxes = array_filter($filter['filter']['checkboxes']))
         ) {
             $this->filterCheckboxes($query, $checkboxes);
+        }
+
+        if (
+            isset($filter['filter']['selects']) &&
+            ($selects = array_filter($filter['filter']['selects']))
+        ) {
+            $this->filterSelects($query, $selects);
         }
 
         return $query;
@@ -257,11 +283,6 @@ abstract class Repository
         return $query;
     }
 
-    public function transform($data)
-    {
-        return $this->processData($data);
-    }
-
     /**
      * @return mixed
      */
@@ -303,8 +324,6 @@ abstract class Repository
      */
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
-        info(['query filter', $this->getQueryFilter()['filter']]);
-
         return [
             "links" => [
                 "pagination" => [

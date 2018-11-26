@@ -76,7 +76,7 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#','Nome','Data','Hora','Confirmado em','Realizado em','']"
+                        :columns="['#', 'Nome', 'Local', 'Setor', 'Data', 'Hora', 'Confirmado em', 'Realizado em', '']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -86,6 +86,10 @@
                             <td class="align-middle">{{ subEvent.id }}</td>
 
                             <td class="align-middle">{{ subEvent.name }}</td>
+
+                            <td class="align-middle">{{ subEvent.place }}</td>
+
+                            <td class="align-middle">{{ subEvent.sector ? subEvent.sector.name : '' }}</td>
 
                             <td class="align-middle">{{ subEvent.date }}</td>
 
@@ -216,7 +220,8 @@
                                 </h6>
 
                                 <h6 v-if="!invitation.sent_at" class="mb-0">
-                                    <span class="badge badge-danger">convite não enviado</span>
+                                    <span v-if="!invitation.accepted_at" class="badge badge-danger">convite não enviado</span>
+                                    <span v-if="invitation.accepted_at" class="badge badge-warning">aceito manualmente</span>
                                 </h6>
                             </td>
 
@@ -226,19 +231,27 @@
 
                             <td class="align-middle text-right">
                                 <div
-                                    @click="confirmUnInvite(invitation)"
-                                    class="btn btn-danger btn-sm ml-1 pull-right"
-                                    v-if="can('update') && !invitation.sent_at"
+                                    @click="acceptInvitation(invitation)"
+                                    class="btn btn-success btn-sm ml-1 pull-right"
+                                    v-if="can('update') && !invitation.confirmed_at && !invitation.accepted_at"
                                 >
-                                    <i class="fa fa-trash"></i>
+                                    <i class="fa fa-check"></i>
                                 </div>
 
                                 <div
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm ml-1 pull-right"
-                                    v-if="can('update') && environment.debug"
+                                    v-if="can('update') && environment.debug && invitation.accepted_at"
                                 >
                                     <i class="fa fa-id-badge"></i>
+                                </div>
+
+                                <div
+                                    @click="unInvite(invitation)"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    v-if="can('update') && !invitation.sent_at"
+                                >
+                                    <i class="fa fa-trash"></i>
                                 </div>
                             </td>
                         </tr>
@@ -294,7 +307,7 @@ export default {
             )
         },
 
-        confirmUnInvite(invitation) {
+        unInvite(invitation) {
             confirm(
                 'Deseja realmente desconvidar ' +
                     invitation.person_institution.person.name +
@@ -302,7 +315,20 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    this.unInvite(invitation)
+                    return this.$store.dispatch('invitations/unInvite', invitation)
+                }
+            })
+        },
+
+        acceptInvitation(invitation) {
+            confirm(
+                'Deseja realmente confirmar a presença de ' +
+                invitation.person_institution.person.name +
+                '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    return this.$store.dispatch('invitations/acceptInvitation', invitation)
                 }
             })
         },
@@ -313,10 +339,6 @@ export default {
             downloadPDF(this.$store.getters['invitations/getDataUrl'] + '/' + invitation.id + '/download').then(() => {
                 invitation.busy = false
             })
-        },
-
-        unInvite(invitation) {
-            return this.$store.dispatch('invitations/unInvite', invitation)
         },
 
         confirmSubEvent(subEvent) {

@@ -17,7 +17,7 @@ class Invitations extends Repository
 
     public function filterBySubEventId($subEventId)
     {
-        $this->addDataProcessingPlugin(function ($invitation) {
+        $this->addDataPlugin(function ($invitation) {
             $invitation['pending'] = [
                 [
                     'type' => $invitation->hasEmail() ? 'success' : 'danger',
@@ -75,6 +75,26 @@ class Invitations extends Repository
             $invitation->subEvent->id == $subEventId
         ) {
             $invitation->delete();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function accept($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->accepted_at = now();
+
+            $invitation->declined_at = null;
+
+            $invitation->save();
 
             return true;
         }

@@ -43,6 +43,22 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
+                    <app-institution-filter-for-person
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                    ></app-institution-filter-for-person>
+
+                    <app-role-filter-for-person
+                            name="role_id"
+                            label="Funções"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                    ></app-role-filter-for-person>
+
                     <template slot="buttons">
                         <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
                         <label for="filterHasNoPhoto">sem foto</label>
@@ -231,13 +247,10 @@
 
                                     <td class="align-middle">
                                         <h6 class="m-0">
-                                            <span v-if="personInstitution.is_active" class="badge badge-primary">
-                                                ativo
-                                            </span>
-
-                                            <span v-if="!personInstitution.is_active" class="badge badge-danger">
-                                                inativo
-                                            </span>
+                                            <app-active-badge
+                                                :value="personInstitution.is_active"
+                                                :labels="['ativo', 'inativo']"
+                                            ></app-active-badge>
                                         </h6>
                                     </td>
 
@@ -297,7 +310,7 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato']"
+                                :columns="['#', 'Tipo', 'Contato', 'Status']"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -316,6 +329,15 @@
                                     <td class="align-middle">{{ contact.contact_type.name }}</td>
 
                                     <td class="align-middle">{{ contact.contact }}</td>
+
+                                    <td class="align-middle">
+                                        <h6 class="m-0">
+                                            <app-active-badge
+                                                :value="contact.is_active"
+                                                :labels="['ativo', 'inativo']"
+                                            ></app-active-badge>
+                                        </h6>
+                                    </td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -881,13 +903,8 @@ export default {
             },
 
             set(filter) {
-                this.$store.commit(
-                    'people/mutateFilterCheckbox',
-                    {field: 'hasNoPhoto', value: filter},
-                )
-
                 this.$store.dispatch(
-                    'people/load'
+                    'people/mutateFilterCheckbox', {field: 'hasNoPhoto', value: filter}
                 )
             },
         },

@@ -59,6 +59,30 @@ class Invitations extends Controller
         return $this->emptyResponse();
     }
 
+    /**
+     * UnInvite a person
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function accept(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId
+    ) {
+        app(InvitationsRepository::class)->accept(
+            $eventId,
+            $subEventId,
+            $invitationId
+        );
+
+        return $this->emptyResponse();
+    }
+
     public function invitables($eventId, $subEventId)
     {
         return app(InvitablesRepository::class)->getInvitables($subEventId);
@@ -80,8 +104,13 @@ class Invitations extends Controller
         return app(InvitationsRepository::class)->download($id);
     }
 
-    public function acceptable($invite)
+    public function acceptable($invitationId)
     {
-        dd($invite);
+        dd($invitationId);
+    }
+
+    public function html($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->html($id);
     }
 }
