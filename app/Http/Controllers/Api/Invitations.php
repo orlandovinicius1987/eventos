@@ -79,4 +79,9 @@ class Invitations extends Controller
     {
         return app(InvitationsRepository::class)->download($id);
     }
+
+    public function acceptable($invite)
+    {
+        dd($invite);
+    }
 }

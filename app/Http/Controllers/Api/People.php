@@ -59,6 +59,10 @@ class People extends Controller
         return app(PeopleRepository::class)->phoneBook($id);
     }
 
+    /**
+     * @param NewPersonName $request
+     * @return array
+     */
     public function validateName(NewPersonName $request)
     {
         return $this->emptyResponse();

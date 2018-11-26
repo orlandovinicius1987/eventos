@@ -106,6 +106,20 @@ Route::group(
                                 '/{id}/un-invite',
                                 'Invitations@unInvite'
                             )->name('invitations.un-invite');
+
+                            Route::get(
+                                '/{invite}/acceptable',
+                                'Invitations@acceptable'
+                            )->name('invitations.acceptable');
+
+                            Route::post('/accept', 'Invitations@accept')->name(
+                                'invitations.accept'
+                            );
+
+                            Route::get(
+                                '/{invite}/decline',
+                                'Invitations@decline'
+                            )->name('invitations.decline');
                         }
                     );
                 });
