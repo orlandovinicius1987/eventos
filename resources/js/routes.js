@@ -23,6 +23,7 @@ import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
 import PhoneBook from './views/PhoneBook'
+import InviteAcceptableForm from './views/InviteAcceptableForm'
 
 Vue.use(VueRouter)
 

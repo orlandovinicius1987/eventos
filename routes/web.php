@@ -117,9 +117,9 @@ Route::group(
                             )->name('invitations.un-invite');
 
                             Route::post(
-                                '/{id}/accept',
-                                'Invitations@accept'
-                            )->name('invitations.accept');
+                                '/{id}/accept__',
+                                'Invitations@accept__'
+                            )->name('invitations.accept__');
                         }
                     );
                 });
@@ -334,6 +334,27 @@ Route::group(
                 );
             });
         });
+
+        // http://eventos.com/api/v1/events/1/sub-events/1/invitations/ABGQ4589/acceptable
+        Route::group(
+            [
+                'prefix' =>
+                    '/events/{eventId}/sub-events/{subEventId}/invitations/{uuid}',
+            ],
+            function () {
+                Route::get('/acceptable', 'Invitations@acceptable')->name(
+                    'invitations.acceptable'
+                );
+
+                Route::post('/accept', 'Invitations@accept')->name(
+                    'invitations.accept'
+                );
+
+                Route::get('/decline', 'Invitations@decline')->name(
+                    'invitations.decline'
+                );
+            }
+        );
     }
 );
 
