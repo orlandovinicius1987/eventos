@@ -12,6 +12,15 @@ const state = merge_objects(statesMixin.common, {
         name: null,
         code: null,
     }),
+
+    data: {
+        filter: {
+            selects: {
+                name: null,
+                code: null,
+            },
+        },
+    }
 })
 
 const service = {

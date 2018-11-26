@@ -16,6 +16,7 @@ class Receptive extends Controller
      */
     public function invitationAccepted(Request $request, $eventId, $subEventId)
     {
+        //dd('01' . $request);
         return app(InvitationsRepository::class)->fillteredAcceptedByEventId(
             $eventId
         );

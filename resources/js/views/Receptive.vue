@@ -16,7 +16,7 @@
                     <app-table
                             :pagination="receptiveInvitations.data.links.pagination"
                             @goto-page="gotoPage($event)"
-                            :columns="['#', 'Convidado', 'Código', 'Check-in']"
+                            :columns="['#', 'Convidado', 'Sub-Evento','Código', 'Check-in']"
 
                     >
                         <tr
@@ -25,6 +25,7 @@
                         >
                             <td>{{invitation.id}}</td>
                             <td>{{invitation.person_institution.person.name}}</td>
+                            <td>{{invitation.sub_event.name}}</td>
                             <td>{{invitation.code}}</td>
                             <td>
                                 <h6 class="mb-0">
@@ -67,7 +68,7 @@
                         <!--<b>Categoria:</b> {{receptiveInvitations.receptiveInvitation.person_institution.category.name}}-->
                     <!--</div>-->
                     <div class="row">
-                        <b>Categoria:</b> {{receptiveInvitations.selected.person_institution.role.name}}
+                        <b>Função:</b> {{receptiveInvitations.selected.person_institution.role.name}}
                     </div>
                 </div>
 
@@ -145,6 +146,7 @@
 
             makeCheckin(invitation) {
                 return this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
+                this.$store.dispatch('receptiveInvitations/load')
             },
 
             onDecode (result) {
@@ -174,9 +176,6 @@
                 }
             },
 
-            findInvitationByCode(code){
-                dd(this.$store.state['receptiveInvitations'].data.filter.text = code)
-            },
         },
 
         mounted(){

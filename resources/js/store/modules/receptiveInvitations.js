@@ -25,6 +25,15 @@ const state = merge_objects(statesMixin.common, {
         checkin_at: null,
         code: null,
     }),
+
+    data: {
+        filter: {
+            selects: {
+                name: null,
+                code: null,
+            },
+        },
+    }
 })
 
 const actions = merge_objects(actionsMixin, {

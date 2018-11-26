@@ -47,6 +47,7 @@ export function mutateSetQueryFilterText(context, payload) {
     loadDebounced(context)
 
     dd('data.filter.text',data.filter.text)
+    dd('context.state.data',context.state.data)
 }
 
 export function setCurrentPage(context, payload) {

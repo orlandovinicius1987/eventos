@@ -20,7 +20,7 @@ class Invitation extends Base
         'checkin_at',
     ];
 
-    protected $with = ['personInstitution'];
+    protected $with = ['personInstitution', 'subEvent'];
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
