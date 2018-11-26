@@ -9,11 +9,14 @@
             @page {margin: 20px}
 
             body {
-                position: relative;
+                /*position: relative;*/
                 margin: 0 ;
                 font-family: Helvetica;
                 font-size: 14px;
                 text-align: center;
+                background: #ffffff;
+                height: 300px;
+                display: block;
             }
 
             p {
@@ -26,7 +29,6 @@
 
             header {
                 background: #082953;
-                border-bottom: #E4E7E8 1px solid;
             }
 
             .invited-sector {
@@ -35,16 +37,22 @@
                 font-size: 115%;
             }
 
+            .invited-sector-place {
+                text-transform: uppercase;
+                font-size: 11px;
+                margin-top: 3px;
+            }
+
 
             .event-name {
                 background: #082953;
-                /*border-bottom: #E4E7E8 2px solid;*/
                 color: #8C9D45;
                 padding: 11px 15px 11px 15px;
                 font-family: "Times New Roman";
                 font-weight: bold;
-                height: 38px;
-                font-size: 16px;
+                font-size: 14px;
+                text-transform: uppercase;
+                margin-bottom: 0px;
 
             }
 
@@ -65,10 +73,18 @@
             .invited-name {
                 color: #082953;
                 background: #8C9D45;
-                padding: 10px 30px 25px ;
+                padding: 10px 30px 12px ;
                 font-weight: 500;
                 font-size: 90%;
-                height: 80px;
+                margin: 0px;
+            }
+
+
+            .bg-qrcode-top {
+                background: #8C9D45;
+                height: 40px;
+                margin-top: 0px;
+                margin-top: -2px;
             }
 
             .notice {
@@ -82,18 +98,15 @@
 
             .label{
                 color: #819193;
-                font-size: 80%;
+                font-size: 75%;
                 text-transform: uppercase;
                 font-weight: 500;
 
             }
 
-            .data-height {
-                height: 13px;
-            }
-
             .info01 {
                 padding-top: 10px;
+                border-top: 1px solid #8C9D45;
             }
 
             .info01 .data {
@@ -101,19 +114,13 @@
             }
 
             .info02 {
-                border-bottom: 1px solid #819193;
                 border-top: 1px solid #819193;
                 width: 100% ;
                 clear: both;
                 padding: 10px 0;
             }
 
-            .info03 {
-                border-bottom: 1px solid #819193;
-                width: 100% ;
-                clear: both;
-                padding: 10px 0;
-            }
+
 
             footer {
                 background: #ffffff;
@@ -130,15 +137,18 @@
                 width: 50%;
             }
 
-            .qrcode-block {
-                /*position: relative;*/
+/*            .qrcode-block {
+                !*position: relative;*!
                 border-bottom: 1px solid #8C9D45;
                 padding-bottom: 5px;
                 margin-bottom: 0px;
                 padding-bottom: 5px;
             }
+
+            */
+
             .qrcode {
-                margin-top: -15px;
+                margin-top: -35px;
                 width: 50%;
                 margin-bottom: 7px;
             }
@@ -156,7 +166,7 @@
 
     <body>
         @foreach ($invitations as $invitation)
-            @include('pdf.invitations.invitation-detail', ['invitation' => $invitation])
+            @include('pdf.invitations.invitation-detail', ['invitation' => $invitation, 'lastId' => $invitations->pluck('id')->last()])
         @endforeach
     </body>
 </html>

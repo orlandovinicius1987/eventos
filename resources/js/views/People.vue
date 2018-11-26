@@ -43,6 +43,22 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
+                    <app-institution-filter-for-person
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                    ></app-institution-filter-for-person>
+
+                    <app-role-filter-for-person
+                            name="role_id"
+                            label="Funções"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                    ></app-role-filter-for-person>
+
                     <template slot="buttons">
                         <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
                         <label for="filterHasNoPhoto">sem foto</label>
@@ -887,13 +903,8 @@ export default {
             },
 
             set(filter) {
-                this.$store.commit(
-                    'people/mutateFilterCheckbox',
-                    {field: 'hasNoPhoto', value: filter},
-                )
-
                 this.$store.dispatch(
-                    'people/load'
+                    'people/mutateFilterCheckbox', {field: 'hasNoPhoto', value: filter}
                 )
             },
         },

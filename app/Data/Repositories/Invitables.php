@@ -36,4 +36,20 @@ class Invitables extends Repository
                 )
         );
     }
+
+    /**
+     * Filter Selects
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
+    protected function filterSelects($query, array $filter)
+    {
+        if (isset($filter['sub_event']) && !is_null($filter['sub_event'])) {
+            $query->invitedToSubEvent($filter['sub_event']);
+        }
+
+        return $query;
+    }
 }

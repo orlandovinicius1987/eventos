@@ -17,7 +17,7 @@ class Invitations extends Repository
 
     public function filterBySubEventId($subEventId)
     {
-        $this->addDataProcessingPlugin(function ($invitation) {
+        $this->addDataPlugin(function ($invitation) {
             $invitation['pending'] = [
                 [
                     'type' => $invitation->hasEmail() ? 'success' : 'danger',
@@ -128,6 +128,21 @@ class Invitations extends Repository
                 'sub_event_id' => $subEventId,
                 'person_institution_id' => $invitee['id'],
             ]);
+        }
+    }
+
+    public function moveInvitations(
+        $newSubEventId,
+        $currentSubEventId,
+        $invitees
+    ) {
+        $invitations = InvitationModel::filterByPersonInstitutions($invitees)
+            ->filterBySubEvent($currentSubEventId)
+            ->get();
+
+        foreach ($invitations as $invitation) {
+            $invitation->sub_event_id = $newSubEventId;
+            $invitation->save();
         }
     }
 

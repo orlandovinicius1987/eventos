@@ -21,9 +21,9 @@ class PersonInstitution extends Base
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
-        'advisor.name',
-        'advisor.nickname',
-        'advisor.title',
+        'advisors.name',
+        'advisors.nickname',
+        'advisors.title',
     ];
 
     protected $selectColumns = [
@@ -40,8 +40,8 @@ class PersonInstitution extends Base
     ];
 
     protected $joins = [
-        'people as advisor' => [
-            'advisor.id',
+        'people as advisors' => [
+            'advisors.id',
             '=',
             'person_institutions.person_id',
         ],
@@ -85,5 +85,38 @@ class PersonInstitution extends Base
     public function scopeActive($query)
     {
         $query->where('is_active', '=', true);
+    }
+
+    /**
+     * Select all people that has institution
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInvitedToSubEvent($query, $sub_event_id)
+    {
+        $query->whereIn('person_institutions.id', function ($query) use (
+            $sub_event_id
+        ) {
+            $query
+                ->select('person_institutions.id')
+                ->from('person_institutions');
+
+            $query->join(
+                'invitations',
+                'invitations.person_institution_id',
+                'person_institutions.id'
+            );
+
+            $query->join(
+                'sub_events',
+                'sub_events.id',
+                'invitations.sub_event_id'
+            );
+
+            $query->where('sub_events.id', '=', $sub_event_id);
+        });
+
+        return $query;
     }
 }

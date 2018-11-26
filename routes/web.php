@@ -114,6 +114,11 @@ Route::group(
                                 'Invitations@invite'
                             )->name('invitations.invite');
 
+                            Route::post(
+                                '/invitables/move',
+                                'Invitations@moveInvitations'
+                            )->name('invitations.moveInvitations');
+
                             Route::post('/', 'Invitations@store')->name(
                                 'invitations.store'
                             );
@@ -126,6 +131,10 @@ Route::group(
                                 '/{id}/download',
                                 'Invitations@download'
                             )->name('invitations.download');
+
+                            Route::get('/{id}/html', 'Invitations@html')->name(
+                                'invitations.html'
+                            );
 
                             Route::post(
                                 '/{id}/un-invite',

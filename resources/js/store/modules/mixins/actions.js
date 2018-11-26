@@ -13,7 +13,7 @@ export function load(context) {
 }
 
 export function setDataAfterLoad(context, payload) {
-    payload.filter.text = context.state.data.filter.text
+    //payload.filter.text = context.state.data.filter.text
 
     context.commit('mutateSetData', payload)
 }
@@ -75,4 +75,16 @@ export function select(context, payload) {
     context.commit('mutateSetSelected', payload)
 
     context.commit('mutateFormData', payload)
+}
+
+export function mutateFilterCheckbox(context, payload) {
+    context.commit('mutateFilterCheckbox', payload)
+
+    loadDebounced(context)
+}
+
+export function mutateFilterSelect(context, payload) {
+    context.commit('mutateFilterSelect', payload)
+
+    loadDebounced(context)
 }
