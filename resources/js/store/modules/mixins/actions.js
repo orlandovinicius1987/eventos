@@ -13,7 +13,7 @@ export function load(context) {
 }
 
 export function setDataAfterLoad(context, payload) {
-    payload.filter.text = context.state.data.filter.text
+    //payload.filter.text = context.state.data.filter.text
 
     context.commit('mutateSetData', payload)
 }

@@ -89,6 +89,11 @@ Route::group(
                                 'Invitations@invite'
                             )->name('invitations.invite');
 
+                            Route::post(
+                                '/invitables/move',
+                                'Invitations@moveInvitations'
+                            )->name('invitations.moveInvitations');
+
                             Route::post('/', 'Invitations@store')->name(
                                 'invitations.store'
                             );

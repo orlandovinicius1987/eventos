@@ -86,4 +86,37 @@ class PersonInstitution extends Base
     {
         $query->where('is_active', '=', true);
     }
+
+    /**
+     * Select all people that has institution
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInvitedToSubEvent($query, $sub_event_id)
+    {
+        $query->whereIn('person_institutions.id', function ($query) use (
+            $sub_event_id
+        ) {
+            $query
+                ->select('person_institutions.id')
+                ->from('person_institutions');
+
+            $query->join(
+                'invitations',
+                'invitations.person_institution_id',
+                'person_institutions.id'
+            );
+
+            $query->join(
+                'sub_events',
+                'sub_events.id',
+                'invitations.sub_event_id'
+            );
+
+            $query->where('sub_events.id', '=', $sub_event_id);
+        });
+
+        return $query;
+    }
 }

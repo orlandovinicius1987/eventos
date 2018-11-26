@@ -15,11 +15,27 @@ const state = merge_objects(statesMixin.common, {
     form: new Form({
         name: null,
     }),
+
+    data: {
+        filter: {
+            selects: {
+                sub_event: null,
+            },
+        },
+    }
 })
 
 const actions = merge_objects(actionsMixin, {
     invite(context, payload) {
         post(makeDataUrl(context), payload).then(() => {
+            context.dispatch('load', payload)
+        })
+
+        context.dispatch('load')
+    },
+
+    moveInvitations(context, payload) {
+        post(makeDataUrl(context)+'/move', payload).then(() => {
             context.dispatch('load', payload)
         })
 
