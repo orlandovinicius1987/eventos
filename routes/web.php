@@ -372,5 +372,10 @@ Route::group(
                 )->name('invitations.mark-as-rejected');
             }
         );
+
+        Route::get(
+            '/invitations/{uuid}/received/alerj.png',
+            'Invitations@markAsReceiveAndDownloadImage'
+        )->name('invitations.received');
     }
 );
