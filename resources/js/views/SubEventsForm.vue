@@ -74,6 +74,10 @@
                                     :options="environment.tables.sectors"
                             ></app-select>
 
+                            <!--<app-markdown-text-area id="invitation_text" :value="subEvents.form.fields.invitation_text" change-function=""></app-markdown-text-area>-->
+                            <!--<app-markdown-text-area id="confirmation_text" :value="subEvents.form.fields.confirmation_text"></app-markdown-text-area>-->
+                            <!--<app-markdown-text-area id="credential_send_text" :value="subEvents.form.fields.credential_send_text"></app-markdown-text-area>-->
+
                             <app-text-area
                                 name="invitation_text"
                                 label="Texto de convite"
