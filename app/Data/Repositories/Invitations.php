@@ -82,7 +82,7 @@ class Invitations extends Repository
         return false;
     }
 
-    public function accept($eventId, $subEventId, $invitationId)
+    public function accept_____($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
@@ -198,5 +198,22 @@ class Invitations extends Repository
         });
 
         return parent::transform($data);
+    }
+
+    public function accept($eventId, $subEventId, $invitationId, $cpf_confirmed)
+    {
+        $invite = $this->findById($invitationId);
+        $cpf = $invite->personInstitution->person->cpf;
+
+        if (!is_null($cpf) && $cpf != $cpf_confirmed) {
+            return 'pages.invite-acceptable-not-ok';
+        } else {
+            if (is_null($cpf)) {
+                $invite->personInstitution->person->cpf = $cpf_confirmed;
+                $invite->personInstitution->person->save();
+            }
+            $this->accept_____($eventId, $subEventId, $invite->id);
+        }
+        return 'pages.invitate-acceptable-ok';
     }
 }

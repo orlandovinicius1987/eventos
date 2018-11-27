@@ -335,11 +335,11 @@ Route::group(
             });
         });
 
-        // http://eventos.com/api/v1/events/1/sub-events/1/invitations/ABGQ4589/acceptable
+        // http://eventos.com/api/v1/events/1/sub-events/1/invitations/1/acceptable
         Route::group(
             [
                 'prefix' =>
-                    '/events/{eventId}/sub-events/{subEventId}/invitations/{uuid}',
+                    '/events/{eventId}/sub-events/{subEventId}/invitations/{id}',
             ],
             function () {
                 Route::get('/acceptable', 'Invitations@acceptable')->name(

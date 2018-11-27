@@ -15,23 +15,12 @@
             </div>
         @endif
 
-        @if ($alerts = session('alerts'))
-            @foreach($alerts as $alert)
-                <div class="alert alert-{{ $alert['type'] }}">
-                    {{ $alert['message'] }}
-                </div>
-            @endforeach
-        @endif
-
-
         <div class="row justify-content-center">
-            <form method="POST" action="{{ route('invitations.accept', [$eventId, $subEventId, $uuid]) }}" >
+            <form method="POST" action="{{ route('invitations.accept', [$eventId, $subEventId, $invitationId]) }}" >
                 <input type="hidden" name="eventId" value="{{$eventId}}"/>
                 <input type="hidden" name="subEventId" value="{{$subEventId}}"/>
-                <input type="hidden" name="uuid" value="{{$uuid}}"/>
+                <input type="hidden" name="invitationId" value="{{$invitationId}}"/>
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
-
-                <h2>{{$msg}}</h2>
 
                 <div>
                     @if (is_null(session('alerts')))
