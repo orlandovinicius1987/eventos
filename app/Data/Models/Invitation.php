@@ -41,6 +41,8 @@ class Invitation extends Base
         ],
     ];
 
+    protected $viewVariables;
+
     protected function canSendInvitation()
     {
         return is_null($this->sent_at);
@@ -54,6 +56,11 @@ class Invitation extends Base
     public function subEvent()
     {
         return $this->belongsTo(SubEvent::class, 'sub_event_id');
+    }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d/m/Y');
     }
 
     public function save(array $options = [])
@@ -174,5 +181,99 @@ class Invitation extends Base
         });
 
         return $query;
+    }
+
+    public function getViewVariables()
+    {
+        if ($this->viewVariables) {
+            return $this->viewVariables;
+        }
+
+        $variables = [
+            'empresa' => '',
+            'convidado_nome' => $this->personInstitution->person->name,
+            'convidado_nome_publico' =>
+                $this->personInstitution->person->nickname,
+            'evento_nome' => $this->subEvent->event->name,
+            'subevento_nome' => $this->subEvent->name,
+            'traje_nome' => $this->subEvent->costume
+                ? $this->subEvent->costume->name
+                : '',
+            'traje_descricao' => $this->subEvent->costume
+                ? $this->subEvent->costume->description
+                : '',
+            'data_evento' => $this->subEvent->formatted_date, //data do subevento
+            'hora_evento' => $this->subEvent->formatted_time, //hora do subevento
+            'convidado_tratamento' => $this->personInstitution->correct_title,
+            'setor_nome' => $this->subEvent->sector
+                ? $this->subEvent->sector->name
+                : '',
+            'local' => $this->subEvent->place,
+            'convite_codigo' => $this->code,
+            'instituicao_nome' => $this->personInstitution->institution->name,
+            'cargo' => $this->personInstitution->role->name,
+            'endereco_rua' => $this->subEvent->address
+                ? $this->subEvent->address->street
+                : '',
+            'endereco_numero' => $this->subEvent->address
+                ? $this->subEvent->address->number
+                : '',
+            'endereco_complemento' => $this->subEvent->address
+                ? $this->subEvent->address->complement
+                : '',
+            'endereco_bairro' => $this->subEvent->address
+                ? $this->subEvent->address->neighbourhood
+                : '',
+            'endereco_cidade' => $this->subEvent->address
+                ? $this->subEvent->address->city
+                : '',
+            'endereco_uf' => $this->subEvent->address
+                ? $this->subEvent->address->state
+                : '',
+            'endereco_cep' => $this->subEvent->address
+                ? $this->subEvent->address->zipcode
+                : '',
+            'latitude' => $this->subEvent->address
+                ? $this->subEvent->address->latitude
+                : '',
+            'longitude' => $this->subEvent->address
+                ? $this->subEvent->address->longitude
+                : '',
+            'endereco_completo' => $this->subEvent->address
+                ? $this->subEvent->address->full_address
+                : '',
+            'google_maps_link' => $this->subEvent->address
+                ? $this->subEvent->address->google_maps_url
+                : '',
+            //            '{google_maps_imagem} (url - pensar)' => $invitation,
+        ];
+
+        $variables['invitation_text'] = $this->replaceVariables(
+            $this->subEvent->invitation_text,
+            $variables
+        );
+
+        $variables['confirmation_text'] = $this->replaceVariables(
+            $this->subEvent->confirmation_text,
+            $variables
+        );
+
+        $variables['credential_send_text'] = $this->replaceVariables(
+            $this->subEvent->credential_send_text,
+            $variables
+        );
+
+        return $this->viewVariables = $variables;
+    }
+
+    public function replaceVariables($text, $variables)
+    {
+        $values = array_values($variables);
+
+        $keys = array_map(function ($key) {
+            return '{' . $key . '}';
+        }, array_keys($variables));
+
+        return str_replace($keys, $values, $text);
     }
 }

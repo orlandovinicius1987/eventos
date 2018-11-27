@@ -48,7 +48,7 @@ trait DataProcessing
             &$data,
             $convertToArray
         ) {
-            $data = coollect($data)->map(function ($item) use (
+            $data = collect($data)->map(function ($item) use (
                 $plugin,
                 $convertToArray
             ) {
