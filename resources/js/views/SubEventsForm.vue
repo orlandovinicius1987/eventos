@@ -78,37 +78,6 @@
                             <app-markdown-text-area :form="form" label="Texto de confirmação" id="confirmation_text" :value="subEvents.form.fields.confirmation_text" @changeText="changeText($event)"></app-markdown-text-area>
                             <app-markdown-text-area :form="form" label="Texto de envio de credencial" id="credential_send_text" :value="subEvents.form.fields.credential_send_text" @changeText="changeText($event)"></app-markdown-text-area>
 
-                            <!--<app-text-area-->
-                                <!--name="invitation_text"-->
-                                <!--label="Texto de convite"-->
-                                <!--v-model="subEvents.form.fields.invitation_text"-->
-                                <!--:required="true"-->
-                                <!--:form="form"-->
-                                <!--rows="10"-->
-                                <!--cols="100"-->
-                            <!--&gt;</app-text-area>-->
-
-                            <!--<app-text-area-->
-                                <!--name="confirmation_text"-->
-                                <!--label="Texto de confirmação"-->
-                                <!--v-model="subEvents.form.fields.confirmation_text"-->
-                                <!--:required="true"-->
-                                <!--:form="form"-->
-                                <!--rows="10"-->
-                                <!--cols="100"-->
-                            <!--&gt;</app-text-area>-->
-
-                            <!--<app-text-area-->
-                                <!--name="credential_send_text"-->
-                                <!--label="Texto de envio de credencial"-->
-                                <!--v-model="subEvents.form.fields.credential_send_text"-->
-                                <!--:required="true"-->
-                                <!--:form="form"-->
-                                <!--rows="10"-->
-                                <!--cols="100"-->
-                            <!--&gt;</app-text-area>-->
-
-
                             <!--:add-button="{ uri: 'events/{events.selected.id}/sub-event/'+subEvent.selected.id+'/addresses/create', disabled: cannot('create') }"-->
 
                             <app-table-panel
