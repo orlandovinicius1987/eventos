@@ -13,21 +13,17 @@ class NotificationLog extends Repository
 
     public function createNotifications($invitation, $destinations, $subject)
     {
-        return coollect((array) $destinations)->each(function (
-            $destination
-        ) use ($invitation, $subject) {
-            $this->create([
-                'invitation_id' => $invitation->id,
-                'subject' => $subject,
-                'destination' => $destination->address,
-            ]);
-        });
-    }
+        $this->create([
+            'invitation_id' => $invitation->id,
+            'subject' => $subject,
+            'destination' => coollect((array) $destinations)
+                ->pluck('address')
+                ->implode(', '),
+            'sent_at' => now(),
+        ]);
 
-    public function logWasSent($notification)
-    {
-        $notification->sent_at = now();
+        $invitation->sent_at = now();
 
-        $notification->save();
+        $invitation->save();
     }
 }

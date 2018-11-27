@@ -38,13 +38,6 @@ class Mailable extends IlluminateMailable
         );
     }
 
-    protected function logNotificationsWereSent()
-    {
-        $this->notifications->each(function ($notification) {
-            app(NotificationLog::class)->logWasSent($notification);
-        });
-    }
-
     /**
      * Send the message using the given mailer.
      *
@@ -53,12 +46,8 @@ class Mailable extends IlluminateMailable
      */
     public function send(MailerContract $mailer)
     {
-        $this->createNotifications();
-
         parent::send($mailer);
 
         $this->createNotifications();
-
-        $this->logNotificationsWereSent();
     }
 }
