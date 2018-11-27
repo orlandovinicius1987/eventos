@@ -17,7 +17,7 @@ class People extends Repository
 
     private function dummyPhotoAddress()
     {
-        return public_path('img/no-image.jpg');
+        return public_path('images/no-image.jpg');
     }
 
     private function extractImage($photo)
