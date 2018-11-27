@@ -175,4 +175,66 @@ class Invitation extends Base
 
         return $query;
     }
+
+    public function getViewVariables()
+    {
+        return [
+            'empresa' => '',
+            'convidado_nome' => $this->personInstitution->person->name,
+            'convidado_nome_publico' =>
+                $this->personInstitution->person->nickname,
+            'evento_nome' => $this->subEvent->event->name,
+            'subevento_nome' => $this->subEvent->name,
+            'traje_nome' => $this->subEvent->costume
+                ? $this->subEvent->costume->name
+                : '',
+            'traje_descricao' => $this->subEvent->costume
+                ? $this->subEvent->costume->description
+                : '',
+            'data_evento' => $this->subEvent->date, //data do subevento
+            'hora_evento' => $this->subEvent->time, //hora do subevento
+            'convidado_tratamento' => $this->personInstitution->correct_title,
+            'setor_nome' => $this->subEvent->sector
+                ? $this->subEvent->sector->name
+                : '',
+            'local' => $this->subEvent->place,
+            'convite_codigo' => $this->code,
+            'instituicao_nome' => $this->personInstitution->institution->name,
+            'cargo' => $this->personInstitution->role->name,
+            'endereco_rua' => $this->subEvent->address
+                ? $this->subEvent->address->street
+                : '',
+            'endereco_numero' => $this->subEvent->address
+                ? $this->subEvent->address->number
+                : '',
+            'endereco_complemento' => $this->subEvent->address
+                ? $this->subEvent->address->complement
+                : '',
+            'endereco_bairro' => $this->subEvent->address
+                ? $this->subEvent->address->neighbourhood
+                : '',
+            'endereco_cidade' => $this->subEvent->address
+                ? $this->subEvent->address->city
+                : '',
+            'endereco_uf' => $this->subEvent->address
+                ? $this->subEvent->address->state
+                : '',
+            'endereco_cep' => $this->subEvent->address
+                ? $this->subEvent->address->zipcode
+                : '',
+            'latitude' => $this->subEvent->address
+                ? $this->subEvent->address->latitude
+                : '',
+            'longitude' => $this->subEvent->address
+                ? $this->subEvent->address->longitude
+                : '',
+            'endereco_completo' => $this->subEvent->address
+                ? $this->subEvent->address->full_address
+                : '',
+            'google_maps_link' => $this->subEvent->address
+                ? $this->subEvent->address->google_maps_url
+                : '',
+            //            '{google_maps_imagem} (url - pensar)' => $invitation,
+        ];
+    }
 }

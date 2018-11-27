@@ -170,67 +170,7 @@ class Invitations extends Repository
     public function getVariablesArray($invitation)
     {
         if (!isset($this->variables[$invitation->id])) {
-            $this->variables[$invitation->id] = $replaces = [
-                'empresa' => '',
-                'convidado_nome' =>
-                    $invitation->personInstitution->person->name,
-                'convidado_nome_publico' =>
-                    $invitation->personInstitution->person->nickname,
-                'evento_nome' => $invitation->subEvent->event->name,
-                'subevento_nome' => $invitation->subEvent->name,
-                'traje_nome' => $invitation->subEvent->costume
-                    ? $invitation->subEvent->costume->name
-                    : '',
-                'traje_descricao' => $invitation->subEvent->costume
-                    ? $invitation->subEvent->costume->description
-                    : '',
-                'data_evento' => $invitation->subEvent->date, //data do subevento
-                'hora_evento' => $invitation->subEvent->time, //hora do subevento
-                'convidado_tratamento' =>
-                    $invitation->personInstitution->correct_title,
-                'setor_nome' => $invitation->subEvent->sector
-                    ? $invitation->subEvent->sector->name
-                    : '',
-                'local' => $invitation->subEvent->place,
-                'convite_codigo' => $invitation->code,
-                'instituicao_nome' =>
-                    $invitation->personInstitution->institution->name,
-                'cargo' => $invitation->personInstitution->role->name,
-                'endereco_rua' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->street
-                    : '',
-                'endereco_numero' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->number
-                    : '',
-                'endereco_complemento' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->complement
-                    : '',
-                'endereco_bairro' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->neighbourhood
-                    : '',
-                'endereco_cidade' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->city
-                    : '',
-                'endereco_uf' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->state
-                    : '',
-                'endereco_cep' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->zipcode
-                    : '',
-                'latitude' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->latitude
-                    : '',
-                'longitude' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->longitude
-                    : '',
-                'endereco_completo' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->full_address
-                    : '',
-                'google_maps_link' => $invitation->subEvent->address
-                    ? $invitation->subEvent->address->google_maps_url
-                    : '',
-                //            '{google_maps_imagem} (url - pensar)' => $invitation,
-            ];
+            $this->variables[$invitation->id] = $invitation->getViewVariables();
         }
 
         return $this->variables[$invitation->id];
@@ -238,19 +178,20 @@ class Invitations extends Repository
 
     public function transformInvitationText($invitation, $text)
     {
-        foreach ($this->getVariablesArray($invitation) as $key => $newWord) {
-            $keys[] = "\{$key\}";
-            $newWords[] = $newWord;
-        }
+        $variables = $this->getVariablesArray($invitation);
 
-        $text = str_replace($keys, $newWords, $text);
+        $values = array_values($variables);
 
-        return $text;
+        $keys = array_map(function ($key) {
+            return '{' . $key . '}';
+        }, array_keys($variables));
+
+        return str_replace($keys, $values, $text);
     }
 
     public function transform($data)
     {
-        $this->addTransformationPlugin(function ($invitation) {
+        $this->addDataPlugin(function ($invitation) {
             $invitation['variables'] = array_merge(
                 $this->getVariablesArray($invitation),
                 [
