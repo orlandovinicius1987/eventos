@@ -372,5 +372,12 @@ Route::group(
                 )->name('invitations.mark-as-rejected');
             }
         );
+
+        Route::get(
+            '/invitations/{uuid}/received/dummy.png',
+            'Invitations@markAsReceiveAndDownloadImage'
+        )->name('invitations.received');
+
+        Route::get('/messages', 'Messages@show')->name('messages.show');
     }
 );

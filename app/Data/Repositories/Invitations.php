@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Events\InvitationAccepted;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
@@ -104,6 +105,7 @@ class Invitations extends Repository
         $invitation = $this->findById($invitationId);
 
         if (
+            !$invitation->accepted_at &&
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
@@ -112,6 +114,8 @@ class Invitations extends Repository
             $invitation->declined_at = null;
 
             $invitation->save();
+
+            event(new InvitationAccepted($invitation->id));
 
             return true;
         }
@@ -212,30 +216,47 @@ class Invitations extends Repository
     public function accept($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
         $invitation = $this->findById($invitationId);
-        $cpf_stored = $invitation->personInstitution->person->cpf;
-
-        if (!is_null($cpf_stored) && $cpf_stored != $cpf_confirmed) {
+        if (
+            !is_null(
+                ($cpf_stored = $invitation->personInstitution->person->cpf)
+            ) &&
+            $cpf_stored != $cpf_confirmed
+        ) {
             return 'invitations.mark-as-accepted-not-ok';
         } else {
             if (is_null($cpf_stored)) {
                 $invitation->personInstitution->person->cpf = $cpf_confirmed;
                 $invitation->personInstitution->person->save();
             }
+
             $this->markAsAccepted($eventId, $subEventId, $invitation->id);
         }
+
         return 'invitations.mark-as-accepted-ok';
     }
 
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
-        $invitation = $this->findById($invitationId);
-        $cpf_stored = $invitation->personInstitution->person->cpf;
-
-        if ($cpf_stored != $cpf_confirmed) {
+        if (
+            ($invitation = $this->findById($invitationId))->personInstitution
+                ->person->cpf != $cpf_confirmed
+        ) {
             return 'invitations.mark-as-rejected-not-ok';
         }
 
         $this->markAsRejected($eventId, $subEventId, $invitation->id);
+
         return 'invitations.mark-as-rejected-ok';
+    }
+
+    public function markAsReceived($uuid)
+    {
+        $invitation = $this->findByUuid($uuid);
+
+        $invitation->received_at = now();
+
+        $invitation->save();
+
+        return $invitation;
     }
 }

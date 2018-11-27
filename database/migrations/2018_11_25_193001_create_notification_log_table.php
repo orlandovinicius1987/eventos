@@ -27,6 +27,8 @@ class CreateNotificationLogTable extends Migration
 
             $table->string('destination');
 
+            $table->timestamp('sent_at')->nullable();
+
             $table->timestamp('received_at')->nullable();
 
             $table->timestamps();
