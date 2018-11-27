@@ -5,5 +5,6 @@
 
 Obrigado,<br>
 <br>
-Cerimonial - Alerj
+{{ $client_full_name }}<br>
+Alerj
 @endcomponent
