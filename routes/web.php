@@ -374,7 +374,7 @@ Route::group(
         );
 
         Route::get(
-            '/invitations/{uuid}/received/alerj.png',
+            '/invitations/{uuid}/received/dummy.png',
             'Invitations@markAsReceiveAndDownloadImage'
         )->name('invitations.received');
 

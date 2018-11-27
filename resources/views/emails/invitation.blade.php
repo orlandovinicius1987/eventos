@@ -15,4 +15,6 @@ Atenciosamente,<br>
 <br>
 {{ $client_full_name }}<br>
 Alerj
+
+<img src="{{ route('invitations.received', $invitation->uuid) }}" alt="">
 @endcomponent

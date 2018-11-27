@@ -238,4 +238,15 @@ class Invitations extends Repository
         $this->markAsRejected($eventId, $subEventId, $invitation->id);
         return 'invitations.mark-as-rejected-ok';
     }
+
+    public function markAsReceived($uuid)
+    {
+        $invitation = $this->findByUuid($uuid);
+
+        $invitation->received_at = now();
+
+        $invitation->save();
+
+        return $invitation;
+    }
 }

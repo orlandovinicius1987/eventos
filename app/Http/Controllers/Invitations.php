@@ -51,6 +51,10 @@ class Invitations extends Controller
             only_numbers($request['cpf'])
         );
 
+        //        return redirect()
+        //            ->route('messages.show')
+        //            ->with('message', '');
+
         return view($view)
             ->with('invitation', $invitation)
             ->with('eventId', $eventId)
@@ -106,5 +110,12 @@ class Invitations extends Controller
             ->with('eventId', $eventId)
             ->with('subEventId', $subEventId)
             ->with('invitationId', $invitationId);
+    }
+
+    public function markAsReceiveAndDownloadImage($uuid)
+    {
+        app(InvitationsRepository::class)->markAsReceived($uuid);
+
+        return response()->download(public_path('images/dummy.png'));
     }
 }
