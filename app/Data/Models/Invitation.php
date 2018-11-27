@@ -180,6 +180,11 @@ class Invitation extends Base
         return $query;
     }
 
+    public function getVariablesAttribute()
+    {
+        return $this->getViewVariables();
+    }
+
     public function getViewVariables()
     {
         if ($this->viewVariables) {
@@ -187,6 +192,8 @@ class Invitation extends Base
         }
 
         $variables = [
+            'site_url' => route('home'),
+
             'empresa' => '',
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
