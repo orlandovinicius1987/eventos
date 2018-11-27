@@ -35,4 +35,23 @@ class Controller extends BaseController
     {
         return $this->response($search, 0, null);
     }
+
+    protected function flashMessage($message, $type = 'success')
+    {
+        $alerts = session()->get('alerts') ?: [];
+
+        $alerts[] = ['type' => $type, 'message' => $message];
+
+        session()->flash("alerts", $alerts);
+    }
+
+    protected function showSuccessMessage($message = null)
+    {
+        $this->flashMessage($message);
+    }
+
+    protected function showErrorMessage($message = null)
+    {
+        $this->flashMessage($message, 'danger');
+    }
 }

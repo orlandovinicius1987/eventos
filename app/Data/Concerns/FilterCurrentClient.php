@@ -2,7 +2,6 @@
 
 namespace App\Data\Concerns;
 
-use App\Data\Models\PersonInstitution as PersonInstitutionScope;
 use App\Data\Scopes\CurrentClient as CurrentClientScope;
 
 trait FilterCurrentClient

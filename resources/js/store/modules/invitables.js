@@ -22,7 +22,7 @@ const state = merge_objects(statesMixin.common, {
                 sub_event: null,
             },
         },
-    }
+    },
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -35,7 +35,7 @@ const actions = merge_objects(actionsMixin, {
     },
 
     moveInvitations(context, payload) {
-        post(makeDataUrl(context)+'/move', payload).then(() => {
+        post(makeDataUrl(context) + '/move', payload).then(() => {
             context.dispatch('load', payload)
         })
 

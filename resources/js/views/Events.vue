@@ -52,7 +52,7 @@
                                 <router-link
                                     :to="'/events/'+event.id+'/update'"
                                     tag="div"
-                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -110,7 +110,7 @@
 
                                 <button
                                     v-if="!subEvent.confirmed_at"
-                                    class="btn btn-success btn-sm ml-1 pull-right"
+                                    class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
                                     title="Confirmar Sub-evento"
                                     :disabled="cannot('update') || !environment.events.confirmation.enabled"
@@ -120,7 +120,7 @@
 
                                 <button
                                     v-if="!subEvent.ended_at && subEvent.confirmed_at"
-                                    class="btn btn-primary btn-sm ml-1 pull-right"
+                                    class="btn btn-primary btn-sm btn-table-utility ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
                                     title="Finalizar Sub-evento"
                                     :disabled="cannot('update')"
@@ -131,15 +131,15 @@
                                 <router-link
                                     :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
                                     tag="div"
-                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
 
                                 <button
-                                    class="btn btn-warning btn-sm ml-1 pull-right"
-                                    @click="printSubEvent(subEvent)"
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    @click="downloadSubEventPDF(subEvent)"
                                     title="Imprimir lista de convidados"
                                 >
                                     <i v-if="!downloading" class="fa fa-print"></i>
@@ -239,8 +239,16 @@
 
                             <td class="align-middle text-right">
                                 <div
-                                    @click="acceptInvitation(invitation)"
-                                    class="btn btn-success btn-sm ml-1 pull-right"
+                                    @click="sendInvitation(invitation)"
+                                    class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.has_email"
+                                >
+                                    <i class="fa fa-mail-bulk"></i>
+                                </div>
+
+                                <div
+                                    @click="markAsAccepted(invitation)"
+                                    class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.confirmed_at && !invitation.accepted_at"
                                 >
                                     <i class="fa fa-check"></i>
@@ -248,7 +256,7 @@
 
                                 <div
                                     @click="downloadInvitation(invitation)"
-                                    class="btn btn-warning btn-sm ml-1 pull-right"
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && environment.debug && invitation.accepted_at"
                                 >
                                     <i class="fa fa-id-badge"></i>
@@ -256,7 +264,7 @@
 
                                 <div
                                     @click="unInvite(invitation)"
-                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
                                 >
                                     <i class="fa fa-trash"></i>
@@ -328,7 +336,7 @@ export default {
             })
         },
 
-        acceptInvitation(invitation) {
+        markAsAccepted(invitation) {
             confirm(
                 'Deseja realmente confirmar a presença de ' +
                 invitation.person_institution.person.name +
@@ -336,7 +344,7 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/acceptInvitation', invitation)
+                    return this.$store.dispatch('invitations/markAsAccepted', invitation)
                 }
             })
         },
@@ -349,19 +357,28 @@ export default {
             })
         },
 
+        sendInvitation(invitation) {
+            invitation.busy = true
+
+            confirm(
+                'Deseja realmente enviar o convite para ' + invitation.person_institution.person.name + '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    return this.$store.dispatch('invitations/send', invitation)
+                }
+            })
+        },
+
         confirmSubEvent(subEvent) {
             confirm(
                 'Deseja realmente confirmar ' + subEvent.name + '?',
                 this,
             ).then(value => {
                 if (value) {
-                    this.doConfirmSubEvent(subEvent)
+                    return this.$store.dispatch('subEvents/confirm', subEvent)
                 }
             })
-        },
-
-        doConfirmSubEvent(subEvent) {
-            return this.$store.dispatch('subEvents/confirm', subEvent)
         },
 
         finalizeSubEvent(subEvent) {
@@ -383,22 +400,18 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    this.doFinalizeSubEvent(subEvent)
+                    return this.$store.dispatch('subEvents/finalize', subEvent)
                 }
             })
         },
 
-        doFinalizeSubEvent(subEvent) {
-            return this.$store.dispatch('subEvents/finalize', subEvent)
-        },
-
-        printSubEvent(subEvent) {
+        downloadSubEventPDF(subEvent) {
             this.downloading = true
 
             downloadPDF(this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/download').then(() => {
                 this.downloading = false
             })
-        }
+        },
     },
 
     computed: {

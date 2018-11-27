@@ -59,8 +59,16 @@ const actions = merge_objects(actionsMixin, {
         )
     },
 
-    acceptInvitation(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/accept').then(() => {
+    markAsAccepted(context, payload) {
+        post(
+            makeDataUrl(context) + '/' + payload.id + '/mark-as-accepted',
+        ).then(() => {
+            context.dispatch('load', payload)
+        })
+    },
+
+    send(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send').then(() => {
             context.dispatch('load', payload)
         })
     },
