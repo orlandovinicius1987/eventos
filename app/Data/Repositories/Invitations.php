@@ -17,6 +17,8 @@ class Invitations extends Repository
      */
     protected $model = InvitationModel::class;
 
+    protected $variables;
+
     public function filterBySubEventId($subEventId)
     {
         $this->addDataPlugin(function ($invitation) {
@@ -68,6 +70,17 @@ class Invitations extends Repository
             });
 
         return $query;
+    }
+
+    private function getViewVariablesFor($invitation)
+    {
+        if (isset($this->variables[$invitation->id])) {
+            return $this->variables[$invitation->id];
+        }
+
+        return $this->variables[
+            $invitation->id
+        ] = $invitation->getViewVariables();
     }
 
     public function unInvite($eventId, $subEventId, $invitationId)
@@ -165,103 +178,10 @@ class Invitations extends Repository
         }
     }
 
-    public function getVariablesArray($invitation)
-    {
-        return $replaces = [
-            'convidado_nome' => $invitation->personInstitution->person->name,
-            'convidado_nome_publico' =>
-                $invitation->personInstitution->person->nickname,
-            'evento_nome' => $invitation->subEvent->event->name,
-            'subevento_nome' => $invitation->subEvent->name,
-            'traje_nome' => $invitation->subEvent->costume
-                ? $invitation->subEvent->costume->name
-                : '',
-            'traje_descricao' => $invitation->subEvent->costume
-                ? $invitation->subEvent->costume->description
-                : '',
-            'data_evento' => $invitation->subEvent->date, //data do subevento
-            'hora_evento' => $invitation->subEvent->time, //hora do subevento
-            'convidado_tratamento' =>
-                $invitation->personInstitution->correct_title,
-            'setor_nome' => $invitation->subEvent->sector
-                ? $invitation->subEvent->sector->name
-                : '',
-            'local' => $invitation->subEvent->place,
-            'convite_codigo' => $invitation->code,
-            'instituicao_nome' =>
-                $invitation->personInstitution->institution->name,
-            'cargo' => $invitation->personInstitution->role->name,
-            'endereco_rua' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->street
-                : '',
-            'endereco_numero' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->number
-                : '',
-            'endereco_complemento' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->complement
-                : '',
-            'endereco_bairro' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->neighbourhood
-                : '',
-            'endereco_cidade' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->city
-                : '',
-            'endereco_uf' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->state
-                : '',
-            'endereco_cep' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->zipcode
-                : '',
-            'latitude' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->latitude
-                : '',
-            'longitude' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->longitude
-                : '',
-            'endereco_completo' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->full_address
-                : '',
-            'google_maps_link' => $invitation->subEvent->address
-                ? $invitation->subEvent->address->google_maps_url
-                : '',
-            //            '{google_maps_imagem} (url - pensar)' => $invitation,
-        ];
-    }
-
-    public function transformInvitationText($invitation, $text)
-    {
-        foreach ($this->getVariablesArray($invitation) as $key => $newWord) {
-            $keys[] = "\{$key\}";
-            $newWords[] = $newWord;
-        }
-
-        $text = str_replace($keys, $newWords, $text);
-
-        return $text;
-    }
-
     public function transform($data)
     {
-        $this->addTransformationPlugin(function ($invitation) {
-            $invitation['variables'] = array_merge(
-                $this->getVariablesArray($invitation),
-                [
-                    'invitation_text' => $this->transformInvitationText(
-                        $invitation,
-                        $invitation->subEvent->invitation_text
-                    ),
-
-                    'confirmation_text' => $this->transformInvitationText(
-                        $invitation,
-                        $invitation->subEvent->confirmation_text
-                    ),
-
-                    'credential_send_text' => $this->transformInvitationText(
-                        $invitation,
-                        $invitation->subEvent->credential_send_text
-                    ),
-                ]
-            );
+        $this->addDataPlugin(function ($invitation) {
+            $invitation['variables'] = $this->getViewVariablesFor($invitation);
 
             return $invitation;
         });
