@@ -10,11 +10,30 @@ trait InvitationDownload
     {
         $invitation = $this->findById($id);
 
-        return app(PDF::class)->download(
-            $this->generateHtml($this->getAllInvitationsFor($invitation)),
-            make_pdf_filename($invitation->personInstitution->person->name),
-            [0, 0, 272, 558]
+        return app(PDF::class)
+            ->initialize(
+                $this->generateHtml($this->getAllInvitationsFor($invitation)),
+                [0, 0, 272, 558]
+            )
+            ->download(
+                make_pdf_filename($invitation->personInstitution->person->name)
+            );
+    }
+
+    public function savePdf($invitation)
+    {
+        $fileName = storage_path(
+            'app/pdf/' .
+                make_pdf_filename($invitation->personInstitution->person->name)
         );
+
+        app(PDF::class)
+            ->initialize(
+                $this->generateHtml($this->getAllInvitationsFor($invitation))
+            )
+            ->save($fileName);
+
+        return $fileName;
     }
 
     public function html($id)

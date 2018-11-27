@@ -24,7 +24,7 @@ const state = merge_objects(statesMixin.common, {
                 role: null,
             },
         },
-    }
+    },
 })
 
 let actions = merge_objects(

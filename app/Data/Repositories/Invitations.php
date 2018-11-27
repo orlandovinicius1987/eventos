@@ -2,9 +2,11 @@
 
 namespace App\Data\Repositories;
 
+use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
+use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -14,6 +16,8 @@ class Invitations extends Repository
      * @var string
      */
     protected $model = InvitationModel::class;
+
+    protected $variables;
 
     public function filterBySubEventId($subEventId)
     {
@@ -26,6 +30,8 @@ class Invitations extends Repository
                         : 'não possui e-mail',
                 ],
             ];
+
+            $invitation['has_email'] = $invitation->hasEmail();
 
             return $invitation;
         });
@@ -66,6 +72,17 @@ class Invitations extends Repository
         return $query;
     }
 
+    private function getViewVariablesFor($invitation)
+    {
+        if (isset($this->variables[$invitation->id])) {
+            return $this->variables[$invitation->id];
+        }
+
+        return $this->variables[
+            $invitation->id
+        ] = $invitation->getViewVariables();
+    }
+
     public function unInvite($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
@@ -82,7 +99,7 @@ class Invitations extends Repository
         return false;
     }
 
-    public function accept($eventId, $subEventId, $invitationId)
+    public function markAsAccepted($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
@@ -110,6 +127,40 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
         }
+
+        info('invite()');
+
+        event(new InvitationsChanged($eventId));
+    }
+
+    public function send($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->send();
+        }
+    }
+
+    public function setCurrentClientId($invitationId)
+    {
+        $invitation = Database::table('invitations')
+            ->join(
+                'person_institutions',
+                'invitations.person_institution_id',
+                '=',
+                'person_institutions.id'
+            )
+            ->join('people', 'person_institutions.person_id', '=', 'people.id')
+            ->where('invitations.id', $invitationId)
+            ->first();
+
+        set_current_client_id($invitation->client_id);
+
+        return $this;
     }
 
     public function moveInvitations(
@@ -127,73 +178,11 @@ class Invitations extends Repository
         }
     }
 
-    public function transformInvitationText($invitation, $text)
-    {
-        $replaces = [
-            '{convidado_nome}' => $invitation->personInstitution->person->name,
-            '{convidado_nome_publico}' =>
-                $invitation->personInstitution->person->nickname,
-            '{evento_nome}' => $invitation->subEvent->event->name,
-            '{subevento_nome}' => $invitation->subEvent->name,
-            '{traje_nome}' => $invitation->subEvent->costume->name,
-            '{traje_descricao}' => $invitation->subEvent->costume->description,
-            '{data_evento}' => $invitation->subEvent->date, //data do subevento
-            '{hora_evento}' => $invitation->subEvent->time, //hora do subevento
-            '{convidado_tratamento}' =>
-                $invitation->personInstitution->correct_title,
-            '{setor_nome}' => $invitation->subEvent->sector->name,
-            '{local}' => $invitation->subEvent->place,
-            '{convite_codigo}' => $invitation->code,
-            '{instituicao_nome}' =>
-                $invitation->personInstitution->institution->name,
-            '{cargo}' => $invitation->personInstitution->role->name,
-            '{endereco_rua}' => $invitation->subEvent->address->street,
-            '{endereco_numero}' => $invitation->subEvent->address->number,
-            '{endereco_complemento}' =>
-                $invitation->subEvent->address->complement,
-            '{endereco_bairro}' =>
-                $invitation->subEvent->address->neighbourhood,
-            '{endereco_cidade}' => $invitation->subEvent->address->city,
-            '{endereco_uf}' => $invitation->subEvent->address->state,
-            '{endereco_cep}' => $invitation->subEvent->address->zipcode,
-            '{latitude}' => $invitation->subEvent->address->latitude,
-            '{longitude}' => $invitation->subEvent->address->longitude,
-            '{endereco_completo}' =>
-                $invitation->subEvent->address->full_address,
-            '{google_maps_link}' =>
-                $invitation->subEvent->address->google_maps_url,
-            //            '{google_maps_imagem} (url - pensar)' => $invitation,
-        ];
-
-        foreach ($replaces as $key => $newWord) {
-            $keys[] = $key;
-            $newWords[] = $newWord;
-        }
-
-        $text = str_replace($keys, $newWords, $text);
-
-        return $text;
-    }
-
     public function transform($data)
     {
-        $this->addTransformationPlugin(function ($invitation) {
-            $invitation['invitation_text'] = $this->transformInvitationText(
-                $invitation,
-                $invitation->subEvent->invitation_text
-            );
+        $this->addDataPlugin(function ($invitation) {
+            $invitation['variables'] = $this->getViewVariablesFor($invitation);
 
-            $invitation['confirmation_text'] = $this->transformInvitationText(
-                $invitation,
-                $invitation->subEvent->confirmation_text
-            );
-
-            $invitation[
-                'credential_send_text'
-            ] = $this->transformInvitationText(
-                $invitation,
-                $invitation->subEvent->credential_send_text
-            );
             return $invitation;
         });
 
