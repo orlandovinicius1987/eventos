@@ -61,3 +61,20 @@ html {
 @import '~tui-editor/dist/tui-editor.css';
 @import '~tui-editor/dist/tui-editor-contents.css';
 @import '~highlight.js/styles/github.css';
+
+
+
+
+
+
+
+.h-80 {
+
+  height: 80% !important;
+
+  @media screen and (max-width: 479px) {
+    height: 80% !important;
+  }
+}
+
+
