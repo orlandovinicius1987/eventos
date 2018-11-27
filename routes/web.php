@@ -374,5 +374,3 @@ Route::group(
         );
     }
 );
-
-Route::get('/test', 'HomeController@testRoute')->name('test');
