@@ -10,14 +10,12 @@
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-
                             <app-contact-field
                                 :contact="form.fields.contact"
                                 :form="form"
                                 :environment="environment"
                             >
                             </app-contact-field>
-
                         </div>
                     </div>
 
