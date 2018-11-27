@@ -6,7 +6,9 @@
         <title>Printed document</title>
 
         <style type="text/css">
-            @page {margin: 20px}
+            @page {
+                margin: 20px;
+            }
 
             body {
                 /*position: relative;*/
