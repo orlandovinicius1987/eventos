@@ -17,7 +17,7 @@ class Invitations extends Repository
      */
     protected $model = InvitationModel::class;
 
-    protected $variables = [];
+    protected $variables;
 
     public function filterBySubEventId($subEventId)
     {
@@ -70,6 +70,17 @@ class Invitations extends Repository
             });
 
         return $query;
+    }
+
+    private function getViewVariablesFor($invitation)
+    {
+        if (isset($this->variables[$invitation->id])) {
+            return $this->variables[$invitation->id];
+        }
+
+        return $this->variables[
+            $invitation->id
+        ] = $invitation->getViewVariables();
     }
 
     public function unInvite($eventId, $subEventId, $invitationId)
@@ -167,50 +178,10 @@ class Invitations extends Repository
         }
     }
 
-    public function getVariablesArray($invitation)
-    {
-        if (!isset($this->variables[$invitation->id])) {
-            $this->variables[$invitation->id] = $invitation->getViewVariables();
-        }
-
-        return $this->variables[$invitation->id];
-    }
-
-    public function transformInvitationText($invitation, $text)
-    {
-        $variables = $this->getVariablesArray($invitation);
-
-        $values = array_values($variables);
-
-        $keys = array_map(function ($key) {
-            return '{' . $key . '}';
-        }, array_keys($variables));
-
-        return str_replace($keys, $values, $text);
-    }
-
     public function transform($data)
     {
         $this->addDataPlugin(function ($invitation) {
-            $invitation['variables'] = array_merge(
-                $this->getVariablesArray($invitation),
-                [
-                    'invitation_text' => $this->transformInvitationText(
-                        $invitation,
-                        $invitation->subEvent->invitation_text
-                    ),
-
-                    'confirmation_text' => $this->transformInvitationText(
-                        $invitation,
-                        $invitation->subEvent->confirmation_text
-                    ),
-
-                    'credential_send_text' => $this->transformInvitationText(
-                        $invitation,
-                        $invitation->subEvent->credential_send_text
-                    ),
-                ]
-            );
+            $invitation['variables'] = $this->getViewVariablesFor($invitation);
 
             return $invitation;
         });

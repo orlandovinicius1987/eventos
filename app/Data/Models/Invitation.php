@@ -41,6 +41,8 @@ class Invitation extends Base
         ],
     ];
 
+    protected $viewVariables;
+
     protected function canSendInvitation()
     {
         return is_null($this->sent_at);
@@ -178,7 +180,11 @@ class Invitation extends Base
 
     public function getViewVariables()
     {
-        return [
+        if ($this->viewVariables) {
+            return $this->viewVariables;
+        }
+
+        $variables = [
             'empresa' => '',
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
@@ -236,5 +242,33 @@ class Invitation extends Base
                 : '',
             //            '{google_maps_imagem} (url - pensar)' => $invitation,
         ];
+
+        $variables['invitation_text'] = $this->replaceVariables(
+            $this->subEvent->invitation_text,
+            $variables
+        );
+
+        $variables['confirmation_text'] = $this->replaceVariables(
+            $this->subEvent->confirmation_text,
+            $variables
+        );
+
+        $variables['credential_send_text'] = $this->replaceVariables(
+            $this->subEvent->credential_send_text,
+            $variables
+        );
+
+        return $this->viewVariables = $variables;
+    }
+
+    public function replaceVariables($text, $variables)
+    {
+        $values = array_values($variables);
+
+        $keys = array_map(function ($key) {
+            return '{' . $key . '}';
+        }, array_keys($variables));
+
+        return str_replace($keys, $values, $text);
     }
 }
