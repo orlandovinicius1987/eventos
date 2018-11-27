@@ -2,11 +2,16 @@
 
 namespace App\Data\Models;
 
-use App\Data\Repositories\ContactTypes;
+use App\Notifications\SendCredential;
 use Ramsey\Uuid\Uuid;
+use App\Notifications\SendInvitation;
+use App\Data\Repositories\ContactTypes;
+use Illuminate\Notifications\Notifiable;
 
 class Invitation extends Base
 {
+    use Notifiable;
+
     /**
      * @var array
      */
@@ -26,6 +31,8 @@ class Invitation extends Base
 
     protected $selectColumns = ['person_institutions.*', 'invitations.*'];
 
+    protected $appends = ['client_id'];
+
     protected $joins = [
         'person_institutions' => [
             'person_institutions.id',
@@ -33,6 +40,11 @@ class Invitation extends Base
             'invitations.person_institution_id',
         ],
     ];
+
+    protected function canSendInvitation()
+    {
+        return is_null($this->sent_at);
+    }
 
     public function personInstitution()
     {
@@ -53,7 +65,7 @@ class Invitation extends Base
         return parent::save($options);
     }
 
-    private function invitationCodeGenerator()
+    protected function invitationCodeGenerator()
     {
         do {
             $code = collect(
@@ -94,6 +106,38 @@ class Invitation extends Base
         }
 
         return $related;
+    }
+
+    public function send()
+    {
+        if (!$this->canSendInvitation()) {
+            return;
+        }
+
+        $this->accepted_at
+            ? $this->notify(new SendCredential($this->id))
+            : $this->notify(new SendInvitation($this->id));
+    }
+
+    public function getClientIdAttribute()
+    {
+        return $this->personInstitution->person->client_id;
+    }
+
+    /**
+     * Route notifications for the mail channel.
+     *
+     * @return string
+     */
+    public function routeNotificationForMail()
+    {
+        return $this->personInstitution
+            ->contacts()
+            ->activeOnly()
+            ->emailOnly()
+            ->get()
+            ->pluck('contact')
+            ->toArray();
     }
 
     /**

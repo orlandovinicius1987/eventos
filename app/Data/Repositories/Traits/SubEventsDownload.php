@@ -10,10 +10,13 @@ trait SubEventsDownload
     {
         $subEvent = $this->findById($id);
 
-        return app(PDF::class)->download(
-            $this->generateHtml($subEvent),
-            make_pdf_filename($subEvent->event->name . ' ' . $subEvent->name)
-        );
+        return app(PDF::class)
+            ->initialize($this->generateHtml($subEvent))
+            ->download(
+                make_pdf_filename(
+                    $subEvent->event->name . ' ' . $subEvent->name
+                )
+            );
     }
 
     public function generateHtml($subEvent)
