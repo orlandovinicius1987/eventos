@@ -431,7 +431,7 @@ class Service
             $this->client_id = auth()->user()->client_id;
         }
 
-        Session::put('current_client_id', $this->client_id);
+        set_current_client_id($this->client_id);
     }
 
     protected function rowIsEmpty($row)

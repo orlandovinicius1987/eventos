@@ -117,9 +117,13 @@ Route::group(
                             )->name('invitations.un-invite');
 
                             Route::post(
-                                '/{id}/accept__',
-                                'Invitations@accept__'
-                            )->name('invitations.accept__');
+                                '/{id}/mark-as-accepted',
+                                'Invitations@markAsAccepted'
+                            )->name('invitations.mark-as-accepted');
+
+                            Route::post('/{id}/send', 'Invitations@send')->name(
+                                'invitations.send'
+                            );
                         }
                     );
                 });
@@ -334,28 +338,34 @@ Route::group(
                 );
             });
         });
+    }
+);
 
-        // http://eventos.com/api/v1/events/1/sub-events/1/invitations/ABGQ4589/acceptable
+Route::group(
+    [
+        'prefix' => '',
+        'namespace' => 'Api',
+        'middleware' => ['auth', 'app.users'],
+    ],
+    function () {
         Route::group(
             [
                 'prefix' =>
-                    '/events/{eventId}/sub-events/{subEventId}/invitations/{uuid}',
+                    '/events/{eventId}/sub-events/{subEventId}/invitations/{id}',
             ],
             function () {
-                Route::get('/acceptable', 'Invitations@acceptable')->name(
+                Route::post('/acceptable', 'Invitations@acceptable')->name(
                     'invitations.acceptable'
                 );
 
-                Route::post('/accept', 'Invitations@accept')->name(
+                Route::get('/accept', 'Invitations@accept')->name(
                     'invitations.accept'
                 );
 
-                Route::get('/decline', 'Invitations@decline')->name(
-                    'invitations.decline'
+                Route::get('/reject', 'Invitations@reject')->name(
+                    'invitations.reject'
                 );
             }
         );
     }
 );
-
-Route::get('/test', 'HomeController@testRoute')->name('test');

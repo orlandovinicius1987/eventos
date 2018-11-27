@@ -25,10 +25,9 @@
 
 
         <div class="row justify-content-center">
-            <form method="POST" action="{{ route('invitations.accept', [$eventId, $subEventId, $uuid]) }}" >
+            <form method="POST" action="{{ route('invitations.acceptable', [$eventId, $subEventId, $id]) }}" >
                 <input type="hidden" name="eventId" value="{{$eventId}}"/>
                 <input type="hidden" name="subEventId" value="{{$subEventId}}"/>
-                <input type="hidden" name="uuid" value="{{$uuid}}"/>
                 <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 
                 <h2>{{$msg}}</h2>

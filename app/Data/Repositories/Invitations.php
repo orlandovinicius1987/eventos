@@ -2,9 +2,11 @@
 
 namespace App\Data\Repositories;
 
+use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
+use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -26,6 +28,8 @@ class Invitations extends Repository
                         : 'não possui e-mail',
                 ],
             ];
+
+            $invitation['has_email'] = $invitation->hasEmail();
 
             return $invitation;
         });
@@ -82,7 +86,7 @@ class Invitations extends Repository
         return false;
     }
 
-    public function accept($eventId, $subEventId, $invitationId)
+    public function markAsAccepted($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
@@ -110,6 +114,40 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
         }
+
+        info('invite()');
+
+        event(new InvitationsChanged($eventId));
+    }
+
+    public function send($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->send();
+        }
+    }
+
+    public function setCurrentClientId($invitationId)
+    {
+        $invitation = Database::table('invitations')
+            ->join(
+                'person_institutions',
+                'invitations.person_institution_id',
+                '=',
+                'person_institutions.id'
+            )
+            ->join('people', 'person_institutions.person_id', '=', 'people.id')
+            ->where('invitations.id', $invitationId)
+            ->first();
+
+        set_current_client_id($invitation->client_id);
+
+        return $this;
     }
 
     public function moveInvitations(

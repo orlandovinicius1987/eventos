@@ -71,13 +71,13 @@ class Invitations extends Controller
      * @param $invitationId
      * @return mixed
      */
-    public function accept_____(
+    public function markAsAccepted(
         UninviteRequest $request,
         $eventId,
         $subEventId,
         $invitationId
     ) {
-        app(InvitationsRepository::class)->accept(
+        app(InvitationsRepository::class)->markAsAccepted(
             $eventId,
             $subEventId,
             $invitationId
@@ -121,26 +121,26 @@ class Invitations extends Controller
         return app(InvitationsRepository::class)->download($id);
     }
 
-    public function acceptable($eventId, $subEventId, $uuid)
+    public function accept($eventId, $subEventId, $id)
     {
-        $invite = app(InvitationsRepository::class)->findByUuid($uuid);
-        $msg = null;
         return view('pages.invite-acceptable')
-            ->with('invite', $invite)
+            ->with('invite', app(InvitationsRepository::class)->findById($id))
             ->with('eventId', $eventId)
             ->with('subEventId', $subEventId)
-            ->with('uuid', $uuid)
-            ->with('msg', $msg);
+            ->with('id', $id)
+            ->with('msg', null);
     }
 
-    public function accept(
+    public function acceptable(
         AcceptableStore $request,
         $eventId,
         $subEventId,
-        $uuid
+        $id
     ) {
-        $invite = app(InvitationsRepository::class)->findByUuid($uuid);
+        $invite = app(InvitationsRepository::class)->findById($id);
+
         $cpf = only_numbers($request['cpf']);
+
         if (
             !is_null($invite->personInstitution->person->cpf) &&
             $invite->personInstitution->person->cpf != $cpf
@@ -153,7 +153,7 @@ class Invitations extends Controller
                 $invite->personInstitution->person->cpf = $cpf;
                 $invite->personInstitution->person->save();
             }
-            app(InvitationsRepository::class)->accept(
+            app(InvitationsRepository::class)->markAsAccepted(
                 $eventId,
                 $subEventId,
                 $invite->id
@@ -169,11 +169,20 @@ class Invitations extends Controller
                 ->with('invite', $invite)
                 ->with('eventId', $eventId)
                 ->with('subEventId', $subEventId)
-                ->with('uuid', $uuid);
+                ->with('uuid', $id);
     }
 
     public function html($eventId, $subEventId, $id)
     {
         return app(InvitationsRepository::class)->html($id);
+    }
+
+    public function send($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->send(
+            $eventId,
+            $subEventId,
+            $id
+        );
     }
 }

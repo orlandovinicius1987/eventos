@@ -1,3 +1,3 @@
-let Editor = require('tui-editor');
+let Editor = require('tui-editor')
 
 export default Editor
