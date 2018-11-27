@@ -353,13 +353,13 @@ Route::group(
                     '/events/{eventId}/sub-events/{subEventId}/invitations/{invitationId}',
             ],
             function () {
-                Route::get('/accept', 'InvitationsController@accept')->name(
+                Route::get('/accept', 'Invitations@accept')->name(
                     'invitations.accept'
                 );
 
                 Route::post(
                     '/markAsAccepted',
-                    'InvitationsController@markAsAccepted'
+                    'Invitations@markAsAccepted'
                 )->name('invitations.mark-as-accepted');
 
                 Route::get('/reject', 'InvitationsController@reject')->name(
@@ -368,7 +368,7 @@ Route::group(
 
                 Route::post(
                     '/markAsRejected',
-                    'InvitationsController@markAsRejected'
+                    'Invitations@markAsRejected'
                 )->name('invitations.mark-as-rejected');
             }
         );

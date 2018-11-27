@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class AcceptStore extends BaseStore
+class InvitationsAcceptStore extends BaseStore
 {
     /**
      * Get the validation rules that apply to the request.

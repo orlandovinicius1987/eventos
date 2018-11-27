@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AcceptStore;
+use App\Http\Requests\InvitationsAcceptStore;
 use App\Data\Repositories\Invitations as InvitationsRepository;
-use App\Http\Requests\RejectStore;
+use App\Http\Requests\InvitationsRejectStore;
 
-class InvitationsController extends Controller
+class Invitations extends Controller
 {
     /**
      * @param $eventId
@@ -28,14 +28,14 @@ class InvitationsController extends Controller
     }
 
     /**
-     * @param AcceptStore $request
+     * @param InvitationsAcceptStore $request
      * @param $eventId
      * @param $subEventId
      * @param $invitationId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function markAsAccepted(
-        AcceptStore $request,
+        InvitationsAcceptStore $request,
         $eventId,
         $subEventId,
         $invitationId
@@ -78,14 +78,14 @@ class InvitationsController extends Controller
     }
 
     /**
-     * @param AcceptStore $request
+     * @param InvitationsAcceptStore $request
      * @param $eventId
      * @param $subEventId
      * @param $invitationId
      * @return \Illuminate\Http\RedirectResponse
      */
     public function markAsRejected(
-        RejectStore $request,
+        InvitationsRejectStore $request,
         $eventId,
         $subEventId,
         $invitationId
