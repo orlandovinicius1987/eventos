@@ -9,14 +9,23 @@
 
 export default {
     props: [
-        'id'
+        'id',
+        'value'
     ],
 
+    data(){
+        return{
+            editor: null
+        }
+    },
+
     mounted(){
-        let editor = new Editor({
+        this.editor = new Editor({
             el: document.querySelector('#'+this.id),
             initialEditType: 'markdown',
             previewStyle: 'vertical',
+            events: {change: () => {$emit(this.id+'Changed', page)}},
+            initialValue: this.value,
             height: '300px'
         });
     }
