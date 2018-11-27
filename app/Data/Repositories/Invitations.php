@@ -186,6 +186,7 @@ class Invitations extends Repository
 
     public function transformInvitationText($invitation, $text)
     {
+        dd('Oi');
         $replaces = [
             '{convidado_nome}' => $invitation->personInstitution->person->name,
             '{convidado_nome_publico}' =>

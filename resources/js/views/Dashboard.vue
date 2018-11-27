@@ -42,6 +42,7 @@
                             v-for="subEventDashBoard in subEventsDashBoard.data.rows"
                             style="cursor: pointer;"
                             :key="subEventDashBoard.id"
+                            :click="selectSubEventDashBoard(subEventDashBoard)"
                         >
                             <td class="align-middle">{{ subEventDashBoard.id }}</td>
                             <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
@@ -72,7 +73,7 @@ export default {
     },
 
     methods: {
-        ...mapActions('subEventsDashboard', ['clearForm']),
+        ...mapActions('dashboard', ['selectSubEventDashBoard','clearForm']),
     },
 
     computed: {
