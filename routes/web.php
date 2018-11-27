@@ -377,5 +377,7 @@ Route::group(
             '/invitations/{uuid}/received/alerj.png',
             'Invitations@markAsReceiveAndDownloadImage'
         )->name('invitations.received');
+
+        Route::get('/messages', 'Messages@show')->name('messages.show');
     }
 );
