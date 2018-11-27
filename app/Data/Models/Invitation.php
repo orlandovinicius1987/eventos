@@ -58,6 +58,11 @@ class Invitation extends Base
         return $this->belongsTo(SubEvent::class, 'sub_event_id');
     }
 
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d/m/Y');
+    }
+
     public function save(array $options = [])
     {
         $this->code = $this->code ?? $this->invitationCodeGenerator();
@@ -197,8 +202,8 @@ class Invitation extends Base
             'traje_descricao' => $this->subEvent->costume
                 ? $this->subEvent->costume->description
                 : '',
-            'data_evento' => $this->subEvent->date, //data do subevento
-            'hora_evento' => $this->subEvent->time, //hora do subevento
+            'data_evento' => $this->subEvent->formatted_date, //data do subevento
+            'hora_evento' => $this->subEvent->formatted_time, //hora do subevento
             'convidado_tratamento' => $this->personInstitution->correct_title,
             'setor_nome' => $this->subEvent->sector
                 ? $this->subEvent->sector->name

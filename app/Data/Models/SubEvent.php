@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class SubEvent extends Base
@@ -66,6 +67,17 @@ class SubEvent extends Base
     public function associated()
     {
         return $this->belongsTo(SubEvent::class, 'associated_subevent_id');
+    }
+
+    public function getFormattedDateAttribute()
+    {
+        return $this->date->format('d/m/Y');
+    }
+
+    public function getFormattedTimeAttribute()
+    {
+        return Carbon::createFromFormat('H:i:s', $this->time)->format('H:i');
+        //        return $this->time->->format('h:m');
     }
 
     /**
