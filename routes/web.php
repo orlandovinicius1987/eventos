@@ -117,9 +117,13 @@ Route::group(
                             )->name('invitations.un-invite');
 
                             Route::post(
-                                '/{id}/accept__',
-                                'Invitations@accept__'
-                            )->name('invitations.accept__');
+                                '/{id}/mark-as-accepted',
+                                'Invitations@markAsAccepted'
+                            )->name('invitations.mark-as-accepted');
+
+                            Route::post('/{id}/send', 'Invitations@send')->name(
+                                'invitations.send'
+                            );
                         }
                     );
                 });
@@ -334,25 +338,38 @@ Route::group(
                 );
             });
         });
+    }
+);
 
-        // http://eventos.com/api/v1/events/1/sub-events/1/invitations/1/acceptable
+Route::group(
+    [
+        'prefix' => '',
+        'middleware' => ['auth', 'app.users'],
+    ],
+    function () {
         Route::group(
             [
                 'prefix' =>
-                    '/events/{eventId}/sub-events/{subEventId}/invitations/{id}',
+                    '/events/{eventId}/sub-events/{subEventId}/invitations/{invitationId}',
             ],
             function () {
-                Route::get('/acceptable', 'Invitations@acceptable')->name(
-                    'invitations.acceptable'
-                );
-
-                Route::post('/accept', 'Invitations@accept')->name(
+                Route::get('/accept', 'InvitationsController@accept')->name(
                     'invitations.accept'
                 );
 
-                Route::get('/decline', 'Invitations@decline')->name(
-                    'invitations.decline'
+                Route::post(
+                    '/markAsAccepted',
+                    'InvitationsController@markAsAccepted'
+                )->name('invitations.mark-as-accepted');
+
+                Route::get('/reject', 'InvitationsController@reject')->name(
+                    'invitations.reject'
                 );
+
+                Route::post(
+                    '/markAsRejected',
+                    'InvitationsController@markAsRejected'
+                )->name('invitations.mark-as-rejected');
             }
         );
     }

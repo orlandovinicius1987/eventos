@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Requests\AcceptableStore;
+use App\Http\Requests\AcceptStore;
 use App\Http\Requests\InstitutionStore;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -71,13 +71,13 @@ class Invitations extends Controller
      * @param $invitationId
      * @return mixed
      */
-    public function accept_____(
+    public function markAsAccepted(
         UninviteRequest $request,
         $eventId,
         $subEventId,
         $invitationId
     ) {
-        app(InvitationsRepository::class)->accept_____(
+        app(InvitationsRepository::class)->markAsAccepted(
             $eventId,
             $subEventId,
             $invitationId
@@ -124,5 +124,14 @@ class Invitations extends Controller
     public function html($eventId, $subEventId, $id)
     {
         return app(InvitationsRepository::class)->html($id);
+    }
+
+    public function send($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->send(
+            $eventId,
+            $subEventId,
+            $id
+        );
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Data\Repositories;
 
+use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
+use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -26,6 +28,8 @@ class Invitations extends Repository
                         : 'não possui e-mail',
                 ],
             ];
+
+            $invitation['has_email'] = $invitation->hasEmail();
 
             return $invitation;
         });
@@ -82,7 +86,7 @@ class Invitations extends Repository
         return false;
     }
 
-    public function accept_____($eventId, $subEventId, $invitationId)
+    public function markAsAccepted($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
@@ -102,6 +106,26 @@ class Invitations extends Repository
         return false;
     }
 
+    public function markAsRejected($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->accepted_at = null;
+
+            $invitation->declined_at = now();
+
+            $invitation->save();
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function invite($eventId, $subEventId, $invitees)
     {
         foreach ($invitees as $invitee) {
@@ -110,6 +134,40 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
         }
+
+        info('invite()');
+
+        event(new InvitationsChanged($eventId));
+    }
+
+    public function send($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->send();
+        }
+    }
+
+    public function setCurrentClientId($invitationId)
+    {
+        $invitation = Database::table('invitations')
+            ->join(
+                'person_institutions',
+                'invitations.person_institution_id',
+                '=',
+                'person_institutions.id'
+            )
+            ->join('people', 'person_institutions.person_id', '=', 'people.id')
+            ->where('invitations.id', $invitationId)
+            ->first();
+
+        set_current_client_id($invitation->client_id);
+
+        return $this;
     }
 
     public function moveInvitations(
@@ -202,18 +260,31 @@ class Invitations extends Repository
 
     public function accept($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
-        $invite = $this->findById($invitationId);
-        $cpf = $invite->personInstitution->person->cpf;
+        $invitation = $this->findById($invitationId);
+        $cpf_stored = $invitation->personInstitution->person->cpf;
 
-        if (!is_null($cpf) && $cpf != $cpf_confirmed) {
-            return 'pages.invite-acceptable-not-ok';
+        if (!is_null($cpf_stored) && $cpf_stored != $cpf_confirmed) {
+            return 'invitations.mark-as-accepted-not-ok';
         } else {
-            if (is_null($cpf)) {
-                $invite->personInstitution->person->cpf = $cpf_confirmed;
-                $invite->personInstitution->person->save();
+            if (is_null($cpf_stored)) {
+                $invitation->personInstitution->person->cpf = $cpf_confirmed;
+                $invitation->personInstitution->person->save();
             }
-            $this->accept_____($eventId, $subEventId, $invite->id);
+            $this->markAsAccepted($eventId, $subEventId, $invitation->id);
         }
-        return 'pages.invitate-acceptable-ok';
+        return 'invitations.mark-as-accepted-ok';
+    }
+
+    public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
+    {
+        $invitation = $this->findById($invitationId);
+        $cpf_stored = $invitation->personInstitution->person->cpf;
+
+        if ($cpf_stored != $cpf_confirmed) {
+            return 'invitations.mark-as-rejected-not-ok';
+        }
+
+        $this->markAsRejected($eventId, $subEventId, $invitation->id);
+        return 'invitations.mark-as-rejected-ok';
     }
 }
