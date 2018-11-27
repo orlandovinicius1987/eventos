@@ -18,10 +18,12 @@ class SubEventsTextsTransformToText extends Migration
                 ->text('invitation_text')
                 ->nullable()
                 ->change();
+
             $table
                 ->text('confirmation_text')
                 ->nullable()
                 ->change();
+
             $table
                 ->text('credential_send_text')
                 ->nullable()
@@ -36,19 +38,6 @@ class SubEventsTextsTransformToText extends Migration
      */
     public function down()
     {
-        Schema::table('sub_events', function (Blueprint $table) {
-            $table
-                ->string('invitation_text')
-                ->nullable()
-                ->change();
-            $table
-                ->string('confirmation_text')
-                ->nullable()
-                ->change();
-            $table
-                ->string('credential_send_text')
-                ->nullable()
-                ->change();
-        });
+        // never rollback this change
     }
 }

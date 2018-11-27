@@ -23,6 +23,8 @@ class CreateNotificationLogTable extends Migration
 
             $table->string('subject');
 
+            $table->uuid('uuid')->index();
+
             $table->string('destination');
 
             $table->timestamp('received_at')->nullable();

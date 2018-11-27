@@ -344,27 +344,32 @@ Route::group(
 Route::group(
     [
         'prefix' => '',
-        'namespace' => 'Api',
         'middleware' => ['auth', 'app.users'],
     ],
     function () {
         Route::group(
             [
                 'prefix' =>
-                    '/events/{eventId}/sub-events/{subEventId}/invitations/{id}',
+                    '/events/{eventId}/sub-events/{subEventId}/invitations/{invitationId}',
             ],
             function () {
-                Route::post('/acceptable', 'Invitations@acceptable')->name(
-                    'invitations.acceptable'
-                );
-
                 Route::get('/accept', 'Invitations@accept')->name(
                     'invitations.accept'
                 );
 
+                Route::post(
+                    '/markAsAccepted',
+                    'Invitations@markAsAccepted'
+                )->name('invitations.mark-as-accepted');
+
                 Route::get('/reject', 'Invitations@reject')->name(
                     'invitations.reject'
                 );
+
+                Route::post(
+                    '/markAsRejected',
+                    'Invitations@markAsRejected'
+                )->name('invitations.mark-as-rejected');
             }
         );
     }

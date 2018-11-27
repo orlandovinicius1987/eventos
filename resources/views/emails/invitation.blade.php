@@ -11,7 +11,7 @@ Aceitar
 Declinar
 @endcomponent
 
-Obrigado,<br>
+Atenciosamente,<br>
 <br>
 {{ $client_full_name }}<br>
 Alerj
