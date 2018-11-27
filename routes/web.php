@@ -362,7 +362,7 @@ Route::group(
                     'Invitations@markAsAccepted'
                 )->name('invitations.mark-as-accepted');
 
-                Route::get('/reject', 'InvitationsController@reject')->name(
+                Route::get('/reject', 'Invitations@reject')->name(
                     'invitations.reject'
                 );
 
