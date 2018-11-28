@@ -373,11 +373,6 @@ Route::group(
             }
         );
 
-        Route::get(
-            '/invitations/{uuid}/received/dummy.png',
-            'Invitations@markAsReceivedAndDownloadImage'
-        )->name('invitations.received');
-
         Route::group(
             [
                 'prefix' => '/invitations',
@@ -385,19 +380,15 @@ Route::group(
             function () {
                 Route::get(
                     '/{uuid}/received/dummy.png',
-                    'Invitations@markAsReceiveAndDownloadImage'
+                    'Invitations@markAsReceivedAndDownloadImage'
                 )->name('invitations.received');
 
                 Route::get('/{uuid}/qrcode', 'Invitations@showViaQRCode')->name(
-                    'invitations.show'
+                    'invitations.show-via-qrcode'
                 );
             }
         );
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
-
-        Route::get('/invitations/{uuid}/qrcode', 'Invitations@qrcode')->name(
-            'invitations.qrcode'
-        );
     }
 );
