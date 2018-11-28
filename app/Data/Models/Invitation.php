@@ -49,6 +49,11 @@ class Invitation extends Base
 
     protected $pathToQrCodes;
 
+    private function canReceiveEmail()
+    {
+        return $this->hasEmail() && is_null($this->declined_at);
+    }
+
     private function parseMarkdown($text)
     {
         return app(Service::class)->text($text);
@@ -135,7 +140,7 @@ class Invitation extends Base
 
     public function sendCredentialOrInvitation()
     {
-        if ($this->hasEmail()) {
+        if ($this->canReceiveEmail()) {
             $this->accepted_at
                 ? $this->notify(new SendCredential())
                 : $this->notify(new SendInvitation());
@@ -347,5 +352,16 @@ class Invitation extends Base
     public function getQrCodeBlobAttribute()
     {
         return base64_encode($this->qr_code);
+    }
+
+    /**
+     * Not sent scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotSent($query)
+    {
+        return $query->whereNull('sent_at');
     }
 }
