@@ -249,6 +249,18 @@ class Invitations extends Repository
         return 'invitations.mark-as-rejected-ok';
     }
 
+    /**
+     * Generates QR code png image in storage/qr-codes
+     *
+     * @param $invitation_id
+     */
+    public function generateQrCodeFor($invitation_id)
+    {
+        $invitation = Invitation::find($invitation_id);
+
+        $invitation->generateQrCode();
+    }
+
     public function markAsReceived($uuid)
     {
         $invitation = $this->findByUuid($uuid);

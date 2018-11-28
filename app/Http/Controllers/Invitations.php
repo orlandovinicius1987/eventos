@@ -118,4 +118,14 @@ class Invitations extends Controller
 
         return response()->download(public_path('images/dummy.png'));
     }
+
+    /**
+     * Link in QrCode
+     *
+     * @param $uuid
+     */
+    public function read($uuid)
+    {
+        dd('Página a fazer');
+    }
 }
