@@ -50,6 +50,36 @@ class Invitations extends Repository
                     and c.contact_type_id = (select id from contact_types where code = \'email\')
                 ) = 0');
         }
+
+        if (
+            isset($filter['conviteNaoEnviado']) &&
+            $filter['conviteNaoEnviado']
+        ) {
+            $query->whereNull('sent_at');
+        }
+
+        if (
+            isset($filter['conviteNaoRecebido']) &&
+            $filter['conviteNaoRecebido']
+        ) {
+            $query->whereNull('received_at');
+        }
+
+        if (isset($filter['conviteNaoAceito']) && $filter['conviteNaoAceito']) {
+            $query->whereNull('accepted_at');
+        }
+
+        if (isset($filter['conviteNoCheckIn']) && $filter['conviteNoCheckIn']) {
+            $query->whereNull('checkin_at');
+        }
+
+        if (
+            isset($filter['conviteNaoRespondido']) &&
+            $filter['conviteNaoRespondido']
+        ) {
+            $query->whereNull('accepted_at');
+            $query->whereNull('declined_at');
+        }
     }
 
     protected function filterAllColumns($query, $text)

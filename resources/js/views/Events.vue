@@ -105,8 +105,8 @@
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
-                                    title="Confirmar Sub-evento"
                                     :disabled="cannot('update') || !environment.events.confirmation.enabled"
+                                    title="Confirmar Sub-evento"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
@@ -115,8 +115,8 @@
                                     v-if="!subEvent.ended_at && subEvent.confirmed_at"
                                     class="btn btn-primary btn-sm btn-table-utility ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
-                                    title="Finalizar Sub-evento"
                                     :disabled="cannot('update')"
+                                    title="Finalizar Sub-evento"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
@@ -160,6 +160,21 @@
                     <template slot="buttons">
                         <input v-model="hasNoEmailCheckbox" type="checkbox" id="filterWithoutEmail">
                         <label for="filterWithoutEmail">sem e-mail</label>
+
+                        <input v-model="conviteNaoEnviadoCheckbox" type="checkbox" id="filterConviteNaoEnviado">
+                        <label for="filterConviteNaoEnviado">ConviteNaoEnviado</label>
+
+                        <input v-model="conviteNaoRecebidoCheckbox" type="checkbox" id="filterConviteNaoRecebido">
+                        <label for="filterConviteNaoRecebido">ConviteNaoRecebido</label>
+
+                        <input v-model="conviteNaoAceitoCheckbox" type="checkbox" id="filterConviteNaoAceito">
+                        <label for="filterConviteNaoAceito">ConviteNaoAceito</label>
+
+                        <input v-model="conviteNoCheckInCheckbox" type="checkbox" id="filterConviteNoCheckIn">
+                        <label for="filterConviteNoCheckIn">ConviteNoCheckIn</label>
+
+                        <input v-model="conviteNaoRespondidoCheckbox" type="checkbox" id="filterConviteNaoRespondido">
+                        <label for="filterConviteNaoRespondido">ConviteNaoRespondido</label>
                     </template>
 
                     <app-table
@@ -483,6 +498,91 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'hasNoEmail', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        conviteNaoEnviadoCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoEnviado
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'conviteNaoEnviado', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        conviteNaoRecebidoCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoRecebido
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'conviteNaoRecebido', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        conviteNaoAceitoCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoAceito
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'conviteNaoAceito', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        conviteNoCheckInCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.conviteNoCheckIn
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'conviteNoCheckIn', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        conviteNaoRespondidoCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoRespondido
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'conviteNaoRespondido', value: filter},
                 )
 
                 this.$store.dispatch(
