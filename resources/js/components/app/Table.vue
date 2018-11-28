@@ -1,8 +1,7 @@
 <template>
-    <div class="row mt-1">
-        <div class="col-12">
-            <div class="card p-4">
-                <table class="table table-sm table-hover table-borderless table-striped">
+
+            <div class="">
+                <table class="table table-sm table-hover table-borderless card-body mb-0">
                     <thead>
                         <tr>
                             <slot name="thead"></slot>
@@ -28,8 +27,7 @@
                     @goto-page="$emit('goto-page', $event)"
                 ></app-pagination>
             </div>
-        </div>
-    </div>
+
 </template>
 
 <script>
