@@ -31,14 +31,12 @@ class Service
         $this->writer->writeFile($text, $file);
     }
 
-    public function generateFile($fileName, $relativePath, $text)
+    public function generateFile($fileName, $path, $text)
     {
-        $fullPath = storage_path($relativePath);
-
-        if (!file_exists($fullPath)) {
-            mkdir($fullPath, 0777, true);
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
         }
 
-        $this->writeFile($text, $fullPath . $fileName);
+        $this->writeFile($text, $path . $fileName);
     }
 }

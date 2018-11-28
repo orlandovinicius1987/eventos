@@ -43,8 +43,26 @@ trait InvitationDownload
         );
     }
 
+    /**
+     *
+     * Appends the QrCode Blob URL to $invitations
+     *
+     * @param $invitations
+     * @return mixed
+     */
+    public function appendQrCodes($invitations)
+    {
+        foreach ($invitations as $invitation) {
+            $invitation->append('qr_code_blob');
+        }
+
+        return $invitations;
+    }
+
     public function generateHtml($invitations)
     {
+        $invitations = $this->appendQrCodes($invitations);
+
         return view('pdf.invitations.invitation-base')
             ->with([
                 'invitations' => $invitations,

@@ -4,10 +4,6 @@ Auth::routes();
 
 Route::get('/', 'Home@index')->name('home');
 
-//TEST
-Route::get('/test', 'Home@test')->name('admin.test');
-//TEST
-
 Route::group(
     [
         'prefix' => '/admin',
@@ -377,10 +373,21 @@ Route::group(
             }
         );
 
-        Route::get(
-            '/invitations/{uuid}/received/dummy.png',
-            'Invitations@markAsReceiveAndDownloadImage'
-        )->name('invitations.received');
+        Route::group(
+            [
+                'prefix' => '/invitations',
+            ],
+            function () {
+                Route::get(
+                    '/invitations/{uuid}/received/dummy.png',
+                    'Invitations@markAsReceiveAndDownloadImage'
+                )->name('invitations.received');
+
+                Route::get('/invitations/{uuid}', 'Invitations@read')->name(
+                    'invitations.read'
+                );
+            }
+        );
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
     }
