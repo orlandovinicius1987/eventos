@@ -17982,3 +17982,13 @@ html {
   border-left: none;
 }
 
+.h-80 {
+  height: 80% !important;
+}
+
+@media screen and (max-width: 479px) {
+  .h-80 {
+    height: 80% !important;
+  }
+}
+

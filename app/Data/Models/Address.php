@@ -34,27 +34,37 @@ class Address extends BaseWithClient
 
     public function getFullAddressAttribute()
     {
-        return $this->street .
-            ', ' .
-            $this->number .
-            ', ' .
-            $this->complement .
-            ' - ' .
-            $this->neighbourhood .
-            '. ' .
-            $this->city .
-            '/' .
-            $this->state;
+        $fullAddress = $this->street;
+        if ($this->number) {
+            $fullAddress .= ', ' . $this->number;
+        }
+        if ($this->complement) {
+            $fullAddress .= ', ' . $this->complement;
+        }
+        if ($this->neighbourhood) {
+            $fullAddress .= ' - ' . $this->neighbourhood;
+        }
+        if ($this->city || $this->state) {
+            $fullAddress .= '. ';
+        }
+        if ($this->city) {
+            $fullAddress .= $this->city;
+        }
+        if ($this->state) {
+            $fullAddress .= '/' . $this->state;
+        }
+
+        return $fullAddress;
     }
 
     public function getGoogleMapsUrlAttribute()
     {
         if ($this->latitude && $this->longitude) {
-            return 'https://www.google.com/maps/@' .
+            return 'https://www.google.com/maps/search/?api=1&query=' .
                 $this->latitude .
                 ',' .
                 $this->longitude .
-                ',17z';
+                '&zoom=18';
         } else {
             return '';
         }

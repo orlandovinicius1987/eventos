@@ -1,4 +1,6 @@
 <?php
+
+use App\Data\Repositories\Clients;
 use Illuminate\Support\Facades\Auth;
 
 function startTimer()
@@ -72,6 +74,11 @@ function get_current_client_id()
         : (auth()->user()
             ? auth()->user()->client_id
             : null);
+}
+
+function get_current_client()
+{
+    return app(Clients::class)->findById(get_current_client_id());
 }
 
 function set_current_client_id($id)

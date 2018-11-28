@@ -37,6 +37,6 @@ class Service
 
     public function download($fileName)
     {
-        $this->pdf->download($fileName);
+        return $this->pdf->download($fileName);
     }
 }

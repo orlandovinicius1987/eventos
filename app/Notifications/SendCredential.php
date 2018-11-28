@@ -8,7 +8,6 @@ use App\Data\Repositories\Invitations;
 class SendCredential extends Notification
 {
     protected $invitation;
-
     /**
      * Create a new notification instance.
      *
@@ -20,7 +19,6 @@ class SendCredential extends Notification
             ->setCurrentClientId($invitationId)
             ->findById($invitationId);
     }
-
     /**
      * Get the mail representation of the notification.
      *
