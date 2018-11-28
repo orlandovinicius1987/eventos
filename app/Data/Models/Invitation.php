@@ -2,11 +2,14 @@
 
 namespace App\Data\Models;
 
+use App\Notifications\SendRejection;
 use App\Notifications\SendCredential;
+use App\Services\Markdown\Service;
 use Ramsey\Uuid\Uuid;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use Illuminate\Notifications\Notifiable;
+use App\Services\QrCode\Service as QrCode;
 
 class Invitation extends Base
 {
@@ -42,6 +45,13 @@ class Invitation extends Base
     ];
 
     protected $viewVariables;
+
+    protected $pathToQrCodes;
+
+    private function parseMarkdown($text)
+    {
+        return app(Service::class)->text($text);
+    }
 
     public function personInstitution()
     {
@@ -110,11 +120,15 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send()
+    public function send($typeMail = 'accept')
     {
-        $this->accepted_at
-            ? $this->notify(new SendCredential($this->id))
-            : $this->notify(new SendInvitation($this->id));
+        if ($typeMail == 'accept') {
+            $this->accepted_at
+                ? $this->notify(new SendCredential($this->id))
+                : $this->notify(new SendInvitation($this->id));
+        } elseif ($typeMail == 'reject') {
+            $this->notify(new SendRejection($this->id));
+        }
     }
 
     public function getClientIdAttribute()
@@ -174,6 +188,11 @@ class Invitation extends Base
         return $query;
     }
 
+    public function getVariablesAttribute()
+    {
+        return $this->getViewVariables();
+    }
+
     public function getViewVariables()
     {
         if ($this->viewVariables) {
@@ -181,6 +200,8 @@ class Invitation extends Base
         }
 
         $variables = [
+            'site_url' => route('home'),
+
             'empresa' => '',
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
@@ -239,19 +260,25 @@ class Invitation extends Base
             //            '{google_maps_imagem} (url - pensar)' => $invitation,
         ];
 
-        $variables['invitation_text'] = $this->replaceVariables(
-            $this->subEvent->invitation_text,
-            $variables
+        $variables['invitation_text'] = $this->parseMarkdown(
+            $this->replaceVariables(
+                $this->subEvent->invitation_text,
+                $variables
+            )
         );
 
-        $variables['confirmation_text'] = $this->replaceVariables(
-            $this->subEvent->confirmation_text,
-            $variables
+        $variables['confirmation_text'] = $this->parseMarkdown(
+            $this->replaceVariables(
+                $this->subEvent->confirmation_text,
+                $variables
+            )
         );
 
-        $variables['credential_send_text'] = $this->replaceVariables(
-            $this->subEvent->credential_send_text,
-            $variables
+        $variables['credential_send_text'] = $this->parseMarkdown(
+            $this->replaceVariables(
+                $this->subEvent->credential_send_text,
+                $variables
+            )
         );
 
         return $this->viewVariables = $variables;
@@ -266,5 +293,47 @@ class Invitation extends Base
         }, array_keys($variables));
 
         return str_replace($keys, $values, $text);
+    }
+
+    /**
+     * Create QR code png file and return its path
+     *
+     * @return string
+     */
+    public function generateQrCodeFile()
+    {
+        $relativePath = 'qr-codes/';
+        $fullPath = storage_path($relativePath);
+        $this->pathToQrCodes = $fullPath;
+        $fileName = $this->code . '.png';
+
+        $qrCode = app(QrCode::class);
+        $text = $this->code;
+        $qrCode->generateFile($fileName, $fullPath, $text);
+
+        return $fullPath . $fileName;
+    }
+
+    /**
+     * Get QR code image in string
+     *
+     * @return mixed
+     */
+    public function getQrCodeAttribute()
+    {
+        $qrCode = app(QrCode::class);
+        return $qrCode->generateString(
+            route('invitations.read', ['uuid' => $this->uuid])
+        );
+    }
+
+    /**
+     * Get QR code image in Blob URL
+     *
+     * @return mixed
+     */
+    public function getQrCodeBlobAttribute()
+    {
+        return base64_encode($this->qr_code);
     }
 }

@@ -36,6 +36,7 @@
                                         tag="div"
                                         class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('create')"
+                                        title="Editar Tipo de Contato"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>

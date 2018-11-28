@@ -60,11 +60,11 @@ class Address extends BaseWithClient
     public function getGoogleMapsUrlAttribute()
     {
         if ($this->latitude && $this->longitude) {
-            return 'https://www.google.com/maps/@' .
+            return 'https://www.google.com/maps/search/?api=1&query=' .
                 $this->latitude .
                 ',' .
                 $this->longitude .
-                ',17z';
+                '&zoom=18';
         } else {
             return '';
         }

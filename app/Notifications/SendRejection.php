@@ -5,7 +5,7 @@ namespace App\Notifications;
 use App\Data\Models\Invitation;
 use App\Data\Repositories\Invitations;
 
-class SendCredential extends Notification
+class SendRejection extends Notification
 {
     protected $invitation;
 
@@ -26,10 +26,10 @@ class SendCredential extends Notification
      *
      * @param  Invitation $invitation
      *
-     * @return \App\Mail\Credential
+     * @return \App\Mail\Rejection
      */
     public function toMail($invitation)
     {
-        return new \App\Mail\Credential($invitation);
+        return new \App\Mail\Rejection($invitation);
     }
 }
