@@ -1,7 +1,7 @@
 @component('mail::message')
 # Convite
 
-{{ $invitation->personInstitution->title }} {{ $invitation->personInstitution->person->name }}, temos o imenso prazer fazer o convite para o Posse do Governador do Estado do Rio de Janeiro 2019.
+{{ $invitation->getViewVariables()['invitation_text'] }}
 
 @component('mail::button', ['url' => route('invitations.accept', ['event_id' => $invitation->subEvent->event->id, 'sub_event_id' => $invitation->subEvent->id, 'invitation_id' => $invitation->id])])
 Aceitar
@@ -11,8 +11,10 @@ Aceitar
 Declinar
 @endcomponent
 
-Obrigado,<br>
+Atenciosamente,<br>
 <br>
-{{ $client_full_name }}<br>
-Alerj
+{{ $client_full_name }} da Alerj<br>
+(21)2588-1196 / 2588-1266
+
+<img src="{{ route('invitations.received', $invitation->uuid) }}" alt="">
 @endcomponent

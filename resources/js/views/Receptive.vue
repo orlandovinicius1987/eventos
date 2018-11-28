@@ -16,7 +16,7 @@
                     <app-table
                             :pagination="receptiveInvitations.data.links.pagination"
                             @goto-page="gotoPage($event)"
-                            :columns="['#', 'Convidado', 'Sub-Evento','Código', 'Check-in']"
+                            :columns="['#','Convidado', 'Sub-Evento','Código', 'Check-in','Photo']"
 
                     >
                         <tr
@@ -33,6 +33,12 @@
                                     <span v-if="!invitation.checkin_at" class="badge badge-danger">Não chegou</span>
                                 </h6>
                                 </td>
+                            <td><img
+                                    :src="invitation.person_institution.person.photoUrl"
+                                    class="img-thumbnail rounded mx-auto d-block mb-2"
+                                    width="200"
+                                    height="200"
+                            ></td>
                         </tr>
                     </app-table>
                 </app-table-panel>

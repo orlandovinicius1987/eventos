@@ -2,9 +2,9 @@
 
 namespace App\Mail;
 
-use App\Data\Repositories\NotificationLog;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
+use App\Data\Repositories\NotificationLog;
 use Illuminate\Mail\Mailable as IlluminateMailable;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
@@ -17,6 +17,8 @@ class Mailable extends IlluminateMailable
      */
     public $invitation;
 
+    protected $notifications;
+
     /**
      * Create a new message instance.
      *
@@ -27,9 +29,9 @@ class Mailable extends IlluminateMailable
         $this->invitation = $invitation;
     }
 
-    protected function logNotificationWasSent()
+    protected function createNotifications()
     {
-        app(NotificationLog::class)->log(
+        $this->notifications = app(NotificationLog::class)->createNotifications(
             $this->invitation,
             $this->to,
             $this->subject
@@ -46,6 +48,6 @@ class Mailable extends IlluminateMailable
     {
         parent::send($mailer);
 
-        $this->logNotificationWasSent();
+        $this->createNotifications();
     }
 }

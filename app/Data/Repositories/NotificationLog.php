@@ -11,23 +11,19 @@ class NotificationLog extends Repository
      */
     protected $model = NotificationLogModel::class;
 
-    public function log($invitation, $destination, $subject)
+    public function createNotifications($invitation, $destinations, $subject)
     {
-        coollect((array) $destination)->each(function ($destination) use (
-            $invitation,
-            $subject
-        ) {
-            info([
-                'invitation_id' => $invitation->id,
-                'subject' => $subject,
-                'destination' => $destination->address,
-            ]);
+        $this->create([
+            'invitation_id' => $invitation->id,
+            'subject' => $subject,
+            'destination' => coollect((array) $destinations)
+                ->pluck('address')
+                ->implode(', '),
+            'sent_at' => now(),
+        ]);
 
-            $this->create([
-                'invitation_id' => $invitation->id,
-                'subject' => $subject,
-                'destination' => $destination->address,
-            ]);
-        });
+        $invitation->sent_at = now();
+
+        $invitation->save();
     }
 }

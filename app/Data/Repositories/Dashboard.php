@@ -45,11 +45,6 @@ class Dashboard extends Repository
                 'route' => '/categories',
                 'count' => app(CategoriesRepository::class)->count(),
             ],
-            'today' => [
-                'name' => 'Receptivo',
-                'route' => '/events',
-                'count' => app(EventsRepository::class)->count(),
-            ],
         ];
     }
 

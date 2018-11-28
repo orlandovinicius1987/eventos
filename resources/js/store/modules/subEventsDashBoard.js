@@ -33,16 +33,7 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
 
-    selectSubEventDashBoard(context, payload){
-
-        context.dispatch('subEvents/select', payload, {
-            root: true,
-        })
-
-        context.dispatch('events/select', payload.event, {
-            root: true,
-        })
-    },
+     
 })
 
 const mutations = merge_objects(mutationsMixin, {})

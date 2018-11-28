@@ -13,6 +13,9 @@ const actions = merge_objects(actionsMixin, {
 
     selectSubEventDashBoard(context, payload){
 
+        dd(payload)
+
+
         context.dispatch('subEvents/select', payload, {
             root: true,
         })
