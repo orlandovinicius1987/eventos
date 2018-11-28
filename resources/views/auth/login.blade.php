@@ -9,7 +9,7 @@
 
         body {
             height: 100%;
-            background-image: url("/images/alerj-logo-horizontal.png") ;
+            background-image: url("/images/alerj-logo-sotexto-op20.png") ;
             background-repeat: no-repeat ;
             background-position: bottom 100px center;
             background-size: 300px;

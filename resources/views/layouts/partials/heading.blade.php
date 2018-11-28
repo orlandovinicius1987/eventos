@@ -3,7 +3,7 @@
         <div class="col-12 p-0">
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                   <img src="/svg/alerj-logo-horizontal.svg" class="img-fluid">
+                   <img src="/svg/logo-eventos-alerj.svg" class="img-fluid"> <span class="brand-complement">cerimonial</span>
                 </a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -24,23 +24,19 @@
                                 <a class="nav-link" href="{{ route('login') }}">Entrar</a>
                             </li>
                         @else
-                            <li class="nav-item">
-                                <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_dashboard"></i>
-                                        <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_dashboard"></i>
+                                    <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
+                                </a>
+                            </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/events" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="events-menu" to="/events" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
+                                </a>
+                            </router-link>
 
                             <li class="nav-item">
                                 <router-link id="events-menu" to="/people" tag="li" class="nav-item">

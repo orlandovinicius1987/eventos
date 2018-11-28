@@ -3,7 +3,7 @@
         <select
             v-bind:value="value"
             v-on:input="$emit('input', $event.target.value)"
-            class="custom-select custom-select-sm"
+            class="custom-select"
         >
             <option value="5" selected>5</option>
             <option value="10">10</option>

@@ -1,4 +1,10 @@
 
+// Markdown Editor
+@import '~codemirror/lib/codemirror.css';
+@import '~tui-editor/dist/tui-editor.css';
+@import '~tui-editor/dist/tui-editor-contents.css';
+@import '~highlight.js/styles/github.css';
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
@@ -29,11 +35,25 @@
 // Buttons
 @import 'buttons';
 
-// Buttons
+// Cards
 @import 'cards';
 
+// Tables
+@import 'tables';
 
 
+
+body {
+  color: $grey-darken02;
+}
+
+h2 {
+  color: $grey;
+  font-weight: 600;
+  i {
+    color: $blue-lighter03;
+  }
+}
 
 
 .navbar-laravel {
@@ -78,14 +98,6 @@ html {
   }
 }
 
-@import '~codemirror/lib/codemirror.css';
-@import '~tui-editor/dist/tui-editor.css';
-@import '~tui-editor/dist/tui-editor-contents.css';
-@import '~highlight.js/styles/github.css';
-
-
-
-
 
 
 
@@ -98,4 +110,11 @@ html {
   }
 }
 
+.bg-filters {
+  background: $grey-lighter05;
+}
 
+
+.bg-primary {
+  background: $blue-lighter02;
+}
