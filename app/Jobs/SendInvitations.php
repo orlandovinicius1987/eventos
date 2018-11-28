@@ -10,7 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class SendAllInvitations implements ShouldQueue
+class SendInvitations implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -36,6 +36,6 @@ class SendAllInvitations implements ShouldQueue
      */
     public function handle()
     {
-        app(Events::class)->sendAllInvitations($this->event);
+        app(Events::class)->sendInvitations($this->event);
     }
 }

@@ -6,7 +6,6 @@ use App\Events\InvitationRejected;
 use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
 use App\Events\NewEmailActived;
-use App\Listeners\SendAllInvitations;
 use App\Listeners\SendCredential;
 use App\Listeners\SendNewEmailActived;
 use App\Listeners\SendRejection;
@@ -24,7 +23,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [SendEmailVerificationNotification::class],
 
-        InvitationsChanged::class => [SendAllInvitations::class],
+        InvitationsChanged::class => [],
 
         InvitationAccepted::class => [SendCredential::class],
 

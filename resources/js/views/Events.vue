@@ -49,6 +49,16 @@
                             <td class="align-middle">{{ event.name }}</td>
 
                             <td class="align-middle text-right">
+                                <button
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    @click="sendInvitations(event)"
+                                    :disabled="cannot('update')"
+                                    title="Enviar todos os convites não enviados"
+                                >
+                                    <i v-if="!event.busy" class="fa fa-angle-double-right"></i>
+                                    <i v-if="event.busy" class="fa fa-cog fa-spin"></i>
+                                </button>
+
                                 <router-link
                                     :to="'/events/'+event.id+'/update'"
                                     tag="div"
@@ -402,19 +412,34 @@ export default {
                     '?',
                 this,
             ).then(value => {
-                if(value){
+                if (value) {
                     this.finalizeSubEventReconfirmed(subEvent);
                 }
             })
         },
 
-        finalizeSubEventReconfirmed(subEvent){
+        finalizeSubEventReconfirmed(subEvent) {
             confirm(
-                'Você tem realmente certeza de marcar o evento como realizado ?',
+                'Tem certeza que deseja marcar este sub-evento como realizado?',
                 this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('subEvents/finalize', subEvent)
+                }
+            })
+        },
+
+        sendInvitations(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todos os convites agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store.dispatch('events/sendInvitations', event).then(() => {
+                        event.busy = false
+                    })
                 }
             })
         },
