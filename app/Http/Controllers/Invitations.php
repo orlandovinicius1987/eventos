@@ -117,9 +117,13 @@ class Invitations extends Controller
      * Link in QrCode
      *
      * @param $uuid
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showViaQRCode($uuid)
     {
-        dd('Página a fazer');
+        return view('invitations.show-via-qrcode')->with(
+            'invitation',
+            app(InvitationsRepository::class)->findByUuid($uuid)
+        );
     }
 }
