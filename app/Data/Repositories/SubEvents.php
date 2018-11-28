@@ -7,6 +7,7 @@ use App\Data\Repositories\Traits\SubEventsDownload;
 use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
 use App\Data\Repositories\Addresses as AddressesRepository;
+use App\Events\InvitationsChanged;
 
 class SubEvents extends Repository
 {
@@ -28,6 +29,8 @@ class SubEvents extends Repository
         $subEvent->confirmed_at = now();
 
         $subEvent->save();
+
+        event(new InvitationsChanged($eventId));
     }
 
     private function createOrUpdateAddress($subEvent, $address)
