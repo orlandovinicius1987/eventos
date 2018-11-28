@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
@@ -157,6 +158,8 @@ class Invitations extends Repository
             $invitation->declined_at = now();
 
             $invitation->save();
+
+            event(new InvitationRejected($invitation->id));
 
             return true;
         }

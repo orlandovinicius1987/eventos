@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Notifications\SendRejection;
 use App\Notifications\SendCredential;
 use App\Services\Markdown\Service;
 use Ramsey\Uuid\Uuid;
@@ -119,11 +120,15 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send()
+    public function send($typeMail = 'accept')
     {
-        $this->accepted_at
-            ? $this->notify(new SendCredential($this->id))
-            : $this->notify(new SendInvitation($this->id));
+        if ($typeMail == 'accept') {
+            $this->accepted_at
+                ? $this->notify(new SendCredential($this->id))
+                : $this->notify(new SendInvitation($this->id));
+        } elseif ($typeMail == 'reject') {
+            $this->notify(new SendRejection($this->id));
+        }
     }
 
     public function getClientIdAttribute()
