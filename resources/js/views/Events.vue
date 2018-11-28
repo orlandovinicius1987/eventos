@@ -167,14 +167,14 @@
                         <input v-model="notReceivedCheckbox" type="checkbox" id="filterConviteNaoRecebido">
                         <label for="filterConviteNaoRecebido">não recebidos</label>
 
-                        <input v-model="conviteNaoAceitoCheckbox" type="checkbox" id="filterConviteNaoAceito">
-                        <label for="filterConviteNaoAceito">não aceitos</label>
+                        <input v-model="notAcceptedCheckbox" type="checkbox" id="filterNotAccepted">
+                        <label for="filterNotAccepted">não aceitos</label>
 
-                        <input v-model="conviteNoCheckInCheckbox" type="checkbox" id="filterConviteNoCheckIn">
-                        <label for="filterConviteNoCheckIn">não check in</label>
+                        <input v-model="notCheckedInCheckbox" type="checkbox" id="filterNotCheckedIn">
+                        <label for="filterNotCheckedIn">não check in</label>
 
-                        <input v-model="conviteNaoRespondidoCheckbox" type="checkbox" id="filterConviteNaoRespondido">
-                        <label for="filterConviteNaoRespondido">não respondidos</label>
+                        <input v-model="notAnsweredCheckbox" type="checkbox" id="filterNotAnswered">
+                        <label for="filterNotAnswered">não respondidos</label>
                     </template>
 
                     <app-table
@@ -541,15 +541,15 @@ export default {
             },
         },
 
-        conviteNaoAceitoCheckbox: {
+        notAcceptedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoAceito
+                return this.$store.state['invitations'].data.filter.checkboxes.notAccepted
             },
 
             set(filter) {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
-                    {field: 'conviteNaoAceito', value: filter},
+                    {field: 'notAccepted', value: filter},
                 )
 
                 this.$store.dispatch(
@@ -558,15 +558,15 @@ export default {
             },
         },
 
-        conviteNoCheckInCheckbox: {
+        notCheckedInCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.conviteNoCheckIn
+                return this.$store.state['invitations'].data.filter.checkboxes.notCheckedIn
             },
 
             set(filter) {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
-                    {field: 'conviteNoCheckIn', value: filter},
+                    {field: 'notCheckedIn', value: filter},
                 )
 
                 this.$store.dispatch(
@@ -575,15 +575,15 @@ export default {
             },
         },
 
-        conviteNaoRespondidoCheckbox: {
+        notAnsweredCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoRespondido
+                return this.$store.state['invitations'].data.filter.checkboxes.notAnswered
             },
 
             set(filter) {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
-                    {field: 'conviteNaoRespondido', value: filter},
+                    {field: 'notAnswered', value: filter},
                 )
 
                 this.$store.dispatch(

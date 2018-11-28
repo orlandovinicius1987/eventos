@@ -55,25 +55,19 @@ class Invitations extends Repository
             $query->whereNull('sent_at');
         }
 
-        if (
-            isset($filter['conviteNaoRecebido']) &&
-            $filter['conviteNaoRecebido']
-        ) {
+        if (isset($filter['notReceived']) && $filter['notReceived']) {
             $query->whereNull('received_at');
         }
 
-        if (isset($filter['conviteNaoAceito']) && $filter['conviteNaoAceito']) {
+        if (isset($filter['notAccepted']) && $filter['notAccepted']) {
             $query->whereNull('accepted_at');
         }
 
-        if (isset($filter['conviteNoCheckIn']) && $filter['conviteNoCheckIn']) {
+        if (isset($filter['notCheckedIn']) && $filter['notCheckedIn']) {
             $query->whereNull('checkin_at');
         }
 
-        if (
-            isset($filter['conviteNaoRespondido']) &&
-            $filter['conviteNaoRespondido']
-        ) {
+        if (isset($filter['notAnswered']) && $filter['notAnswered']) {
             $query->whereNull('accepted_at');
             $query->whereNull('declined_at');
         }
