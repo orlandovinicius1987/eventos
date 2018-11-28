@@ -2,7 +2,6 @@
 
 namespace App\Data\Models;
 
-use App\Notifications\SendNewEmailActived;
 use App\Notifications\SendRejection;
 use App\Notifications\SendCredential;
 use App\Services\Markdown\Service;
@@ -121,23 +120,16 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send($typeMail = 'invitation')
-    {
-        if ($typeMail == 'credential' or $typeMail == 'invitation') {
-            $this->sendCredentialOrInvitation();
-        } elseif ($typeMail == 'reject') {
-            $this->notify(new SendRejection($this->id));
-        } elseif ($typeMail == 'new-email-actived') {
-            $this->notify(new SendNewEmailActived($this->id));
-            $this->sendCredentialOrInvitation();
-        }
-    }
-
-    public function sendCredentialOrInvitation()
+    public function send()
     {
         $this->accepted_at
             ? $this->notify(new SendCredential($this->id))
             : $this->notify(new SendInvitation($this->id));
+    }
+
+    public function sendRejection()
+    {
+        $this->notify(new SendRejection($this->id));
     }
 
     public function getClientIdAttribute()
@@ -332,7 +324,7 @@ class Invitation extends Base
     {
         $qrCode = app(QrCode::class);
         return $qrCode->generateString(
-            route('invitations.read', ['uuid' => $this->uuid])
+            route('invitations.show-via-qrcode', ['uuid' => $this->uuid])
         );
     }
 

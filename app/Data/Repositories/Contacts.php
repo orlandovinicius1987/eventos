@@ -2,7 +2,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Contact as ContactModel;
-use App\Events\NewEmailActived;
+use App\Events\InvitationAccepted;
 
 class Contacts extends Repository
 {
@@ -34,7 +34,7 @@ class Contacts extends Repository
             );
 
             if ($invitation) {
-                event(new NewEmailActived($invitation->id));
+                event(new InvitationAccepted($invitation->id));
             }
         }
     }
