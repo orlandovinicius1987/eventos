@@ -323,6 +323,7 @@ class Invitation extends Base
     public function getQrCodeAttribute()
     {
         $qrCode = app(QrCode::class);
+
         return $qrCode->generateString(
             route('invitations.show-via-qrcode', ['uuid' => $this->uuid])
         );

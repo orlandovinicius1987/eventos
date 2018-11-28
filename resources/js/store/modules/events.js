@@ -31,6 +31,10 @@ const actions = merge_objects(actionsMixin, {
             root: true,
         })
     },
+
+    sendInvitations(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send-invitations')
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
