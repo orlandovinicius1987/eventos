@@ -135,9 +135,11 @@ class Invitation extends Base
 
     public function sendCredentialOrInvitation()
     {
-        $this->accepted_at
-            ? $this->notify(new SendCredential($this->id))
-            : $this->notify(new SendInvitation($this->id));
+        if ($this->hasEmail()) {
+            $this->accepted_at
+                ? $this->notify(new SendCredential())
+                : $this->notify(new SendInvitation());
+        }
     }
 
     public function getClientIdAttribute()
