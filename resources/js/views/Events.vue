@@ -161,10 +161,10 @@
                         <input v-model="hasNoEmailCheckbox" type="checkbox" id="filterWithoutEmail">
                         <label for="filterWithoutEmail">sem e-mail</label>
 
-                        <input v-model="conviteNaoEnviadoCheckbox" type="checkbox" id="filterConviteNaoEnviado">
-                        <label for="filterConviteNaoEnviado">não enviados</label>
+                        <input v-model="notSentCheckbox" type="checkbox" id="filterNotSent">
+                        <label for="filterNotSent">não enviados</label>
 
-                        <input v-model="conviteNaoRecebidoCheckbox" type="checkbox" id="filterConviteNaoRecebido">
+                        <input v-model="notReceivedCheckbox" type="checkbox" id="filterConviteNaoRecebido">
                         <label for="filterConviteNaoRecebido">não recebidos</label>
 
                         <input v-model="conviteNaoAceitoCheckbox" type="checkbox" id="filterConviteNaoAceito">
@@ -271,7 +271,8 @@
                                     v-if="can('update') && environment.debug && invitation.accepted_at"
                                     title="Realizar o Download do Convite"
                                 >
-                                    <i class="fa fa-id-badge"></i>
+                                    <i v-if="!invitation.busy" class="fa fa-id-badge"></i>
+                                    <i v-if="invitation.busy" class="fa fa-cog fa-spin"></i>
                                 </div>
 
                                 <div
@@ -506,15 +507,15 @@ export default {
             },
         },
 
-        conviteNaoEnviadoCheckbox: {
+        notSentCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoEnviado
+                return this.$store.state['invitations'].data.filter.checkboxes.notSent
             },
 
             set(filter) {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
-                    {field: 'conviteNaoEnviado', value: filter},
+                    {field: 'notSent', value: filter},
                 )
 
                 this.$store.dispatch(
@@ -523,15 +524,15 @@ export default {
             },
         },
 
-        conviteNaoRecebidoCheckbox: {
+        notReceivedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.conviteNaoRecebido
+                return this.$store.state['invitations'].data.filter.checkboxes.notReceived
             },
 
             set(filter) {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
-                    {field: 'conviteNaoRecebido', value: filter},
+                    {field: 'notReceived', value: filter},
                 )
 
                 this.$store.dispatch(

@@ -51,10 +51,7 @@ class Invitations extends Repository
                 ) = 0');
         }
 
-        if (
-            isset($filter['conviteNaoEnviado']) &&
-            $filter['conviteNaoEnviado']
-        ) {
+        if (isset($filter['notSent']) && $filter['notSent']) {
             $query->whereNull('sent_at');
         }
 
