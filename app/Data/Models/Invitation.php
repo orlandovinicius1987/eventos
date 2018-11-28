@@ -49,9 +49,11 @@ class Invitation extends Base
 
     protected $pathToQrCodes;
 
-    private function canReceiveEmail()
+    private function canSendEmail()
     {
-        return $this->hasEmail() && is_null($this->declined_at);
+        return !is_null($this->subEvent->confirmed_at) &&
+            $this->hasEmail() &&
+            is_null($this->declined_at);
     }
 
     private function parseMarkdown($text)
@@ -140,7 +142,7 @@ class Invitation extends Base
 
     public function sendCredentialOrInvitation()
     {
-        if ($this->canReceiveEmail()) {
+        if ($this->canSendEmail()) {
             $this->accepted_at
                 ? $this->notify(new SendCredential())
                 : $this->notify(new SendInvitation());
