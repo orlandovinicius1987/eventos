@@ -108,7 +108,7 @@ class Invitations extends Controller
      *
      * @param $uuid
      */
-    public function read($uuid)
+    public function showViaQRCode($uuid)
     {
         dd('Página a fazer');
     }

@@ -379,12 +379,12 @@ Route::group(
             ],
             function () {
                 Route::get(
-                    '/invitations/{uuid}/received/dummy.png',
+                    '/{uuid}/received/dummy.png',
                     'Invitations@markAsReceiveAndDownloadImage'
                 )->name('invitations.received');
 
-                Route::get('/invitations/{uuid}', 'Invitations@read')->name(
-                    'invitations.read'
+                Route::get('/{uuid}/qrcode', 'Invitations@showViaQRCode')->name(
+                    'invitations.show'
                 );
             }
         );
