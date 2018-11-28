@@ -124,8 +124,8 @@ class Invitation extends Base
     {
         if ($typeMail == 'accept') {
             $this->accepted_at
-                ? $this->notify(new SendCredential($this->id))
-                : $this->notify(new SendInvitation($this->id));
+                ? $this->notify(new SendCredential())
+                : $this->notify(new SendInvitation());
         } elseif ($typeMail == 'reject') {
             $this->notify(new SendRejection($this->id));
         }
