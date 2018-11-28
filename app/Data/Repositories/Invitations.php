@@ -8,6 +8,7 @@ use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
 use App\Events\InvitationsChanged;
+use App\Services\QrCode\Service as QrCode;
 
 class Invitations extends Repository
 {
@@ -247,6 +248,23 @@ class Invitations extends Repository
         $this->markAsRejected($eventId, $subEventId, $invitation->id);
 
         return 'invitations.mark-as-rejected-ok';
+    }
+
+    /**
+     * Generates QR code png image in storage/qr-codes
+     *
+     * @param $invitation_id
+     */
+    public function generateQrCodeFor($invitation_id)
+    {
+        $invitation = Invitation::find($invitation_id);
+
+        $qrCode = app(QrCode::class);
+        $fileName = $invitation->code . '.png';
+        $relativePath = 'qr-codes/';
+        $text = $invitation->code;
+
+        $qrCode->generateFile($fileName, $relativePath, $text);
     }
 
     public function markAsReceived($uuid)

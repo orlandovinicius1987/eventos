@@ -4,6 +4,10 @@ Auth::routes();
 
 Route::get('/', 'Home@index')->name('home');
 
+//TEST
+Route::get('/test', 'Home@test')->name('admin.test');
+//TEST
+
 Route::group(
     [
         'prefix' => '/admin',
