@@ -106,13 +106,6 @@ class Invitations extends Controller
         return response()->download(public_path('images/dummy.png'));
     }
 
-    public function qrcode($uuid)
-    {
-        app(InvitationsRepository::class)->findByUuid($uuid);
-
-        return response()->download(public_path('images/dummy.png'));
-    }
-
     /**
      * Link in QrCode
      *
