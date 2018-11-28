@@ -170,10 +170,12 @@ class Invitations extends Repository
     public function invite($eventId, $subEventId, $invitees)
     {
         foreach ($invitees as $invitee) {
-            Invitation::firstOrCreate([
+            $invitation = Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
                 'person_institution_id' => $invitee['id'],
             ]);
+
+            $invitation->send();
         }
 
         event(new InvitationsChanged($eventId));
@@ -224,14 +226,8 @@ class Invitations extends Repository
             $invitation->sent_at = null;
 
             $invitation->save();
-        }
 
-        if ($invitations->count() > 0) {
-            event(
-                new InvitationsChanged(
-                    $invitations->first()->subEvent->event->id
-                )
-            );
+            $invitation->send();
         }
     }
 

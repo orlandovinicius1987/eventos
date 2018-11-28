@@ -23,9 +23,9 @@ class Credential extends Mailable
      */
     public function build()
     {
-        $this->credentials = app(Invitations::class)
-            ->setCurrentClientId($this->invitation->id)
-            ->getAllInvitationsFor($this->invitation);
+        $this->credentials = $this->repository->getAllInvitationsFor(
+            $this->invitation
+        );
 
         $this->invitationFile = app(Invitations::class)->savePdf(
             $this->invitation
