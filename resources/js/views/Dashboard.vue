@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 mb-4 text-center">
-            <h2>Painel de Controle</h2>
+            <h2> <i class="fas fa-cogs"></i> Painel de Controle</h2>
         </div>
 
         <div class="row" v-if="can('read')">
