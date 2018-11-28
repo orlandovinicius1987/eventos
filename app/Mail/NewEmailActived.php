@@ -14,7 +14,7 @@ class NewEmailActived extends Mailable
         $this->to($this->invitation->routeNotificationForMail())
             ->from('cerimonial@alerj.rj.gov.br', 'Cerimonial Alerj')
             ->subject('Email Novo Adicionado')
-            ->markdown('emails.email');
+            ->markdown('emails.new-email-actived');
 
         return $this;
     }
