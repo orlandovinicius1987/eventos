@@ -373,6 +373,11 @@ Route::group(
             }
         );
 
+        Route::get(
+            '/invitations/{uuid}/received/dummy.png',
+            'Invitations@markAsReceivedAndDownloadImage'
+        )->name('invitations.received');
+
         Route::group(
             [
                 'prefix' => '/invitations',
@@ -390,5 +395,9 @@ Route::group(
         );
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
+
+        Route::get('/invitations/{uuid}/qrcode', 'Invitations@qrcode')->name(
+            'invitations.qrcode'
+        );
     }
 );
