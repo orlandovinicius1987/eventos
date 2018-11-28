@@ -28,6 +28,18 @@ class Contacts extends Repository
     {
         $contact = parent::storeFromArray($array);
 
+        $this->sendInvitations($contact);
+    }
+
+    public function update($id, $array)
+    {
+        $contact = parent::update($id, $array);
+
+        $this->sendInvitations($contact);
+    }
+
+    private function sendInvitations($contact)
+    {
         if ($contact->contact_type_id == 3 and $contact->is_active) {
             $invitation = app(Invitations::class)->findByPersonInstitutionId(
                 $contact->personInstitution->id

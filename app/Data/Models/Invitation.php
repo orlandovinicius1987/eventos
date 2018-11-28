@@ -122,9 +122,11 @@ class Invitation extends Base
 
     public function send()
     {
-        $this->accepted_at
-            ? $this->notify(new SendCredential($this->id))
-            : $this->notify(new SendInvitation($this->id));
+        if (!$this->declined_at) {
+            $this->accepted_at
+                ? $this->notify(new SendCredential())
+                : $this->notify(new SendInvitation($this->id));
+        }
     }
 
     public function sendRejection()
