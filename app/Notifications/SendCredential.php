@@ -9,6 +9,8 @@ class SendCredential extends Notification
 {
     protected $invitation;
 
+    protected $credentials;
+
     /**
      * Create a new notification instance.
      *
@@ -16,9 +18,15 @@ class SendCredential extends Notification
      */
     public function __construct($invitationId)
     {
-        $this->invitation = app(Invitations::class)
-            ->setCurrentClientId($invitationId)
-            ->findById($invitationId);
+        $repository = app(Invitations::class)->setCurrentClientId(
+            $invitationId
+        );
+
+        $this->invitation = $repository->findById($invitationId);
+
+        $this->credentials = $repository->getAllInvitationsFor(
+            $this->invitation
+        );
     }
 
     /**

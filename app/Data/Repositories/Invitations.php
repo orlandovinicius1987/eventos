@@ -176,8 +176,6 @@ class Invitations extends Repository
             ]);
         }
 
-        info('invite()');
-
         event(new InvitationsChanged($eventId));
     }
 
@@ -294,5 +292,16 @@ class Invitations extends Repository
         $invitation->save();
 
         return $invitation;
+    }
+
+    public function getAllInvitationsFor($invitation)
+    {
+        return collect(
+            array_merge([$invitation], $invitation->related())
+        )->sortBy(function ($invitation) {
+            return is_null($invitation->subEvent->associated_subevent_id)
+                ? 10
+                : 100;
+        });
     }
 }
