@@ -47,6 +47,11 @@ Route::group(
 
                 Route::post('/', 'Events@store')->name('events.store');
 
+                Route::post(
+                    '/{id}/send-invitations',
+                    'Events@sendInvitations'
+                )->name('events.send-invitations');
+
                 Route::post('/{id}', 'Events@update')->name('events.update');
 
                 Route::group(['prefix' => '{eventId}/sub-events'], function () {

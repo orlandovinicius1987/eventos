@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Data\Repositories\Events;
 use App\Events\InvitationsChanged;
 
-class SendAllInvitations extends Listener
+class SendInvitations extends Listener
 {
     /**
      * Handle the event.
@@ -15,6 +15,6 @@ class SendAllInvitations extends Listener
      */
     public function handle(InvitationsChanged $event)
     {
-        app(Events::class)->sendAllInvitations($event->eventId);
+        app(Events::class)->sendInvitations($event->eventId);
     }
 }
