@@ -379,5 +379,9 @@ Route::group(
         )->name('invitations.received');
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
+
+        Route::get('/invitations/{uuid}/qrcode', 'Invitations@qrcode')->name(
+            'invitations.qrcode'
+        );
     }
 );
