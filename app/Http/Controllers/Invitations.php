@@ -110,7 +110,7 @@ class Invitations extends Controller
     {
         app(InvitationsRepository::class)->findByUuid($uuid);
 
-        return response()->download(public_path('images/dummy.png'));
+        return null;
     }
 
     /**
