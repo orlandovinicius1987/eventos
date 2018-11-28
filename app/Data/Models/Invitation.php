@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Notifications\SendNewEmailActived;
 use App\Notifications\SendRejection;
 use App\Notifications\SendCredential;
 use App\Services\Markdown\Service;
@@ -128,6 +129,8 @@ class Invitation extends Base
                 : $this->notify(new SendInvitation());
         } elseif ($typeMail == 'reject') {
             $this->notify(new SendRejection($this->id));
+        } elseif ($typeMail == 'new-email-actived') {
+            $this->notify(new SendNewEmailActived($this->id));
         }
     }
 

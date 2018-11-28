@@ -1,4 +1,4 @@
-resources/sass/app.scss<template>
+<template>
     <div>
         <div class="row align-items-end">
             <div class="col-12">
