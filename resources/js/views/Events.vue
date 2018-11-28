@@ -54,6 +54,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
+                                    title="Editar Evento"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -104,8 +105,8 @@
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
-                                    title="Confirmar Sub-evento"
                                     :disabled="cannot('update') || !environment.events.confirmation.enabled"
+                                    title="Confirmar Sub-evento"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
@@ -114,8 +115,8 @@
                                     v-if="!subEvent.ended_at && subEvent.confirmed_at"
                                     class="btn btn-primary btn-sm btn-table-utility ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
-                                    title="Finalizar Sub-evento"
                                     :disabled="cannot('update')"
+                                    title="Finalizar Sub-evento"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
@@ -125,6 +126,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
+                                    title="Editar Sub-evento"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -158,6 +160,21 @@
                     <template slot="buttons">
                         <input v-model="hasNoEmailCheckbox" type="checkbox" id="filterWithoutEmail">
                         <label for="filterWithoutEmail">sem e-mail</label>
+
+                        <input v-model="notSentCheckbox" type="checkbox" id="filterNotSent">
+                        <label for="filterNotSent">não enviados</label>
+
+                        <input v-model="notReceivedCheckbox" type="checkbox" id="filterConviteNaoRecebido">
+                        <label for="filterConviteNaoRecebido">não recebidos</label>
+
+                        <input v-model="notAcceptedCheckbox" type="checkbox" id="filterNotAccepted">
+                        <label for="filterNotAccepted">não aceitos</label>
+
+                        <input v-model="notCheckedInCheckbox" type="checkbox" id="filterNotCheckedIn">
+                        <label for="filterNotCheckedIn">não check in</label>
+
+                        <input v-model="notAnsweredCheckbox" type="checkbox" id="filterNotAnswered">
+                        <label for="filterNotAnswered">não respondidos</label>
                     </template>
 
                     <app-table
@@ -234,6 +251,7 @@
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.has_email"
+                                    title="Enviar convite"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
                                 </div>
@@ -242,6 +260,7 @@
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.confirmed_at && !invitation.accepted_at"
+                                    title="Confirmar o Convite Manualmente"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
@@ -250,14 +269,17 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && environment.debug && invitation.accepted_at"
+                                    title="Realizar o Download do Convite"
                                 >
-                                    <i class="fa fa-id-badge"></i>
+                                    <i v-if="!invitation.busy" class="fa fa-id-badge"></i>
+                                    <i v-if="invitation.busy" class="fa fa-cog fa-spin"></i>
                                 </div>
 
                                 <div
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
+                                    title="Cancelar o Convite Manualmente"
                                 >
                                     <i class="fa fa-trash"></i>
                                 </div>
@@ -477,6 +499,91 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'hasNoEmail', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        notSentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.notSent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'notSent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        notReceivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.notReceived
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'notReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        notAcceptedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.notAccepted
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'notAccepted', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        notCheckedInCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.notCheckedIn
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'notCheckedIn', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        notAnsweredCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.notAnswered
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'notAnswered', value: filter},
                 )
 
                 this.$store.dispatch(

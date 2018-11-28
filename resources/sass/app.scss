@@ -1,6 +1,8 @@
 
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
@@ -14,6 +16,25 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+
+// Login
+@import 'login';
+
+// Navbar
+@import 'navbar';
+
+
+// Buttons
+@import 'buttons';
+
+// Buttons
+@import 'cards';
+
+
+
+
 
 .navbar-laravel {
   background-color: #fff;

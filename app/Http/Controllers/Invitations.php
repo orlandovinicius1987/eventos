@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvitationsAcceptStore;
 use App\Data\Repositories\Invitations as InvitationsRepository;
 use App\Http\Requests\InvitationsRejectStore;
+use Illuminate\Support\Facades\Session;
 
 class Invitations extends Controller
 {
@@ -40,26 +41,15 @@ class Invitations extends Controller
         $subEventId,
         $invitationId
     ) {
-        $invitation = app(InvitationsRepository::class)->findById(
-            $invitationId
-        );
-
-        $view = app(InvitationsRepository::class)->accept(
+        $message = app(InvitationsRepository::class)->accept(
             $eventId,
             $subEventId,
             $invitationId,
             only_numbers($request['cpf'])
         );
-
-        //        return redirect()
-        //            ->route('messages.show')
-        //            ->with('message', '');
-
-        return view($view)
-            ->with('invitation', $invitation)
-            ->with('eventId', $eventId)
-            ->with('subEventId', $subEventId)
-            ->with('invitationId', $invitationId);
+        return redirect()
+            ->route('messages.show')
+            ->with('message', $message);
     }
 
     /**
@@ -94,22 +84,16 @@ class Invitations extends Controller
         $subEventId,
         $invitationId
     ) {
-        $invitation = app(InvitationsRepository::class)->findById(
-            $invitationId
-        );
-
-        $view = app(InvitationsRepository::class)->reject(
+        $message = app(InvitationsRepository::class)->reject(
             $eventId,
             $subEventId,
             $invitationId,
             only_numbers($request['cpf'])
         );
 
-        return view($view)
-            ->with('invitation', $invitation)
-            ->with('eventId', $eventId)
-            ->with('subEventId', $subEventId)
-            ->with('invitationId', $invitationId);
+        return redirect()
+            ->route('messages.show')
+            ->with('message', $message);
     }
 
     public function markAsReceiveAndDownloadImage($uuid)

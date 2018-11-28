@@ -1,0 +1,61 @@
+//*****************************  Navbar Style   *****************************
+
+
+.navbar {
+
+  padding: 0.5rem 1rem 0 1rem ;
+
+  .navbar-brand {
+    img {
+      min-width: 150px;
+    }
+    margin-left: 30px;
+  }
+
+
+  .navbar-nav {
+    font-weight: 600;
+
+    .active{
+      border-bottom: 3px solid $blue;
+
+      .nav-link{
+        color: $blue !important;
+      }
+    }
+
+
+    .nav-item {
+      margin-right: 5px;
+
+      i {
+        /*font-size: 130%;*/
+        color: #ced4da;
+        margin-right: 3px;
+      }
+
+      &:hover {
+        i {
+          color: $blue;
+        }
+      }
+
+      .nav-link {
+        color: $grey;
+        letter-spacing: 0.04rem;
+        padding-bottom: 15px;
+
+        &:hover {
+          color: $blue !important;
+        }
+      }
+    }
+
+    @media (min-width: 768px) {
+      margin-bottom: -20px;
+    }
+  }
+
+
+}
+

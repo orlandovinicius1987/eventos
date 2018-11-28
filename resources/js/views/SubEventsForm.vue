@@ -103,6 +103,7 @@
                                                     tag="div"
                                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                                     :disabled="cannot('update')"
+                                                    title="Editar Endereço"
                                             >
                                                 <i class="fa fa-edit"></i>
                                             </router-link>
