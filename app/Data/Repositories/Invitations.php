@@ -270,6 +270,18 @@ class Invitations extends Repository
         return 'Cancelamento realizado com sucesso.';
     }
 
+    /**
+     * Generates QR code png image in storage/qr-codes
+     *
+     * @param $invitation_id
+     */
+    public function generateQrCodeFor($invitation_id)
+    {
+        $invitation = Invitation::find($invitation_id);
+
+        $invitation->generateQrCode();
+    }
+
     public function markAsReceived($uuid)
     {
         $invitation = $this->findByUuid($uuid);

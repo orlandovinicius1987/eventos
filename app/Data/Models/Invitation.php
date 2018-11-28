@@ -8,6 +8,7 @@ use Ramsey\Uuid\Uuid;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use Illuminate\Notifications\Notifiable;
+use App\Services\QrCode\Service as QrCode;
 
 class Invitation extends Base
 {
@@ -43,6 +44,8 @@ class Invitation extends Base
     ];
 
     protected $viewVariables;
+
+    protected $pathToQrCodes;
 
     private function parseMarkdown($text)
     {
@@ -285,5 +288,47 @@ class Invitation extends Base
         }, array_keys($variables));
 
         return str_replace($keys, $values, $text);
+    }
+
+    /**
+     * Create QR code png file and return its path
+     *
+     * @return string
+     */
+    public function generateQrCodeFile()
+    {
+        $relativePath = 'qr-codes/';
+        $fullPath = storage_path($relativePath);
+        $this->pathToQrCodes = $fullPath;
+        $fileName = $this->code . '.png';
+
+        $qrCode = app(QrCode::class);
+        $text = $this->code;
+        $qrCode->generateFile($fileName, $fullPath, $text);
+
+        return $fullPath . $fileName;
+    }
+
+    /**
+     * Get QR code image in string
+     *
+     * @return mixed
+     */
+    public function getQrCodeAttribute()
+    {
+        $qrCode = app(QrCode::class);
+        return $qrCode->generateString(
+            route('invitations.read', ['uuid' => $this->uuid])
+        );
+    }
+
+    /**
+     * Get QR code image in Blob URL
+     *
+     * @return mixed
+     */
+    public function getQrCodeBlobAttribute()
+    {
+        return base64_encode($this->qr_code);
     }
 }
