@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\InvitationsAcceptStore;
 use App\Data\Repositories\Invitations as InvitationsRepository;
 use App\Http\Requests\InvitationsRejectStore;
+use Illuminate\Support\Facades\Session;
 
 class Invitations extends Controller
 {
@@ -50,8 +51,9 @@ class Invitations extends Controller
             $invitationId,
             only_numbers($request['cpf'])
         );
-
-        return view($view)
+        return redirect()
+            ->route('messages.show')
+            ->with('view', $view)
             ->with('invitation', $invitation)
             ->with('eventId', $eventId)
             ->with('subEventId', $subEventId)
@@ -106,5 +108,12 @@ class Invitations extends Controller
             ->with('eventId', $eventId)
             ->with('subEventId', $subEventId)
             ->with('invitationId', $invitationId);
+    }
+
+    public function markAsReceiveAndDownloadImage($uuid)
+    {
+        app(InvitationsRepository::class)->markAsReceived($uuid);
+
+        return response()->download(public_path('images/dummy.png'));
     }
 }
