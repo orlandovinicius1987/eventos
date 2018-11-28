@@ -50,6 +50,27 @@ class Invitations extends Repository
                     and c.contact_type_id = (select id from contact_types where code = \'email\')
                 ) = 0');
         }
+
+        if (isset($filter['notSent']) && $filter['notSent']) {
+            $query->whereNull('sent_at');
+        }
+
+        if (isset($filter['notReceived']) && $filter['notReceived']) {
+            $query->whereNull('received_at');
+        }
+
+        if (isset($filter['notAccepted']) && $filter['notAccepted']) {
+            $query->whereNull('accepted_at');
+        }
+
+        if (isset($filter['notCheckedIn']) && $filter['notCheckedIn']) {
+            $query->whereNull('checkin_at');
+        }
+
+        if (isset($filter['notAnswered']) && $filter['notAnswered']) {
+            $query->whereNull('accepted_at');
+            $query->whereNull('declined_at');
+        }
     }
 
     protected function filterAllColumns($query, $text)
@@ -222,7 +243,7 @@ class Invitations extends Repository
             ) &&
             $cpf_stored != $cpf_confirmed
         ) {
-            return 'invitations.mark-as-accepted-not-ok';
+            return 'Parece que há algo errado com a seu convite, por favor entre em contato com o Cerimonial Alerj.';
         } else {
             if (is_null($cpf_stored)) {
                 $invitation->personInstitution->person->cpf = $cpf_confirmed;
@@ -232,7 +253,7 @@ class Invitations extends Repository
             $this->markAsAccepted($eventId, $subEventId, $invitation->id);
         }
 
-        return 'invitations.mark-as-accepted-ok';
+        return 'Muito obrigado por CONFIRMAR presença no evento, em breve enviaremos a sua credencial para acesso ao evento.';
     }
 
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
@@ -241,12 +262,12 @@ class Invitations extends Repository
             ($invitation = $this->findById($invitationId))->personInstitution
                 ->person->cpf != $cpf_confirmed
         ) {
-            return 'invitations.mark-as-rejected-not-ok';
+            return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
         }
 
         $this->markAsRejected($eventId, $subEventId, $invitation->id);
 
-        return 'invitations.mark-as-rejected-ok';
+        return 'Cancelamento realizado com sucesso.';
     }
 
     public function markAsReceived($uuid)
