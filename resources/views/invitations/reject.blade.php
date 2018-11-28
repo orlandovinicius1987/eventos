@@ -27,6 +27,8 @@
                 <div class="card p-5">
 
                     <div class="py-2 mb-4 text-center">
+                        <h2>{{$invitation->subEvent->event->name}}</h2>
+                        <h2>{{$invitation->subEvent->name}}</h2>
                         <h2>{{$invitation->personInstitution->person->name}}</h2>
                     </div>
 
