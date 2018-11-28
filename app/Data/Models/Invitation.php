@@ -3,6 +3,7 @@
 namespace App\Data\Models;
 
 use App\Notifications\SendCredential;
+use App\Services\Markdown\Service;
 use Ramsey\Uuid\Uuid;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
@@ -42,6 +43,11 @@ class Invitation extends Base
     ];
 
     protected $viewVariables;
+
+    private function parseMarkdown($text)
+    {
+        return app(Service::class)->text($text);
+    }
 
     public function personInstitution()
     {
@@ -174,6 +180,11 @@ class Invitation extends Base
         return $query;
     }
 
+    public function getVariablesAttribute()
+    {
+        return $this->getViewVariables();
+    }
+
     public function getViewVariables()
     {
         if ($this->viewVariables) {
@@ -181,6 +192,8 @@ class Invitation extends Base
         }
 
         $variables = [
+            'site_url' => route('home'),
+
             'empresa' => '',
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
@@ -239,19 +252,25 @@ class Invitation extends Base
             //            '{google_maps_imagem} (url - pensar)' => $invitation,
         ];
 
-        $variables['invitation_text'] = $this->replaceVariables(
-            $this->subEvent->invitation_text,
-            $variables
+        $variables['invitation_text'] = $this->parseMarkdown(
+            $this->replaceVariables(
+                $this->subEvent->invitation_text,
+                $variables
+            )
         );
 
-        $variables['confirmation_text'] = $this->replaceVariables(
-            $this->subEvent->confirmation_text,
-            $variables
+        $variables['confirmation_text'] = $this->parseMarkdown(
+            $this->replaceVariables(
+                $this->subEvent->confirmation_text,
+                $variables
+            )
         );
 
-        $variables['credential_send_text'] = $this->replaceVariables(
-            $this->subEvent->credential_send_text,
-            $variables
+        $variables['credential_send_text'] = $this->parseMarkdown(
+            $this->replaceVariables(
+                $this->subEvent->credential_send_text,
+                $variables
+            )
         );
 
         return $this->viewVariables = $variables;
