@@ -61,9 +61,13 @@ class Events extends Repository
             ->confirmed()
             ->get()
             ->each(function ($subEvent) {
-                $subEvent->invitations->each(function ($invitation) {
-                    $invitation->send();
-                });
+                $subEvent
+                    ->invitations()
+                    ->notSent()
+                    ->get()
+                    ->each(function ($invitation) {
+                        $invitation->send();
+                    });
             });
     }
 }
