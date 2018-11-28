@@ -26,11 +26,25 @@
 // Buttons
 @import 'buttons';
 
-// Buttons
+// Cards
 @import 'cards';
 
+// Tables
+@import 'tables';
 
 
+
+body {
+  color: $grey-darken02;
+}
+
+h2 {
+  color: $grey;
+  font-weight: 600;
+  i {
+    color: $blue-lighter03;
+  }
+}
 
 
 .navbar-laravel {
@@ -63,3 +77,32 @@ html {
 .cursor-pointer {
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+.v-select {
+  .dropdown-toggle {
+    &:after{
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+    }
+  }
+}
+
+
+.bg-filters {
+  background: $grey-lighter05;
+}
+
+
+.bg-primary {
+  background: $blue-lighter02;
+}
+
