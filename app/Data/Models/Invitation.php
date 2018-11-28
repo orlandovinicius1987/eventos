@@ -43,11 +43,6 @@ class Invitation extends Base
 
     protected $viewVariables;
 
-    protected function canSendInvitation()
-    {
-        return is_null($this->sent_at);
-    }
-
     public function personInstitution()
     {
         return $this->belongsTo(PersonInstitution::class);
@@ -117,10 +112,6 @@ class Invitation extends Base
 
     public function send()
     {
-        if (!$this->canSendInvitation()) {
-            return;
-        }
-
         $this->accepted_at
             ? $this->notify(new SendCredential($this->id))
             : $this->notify(new SendInvitation($this->id));
