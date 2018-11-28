@@ -91,11 +91,11 @@ class PersonInstitution extends Base
 
     public function getCorrectTitleAttribute()
     {
-        return ($this->title
-                ? $this->title
-                : $this->person->title)
-            ? $this->person->title
-            : '';
+        return $this->title
+            ? $this->title
+            : ($this->person->title
+                ? $this->person->title
+                : '');
     }
 
     /**

@@ -43,23 +43,30 @@ trait InvitationDownload
         );
     }
 
+    /**
+     *
+     * Appends the QrCode Blob URL to $invitations
+     *
+     * @param $invitations
+     * @return mixed
+     */
+    public function appendQrCodes($invitations)
+    {
+        foreach ($invitations as $invitation) {
+            $invitation->append('qr_code_blob');
+        }
+
+        return $invitations;
+    }
+
     public function generateHtml($invitations)
     {
+        $invitations = $this->appendQrCodes($invitations);
+
         return view('pdf.invitations.invitation-base')
             ->with([
                 'invitations' => $invitations,
             ])
             ->render();
-    }
-
-    public function getAllInvitationsFor($invitation)
-    {
-        return collect(
-            array_merge([$invitation], $invitation->related())
-        )->sortBy(function ($invitation) {
-            return is_null($invitation->subEvent->associated_subevent_id)
-                ? 10
-                : 100;
-        });
     }
 }

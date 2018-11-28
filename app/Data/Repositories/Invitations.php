@@ -176,8 +176,6 @@ class Invitations extends Repository
             ]);
         }
 
-        info('invite()');
-
         event(new InvitationsChanged($eventId));
     }
 
@@ -273,6 +271,18 @@ class Invitations extends Repository
         return 'Cancelamento realizado com sucesso.';
     }
 
+    /**
+     * Generates QR code png image in storage/qr-codes
+     *
+     * @param $invitation_id
+     */
+    public function generateQrCodeFor($invitation_id)
+    {
+        $invitation = Invitation::find($invitation_id);
+
+        $invitation->generateQrCode();
+    }
+
     public function markAsReceived($uuid)
     {
         $invitation = $this->findByUuid($uuid);
@@ -282,5 +292,16 @@ class Invitations extends Repository
         $invitation->save();
 
         return $invitation;
+    }
+
+    public function getAllInvitationsFor($invitation)
+    {
+        return collect(
+            array_merge([$invitation], $invitation->related())
+        )->sortBy(function ($invitation) {
+            return is_null($invitation->subEvent->associated_subevent_id)
+                ? 10
+                : 100;
+        });
     }
 }

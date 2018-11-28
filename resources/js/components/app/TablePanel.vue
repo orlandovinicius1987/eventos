@@ -1,4 +1,4 @@
-<template>
+resources/sass/app.scss<template>
     <div>
         <div class="row align-items-end">
             <div class="col-12">
@@ -11,17 +11,17 @@
                 <div class="row">
                     <div v-if="perPage" class="col-4">
                         <input
-                            class="form-control form-control-sm"
-                            :value="filterText"
-                            @input="$emit('input-filter-text', $event)"
-                            placeholder="filtrar"
+                                class="form-control form-control-sm"
+                                :value="filterText"
+                                @input="$emit('input-filter-text', $event)"
+                                placeholder="filtrar"
                         />
                     </div>
 
                     <div v-if="perPage" class="col-2 p-0">
                         <app-per-page
-                            :value="perPage"
-                            @input="$emit('set-per-page', $event)"
+                                :value="perPage"
+                                @input="$emit('set-per-page', $event)"
                         ></app-per-page>
                     </div>
 
@@ -33,12 +33,12 @@
 
                             <div class="col-6">
                                 <router-link
-                                    v-if="addButton"
-                                    :to="addButton.uri"
-                                    tag="div"
-                                    class="btn btn-primary btn-sm pull-right"
-                                    :disabled="addButton.disabled"
-                                    dusk="createEventButton"
+                                        v-if="addButton"
+                                        :to="addButton.uri"
+                                        tag="div"
+                                        class="btn btn-primary btn-sm pull-right"
+                                        :disabled="addButton.disabled"
+                                        dusk="createEventButton"
                                 >
                                     <i class="fa fa-plus"></i>
                                 </router-link>
@@ -56,14 +56,14 @@
 </template>
 
 <script>
-export default {
-    props: [
-        'title',
-        'add-button',
-        'add-button-disabled',
-        'columns',
-        'filter-text',
-        'per-page',
-    ],
-}
+    export default {
+        props: [
+            'title',
+            'add-button',
+            'add-button-disabled',
+            'columns',
+            'filter-text',
+            'per-page',
+        ],
+    }
 </script>
