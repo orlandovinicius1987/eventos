@@ -162,19 +162,19 @@
                         <label for="filterWithoutEmail">sem e-mail</label>
 
                         <input v-model="conviteNaoEnviadoCheckbox" type="checkbox" id="filterConviteNaoEnviado">
-                        <label for="filterConviteNaoEnviado">ConviteNaoEnviado</label>
+                        <label for="filterConviteNaoEnviado">não enviados</label>
 
                         <input v-model="conviteNaoRecebidoCheckbox" type="checkbox" id="filterConviteNaoRecebido">
-                        <label for="filterConviteNaoRecebido">ConviteNaoRecebido</label>
+                        <label for="filterConviteNaoRecebido">não recebidos</label>
 
                         <input v-model="conviteNaoAceitoCheckbox" type="checkbox" id="filterConviteNaoAceito">
-                        <label for="filterConviteNaoAceito">ConviteNaoAceito</label>
+                        <label for="filterConviteNaoAceito">não aceitos</label>
 
                         <input v-model="conviteNoCheckInCheckbox" type="checkbox" id="filterConviteNoCheckIn">
-                        <label for="filterConviteNoCheckIn">ConviteNoCheckIn</label>
+                        <label for="filterConviteNoCheckIn">não check in</label>
 
                         <input v-model="conviteNaoRespondidoCheckbox" type="checkbox" id="filterConviteNaoRespondido">
-                        <label for="filterConviteNaoRespondido">ConviteNaoRespondido</label>
+                        <label for="filterConviteNaoRespondido">não respondidos</label>
                     </template>
 
                     <app-table
