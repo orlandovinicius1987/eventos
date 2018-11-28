@@ -243,7 +243,7 @@ class Invitations extends Repository
             ) &&
             $cpf_stored != $cpf_confirmed
         ) {
-            return 'invitations.mark-as-accepted-not-ok';
+            return 'Parece que há algo errado com a seu convite, por favor entre em contato com o Cerimonial Alerj.';
         } else {
             if (is_null($cpf_stored)) {
                 $invitation->personInstitution->person->cpf = $cpf_confirmed;
@@ -253,7 +253,7 @@ class Invitations extends Repository
             $this->markAsAccepted($eventId, $subEventId, $invitation->id);
         }
 
-        return 'invitations.mark-as-accepted-ok';
+        return 'Muito obrigado por CONFIRMAR presença no evento, em breve enviaremos a sua credencial para acesso ao evento.';
     }
 
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
@@ -262,12 +262,12 @@ class Invitations extends Repository
             ($invitation = $this->findById($invitationId))->personInstitution
                 ->person->cpf != $cpf_confirmed
         ) {
-            return 'invitations.mark-as-rejected-not-ok';
+            return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
         }
 
         $this->markAsRejected($eventId, $subEventId, $invitation->id);
 
-        return 'invitations.mark-as-rejected-ok';
+        return 'Cancelamento realizado com sucesso.';
     }
 
     public function markAsReceived($uuid)
