@@ -100,6 +100,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('update')"
+                                    title="Editar Pessoa"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -167,6 +168,7 @@
                                                 )
                                             "
                                             class="btn btn-danger btn-sm mr-1 pull-right"
+                                            title="Excluir Categoria"
                                         >
                                             <i class="fa fa-trash"></i>
                                         </div>
@@ -272,6 +274,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Função"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -355,6 +358,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Contato"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -450,6 +454,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Endereço"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -530,6 +535,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Assessor"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -617,6 +623,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Contato do Assessor"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>

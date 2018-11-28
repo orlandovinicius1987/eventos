@@ -34,6 +34,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
+                                    title="Editar Instituição"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>

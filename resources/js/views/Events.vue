@@ -54,6 +54,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
+                                    title="Editar Evento"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -125,6 +126,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
+                                    title="Editar Sub-evento"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -234,6 +236,7 @@
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.has_email"
+                                    title="Enviar convite"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
                                 </div>
@@ -242,6 +245,7 @@
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.confirmed_at && !invitation.accepted_at"
+                                    title="Confirmar o Convite Manualmente"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
@@ -250,6 +254,7 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && environment.debug && invitation.accepted_at"
+                                    title="Realizar o Download do Convite"
                                 >
                                     <i class="fa fa-id-badge"></i>
                                 </div>
@@ -258,6 +263,7 @@
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
+                                    title="Cancelar o Convite Manualmente"
                                 >
                                     <i class="fa fa-trash"></i>
                                 </div>
