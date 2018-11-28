@@ -96,7 +96,7 @@ class Invitations extends Controller
             ->with('message', $message);
     }
 
-    public function markAsReceiveAndDownloadImage($uuid)
+    public function markAsReceivedAndDownloadImage($uuid)
     {
         app(InvitationsRepository::class)->markAsReceived($uuid);
 

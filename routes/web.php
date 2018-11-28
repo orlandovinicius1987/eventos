@@ -375,7 +375,7 @@ Route::group(
 
         Route::get(
             '/invitations/{uuid}/received/dummy.png',
-            'Invitations@markAsReceiveAndDownloadImage'
+            'Invitations@markAsReceivedAndDownloadImage'
         )->name('invitations.received');
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
