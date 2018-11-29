@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="col-12">
-                            <div class="p-12 mb-2 mt-2 bg-cyan">
+                            <div class="p-12 mb-2 mt-2">
                                 <slot name="selects"></slot>
                             </div>
                         </div>
