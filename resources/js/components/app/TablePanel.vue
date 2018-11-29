@@ -1,7 +1,7 @@
 <template>
     <div class="card shadow-sm mb-4">
         <div class="align-items-end card-header">
-            <div class="row">
+            <div class="row border-bottom">
                 <div class="col-12">
                     <div class="p-2 mb-2">
                         <h4 class="mb-0">{{ title }}</h4>

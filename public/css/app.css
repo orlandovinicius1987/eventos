@@ -18091,14 +18091,22 @@ a.text-dark:focus {
   text-transform: uppercase;
 }
 
+.card-deck .card .card-header {
+  background-color: #fff;
+}
+
 .card {
   border: none;
 }
 
 .card .card-header {
   border-bottom: none;
-  background-color: #fff;
+  background-color: #e9ecef;
   padding: 0.75rem 0.9rem 0;
+}
+
+.card .card-header .border-bottom {
+  border-bottom: 1px solid #ffffff !important;
 }
 
 .card .card-header .form-control,
@@ -18225,17 +18233,19 @@ html {
 }
 
 .bg-filters {
-  background: #f8f9fa;
+  background: #e9ecef;
 }
 
 .bg-primary {
   background: #7c9cdb;
 }
 
+/*
 .custom-select {
   height: 2.5em !important;
   font-size: 0.8em !important;
 }
+*/
 
 .bg-cyan {
   background-color: rgba(110, 196, 254, 0.35);
