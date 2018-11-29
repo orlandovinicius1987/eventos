@@ -5,11 +5,16 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
+const __emptyModel = {
+    id: null,
+    name: null,
+    code: null,
+}
+
 let state = merge_objects(
     {
-        form: new Form({
-            name: null,
-        }),
+        form: new Form(__emptyModel),
+        emptyForm: __emptyModel,
     },
     statesMixin.common,
 )

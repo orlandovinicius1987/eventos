@@ -5,8 +5,6 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
-
 const __emptyAddress = {
     zipcode: null,
     street: null,
@@ -19,18 +17,28 @@ const __emptyAddress = {
     longitude: laravel.google_maps.geolocation.longitude,
 }
 
-const __emptyForm = {
-    id: null,
-    name: null,
-    date: null,
-    time: null,
-    invitation_text: null,
-    confirmation_text: null,
+const __emptyModel = {
     address: __emptyAddress,
-    costume_id: null,
-    sector_id: null,
-    event_id: __emptyModel,
-    associated_subevent_id: null,
+    associated_subevent_id:null,
+    confirmation_text:null,
+    confirmed_at:null,
+    confirmed_by:null,
+    costume:null,
+    costume_id:null,
+    credential_send_text:null,
+    date:null,
+    ended_at:null,
+    ended_by:null,
+    event_id:null,
+    id:null,
+    invitation_text:null,
+    model:null,
+    name:null,
+    place:null,
+    sector_id:null,
+    started_at:null,
+    started_by:null,
+    time:null,
 }
 
 const state = merge_objects(statesMixin.common, {
@@ -42,7 +50,9 @@ const state = merge_objects(statesMixin.common, {
         performLoad: false,
     },
 
-    form: new Form(__emptyForm),
+    form: new Form(__emptyModel),
+
+    emptyForm: __emptyModel,
 })
 
 const actions = merge_objects(actionsMixin, {

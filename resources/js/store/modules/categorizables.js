@@ -17,6 +17,7 @@ const state = merge_objects(statesMixin.common, {
     },
 
     form: new Form(__emptyModel),
+    emptyForm: __emptyModel,
 })
 
 const actions = merge_objects(actionsMixin, {
