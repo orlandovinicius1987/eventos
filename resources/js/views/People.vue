@@ -43,23 +43,25 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
-                    <app-institution-filter-for-person
-                            name="institution_id"
-                            label="Instituição"
-                            :required="true"
-                            :form="form"
-                            :options="environment.tables.institutions"
-                    ></app-institution-filter-for-person>
+                    <template slot="selects">
+                        <app-institution-filter-for-person
+                                name="institution_id"
+                                label="Instituição"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.institutions"
+                        ></app-institution-filter-for-person>
 
-                    <app-role-filter-for-person
-                            name="role_id"
-                            label="Funções"
-                            :required="true"
-                            :form="form"
-                            :options="environment.tables.roles"
-                    ></app-role-filter-for-person>
+                        <app-role-filter-for-person
+                                name="role_id"
+                                label="Funções"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.roles"
+                        ></app-role-filter-for-person>
+                    </template>
 
-                    <template slot="filters">
+                    <template slot="checkboxes">
                         <app-input
                             name="hasNoPhotoCheckbox"
                             label="sem foto"

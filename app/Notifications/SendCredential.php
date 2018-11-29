@@ -2,19 +2,17 @@
 
 namespace App\Notifications;
 
-use App\Data\Models\Invitation;
-
 class SendCredential extends Notification
 {
     /**
      * Get the mail representation of the notification.
      *
-     * @param  Invitation $invitation
+     * @param  $notification
      *
      * @return \App\Mail\Credential
      */
-    public function toMail($invitation)
+    public function toMail($notification)
     {
-        return new \App\Mail\Credential($invitation);
+        return new \App\Mail\Credential($notification);
     }
 }

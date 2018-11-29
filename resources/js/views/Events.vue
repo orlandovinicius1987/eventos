@@ -128,7 +128,7 @@
                                     :disabled="cannot('update')"
                                     title="Finalizar Sub-evento"
                                 >
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-times-circle"></i>
                                 </button>
 
                                 <router-link
@@ -167,7 +167,7 @@
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
                 >
-                    <template slot="filters">
+                    <template slot="checkboxes">
                         <app-input
                             name="hasNoEmailCheckbox"
                             label="sem e-mail"

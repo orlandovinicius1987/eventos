@@ -2,19 +2,17 @@
 
 namespace App\Data\Models;
 
+use Ramsey\Uuid\Uuid;
+use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
 use App\Notifications\SendCredential;
-use App\Services\Markdown\Service;
-use Ramsey\Uuid\Uuid;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
-use Illuminate\Notifications\Notifiable;
+use App\Data\Repositories\Notifications;
 use App\Services\QrCode\Service as QrCode;
 
 class Invitation extends Base
 {
-    use Notifiable;
-
     /**
      * @var array
      */
@@ -53,6 +51,39 @@ class Invitation extends Base
         return !is_null($this->subEvent->confirmed_at) &&
             $this->hasEmail() &&
             is_null($this->declined_at);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function getEmails()
+    {
+        return $this->personInstitution->contacts->where(
+            'contact_type_id',
+            app(ContactTypes::class)->findByCode('email')->id
+        );
+    }
+
+    private function getMailSubject()
+    {
+        return ($this->hasBeenAccepted()
+            ? 'Credencial para acesso ao evento '
+            : 'Convite - ') . $this->subEvent->event->name;
+    }
+
+    private function getMailable()
+    {
+        return $this->hasBeenAccepted()
+            ? SendCredential::class
+            : SendInvitation::class;
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function hasBeenAccepted()
+    {
+        return filled($this->accepted_at);
     }
 
     private function parseMarkdown($text)
@@ -100,12 +131,7 @@ class Invitation extends Base
 
     public function hasEmail()
     {
-        return $this->personInstitution->contacts
-            ->where(
-                'contact_type_id',
-                app(ContactTypes::class)->findByCode('email')->id
-            )
-            ->count() > 0;
+        return $this->getEmails()->count() > 0;
     }
 
     public function related()
@@ -130,10 +156,23 @@ class Invitation extends Base
     public function send()
     {
         if ($this->canSendEmail()) {
-            $this->accepted_at
-                ? $this->notify(new SendCredential())
-                : $this->notify(new SendInvitation());
+            $this->getEmails()->each(function ($contact) {
+                $mailable = $this->getMailable();
+
+                $this->createNotification($contact->contact)->notify(
+                    new $mailable()
+                );
+            });
         }
+    }
+
+    public function createNotification($destination)
+    {
+        return app(Notifications::class)->create([
+            'invitation_id' => $this->id,
+            'destination' => $destination,
+            'subject' => $this->getMailSubject(),
+        ]);
     }
 
     public function sendRejection()
