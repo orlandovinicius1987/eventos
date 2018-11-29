@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <div class="row">
                 <div class="col-12"><h2>Lista Telefônica e Contatos</h2></div>
             </div>
