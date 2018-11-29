@@ -210,7 +210,7 @@
 
                         <app-input
                             name="notCheckedInCheckbox"
-                            label="não check in"
+                            label="não fizeram check in"
                             type="checkbox"
                             v-model="notCheckedInCheckbox"
                             :required="true"

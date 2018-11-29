@@ -33,12 +33,12 @@
 
                             <div class="col-6">
                                 <router-link
-                                        v-if="addButton"
-                                        :to="addButton.uri"
-                                        tag="div"
-                                        class="btn btn-primary btn-sm pull-right"
-                                        :disabled="addButton.disabled"
-                                        dusk="createEventButton"
+                                    v-if="addButton"
+                                    :to="addButton.uri"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm pull-right"
+                                    :disabled="addButton.disabled"
+                                    dusk="createEventButton"
                                 >
                                     <i class="fa fa-plus"></i>
                                 </router-link>
