@@ -2,14 +2,14 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\NotificationLog as NotificationLogModel;
+use App\Data\Models\Notification as NotificationModel;
 
-class NotificationLog extends Repository
+class Notifications extends Repository
 {
     /**
      * @var string
      */
-    protected $model = NotificationLogModel::class;
+    protected $model = NotificationModel::class;
 
     public function createNotifications($invitation, $destinations, $subject)
     {
