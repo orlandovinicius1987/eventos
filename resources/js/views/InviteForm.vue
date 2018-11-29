@@ -17,12 +17,12 @@
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
                     <app-select
-                            name="sub_event_id"
-                            label="Buscar convidados do Sub Evento"
-                            v-model="subEventSelectFilter"
-                            :required="true"
-                            :form="form"
-                            :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                        name="sub_event_id"
+                        label="Filtrar convidados de outro sub-evento"
+                        v-model="subEventSelectFilter"
+                        :required="true"
+                        :form="form"
+                        :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
                     ></app-select>
 
                     <template slot="buttons">
