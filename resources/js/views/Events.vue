@@ -167,24 +167,66 @@
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
                 >
-                    <template slot="buttons">
-                        <input v-model="hasNoEmailCheckbox" type="checkbox" id="filterWithoutEmail">
-                        <label for="filterWithoutEmail">sem e-mail</label>
+                    <template slot="filters">
+                        <app-input
+                            name="hasNoEmailCheckbox"
+                            label="sem e-mail"
+                            type="checkbox"
+                            v-model="hasNoEmailCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
 
-                        <input v-model="notSentCheckbox" type="checkbox" id="filterNotSent">
-                        <label for="filterNotSent">não enviados</label>
+                        <app-input
+                            name="notSentCheckbox"
+                            label="não enviados"
+                            type="checkbox"
+                            v-model="notSentCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
 
-                        <input v-model="notReceivedCheckbox" type="checkbox" id="filterConviteNaoRecebido">
-                        <label for="filterConviteNaoRecebido">não recebidos</label>
+                        <app-input
+                            name="notReceivedCheckbox"
+                            label="não recebidos"
+                            type="checkbox"
+                            v-model="notReceivedCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
 
-                        <input v-model="notAcceptedCheckbox" type="checkbox" id="filterNotAccepted">
-                        <label for="filterNotAccepted">não aceitos</label>
+                        <app-input
+                            name="notAcceptedCheckbox"
+                            label="não aceitos"
+                            type="checkbox"
+                            v-model="notAcceptedCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
 
-                        <input v-model="notCheckedInCheckbox" type="checkbox" id="filterNotCheckedIn">
-                        <label for="filterNotCheckedIn">não check in</label>
+                        <app-input
+                            name="notCheckedInCheckbox"
+                            label="não check in"
+                            type="checkbox"
+                            v-model="notCheckedInCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
 
-                        <input v-model="notAnsweredCheckbox" type="checkbox" id="filterNotAnswered">
-                        <label for="filterNotAnswered">não respondidos</label>
+                        <app-input
+                            name="notAnsweredCheckbox"
+                            label="não respondidos"
+                            type="checkbox"
+                            v-model="notAnsweredCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
                     </template>
 
                     <app-table
