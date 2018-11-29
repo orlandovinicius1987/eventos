@@ -45,6 +45,12 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-12">
+                        <div class=" text-center p-12 mb-2 mt-2 bg-cyan">
+                            <slot name="filters"></slot>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

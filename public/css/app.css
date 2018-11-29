@@ -17990,3 +17990,7 @@ a.text-dark:focus {
   font-size: 0.8em !important;
 }
 
+.bg-cyan {
+  background-color: rgba(110, 196, 254, 0.35);
+}
+
