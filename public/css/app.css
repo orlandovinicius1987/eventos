@@ -17985,3 +17985,8 @@ a.text-dark:focus {
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.075) !important;
 }
 
+.custom-select {
+  height: 2.5em !important;
+  font-size: 0.8em !important;
+}
+
