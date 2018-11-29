@@ -128,7 +128,7 @@
                                     :disabled="cannot('update')"
                                     title="Finalizar Sub-evento"
                                 >
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-times-circle"></i>
                                 </button>
 
                                 <router-link
