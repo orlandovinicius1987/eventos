@@ -59,9 +59,16 @@
                             :options="environment.tables.roles"
                     ></app-role-filter-for-person>
 
-                    <template slot="buttons">
-                        <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
-                        <label for="filterHasNoPhoto">sem foto</label>
+                    <template slot="filters">
+                        <app-input
+                            name="hasNoPhotoCheckbox"
+                            label="sem foto"
+                            type="checkbox"
+                            v-model="hasNoPhotoCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
                     </template>
 
                     <app-table

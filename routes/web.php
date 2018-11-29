@@ -47,6 +47,11 @@ Route::group(
 
                 Route::post('/', 'Events@store')->name('events.store');
 
+                Route::post(
+                    '/{id}/send-invitations',
+                    'Events@sendInvitations'
+                )->name('events.send-invitations');
+
                 Route::post('/{id}', 'Events@update')->name('events.update');
 
                 Route::group(['prefix' => '{eventId}/sub-events'], function () {
@@ -398,11 +403,6 @@ Route::group(
             }
         );
 
-        Route::get(
-            '/invitations/{uuid}/received/dummy.png',
-            'Invitations@markAsReceivedAndDownloadImage'
-        )->name('invitations.received');
-
         Route::group(
             [
                 'prefix' => '/invitations',
@@ -410,19 +410,15 @@ Route::group(
             function () {
                 Route::get(
                     '/{uuid}/received/dummy.png',
-                    'Invitations@markAsReceiveAndDownloadImage'
+                    'Invitations@markAsReceivedAndDownloadImage'
                 )->name('invitations.received');
 
                 Route::get('/{uuid}/qrcode', 'Invitations@showViaQRCode')->name(
-                    'invitations.show'
+                    'invitations.show-via-qrcode'
                 );
             }
         );
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
-
-        Route::get('/invitations/{uuid}/qrcode', 'Invitations@qrcode')->name(
-            'invitations.qrcode'
-        );
     }
 );

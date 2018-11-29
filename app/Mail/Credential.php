@@ -12,19 +12,9 @@ class Credential extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $invitation;
-
     protected $invitationFile;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param $invitation
-     */
-    public function __construct($invitation)
-    {
-        $this->invitation = $invitation;
-    }
+    public $credentials;
 
     /**
      * Build the message.
@@ -33,6 +23,10 @@ class Credential extends Mailable
      */
     public function build()
     {
+        $this->credentials = $this->repository->getAllInvitationsFor(
+            $this->invitation
+        );
+
         $this->invitationFile = app(Invitations::class)->savePdf(
             $this->invitation
         );

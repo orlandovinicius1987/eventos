@@ -48,6 +48,13 @@ class Invitation extends Base
 
     protected $pathToQrCodes;
 
+    private function canSendEmail()
+    {
+        return !is_null($this->subEvent->confirmed_at) &&
+            $this->hasEmail() &&
+            is_null($this->declined_at);
+    }
+
     private function parseMarkdown($text)
     {
         return app(Service::class)->text($text);
@@ -120,15 +127,18 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send($typeMail = 'accept')
+    public function send()
     {
-        if ($typeMail == 'accept') {
+        if ($this->canSendEmail()) {
             $this->accepted_at
-                ? $this->notify(new SendCredential($this->id))
-                : $this->notify(new SendInvitation($this->id));
-        } elseif ($typeMail == 'reject') {
-            $this->notify(new SendRejection($this->id));
+                ? $this->notify(new SendCredential())
+                : $this->notify(new SendInvitation());
         }
+    }
+
+    public function sendRejection()
+    {
+        $this->notify(new SendRejection($this->id));
     }
 
     public function getClientIdAttribute()
@@ -322,8 +332,9 @@ class Invitation extends Base
     public function getQrCodeAttribute()
     {
         $qrCode = app(QrCode::class);
+
         return $qrCode->generateString(
-            route('invitations.read', ['uuid' => $this->uuid])
+            route('invitations.show-via-qrcode', ['uuid' => $this->uuid])
         );
     }
 
@@ -335,5 +346,16 @@ class Invitation extends Base
     public function getQrCodeBlobAttribute()
     {
         return base64_encode($this->qr_code);
+    }
+
+    /**
+     * Not sent scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeNotSent($query)
+    {
+        return $query->whereNull('sent_at');
     }
 }

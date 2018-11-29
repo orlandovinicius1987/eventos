@@ -49,4 +49,9 @@ class Events extends Controller
     {
         return app(EventsRepository::class)->update($id, $request->all());
     }
+
+    public function sendInvitations($id)
+    {
+        return app(EventsRepository::class)->sendInvitations($id);
+    }
 }

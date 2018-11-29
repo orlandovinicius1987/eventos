@@ -1,4 +1,4 @@
-resources/sass/app.scss<template>
+<template>
     <div>
         <div class="row align-items-end">
             <div class="col-12">
@@ -33,16 +33,22 @@ resources/sass/app.scss<template>
 
                             <div class="col-6">
                                 <router-link
-                                        v-if="addButton"
-                                        :to="addButton.uri"
-                                        tag="div"
-                                        class="btn btn-primary btn-sm pull-right"
-                                        :disabled="addButton.disabled"
-                                        dusk="createEventButton"
+                                    v-if="addButton"
+                                    :to="addButton.uri"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm pull-right"
+                                    :disabled="addButton.disabled"
+                                    dusk="createEventButton"
                                 >
                                     <i class="fa fa-plus"></i>
                                 </router-link>
                             </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class=" text-center p-12 mb-2 mt-2 bg-cyan">
+                            <slot name="filters"></slot>
                         </div>
                     </div>
                 </div>

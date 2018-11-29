@@ -77,7 +77,6 @@ class SubEvent extends Base
     public function getFormattedTimeAttribute()
     {
         return Carbon::createFromFormat('H:i:s', $this->time)->format('H:i');
-        //        return $this->time->->format('h:m');
     }
 
     /**
@@ -94,5 +93,16 @@ class SubEvent extends Base
             ->whereRaw(
                 'abs(TRUNC(DATE_PART(\'day\', sub_events.date - now())/7)) < 2'
             );
+    }
+
+    /**
+     * Confirmed scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeConfirmed($query)
+    {
+        return $query->whereNotNull('confirmed_at');
     }
 }

@@ -2,6 +2,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Contact as ContactModel;
+use App\Events\InvitationAccepted;
 
 class Contacts extends Repository
 {
@@ -17,5 +18,36 @@ class Contacts extends Repository
     public function allByPersonInstitutionId($personInstitutionId)
     {
         return $this->filterByPersonInstitutionId($personInstitutionId);
+    }
+
+    /**
+     * @param $array
+     * @return mixed|void
+     */
+    public function storeFromArray($array)
+    {
+        $contact = parent::storeFromArray($array);
+
+        $this->sendInvitations($contact);
+    }
+
+    public function update($id, $array)
+    {
+        $contact = parent::update($id, $array);
+
+        $this->sendInvitations($contact);
+    }
+
+    private function sendInvitations($contact)
+    {
+        if ($contact->contact_type_id == 3 and $contact->is_active) {
+            $invitation = app(Invitations::class)->findByPersonInstitutionId(
+                $contact->personInstitution->id
+            );
+
+            if ($invitation) {
+                event(new InvitationAccepted($invitation->id));
+            }
+        }
     }
 }

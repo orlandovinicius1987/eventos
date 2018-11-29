@@ -52,14 +52,22 @@ class Events extends Repository
         set_current_client_id($event->client_id);
     }
 
-    public function sendAllInvitations($eventId)
+    public function sendInvitations($eventId)
     {
         $this->selectCurrentClientForEvent($eventId);
 
-        $this->findById($eventId)->subEvents->each(function ($subEvent) {
-            $subEvent->invitations->each(function ($invitation) {
-                $invitation->send();
+        $this->findById($eventId)
+            ->subEvents()
+            ->confirmed()
+            ->get()
+            ->each(function ($subEvent) {
+                $subEvent
+                    ->invitations()
+                    ->notSent()
+                    ->get()
+                    ->each(function ($invitation) {
+                        $invitation->send();
+                    });
             });
-        });
     }
 }

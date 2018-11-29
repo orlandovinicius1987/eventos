@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Events\InvitationRejected;
 use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
-use App\Listeners\SendAllInvitations;
 use App\Listeners\SendCredential;
 use App\Listeners\SendRejection;
 use Illuminate\Auth\Events\Registered;
@@ -22,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [SendEmailVerificationNotification::class],
 
-        InvitationsChanged::class => [SendAllInvitations::class],
+        InvitationsChanged::class => [],
 
         InvitationAccepted::class => [SendCredential::class],
 
