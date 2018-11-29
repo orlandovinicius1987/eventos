@@ -45,7 +45,6 @@
             </div>
 
             <div class="col-4">
-                <p class="one-line">Código: <b>{{ result }}</b></p>
                 <qrcode-drop-zone @decode="onDecode">
                     <qrcode-stream @decode="onDecode" @init="onInit" />
                 </qrcode-drop-zone>
@@ -156,19 +155,27 @@
             },
 
             onDecode (result) {
-                this.result = result
               return this.makeCheckinWithCode(result)
             },
 
-            makeCheckinWithCode(code){
+            makeCheckinWithCode(url){
                 const $this = this
 
+                let urlArray = url.split('/')
+                dd('urlArray',urlArray)
                 dd('this.receptiveInvitations.data.rows',this.receptiveInvitations.data.rows)
+
                 this.receptiveInvitations.data.rows.forEach(function(invitation){
-                        if(invitation.code == code){
+                    urlArray.forEach(function(element){
+                        dd('element: ',element)
+                        if(invitation.uuid == element){
                             $this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
                             $this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
+                            $this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.person.name
+                            return
                         }
+                    })
+
                 })
 
             },

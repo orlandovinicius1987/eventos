@@ -12,9 +12,8 @@ class Rejection extends Mailable
     public function build()
     {
         $this->to($this->invitation->routeNotificationForMail())
-            ->from('cerimonial@alerj.rj.gov.br', 'Cerimonial Alerj')
             ->subject(
-                'Cancelamento de Convite - ' .
+                'Convite Declinado - ' .
                     $this->invitation->subEvent->event->name
             )
             ->markdown('emails.rejection');

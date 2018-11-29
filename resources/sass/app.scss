@@ -25,99 +25,101 @@
 
 
 
-//// Login
-//@import 'login';
+// Login
+@import 'login';
 //
-//// Navbar
-//@import 'navbar';
+// Navbar
+@import 'navbar';
 //
 //
-//// Buttons
-//@import 'buttons';
+// Buttons
+@import 'buttons';
 //
 // Cards
 @import 'cards';
 //
-//// Tables
-//@import 'tables';
-//
-//
-//
-//body {
-//  color: $grey-darken02;
-//}
-//
-//h2 {
-//  color: $grey;
-//  font-weight: 600;
-//  i {
-//    color: $blue-lighter03;
-//  }
-//}
-//
-//
-//.navbar-laravel {
-//  background-color: #fff;
-//  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-//}
-//
-//html {
-//  font-size: 14px;
-//}
-//
-//@media (min-width: 768px) {
-//  html {
-//    font-size: 16px;
-//  }
-//}
-//
-//.container {
-//  max-width: 960px;
-//}
-//
-//.pricing-header {
-//  max-width: 700px;
-//}
-//
-//.card-deck .card {
-//  min-width: 220px;
-//}
-//
-//.cursor-pointer {
-//  cursor: pointer;
-//}
-//
-//.v-select {
-//  .dropdown-toggle {
-//    &:after{
-//      border-top: none;
-//      border-right: none;
-//      border-bottom: none;
-//      border-left: none;
-//    }
-//  }
-//}
-//
-//
-//
-//
-//.h-80 {
-//
-//  height: 80% !important;
-//
-//  @media screen and (max-width: 479px) {
-//    height: 80% !important;
-//  }
-//}
-//
-//.bg-filters {
-//  background: $grey-lighter05;
-//}
-//
-//
-//.bg-primary {
-//  background: $blue-lighter02;
-//}
+// Tables
+@import 'tables';
+
+
+body {
+  color: $grey-darken02;
+}
+
+h2 {
+  color: $grey;
+  font-weight: 600;
+  i {
+    color: $blue-lighter03;
+  }
+}
+
+.navbar-laravel {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.container {
+  max-width: 960px;
+}
+
+.pricing-header {
+  max-width: 700px;
+}
+
+.card-deck .card {
+  min-width: 220px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.v-select {
+  .dropdown-toggle {
+    &:after {
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+    }
+  }
+  input {
+    height: 20px;
+  }
+}
+
+
+
+.h-80 {
+
+  height: 80% !important;
+
+  @media screen and (max-width: 479px) {
+    height: 80% !important;
+  }
+}
+
+.bg-filters {
+  background: $grey-lighter05;
+}
+
+
+.bg-primary {
+  background: $blue-lighter02;
+}
+
+
 
 .custom-select {
   height: 2.5em !important;
@@ -127,3 +129,15 @@
 .bg-cyan {
   background-color: $cyan-light;
 }
+
+.logo-alerj {
+  height: 100%;
+  background-image: url("/images/alerj-logo-sotexto-op20.png") ;
+  background-repeat: no-repeat ;
+  background-position: bottom 100px center;
+  background-size: 300px;
+}
+
+//.container-fluid {
+//  display: none !important;
+//}
