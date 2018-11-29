@@ -14,7 +14,7 @@
                     <div class="row">
                         <div v-if="perPage" class="col-4">
                             <input
-                                    class="form-control form-control-sm"
+                                    class="form-control"
                                     :value="filterText"
                                     @input="$emit('input-filter-text', $event)"
                                     placeholder="filtrar"
@@ -35,7 +35,7 @@
                                     v-if="addButton"
                                     :to="addButton.uri"
                                     tag="div"
-                                    class="btn btn-primary btn-sm pull-right"
+                                    class="btn btn-primary pull-right"
                                     :disabled="addButton.disabled"
                                     dusk="createEventButton"
                             >
