@@ -45,6 +45,7 @@
             </div>
 
             <div class="col-4">
+                <p class="one-line"><b>{{ result }}</b></p>
                 <qrcode-drop-zone @decode="onDecode">
                     <qrcode-stream @decode="onDecode" @init="onInit" />
                 </qrcode-drop-zone>
@@ -136,7 +137,7 @@
 
                     confirm(
                         'Deseja realizar o checkin de ' +
-                        invitation.person_institution.person.name +
+                        + invitation.person_institution.title + ' '+invitation.person_institution.person.name +
                         '?', this,
                     ).then(function (value) {
                         if (value) {
@@ -150,8 +151,10 @@
             },
 
             makeCheckin(invitation) {
-                return this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
                 this.$store.dispatch('receptiveInvitations/load')
+                this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
+                this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.title + ' '+invitation.person_institution.person.name
+                return this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
             },
 
             onDecode (result) {
@@ -167,12 +170,8 @@
 
                 this.receptiveInvitations.data.rows.forEach(function(invitation){
                     urlArray.forEach(function(element){
-                        dd('element: ',element)
-                        if(invitation.uuid == element){
-                            $this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
-                            $this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
-                            $this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.person.name
-                            return
+                        if(invitation.uuid == element && invitation.checkin_at == null){
+                            $this.makeCheckin(invitation)
                         }
                     })
 
