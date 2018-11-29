@@ -17985,6 +17985,17 @@ a.text-dark:focus {
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.075) !important;
 }
 
+.v-select .dropdown-toggle:after {
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.v-select input {
+  height: 20px;
+}
+
 .custom-select {
   height: 2.5em !important;
   font-size: 0.8em !important;
@@ -17992,5 +18003,13 @@ a.text-dark:focus {
 
 .bg-cyan {
   background-color: rgba(110, 196, 254, 0.35);
+}
+
+.logo-alerj {
+  height: 100%;
+  background-image: url("/images/alerj-logo-sotexto-op20.png");
+  background-repeat: no-repeat;
+  background-position: bottom 100px center;
+  background-size: 300px;
 }
 

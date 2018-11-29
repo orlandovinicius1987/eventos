@@ -87,16 +87,20 @@
 //  cursor: pointer;
 //}
 //
-//.v-select {
-//  .dropdown-toggle {
-//    &:after{
-//      border-top: none;
-//      border-right: none;
-//      border-bottom: none;
-//      border-left: none;
-//    }
-//  }
-//}
+.v-select {
+  .dropdown-toggle {
+    &:after {
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+    }
+  }
+  input {
+    height: 20px;
+  }
+}
+
 //
 //
 //
@@ -127,3 +131,15 @@
 .bg-cyan {
   background-color: $cyan-light;
 }
+
+.logo-alerj {
+  height: 100%;
+  background-image: url("/images/alerj-logo-sotexto-op20.png") ;
+  background-repeat: no-repeat ;
+  background-position: bottom 100px center;
+  background-size: 300px;
+}
+
+//.container-fluid {
+//  display: none !important;
+//}

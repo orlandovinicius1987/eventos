@@ -9,7 +9,7 @@ const __emptyModel = {
     id: null,
     party_number: null,
     is_party: null,
-    is_active:false,
+    is_active: false,
     name: null,
 }
 

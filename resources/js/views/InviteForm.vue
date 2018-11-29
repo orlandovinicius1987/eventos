@@ -1,4 +1,4 @@
-<template>
+recordButtonText<template>
     <div>
         <div class="py-2 mb-4 text-center">
             <h1>{{ events.selected.name }}</h1>
@@ -17,25 +17,26 @@
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
                     <app-select
-                            name="sub_event_id"
-                            label="Buscar convidados do Sub Evento"
-                            v-model="subEventSelectFilter"
-                            :required="true"
-                            :form="form"
-                            :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                        name="sub_event_id"
+                        label="Filtrar convidados de outro sub-evento"
+                        v-model="subEventSelectFilter"
+                        :required="true"
+                        :form="form"
+                        :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
                     ></app-select>
 
                     <template slot="buttons">
                         <div
-                                class="btn btn-primary btn-sm pull-right"
-                                @click="invite()"
+                            class="btn btn-primary btn-sm pull-right"
+                            @click="invite()"
                         >
-                            {{recordButtonText}}
+                            {{ recordButtonText }}
                         </div>
 
                         <div
-                                class="btn btn-danger btn-sm pull-right"
-                                @click="moveInvitations()"
+                            v-if="selectedSubEvent"
+                            class="btn btn-danger btn-sm pull-right"
+                            @click="moveInvitations()"
                         >
                             mover convidados
                         </div>

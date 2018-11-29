@@ -6,10 +6,10 @@ import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = {
-    contact:null,
-    contact_type_id:null,
-    person_institution_id:null,
-    is_active:false,
+    contact: null,
+    contact_type_id: null,
+    person_institution_id: null,
+    is_active: false,
 }
 
 const state = merge_objects(statesMixin.common, {
