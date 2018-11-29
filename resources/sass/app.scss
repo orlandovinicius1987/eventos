@@ -14,6 +14,8 @@
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 
+@import '/fonts/vendor/din/stylesheet.css';
+
 // Vue Croppa
 @import '~vue-croppa/dist/vue-croppa.css';
 
@@ -22,6 +24,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+
+
+
 
 
 
@@ -111,7 +118,7 @@ html {
 }
 
 .bg-filters {
-  background: $grey-lighter05;
+  background: $grey-lighter03;
 }
 
 
@@ -121,10 +128,12 @@ html {
 
 
 
+/*
 .custom-select {
   height: 2.5em !important;
   font-size: 0.8em !important;
 }
+*/
 
 .bg-cyan {
   background-color: $cyan-light;
