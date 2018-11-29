@@ -167,7 +167,7 @@
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
                 >
-                    <template slot="filters">
+                    <template slot="checkboxes">
                         <app-input
                             name="hasNoEmailCheckbox"
                             label="sem e-mail"
