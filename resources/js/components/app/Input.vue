@@ -1,5 +1,5 @@
 <template>
-    <span :class="(type === 'checkbox' ? (inline ?  '' : 'form-check') : '') + ' m-4'">
+    <span :class="type === 'checkbox' ? (inline ?  '' : 'form-check') + ' m-4' : ''">
         <label v-if="type !== 'checkbox'" :for="name" class="mb-0 mt-4">{{ label }}</label>
 
         <input
