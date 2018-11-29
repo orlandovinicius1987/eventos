@@ -15,7 +15,7 @@ class Notification extends Base
      */
     protected $fillable = ['invitation_id', 'subject', 'destination'];
 
-    protected $table = 'notification_log';
+    protected $table = 'notifications';
 
     public function save(array $options = [])
     {
@@ -36,11 +36,17 @@ class Notification extends Base
         $this->save();
     }
 
-    /**
-     * Route notifications for the mail channel.
-     *
-     * @return string
-     */
+    public function markAsReceived()
+    {
+        $this->received_at = now();
+
+        $this->save();
+
+        $this->invitation->received_at = now();
+
+        $this->invitation->save();
+    }
+
     public function routeNotificationForMail()
     {
         return $this->destination;
