@@ -87,16 +87,20 @@
 //  cursor: pointer;
 //}
 //
-//.v-select {
-//  .dropdown-toggle {
-//    &:after{
-//      border-top: none;
-//      border-right: none;
-//      border-bottom: none;
-//      border-left: none;
-//    }
-//  }
-//}
+.v-select {
+  .dropdown-toggle {
+    &:after {
+      border-top: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: none;
+    }
+  }
+  input {
+    height: 20px;
+  }
+}
+
 //
 //
 //
