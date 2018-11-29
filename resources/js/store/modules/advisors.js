@@ -11,7 +11,7 @@ const __emptyModel = {
     institution_id: null,
     advised_id: null,
     title: null,
-    is_active:false,
+    is_active: false,
 }
 
 const state = merge_objects(statesMixin.common, {

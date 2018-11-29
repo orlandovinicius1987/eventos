@@ -16,7 +16,6 @@ const __emptyModel = {
     checkin_at: null,
     code: null,
     uuid: null,
-
 }
 
 const state = merge_objects(statesMixin.common, {

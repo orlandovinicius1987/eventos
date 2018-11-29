@@ -1,31 +1,10 @@
-@extends('layouts.simple-noauth')
+@extends('layouts.simple')
 
 @section('content')
-
-    <style>
-        html {
-            height: 100%;
-        }
-
-        body {
-            height: 100%;
-            background-image: url("/images/alerj-logo-sotexto-op20.png") ;
-            background-repeat: no-repeat ;
-            background-position: bottom 100px center;
-            background-size: 300px;
-        }
-
-        .container-fluid {
-            display: none !important;
-        }
-    </style>
-
-
-    <div class="container d-flex h-80">
+    <div class="container d-flex h-80 logo-alerj">
         <div class="row align-self-center w-100">
             <div class="col-md-8 col-lg-8 mx-auto">
                 <div class="card p-5">
-
                     <div class="py-2 mb-4 text-center">
                         <h2>{{$invitation->subEvent->event->name}}</h2>
                         <h2>{{$invitation->subEvent->name}}</h2>
@@ -86,14 +65,8 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
-
 @stop

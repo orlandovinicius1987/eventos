@@ -1,4 +1,4 @@
-@extends('layouts.simple-noauth')
+@extends('layouts.simple')
 
 @section('content')
     <div class="container d-flex h-80 logo-alerj">
