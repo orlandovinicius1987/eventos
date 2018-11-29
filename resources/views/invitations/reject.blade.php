@@ -49,30 +49,37 @@
 
                             <div>
                                 @if ($invitation->personInstitution->person->cpf)
-                                    <h4>Confirme seu CPF para realizar o CANCELAMENTO do convite</h4>
+                                    <h2>ATENÇÃO</h2>
+                                    <h4>Você está prestes a declinar o convite</h4>
+                                    <h4>Digite seu CPF abaixo para confirmar</h4>
                                     <div class="row mt-3 mb-4">
                                         <div class="col-12 ">
                                             {{--<label for="cpf">CPF</label>--}}
                                             <input
-                                                    name="cpf"
-                                                    id="cpf"
-                                                    required="true"
-                                                    type="text"
-                                                    placeholder="CPF"
-                                                    class="form-control"
+                                                name="cpf"
+                                                id="cpf"
+                                                required="true"
+                                                type="text"
+                                                placeholder="CPF"
+                                                class="form-control"
                                             />
                                         </div>
                                     </div>
                                     <div class="row mt-4">
                                         <div class="col-12">
-                                            <button class="btn btn-success btn-block" type="submit">Gravar</button>
+                                            <button class="btn btn-success btn-block" type="submit">
+                                                Clique para declinar
+                                            </button>
                                         </div>
                                     </div>
                                 @else
-                                    <h4>Confirme para realizar o CANCELAMENTO do convite</h4>
+                                    <h2>ATENÇÃO</h2>
+                                    <h4>Você está prestes a declinar o convite</h4>
                                     <div class="row">
                                         <div class="col-12 mt-3">
-                                            <button class="btn btn-success btn-block" type="submit">Gravar</button>
+                                            <button class="btn btn-success btn-block" type="submit">
+                                                Clique para declinar
+                                            </button>
                                         </div>
                                     </div>
                                 @endif

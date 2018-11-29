@@ -18005,3 +18005,11 @@ a.text-dark:focus {
   background-color: rgba(110, 196, 254, 0.35);
 }
 
+.logo-alerj {
+  height: 100%;
+  background-image: url("/images/alerj-logo-sotexto-op20.png");
+  background-repeat: no-repeat;
+  background-position: bottom 100px center;
+  background-size: 300px;
+}
+
