@@ -1,4 +1,4 @@
-<template>
+recordButtonText<template>
     <div>
         <div class="py-2 mb-4 text-center">
             <h1>{{ events.selected.name }}</h1>
@@ -27,15 +27,16 @@
 
                     <template slot="buttons">
                         <div
-                                class="btn btn-primary btn-sm pull-right"
-                                @click="invite()"
+                            class="btn btn-primary btn-sm pull-right"
+                            @click="invite()"
                         >
-                            {{recordButtonText}}
+                            {{ recordButtonText }}
                         </div>
 
                         <div
-                                class="btn btn-danger btn-sm pull-right"
-                                @click="moveInvitations()"
+                            v-if="selectedSubEvent"
+                            class="btn btn-danger btn-sm pull-right"
+                            @click="moveInvitations()"
                         >
                             mover convidados
                         </div>

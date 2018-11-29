@@ -26,24 +26,18 @@
                     </div>
 
                     <div class="col-6 text-right">
-                        <div class="row">
-                            <div class="col-6">
-                                <slot name="buttons"></slot>
-                            </div>
+                        <slot name="buttons"></slot>
 
-                            <div class="col-6">
-                                <router-link
-                                    v-if="addButton"
-                                    :to="addButton.uri"
-                                    tag="div"
-                                    class="btn btn-primary btn-sm pull-right"
-                                    :disabled="addButton.disabled"
-                                    dusk="createEventButton"
-                                >
-                                    <i class="fa fa-plus"></i>
-                                </router-link>
-                            </div>
-                        </div>
+                        <router-link
+                            v-if="addButton"
+                            :to="addButton.uri"
+                            tag="div"
+                            class="btn btn-primary btn-sm pull-right"
+                            :disabled="addButton.disabled"
+                            dusk="createEventButton"
+                        >
+                            <i class="fa fa-plus"></i>
+                        </router-link>
                     </div>
 
                     <div class="col-12">
