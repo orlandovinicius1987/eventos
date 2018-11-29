@@ -3,14 +3,14 @@
         <div class="align-items-end card-header">
             <div class="row">
                 <div class="col-12">
-                    <div class="bg-dark text-white p-2 mb-2 mt-4 text-center">
+                    <div class="p-2 mb-2">
                         <h4 class="mb-0">{{ title }}</h4>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 card-filters bg-filters py-2">
                     <div class="row">
                         <div v-if="perPage" class="col-4">
                             <input
