@@ -5,7 +5,11 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
+const __emptyModel = {
+    id: null,
+
+    name: null,
+}
 
 let state = merge_objects(
     {
@@ -13,9 +17,8 @@ let state = merge_objects(
 
         selectedRole: __emptyModel,
 
-        form: new Form({
-            name: null,
-        }),
+        form: new Form(__emptyModel),
+        emptyForm: __emptyModel,
 
         mode: null,
 

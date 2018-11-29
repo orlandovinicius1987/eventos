@@ -5,7 +5,12 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
+const __emptyModel = {
+    contact:null,
+    contact_type_id:null,
+    person_institution_id:null,
+    is_active:false,
+}
 
 const state = merge_objects(statesMixin.common, {
     person: { id: null },
@@ -17,11 +22,9 @@ const state = merge_objects(statesMixin.common, {
         isForm: true,
     },
 
-    form: new Form({
-        contact_type_id: null,
-        contact: null,
-        person_institution_id: null,
-    }),
+    form: new Form(__emptyModel),
+
+    emptyForm: __emptyModel,
 })
 
 const actions = merge_objects(actionsMixin, {
