@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>{{ this.mode === 'create' ? 'Nova ':'Editar '}}{{ addresses.form.fields.name ? addresses.form.fields.name : 'Endereço' }}</h2>
         </div>
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h1>{{ events.selected.name }}</h1>
             <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}Sub Evento</h2>
             <h2>{{ subEvents.form.fields.name ? subEvents.form.fields.name : '' }}</h2>
