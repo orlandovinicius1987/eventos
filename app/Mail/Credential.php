@@ -32,7 +32,6 @@ class Credential extends Mailable
         );
 
         $this->to($this->invitation->routeNotificationForMail())
-            ->from('cerimonial@alerj.rj.gov.br', 'Cerimonial Alerj')
             ->subject(
                 'Credencial para acesso ao evento ' .
                     $this->invitation->subEvent->event->name

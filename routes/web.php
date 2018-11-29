@@ -349,7 +349,6 @@ Route::group(
 Route::group(
     [
         'prefix' => '',
-        'middleware' => ['auth', 'app.users'],
     ],
     function () {
         Route::group(
