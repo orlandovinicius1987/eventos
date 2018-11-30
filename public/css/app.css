@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Open+Sans);@import url(/fonts/vendor/din/stylesheet.css);/* BASICS */
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Open+Sans);@import url(/fonts/vendor/din/stylesheet.css);@import url(/tui-editor/dist/tui-editor.css);@import url(/tui-editor/dist/tui-editor-contents.css);@import url(/codemirror/lib/codemirror.css);/* BASICS */
 
 .CodeMirror {
   /* Set height, width, borders, and global font properties here */

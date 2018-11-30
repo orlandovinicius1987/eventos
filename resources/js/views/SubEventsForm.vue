@@ -74,9 +74,15 @@
                                     :options="environment.tables.sectors"
                             ></app-select>
 
-                            <app-markdown-text-area :form="form" label="Texto de convite" :id="'invitation_text'+parseInt(Math.random()*10000)" :value="subEvents.form.fields.invitation_text" @changeText="changeText($event)"></app-markdown-text-area>
-                            <app-markdown-text-area :form="form" label="Texto de confirmação" :id="'confirmation_text'+parseInt(Math.random()*10000)" :value="subEvents.form.fields.confirmation_text" @changeText="changeText($event)"></app-markdown-text-area>
-                            <app-markdown-text-area :form="form" label="Texto de envio de credencial" :id="'credential_send_text'+parseInt(Math.random()*10000)" :value="subEvents.form.fields.credential_send_text" @changeText="changeText($event)"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'invitation_text', text: $event})"
+                                    :form="form" label="Texto de convite" id="invitation_text" :value="subEvents.form.fields.invitation_text"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'confirmation_text', text: $event})"
+                                    :form="form" label="Texto de confirmação" id="confirmation_text" :value="subEvents.form.fields.confirmation_text"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'credential_send_text', text: $event})"
+                                    :form="form" label="Texto de envio de credencial" id="credential_send_text" :value="subEvents.form.fields.credential_send_text"></app-markdown-text-area>
 
                             <!--:add-button="{ uri: 'events/{events.selected.id}/sub-event/'+subEvent.selected.id+'/addresses/create', disabled: cannot('create') }"-->
 
@@ -99,11 +105,6 @@
                                     </tr>
                                 </app-table>
                             </app-table-panel>
-
-                            <!--<input-->
-                                    <!--:value="value"-->
-                                    <!--:v-model="form"-->
-                            <!--&gt;-->
 
                             <app-address-field
                                 :form="subEvents.form"
@@ -160,7 +161,7 @@ export default {
     methods: {
         changeText($event){
             this.$store.commit('subEvents/mutateSetFormField', {
-                field: $event.fieldName,
+                field: $event.field,
                 value: $event.text,
             })
         },

@@ -47,6 +47,6 @@
         "webpack-livereload-plugin": "^1.2.0"
     },
     "dependencies": {
-        "tui-editor": "^1.2.7"
+        "@toast-ui/vue-editor": "^1.0.2"
     }
 }
