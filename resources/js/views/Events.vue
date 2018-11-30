@@ -686,7 +686,6 @@ export default {
     mounted() {
         if (this.selected.id){
             this.$store.dispatch('subEvents/load')
-
             this.$store.dispatch('invitations/load')
         }
     },

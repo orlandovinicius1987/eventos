@@ -2,7 +2,7 @@
     <div>
         <label :for="id" class="mb-0 mt-4">{{ label }}</label>
 
-        <div :id="id"></div>
+        <editor :id="id" v-model="text"/>
 
         <small class="text-danger" v-if="form.errors.has(id)" >
             {{ form.errors.get(id) }}
@@ -11,33 +11,39 @@
 </template>
 
 <script>
-    import Editor from '../../classes/MarkdownTextArea'
+    import { Editor } from '@toast-ui/vue-editor'
 
-export default {
-    props: [
-        'id',
-        'value',
-        'label',
-        'form',
-    ],
+    export default {
+        components: {
+            'editor': Editor
+        },
 
-    data(){
-        return{
-            editor: null
-        }
-    },
-
-    mounted(){
-        this.editor = new Editor({
-            el: document.querySelector('#'+this.id),
-            initialEditType: 'markdown',
-            previewStyle: 'vertical',
-            events: {change: () => {
-                    this.$emit('changeText', {text: this.editor.getValue(), fieldName: this.id})}
+        computed: {
+            text: {
+                get() {
+                    return this.value
                 },
-            initialValue: this.value,
-            height: '300px'
-        });
+
+                set(newText) {
+                    this.$emit('input', newText)
+                }
+            },
+        },
+
+        props: [
+            'id',
+            'value',
+            'label',
+            'form',
+        ],
+
+        data(){
+            return {
+            }
+        },
+
+        mounted(){
+            this.text = this.value
+        }
     }
-}
 </script>
