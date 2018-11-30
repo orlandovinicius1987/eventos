@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label :for="name" class="mb-0 mt-4">{{ label }}</label>
+        <label :for="name" class="mb-0">{{ label }}</label>
 
         <vue-select
             v-model="selected"

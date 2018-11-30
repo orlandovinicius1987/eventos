@@ -349,7 +349,6 @@ Route::group(
 Route::group(
     [
         'prefix' => '',
-        'middleware' => ['auth', 'app.users'],
     ],
     function () {
         Route::group(
@@ -383,16 +382,16 @@ Route::group(
                 'prefix' => '/invitations',
             ],
             function () {
-                Route::get(
-                    '/{uuid}/received/dummy.png',
-                    'Invitations@markAsReceivedAndDownloadImage'
-                )->name('invitations.received');
-
                 Route::get('/{uuid}/qrcode', 'Invitations@showViaQRCode')->name(
                     'invitations.show-via-qrcode'
                 );
             }
         );
+
+        Route::get(
+            '/notifications/{uuid}/received/dummy.png',
+            'Notifications@markAsReceivedAndDownloadImage'
+        )->name('notifications.received');
 
         Route::get('/messages', 'Messages@show')->name('messages.show');
     }

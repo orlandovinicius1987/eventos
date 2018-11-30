@@ -1,33 +1,11 @@
-@extends('layouts.simple-noauth')
+@extends('layouts.simple')
 
 @section('content')
-
-
-    <style>
-        html {
-            height: 100%;
-        }
-
-        body {
-            height: 100%;
-            background-image: url("/images/alerj-logo-sotexto-op20.png") ;
-            background-repeat: no-repeat ;
-            background-position: bottom 100px center;
-            background-size: 300px;
-        }
-
-        .container-fluid {
-            display: none !important;
-        }
-    </style>
-
-
-    <div class="container d-flex h-80">
+    <div class="container d-flex h-80 logo-alerj">
         <div class="row align-self-center w-100">
             <div class="col-md-8 col-lg-8 mx-auto">
                 <div class="card p-5">
-
-                    <div class="py-2 mb-4 text-center">
+                    <div class="py-2 text-center">
                         <h2>{{$invitation->subEvent->event->name}}</h2>
                         <h2>{{$invitation->subEvent->name}}</h2>
                         <h2>{{$invitation->personInstitution->person->name}}</h2>
@@ -49,37 +27,33 @@
                             <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
 
                             <div>
-                                <h4 class="mb-3">Confirme seu CPF para confirmar seu Convite</h4>
+                                <h4 class="mb-3">Digite seu CPF para aceitar o convite</h4>
                                 <div class="row mb-3 mt-3">
                                     <div class="col-12">
                                         {{--<label for="cpf">CPF</label>--}}
                                         <input
-                                                name="cpf"
-                                                id="cpf"
-                                                required="true"
-                                                type="text"
-                                                placeholder="CPF"
-                                                class="form-control"
+                                            name="cpf"
+                                            id="cpf"
+                                            required="true"
+                                            type="text"
+                                            placeholder="CPF"
+                                            class="form-control"
                                         />
                                     </div>
                                 </div>
 
                                 <div class="row mt-4">
                                     <div class="col-12">
-                                        <button class="btn btn-success btn-block" type="submit">Gravar</button>
+                                        <button class="btn btn-success btn-block" type="submit">
+                                            Clique para aceitar
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
-
                 </div>
-
-
-
             </div>
         </div>
     </div>
-
-
 @stop

@@ -185,6 +185,8 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
+        $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
+
         if (
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
@@ -288,17 +290,6 @@ class Invitations extends Repository
         $invitation = Invitation::find($invitation_id);
 
         $invitation->generateQrCode();
-    }
-
-    public function markAsReceived($uuid)
-    {
-        $invitation = $this->findByUuid($uuid);
-
-        $invitation->received_at = now();
-
-        $invitation->save();
-
-        return $invitation;
     }
 
     public function getAllInvitationsFor($invitation)

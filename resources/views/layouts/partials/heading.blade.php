@@ -38,23 +38,23 @@
                                 </a>
                             </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/people" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text">Pessoas</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="events-menu" to="/people" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-users"></i> Pessoas</span>
+                                </a>
+                            </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text">Lista telefônica</span>
-                                    </a>
-                                </router-link>
-                            </li>
+
+
+                            <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-address-book"></i> Lista telefônica</span>
+                                </a>
+                            </router-link>
+
+
 
                             <li class="nav-item dropdown">
                                 <a

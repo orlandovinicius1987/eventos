@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>Importar Dados</h2>
         </div>
 

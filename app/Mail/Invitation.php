@@ -11,9 +11,8 @@ class Invitation extends Mailable
      */
     public function build()
     {
-        $this->to($this->invitation->routeNotificationForMail())
-            ->from('cerimonial@alerj.rj.gov.br', 'Cerimonial Alerj')
-            ->subject('Convite - ' . $this->invitation->subEvent->event->name)
+        $this->to($this->notification->routeNotificationForMail())
+            ->subject($this->notification->subject)
             ->markdown('emails.invitation');
 
         return $this;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <div class="row">
                 <div class="col-12">
                     <h2>Eventos</h2>
@@ -128,7 +128,7 @@
                                     :disabled="cannot('update')"
                                     title="Finalizar Sub-evento"
                                 >
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-times-circle"></i>
                                 </button>
 
                                 <router-link
@@ -167,7 +167,7 @@
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
                 >
-                    <template slot="filters">
+                    <template slot="checkboxes">
                         <app-input
                             name="hasNoEmailCheckbox"
                             label="sem e-mail"
@@ -302,7 +302,7 @@
                                 <div
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && invitation.has_email"
+                                    v-if="can('update') && canSendEmail(invitation)"
                                     title="Enviar convite"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
@@ -320,7 +320,7 @@
                                 <div
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && environment.debug && invitation.accepted_at"
+                                    v-if="can('update') && canSendEmail(invitation) && invitation.accepted_at"
                                     title="Realizar o Download do Convite"
                                 >
                                     <i v-if="!invitation.busy" class="fa fa-id-badge"></i>
@@ -493,6 +493,10 @@ export default {
                 this.downloading = false
             })
         },
+
+        canSendEmail(invitation) {
+            return invitation.has_email && invitation.sub_event.confirmed_at
+        }
     },
 
     computed: {

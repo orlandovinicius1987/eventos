@@ -23,20 +23,14 @@ class Credential extends Mailable
      */
     public function build()
     {
-        $this->credentials = $this->repository->getAllInvitationsFor(
-            $this->invitation
-        );
+        $this->credentials = $this->notification->getAllInvitations();
 
         $this->invitationFile = app(Invitations::class)->savePdf(
-            $this->invitation
+            $this->notification->notification
         );
 
-        $this->to($this->invitation->routeNotificationForMail())
-            ->from('cerimonial@alerj.rj.gov.br', 'Cerimonial Alerj')
-            ->subject(
-                'Credencial para acesso ao evento ' .
-                    $this->invitation->subEvent->event->name
-            )
+        $this->to($this->notification->routeNotificationForMail())
+            ->subject($this->notification->subject)
             ->markdown('emails.credential')
             ->attach($this->invitationFile, [
                 'as' => basename($this->invitationFile),

@@ -5,7 +5,7 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { }
+const __emptyModel = {}
 
 const state = merge_objects(statesMixin.common, {
     subEvent: { id: null },
