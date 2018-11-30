@@ -1,20 +1,20 @@
 <template>
-    <div class="card shadow-sm mb-4">
+    <div class="card shadow-sm mb-4 mt-4">
         <div class="align-items-end card-header">
-            <div class="row">
+            <div class="row border-bottom">
                 <div class="col-12">
-                    <div class="bg-dark text-white p-2 mb-2 mt-4 text-center">
+                    <div class="p-2 mb-2">
                         <h4 class="mb-0">{{ title }}</h4>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 card-filters bg-filters py-2">
                     <div class="row">
                         <div v-if="perPage" class="col-4">
                             <input
-                                    class="form-control form-control-sm"
+                                    class="form-control"
                                     :value="filterText"
                                     @input="$emit('input-filter-text', $event)"
                                     placeholder="filtrar"
@@ -35,7 +35,7 @@
                                     v-if="addButton"
                                     :to="addButton.uri"
                                     tag="div"
-                                    class="btn btn-primary btn-sm pull-right"
+                                    class="btn btn-primary pull-right"
                                     :disabled="addButton.disabled"
                                     dusk="createEventButton"
                             >
@@ -44,8 +44,14 @@
                         </div>
 
                         <div class="col-12">
-                            <div class=" text-center p-12 mb-2 mt-2 bg-cyan">
-                                <slot name="filters"></slot>
+                            <div class="text-center p-12 mb-2 mt-2 bg-cyan">
+                                <slot name="checkboxes"></slot>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="p-12 mb-2 mt-2">
+                                <slot name="selects"></slot>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2> <i class="fas fa-cogs"></i> Painel de Controle</h2>
         </div>
 

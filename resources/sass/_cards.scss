@@ -1,12 +1,33 @@
 //*****************************  Cards Style   *****************************
 
+.card-deck {
+  .card {
+    .card-header {
+      background-color: $white;
+    }
+
+  }
+}
+
+
+
+
+
+
+
+
+
 .card {
   border: none;
 
   .card-header {
     border-bottom: none;
-    background-color: $white;
+    background-color: $grey-lighter03;
     padding: 0.75rem 0.9rem 0;
+
+    .border-bottom {
+      border-bottom: 1px solid #ffffff !important;
+    }
 
     .form-control, .custom-select {
       border: none;

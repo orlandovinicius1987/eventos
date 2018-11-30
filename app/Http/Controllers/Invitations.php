@@ -94,16 +94,10 @@ class Invitations extends Controller
         );
 
         session()->put('message', $message);
+
         session()->reflash();
 
         return redirect()->route('messages.show');
-    }
-
-    public function markAsReceivedAndDownloadImage($uuid)
-    {
-        app(InvitationsRepository::class)->markAsReceived($uuid);
-
-        return response()->download(public_path('images/dummy.png'));
     }
 
     /**
