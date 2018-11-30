@@ -48,9 +48,7 @@ class Invitation extends Base
 
     private function canSendEmail()
     {
-        return !is_null($this->subEvent->confirmed_at) &&
-            $this->hasEmail() &&
-            is_null($this->declined_at);
+        return !is_null($this->subEvent->confirmed_at) && $this->hasEmail();
     }
 
     /**
@@ -66,16 +64,20 @@ class Invitation extends Base
 
     private function getMailSubject()
     {
-        return ($this->hasBeenAccepted()
+        return $this->hasBeenAccepted()
             ? 'Credencial para acesso ao evento '
-            : 'Convite - ') . $this->subEvent->event->name;
+            : ($this->hasBeenDeclined()
+                ? 'Convite Declinado - ' . $this->subEvent->event->name
+                : 'Convite - ' . $this->subEvent->event->name);
     }
 
     private function getMailable()
     {
         return $this->hasBeenAccepted()
             ? SendCredentials::class
-            : SendInvitation::class;
+            : ($this->hasBeenDeclined()
+                ? SendRejection::class
+                : SendInvitation::class);
     }
 
     /**
@@ -84,6 +86,14 @@ class Invitation extends Base
     protected function hasBeenAccepted()
     {
         return filled($this->accepted_at);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function hasBeenDeclined()
+    {
+        return filled($this->declined_at);
     }
 
     private function parseMarkdown($text)
@@ -156,9 +166,8 @@ class Invitation extends Base
     public function send()
     {
         if ($this->canSendEmail()) {
-            $this->getEmails()->each(function ($contact) {
-                $mailable = $this->getMailable();
-
+            $mailable = $this->getMailable();
+            $this->getEmails()->each(function ($contact) use ($mailable) {
                 $this->createNotification($contact->contact)->notify(
                     new $mailable()
                 );
@@ -173,11 +182,6 @@ class Invitation extends Base
             'destination' => $destination,
             'subject' => $this->getMailSubject(),
         ]);
-    }
-
-    public function sendRejection()
-    {
-        $this->notify(new SendRejection($this->id));
     }
 
     public function getClientIdAttribute()

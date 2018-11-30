@@ -19,12 +19,20 @@ Route::group(
     [
         'prefix' => 'api/v1',
         'namespace' => 'Api',
+    ],
+    function () {
+        Route::get('/environment', 'Environment@data');
+    }
+);
+
+Route::group(
+    [
+        'prefix' => 'api/v1',
+        'namespace' => 'Api',
         'middleware' => ['auth', 'app.users'],
     ],
     function () {
         Route::get('zipcode/{zipcode}', 'ZipCode@get')->name('api.zipcode.get');
-
-        Route::get('/environment', 'Environment@data');
 
         Route::get('/dashboard', 'Dashboard@data');
 
@@ -125,6 +133,11 @@ Route::group(
                                 '/{id}/mark-as-accepted',
                                 'Invitations@markAsAccepted'
                             )->name('invitations.mark-as-accepted');
+
+                            Route::post(
+                                '/{id}/mark-as-rejected',
+                                'Invitations@markAsRejected'
+                            )->name('invitations.mark-as-rejected');
 
                             Route::post('/{id}/send', 'Invitations@send')->name(
                                 'invitations.send'

@@ -4,6 +4,9 @@
   .card {
     .card-header {
       background-color: $white;
+      .mobile-count {
+        font-size:125%;
+      }
     }
 
   }

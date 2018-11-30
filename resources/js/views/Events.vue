@@ -317,12 +317,21 @@
                                 </div>
 
                                 <div
-                                    @click="markAsAccepted(invitation)"
-                                    class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && !invitation.confirmed_at && !invitation.accepted_at"
-                                    title="Confirmar o Convite Manualmente"
+                                        @click="markAsAccepted(invitation)"
+                                        class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
+                                        v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
+                                        title="Confirmar o Convite Manualmente"
                                 >
                                     <i class="fa fa-check"></i>
+                                </div>
+
+                                <div
+                                        @click="markAsDeclined(invitation)"
+                                        class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
+                                        v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
+                                        title="Declinar o Convite Manualmente"
+                                >
+                                    <i class="fa fa-calendar-times"></i>
                                 </div>
 
                                 <div
@@ -419,6 +428,19 @@ export default {
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('invitations/markAsAccepted', invitation)
+                }
+            })
+        },
+
+        markAsDeclined(invitation) {
+            confirm(
+                'Deseja realmente declinar a presença de ' +
+                invitation.person_institution.person.name +
+                '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    return this.$store.dispatch('invitations/markAsDeclined', invitation)
                 }
             })
         },
@@ -681,12 +703,6 @@ export default {
                 return this.$store.dispatch('invitations/setPerPage', perPage)
             },
         },
-    },
-
-    mounted() {
-        this.$store.dispatch('subEvents/load')
-
-        this.$store.dispatch('invitations/load')
     },
 }
 </script>

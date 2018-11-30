@@ -37,11 +37,6 @@
 export default {
     props: ['contact', 'form', 'environment'],
 
-    data() {
-        return {
-
-        }
-    },
     methods: {
         makeMask(id) {
             if (id == null) {

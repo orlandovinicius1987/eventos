@@ -18153,6 +18153,10 @@ a.text-dark:focus {
   background-color: #fff;
 }
 
+.card-deck .card .card-header .mobile-count {
+  font-size: 125%;
+}
+
 .card {
   border: none;
 }
