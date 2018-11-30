@@ -18038,6 +18038,27 @@ a.text-dark:focus {
       }*/
 }
 
+@media (max-width: 426px) {
+  .navbar .navbar-brand .brand-complement {
+    font-size: 1.6rem;
+    bottom: -2px;
+  }
+}
+
+@media (max-width: 376px) {
+  .navbar .navbar-brand .brand-complement {
+    font-size: 1.45rem;
+    bottom: -2px;
+  }
+}
+
+@media (max-width: 321px) {
+  .navbar .navbar-brand .brand-complement {
+    font-size: 1.125rem;
+    bottom: -2px;
+  }
+}
+
 @media (min-width: 1368px) {
   .navbar .navbar-brand .brand-complement {
     font-size: 1.7rem;

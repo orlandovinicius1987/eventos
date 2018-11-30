@@ -22,6 +22,18 @@
       margin-left: 6px;
       position: relative;
 
+      @media (max-width: 426px) {
+        font-size: 1.6rem;
+        bottom: -2px;
+      }
+      @media (max-width: 376px) {
+        font-size: 1.45rem;
+        bottom: -2px;
+      }
+      @media (max-width: 321px) {
+        font-size: 1.125rem;
+        bottom: -2px;
+      }
 
       @media (min-width: 1368px) {
         font-size: 1.7rem;
