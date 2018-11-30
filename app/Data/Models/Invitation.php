@@ -156,9 +156,9 @@ class Invitation extends Base
     public function send()
     {
         if ($this->canSendEmail()) {
-            $this->getEmails()->each(function ($contact) {
-                $mailable = $this->getMailable();
+            $mailable = $this->getMailable();
 
+            $this->getEmails()->each(function ($contact) use ($mailable) {
                 $this->createNotification($contact->contact)->notify(
                     new $mailable()
                 );
