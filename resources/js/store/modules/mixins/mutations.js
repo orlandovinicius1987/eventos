@@ -9,7 +9,7 @@ export function mutateSetQuery(state, payload) {
 export function mutateSetFormField(state, payload) {
     let formField = '{form.fields'
 
-    if(payload.hasOwnProperty('object')){
+    if (payload.hasOwnProperty('object')) {
         formField = formField + '.' + payload.object
     }
     formField = formField + '}'
