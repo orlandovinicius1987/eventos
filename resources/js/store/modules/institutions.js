@@ -8,9 +8,9 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = {
     id: null,
     party_number: null,
-    initials:null,
+    initials: null,
     is_party: false,
-    is_active:false,
+    is_active: false,
     name: null,
 }
 
