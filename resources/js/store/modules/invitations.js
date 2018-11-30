@@ -28,26 +28,26 @@ const __emptySubEvent = {
     address: __emptyAddress,
     event: __emptyEvent,
 
-    associated_subevent_id:null,
-    confirmation_text:null,
-    confirmed_at:null,
-    confirmed_by:null,
-    costume:null,
-    costume_id:null,
-    credential_send_text:null,
-    date:null,
-    ended_at:null,
-    ended_by:null,
-    event_id:null,
-    id:null,
-    invitation_text:null,
-    model:null,
-    name:null,
-    place:null,
-    sector_id:null,
-    started_at:null,
-    started_by:null,
-    time:null,
+    associated_subevent_id: null,
+    confirmation_text: null,
+    confirmed_at: null,
+    confirmed_by: null,
+    costume: null,
+    costume_id: null,
+    credential_send_text: null,
+    date: null,
+    ended_at: null,
+    ended_by: null,
+    event_id: null,
+    id: null,
+    invitation_text: null,
+    model: null,
+    name: null,
+    place: null,
+    sector_id: null,
+    started_at: null,
+    started_by: null,
+    time: null,
 }
 
 const __emptyModel = {
@@ -97,7 +97,7 @@ const actions = merge_objects(actionsMixin, {
         })
     },
 
-    resetSubEvent(context, payload){
+    resetSubEvent(context, payload) {
         context.commit('mutateSetSubEvent', __emptySubEvent)
 
         context.commit('mutateSetSelected', __emptyModel)
