@@ -8,7 +8,7 @@ use App\Data\Repositories\Invitations;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
-class Credential extends Mailable
+class Credentials extends Mailable
 {
     use Queueable, SerializesModels;
 
