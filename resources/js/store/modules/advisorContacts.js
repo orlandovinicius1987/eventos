@@ -17,14 +17,14 @@ const __emptyPersonInstitution = {
     institution_id: null,
     advised_id: null,
     title: null,
-    is_active:false,
+    is_active: false,
 }
 
 const __emptyModel = {
-    contact:null,
-    contact_type_id:null,
-    person_institution_id:null,
-    is_active:false,
+    contact: null,
+    contact_type_id: null,
+    person_institution_id: null,
+    is_active: false,
 
     contactType: __emptyContactType,
     personInstitution: __emptyPersonInstitution,

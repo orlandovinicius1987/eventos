@@ -1,4 +1,4 @@
-@extends('layouts.simple-noauth')
+@extends('layouts.simple')
 
 @section('content')
     <div>

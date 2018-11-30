@@ -33,7 +33,7 @@ const __emptyModel = {
     institution_id: null,
     advised_id: null,
     title: null,
-    is_active:false,
+    is_active: false,
 
     person: __personModel,
     institution: __institutionModel,
