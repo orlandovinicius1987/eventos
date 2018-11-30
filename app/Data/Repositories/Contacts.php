@@ -1,8 +1,10 @@
 <?php
+
 namespace App\Data\Repositories;
 
+use App\Events\ContactWasCreated;
+use App\Events\ContactWasUpdated;
 use App\Data\Models\Contact as ContactModel;
-use App\Events\InvitationAccepted;
 
 class Contacts extends Repository
 {
@@ -26,28 +28,11 @@ class Contacts extends Repository
      */
     public function storeFromArray($array)
     {
-        $contact = parent::storeFromArray($array);
-
-        $this->sendInvitations($contact);
+        event(new ContactWasCreated(parent::updateFromArray($array)));
     }
 
     public function update($id, $array)
     {
-        $contact = parent::update($id, $array);
-
-        $this->sendInvitations($contact);
-    }
-
-    private function sendInvitations($contact)
-    {
-        if ($contact->contact_type_id == 3 and $contact->is_active) {
-            $invitation = app(Invitations::class)->findByPersonInstitutionId(
-                $contact->personInstitution->id
-            );
-
-            if ($invitation) {
-                event(new InvitationAccepted($invitation->id));
-            }
-        }
+        event(new ContactWasUpdated(parent::update($id, $array)));
     }
 }

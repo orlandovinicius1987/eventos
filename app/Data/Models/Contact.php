@@ -54,4 +54,9 @@ class Contact extends Base
             app(ContactTypes::class)->findByCode('email')->id
         );
     }
+
+    public function canReceiveNotifications()
+    {
+        return $this->is_active;
+    }
 }
