@@ -23,10 +23,6 @@ class Credential extends Mailable
      */
     public function build()
     {
-        info([
-            "Invitations - Credentials ---- ",
-            $this->notification->invitations(),
-        ]);
         $this->credentials = $this->notification->invitations();
 
         $this->invitationFile = app(Invitations::class)->savePdf(
