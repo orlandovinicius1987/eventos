@@ -109,17 +109,21 @@ const actions = {
     },
 
     absorbLaravel(context) {
-        context.commit('mutateSetData', window.laravel)
 
-        context.dispatch('load')
 
-        context.dispatch('loadContactTypes')
-        context.dispatch('loadInstitutions')
-        context.dispatch('loadRoles')
-        context.dispatch('loadPeople')
-        context.dispatch('loadCostumes')
-        context.dispatch('loadSectors')
-        context.dispatch('loadSubEvents')
+            context.commit('mutateSetData', window.laravel)
+
+            context.dispatch('load')
+
+            if(context.state.user != null) {
+                context.dispatch('loadContactTypes')
+                context.dispatch('loadInstitutions')
+                context.dispatch('loadRoles')
+                context.dispatch('loadPeople')
+                context.dispatch('loadCostumes')
+                context.dispatch('loadSectors')
+                context.dispatch('loadSubEvents')
+            }
     },
 }
 
