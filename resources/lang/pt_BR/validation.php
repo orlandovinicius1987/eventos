@@ -176,5 +176,7 @@ return [
         'telephone' => 'telefone',
         'birthdate' => 'Data de Nascimento',
         'message' => 'mensagem',
+        'time' => 'hora',
+        'date' => 'data',
     ],
 ];
