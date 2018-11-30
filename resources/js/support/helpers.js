@@ -142,16 +142,17 @@ window.loadDebounced = _.debounce(context => {
     context.dispatch('load')
 }, 650)
 
-window.buildApiUrl = (uri, state) => {
-    let url = '/api/v1/' + uri
-    let hasNulls = false
 
-    _.each(uri.match(/(\{.*?\})/g), param => {
-        let elements = param.match(/(\w+)/g)
+window.objectAttributeFromString = (str, state) => {
+    let hasNulls = false
+    let object = str
+
+        let elements = str.match(/(\w+)/g)
 
         let result = _.reduce(
             elements,
             (carry, value) => {
+
                 carry =
                     carry && carry.hasOwnProperty(value) ? carry[value] : null
 
@@ -164,10 +165,20 @@ window.buildApiUrl = (uri, state) => {
             state,
         )
 
-        url = url.replace(param, result)
+    return hasNulls ? null : result
+}
+
+window.buildApiUrl = (uri, state) => {
+    let str = uri
+    _.each(uri.match(/(\{.*?\})/g), param => {
+
+
+        str = str.replace(param, objectAttributeFromString(param, state))
+
     })
 
-    return hasNulls ? null : url
+
+    return '/api/v1/'+str
 }
 
 window.makeDataUrl = context => {
