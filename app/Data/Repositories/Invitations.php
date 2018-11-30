@@ -302,4 +302,23 @@ class Invitations extends Repository
                 : 100;
         });
     }
+
+    public function getAllInvitationsForContact($contact)
+    {
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            'person_institution_id',
+            $contact->person_institution_id
+        )
+            ->join(
+                'sub_events',
+                'invitations.sub_event_id',
+                '=',
+                'sub_events.id'
+            )
+            ->whereNotNull('sub_events.confirmed_at')
+            ->whereNull('sub_events.ended_at')
+            ->whereNull('sub_events.associated_subevent_id')
+            ->get();
+    }
 }
