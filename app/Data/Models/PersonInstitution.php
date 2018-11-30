@@ -4,6 +4,8 @@ namespace App\Data\Models;
 
 class PersonInstitution extends Base
 {
+    protected $orderBy = ['people.name' => 'asc'];
+
     /**
      * @var array
      */
@@ -42,11 +44,7 @@ class PersonInstitution extends Base
     ];
 
     protected $joins = [
-        'people as advisors' => [
-            'advisors.id',
-            '=',
-            'person_institutions.person_id',
-        ],
+        'people' => ['people.id', '=', 'person_institutions.person_id'],
     ];
 
     public function addresses()

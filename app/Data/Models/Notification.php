@@ -54,6 +54,6 @@ class Notification extends Base
 
     public function invitations()
     {
-        app(Invitations::class)->getAllInvitationsFor($this->invitation);
+        return app(Invitations::class)->getAllInvitationsFor($this->invitation);
     }
 }
