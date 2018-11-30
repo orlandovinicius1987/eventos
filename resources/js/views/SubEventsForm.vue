@@ -53,7 +53,7 @@
                                 v-model="subEvents.form.fields.associated_subevent_id"
                                 :required="true"
                                 :form="form"
-                                :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                                :options="exceptSubEventList(environment.tables.sub_events, subEvents.form.fields.id, subEvents.form.fields.event_id)"
                             ></app-select>
 
                             <app-select
@@ -74,9 +74,15 @@
                                     :options="environment.tables.sectors"
                             ></app-select>
 
-                            <app-markdown-text-area :form="form" label="Texto de convite" :id="'invitation_text'+parseInt(Math.random()*10000)" :value="subEvents.form.fields.invitation_text" @changeText="changeText($event)"></app-markdown-text-area>
-                            <app-markdown-text-area :form="form" label="Texto de confirmação" :id="'confirmation_text'+parseInt(Math.random()*10000)" :value="subEvents.form.fields.confirmation_text" @changeText="changeText($event)"></app-markdown-text-area>
-                            <app-markdown-text-area :form="form" label="Texto de envio de credencial" :id="'credential_send_text'+parseInt(Math.random()*10000)" :value="subEvents.form.fields.credential_send_text" @changeText="changeText($event)"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'invitation_text', text: $event})"
+                                    :form="form" label="Texto de convite" id="invitation_text" :value="subEvents.form.fields.invitation_text"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'confirmation_text', text: $event})"
+                                    :form="form" label="Texto de confirmação" id="confirmation_text" :value="subEvents.form.fields.confirmation_text"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'credential_send_text', text: $event})"
+                                    :form="form" label="Texto de envio de credencial" id="credential_send_text" :value="subEvents.form.fields.credential_send_text"></app-markdown-text-area>
 
                             <!--:add-button="{ uri: 'events/{events.selected.id}/sub-event/'+subEvent.selected.id+'/addresses/create', disabled: cannot('create') }"-->
 
@@ -99,11 +105,6 @@
                                     </tr>
                                 </app-table>
                             </app-table-panel>
-
-                            <!--<input-->
-                                    <!--:value="value"-->
-                                    <!--:v-model="form"-->
-                            <!--&gt;-->
 
                             <app-address-field
                                 :form="subEvents.form"
@@ -160,7 +161,7 @@ export default {
     methods: {
         changeText($event){
             this.$store.commit('subEvents/mutateSetFormField', {
-                field: $event.fieldName,
+                field: $event.field,
                 value: $event.text,
             })
         },
@@ -232,10 +233,14 @@ export default {
             })
         },
 
-        except(list, id) {
+        exceptSubEventList(list, subEventId, eventId) {
             let items = clone(list)
 
-            items.rows = except(list.rows, id)
+            items.rows = except(list.rows, subEventId)
+
+            items.rows = _.filter(items.rows, item => {
+                return !eventId || !item.event_id || item.event_id == eventId
+            })
 
             return items
         }
