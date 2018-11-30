@@ -53,7 +53,7 @@
                                 v-model="subEvents.form.fields.associated_subevent_id"
                                 :required="true"
                                 :form="form"
-                                :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                                :options="exceptSubEventList(environment.tables.sub_events, subEvents.form.fields.id, subEvents.form.fields.event_id)"
                             ></app-select>
 
                             <app-select
@@ -233,10 +233,14 @@ export default {
             })
         },
 
-        except(list, id) {
+        exceptSubEventList(list, subEventId, eventId) {
             let items = clone(list)
 
-            items.rows = except(list.rows, id)
+            items.rows = except(list.rows, subEventId)
+
+            items.rows = _.filter(items.rows, item => {
+                return !eventId || !item.event_id || item.event_id == eventId
+            })
 
             return items
         }
