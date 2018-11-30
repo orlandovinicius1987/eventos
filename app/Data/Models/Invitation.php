@@ -5,7 +5,7 @@ namespace App\Data\Models;
 use Ramsey\Uuid\Uuid;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
-use App\Notifications\SendCredential;
+use App\Notifications\SendCredentials;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
@@ -74,7 +74,7 @@ class Invitation extends Base
     private function getMailable()
     {
         return $this->hasBeenAccepted()
-            ? SendCredential::class
+            ? SendCredentials::class
             : SendInvitation::class;
     }
 

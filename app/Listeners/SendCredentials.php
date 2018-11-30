@@ -6,7 +6,7 @@ use App\Data\Repositories\Invitations;
 use App\Events\InvitationAccepted;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SendCredential implements ShouldQueue
+class SendCredentials implements ShouldQueue
 {
     /**
      * Handle the event.
