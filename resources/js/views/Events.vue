@@ -308,7 +308,7 @@
 
                             <td class="align-middle text-right">
                                 <div
-                                    @click="sendInvitation(invitation)" 
+                                    @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation)"
                                     title="Enviar convite"
