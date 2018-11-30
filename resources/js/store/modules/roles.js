@@ -17,8 +17,8 @@ let state = merge_objects(
 
         selectedRole: __emptyModel,
 
-        form: new Form(__emptyModel),
-        emptyForm: __emptyModel,
+        form: new Form(clone(__emptyModel)),
+        emptyForm: clone(__emptyModel),
 
         mode: null,
 
