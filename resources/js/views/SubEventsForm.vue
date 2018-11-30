@@ -94,23 +94,16 @@
                                             :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address, addresses.selected)}"
                                     >
                                         <td>{{ address.id }}</td>
+                                        <td>{{ address.full_address }}</td>
 
-                                        <td>{{ address.street + ', ' + address.number + (address.complement ? ' - '+address.complement : '')}}</td>
-
-                                        <td class="align-middle text-right">
-                                            <router-link
-                                                    :to="'events/{events.selected.id}/sub-event/'+subEvents.selected.id+'/addresses/'+address.id+'/update'"
-                                                    tag="div"
-                                                    class="btn btn-danger btn-sm ml-1 pull-right"
-                                                    :disabled="cannot('update')"
-                                                    title="Editar Endereço"
-                                            >
-                                                <i class="fa fa-edit"></i>
-                                            </router-link>
-                                        </td>
                                     </tr>
                                 </app-table>
                             </app-table-panel>
+
+                            <!--<input-->
+                                    <!--:value="value"-->
+                                    <!--:v-model="form"-->
+                            <!--&gt;-->
 
                             <app-address-field
                                 :form="subEvents.form"
@@ -138,6 +131,7 @@
 
 <script>
 import crud from './mixins/crud'
+import events from './mixins/events'
 import subEvents from './mixins/sub-events'
 import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
@@ -152,7 +146,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, subEvents, permissions],
+    mixins: [crud, events, subEvents, permissions],
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
@@ -184,39 +178,48 @@ export default {
         },
 
         selectAddressInsideEvent(address) {
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'zipcode',
                 value: address.zipcode,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'street',
                 value: address.street,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'number',
                 value: address.number,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'complement',
                 value: address.complement,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'neighbourhood',
                 value: address.neighbourhood,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'city',
                 value: address.city,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'state',
                 value: address.state,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'latitude',
                 value: address.latitude,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'longitude',
                 value: address.longitude,
             })
