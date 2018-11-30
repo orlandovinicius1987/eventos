@@ -23,6 +23,10 @@ export default {
             },
         },
 
+        emptyForm() {
+            return this.$store.state[this.service.name].emptyForm
+        },
+
         form() {
             return this.$store.state[this.service.name].form
         },
@@ -112,7 +116,7 @@ export default {
                           return model.id === this.$route.params.id
                       })
                     : this.form
-                    ? clone(this.form.empty)
+                    ? clone(this.emptyForm)
                     : {}
 
             this.mutateFormData(model)

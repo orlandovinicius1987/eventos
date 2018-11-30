@@ -16,9 +16,8 @@ const __emptyModel = {
 }
 
 const state = merge_objects(statesMixin.common, {
-    form: new Form(__emptyModel),
-
-    emptyForm: __emptyModel,
+    form: new Form(clone(__emptyModel)),
+    emptyForm: clone(__emptyModel),
 
     data: {
         filter: {
