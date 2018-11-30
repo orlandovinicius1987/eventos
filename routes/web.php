@@ -134,6 +134,11 @@ Route::group(
                                 'Invitations@markAsAccepted'
                             )->name('invitations.mark-as-accepted');
 
+                            Route::post(
+                                '/{id}/mark-as-rejected',
+                                'Invitations@markAsRejected'
+                            )->name('invitations.mark-as-rejected');
+
                             Route::post('/{id}/send', 'Invitations@send')->name(
                                 'invitations.send'
                             );

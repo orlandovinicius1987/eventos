@@ -127,6 +127,14 @@ const actions = merge_objects(actionsMixin, {
         })
     },
 
+    markAsDeclined(context, payload) {
+        post(
+            makeDataUrl(context) + '/' + payload.id + '/mark-as-rejected',
+        ).then(() => {
+            context.dispatch('load', payload)
+        })
+    },
+
     send(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/send').then(() => {
             context.dispatch('load', payload)

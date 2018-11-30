@@ -7,19 +7,7 @@ use App\Data\Repositories\Invitations;
 
 class SendRejection extends Notification
 {
-    protected $invitation;
-
-    /**
-     * Create a new notification instance.
-     *
-     * @param $invitationId
-     */
-    public function __construct($invitationId)
-    {
-        $this->invitation = app(Invitations::class)
-            ->setCurrentClientId($invitationId)
-            ->findById($invitationId);
-    }
+    protected $notification;
 
     /**
      * Get the mail representation of the notification.
@@ -28,8 +16,8 @@ class SendRejection extends Notification
      *
      * @return \App\Mail\Rejection
      */
-    public function toMail($invitation)
+    public function toMail($notification)
     {
-        return new \App\Mail\Rejection($invitation);
+        return new \App\Mail\Rejection($notification);
     }
 }

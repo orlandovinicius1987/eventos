@@ -61,7 +61,7 @@ class Invitations extends Controller
     }
 
     /**
-     * UnInvite a person
+     * Mark an invite as accepted
      *
      * @param UninviteRequest $request
      * @param $eventId
@@ -76,6 +76,30 @@ class Invitations extends Controller
         $invitationId
     ) {
         app(InvitationsRepository::class)->markAsAccepted(
+            $eventId,
+            $subEventId,
+            $invitationId
+        );
+
+        return $this->emptyResponse();
+    }
+
+    /**
+     * Mark an invite as rejected
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function markAsRejected(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId
+    ) {
+        app(InvitationsRepository::class)->markAsRejected(
             $eventId,
             $subEventId,
             $invitationId
