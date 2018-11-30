@@ -18011,7 +18011,6 @@ a.text-dark:focus {
 }
 
 .navbar .navbar-brand {
-  margin-left: 30px;
   /*padding-bottom: 20px;*/
 }
 
@@ -18027,7 +18026,7 @@ a.text-dark:focus {
   font-family: 'DIN';
   font-weight: 300;
   font-style: normal;
-  font-size: 1.7rem;
+  font-size: 1.4rem;
   margin-left: 6px;
   position: relative;
   /*bottom: -6px;*/
@@ -18039,9 +18038,28 @@ a.text-dark:focus {
       }*/
 }
 
+@media (min-width: 1368px) {
+  .navbar .navbar-brand .brand-complement {
+    font-size: 1.7rem;
+  }
+}
+
+@media (min-width: 1368px) {
+  .navbar .navbar-brand {
+    margin-left: 30px;
+  }
+}
+
 .navbar .navbar-nav {
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
+  margin-bottom: -20px;
+}
+
+@media (min-width: 1368px) {
+  .navbar .navbar-nav {
+    font-size: 16px;
+  }
 }
 
 .navbar .navbar-nav .active {
@@ -18057,11 +18075,23 @@ a.text-dark:focus {
 }
 
 .navbar .navbar-nav .nav-item {
-  margin-right: 20px;
+  margin-right: 5px;
+}
+
+@media (min-width: 1368px) {
+  .navbar .navbar-nav .nav-item {
+    margin-right: 20px;
+  }
 }
 
 .navbar .navbar-nav .nav-item:last-child {
-  margin-right: 45px;
+  margin-right: 0px;
+}
+
+@media (min-width: 1368px) {
+  .navbar .navbar-nav .nav-item:last-child {
+    margin-right: 45px;
+  }
 }
 
 .navbar .navbar-nav .nav-item i {
@@ -18088,9 +18118,9 @@ a.text-dark:focus {
   color: #305bb0 !important;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1367px) {
   .navbar .navbar-nav {
-    margin-bottom: -20px;
+    margin-bottom: -16px;
   }
 }
 
@@ -18208,6 +18238,12 @@ html {
 }
 
 @media (min-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 1368px) {
   html {
     font-size: 16px;
   }

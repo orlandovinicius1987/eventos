@@ -282,15 +282,23 @@
                             </td>
 
                             <td class="align-middle text-center">
-                                <h6 v-if="invitation.sent_at" class="mb-0">
-                                    <span v-if="invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                    <span v-if="invitation.declined_at" class="badge badge-danger">declinou</span>
-                                    <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
-                                </h6>
+                                <h6 class="mb-0">
+                                    <template v-if="!invitation.sent_at">
+                                        <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
+                                        <span v-if="invitation.accepted_at" class="badge badge-warning">aceito manualmente</span>
+                                        <span v-if="invitation.declined_at" class="badge badge-warning">declinado manualmente</span>
+                                    </template>
 
-                                <h6 v-if="!invitation.sent_at" class="mb-0">
-                                    <span v-if="!invitation.accepted_at" class="badge badge-danger">convite não enviado</span>
-                                    <span v-if="invitation.accepted_at" class="badge badge-warning">aceito manualmente</span>
+                                    <template v-if="invitation.sent_at">
+                                        <span v-if="!invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não recebido</span>
+                                        <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
+
+                                        <span v-if="invitation.received_at && invitation.accepted_at" class="badge badge-success">aceitou</span>
+                                        <span v-if="invitation.received_at && invitation.declined_at" class="badge badge-warning">declinou</span>
+
+                                        <span v-if="!invitation.received_at && invitation.accepted_at" class="badge badge-warning">aceito manualmente</span>
+                                        <span v-if="!invitation.received_at && invitation.declined_at" class="badge badge-warning">declinado manualmente</span>
+                                    </template>
                                 </h6>
                             </td>
 
