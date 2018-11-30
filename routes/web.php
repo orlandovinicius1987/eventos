@@ -19,12 +19,20 @@ Route::group(
     [
         'prefix' => 'api/v1',
         'namespace' => 'Api',
+    ],
+    function () {
+        Route::get('/environment', 'Environment@data');
+    }
+);
+
+Route::group(
+    [
+        'prefix' => 'api/v1',
+        'namespace' => 'Api',
         'middleware' => ['auth', 'app.users'],
     ],
     function () {
         Route::get('zipcode/{zipcode}', 'ZipCode@get')->name('api.zipcode.get');
-
-        Route::get('/environment', 'Environment@data');
 
         Route::get('/dashboard', 'Dashboard@data');
 
