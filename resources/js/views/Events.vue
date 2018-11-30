@@ -706,9 +706,10 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch('subEvents/load')
-
-        this.$store.dispatch('invitations/load')
+        if (this.selected.id){
+            this.$store.dispatch('subEvents/load')
+            this.$store.dispatch('invitations/load')
+        }
     },
 }
 </script>
