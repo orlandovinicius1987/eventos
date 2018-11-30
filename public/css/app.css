@@ -18153,8 +18153,19 @@ a.text-dark:focus {
   border-top: 1px solid #ffffff;
 }
 
+.table thead th:first-child {
+  text-align: center;
+  /*padding-left: 1rem;*/
+}
+
 .table td {
   border-top: 1px solid #f1f3f5;
+}
+
+.table td:first-child {
+  text-align: center;
+  padding: 0;
+  /*padding-left: 1rem;*/
 }
 
 .table-hover tbody tr:hover {
@@ -18166,7 +18177,7 @@ a.text-dark:focus {
 }
 
 .table-sm td:first-child {
-  padding-left: 1rem;
+  /*padding-left: 1rem;*/
 }
 
 .table-sm td:last-child {
