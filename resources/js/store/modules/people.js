@@ -38,10 +38,6 @@ let actions = merge_objects(
                 root: true,
             })
 
-            context.dispatch('advisors/setPerson', payload, {
-                root: true,
-            })
-
             context.dispatch('personCategories/setPerson', payload, {
                 root: true,
             })
