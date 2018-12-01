@@ -25,8 +25,8 @@ $factory->define(App\Data\Models\Subevent::class, function (Faker $faker) {
         'date' => $faker->date,
         'time' => $faker->time,
         'invitation_text' => $faker->name,
-        'confirmation_text' => $faker->name,
-        'credential_send_text' => $faker->name,
+        'credentials_text' => $faker->name,
+        'thank_you_text' => $faker->name,
         'event_id' => app(EventsRepository::class)->randomElement()->id,
     ];
 });
