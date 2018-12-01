@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Events\InvitationAccepted;
 use App\Events\InvitationRejected;
+use App\Events\InvitationWasCreated;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
