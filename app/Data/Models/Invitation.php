@@ -277,40 +277,21 @@ class Invitation extends Base
             'convite_codigo' => $this->code,
             'instituicao_nome' => $this->personInstitution->institution->name,
             'cargo' => $this->personInstitution->role->name,
-            'endereco_rua' => $this->subEvent->address
-                ? $this->subEvent->address->street
-                : '',
-            'endereco_numero' => $this->subEvent->address
-                ? $this->subEvent->address->number
-                : '',
-            'endereco_complemento' => $this->subEvent->address
-                ? $this->subEvent->address->complement
-                : '',
-            'endereco_bairro' => $this->subEvent->address
-                ? $this->subEvent->address->neighbourhood
-                : '',
-            'endereco_cidade' => $this->subEvent->address
-                ? $this->subEvent->address->city
-                : '',
-            'endereco_uf' => $this->subEvent->address
-                ? $this->subEvent->address->state
-                : '',
-            'endereco_cep' => $this->subEvent->address
-                ? $this->subEvent->address->zipcode
-                : '',
-            'latitude' => $this->subEvent->address
-                ? $this->subEvent->address->latitude
-                : '',
-            'longitude' => $this->subEvent->address
-                ? $this->subEvent->address->longitude
-                : '',
-            'endereco_completo' => $this->subEvent->address
-                ? $this->subEvent->address->full_address
-                : '',
-            'google_maps_link' => $this->subEvent->address
-                ? $this->subEvent->address->google_maps_url
-                : '',
-            //            '{google_maps_imagem} (url - pensar)' => $invitation,
+            'endereco_rua' => $this->subEvent->address->street ?? '',
+            'endereco_numero' => $this->subEvent->address->number ?? '',
+            'endereco_complemento' =>
+                $this->subEvent->address->complement ?? '',
+            'endereco_bairro' => $this->subEvent->address->neighbourhood ?? '',
+            'endereco_cidade' => $this->subEvent->address->city ?? '',
+            'endereco_uf' => $this->subEvent->address->state ?? '',
+            'endereco_cep' => $this->subEvent->address->zipcode ?? '',
+            'latitude' => $this->subEvent->address->latitude ?? '',
+            'longitude' => $this->subEvent->address->longitude ?? '',
+            'endereco_completo' => $this->subEvent->address->full_address ?? '',
+            'google_maps_link_url' =>
+                $this->subEvent->address->google_maps_link_url ?? '',
+            'google_maps_image_url' =>
+                $this->subEvent->address->google_maps_image_url ?? '',
         ];
 
         $variables['invitation_text'] = $this->parseMarkdown(

@@ -4,7 +4,8 @@
 <h2 style="text-align: center;">{{$credential->subEvent->name}}</h2>
 **Endereço**<br>
 {{$credential->variables['endereco_completo']}},<br>
-<a href="{{ $credential->variables['google_maps_link'] }}">Link para o Mapa no Google</a><br>
+<a href="{{ $credential->variables['google_maps_link_url'] }}">Link para o Mapa no Google</a><br>
+<img src="{{ $credential->variables['google_maps_image_url'] }}" alt="mapa">
 <br>
 @if (!$credential->subEvent->associated_subevent_id)
 **Traje**<br>
