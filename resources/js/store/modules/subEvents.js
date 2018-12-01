@@ -28,9 +28,9 @@ const __emptyModel = {
     address: __emptyAddress,
     event: __emptyEvent,
 
-    confirmation_text: '',
-    credential_send_text: '',
     invitation_text: '',
+    credentials_text: '',
+    rejection_text: '',
     associated_subevent_id: null,
     confirmed_at: null,
     confirmed_by: null,

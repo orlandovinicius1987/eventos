@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Listeners\SendNotificationsToContact;
 use App\Listeners\SendRejection;
 use App\Events\ContactWasCreated;
 use App\Events\ContactWasUpdated;
@@ -10,7 +9,10 @@ use App\Events\InvitationRejected;
 use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
 use App\Listeners\SendCredentials;
+use App\Listeners\SendNotification;
+use App\Events\InvitationWasCreated;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\SendNotificationsToContact;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -33,6 +35,8 @@ class EventServiceProvider extends ServiceProvider
         ContactWasCreated::class => [SendNotificationsToContact::class],
 
         ContactWasUpdated::class => [SendNotificationsToContact::class],
+
+        InvitationWasCreated::class => [SendNotification::class],
     ];
 
     /**

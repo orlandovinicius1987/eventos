@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
 import PeopleForm from './views/PeopleForm'
-import People from './views/People'
 import CategorizablesForm from './views/CategorizablesForm'
 import Events from './views/Events'
 import Categories from './views/Categories'
@@ -19,6 +18,7 @@ import ContactsForm from './views/ContactsForm'
 import AdvisorContactsForm from './views/AdvisorContactsForm'
 import AdvisorsForm from './views/AdvisorsForm'
 import InviteForm from './views/InviteForm'
+import Invitation from './views/Invitation'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
 import Import from './views/Import'
@@ -70,8 +70,10 @@ let routes = [
         props: { mode: 'create' },
     },
     {
-        path: '/people',
-        component: People,
+        path:
+            '/events/:eventId/sub-events/:subEventId/invitations/:invitationId/show',
+        component: Invitation,
+        props: { mode: 'update' },
     },
     {
         path: '/people/create',

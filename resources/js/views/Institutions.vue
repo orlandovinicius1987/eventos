@@ -22,7 +22,7 @@
                         <tr
                             @click="select(institution)"
                             v-for="institution in institutions.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(institution, selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(institution, selected)}"
                         >
                             <td class="align-middle">{{ institution.id }}</td>
                             <td class="align-middle">{{ institution.name }}</td>

@@ -76,15 +76,35 @@
 
                             <app-markdown-text-area
                                     @input="changeText({field: 'invitation_text', text: $event})"
-                                    :form="form" label="Texto de convite" id="invitation_text" :value="subEvents.form.fields.invitation_text"></app-markdown-text-area>
-                            <app-markdown-text-area
-                                    @input="changeText({field: 'confirmation_text', text: $event})"
-                                    :form="form" label="Texto de confirmação" id="confirmation_text" :value="subEvents.form.fields.confirmation_text"></app-markdown-text-area>
-                            <app-markdown-text-area
-                                    @input="changeText({field: 'credential_send_text', text: $event})"
-                                    :form="form" label="Texto de envio de credencial" id="credential_send_text" :value="subEvents.form.fields.credential_send_text"></app-markdown-text-area>
+                                    :form="form"
+                                    label="Email: texto do convite"
+                                    id="invitation_text"
+                                    :value="subEvents.form.fields.invitation_text"
+                            ></app-markdown-text-area>
 
-                            <!--:add-button="{ uri: 'events/{events.selected.id}/sub-event/'+subEvent.selected.id+'/addresses/create', disabled: cannot('create') }"-->
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'credentials_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto de envio das credencials de acesso ao evento"
+                                    id="credentials_text"
+                                    :value="subEvents.form.fields.credentials_text"
+                            ></app-markdown-text-area>
+
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'thank_you_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto de agradecimento pela presença"
+                                    id="thank_you_text"
+                                    :value="subEvents.form.fields.thank_you_text"
+                            ></app-markdown-text-area>
+
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'rejection_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto de declinação do convite"
+                                    id="rejection_text"
+                                    :value="subEvents.form.fields.rejection_text"
+                            ></app-markdown-text-area>
 
                             <app-table-panel
                                     v-if="mode == 'create'"
@@ -97,7 +117,7 @@
                                     <tr
                                             @click="selectAddressInsideEvent(address)"
                                             v-for="address in subEvents.data.available_addresses" class="cursor-pointer"
-                                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address, addresses.selected)}"
+                                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(address, addresses.selected)}"
                                     >
                                         <td>{{ address.id }}</td>
                                         <td>{{ address.full_address }}</td>

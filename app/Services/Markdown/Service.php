@@ -2,8 +2,6 @@
 
 namespace App\Services\Markdown;
 
-use Parsedown;
-
 class Service
 {
     protected function parse($text)
@@ -14,11 +12,15 @@ class Service
 
         $text = str_replace("\r", '<br>', $text);
 
+        $text = preg_replace('/(<br>)(<h\d>)/', '$2', $text);
+
+        $text = preg_replace('/(<\/h\d>)(<br>)/', '$1', $text);
+
         return $text;
     }
 
     public function text($text)
     {
-        return (new Parsedown())->text($this->parse($text));
+        return $this->parse((new Markdown())->text($text));
     }
 }

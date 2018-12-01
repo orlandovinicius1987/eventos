@@ -22,7 +22,7 @@
                         <tr
                             @click="select(role)"
                             v-for="role in roles.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(role, selected)}"
                         >
                             <td class="align-middle">{{ role.id }}</td>
 

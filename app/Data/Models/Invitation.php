@@ -26,7 +26,7 @@ class Invitation extends Base
         'checkin_at',
     ];
 
-    protected $with = ['personInstitution', 'subEvent'];
+    protected $with = ['personInstitution', 'subEvent', 'notifications'];
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
@@ -277,40 +277,21 @@ class Invitation extends Base
             'convite_codigo' => $this->code,
             'instituicao_nome' => $this->personInstitution->institution->name,
             'cargo' => $this->personInstitution->role->name,
-            'endereco_rua' => $this->subEvent->address
-                ? $this->subEvent->address->street
-                : '',
-            'endereco_numero' => $this->subEvent->address
-                ? $this->subEvent->address->number
-                : '',
-            'endereco_complemento' => $this->subEvent->address
-                ? $this->subEvent->address->complement
-                : '',
-            'endereco_bairro' => $this->subEvent->address
-                ? $this->subEvent->address->neighbourhood
-                : '',
-            'endereco_cidade' => $this->subEvent->address
-                ? $this->subEvent->address->city
-                : '',
-            'endereco_uf' => $this->subEvent->address
-                ? $this->subEvent->address->state
-                : '',
-            'endereco_cep' => $this->subEvent->address
-                ? $this->subEvent->address->zipcode
-                : '',
-            'latitude' => $this->subEvent->address
-                ? $this->subEvent->address->latitude
-                : '',
-            'longitude' => $this->subEvent->address
-                ? $this->subEvent->address->longitude
-                : '',
-            'endereco_completo' => $this->subEvent->address
-                ? $this->subEvent->address->full_address
-                : '',
-            'google_maps_link' => $this->subEvent->address
-                ? $this->subEvent->address->google_maps_url
-                : '',
-            //            '{google_maps_imagem} (url - pensar)' => $invitation,
+            'endereco_rua' => $this->subEvent->address->street ?? '',
+            'endereco_numero' => $this->subEvent->address->number ?? '',
+            'endereco_complemento' =>
+                $this->subEvent->address->complement ?? '',
+            'endereco_bairro' => $this->subEvent->address->neighbourhood ?? '',
+            'endereco_cidade' => $this->subEvent->address->city ?? '',
+            'endereco_uf' => $this->subEvent->address->state ?? '',
+            'endereco_cep' => $this->subEvent->address->zipcode ?? '',
+            'latitude' => $this->subEvent->address->latitude ?? '',
+            'longitude' => $this->subEvent->address->longitude ?? '',
+            'endereco_completo' => $this->subEvent->address->full_address ?? '',
+            'google_maps_link_url' =>
+                $this->subEvent->address->google_maps_link_url ?? '',
+            'google_maps_image_url' =>
+                $this->subEvent->address->google_maps_image_url ?? '',
         ];
 
         $variables['invitation_text'] = $this->parseMarkdown(
@@ -320,18 +301,15 @@ class Invitation extends Base
             )
         );
 
-        $variables['confirmation_text'] = $this->parseMarkdown(
+        $variables['credentials_text'] = $this->parseMarkdown(
             $this->replaceVariables(
-                $this->subEvent->confirmation_text,
+                $this->subEvent->credentials_text,
                 $variables
             )
         );
 
-        $variables['credential_send_text'] = $this->parseMarkdown(
-            $this->replaceVariables(
-                $this->subEvent->credential_send_text,
-                $variables
-            )
+        $variables['thank_you_text'] = $this->parseMarkdown(
+            $this->replaceVariables($this->subEvent->thank_you_text, $variables)
         );
 
         return $this->viewVariables = $variables;
@@ -400,5 +378,10 @@ class Invitation extends Base
     public function scopeNotSent($query)
     {
         return $query->whereNull('sent_at');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }

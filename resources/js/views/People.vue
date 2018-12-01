@@ -54,7 +54,7 @@
 
                         <app-role-filter-for-person
                                 name="role_id"
-                                label="Funções"
+                                label="Função"
                                 :required="true"
                                 :form="form"
                                 :options="environment.tables.roles"

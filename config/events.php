@@ -2,6 +2,6 @@
 
 return [
     'confirmation' => [
-        'enabled' => env('EVENTS_CONFIRMATION_ENABLED', false),
+        'enabled' => env('EVENTS_CONFIRMATION_ENABLED', true),
     ],
 ];

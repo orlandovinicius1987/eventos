@@ -4,6 +4,7 @@ namespace App\Data\Repositories;
 
 use App\Events\InvitationAccepted;
 use App\Events\InvitationRejected;
+use App\Events\InvitationWasCreated;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
@@ -175,10 +176,8 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
 
-            $invitation->send();
+            event(new InvitationWasCreated($invitation));
         }
-
-        event(new InvitationsChanged($eventId));
     }
 
     public function send($eventId, $subEventId, $invitationId)
