@@ -301,18 +301,15 @@ class Invitation extends Base
             )
         );
 
-        $variables['confirmation_text'] = $this->parseMarkdown(
+        $variables['credentials_text'] = $this->parseMarkdown(
             $this->replaceVariables(
-                $this->subEvent->confirmation_text,
+                $this->subEvent->credentials_text,
                 $variables
             )
         );
 
-        $variables['credential_send_text'] = $this->parseMarkdown(
-            $this->replaceVariables(
-                $this->subEvent->credential_send_text,
-                $variables
-            )
+        $variables['thank_you_text'] = $this->parseMarkdown(
+            $this->replaceVariables($this->subEvent->thank_you_text, $variables)
         );
 
         return $this->viewVariables = $variables;

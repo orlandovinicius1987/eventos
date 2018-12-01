@@ -16,10 +16,7 @@ Aceitar
 </tr>
 </table>
 
-Atenciosamente,<br>
-<br>
-{{ $client_full_name }} da Alerj<br>
-(21)2588-1196 / 2588-1266
+@include('emails.signature')
 
 <img src="{{ route('notifications.received', $notification->uuid) }}" alt="">
 @endcomponent

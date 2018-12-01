@@ -6,6 +6,10 @@
 </head>
 <body>
     <style>
+        h1, h2, h3, h4, h5 {
+            text-align: center;
+        }
+
         @media only screen and (max-width: 600px) {
             .inner-body {
                 width: 100% !important;
@@ -20,6 +24,14 @@
             .button {
                 width: 100% !important;
             }
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .bold {
+            font-weight: bold;
         }
     </style>
 
