@@ -13,6 +13,7 @@
         "barryvdh/laravel-dompdf": "^0.8",
         "doctrine/dbal": "^2.8",
         "erusev/parsedown": "^1.7",
+        "erusev/parsedown-extra": "^0.7.1",
         "fideloper/proxy": "^4.0",
         "geekcom/validator-docs": "1.*",
         "guzzlehttp/guzzle": "^6.0",
