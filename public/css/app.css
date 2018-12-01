@@ -19223,7 +19223,7 @@ a.text-primary-darkest:focus {
 }
 
 .table-sm td:first-child {
-  /*padding-left: 1rem;*/
+  padding-left: 0.5rem;
 }
 
 .table-sm td:last-child {
