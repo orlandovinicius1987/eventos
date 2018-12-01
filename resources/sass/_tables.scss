@@ -5,13 +5,25 @@
   thead {
     background: $grey-lighter05;
     border-top: 1px solid #ffffff;
+
+    th{
+
+      &:first-child {
+        text-align: center;
+        /*padding-left: 1rem;*/
+      }
+    }
   }
 
   td {
     border-top: 1px solid $grey-lighter04;
+    &:first-child {
+      text-align: center;
+      padding: 0;
+      /*padding-left: 1rem;*/
+    }
   }
 }
-
 
 .table-hover {
   tbody {
@@ -30,7 +42,7 @@
     padding: 0.7rem 0.3rem;
 
     &:first-child {
-      padding-left: 1rem;
+      /*padding-left: 1rem;*/
     }
     &:last-child {
       padding-right: 1rem;

@@ -2,9 +2,17 @@
     <div class="row mb-5">
         <div class="col-12 p-0">
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                <a class="navbar-brand" href="{{ url('/') }}">
+
+{{--                <a class="navbar-brand" href="{{ url('/') }}">
                    <img src="/svg/logo-eventos-alerj.svg" class="img-fluid"> <span class="brand-complement">cerimonial</span>
+                </a>--}}
+
+                <a class="navbar-brand d-flex" href="{{ url('/') }}">
+                    <img src="/svg/logo-eventos-alerj.svg" class="img-fluid">
+                    <div class="brand-complement align-self-center">cerimonial</div>
                 </a>
+
+
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
