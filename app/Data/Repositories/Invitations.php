@@ -134,7 +134,7 @@ class Invitations extends Repository
         ) {
             $invitation->accepted_at = now();
 
-            $invitation->acccepted_by_id = $invitation->getCurrentAuthenticatedUserId();
+            $invitation->accepted_by_id = $invitation->getCurrentAuthenticatedUserId();
 
             $invitation->declined_at = null;
 

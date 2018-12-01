@@ -13,7 +13,7 @@ class AddUsersByToSubevents extends Migration
      */
     public function up()
     {
-        Schema::table('sub_events', function (Blueprint $table) {
+        Schema::table('invitations', function (Blueprint $table) {
             $table
                 ->integer('created_by_id')
                 ->unsigned()
@@ -39,6 +39,13 @@ class AddUsersByToSubevents extends Migration
                 ->unsigned()
                 ->nullable();
         });
+
+        Schema::table('notifications', function (Blueprint $table) {
+            $table
+                ->integer('sent_by_id')
+                ->unsigned()
+                ->nullable();
+        });
     }
 
     /**
@@ -48,7 +55,7 @@ class AddUsersByToSubevents extends Migration
      */
     public function down()
     {
-        Schema::table('sub_events', function (Blueprint $table) {
+        Schema::table('invitations', function (Blueprint $table) {
             $table->dropColumn('created_by_id');
 
             $table->dropColumn('updated_by_id');
@@ -58,6 +65,10 @@ class AddUsersByToSubevents extends Migration
             $table->dropColumn('sent_by_id');
 
             $table->dropColumn('declined_by_id');
+        });
+
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->dropColumn('sent_by_id');
         });
     }
 }

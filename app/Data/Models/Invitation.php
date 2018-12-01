@@ -122,6 +122,14 @@ class Invitation extends Base
 
         $this->uuid = $this->uuid ?? (string) Uuid::uuid4();
 
+        if (blank($this->id)) {
+            $this->created_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
+        if (filled($this->id)) {
+            $this->updated_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
         return parent::save($options);
     }
 
@@ -388,6 +396,8 @@ class Invitation extends Base
     public function markAsSent()
     {
         $this->sent_at = now();
+
+        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
 
         $this->save();
     }
