@@ -239,7 +239,7 @@
                                     'Instituição',
                                     'Cargo',
                                     {title: 'Pendências', trClass: 'text-center'},
-                                    {title: 'Convite', trClass: 'text-center'},
+                                    {title: 'Enviado', trClass: 'text-center'},
                                     {title: 'Recebido', trClass: 'text-center'},
                                     {title: 'Aceito', trClass: 'text-center'},
                                     {title: 'Check in', trClass: 'text-center'},
@@ -269,7 +269,7 @@
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.sent_at" class="badge badge-success">enviado</span>
+                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ invitation.notifications.length }}</span>
                                     <span v-else class="badge badge-danger">não enviado</span>
                                 </h6>
                             </td>
@@ -285,19 +285,17 @@
                                 <h6 class="mb-0">
                                     <template v-if="!invitation.sent_at">
                                         <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
-                                        <span v-if="invitation.accepted_at" class="badge badge-warning">aceito manualmente</span>
-                                        <span v-if="invitation.declined_at" class="badge badge-warning">declinado manualmente</span>
                                     </template>
+
+                                    <span v-if="invitation.accepted_at && invitation.accepted_by_id" class="badge badge-warning">aceito manualmente</span>
+                                    <span v-if="invitation.declined_at && invitation.declined_by_id" class="badge badge-warning">declinado manualmente</span>
 
                                     <template v-if="invitation.sent_at">
                                         <span v-if="!invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não recebido</span>
                                         <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
 
-                                        <span v-if="invitation.received_at && invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                        <span v-if="invitation.received_at && invitation.declined_at" class="badge badge-warning">declinou</span>
-
-                                        <span v-if="!invitation.received_at && invitation.accepted_at" class="badge badge-warning">aceito manualmente</span>
-                                        <span v-if="!invitation.received_at && invitation.declined_at" class="badge badge-warning">declinado manualmente</span>
+                                        <span v-if="!invitation.accepted_by_id && invitation.received_at && invitation.accepted_at" class="badge badge-success">aceitou</span>
+                                        <span v-if="!invitation.declined_by_id && invitation.received_at && invitation.declined_at" class="badge badge-warning">declinou</span>
                                     </template>
                                 </h6>
                             </td>
@@ -317,19 +315,19 @@
                                 </div>
 
                                 <div
-                                        @click="markAsAccepted(invitation)"
-                                        class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
-                                        v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
-                                        title="Confirmar o Convite Manualmente"
+                                    @click="markAsAccepted(invitation)"
+                                    class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
+                                    title="Confirmar o Convite Manualmente"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
 
                                 <div
-                                        @click="markAsDeclined(invitation)"
-                                        class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                        v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
-                                        title="Declinar o Convite Manualmente"
+                                    @click="markAsDeclined(invitation)"
+                                    class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
+                                    title="Declinar o Convite Manualmente"
                                 >
                                     <i class="fa fa-calendar-times"></i>
                                 </div>

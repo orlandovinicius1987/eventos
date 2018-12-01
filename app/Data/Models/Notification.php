@@ -33,7 +33,11 @@ class Notification extends Base
     {
         $this->sent_at = now();
 
+        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
+
         $this->save();
+
+        $this->invitation->markAsSent();
     }
 
     public function markAsReceived()

@@ -29,5 +29,12 @@ class AddSubeventTexts extends Migration
      */
     public function down()
     {
+        Schema::table('sub_events', function (Blueprint $table) {
+            $table->renameColumn('credentials_text', 'confirmation_text');
+
+            $table->renameColumn('thank_you_text', 'credential_send_text');
+
+            $table->dropColumn('rejection_text');
+        });
     }
 }
