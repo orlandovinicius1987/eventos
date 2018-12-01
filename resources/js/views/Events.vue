@@ -344,6 +344,16 @@
                                     <i v-if="invitation.busy" class="fa fa-cog fa-spin"></i>
                                 </div>
 
+                                <router-link
+                                    :to="'/events/'+invitation.sub_event.event.id+'/sub-events/'+invitation.sub_event.id+'/invitations/'+invitation.id+'/show'"
+                                    tag="div"
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    :disabled="cannot('update')"
+                                    title="Ver todos os dados do convite"
+                                >
+                                    <i class="fa fa-eye"></i>
+                                </router-link>
+
                                 <div
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"

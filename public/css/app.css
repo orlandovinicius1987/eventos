@@ -19210,8 +19210,7 @@ a.text-primary-darkest:focus {
 
 .table td:first-child {
   text-align: center;
-  padding: 0;
-  /*padding-left: 1rem;*/
+  padding-left: 0.5rem;
 }
 
 .table-hover tbody tr:hover {

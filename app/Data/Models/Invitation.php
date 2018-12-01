@@ -26,7 +26,7 @@ class Invitation extends Base
         'checkin_at',
     ];
 
-    protected $with = ['personInstitution', 'subEvent'];
+    protected $with = ['personInstitution', 'subEvent', 'notifications'];
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
@@ -378,5 +378,10 @@ class Invitation extends Base
     public function scopeNotSent($query)
     {
         return $query->whereNull('sent_at');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }
