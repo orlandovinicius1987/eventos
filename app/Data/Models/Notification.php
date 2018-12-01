@@ -21,6 +21,14 @@ class Notification extends Base
     {
         $this->uuid = $this->uuid ?? (string) Uuid::uuid4();
 
+        if ($this->isDirty('created_at')) {
+            $this->created_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
+        if ($this->isDirty('updated_at')) {
+            $this->updated_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
         return parent::save($options);
     }
 
@@ -32,6 +40,8 @@ class Notification extends Base
     public function markAsSent()
     {
         $this->sent_at = now();
+
+        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
 
         $this->save();
 
