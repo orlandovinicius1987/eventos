@@ -175,10 +175,8 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
 
-            $invitation->send();
+            event(new InvitationWasCreated($invitation));
         }
-
-        event(new InvitationsChanged($eventId));
     }
 
     public function send($eventId, $subEventId, $invitationId)
