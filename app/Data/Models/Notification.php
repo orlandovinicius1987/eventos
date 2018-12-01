@@ -34,6 +34,8 @@ class Notification extends Base
         $this->sent_at = now();
 
         $this->save();
+
+        $this->invitation->markAsSent();
     }
 
     public function markAsReceived()

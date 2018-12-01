@@ -384,4 +384,11 @@ class Invitation extends Base
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function markAsSent()
+    {
+        $this->sent_at = now();
+
+        $this->save();
+    }
 }
