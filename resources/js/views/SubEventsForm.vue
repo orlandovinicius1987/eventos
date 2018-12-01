@@ -97,7 +97,7 @@
                                     <tr
                                             @click="selectAddressInsideEvent(address)"
                                             v-for="address in subEvents.data.available_addresses" class="cursor-pointer"
-                                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address, addresses.selected)}"
+                                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(address, addresses.selected)}"
                                     >
                                         <td>{{ address.id }}</td>
                                         <td>{{ address.full_address }}</td>

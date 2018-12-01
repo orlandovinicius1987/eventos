@@ -57,7 +57,7 @@ recordButtonText<template>
                     >
                         <tr
                             v-for="invitable in invitables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitable, invitables.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitable, invitables.selected)}"
                         >
                             <td class="align-middle">{{ invitable.id }}</td>
 

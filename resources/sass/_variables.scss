@@ -54,3 +54,56 @@ $grey-lighter02: #dee2e6;
 $grey-lighter03: #e9ecef;
 $grey-lighter04: #f1f3f5;
 $grey-lighter05: #f8f9fa;
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+/// Base Colors
+
+$primary:           $blue !default;
+$primary-light:     lighten($primary, 10%) !default;
+$primary-lighter:   lighten($primary, 30%) !default;
+$primary-lightest:  lighten($primary, 40%) !default;
+$primary-dark:      darken($primary, 10%) !default;
+$primary-darker:    darken($primary, 25%) !default;
+$primary-darkest:   darken($primary, 50%) !default;
+
+$secondary:     $gray-600 !default;
+$success:       $green !default;
+$info:          $cyan !default;
+$warning:       $yellow !default;
+$danger:        $red !default;
+$light:         $gray-100 !default;
+$dark:          $gray-800 !default;
+
+$theme-colors: () !default;
+// stylelint-disable-next-line scss/dollar-variable-default
+$theme-colors: map-merge(
+  (
+    "primary":          $primary,
+    "primary-light":    $primary-light,
+    "primary-lighter":  $primary-lighter,
+    "primary-lightest": $primary-lightest,
+    "primary-dark":     $primary-dark,
+    "primary-darker":   $primary-darker,
+    "primary-darkest":  $primary-darkest,
+
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
+  ),
+  $theme-colors
+);

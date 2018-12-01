@@ -42,7 +42,7 @@
                         <tr
                             @click="selectEvent(event)"
                             v-for="event in events.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(event, selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(event, selected)}"
                         >
                             <td class="align-middle">{{ event.id }}</td>
 
@@ -92,7 +92,7 @@
                         <tr
                             @click="selectSubEvent(subEvent)"
                             v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(subEvent, subEvents.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
                             <td class="align-middle">{{ subEvent.id }}</td>
 
@@ -249,7 +249,7 @@
                         <tr
                             @click="selectInvitation(invitation)"
                             v-for="invitation in invitations.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitation, invitations.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitation, invitations.selected)}"
                         >
                             <td class="align-middle">{{ invitation.id }}</td>
 
