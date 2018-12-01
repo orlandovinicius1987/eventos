@@ -239,7 +239,7 @@
                                     'Instituição',
                                     'Cargo',
                                     {title: 'Pendências', trClass: 'text-center'},
-                                    {title: 'Convite', trClass: 'text-center'},
+                                    {title: 'Enviado', trClass: 'text-center'},
                                     {title: 'Recebido', trClass: 'text-center'},
                                     {title: 'Aceito', trClass: 'text-center'},
                                     {title: 'Check in', trClass: 'text-center'},
@@ -269,7 +269,7 @@
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.sent_at" class="badge badge-success">enviado</span>
+                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ invitation.notifications.length }}</span>
                                     <span v-else class="badge badge-danger">não enviado</span>
                                 </h6>
                             </td>
