@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="col-12" v-if="hasCheckboxes()">
-                            <div class="text-center p-12 mb-2 mt-2 bg-cyan">
+                            <div class="text-center p-2 mb-2 mt-2 bg-gray-light">
                                 <slot name="checkboxes"></slot>
                             </div>
                         </div>
