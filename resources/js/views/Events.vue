@@ -235,9 +235,7 @@
                         :columns="[
                                     '#',
                                     'Código',
-                                    'Nome',
-                                    'Instituição',
-                                    'Cargo',
+                                    'Convidado',
                                     {title: 'Pendências', trClass: 'text-center'},
                                     {title: 'Enviado', trClass: 'text-center'},
                                     {title: 'Recebido', trClass: 'text-center'},
@@ -255,11 +253,10 @@
 
                             <td class="align-middle">{{ invitation.code }}</td>
 
-                            <td class="align-middle">{{ invitation.person_institution.title }} {{ invitation.person_institution.person.name }}</td>
-
-                            <td class="align-middle">{{ invitation.person_institution.institution.name }}</td>
-
-                            <td class="align-middle">{{ invitation.person_institution.role.name }}</td>
+                            <td class="align-middle">
+                                <strong>{{ invitation.person_institution.person.name }}</strong> ({{ invitation.person_institution.title }})<br>
+                                {{ invitation.person_institution.role.name }} - {{ invitation.person_institution.institution.name }}
+                            </td>
 
                             <td class="align-middle text-center">
                                 <h6 v-for="pending in invitation.pending" class="m-0">
@@ -309,7 +306,7 @@
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation)"
-                                    title="Enviar convite"
+                                    :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
                                 </div>
@@ -318,7 +315,7 @@
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
-                                    title="Confirmar o Convite Manualmente"
+                                    title="Aceitar o convite manualmente"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
@@ -327,7 +324,7 @@
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
-                                    title="Declinar o Convite Manualmente"
+                                    title="Declinar o convite manualmente"
                                 >
                                     <i class="fa fa-calendar-times"></i>
                                 </div>
@@ -336,7 +333,7 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation) && invitation.accepted_at"
-                                    title="Realizar o Download do Convite"
+                                    title="Baixar PDF das credenciais"
                                 >
                                     <i v-if="!invitation.busy" class="fa fa-id-badge"></i>
                                     <i v-if="invitation.busy" class="fa fa-cog fa-spin"></i>
@@ -356,7 +353,7 @@
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
-                                    title="Cancelar o Convite Manualmente"
+                                    title="Excluir convite (ainda não foi enviado)"
                                 >
                                     <i class="fa fa-trash"></i>
                                 </div>
