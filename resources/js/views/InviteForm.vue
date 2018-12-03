@@ -1,9 +1,10 @@
 recordButtonText<template>
     <div>
         <div class="py-2 text-center">
-            <h1>{{ events.selected.name }}</h1>
-            <h2>{{ subEvents.selected.name }}</h2>
-            <h2>Convidar Pessoas</h2>
+            <h1>Convidar pessoas para o sub-evento</h1>
+            <h2>{{ events.selected.name }}</h2>
+            <h2>{{ subEvents.selected.name }} - {{ subEvents.selected.sector ? subEvents.selected.sector.name : '' }}</h2>
+            <h2>{{ subEvents.selected.place }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -22,7 +23,7 @@ recordButtonText<template>
                         v-model="subEventSelectFilter"
                         :required="true"
                         :form="form"
-                        :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                        :options="except(this.environment.tables.sub_events, this.subEvents.form.fields.id)"
                     ></app-select>
 
                     <template slot="buttons">
@@ -263,7 +264,7 @@ export default {
             items.rows = except(list.rows, id)
 
             return items
-        }
+        },
     },
 }
 </script>
