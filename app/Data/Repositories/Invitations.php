@@ -254,9 +254,10 @@ class Invitations extends Repository
             !is_null(
                 ($cpf_stored = $invitation->personInstitution->person->cpf)
             ) &&
-            $cpf_stored != $cpf_confirmed
+            remove_punctuation($cpf_stored) !=
+                remove_punctuation($cpf_confirmed)
         ) {
-            return 'Parece que há algo errado com a seu convite, por favor entre em contato com o Cerimonial Alerj.';
+            return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
         } else {
             if (is_null($cpf_stored)) {
                 $invitation->personInstitution->person->cpf = $cpf_confirmed;
@@ -272,8 +273,9 @@ class Invitations extends Repository
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
         if (
-            ($invitation = $this->findById($invitationId))->personInstitution
-                ->person->cpf != $cpf_confirmed
+            ($invitation = remove_punctuation($this->findById($invitationId))
+                ->personInstitution->person->cpf) !=
+            remove_punctuation($cpf_confirmed)
         ) {
             return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
         }
