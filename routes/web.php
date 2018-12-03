@@ -1,16 +1,8 @@
 <?php
 
-Route::get('/firewall/blacklist/{ipAddress}', 'Firewall@blacklist')->name(
-    'firewall.blacklist'
-);
-
-Route::get('/firewall/whitelist/{ipAddress}', 'Firewall@whitelist')->name(
-    'firewall.whitelist'
-);
-
 Route::group(
     [
-        'middleware' => ['fw-only-whitelisted'],
+        'middleware' => ['fw-block-attacks'],
     ],
     function () {
         Auth::routes();
