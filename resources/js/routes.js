@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Dashboard from './views/Dashboard'
+import People from './views/People'
 import PeopleForm from './views/PeopleForm'
 import CategorizablesForm from './views/CategorizablesForm'
 import Events from './views/Events'
@@ -208,6 +209,11 @@ let routes = [
         path:
             '/people/:personId/person-institutions/:personInstitutionId/advisors/:advisorId/update',
         component: AdvisorsForm,
+        props: { mode: 'update', source: 'advisor' },
+    },
+    {
+        path: '/people',
+        component: People,
         props: { mode: 'update', source: 'advisor' },
     },
     {
