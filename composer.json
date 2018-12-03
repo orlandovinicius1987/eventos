@@ -24,6 +24,7 @@
         "laravel/tinker": "^1.0",
         "owen-it/laravel-auditing": "^8.0",
         "pragmarx/coollection": "^0.6.1",
+        "pragmarx/firewall": "^2.2",
         "pragmarx/health": "^0.9",
         "pragmarx/sqli": "dev-master",
         "pragmarx/version": "^0.2.8",

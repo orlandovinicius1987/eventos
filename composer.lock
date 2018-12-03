@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "43a9daa5e49214e26702cc13e0676bfa",
+    "content-hash": "403b06bc77c79aba5f1548ba5502d301",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -2126,6 +2126,68 @@
             "homepage": "https://github.com/antonioribeiro/coollection",
             "keywords": ["collection", "laravel", "pragmarx"],
             "time": "2018-09-26T21:11:58+00:00"
+        },
+        {
+            "name": "pragmarx/firewall",
+            "version": "v2.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/antonioribeiro/firewall.git",
+                "reference": "fd840bec09ed4c3de67d5d350c3f6d5f8a8eaec4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/antonioribeiro/firewall/zipball/fd840bec09ed4c3de67d5d350c3f6d5f8a8eaec4",
+                "reference": "fd840bec09ed4c3de67d5d350c3f6d5f8a8eaec4",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.3",
+                "php": ">=5.6",
+                "pragmarx/support": "~0.8.0"
+            },
+            "require-dev": {
+                "geoip2/geoip2": "~2.0",
+                "guzzlehttp/guzzle": "^6.2",
+                "orchestra/testbench": "~3.6",
+                "phpunit/phpunit": "~7"
+            },
+            "suggest": {
+                "geoip/geoip": "~1.14",
+                "geoip2/geoip2": "~2.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.5.x-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "PragmaRX\\Firewall\\Vendor\\Laravel\\ServiceProvider"
+                    ],
+                    "aliases": {
+                        "Firewall": "PragmaRX\\Firewall\\Vendor\\Laravel\\Facade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PragmaRX\\Firewall\\": "src/",
+                    "PragmaRX\\Firewall\\Tests\\": "tests/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": ["BSD-3-Clause"],
+            "authors": [
+                {
+                    "name": "Antonio Carlos Ribeiro",
+                    "email": "acr@antoniocarlosribeiro.com",
+                    "role": "Creator"
+                }
+            ],
+            "description": "A Laravel IP whitelisting and blacklisting",
+            "keywords": ["blacklist", "firewall", "laravel", "whitelist"],
+            "time": "2018-07-31T23:07:56+00:00"
         },
         {
             "name": "pragmarx/health",
