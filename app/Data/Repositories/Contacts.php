@@ -28,7 +28,7 @@ class Contacts extends Repository
      */
     public function storeFromArray($array)
     {
-        event(new ContactWasCreated(parent::updateFromArray($array)));
+        event(new ContactWasCreated(parent::storeFromArray($array)));
     }
 
     public function update($id, $array)
