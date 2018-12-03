@@ -37,16 +37,14 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['#','Nome','']"
+                        :columns="['Nome','']"
                     >
                         <tr
                             @click="selectEvent(event)"
                             v-for="event in events.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(event, selected)}"
                         >
-                            <td class="align-middle">{{ event.id }}</td>
-
-                            <td class="align-middle">{{ event.name }}</td>
+                            <td class="align-middle text-left">{{ event.name }}</td>
 
                             <td class="align-middle text-right">
                                 <button
@@ -87,23 +85,22 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['#', 'Nome', 'Local', 'Setor', 'Data', 'Hora', 'Confirmado em', 'Realizado em', '']"
+                        :columns="['Setor', 'Nome', 'Data', 'Hora', 'Confirmado em', 'Realizado em', '']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
                             v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
-                            <td class="align-middle">{{ subEvent.id }}</td>
-
-                            <td class="align-middle">{{ subEvent.name }}</td>
-
-                            <td class="align-middle">{{ subEvent.place }}</td>
-
-                            <td class="align-middle">
+                            <td>
                                 <span class="badge text-white p-2" :style="{'background-color': subEvent.sector ? subEvent.sector.color : '', 'text-transform': 'uppercase'}">
                                     {{ subEvent.sector ? subEvent.sector.name : '' }}
                                 </span>
+                            </td>
+
+                            <td class="align-middle">
+                                <strong>{{ subEvent.name }}</strong><br>
+                                {{ subEvent.place }}
                             </td>
 
                             <td class="align-middle">{{ subEvent.date }}</td>
@@ -237,7 +234,6 @@
                         :pagination="invitations.data.links.pagination"
                         @goto-page="invitationsGotoPage($event)"
                         :columns="[
-                                    '#',
                                     'Código',
                                     'Convidado',
                                     {title: 'Pendências', trClass: 'text-center'},
@@ -253,8 +249,6 @@
                             v-for="invitation in invitations.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitation, invitations.selected)}"
                         >
-                            <td class="align-middle">{{ invitation.id }}</td>
-
                             <td class="align-middle">{{ invitation.code }}</td>
 
                             <td class="align-middle">
