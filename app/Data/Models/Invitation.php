@@ -9,7 +9,7 @@ use App\Notifications\SendCredentials;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
-use App\Services\QrCode\Service as QrCode;
+use App\Services\QRCode\Service as QRCode;
 
 class Invitation extends Base
 {
@@ -44,7 +44,7 @@ class Invitation extends Base
 
     protected $viewVariables;
 
-    protected $pathToQrCodes;
+    protected $pathToQRCodes;
 
     private function canSendEmail()
     {
@@ -316,6 +316,10 @@ class Invitation extends Base
             )
         );
 
+        $variables['rejection_text'] = $this->parseMarkdown(
+            $this->replaceVariables($this->subEvent->rejection_text, $variables)
+        );
+
         $variables['thank_you_text'] = $this->parseMarkdown(
             $this->replaceVariables($this->subEvent->thank_you_text, $variables)
         );
@@ -339,14 +343,14 @@ class Invitation extends Base
      *
      * @return string
      */
-    public function generateQrCodeFile()
+    public function generateQRCodeFile()
     {
         $relativePath = 'qr-codes/';
         $fullPath = storage_path($relativePath);
-        $this->pathToQrCodes = $fullPath;
+        $this->pathToQRCodes = $fullPath;
         $fileName = $this->code . '.png';
 
-        $qrCode = app(QrCode::class);
+        $qrCode = app(QRCode::class);
         $text = $this->code;
         $qrCode->generateFile($fileName, $fullPath, $text);
 
@@ -358,9 +362,9 @@ class Invitation extends Base
      *
      * @return mixed
      */
-    public function getQrCodeAttribute()
+    public function getQRCodeAttribute()
     {
-        $qrCode = app(QrCode::class);
+        $qrCode = app(QRCode::class);
 
         return $qrCode->generateString(
             route('invitations.show-via-qrcode', ['uuid' => $this->uuid])
@@ -372,7 +376,7 @@ class Invitation extends Base
      *
      * @return mixed
      */
-    public function getQrCodeBlobAttribute()
+    public function getQRCodeBlobAttribute()
     {
         return base64_encode($this->qr_code);
     }

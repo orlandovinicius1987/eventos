@@ -35,7 +35,7 @@
                     </app-table>
                 </app-table-panel>
 
-                <router-link to="/notifications" tag="button" class="btn btn-success">
+                <router-link to="/events" tag="button" class="btn btn-success">
                     voltar
                 </router-link>
             </div>
