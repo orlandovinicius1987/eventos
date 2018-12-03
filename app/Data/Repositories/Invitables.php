@@ -54,6 +54,6 @@ class Invitables extends Repository
             $query->where('institution_id', $filter['institution']);
         }
 
-        return $query->toSql();
+        return $query;
     }
 }
