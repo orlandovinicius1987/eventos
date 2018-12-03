@@ -28,6 +28,8 @@ class PersonInstitution extends Base
         'advisors.name',
         'advisors.nickname',
         'advisors.title',
+        'roles.id',
+        'institutions.id',
     ];
 
     protected $selectColumns = [

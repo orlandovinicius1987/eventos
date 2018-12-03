@@ -20,12 +20,12 @@ class SubEventsTextsTransformToText extends Migration
                 ->change();
 
             $table
-                ->text('credentials_text')
+                ->text('credential_send_text')
                 ->nullable()
                 ->change();
 
             $table
-                ->text('thank_you_text')
+                ->text('confirmation_text')
                 ->nullable()
                 ->change();
         });

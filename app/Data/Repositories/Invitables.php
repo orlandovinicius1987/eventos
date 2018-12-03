@@ -13,13 +13,11 @@ class Invitables extends Repository
 
     protected function filterAllColumns($query, $text)
     {
-        $query
-            ->join('people', 'person_institutions.person_id', '=', 'people.id')
-            ->where(function ($query) use ($text) {
-                $query->orWhere('institutions.name', 'ilike', "%{$text}%");
-                $query->orWhere('people.name', 'ilike', "%{$text}%");
-                $query->orWhere('roles.name', 'ilike', "%{$text}%");
-            });
+        $query->where(function ($query) use ($text) {
+            $query->orWhere('institutions.name', 'ilike', "%{$text}%");
+            $query->orWhere('people.name', 'ilike', "%{$text}%");
+            $query->orWhere('roles.name', 'ilike', "%{$text}%");
+        });
 
         return $query;
     }
@@ -49,7 +47,13 @@ class Invitables extends Repository
         if (isset($filter['sub_event']) && !is_null($filter['sub_event'])) {
             $query->invitedToSubEvent($filter['sub_event']);
         }
+        if (isset($filter['role']) && !is_null($filter['role'])) {
+            $query->where('role_id', $filter['role']);
+        }
+        if (isset($filter['institution']) && !is_null($filter['institution'])) {
+            $query->where('institution_id', $filter['institution']);
+        }
 
-        return $query;
+        return $query->toSql();
     }
 }

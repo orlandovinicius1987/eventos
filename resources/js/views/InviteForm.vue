@@ -16,6 +16,23 @@ recordButtonText<template>
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
+                    <template slot="selects">
+                        <app-institution-filter-for-invitation
+                                name="institution_id"
+                                label="Instituição"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.institutions"
+                        ></app-institution-filter-for-invitation>
+
+                        <app-role-filter-for-invitation
+                                name="role_id"
+                                label="Função"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.roles"
+                        ></app-role-filter-for-invitation>
+                    </template>
                     <app-select
                         name="sub_event_id"
                         label="Filtrar convidados de outro sub-evento"
