@@ -13,13 +13,11 @@ class Invitables extends Repository
 
     protected function filterAllColumns($query, $text)
     {
-        $query
-            ->join('people', 'person_institutions.person_id', '=', 'people.id')
-            ->where(function ($query) use ($text) {
-                $query->orWhere('institutions.name', 'ilike', "%{$text}%");
-                $query->orWhere('people.name', 'ilike', "%{$text}%");
-                $query->orWhere('roles.name', 'ilike', "%{$text}%");
-            });
+        $query->where(function ($query) use ($text) {
+            $query->orWhere('institutions.name', 'ilike', "%{$text}%");
+            $query->orWhere('people.name', 'ilike', "%{$text}%");
+            $query->orWhere('roles.name', 'ilike', "%{$text}%");
+        });
 
         return $query;
     }
