@@ -1,6 +1,6 @@
-<template>
+recordButtonText<template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h1>{{ events.selected.name }}</h1>
             <h2>{{ subEvents.selected.name }}</h2>
             <h2>Convidar Pessoas</h2>
@@ -16,14 +16,30 @@
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
+                    <app-select
+                        name="sub_event_id"
+                        label="Filtrar convidados de outro sub-evento"
+                        v-model="subEventSelectFilter"
+                        :required="true"
+                        :form="form"
+                        :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                    ></app-select>
+
                     <template slot="buttons">
-                        <a
-                            href="#"
+                        <div
                             class="btn btn-primary btn-sm pull-right"
                             @click="invite()"
                         >
-                            gravar convidados
-                        </a>
+                            {{ recordButtonText }}
+                        </div>
+
+                        <div
+                            v-if="selectedSubEvent"
+                            class="btn btn-danger btn-sm pull-right"
+                            @click="moveInvitations()"
+                        >
+                            mover convidados
+                        </div>
                     </template>
 
                     <app-table
@@ -41,7 +57,7 @@
                     >
                         <tr
                             v-for="invitable in invitables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitable, invitables.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitable, invitables.selected)}"
                         >
                             <td class="align-middle">{{ invitable.id }}</td>
 
@@ -81,6 +97,7 @@
 
 <script>
 import crud from './mixins/crud'
+import subEvents from './mixins/sub-events'
 import invitables from './mixins/invitables'
 import { mapState } from 'vuex'
 
@@ -93,9 +110,10 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, invitables],
+    mixins: [crud, invitables, subEvents],
 
     data() {
+        this.$store.dispatch('environment/loadSubEvents')
         return {
             service: service,
 
@@ -110,12 +128,26 @@ export default {
             subEvents: state => state.subEvents,
         }),
 
+        selectedSubEvent:{
+            get(){
+                return this.$store.state['invitables'].data.filter.selects['sub_event']
+            }
+        },
+
+        recordButtonText:{
+            get() {
+                return this.selectedSubEvent ? 'copiar convidados' : 'convidar'
+            },
+        },
+
         invitablesFilterText: {
             get() {
                 return this.$store.state['invitables'].data.filter.text
             },
 
             set(filter) {
+                this.resetCheckedPeople()
+
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
                     filter,
@@ -130,7 +162,27 @@ export default {
             },
 
             set(perPage) {
+                this.resetCheckedPeople()
+
                 return this.$store.dispatch('invitables/setPerPage', perPage)
+            },
+        },
+
+        subEventSelectFilter: {
+            get() {
+                return _.debounce( () => {
+                    this.$store.state['invitables'].data.filter.selects['sub_event']
+                }, 650)
+            },
+
+            set(id) {
+                this.resetCheckedPeople()
+
+                return this.$store.dispatch(
+                    'invitables/mutateFilterSelect', {
+                        field: 'sub_event', value: id
+                    }
+                )
             },
         },
     },
@@ -142,6 +194,14 @@ export default {
                 'invitables',
                 this.invitables.data.links.pagination,
             )
+        },
+
+        resetCheckedPeople(){
+            for (let key in this.checkedPeople) {
+                if (this.checkedPeople.hasOwnProperty(key)) {
+                    this.checkedPeople[key].checked = false
+                }
+            }
         },
 
         isChecked(invitation) {
@@ -176,8 +236,34 @@ export default {
 
             this.$store.dispatch('invitables/invite', invitees)
 
-            this.$router.go(-1)
+            // this.$router.go(0)
         },
+
+        moveInvitations() {
+            const invitees = {
+                eventId: this.events.selected.id,
+
+                newSubEventId: this.subEvents.selected.id,
+
+                currentSubEventId: this.selectedSubEvent,
+
+                invitees: _.filter(this.checkedPeople, person => {
+                    return person.checked
+                }),
+            }
+
+            this.$store.dispatch('invitables/moveInvitations', invitees)
+
+            // this.$router.go(0)
+        },
+
+        except(list, id) {
+            let items = clone(list)
+
+            items.rows = except(list.rows, id)
+
+            return items
+        }
     },
 }
 </script>

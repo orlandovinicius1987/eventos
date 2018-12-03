@@ -2,9 +2,14 @@
 
 namespace App\Data\Repositories;
 
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
+use App\Events\InvitationWasCreated;
+use DB as Database;
 use App\Data\Models\Invitation;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
+use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -15,9 +20,11 @@ class Invitations extends Repository
      */
     protected $model = InvitationModel::class;
 
+    protected $variables;
+
     public function filterBySubEventId($subEventId)
     {
-        $this->addDataProcessingPlugin(function ($invitation) {
+        $this->addDataPlugin(function ($invitation) {
             $invitation['pending'] = [
                 [
                     'type' => $invitation->hasEmail() ? 'success' : 'danger',
@@ -26,6 +33,8 @@ class Invitations extends Repository
                         : 'não possui e-mail',
                 ],
             ];
+
+            $invitation['has_email'] = $invitation->hasEmail();
 
             return $invitation;
         });
@@ -42,6 +51,27 @@ class Invitations extends Repository
                     where person_institution_id = invitations.person_institution_id
                     and c.contact_type_id = (select id from contact_types where code = \'email\')
                 ) = 0');
+        }
+
+        if (isset($filter['notSent']) && $filter['notSent']) {
+            $query->whereNull('sent_at');
+        }
+
+        if (isset($filter['notReceived']) && $filter['notReceived']) {
+            $query->whereNull('received_at');
+        }
+
+        if (isset($filter['notAccepted']) && $filter['notAccepted']) {
+            $query->whereNull('accepted_at');
+        }
+
+        if (isset($filter['notCheckedIn']) && $filter['notCheckedIn']) {
+            $query->whereNull('checkin_at');
+        }
+
+        if (isset($filter['notAnswered']) && $filter['notAnswered']) {
+            $query->whereNull('accepted_at');
+            $query->whereNull('declined_at');
         }
     }
 
@@ -66,6 +96,17 @@ class Invitations extends Repository
         return $query;
     }
 
+    private function getViewVariablesFor($invitation)
+    {
+        if (isset($this->variables[$invitation->id])) {
+            return $this->variables[$invitation->id];
+        }
+
+        return $this->variables[
+            $invitation->id
+        ] = $invitation->getViewVariables();
+    }
+
     public function unInvite($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
@@ -82,13 +123,205 @@ class Invitations extends Repository
         return false;
     }
 
+    public function markAsAccepted($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            !$invitation->accepted_at &&
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->accepted_at = now();
+
+            $invitation->accepted_by_id = $invitation->getCurrentAuthenticatedUserId();
+
+            $invitation->declined_at = null;
+
+            $invitation->save();
+
+            event(new InvitationAccepted($invitation->id));
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function markAsRejected($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->accepted_at = null;
+
+            $invitation->declined_at = now();
+
+            $invitation->declined_by_id = $invitation->getCurrentAuthenticatedUserId();
+
+            $invitation->save();
+
+            event(new InvitationRejected($invitation->id));
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function invite($eventId, $subEventId, $invitees)
     {
         foreach ($invitees as $invitee) {
-            Invitation::firstOrCreate([
+            $invitation = Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
                 'person_institution_id' => $invitee['id'],
             ]);
+
+            event(new InvitationWasCreated($invitation));
         }
+    }
+
+    public function send($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
+
+        if (
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->send();
+        }
+    }
+
+    public function setCurrentClientId($invitationId)
+    {
+        $invitation = Database::table('invitations')
+            ->join(
+                'person_institutions',
+                'invitations.person_institution_id',
+                '=',
+                'person_institutions.id'
+            )
+            ->join('people', 'person_institutions.person_id', '=', 'people.id')
+            ->where('invitations.id', $invitationId)
+            ->first();
+
+        set_current_client_id($invitation->client_id);
+
+        return $this;
+    }
+
+    public function moveInvitations(
+        $newSubEventId,
+        $currentSubEventId,
+        $invitees
+    ) {
+        $invitations = InvitationModel::filterByPersonInstitutions($invitees)
+            ->filterBySubEvent($currentSubEventId)
+            ->get();
+
+        foreach ($invitations as $invitation) {
+            $invitation->sub_event_id = $newSubEventId;
+
+            $invitation->sent_at = null;
+
+            $invitation->save();
+
+            $invitation->send();
+        }
+    }
+
+    public function transform($data)
+    {
+        $this->addDataPlugin(function ($invitation) {
+            $invitation['variables'] = $this->getViewVariablesFor($invitation);
+
+            return $invitation;
+        });
+
+        return parent::transform($data);
+    }
+
+    public function accept($eventId, $subEventId, $invitationId, $cpf_confirmed)
+    {
+        $invitation = $this->findById($invitationId);
+        if (
+            !is_null(
+                ($cpf_stored = $invitation->personInstitution->person->cpf)
+            ) &&
+            $cpf_stored != $cpf_confirmed
+        ) {
+            return 'Parece que há algo errado com a seu convite, por favor entre em contato com o Cerimonial Alerj.';
+        } else {
+            if (is_null($cpf_stored)) {
+                $invitation->personInstitution->person->cpf = $cpf_confirmed;
+                $invitation->personInstitution->person->save();
+            }
+
+            $this->markAsAccepted($eventId, $subEventId, $invitation->id);
+        }
+
+        return 'Muito obrigado por CONFIRMAR presença no evento, em breve enviaremos a sua credencial para acesso ao evento.';
+    }
+
+    public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
+    {
+        if (
+            ($invitation = $this->findById($invitationId))->personInstitution
+                ->person->cpf != $cpf_confirmed
+        ) {
+            return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
+        }
+
+        $this->markAsRejected($eventId, $subEventId, $invitation->id);
+
+        return 'Cancelamento realizado com sucesso.';
+    }
+
+    /**
+     * Generates QR code png image in storage/qr-codes
+     *
+     * @param $invitation_id
+     */
+    public function generateQrCodeFor($invitation_id)
+    {
+        $invitation = Invitation::find($invitation_id);
+
+        $invitation->generateQrCode();
+    }
+
+    public function getAllInvitationsFor($invitation)
+    {
+        return collect(
+            array_merge([$invitation], $invitation->related())
+        )->sortBy(function ($invitation) {
+            return is_null($invitation->subEvent->associated_subevent_id)
+                ? 10
+                : 100;
+        });
+    }
+
+    public function getAllInvitationsForContact($contact)
+    {
+        return $this->makeQueryByAnyColumnName(
+            'getBy',
+            'person_institution_id',
+            $contact->person_institution_id
+        )
+            ->join(
+                'sub_events',
+                'invitations.sub_event_id',
+                '=',
+                'sub_events.id'
+            )
+            ->whereNotNull('sub_events.confirmed_at')
+            ->whereNull('sub_events.ended_at')
+            ->whereNull('sub_events.associated_subevent_id')
+            ->get();
     }
 }

@@ -135,4 +135,9 @@ abstract class Base extends Model implements AuditableContract
     {
         return coollect($this->filterableColumns);
     }
+
+    public function getCurrentAuthenticatedUserId()
+    {
+        return auth()->user()->id ?? null;
+    }
 }

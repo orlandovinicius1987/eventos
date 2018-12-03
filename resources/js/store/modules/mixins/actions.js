@@ -32,7 +32,7 @@ export function save(context, payload) {
 }
 
 export function clearForm(context) {
-    set_null(context.state.form.fields)
+    context.state.form.fields = clone(context.state.emptyForm)
 }
 
 export function mutateSetQueryFilterText(context, payload) {
@@ -73,4 +73,16 @@ export function select(context, payload) {
     context.commit('mutateSetSelected', payload)
 
     context.commit('mutateFormData', payload)
+}
+
+export function mutateFilterCheckbox(context, payload) {
+    context.commit('mutateFilterCheckbox', payload)
+
+    loadDebounced(context)
+}
+
+export function mutateFilterSelect(context, payload) {
+    context.commit('mutateFilterSelect', payload)
+
+    loadDebounced(context)
 }

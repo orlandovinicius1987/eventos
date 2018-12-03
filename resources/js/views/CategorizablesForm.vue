@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h1>{{ people.selected.name }}</h1>
             <h2>Associar Categorias a Pessoas</h2>
         </div>
@@ -36,7 +36,7 @@
                     >
                         <tr
                             v-for="categorizable in categorizables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(categorizable, categorizables.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(categorizable, categorizables.selected)}"
                         >
                             <td class="align-middle">{{ categorizable.id }}</td>
 

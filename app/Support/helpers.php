@@ -1,4 +1,6 @@
 <?php
+
+use App\Data\Repositories\Clients;
 use Illuminate\Support\Facades\Auth;
 
 function startTimer()
@@ -67,7 +69,21 @@ function ld($info)
 
 function get_current_client_id()
 {
-    return Session::get('current_client_id') ?: auth()->user()->client_id;
+    return ($clientId = Session::get('current_client_id'))
+        ? $clientId
+        : (auth()->user()
+            ? auth()->user()->client_id
+            : null);
+}
+
+function get_current_client()
+{
+    return app(Clients::class)->findById(get_current_client_id());
+}
+
+function set_current_client_id($id)
+{
+    return Session::put('current_client_id', $id);
 }
 
 function make_pdf_filename($baseName)

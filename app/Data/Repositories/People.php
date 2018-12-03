@@ -13,9 +13,11 @@ class People extends Repository
      */
     protected $model = PersonModel::class;
 
+    protected $tableAlias;
+
     private function dummyPhotoAddress()
     {
-        return public_path('img/no-image.jpg');
+        return public_path('images/no-image.jpg');
     }
 
     private function extractImage($photo)
@@ -84,5 +86,25 @@ class People extends Repository
         if (isset($filter['hasNoPhoto']) && $filter['hasNoPhoto']) {
             $query->hasNoPhoto();
         }
+    }
+
+    /**
+     * Filter Selects
+     *
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
+    protected function filterSelects($query, array $filter)
+    {
+        if (isset($filter['institution']) && !is_null($filter['institution'])) {
+            $query->presentInInstitution($filter['institution']);
+        }
+
+        if (isset($filter['role']) && !is_null($filter['role'])) {
+            $query->presentInRole($filter['role']);
+        }
+
+        return $query;
     }
 }

@@ -1,23 +1,21 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}Contato de Assessor</h2>
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
-
+  
         <div class="row justify-content-center">
             <div class="col-8">
                 <form>
                     <div class="row">
                         <div class="col-12 mb-3">
-
                             <app-contact-field
                                 :contact="form.fields.contact"
                                 :form="form"
                                 :environment="environment"
                             >
                             </app-contact-field>
-
                         </div>
                     </div>
 

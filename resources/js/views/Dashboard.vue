@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
-            <h2>Painel de Controle</h2>
+        <div class="py-2 text-center">
+            <h2> <i class="fas fa-cogs"></i> Painel de Controle</h2>
         </div>
 
         <div class="row" v-if="can('read')">
@@ -10,10 +10,10 @@
                     <div class="card-deck mb-3 text-center">
                         <div v-for="item in dashboard" class="card mb-4 shadow-sm">
                             <div class="card-header">
-                                <h4 class="my-0 font-weight-normal">{{ item.name }}</h4>
+                                <h4 class="my-0 font-weight-normal"> <span class="d-sm-none mobile-count">{{ item.count }}</span> {{ item.name }}</h4>
                             </div>
                             <div class="card-body">
-                                <h1 class="card-title pricing-card-title">{{ item.count }}</h1>
+                                <h1 class="card-title pricing-card-title d-none d-sm-block">{{ item.count }}</h1>
 
                                 <router-link :to="item.route" tag="button" class="btn btn-sm btn-block btn-primary">
                                     ver

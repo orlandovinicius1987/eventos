@@ -4,8 +4,11 @@ export const common = {
     data: {
         filter: {
             text: null,
-
             checkboxes: {
+                filler: false,
+            },
+
+            selects: {
                 filler: false,
             },
         },

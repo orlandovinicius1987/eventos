@@ -9,18 +9,14 @@
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
-        <script src="{{ mix('/js/app.js') }}" defer></script>
-
         <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 
         <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
     </head>
 
     <body>
-        @include('layouts.partials.heading')
-
-        @yield('content')
-
-        @include('layouts.partials.footer')
+        <div class="mt-lg-5">
+            @yield('content')
+        </div>
     </body>
 </html>

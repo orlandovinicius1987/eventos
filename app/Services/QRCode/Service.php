@@ -26,8 +26,17 @@ class Service
         return $this->writer->writeString($text);
     }
 
-    public function generateFile($text, $file)
+    public function writeFile($text, $file)
     {
         $this->writer->writeFile($text, $file);
+    }
+
+    public function generateFile($fileName, $path, $text)
+    {
+        if (!file_exists($path)) {
+            mkdir($path, 0777, true);
+        }
+
+        $this->writeFile($text, $path . $fileName);
     }
 }

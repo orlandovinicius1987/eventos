@@ -1,6 +1,6 @@
 <template>
     <div>
-        <label :for="name" class="mb-0 mt-4">{{ label }}</label>
+        <label :for="name" class="mb-0">{{ label }}</label>
 
         <vue-select
             v-model="selected"
@@ -68,10 +68,10 @@ export default {
             },
             set(item) {
                 if (!item) {
-                    return null
+                    return this.$emit('input', null)
+                }else {
+                    return this.$emit('input', item.value)
                 }
-
-                return this.$emit('input', item.value)
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <div class="row">
                 <div class="col-12"><h2>Lista Telefônica e Contatos</h2></div>
             </div>
@@ -37,6 +37,22 @@
                     @input-filter-text="filterText = $event.target.value"
                     @set-per-page="perPage = $event"
                 >
+                    <app-institution-filter-for-person
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                    ></app-institution-filter-for-person>
+
+                    <app-role-filter-for-person
+                            name="role_id"
+                            label="Funções"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                    ></app-role-filter-for-person>
+
                     <app-table
                         :pagination="people.data.links.pagination"
                         @goto-page="gotoPage($event)"
@@ -118,6 +134,8 @@
         mixins: [crud, people, phoneBook],
 
         data() {
+            this.$store.dispatch('environment/loadRoles')
+            this.$store.dispatch('environment/loadInstitutions')
             return {
                 service: service
             }
@@ -135,7 +153,7 @@
                     root: true,
                 })
             },
-        }
+        },
     }
 </script>
 

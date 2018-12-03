@@ -1,0 +1,54 @@
+//*****************************  Cards Style   *****************************
+
+.card-deck {
+  .card {
+    .card-header {
+      background-color: $white;
+      .mobile-count {
+        font-size:125%;
+      }
+    }
+
+  }
+}
+
+
+
+
+
+
+
+
+
+.card {
+  border: none;
+
+  .card-header {
+    border-bottom: none;
+    background-color: $grey-lighter03;
+    padding: 0.75rem 0.9rem 0;
+
+    .border-bottom {
+      border-bottom: 1px solid #ffffff !important;
+    }
+
+    .form-control, .custom-select {
+      border: none;
+      font-size: 110%;
+      color: $grey;
+
+      &::placeholder {
+        color: $grey;
+      }
+    }
+  }
+  .card-footer {
+    border: none;
+    background: $grey-lighter03;
+  }
+}
+
+.shadow-sm {
+  -webkit-box-shadow:  0 4px 6px 0  rgba(0, 0, 0, 0.075) !important;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.075) !important;
+}

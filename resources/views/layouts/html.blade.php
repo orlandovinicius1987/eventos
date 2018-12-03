@@ -24,5 +24,7 @@
         @include('partials.google-analytics')
 
         @include('partials.livereload')
+
+        @include('partials.google-analytics')
     </body>
 </html>

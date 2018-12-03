@@ -1,0 +1,50 @@
+//*****************************  Tables Style   *****************************
+
+
+.table {
+  thead {
+    background: $grey-lighter05;
+    border-top: 1px solid #ffffff;
+
+    th{
+
+      &:first-child {
+        text-align: center;
+        /*padding-left: 1rem;*/
+      }
+    }
+  }
+
+  td {
+    border-top: 1px solid $grey-lighter04;
+    &:first-child {
+      text-align: center;
+      padding-left: 0.5rem;
+    }
+  }
+}
+
+.table-hover {
+  tbody {
+    tr {
+
+      &:hover {
+        background: $blue-lighter05;
+      }
+
+    }
+  }
+}
+
+.table-sm {
+  td {
+    padding: 0.7rem 0.3rem;
+
+    &:first-child {
+      padding-left: 0.5rem;
+    }
+    &:last-child {
+      padding-right: 1rem;
+    }
+  }
+}

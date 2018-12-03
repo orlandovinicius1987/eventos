@@ -1,3 +1,5 @@
+import DeepMerger from '../classes/DeepMerger.js'
+
 window.dd = (...args) => {
     if (
         !window.laravel ||
@@ -61,7 +63,6 @@ window.confirm = (title, vue) => {
 }
 
 window.post = (...args) => {
-    dd(...args)
     return axios.post(...args)
 }
 
@@ -72,7 +73,7 @@ window.get = (...args) => {
 window.object_get = (obj, descendants) => {
     const arr = descendants.split('.')
 
-    arr.forEach(function(element) {
+    arr.forEach(element => {
         if (!obj.hasOwnProperty(element)) {
             return null
         }
@@ -116,7 +117,7 @@ window.clone = object => {
 }
 
 window.set_object_values = (obj, val) => {
-    Object.keys(obj).forEach(function(k) {
+    Object.keys(obj).forEach(k => {
         if (obj[k] !== null && typeof obj[k] === 'object') {
             set_object_values(obj[k], val)
         } else {
@@ -130,7 +131,9 @@ window.set_null = obj => {
 }
 
 window.merge_objects = (target, ...sources) => {
-    return Object.assign({}, target, ...sources)
+    let deepMerger = new DeepMerger()
+
+    return deepMerger.mergeAll([target, ...sources])
 }
 
 window._ = require('lodash')
@@ -139,32 +142,36 @@ window.loadDebounced = _.debounce(context => {
     context.dispatch('load')
 }, 650)
 
-window.buildApiUrl = (uri, state) => {
-    let url = '/api/v1/' + uri
+window.objectAttributeFromString = (str, state) => {
     let hasNulls = false
+    let object = str
 
+    let elements = str.match(/(\w+)/g)
+
+    let result = _.reduce(
+        elements,
+        (carry, value) => {
+            carry = carry && carry.hasOwnProperty(value) ? carry[value] : null
+
+            if (carry === null) {
+                hasNulls = true
+            }
+
+            return carry
+        },
+        state,
+    )
+
+    return hasNulls ? null : result
+}
+
+window.buildApiUrl = (uri, state) => {
+    let str = uri
     _.each(uri.match(/(\{.*?\})/g), param => {
-        let elements = param.match(/(\w+)/g)
-
-        let result = _.reduce(
-            elements,
-            function(carry, value) {
-                carry =
-                    carry && carry.hasOwnProperty(value) ? carry[value] : null
-
-                if (carry === null) {
-                    hasNulls = true
-                }
-
-                return carry
-            },
-            state,
-        )
-
-        url = url.replace(param, result)
+        str = str.replace(param, objectAttributeFromString(param, state))
     })
 
-    return hasNulls ? null : url
+    return '/api/v1/' + str
 }
 
 window.makeDataUrl = context => {
@@ -194,7 +201,7 @@ window.findById = (data, id) => {
 window.append_form_data = (FormData, data, name) => {
     name = name || ''
     if (typeof data === 'object') {
-        $.each(data, function(index, value) {
+        $.each(data, (index, value) => {
             if (name === '') {
                 append_form_data(FormData, value, index)
             } else {
@@ -209,7 +216,7 @@ window.append_form_data = (FormData, data, name) => {
 window.blob_to_base64 = (blob, callback) => {
     let reader = new FileReader()
 
-    reader.onload = function() {
+    reader.onload = () => {
         let dataUrl = reader.result
 
         let base64 = dataUrl.split(',')[1]

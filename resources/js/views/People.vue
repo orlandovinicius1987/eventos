@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <div class="row">
                 <div class="col-12"><h2>Pessoas</h2></div>
             </div>
@@ -43,9 +43,34 @@
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
                 >
-                    <template slot="buttons">
-                        <input v-model="hasNoPhotoCheckbox" type="checkbox" id="filterHasNoPhoto">
-                        <label for="filterHasNoPhoto">sem foto</label>
+                    <template slot="selects">
+                        <app-institution-filter-for-person
+                                name="institution_id"
+                                label="Instituição"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.institutions"
+                        ></app-institution-filter-for-person>
+
+                        <app-role-filter-for-person
+                                name="role_id"
+                                label="Função"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.roles"
+                        ></app-role-filter-for-person>
+                    </template>
+
+                    <template slot="checkboxes">
+                        <app-input
+                            name="hasNoPhotoCheckbox"
+                            label="sem foto"
+                            type="checkbox"
+                            v-model="hasNoPhotoCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
                     </template>
 
                     <app-table
@@ -84,6 +109,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('update')"
+                                    title="Editar Pessoa"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -151,6 +177,7 @@
                                                 )
                                             "
                                             class="btn btn-danger btn-sm mr-1 pull-right"
+                                            title="Excluir Categoria"
                                         >
                                             <i class="fa fa-trash"></i>
                                         </div>
@@ -231,13 +258,10 @@
 
                                     <td class="align-middle">
                                         <h6 class="m-0">
-                                            <span v-if="personInstitution.is_active" class="badge badge-primary">
-                                                ativo
-                                            </span>
-
-                                            <span v-if="!personInstitution.is_active" class="badge badge-danger">
-                                                inativo
-                                            </span>
+                                            <app-active-badge
+                                                :value="personInstitution.is_active"
+                                                :labels="['ativo', 'inativo']"
+                                            ></app-active-badge>
                                         </h6>
                                     </td>
 
@@ -259,6 +283,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Função"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -297,7 +322,7 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato']"
+                                :columns="['#', 'Tipo', 'Contato', 'Status']"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -317,6 +342,15 @@
 
                                     <td class="align-middle">{{ contact.contact }}</td>
 
+                                    <td class="align-middle">
+                                        <h6 class="m-0">
+                                            <app-active-badge
+                                                :value="contact.is_active"
+                                                :labels="['ativo', 'inativo']"
+                                            ></app-active-badge>
+                                        </h6>
+                                    </td>
+
                                     <td class="align-middle text-right">
                                         <router-link
                                             :to="
@@ -333,6 +367,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Contato"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -428,6 +463,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Endereço"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -508,6 +544,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Assessor"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -595,6 +632,7 @@
                                             tag="div"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
+                                            title="Editar Contato do Assessor"
                                         >
                                             <i class="fa fa-edit"></i>
                                         </router-link>
@@ -607,6 +645,8 @@
             </div>
         </div>
     </div>
+
+
 </template>
 
 <script>
@@ -681,14 +721,12 @@ export default {
         },
 
         confirmDeletePersonCategory(personCategory) {
-            const $this = this
-
             confirm(
                 'Deseja realmente desassociar ' + personCategory.name + '?',
                 this
-            ).then(function(value) {
+            ).then(value => {
                 if (value) {
-                    $this.deletePersonCategory(personCategory)
+                    this.deletePersonCategory(personCategory)
                 }
             })
         },
@@ -883,13 +921,8 @@ export default {
             },
 
             set(filter) {
-                this.$store.commit(
-                    'people/mutateFilterCheckbox',
-                    {field: 'hasNoPhoto', value: filter},
-                )
-
                 this.$store.dispatch(
-                    'people/load'
+                    'people/mutateFilterCheckbox', {field: 'hasNoPhoto', value: filter}
                 )
             },
         },

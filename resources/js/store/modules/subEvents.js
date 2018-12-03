@@ -5,7 +5,12 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
+const __emptyEvent = {
+    id: null,
+
+    name: null,
+    client_id: null,
+}
 
 const __emptyAddress = {
     zipcode: null,
@@ -19,18 +24,30 @@ const __emptyAddress = {
     longitude: laravel.google_maps.geolocation.longitude,
 }
 
-const __emptyForm = {
-    id: null,
-    name: null,
-    date: null,
-    time: null,
-    invitation_text: null,
-    confirmation_text: null,
+const __emptyModel = {
     address: __emptyAddress,
-    costume_id: null,
-    sector_id: null,
-    event_id: __emptyModel,
+    event: __emptyEvent,
+
+    invitation_text: '',
+    credentials_text: '',
+    rejection_text: '',
     associated_subevent_id: null,
+    confirmed_at: null,
+    confirmed_by: null,
+    costume: null,
+    costume_id: null,
+    date: null,
+    ended_at: null,
+    ended_by: null,
+    event_id: null,
+    id: null,
+    model: null,
+    name: null,
+    place: null,
+    sector_id: null,
+    started_at: null,
+    started_by: null,
+    time: null,
 }
 
 const state = merge_objects(statesMixin.common, {
@@ -42,7 +59,8 @@ const state = merge_objects(statesMixin.common, {
         performLoad: false,
     },
 
-    form: new Form(__emptyForm),
+    form: new Form(clone(__emptyModel)),
+    emptyForm: clone(__emptyModel),
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -66,7 +84,7 @@ const actions = merge_objects(actionsMixin, {
 
         context.commit('mutateSetSelected', __emptyModel)
 
-        context.dispatch('invitations/setSubEvent', __emptyModel, {
+        context.dispatch('invitations/resetSubEvent', __emptyModel, {
             root: true,
         })
 
@@ -74,19 +92,15 @@ const actions = merge_objects(actionsMixin, {
     },
 
     confirm(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(
-            function() {
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(() => {
+            context.dispatch('load', payload)
+        })
     },
 
     finalize(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(
-            function() {
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(() => {
+            context.dispatch('load', payload)
+        })
     },
 })
 

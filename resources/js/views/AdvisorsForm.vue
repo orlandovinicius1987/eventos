@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}Assessor</h2>
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
@@ -79,8 +79,6 @@
 
         methods: {
             fillAdditionalFormFields() {
-                const $this = this
-
                 if (this.mode === 'create') {
                     this.$store.dispatch('advisors/clearForm', {
                         root: true
@@ -88,7 +86,7 @@
                 } else if (this.mode === 'update') {
                     this.$store.commit(
                         'advisors/mutateFormData',
-                        $this.advisors.selected
+                        this.advisors.selected
                     )
                 }
                 this.$store.commit('advisors/mutateSetFormField', {

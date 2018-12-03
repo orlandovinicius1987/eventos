@@ -2,9 +2,21 @@
     <div class="row mb-5">
         <div class="col-12 p-0">
             <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
+
+                {{--<a class="navbar-brand" href="{{ url('/') }}">
+                   <img src="/svg/logo-eventos-alerj.svg" class="img-fluid"> <span class="brand-complement">cerimonial</span>
+                </a>--}}
+
+                {{-- <a class="navbar-brand d-flex" href="{{ url('/') }}">
+                    <img src="/svg/logo-eventos-alerj.svg" class="img-fluid">
+                    <div class="brand-name align-self-center"></div>
+                </a> --}}
+
+                <div class="d-flex bd-highlight mb-3" style="height: 100px">
+                    <div class="align-self-center p-2 bd-highlight">
+                        <img src="/svg/logo-eventos-alerj.svg" class="brand-logo align-self-center">
+                    </div>
+                </div>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -24,41 +36,37 @@
                                 <a class="nav-link" href="{{ route('login') }}">Entrar</a>
                             </li>
                         @else
-                            <li class="nav-item">
-                                <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_dashboard"></i>
-                                        <span class="nav-link-text">Painel de Controle</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_dashboard"></i>
+                                    <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
+                                </a>
+                            </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/events" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text">Eventos</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="events-menu" to="/events" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
+                                </a>
+                            </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/people" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text">Pessoas</span>
-                                    </a>
-                                </router-link>
-                            </li>
+                            <router-link id="events-menu" to="/people" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-users"></i> Pessoas</span>
+                                </a>
+                            </router-link>
 
-                            <li class="nav-item">
-                                <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="vl_events"></i>
-                                        <span class="nav-link-text">Lista telefônica</span>
-                                    </a>
-                                </router-link>
-                            </li>
+
+
+                            <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="vl_events"></i>
+                                    <span class="nav-link-text"> <i class="fas fa-address-book"></i> Lista telefônica</span>
+                                </a>
+                            </router-link>
+
+
 
                             <li class="nav-item dropdown">
                                 <a
@@ -69,7 +77,7 @@
                                     aria-haspopup="true"
                                     aria-expanded="false"
                                 >
-                                    Tabelas
+                                    <i class="fas fa-table"></i> Tabelas
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="dropdown01">
@@ -109,10 +117,11 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
+                                    <i class="fas fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                     document.getElementById('logout-form').submit();">

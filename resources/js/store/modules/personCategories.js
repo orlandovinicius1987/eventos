@@ -16,16 +16,13 @@ const state = merge_objects(statesMixin.common, {
         isForm: true,
     },
 
-    form: new Form(__emptyModel),
+    form: new Form(clone(__emptyModel)),
+    emptyForm: clone(__emptyModel),
 })
 
 const actions = merge_objects(actionsMixin, {
     setPerson(context, payload) {
         context.commit('mutateSetPersonCategory', payload)
-
-        //context.commit('mutateSetFormField', { field: 'addressable_id', value: payload.id })
-
-        //context.commit('mutateSetFormField', { field: 'addressable_type', value: payload.model })
 
         context.commit('mutateSetSelected', __emptyModel)
 
@@ -34,7 +31,7 @@ const actions = merge_objects(actionsMixin, {
 
     unCategorize(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/').then(
-            function() {
+            () => {
                 context.dispatch('load', payload)
             },
         )

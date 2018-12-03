@@ -113,13 +113,15 @@ const actions = {
 
         context.dispatch('load')
 
-        context.dispatch('loadContactTypes')
-        context.dispatch('loadInstitutions')
-        context.dispatch('loadRoles')
-        context.dispatch('loadPeople')
-        context.dispatch('loadCostumes')
-        context.dispatch('loadSectors')
-        context.dispatch('loadSubEvents')
+        if (context.state.user != null) {
+            context.dispatch('loadContactTypes')
+            context.dispatch('loadInstitutions')
+            context.dispatch('loadRoles')
+            context.dispatch('loadPeople')
+            context.dispatch('loadCostumes')
+            context.dispatch('loadSectors')
+            context.dispatch('loadSubEvents')
+        }
     },
 }
 
@@ -127,7 +129,7 @@ const mutations = {
     mutateSetData(state, payload) {
         state['loaded'] = false
 
-        _.forIn(payload, function(val, key) {
+        _.forIn(payload, (val, key) => {
             state[key] = val
         })
 

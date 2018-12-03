@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>{{ this.mode === 'create' ? 'Nova ':'Editar '}}Função</h2>
         </div>
 
@@ -71,8 +71,6 @@ export default {
 
     methods: {
         fillAdditionalFormFields() {
-            const $this = this
-
             if (this.mode === 'create') {
                 this.$store.dispatch('personInstitutions/clearForm', {
                     root: true
@@ -80,7 +78,7 @@ export default {
             } else if (this.mode === 'update') {
                 this.$store.commit(
                     'personInstitutions/mutateFormData',
-                    $this.personInstitutions.selected
+                    this.personInstitutions.selected
                 )
             }
             this.$store.commit('personInstitutions/mutateSetFormField', {

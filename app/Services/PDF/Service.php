@@ -6,13 +6,37 @@ use Barryvdh\DomPDF\Facade as PDF;
 
 class Service
 {
-    public function download($html, $fileName = null)
+    protected $pdf;
+
+    public function initialize($html, $paperSize = 'A4', $extraOptions = [])
     {
-        return PDF::loadHTML($html)->download($this->makeFileName($fileName));
+        $this->pdf = PDF::setOptions(
+            array_merge(
+                [
+                    'defaultFont' => 'Helvetica',
+                ],
+                $extraOptions
+            )
+        )->setPaper($paperSize);
+
+        $this->pdf->getDomPDF()->set_base_path(realpath(public_path('css')));
+
+        $this->pdf->loadHTML($html);
+
+        return $this;
     }
 
-    private function makeFileName($fileName)
+    public function save($fileName)
     {
-        return $fileName ?: base_path('subEvent.pdf');
+        if (!file_exists(($path = dirname($fileName)))) {
+            mkdir($path);
+        }
+
+        $this->pdf->save($fileName);
+    }
+
+    public function download($fileName)
+    {
+        return $this->pdf->download($fileName);
     }
 }

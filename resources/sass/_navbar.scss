@@ -1,0 +1,143 @@
+//*****************************  Navbar Style   *****************************
+
+
+.navbar {
+
+  padding: 0.5rem 1rem 0 1rem ;
+
+  .navbar-brand {
+    img {
+      padding-right: 5px;
+    }
+
+    .brand-complement {
+      border-left: 2px solid #B2B1B7 ;
+      padding-left: 7px;
+      color: #8C9D45;
+      text-transform: uppercase;
+      font-family: 'DIN';
+      font-weight: 300;
+      font-style: normal;
+      font-size: 1.4rem;
+      margin-left: 6px;
+      position: relative;
+
+      @media (max-width: 426px) {
+        font-size: 1.6rem;
+        bottom: -2px;
+      }
+      @media (max-width: 376px) {
+        font-size: 1.45rem;
+        bottom: -2px;
+      }
+      @media (max-width: 321px) {
+        font-size: 1.125rem;
+        bottom: -2px;
+      }
+
+      @media (min-width: 1368px) {
+        font-size: 1.7rem;
+      }
+
+      /*bottom: -6px;*/
+
+/*      &:before {
+        content: "";
+        background: #ff00ff;
+        width: 2px;
+        height: 100px;
+      }*/
+    }
+
+    @media (min-width: 1368px) {
+      margin-left: 30px;
+    }
+
+
+    /*padding-bottom: 20px;*/
+
+
+  }
+
+
+  .navbar-nav {
+    font-weight: 600;
+    font-size: 12px;
+
+    @media (min-width: 1368px) {
+      font-size: 16px;
+    }
+
+    .active{
+      border-bottom: 3px solid $blue-lighter03;
+
+      .nav-link{
+        color: $blue-lighter02 !important;
+      }
+      &:hover {
+        border-bottom: 3px solid $blue-lighter03;
+      }
+    }
+
+
+    .nav-item {
+      margin-right: 5px;
+      @media (min-width: 1368px) {
+        margin-right: 20px;
+      }
+
+      &:last-child {
+        margin-right: 0px;
+
+        @media (min-width: 1368px) {
+          margin-right: 45px;
+        }
+      }
+
+      i {
+        /*font-size: 130%;*/
+        color: #ced4da;
+        margin-right: 3px;
+      }
+
+      &:hover {
+        i {
+          color: $blue;
+        }
+        /*border-bottom: 3px solid $blue-lighter02;*/
+      }
+
+      .nav-link {
+        color: $grey;
+        letter-spacing: 0.04rem;
+        padding-bottom: 15px;
+
+        &:hover {
+          color: $blue !important;
+        }
+      }
+    }
+
+    margin-bottom: -20px;
+
+    @media (min-width: 1367px) {
+      margin-bottom: -16px;
+    }
+  }
+
+
+}
+
+.brand-name {
+  text-transform: uppercase;
+  font-family: 'DIN';
+  font-weight: 300;
+  font-style: normal;
+  font-size: 1.4rem;
+  color: #8C9D45;
+}
+
+
+.brand-logo {
+  width: 70%;
+}

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>Categorias</h2>
         </div>
 
@@ -22,7 +22,7 @@
                         <tr
                             @click="select(category)"
                             v-for="category in categories.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(category, selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(category, selected)}"
                         >
                             <td class="align-middle">{{ category.id }}</td>
 
@@ -34,6 +34,7 @@
                                     tag="div"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
+                                    title="Editar Categoria"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>

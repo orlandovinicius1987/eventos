@@ -1,10 +1,20 @@
 
+// Markdown Editor
+@import '~codemirror/lib/codemirror.css';
+@import '~tui-editor/dist/tui-editor.css';
+@import '~tui-editor/dist/tui-editor-contents.css';
+@import '~highlight.js/styles/github.css';
+
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
+
+@import '/fonts/vendor/din/stylesheet.css';
 
 // Vue Croppa
 @import '~vue-croppa/dist/vue-croppa.css';
@@ -15,6 +25,42 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+
+
+
+
+
+
+
+// Login
+@import 'login';
+//
+// Navbar
+@import 'navbar';
+//
+//
+// Buttons
+@import 'buttons';
+//
+// Cards
+@import 'cards';
+//
+// Tables
+@import 'tables';
+
+
+body {
+  color: $grey-darken02;
+}
+
+h2 {
+  color: $grey;
+  font-weight: 600;
+  i {
+    color: $blue-lighter03;
+  }
+}
+
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -22,13 +68,16 @@
 
 html {
   font-size: 14px;
-}
 
-@media (min-width: 768px) {
-  html {
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media (min-width: 1368px) {
     font-size: 16px;
   }
 }
+
+
 
 .container {
   max-width: 960px;
@@ -46,20 +95,59 @@ html {
   cursor: pointer;
 }
 
-
-
-
-
-
-
-
 .v-select {
   .dropdown-toggle {
-    &:after{
+    &:after {
       border-top: none;
       border-right: none;
       border-bottom: none;
       border-left: none;
     }
   }
+  input {
+    height: 20px;
+  }
 }
+
+
+
+.h-80 {
+  height: 80% !important;
+  @media screen and (max-width: 479px) {
+    height: 80% !important;
+  }
+}
+
+.bg-filters {
+  background: $grey-lighter03;
+}
+
+
+.bg-primary {
+  background: $blue-lighter02;
+}
+
+
+
+/*
+.custom-select {
+  height: 2.5em !important;
+  font-size: 0.8em !important;
+}
+*/
+
+.bg-cyan {
+  background-color: $cyan-light;
+}
+
+.logo-alerj {
+  height: 100%;
+  background-image: url("/images/alerj-logo-sotexto-op20.png") ;
+  background-repeat: no-repeat ;
+  background-position: bottom 100px center;
+  background-size: 300px;
+}
+
+//.container-fluid {
+//  display: none !important;
+//}

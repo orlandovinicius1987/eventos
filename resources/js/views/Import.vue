@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
+        <div class="py-2 text-center">
             <h2>Importar Dados</h2>
         </div>
 
@@ -59,23 +59,21 @@ export default {
         },
 
         sendFile(event) {
-            const $this = this
+            this.error = null
 
-            $this.error = null
+            this.success = false
 
-            $this.success = false
-
-            $this.busy = true
+            this.busy = true
 
             post('/api/v1/import', { file: event.target.result })
                 .then(response => {
-                    $this.success = true
+                    this.success = true
                 })
                 .catch(error => {
-                    $this.error = error.response.data.errors['field']
+                    this.error = error.response.data.errors['field']
                 })
                 .then(() => {
-                    $this.busy = false
+                    this.busy = false
                 })
         },
     },

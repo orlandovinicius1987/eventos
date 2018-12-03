@@ -4,6 +4,8 @@ namespace App\Data\Models;
 
 class PersonInstitution extends Base
 {
+    protected $orderBy = ['people.name' => 'asc'];
+
     /**
      * @var array
      */
@@ -18,12 +20,14 @@ class PersonInstitution extends Base
 
     protected $with = ['person', 'institution', 'role'];
 
+    protected $appends = ['model', 'correct_title'];
+
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
-        'advisor.name',
-        'advisor.nickname',
-        'advisor.title',
+        'advisors.name',
+        'advisors.nickname',
+        'advisors.title',
     ];
 
     protected $selectColumns = [
@@ -40,11 +44,7 @@ class PersonInstitution extends Base
     ];
 
     protected $joins = [
-        'people as advisor' => [
-            'advisor.id',
-            '=',
-            'person_institutions.person_id',
-        ],
+        'people' => ['people.id', '=', 'person_institutions.person_id'],
     ];
 
     public function addresses()
@@ -85,5 +85,47 @@ class PersonInstitution extends Base
     public function scopeActive($query)
     {
         $query->where('is_active', '=', true);
+    }
+
+    public function getCorrectTitleAttribute()
+    {
+        return $this->title
+            ? $this->title
+            : ($this->person->title
+                ? $this->person->title
+                : '');
+    }
+
+    /**
+     * Select all people that has institution
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeInvitedToSubEvent($query, $sub_event_id)
+    {
+        $query->whereIn('person_institutions.id', function ($query) use (
+            $sub_event_id
+        ) {
+            $query
+                ->select('person_institutions.id')
+                ->from('person_institutions');
+
+            $query->join(
+                'invitations',
+                'invitations.person_institution_id',
+                'person_institutions.id'
+            );
+
+            $query->join(
+                'sub_events',
+                'sub_events.id',
+                'invitations.sub_event_id'
+            );
+
+            $query->where('sub_events.id', '=', $sub_event_id);
+        });
+
+        return $query;
     }
 }

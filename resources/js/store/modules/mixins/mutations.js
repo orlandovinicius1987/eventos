@@ -7,7 +7,15 @@ export function mutateSetQuery(state, payload) {
 }
 
 export function mutateSetFormField(state, payload) {
-    state.form.fields[payload.field] = payload.value
+    let formField = '{form.fields'
+
+    if (payload.hasOwnProperty('object')) {
+        formField = formField + '.' + payload.object
+    }
+    formField = formField + '}'
+
+    let object = objectAttributeFromString(formField, state)
+    object[payload.field] = payload.value
 }
 
 export function mutateSetErrors(state, payload) {
@@ -25,7 +33,7 @@ export function mutateSetErrors(state, payload) {
 }
 
 export function mutateFormData(state, payload) {
-    _.each(payload, function(value, key) {
+    _.each(payload, (value, key) => {
         state.form.fields[key] = value
     })
 }
@@ -44,4 +52,8 @@ export function mutateSetService(state, payload) {
 
 export function mutateFilterCheckbox(state, payload) {
     state.data.filter.checkboxes[payload.field] = payload.value
+}
+
+export function mutateFilterSelect(state, payload) {
+    state.data.filter.selects[payload.field] = payload.value
 }

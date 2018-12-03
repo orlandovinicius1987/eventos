@@ -5,7 +5,64 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
+const __emptyEvent = {
+    id: null,
+
+    name: null,
+    client_id: null,
+}
+
+const __emptyAddress = {
+    zipcode: null,
+    street: null,
+    number: null,
+    complement: null,
+    neighbourhood: null,
+    city: null,
+    state: null,
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude,
+}
+
+const __emptySubEvent = {
+    address: __emptyAddress,
+    event: __emptyEvent,
+
+    associated_subevent_id: null,
+    credentials_text: null,
+    confirmed_at: null,
+    confirmed_by: null,
+    costume: null,
+    costume_id: null,
+    thank_you_text: null,
+    rejection_text: null,
+    date: null,
+    ended_at: null,
+    ended_by: null,
+    event_id: null,
+    id: null,
+    invitation_text: null,
+    model: null,
+    name: null,
+    place: null,
+    sector_id: null,
+    started_at: null,
+    started_by: null,
+    time: null,
+}
+
+const __emptyModel = {
+    id: null,
+    sub_event_id: null,
+    person_institution_id: null,
+    accepted_at: null,
+    declined_at: null,
+    sent_at: null,
+    received_at: null,
+    checkin_at: null,
+    code: null,
+    uuid: null,
+}
 
 const state = merge_objects(statesMixin.common, {
     subEvent: { id: null },
@@ -17,10 +74,8 @@ const state = merge_objects(statesMixin.common, {
         performLoad: false,
     },
 
-    form: new Form({
-        code: null,
-        name: null,
-    }),
+    form: new Form(clone(__emptyModel)),
+    emptyForm: clone(__emptyModel),
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -43,6 +98,12 @@ const actions = merge_objects(actionsMixin, {
         })
     },
 
+    resetSubEvent(context, payload) {
+        context.commit('mutateSetSubEvent', __emptySubEvent)
+
+        context.commit('mutateSetSelected', __emptyModel)
+    },
+
     setSubEvent(context, payload) {
         context.commit('mutateSetSubEvent', payload)
 
@@ -53,10 +114,32 @@ const actions = merge_objects(actionsMixin, {
 
     unInvite(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(
-            function() {
+            () => {
                 context.dispatch('load', payload)
             },
         )
+    },
+
+    markAsAccepted(context, payload) {
+        post(
+            makeDataUrl(context) + '/' + payload.id + '/mark-as-accepted',
+        ).then(() => {
+            context.dispatch('load', payload)
+        })
+    },
+
+    markAsDeclined(context, payload) {
+        post(
+            makeDataUrl(context) + '/' + payload.id + '/mark-as-rejected',
+        ).then(() => {
+            context.dispatch('load', payload)
+        })
+    },
+
+    send(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send').then(() => {
+            context.dispatch('load', payload)
+        })
     },
 })
 
