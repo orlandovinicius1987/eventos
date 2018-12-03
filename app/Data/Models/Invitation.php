@@ -316,6 +316,10 @@ class Invitation extends Base
             )
         );
 
+        $variables['rejection_text'] = $this->parseMarkdown(
+            $this->replaceVariables($this->subEvent->rejection_text, $variables)
+        );
+
         $variables['thank_you_text'] = $this->parseMarkdown(
             $this->replaceVariables($this->subEvent->thank_you_text, $variables)
         );
