@@ -100,7 +100,11 @@
 
                             <td class="align-middle">{{ subEvent.place }}</td>
 
-                            <td class="align-middle">{{ subEvent.sector ? subEvent.sector.name : '' }}</td>
+                            <td class="align-middle">
+                                <span class="badge text-white p-2" :style="{'background-color': subEvent.sector ? subEvent.sector.color : '', 'text-transform': 'uppercase'}">
+                                    {{ subEvent.sector ? subEvent.sector.name : '' }}
+                                </span>
+                            </td>
 
                             <td class="align-middle">{{ subEvent.date }}</td>
 
