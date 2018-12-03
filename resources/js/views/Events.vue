@@ -92,7 +92,7 @@
                             v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
-                            <td>
+                            <td class="align-middle">
                                 <span class="badge text-white p-2" :style="{'background-color': subEvent.sector ? subEvent.sector.color : '', 'text-transform': 'uppercase'}">
                                     {{ subEvent.sector ? subEvent.sector.name : '' }}
                                 </span>
