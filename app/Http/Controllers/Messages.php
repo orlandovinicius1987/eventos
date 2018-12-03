@@ -6,7 +6,7 @@ class Messages extends Controller
 {
     public function show()
     {
-        return view('message.message')->with([
+        return view('messages.common')->with([
             'message' => session()->pull('message'),
         ]);
     }
