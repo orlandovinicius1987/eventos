@@ -18,6 +18,18 @@ class AddMessageIdToNotifications extends Migration
                 ->string('message_id')
                 ->nullable()
                 ->index();
+
+            $table->timestamp('clicked_at')->nullable();
+
+            $table->timestamp('delivered_at')->nullable();
+
+            $table->timestamp('failed_at')->nullable();
+
+            $table->timestamp('opened_at')->nullable();
+
+            $table->timestamp('reported_at')->nullable();
+
+            $table->timestamp('unsubscribed_at')->nullable();
         });
     }
 
@@ -30,6 +42,18 @@ class AddMessageIdToNotifications extends Migration
     {
         Schema::table('notifications', function (Blueprint $table) {
             $table->dropColumn('message_id');
+
+            $table->dropColumn('clicked_at');
+
+            $table->dropColumn('delivered_at');
+
+            $table->dropColumn('failed_at');
+
+            $table->dropColumn('opened_at');
+
+            $table->dropColumn('reported_at');
+
+            $table->dropColumn('unsubscribed_at');
         });
     }
 }
