@@ -403,7 +403,10 @@ class Invitation extends Base
 
     public function notifications()
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasMany(Notification::class)->orderBy(
+            'created_at',
+            'desc'
+        );
     }
 
     public function markAsSent()
