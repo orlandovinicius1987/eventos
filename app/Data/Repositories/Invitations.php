@@ -123,8 +123,12 @@ class Invitations extends Repository
         return false;
     }
 
-    public function markAsAccepted($eventId, $subEventId, $invitationId)
-    {
+    public function markAsAccepted(
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $how = null
+    ) {
         $invitation = $this->findById($invitationId);
 
         if (
@@ -134,9 +138,11 @@ class Invitations extends Repository
         ) {
             $invitation->accepted_at = now();
 
-            $invitation->accepted_by_id = $invitation->getCurrentAuthenticatedUserId();
-
             $invitation->declined_at = null;
+
+            if ($how === 'manual') {
+                $invitation->accepted_by_id = $invitation->getCurrentAuthenticatedUserId();
+            }
 
             $invitation->save();
 
@@ -148,8 +154,12 @@ class Invitations extends Repository
         return false;
     }
 
-    public function markAsRejected($eventId, $subEventId, $invitationId)
-    {
+    public function markAsRejected(
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $how = null
+    ) {
         $invitation = $this->findById($invitationId);
 
         if (
@@ -160,7 +170,9 @@ class Invitations extends Repository
 
             $invitation->declined_at = now();
 
-            $invitation->declined_by_id = $invitation->getCurrentAuthenticatedUserId();
+            if ($how === 'manual') {
+                $invitation->declined_by_id = $invitation->getCurrentAuthenticatedUserId();
+            }
 
             $invitation->save();
 
@@ -282,7 +294,7 @@ class Invitations extends Repository
 
         $this->markAsRejected($eventId, $subEventId, $invitation->id);
 
-        return 'Cancelamento realizado com sucesso.';
+        return 'Registramos que você declinou o comparecimento ao evento.';
     }
 
     /**

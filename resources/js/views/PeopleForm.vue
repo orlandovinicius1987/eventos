@@ -58,6 +58,7 @@
                                 id="name"
                                 required="required"
                             >
+
                             <div class="text-danger" v-if="form.errors.has('name')" >
                                 {{ form.errors.get('name') }}
                             </div>
