@@ -42,17 +42,6 @@ abstract class Repository
     }
 
     /**
-     * @param $query
-     * @param $selectRaws select raw columns
-     */
-    protected function buildSelectRaw($query, $selectRaws)
-    {
-        foreach ($selectRaws as $select) {
-            $query->selectRaw($select);
-        }
-    }
-
-    /**
      * Filter Checkboxes
      *
      * @param $query
@@ -370,13 +359,11 @@ abstract class Repository
      * @param null $type
      * @return Builder
      */
-    protected function newQuery($type = null, $selectRaw = [])
+    protected function newQuery($type = null)
     {
         $query = $this->model::query();
 
         $this->buildSelect($query);
-
-        $this->buildSelectRaw($query, $selectRaw);
 
         $this->buildJoins($query);
 
