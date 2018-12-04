@@ -65,14 +65,14 @@ Route::group(['prefix' => '/events'], function () {
             );
 
             Route::post(
-                '/{id}/mark-as-accepted/{?how}',
+                '/{id}/mark-as-accepted/{how?}',
                 'Invitations@markAsAccepted'
-            )->name('invitations.mark-as-accepted');
+            )->name('api.invitations.mark-as-accepted');
 
             Route::post(
-                '/{id}/mark-as-rejected/{?how}',
+                '/{id}/mark-as-rejected/{how?}',
                 'Invitations@markAsRejected'
-            )->name('invitations.mark-as-rejected');
+            )->name('api.invitations.mark-as-rejected');
 
             Route::post('/{id}/send', 'Invitations@send')->name(
                 'invitations.send'
