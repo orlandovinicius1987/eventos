@@ -110,7 +110,10 @@ class Invitations extends Controller
 
     public function invitables($eventId, $subEventId)
     {
-        return app(InvitablesRepository::class)->getInvitables($subEventId);
+        return app(InvitablesRepository::class)->getInvitables(
+            $subEventId,
+            request()->get('query')
+        );
     }
 
     public function invite($eventId, $subEventId)

@@ -19,6 +19,8 @@ const state = merge_objects(statesMixin.common, {
         filter: {
             selects: {
                 sub_event: null,
+                institution: null,
+                role: null,
             },
         },
     },

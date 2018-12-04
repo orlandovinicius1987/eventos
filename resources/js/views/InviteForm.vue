@@ -1,9 +1,10 @@
 recordButtonText<template>
     <div>
         <div class="py-2 text-center">
-            <h1>{{ events.selected.name }}</h1>
-            <h2>{{ subEvents.selected.name }}</h2>
-            <h2>Convidar Pessoas</h2>
+            <h1>Convidar pessoas para o sub-evento</h1>
+            <h2>{{ events.selected.name }}</h2>
+            <h2>{{ subEvents.selected.name }} - {{ subEvents.selected.sector ? subEvents.selected.sector.name : '' }}</h2>
+            <h2>{{ subEvents.selected.place }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -16,14 +17,32 @@ recordButtonText<template>
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
-                    <app-select
-                        name="sub_event_id"
-                        label="Filtrar convidados de outro sub-evento"
-                        v-model="subEventSelectFilter"
-                        :required="true"
-                        :form="form"
-                        :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
-                    ></app-select>
+                    <template slot="selects">
+                        <app-institution-filter-for-invitation
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                        ></app-institution-filter-for-invitation>
+
+                        <app-role-filter-for-invitation
+                            name="role_id"
+                            label="Função"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                        ></app-role-filter-for-invitation>
+
+                        <app-select
+                            name="sub_event_id"
+                            label="Filtrar convidados de outro sub-evento"
+                            v-model="subEventSelectFilter"
+                            :required="true"
+                            :form="form"
+                            :options="except(this.environment.tables.sub_events, this.subEvents.form.fields.id)"
+                        ></app-select>
+                    </template>
 
                     <template slot="buttons">
                         <div
@@ -263,7 +282,7 @@ export default {
             items.rows = except(list.rows, id)
 
             return items
-        }
+        },
     },
 }
 </script>

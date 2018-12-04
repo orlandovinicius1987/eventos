@@ -159,6 +159,17 @@ const mutations = {
     },
 
     mutateSetSubEvents(state, payload) {
+        let subEvents = _.map(clone(payload.rows), subEvent => {
+            subEvent.name =
+                subEvent.name +
+                (subEvent.sector ? ' - ' + subEvent.sector.name : '') +
+                (subEvent.place ? ' - ' + subEvent.place : '')
+
+            return subEvent
+        })
+
+        payload.rows = subEvents
+
         state['tables']['sub_events'] = payload
     },
 }
