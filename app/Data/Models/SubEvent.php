@@ -40,6 +40,8 @@ class SubEvent extends Base
 
     protected $orderBy = ['date' => 'asc', 'time' => 'asc'];
 
+    protected $withCount = ['invitations'];
+
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable');
