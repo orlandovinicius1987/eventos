@@ -284,11 +284,10 @@ class Invitations extends Repository
 
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
+        $invitation = $this->findById($invitationId);
         if (
-            remove_punctuation(
-                ($invitation = $this->findById($invitationId))
-                    ->personInstitution->person->cpf
-            ) != remove_punctuation($cpf_confirmed)
+            remove_punctuation($invitation->personInstitution->person->cpf) !=
+            remove_punctuation($cpf_confirmed)
         ) {
             return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
         }
