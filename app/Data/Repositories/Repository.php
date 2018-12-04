@@ -53,18 +53,6 @@ abstract class Repository
     }
 
     /**
-     * Receives an array $fakeColumns with <defaultValue> => <tableAlias> and add to the query
-     *
-     * @param $query
-     */
-    protected function buildSelectFakeColumns($query, $fakeColumns)
-    {
-        foreach ($fakeColumns as $key => $defaultValue) {
-            $query->selectRaw($key . ' as ' . $defaultValue);
-        }
-    }
-
-    /**
      * Filter Checkboxes
      *
      * @param $query
