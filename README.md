@@ -11,6 +11,12 @@ sudo apt-get install php-imagick
 
 ### Exemplos
 
+#### imagens
+
+```
+![convite]({site_url}/invitations/{uuid_convite}/received/images|invitations|2019-01-posse-governador.jpg)
+```
+
 #### Convite
 
 ```
@@ -19,7 +25,7 @@ sudo apt-get install php-imagick
 {cargo}
 {instituicao_nome}
 
-![convite](https://eventos.antoniocarlosribeiro.com/images/invitations/2019-01-posse-governador.jpg)
+![convite]({site_url}/images/invitations/2019-01-posse-governador.jpg)
 #### CONVITE PESSOAL E INTRANSFERÍVEL
 Em razão das limitadas acomodações é imprescindível a confirmação de presença, até o dia <u>10 de dezembro de 2019</u>, através dos botões abaixo, para que possamos emitir a sua Credencial de Acesso.
 
