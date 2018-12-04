@@ -12,4 +12,12 @@ class Notifications extends Controller
 
         return response()->download(public_path('images/dummy.png'));
     }
+
+    public function status($status)
+    {
+        app(NotificationsRepository::class)->registerMessageStatus(
+            $status,
+            extract_info_from_mailgun_webhook(request()->all())
+        );
+    }
 }

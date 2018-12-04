@@ -30,4 +30,30 @@ class Notifications extends Repository
                 });
         }
     }
+
+    public function setMessageId($id, $messageId)
+    {
+        $notification = $this->findById($id);
+
+        $notification->message_id = $messageId;
+
+        $notification->save();
+    }
+
+    public function registerMessageStatus($status, $data)
+    {
+        info($data);
+
+        if (($message = $this->findByMessageId($data['message_id']))) {
+            $message->{$status . '_at'} = $data['timestamp'];
+
+            $message->save();
+
+            if ($status === 'opened' || $status === 'clicked') {
+                $message->markAsReceived();
+            }
+
+            info($message->toArray());
+        }
+    }
 }

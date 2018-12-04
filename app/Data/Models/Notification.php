@@ -42,13 +42,15 @@ class Notification extends Base
 
     public function markAsReceived()
     {
-        $this->received_at = now();
+        if (!$this->received_at) {
+            $this->received_at = now();
 
-        $this->save();
+            $this->save();
 
-        $this->invitation->received_at = now();
+            $this->invitation->received_at = now();
 
-        $this->invitation->save();
+            $this->invitation->save();
+        }
     }
 
     public function routeNotificationForMail()

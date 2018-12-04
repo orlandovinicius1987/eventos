@@ -467,10 +467,17 @@ Route::group(
                     }
                 );
 
-                Route::get(
-                    '/notifications/{uuid}/received/dummy.png',
-                    'Notifications@markAsReceivedAndDownloadImage'
-                )->name('notifications.received');
+                Route::group(
+                    [
+                        'prefix' => '/notifications',
+                    ],
+                    function () {
+                        Route::get(
+                            '/{uuid}/received/dummy.png',
+                            'Notifications@markAsReceivedAndDownloadImage'
+                        )->name('notifications.received');
+                    }
+                );
 
                 Route::get('/messages', 'Messages@show')->name('messages.show');
             }
