@@ -1,5 +1,5 @@
 @component('mail::message')
-{!! $invitation->getViewVariables()['rejection_text'] !!}
+{!! $invitation->getViewVariables()['rejection_text'] !!}<img src="{{ route('notifications.received', [$notification->uuid, 'images|dummy.png']) }}" alt="">
 
 <table>
 <tr>
@@ -18,5 +18,4 @@ Aceitar
 
 @include('emails.signature')
 
-<img src="{{ route('notifications.received', $notification->uuid) }}" alt="">
 @endcomponent

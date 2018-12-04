@@ -12,7 +12,7 @@
                     :title="'Notificações (' + invitation.notifications.length + ')'"
                 >
                     <app-table
-                        :columns="['#','Assunto', 'Destino', 'Enviado em', 'Recebido']"
+                        :columns="['#','Assunto', 'Destino', 'Criado em', 'Enviado em', 'Recebido']"
                     >
                         <tr
                             v-for="notification in invitation.notifications"
@@ -22,6 +22,8 @@
                             <td class="align-middle">{{ notification.subject }}</td>
 
                             <td class="align-middle">{{ notification.destination }}</td>
+
+                            <td class="align-middle">{{ notification.created_at }}</td>
 
                             <td class="align-middle">{{ notification.sent_at }}</td>
 

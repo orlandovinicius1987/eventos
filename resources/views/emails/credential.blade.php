@@ -1,5 +1,5 @@
 @component('mail::message')
-{!! $invitation->getViewVariables()['credentials_text'] !!}
+{!! $invitation->getViewVariables()['credentials_text'] !!}<img src="{{ route('notifications.received', [$notification->uuid, 'images|dummy.png']) }}" alt="">
 @foreach ($credentials as $credential)
 <h2 style="text-align: center;">{{$credential->subEvent->name}}</h2>
 **Endereço**<br>
