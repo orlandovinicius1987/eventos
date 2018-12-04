@@ -56,10 +56,12 @@ class Invitation extends Base
      */
     protected function getEmails()
     {
-        return $this->personInstitution->contacts->where(
-            'contact_type_id',
-            app(ContactTypes::class)->findByCode('email')->id
-        );
+        return $this->personInstitution->contacts
+            ->where('is_active', true)
+            ->where(
+                'contact_type_id',
+                app(ContactTypes::class)->findByCode('email')->id
+            );
     }
 
     private function getMailSubject()
