@@ -2,10 +2,8 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\PersonInstitution as PersonInstitutionModel;
-use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
 use Illuminate\Database\Query\Builder;
-use Illuminate\Http\Request;
+use App\Data\Models\PersonInstitution as PersonInstitutionModel;
 
 class PersonInstitutions extends Repository
 {
@@ -36,9 +34,9 @@ class PersonInstitutions extends Repository
      * @param null $type
      * @return Builder
      */
-    protected function newQuery($type = null, $selectRaw = [])
+    protected function newQuery($type = null)
     {
-        $query = parent::newQuery($type, $selectRaw);
+        $query = parent::newQuery($type);
 
         $query->join('roles', 'roles.id', '=', 'person_institutions.role_id');
 
