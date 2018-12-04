@@ -38,7 +38,15 @@ class SubEvent extends Base
 
     protected $with = ['event', 'address', 'costume', 'sector'];
 
-    protected $orderBy = ['date' => 'asc', 'time' => 'asc'];
+    protected $orderBy = [
+        'date' => 'asc',
+        'time' => 'asc',
+        'sector_id' => 'asc',
+        'place' => 'asc',
+        'name' => 'asc',
+    ];
+
+    protected $withCount = ['invitations'];
 
     public function address()
     {

@@ -12,7 +12,9 @@ use App\Listeners\SendCredentials;
 use App\Listeners\SendNotification;
 use App\Events\InvitationWasCreated;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Mail\Events\MessageSending;
 use App\Listeners\SendNotificationsToContact;
+use App\Listeners\SetMailNotificationMessageInfo;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -37,6 +39,8 @@ class EventServiceProvider extends ServiceProvider
         ContactWasUpdated::class => [SendNotificationsToContact::class],
 
         InvitationWasCreated::class => [SendNotification::class],
+
+        MessageSending::class => [SetMailNotificationMessageInfo::class],
     ];
 
     /**
