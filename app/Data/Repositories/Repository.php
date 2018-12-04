@@ -117,12 +117,13 @@ abstract class Repository
 
         return $this->makePaginationResult(
             $query->paginate(
-                $queryFilter->pagination
+                $queryFilter->pagination && $queryFilter->pagination->perPage
                     ? $queryFilter->pagination->perPage
                     : 5,
                 ['*'],
                 'page',
-                $queryFilter->pagination
+                $queryFilter->pagination &&
+                $queryFilter->pagination->currentPage
                     ? $queryFilter->pagination->currentPage
                     : 1
             )
