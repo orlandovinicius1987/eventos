@@ -32,6 +32,8 @@ const actions = merge_objects(actionsMixin, {
             context.dispatch('load', payload)
 
             context.dispatch('invitations/load', payload, { root: true })
+
+            context.dispatch('subEvents/load', payload, { root: true })
         })
     },
 
@@ -40,6 +42,8 @@ const actions = merge_objects(actionsMixin, {
             context.dispatch('load', payload)
 
             context.dispatch('invitations/load', payload, { root: true })
+
+            context.dispatch('subEvents/load', payload, { root: true })
         })
     },
 })
