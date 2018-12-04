@@ -17,6 +17,18 @@ recordButtonText<template>
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
+                    <template slot="checkboxes">
+                        <app-input
+                                name="not_invited"
+                                label="Somente não convidados"
+                                type="checkbox"
+                                v-model="notInvited"
+                                :required="true"
+                                :form="form"
+                                inline="true"
+                        ></app-input>
+                    </template>
+
                     <template slot="selects">
                         <app-institution-filter-for-invitation
                             name="institution_id"
@@ -153,6 +165,30 @@ export default {
 
             subEvents: state => state.subEvents,
         }),
+
+        notInvited: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.not_invited
+            },
+
+            set(filter) {
+                if (filter) {
+                    this.$store.commit(
+                        'invitables/mutateFilterCheckbox',
+                        {field: 'not_invited', value: this.subEvents.selected.id},
+                    )
+                }else{
+                    this.$store.commit(
+                        'invitables/mutateFilterCheckbox',
+                        {field: 'not_invited', value: null},
+                    )
+                }
+
+                this.$store.dispatch(
+                    'invitables/load'
+                )
+            },
+        },
 
         selectedSubEvent:{
             get(){
