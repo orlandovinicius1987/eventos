@@ -52,6 +52,18 @@ class Invitation extends Base
     }
 
     /**
+     * @param string|null $mailable
+     */
+    protected function dispatchMails(?string $mailable): void
+    {
+        $this->getEmails()->each(function ($contact) use ($mailable) {
+            $this->createNotification($contact->contact)->notify(
+                new $mailable()
+            );
+        });
+    }
+
+    /**
      * @return mixed
      */
     protected function getEmails()
@@ -76,7 +88,7 @@ class Invitation extends Base
     private function getMailable()
     {
         return $this->hasBeenAccepted()
-            ? SendCredentials::class
+            ? null // SendCredentials::class
             : ($this->hasBeenDeclined()
                 ? SendRejection::class
                 : SendInvitation::class);
@@ -175,13 +187,8 @@ class Invitation extends Base
 
     public function send()
     {
-        if ($this->canSendEmail()) {
-            $mailable = $this->getMailable();
-            $this->getEmails()->each(function ($contact) use ($mailable) {
-                $this->createNotification($contact->contact)->notify(
-                    new $mailable()
-                );
-            });
+        if ($this->canSendEmail() && ($mailable = $this->getMailable())) {
+            $this->dispatchMails($mailable);
         }
     }
 
