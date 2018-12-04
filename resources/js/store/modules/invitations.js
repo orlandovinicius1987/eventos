@@ -122,7 +122,10 @@ const actions = merge_objects(actionsMixin, {
 
     markAsAccepted(context, payload) {
         post(
-            makeDataUrl(context) + '/' + payload.id + '/mark-as-accepted',
+            makeDataUrl(context) +
+                '/' +
+                payload.id +
+                '/mark-as-accepted/manual',
         ).then(() => {
             context.dispatch('load', payload)
         })
@@ -130,7 +133,10 @@ const actions = merge_objects(actionsMixin, {
 
     markAsDeclined(context, payload) {
         post(
-            makeDataUrl(context) + '/' + payload.id + '/mark-as-rejected',
+            makeDataUrl(context) +
+                '/' +
+                payload.id +
+                '/mark-as-rejected/manual',
         ).then(() => {
             context.dispatch('load', payload)
         })

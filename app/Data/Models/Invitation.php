@@ -272,7 +272,7 @@ class Invitation extends Base
         $variables = [
             'site_url' => route('home'),
 
-            'empresa' => '',
+            'uuid_convite' => $this->uuid,
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
                 $this->personInstitution->person->nickname,

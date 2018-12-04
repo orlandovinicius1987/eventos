@@ -17,7 +17,13 @@ class Notifications extends Repository
 
     public function markAsReceived($uuid)
     {
-        $this->findByUuid($uuid)->markAsReceived();
+        if (($notification = $this->findByUuid($uuid))) {
+            $notification->markAsReceived();
+        } elseif (($invitation = app(Invitations::class)->findByUuid($uuid))) {
+            $invitation->notifications->each(function ($notification) {
+                $notification->markAsReceived();
+            });
+        }
     }
 
     public function notifyContact($contact)
