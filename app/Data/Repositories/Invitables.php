@@ -33,6 +33,17 @@ class Invitables extends Repository
         );
     }
 
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['not_invited']) && $filter['not_invited']) {
+            $query->whereRaw(
+                'person_institutions.id not in (select person_institution_id from invitations where sub_event_id = ' .
+                    $filter['not_invited'] .
+                    ')'
+            );
+        }
+    }
+
     /**
      * Filter Selects
      *
