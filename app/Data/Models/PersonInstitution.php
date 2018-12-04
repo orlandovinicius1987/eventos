@@ -25,9 +25,9 @@ class PersonInstitution extends Base
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
-        'advisors.name',
-        'advisors.nickname',
-        'advisors.title',
+        'people.name',
+        'people.nickname',
+        'people.title',
     ];
 
     protected $selectColumns = [
