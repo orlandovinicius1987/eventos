@@ -71,6 +71,7 @@ recordButtonText<template>
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
+                                    'Convidado',
                                     ''
                                 ]"
                     >
@@ -81,7 +82,7 @@ recordButtonText<template>
                             <td class="align-middle">{{ invitable.id }}</td>
 
                             <td class="align-middle">
-                                <input
+                                <input v-if="!invitable.is_invited_to_sub_event"
                                     :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
@@ -95,6 +96,12 @@ recordButtonText<template>
                             <td class="align-middle">{{ invitable.institution.name }}</td>
 
                             <td class="align-middle">{{ invitable.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitable.is_invited_to_sub_event" class="badge badge-success">Já convidado</span>
+                                </h6>
+                            </td>
 
                             <td class="align-middle">
                                 <a
