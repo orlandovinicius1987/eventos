@@ -32,6 +32,8 @@ class Invitation extends Base
 
     protected $selectColumns = ['person_institutions.*', 'invitations.*'];
 
+    protected $selectRawColumns = [''];
+
     protected $appends = ['client_id'];
 
     protected $joins = [

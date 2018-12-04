@@ -36,9 +36,9 @@ class PersonInstitutions extends Repository
      * @param null $type
      * @return Builder
      */
-    protected function newQuery($type = null)
+    protected function newQuery($type = null, $selectRaw = [])
     {
-        $query = parent::newQuery();
+        $query = parent::newQuery($type, $selectRaw);
 
         $query->join('roles', 'roles.id', '=', 'person_institutions.role_id');
 
