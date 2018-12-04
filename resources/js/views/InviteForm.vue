@@ -254,8 +254,6 @@ export default {
             }
 
             this.$store.dispatch('invitables/invite', invitees)
-
-            // this.$router.go(0)
         },
 
         moveInvitations() {
