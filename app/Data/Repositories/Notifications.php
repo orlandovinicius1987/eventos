@@ -30,4 +30,13 @@ class Notifications extends Repository
                 });
         }
     }
+
+    public function setMessageId($id, $messageId)
+    {
+        $notification = $this->findById($id);
+
+        $notification->message_id = $messageId;
+
+        $notification->save();
+    }
 }
