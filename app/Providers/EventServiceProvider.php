@@ -42,16 +42,4 @@ class EventServiceProvider extends ServiceProvider
 
         MessageSending::class => [SetMailNotificationMessageInfo::class],
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-
-        //
-    }
 }

@@ -2,14 +2,15 @@
 
 namespace App\Data\Repositories;
 
-use App\Events\InvitationAccepted;
-use App\Events\InvitationRejected;
-use App\Events\InvitationWasCreated;
+use App\Events\InvitationsChanged;
 use DB as Database;
 use App\Data\Models\Invitation;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
+use App\Events\InvitationsUpdated;
+use App\Events\InvitationWasCreated;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
-use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -117,6 +118,8 @@ class Invitations extends Repository
         ) {
             $invitation->delete();
 
+            event(new InvitationsUpdated($invitation->subEvent));
+
             return true;
         }
 
@@ -147,6 +150,7 @@ class Invitations extends Repository
             $invitation->save();
 
             event(new InvitationAccepted($invitation->id));
+            event(new InvitationsUpdated($invitation->subEvent));
 
             return true;
         }
@@ -177,6 +181,7 @@ class Invitations extends Repository
             $invitation->save();
 
             event(new InvitationRejected($invitation->id));
+            event(new InvitationsUpdated($invitation->subEvent));
 
             return true;
         }
@@ -194,6 +199,8 @@ class Invitations extends Repository
 
             event(new InvitationWasCreated($invitation));
         }
+
+        event(new InvitationsUpdated($invitation->subEvent));
     }
 
     public function send($eventId, $subEventId, $invitationId)

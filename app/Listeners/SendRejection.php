@@ -2,17 +2,15 @@
 
 namespace App\Listeners;
 
-use App\Data\Repositories\Invitations;
-use App\Events\InvitationAccepted;
 use App\Events\InvitationRejected;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Data\Repositories\Invitations;
 
-class SendRejection implements ShouldQueue
+class SendRejection extends Listener
 {
     /**
      * Handle the event.
      *
-     * @param  InvitationAccepted  $event
+     * @param  InvitationRejected  $event
      * @return void
      */
     public function handle(InvitationRejected $event)
