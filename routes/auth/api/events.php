@@ -26,6 +26,11 @@ Route::group(['prefix' => '/events'], function () {
             'sub-events.finalize'
         );
 
+        Route::post(
+            '/{id}/replicate-common-info',
+            'SubEvents@replicateCommonInfo'
+        )->name('sub-events.replicate-common-info');
+
         Route::get('/{id}/download', 'SubEvents@download')->name(
             'sub-events.download'
         );
