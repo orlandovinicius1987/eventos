@@ -152,6 +152,8 @@ export default {
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
+        this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
 

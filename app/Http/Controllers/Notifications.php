@@ -8,8 +8,6 @@ class Notifications extends Controller
 {
     public function markAsReceivedAndDownloadFile($uuid, $filePath)
     {
-        info(['markAsReceivedAndDownloadFile', $uuid, $filePath]);
-
         app(NotificationsRepository::class)->markAsReceived($uuid);
 
         $response = response()->make(

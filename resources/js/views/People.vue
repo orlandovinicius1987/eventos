@@ -377,10 +377,7 @@
                         </app-table-panel>
                     </div>
 
-                    <div
-                        class="col-12"
-                        v-if="personInstitutions.selected.advised_id == null"
-                    >
+                    <div class="col-12">
                         <app-table-panel
                             v-if="
                                 personInstitutions.selected.id &&
@@ -473,10 +470,7 @@
                         </app-table-panel>
                     </div>
 
-                    <div
-                        class="col-12"
-                        v-if="personInstitutions.selected.advised_id == null"
-                    >
+                    <div class="col-12">
                         <app-table-panel
                             v-if="
                                 personInstitutions.selected.id &&
