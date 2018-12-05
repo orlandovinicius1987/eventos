@@ -2,8 +2,8 @@ import DeepMerger from '../classes/DeepMerger.js'
 
 window.dd = (...args) => {
     if (
-        window.laravel &&
-        window.laravel.environment &&
+        !window.laravel ||
+        !window.laravel.environment ||
         window.laravel.environment.debug
     ) {
         console.log('[DEBUG] ---- ', ...args)
@@ -173,18 +173,11 @@ window.buildApiUrl = (uri, state) => {
     _.each(uri.match(/(\{.*?\})/g), param => {
         str = str.replace(param, objectAttributeFromString(param, state))
 
-        dd(
-            'param, state',
-            param,
-            state,
-            objectAttributeFromString(param, state),
-        )
-
         hasNulls = hasNulls || objectAttributeFromString(param, state) === null
     })
 
     if (hasNulls) {
-        dd('could not buildApiUrl from URI and STATE', uri, state)
+        // dd('could not buildApiUrl from URI and STATE', uri, state)
     }
 
     return hasNulls ? null : '/api/v1/' + str
@@ -285,4 +278,12 @@ window.downloadPDF = fileUrl => {
 
         link.click()
     })
+}
+
+window.publicChannel = channel => {
+    return window.Echo.channel(channel)
+}
+
+window.privateChannel = channel => {
+    return window.Echo.private(channel)
 }

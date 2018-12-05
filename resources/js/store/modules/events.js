@@ -20,26 +20,35 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     selectEvent(context, payload) {
+        publicChannel('event.' + payload.id).listen(
+            '.App\\Events\\EventWasUpdated',
+            () => {
+                context.dispatch('load')
+
+                context.dispatch('subEvents/load', payload, { root: true })
+            },
+        )
+
         context.dispatch('select', payload)
 
         context.dispatch('subEvents/setEvent', payload, { root: true })
     },
 
     selectSubEvent(context, payload) {
-        window.Echo.channel('sub-event.' + payload.id).listen(
+        publicChannel('sub-event.' + payload.id).listen(
             '.App\\Events\\InvitationsUpdated',
-            event => {
-                dd('reloading invitations')
+            () => {
                 context.dispatch('subEvents/load', payload, { root: true })
+
                 context.dispatch('invitations/load', payload, { root: true })
+
                 context.dispatch('invitables/load', payload, { root: true })
             },
         )
 
-        window.Echo.channel('sub-event.' + payload.id).listen(
+        publicChannel('sub-event.' + payload.id).listen(
             '.App\\Events\\SubEventWasUpdated',
-            event => {
-                dd('reloading invitations')
+            () => {
                 context.dispatch('subEvents/load', payload, { root: true })
             },
         )
