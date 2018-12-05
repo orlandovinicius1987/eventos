@@ -26,13 +26,24 @@ class Invitables extends Repository
     {
         return $this->applyFilter(
             app(PersonInstitutions::class)
-                ->newQuery()
-                ->whereRaw(
-                    'person_institutions.id not in (select person_institution_id from invitations where sub_event_id = ' .
+                ->newQuery(null)
+                ->selectRaw(
+                    '(select count("invitations"."person_institution_id") from "invitations" where "person_institutions"."id" = "invitations"."person_institution_id" and "invitations"."sub_event_id" = ' .
                         $subEventId .
-                        ')'
+                        ') as is_invited_to_sub_event'
                 )
         );
+    }
+
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['not_invited']) && $filter['not_invited']) {
+            $query->whereRaw(
+                'person_institutions.id not in (select person_institution_id from invitations where sub_event_id = ' .
+                    $filter['not_invited'] .
+                    ')'
+            );
+        }
     }
 
     /**

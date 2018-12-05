@@ -17,6 +17,18 @@ recordButtonText<template>
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
+                    <template slot="checkboxes">
+                        <app-input
+                                name="not_invited"
+                                label="Somente não convidados"
+                                type="checkbox"
+                                v-model="notInvited"
+                                :required="true"
+                                :form="form"
+                                inline="true"
+                        ></app-input>
+                    </template>
+
                     <template slot="selects">
                         <app-institution-filter-for-invitation
                             name="institution_id"
@@ -71,6 +83,7 @@ recordButtonText<template>
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
+                                    'Convidado',
                                     ''
                                 ]"
                     >
@@ -81,7 +94,7 @@ recordButtonText<template>
                             <td class="align-middle">{{ invitable.id }}</td>
 
                             <td class="align-middle">
-                                <input
+                                <input v-if="!invitable.is_invited_to_sub_event"
                                     :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
@@ -95,6 +108,12 @@ recordButtonText<template>
                             <td class="align-middle">{{ invitable.institution.name }}</td>
 
                             <td class="align-middle">{{ invitable.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitable.is_invited_to_sub_event" class="badge badge-success">Já convidado</span>
+                                </h6>
+                            </td>
 
                             <td class="align-middle">
                                 <a
@@ -146,6 +165,30 @@ export default {
 
             subEvents: state => state.subEvents,
         }),
+
+        notInvited: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.not_invited
+            },
+
+            set(filter) {
+                if (filter) {
+                    this.$store.commit(
+                        'invitables/mutateFilterCheckbox',
+                        {field: 'not_invited', value: this.subEvents.selected.id},
+                    )
+                }else{
+                    this.$store.commit(
+                        'invitables/mutateFilterCheckbox',
+                        {field: 'not_invited', value: null},
+                    )
+                }
+
+                this.$store.dispatch(
+                    'invitables/load'
+                )
+            },
+        },
 
         selectedSubEvent:{
             get(){
