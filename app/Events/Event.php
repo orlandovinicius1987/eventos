@@ -8,7 +8,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class Event implements ShouldBroadcast
+abstract class Event implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -19,6 +19,6 @@ class Event implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('base-channel');
+        return new Channel('channel-must-be-set-on-the-event-class');
     }
 }
