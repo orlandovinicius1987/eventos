@@ -470,9 +470,8 @@ export default {
 
         sendInvitation(invitation) {
             invitation.busy = true
-
             confirm(
-                'Deseja realmente enviar o convite para ' + invitation.person_institution.person.name + '?',
+                'Deseja realmente enviar ' + (invitation.accepted_at ? 'as credencias' : 'o convite') + ' para ' + invitation.person_institution.person.name + '?',
                 this,
             ).then(value => {
                 if (value) {
