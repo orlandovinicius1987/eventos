@@ -152,6 +152,8 @@ export default {
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
+        this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
 
@@ -296,6 +298,8 @@ export default {
                 }),
             }
 
+            this.resetCheckedPeople()
+
             this.$store.dispatch('invitables/invite', invitees)
         },
 
@@ -311,6 +315,8 @@ export default {
                     return person.checked
                 }),
             }
+
+            this.resetCheckedPeople()
 
             this.$store.dispatch('invitables/moveInvitations', invitees)
 

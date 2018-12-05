@@ -45,7 +45,7 @@ class Invitations extends Controller
             $eventId,
             $subEventId,
             $invitationId,
-            only_numbers($request['cpf'])
+            $request['cpf']
         );
 
         session()->put('message', $message);
@@ -90,7 +90,7 @@ class Invitations extends Controller
             $eventId,
             $subEventId,
             $invitationId,
-            only_numbers($request['cpf'])
+            $request['cpf']
         );
 
         session()->put('message', $message);

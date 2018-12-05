@@ -17,6 +17,6 @@ class SendRejection extends Listener
     {
         app(Invitations::class)
             ->findById($event->invitationId)
-            ->send();
+            ->sendRejection();
     }
 }

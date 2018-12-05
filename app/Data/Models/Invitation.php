@@ -47,6 +47,8 @@ class Invitation extends Base
 
     protected $pathToQRCodes;
 
+    protected $mailSubject;
+
     private function canSendEmail()
     {
         return !is_null($this->subEvent->confirmed_at) && $this->hasEmail();
@@ -75,24 +77,6 @@ class Invitation extends Base
                 'contact_type_id',
                 app(ContactTypes::class)->findByCode('email')->id
             );
-    }
-
-    private function getMailSubject()
-    {
-        return $this->hasBeenAccepted()
-            ? 'Credencial para acesso ao evento '
-            : ($this->hasBeenDeclined()
-                ? 'Convite Declinado - ' . $this->subEvent->event->name
-                : 'Convite - ' . $this->subEvent->event->name);
-    }
-
-    private function getMailable()
-    {
-        return $this->hasBeenAccepted()
-            ? null // SendCredentials::class
-            : ($this->hasBeenDeclined()
-                ? SendRejection::class
-                : SendInvitation::class);
     }
 
     /**
@@ -186,10 +170,34 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send()
+    public function sendInvitation($force = false)
     {
-        if ($this->canSendEmail() && ($mailable = $this->getMailable())) {
-            $this->dispatchMails($mailable);
+        if ($this->canSendEmail() && ($force || !$this->hasBeenDeclined())) {
+            $this->mailSubject = 'Convite - ' . $this->subEvent->event->name;
+            $this->dispatchMails(SendInvitation::class);
+        }
+    }
+
+    public function sendCredentials($force = false)
+    {
+        // FUTURO
+        if (
+            $this->canSendEmail() &&
+            ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
+        ) {
+            $this->mailSubject =
+                'Credencial para acesso ao evento - ' .
+                $this->subEvent->event->name;
+            $this->dispatchMails(SendCredentials::class);
+        }
+    }
+
+    public function sendRejection($force = false)
+    {
+        if ($this->canSendEmail() && ($force || $this->hasBeenDeclined())) {
+            $this->mailSubject =
+                'Convite declinado - ' . $this->subEvent->event->name;
+            $this->dispatchMails(SendRejection::class);
         }
     }
 
@@ -198,7 +206,7 @@ class Invitation extends Base
         return app(Notifications::class)->create([
             'invitation_id' => $this->id,
             'destination' => $destination,
-            'subject' => $this->getMailSubject(),
+            'subject' => $this->mailSubject,
         ]);
     }
 
