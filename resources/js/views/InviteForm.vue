@@ -298,6 +298,8 @@ export default {
                 }),
             }
 
+            this.resetCheckedPeople()
+
             this.$store.dispatch('invitables/invite', invitees)
         },
 
@@ -313,6 +315,8 @@ export default {
                     return person.checked
                 }),
             }
+
+            this.resetCheckedPeople()
 
             this.$store.dispatch('invitables/moveInvitations', invitees)
 
