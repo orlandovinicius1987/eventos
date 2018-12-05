@@ -30,6 +30,7 @@ const __emptyModel = {
 
     invitation_text: '',
     credentials_text: '',
+    thank_you_text: '',
     rejection_text: '',
     associated_subevent_id: null,
     confirmed_at: null,
