@@ -115,6 +115,16 @@
 
                             <td class="align-middle text-right">
                                 <button
+                                    v-if="!subEvent.associated_subevent_id"
+                                    class="btn btn-info btn-sm btn-table-utility ml-1 pull-right"
+                                    @click="replicateCommonInfo(subEvent)"
+                                    :disabled="cannot('update')"
+                                    title="Replicar textos para todos os outros subeventos"
+                                >
+                                    <i class="fa fa-copy"></i>
+                                </button>
+
+                                <button
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
@@ -531,7 +541,27 @@ export default {
 
         canSendEmail(invitation) {
             return invitation.has_email && invitation.sub_event.confirmed_at
-        }
+        },
+
+        replicateCommonInfo(subEvent) {
+            confirm(
+                'Você tem certeza que replicar os textos de "'+subEvent.name+' - '+subEvent.sector.name+'" para os outros sub-eventos?',
+                this,
+            ).then(value => {
+                confirm(
+                    'CERTEZA ABSOLUTA?',
+                    this,
+                ).then(value => {
+                    if (value) {
+                        subEvent.busy = true
+
+                        return this.$store.dispatch('subEvents/replicateCommonInfo', subEvent).then(() => {
+                            subEvent.busy = false
+                        })
+                    }
+                })
+            })
+        },
     },
 
     computed: {
