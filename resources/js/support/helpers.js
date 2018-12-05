@@ -2,8 +2,8 @@ import DeepMerger from '../classes/DeepMerger.js'
 
 window.dd = (...args) => {
     if (
-        !window.laravel ||
-        !window.laravel.environment ||
+        window.laravel &&
+        window.laravel.environment &&
         window.laravel.environment.debug
     ) {
         console.log('[DEBUG] ---- ', ...args)
@@ -167,11 +167,27 @@ window.objectAttributeFromString = (str, state) => {
 
 window.buildApiUrl = (uri, state) => {
     let str = uri
+
+    let hasNulls = false
+
     _.each(uri.match(/(\{.*?\})/g), param => {
         str = str.replace(param, objectAttributeFromString(param, state))
+
+        dd(
+            'param, state',
+            param,
+            state,
+            objectAttributeFromString(param, state),
+        )
+
+        hasNulls = hasNulls || objectAttributeFromString(param, state) === null
     })
 
-    return '/api/v1/' + str
+    if (hasNulls) {
+        dd('could not buildApiUrl from URI and STATE', uri, state)
+    }
+
+    return hasNulls ? null : '/api/v1/' + str
 }
 
 window.makeDataUrl = context => {

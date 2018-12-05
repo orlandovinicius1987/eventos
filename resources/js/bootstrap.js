@@ -45,18 +45,19 @@ if (token) {
 /**
  * Echo & Pusher
  */
-// import Echo from 'laravel-echo'
-//
-// window.Pusher = require('pusher-js')
-//
-// console.log(process.env.MIX_PUSHER_APP_KEY)
-//
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     encrypted: true,
-// })
+import Echo from 'laravel-echo'
+
+window.Pusher = require('pusher-js')
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: false,
+    wsHost: '10.17.13.24', // window.location.hostname,
+    wsPort: 6001,
+    disableStats: false,
+})
 
 /**
  * Vue

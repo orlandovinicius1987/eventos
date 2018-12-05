@@ -3,13 +3,17 @@ export function load(context) {
         return
     }
 
-    return axios
-        .get(makeDataUrl(context), {
-            params: { query: context.getters.getQueryFilter },
-        })
-        .then(response => {
-            context.dispatch('setDataAfterLoad', response.data)
-        })
+    let url = makeDataUrl(context)
+
+    if (url) {
+        return axios
+            .get(url, {
+                params: { query: context.getters.getQueryFilter },
+            })
+            .then(response => {
+                context.dispatch('setDataAfterLoad', response.data)
+            })
+    }
 }
 
 export function setDataAfterLoad(context, payload) {

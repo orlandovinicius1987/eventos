@@ -4,6 +4,7 @@ import * as mutationsMixin from './mixins/mutations.js'
 import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
+import Echo from 'laravel-echo'
 
 const __emptyModel = {
     id: null,
@@ -25,6 +26,24 @@ const actions = merge_objects(actionsMixin, {
     },
 
     selectSubEvent(context, payload) {
+        window.Echo.channel('sub-event.' + payload.id).listen(
+            '.App\\Events\\InvitationsUpdated',
+            event => {
+                dd('reloading invitations')
+                context.dispatch('subEvents/load', payload, { root: true })
+                context.dispatch('invitations/load', payload, { root: true })
+                context.dispatch('invitables/load', payload, { root: true })
+            },
+        )
+
+        window.Echo.channel('sub-event.' + payload.id).listen(
+            '.App\\Events\\SubEventWasUpdated',
+            event => {
+                dd('reloading invitations')
+                context.dispatch('subEvents/load', payload, { root: true })
+            },
+        )
+
         context.dispatch('subEvents/select', payload, { root: true })
 
         context.dispatch('invitations/setSubEvent', payload, { root: true })
