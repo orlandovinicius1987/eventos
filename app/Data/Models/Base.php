@@ -57,6 +57,17 @@ abstract class Base extends Model implements AuditableContract
      */
     protected $filterableColumns = ['name'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::bootObservers();
+    }
+
+    protected static function bootObservers()
+    {
+    }
+
     protected function flushKeys()
     {
         coollect($this->flushKeys)->each(function ($key) {
