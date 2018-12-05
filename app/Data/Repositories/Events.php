@@ -66,7 +66,7 @@ class Events extends Repository
                     ->notSent()
                     ->get()
                     ->each(function ($invitation) {
-                        $invitation->send();
+                        $invitation->sendInvitation();
                     });
             });
     }
