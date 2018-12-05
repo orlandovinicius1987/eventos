@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Events\SubEventWasUpdated;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -48,9 +49,23 @@ class SubEvent extends Base
 
     protected $withCount = ['invitations'];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::bootObservers();
+    }
+
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable');
+    }
+
+    protected static function bootObservers()
+    {
+        static::updated(function ($model) {
+            event(new SubEventWasUpdated($model));
+        });
     }
 
     public function event()

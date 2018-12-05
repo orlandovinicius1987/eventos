@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Events\InvitationsUpdated;
 use Ramsey\Uuid\Uuid;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
@@ -411,10 +412,25 @@ class Invitation extends Base
 
     public function markAsSent()
     {
-        $this->sent_at = now();
+        if (!$this->sent_at) {
+            $this->sent_at = now();
 
-        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
+            $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
 
-        $this->save();
+            $this->save();
+
+            event(new InvitationsUpdated($this->subEvent));
+        }
+    }
+
+    public function markAsReceived()
+    {
+        if (!$this->received_at) {
+            $this->received_at = now();
+
+            $this->save();
+
+            event(new InvitationsUpdated($this->subEvent));
+        }
     }
 }

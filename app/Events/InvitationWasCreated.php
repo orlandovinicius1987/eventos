@@ -2,6 +2,8 @@
 
 namespace App\Events;
 
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+
 class InvitationWasCreated extends Event
 {
     public $invitation;
