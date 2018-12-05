@@ -80,4 +80,17 @@ class SubEvents extends Controller
     {
         return app(SubEventsRepository::class)->download($subEventId);
     }
+
+    public function replicateCommonInfo(
+        ConfirmSubEvent $request,
+        $eventId,
+        $subEventId
+    ) {
+        app(SubEventsRepository::class)->replicateCommonInfo(
+            $eventId,
+            $subEventId
+        );
+
+        return $this->emptyResponse();
+    }
 }

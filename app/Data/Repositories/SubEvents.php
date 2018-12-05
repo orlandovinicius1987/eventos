@@ -127,4 +127,20 @@ class SubEvents extends Repository
 
         return parent::transform($data);
     }
+
+    public function replicateCommonInfo($eventId, $subEventId)
+    {
+        $subEvent = $this->findById($subEventId);
+
+        $subEvent->event->subEvents->each(function ($replicable) use (
+            $subEvent
+        ) {
+            $replicable->invitation_text = $subEvent->invitation_text;
+            $replicable->credentials_text = $subEvent->credentials_text;
+            $replicable->thank_you_text = $subEvent->thank_you_text;
+            $replicable->rejection_text = $subEvent->rejection_text;
+
+            $replicable->save();
+        });
+    }
 }
