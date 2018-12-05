@@ -14,6 +14,7 @@ class SendNotification extends Listener
      */
     public function handle(InvitationWasCreated $event)
     {
-        $event->invitation->send();
+        $event->invitation->sendInvitation();
+        $event->invitation->sendCredentials();
     }
 }

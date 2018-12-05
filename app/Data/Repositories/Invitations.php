@@ -137,12 +137,13 @@ class Invitations extends Repository
             $invitation->subEvent->id == $subEventId
         ) {
             $invitation->accepted_at = now();
+            $invitation->accepted_by_id =
+                $how === 'manual'
+                    ? $invitation->getCurrentAuthenticatedUserId()
+                    : null;
 
             $invitation->declined_at = null;
-
-            if ($how === 'manual') {
-                $invitation->accepted_by_id = $invitation->getCurrentAuthenticatedUserId();
-            }
+            $invitation->declined_by_id = null;
 
             $invitation->save();
 
@@ -166,13 +167,14 @@ class Invitations extends Repository
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
-            $invitation->accepted_at = null;
-
             $invitation->declined_at = now();
+            $invitation->declined_by_id =
+                $how === 'manual'
+                    ? $invitation->getCurrentAuthenticatedUserId()
+                    : null;
 
-            if ($how === 'manual') {
-                $invitation->declined_by_id = $invitation->getCurrentAuthenticatedUserId();
-            }
+            $invitation->accepted_at = null;
+            $invitation->accepted_by_id = null;
 
             $invitation->save();
 
@@ -196,17 +198,39 @@ class Invitations extends Repository
         }
     }
 
-    public function send($eventId, $subEventId, $invitationId)
+    private function canSend($eventId, $subEventId, $invitation)
+    {
+        $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
+
+        return $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId;
+    }
+
+    public function sendInvitation($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
-        $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
+        if ($this->canSend($eventId, $subEventId, $invitation)) {
+            $invitation->sendInvitation(true);
+        }
+    }
 
-        if (
-            $invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId
-        ) {
-            $invitation->send();
+    // FUTURO
+    public function sendCredentials($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if ($this->canSend($eventId, $subEventId, $invitation)) {
+            $invitation->sendCredentials(true);
+        }
+    }
+
+    public function sendRejection($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if ($this->canSend($eventId, $subEventId, $invitation)) {
+            $invitation->sendRejection();
         }
     }
 
@@ -244,7 +268,7 @@ class Invitations extends Repository
 
             $invitation->save();
 
-            $invitation->send();
+            $invitation->sendInvitation();
         }
     }
 

@@ -18,6 +18,6 @@ class SendCredentials implements ShouldQueue
     {
         app(Invitations::class)
             ->findById($event->invitationId)
-            ->send();
+            ->sendCredentials();
     }
 }
