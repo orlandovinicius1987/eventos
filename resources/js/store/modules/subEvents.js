@@ -103,6 +103,14 @@ const actions = merge_objects(actionsMixin, {
             context.dispatch('load', payload)
         })
     },
+
+    replicateCommonInfo(context, payload) {
+        post(
+            makeDataUrl(context) + '/' + payload.id + '/replicate-common-info',
+        ).then(() => {
+            context.dispatch('load', payload)
+        })
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
