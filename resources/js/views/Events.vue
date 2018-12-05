@@ -173,7 +173,7 @@
             <div class="col-12">
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
-                    :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
+                    :title="invitations.data.links.pagination.total + ' convidado' + (invitations.data.links.pagination.total == 1 ? '' : 's') + ' para ' + subEvents.selected.name + ' de ' + selected.name"
                     :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/'+subEvents.selected.id+'/invitations/create', disabled: cannot('create') }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
@@ -470,9 +470,8 @@ export default {
 
         sendInvitation(invitation) {
             invitation.busy = true
-
             confirm(
-                'Deseja realmente enviar o convite para ' + invitation.person_institution.person.name + '?',
+                'Deseja realmente enviar ' + (invitation.accepted_at ? 'as credencias' : 'o convite') + ' para ' + invitation.person_institution.person.name + '?',
                 this,
             ).then(value => {
                 if (value) {
