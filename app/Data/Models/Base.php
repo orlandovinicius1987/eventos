@@ -57,7 +57,7 @@ abstract class Base extends Model implements AuditableContract
      */
     protected $filterableColumns = ['name'];
 
-    private function flushKeys()
+    protected function flushKeys()
     {
         coollect($this->flushKeys)->each(function ($key) {
             Cache::forget($key);
