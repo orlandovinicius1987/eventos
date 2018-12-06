@@ -48,7 +48,9 @@ class Invitations extends Controller
             $request['cpf']
         );
 
-        return redirect()->route('messages.show', ['message' => $message]);
+        return view('messages.common')->with([
+            'message' => $message,
+        ]);
     }
 
     /**
@@ -90,7 +92,9 @@ class Invitations extends Controller
             $request['cpf']
         );
 
-        return redirect()->route('messages.show', ['message' => $message]);
+        return view('messages.common')->with([
+            'message' => $message,
+        ]);
     }
 
     /**
