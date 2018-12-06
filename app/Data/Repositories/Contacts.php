@@ -2,9 +2,8 @@
 
 namespace App\Data\Repositories;
 
-use App\Events\ContactWasCreated;
-use App\Events\ContactWasUpdated;
 use App\Data\Models\Contact as ContactModel;
+use App\Events\PersonInstitutionContactsGotChanged;
 
 class Contacts extends Repository
 {
@@ -28,11 +27,18 @@ class Contacts extends Repository
      */
     public function storeFromArray($array)
     {
-        event(new ContactWasCreated(parent::storeFromArray($array)));
+        $this->fireEvents(parent::storeFromArray($array), 'Created');
     }
 
     public function update($id, $array)
     {
-        event(new ContactWasUpdated(parent::update($id, $array)));
+        $this->fireEvents(parent::update($id, $array), 'Updated');
+    }
+
+    public function fireEventsForRelationships($model)
+    {
+        event(
+            new PersonInstitutionContactsGotChanged($model->personInstitution)
+        );
     }
 }

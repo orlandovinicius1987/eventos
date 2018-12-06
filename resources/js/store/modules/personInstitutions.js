@@ -50,6 +50,7 @@ const state = merge_objects(statesMixin.common, {
     },
 
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
 
     advisors: null,
@@ -66,6 +67,40 @@ const actions = merge_objects(actionsMixin, {
 
     loadAdvisors(context, payload) {
         context.commit('mutateSetAdvisors', payload)
+    },
+
+    subscribeExtraChannels(context, payload = null) {
+        if (payload) {
+            subscribePublicChannel(
+                'person-institution.' + payload.id,
+                '.App\\Events\\PersonInstitutionAddressesGotChanged',
+                () => {
+                    context.dispatch('addresses/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            subscribePublicChannel(
+                'person-institution.' + payload.id,
+                '.App\\Events\\PersonInstitutionContactsGotChanged',
+                () => {
+                    context.dispatch('contacts/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            subscribePublicChannel(
+                'person-institution.' + payload.id,
+                '.App\\Events\\PersonInstitutionAdvisorsGotChanged',
+                () => {
+                    context.dispatch('advisors/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+        }
     },
 })
 

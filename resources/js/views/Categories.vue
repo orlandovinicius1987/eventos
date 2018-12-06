@@ -17,7 +17,7 @@
                     <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['#', 'Nome']"
+                        :columns="['#', 'Nome', '']"
                     >
                         <tr
                             @click="select(category)"

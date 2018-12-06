@@ -137,7 +137,7 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveSubEvent()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
                             <router-link to="/events" tag="button" class="btn btn-success">
                                 cancelar
@@ -183,18 +183,6 @@ export default {
             this.$store.commit('subEvents/mutateSetFormField', {
                 field: $event.field,
                 value: $event.text,
-            })
-        },
-
-        saveSubEvent() {
-            this.save(this.mode).then(() => {
-                this.load()
-
-                this.back()
-
-                this.clearForm()
-
-                this.$store.dispatch('invitations/load')
             })
         },
 

@@ -51,6 +51,7 @@ const state = merge_objects(statesMixin.common, {
     },
 
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
 })
 

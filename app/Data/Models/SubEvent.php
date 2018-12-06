@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Events\EventUpdated;
+use App\Events\SubEventUpdated;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +53,15 @@ class SubEvent extends Base
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable');
+    }
+
+    protected static function bootObservers()
+    {
+        static::updated(function ($model) {
+            event(new EventUpdated($model->event));
+
+            event(new SubEventUpdated($model));
+        });
     }
 
     public function event()

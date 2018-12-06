@@ -3,13 +3,15 @@ export function load(context) {
         return
     }
 
-    return axios
-        .get(makeDataUrl(context), {
+    let url = makeDataUrl(context)
+
+    if (url) {
+        return get(url, {
             params: { query: context.getters.getQueryFilter },
-        })
-        .then(response => {
+        }).then(response => {
             context.dispatch('setDataAfterLoad', response.data)
         })
+    }
 }
 
 export function setDataAfterLoad(context, payload) {
@@ -24,11 +26,7 @@ export function save(context, payload) {
             ? makeStoreUrl(context)
             : makeUpdateUrl(context) + '/' + context.state.form.fields.id
 
-    return context.state.form
-        .post(url, context.state.form.fields)
-        .then(response => {
-            context.dispatch('load')
-        })
+    return context.state.form.post(url, context.state.form.fields)
 }
 
 export function clearForm(context) {
@@ -70,6 +68,8 @@ export function updateUserPerPage(context, payload) {
 }
 
 export function select(context, payload) {
+    context.dispatch('subscribeToModelEvents', payload)
+
     context.commit('mutateSetSelected', payload)
 
     context.commit('mutateFormData', payload)
@@ -86,3 +86,33 @@ export function mutateFilterSelect(context, payload) {
 
     loadDebounced(context)
 }
+
+export function subscribeToModelEvents(context, payload) {
+    if (context.state.model) {
+        subscribePublicChannel(
+            context.state.model.name + '.' + payload.id,
+            '.App\\Events\\' + context.state.model.class.singular + 'Updated',
+            () => {
+                loadDebounced(context)
+            },
+        )
+    }
+
+    context.dispatch('subscribeExtraChannels', payload)
+}
+
+export function subscribeToTableEvents(context) {
+    if (context.state.model) {
+        subscribePublicChannel(
+            context.state.model.table,
+            '.App\\Events\\' + context.state.model.class.plural + 'Changed',
+            () => {
+                loadDebounced(context)
+            },
+        )
+
+        context.dispatch('subscribeExtraChannels')
+    }
+}
+
+export function subscribeExtraChannels(context, payload = null) {}

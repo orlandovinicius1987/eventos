@@ -17,6 +17,7 @@ const __emptyModel = {
 
 const state = merge_objects(statesMixin.common, {
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
 
     data: {
@@ -27,70 +28,132 @@ const state = merge_objects(statesMixin.common, {
             },
         },
     },
+
+    model: {
+        name: 'person',
+
+        table: 'people',
+
+        class: { singular: 'Person', plural: 'People' },
+    },
 })
 
-let actions = merge_objects(
-    {
-        selectPerson(context, payload) {
-            context.dispatch('people/select', payload, { root: true })
+let actions = merge_objects(actionsMixin, {
+    selectPerson(context, payload) {
+        context.dispatch('select', payload)
 
-            context.dispatch('personInstitutions/setPerson', payload, {
-                root: true,
-            })
+        context.dispatch('personInstitutions/setPerson', payload, {
+            root: true,
+        })
 
-            context.dispatch('personCategories/setPerson', payload, {
-                root: true,
-            })
-        },
-
-        selectContact(context, payload) {
-            context.dispatch('contacts/select', payload, { root: true })
-        },
-
-        selectPersonCategories(context, payload) {
-            context.dispatch('personCategories/select', payload, { root: true })
-        },
-
-        selectPersonInstitution(context, payload) {
-            context.dispatch('personInstitutions/select', payload, {
-                root: true,
-            })
-
-            context.dispatch('contacts/setPersonInstitution', payload, {
-                root: true,
-            })
-            context.dispatch('addresses/setPersonInstitution', payload, {
-                root: true,
-            })
-            context.dispatch('advisors/setPersonInstitution', payload, {
-                root: true,
-            })
-        },
-
-        selectAdvisor(context, payload) {
-            context.dispatch('advisors/select', payload, { root: true })
-            context.dispatch('advisorContacts/setPersonInstitution', payload, {
-                root: true,
-            })
-        },
-
-        selectContacts(context, payload) {
-            context.dispatch('contacts/select', payload, { root: true })
-        },
-
-        selectAddress(context, payload) {
-            context.dispatch('addresses/select', payload, { root: true })
-        },
-
-        selectAdvisors(context, payload) {
-            context.dispatch('advisors/select', payload, { root: true })
-        },
-        selectAdvisorContacts(context, payload) {
-            context.dispatch('advisorContacts/select', payload, { root: true })
-        },
+        context.dispatch('personCategories/setPerson', payload, {
+            root: true,
+        })
     },
-    actionsMixin,
-)
+
+    selectContact(context, payload) {
+        context.dispatch('contacts/select', payload, { root: true })
+    },
+
+    selectPersonCategories(context, payload) {
+        context.dispatch('personCategories/select', payload, { root: true })
+    },
+
+    selectPersonInstitution(context, payload) {
+        context.dispatch('personInstitutions/select', payload, {
+            root: true,
+        })
+
+        context.dispatch('contacts/setPersonInstitution', payload, {
+            root: true,
+        })
+
+        context.dispatch('addresses/setPersonInstitution', payload, {
+            root: true,
+        })
+
+        context.dispatch('advisors/setPersonInstitution', payload, {
+            root: true,
+        })
+    },
+
+    selectAdvisor(context, payload) {
+        context.dispatch('advisors/select', payload, { root: true })
+        context.dispatch('advisorContacts/setPersonInstitution', payload, {
+            root: true,
+        })
+    },
+
+    selectContacts(context, payload) {
+        context.dispatch('contacts/select', payload, { root: true })
+    },
+
+    selectAddress(context, payload) {
+        context.dispatch('addresses/select', payload, { root: true })
+    },
+
+    selectAdvisors(context, payload) {
+        context.dispatch('advisors/select', payload, { root: true })
+    },
+
+    selectAdvisorContacts(context, payload) {
+        context.dispatch('advisorContacts/select', payload, { root: true })
+    },
+
+    subscribeExtraChannels(context, payload = null) {
+        if (payload) {
+            subscribePublicChannel(
+                'person.' + payload.id,
+                '.App\\Events\\PersonCategoriesChanged',
+                () => {
+                    context.dispatch('personCategories/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            subscribePublicChannel(
+                'person.' + payload.id,
+                '.App\\Events\\PersonInstitutionsGotChanged',
+                () => {
+                    context.dispatch('personInstitutions/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            // subscribePublicChannel(
+            //     'person.' + payload.id,
+            //     '.App\\Events\\PersonAddressesGotChanged',
+            //     () => {
+            //         context.dispatch('personAddresses/load', payload, {
+            //             root: true,
+            //         })
+            //     },
+            // )
+
+            subscribePublicChannel(
+                'person.' + payload.id,
+                '.App\\Events\\PersonContactsGotChanged',
+                () => {
+                    context.dispatch('personContacts/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+
+            subscribePublicChannel(
+                'person.' + payload.id,
+                '.App\\Events\\PersonAdvisorsGotChanged',
+                () => {
+                    context.dispatch('personAdvisors/load', payload, {
+                        root: true,
+                    })
+                },
+            )
+        }
+    },
+})
 
 let mutations = merge_objects(
     {

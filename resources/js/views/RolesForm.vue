@@ -52,10 +52,6 @@ export default {
             service: service,
         }
     },
-
-    methods: {
-        ...mapActions(service.name, ['selectRole']),
-    },
 }
 </script>
 

@@ -2,12 +2,13 @@
 
 namespace App\Data\Repositories;
 
-use App\Events\InvitationWasCreated;
 use DB as Database;
+use App\Events\InvitationsChanged;
 use App\Data\Models\Invitation;
+use App\Events\InvitationUpdated;
+use App\Events\InvitationCreated;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
-use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -115,6 +116,8 @@ class Invitations extends Repository
         ) {
             $invitation->delete();
 
+            event(new InvitationsChanged($invitation->subEvent));
+
             return true;
         }
 
@@ -175,7 +178,7 @@ class Invitations extends Repository
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
-            $invitation->decline($how);
+            $invitation->reject($how);
 
             return true;
         }
@@ -191,7 +194,7 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
 
-            event(new InvitationWasCreated($invitation));
+            event(new InvitationCreated($invitation));
         }
     }
 
@@ -217,7 +220,8 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
-        if ($this->canSend($eventId, $subEventId, $invitation) && false) { //FIXME FUTURO
+        if ($this->canSend($eventId, $subEventId, $invitation) && false) {
+            //FIXME FUTURO
             //$invitation->sendCredentials(true);
         }
     }
@@ -266,6 +270,8 @@ class Invitations extends Repository
             $invitation->save();
 
             $invitation->sendInvitation();
+
+            event(new InvitationUpdated($invitation));
         }
     }
 

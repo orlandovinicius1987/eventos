@@ -3,15 +3,15 @@
 namespace App\Data\Models;
 
 use Ramsey\Uuid\Uuid;
+use App\Events\InvitationUpdated;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
-use App\Notifications\SendCredentials;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
 use App\Services\QRCode\Service as QRCode;
-use App\Events\InvitationAccepted;
-use App\Events\InvitationRejected;
 
 class Invitation extends Base
 {
@@ -98,6 +98,7 @@ class Invitation extends Base
         $this->save();
 
         event(new InvitationAccepted($this->id));
+        event(new InvitationUpdated($this));
     }
 
     /**
@@ -106,7 +107,7 @@ class Invitation extends Base
      *
      * @param $how
      */
-    public function decline($how)
+    public function reject($how)
     {
         $this->declined_at = now();
         $this->declined_by_id =
@@ -118,6 +119,7 @@ class Invitation extends Base
         $this->save();
 
         event(new InvitationRejected($this->id));
+        event(new InvitationUpdated($this));
     }
 
     /**
@@ -466,10 +468,25 @@ class Invitation extends Base
 
     public function markAsSent()
     {
-        $this->sent_at = now();
+        if (!$this->sent_at) {
+            $this->sent_at = now();
 
-        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
+            $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
 
-        $this->save();
+            $this->save();
+
+            event(new InvitationUpdated($this->subEvent));
+        }
+    }
+
+    public function markAsReceived()
+    {
+        if (!$this->received_at) {
+            $this->received_at = now();
+
+            $this->save();
+
+            event(new InvitationUpdated($this->subEvent));
+        }
     }
 }
