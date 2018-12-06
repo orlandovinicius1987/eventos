@@ -2,17 +2,20 @@
 
 namespace App\Providers;
 
+use App\Events\ContactCreated;
+use App\Events\ContactUpdated;
+use App\Events\InvitationUpdated;
 use App\Listeners\SendRejection;
-use App\Events\ContactWasCreated;
-use App\Events\ContactWasUpdated;
+use App\Events\InvitationCreated;
 use App\Events\InvitationRejected;
 use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
-use App\Listeners\SendCredentials;
 use App\Listeners\SendNotification;
-use App\Events\InvitationWasCreated;
+use App\Listeners\NotifyPeopleChanged;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\NotifySubEventsChanged;
 use Illuminate\Mail\Events\MessageSending;
+use App\Listeners\NotifyInvitationsChanged;
 use App\Listeners\SendNotificationsToContact;
 use App\Listeners\SetMailNotificationMessageInfo;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -30,28 +33,30 @@ class EventServiceProvider extends ServiceProvider
 
         InvitationsChanged::class => [],
 
-        InvitationAccepted::class => [SendCredentials::class],
+        InvitationAccepted::class => [],
 
         InvitationRejected::class => [SendRejection::class],
 
-        ContactWasCreated::class => [SendNotificationsToContact::class],
+        ContactCreated::class => [SendNotificationsToContact::class],
 
-        ContactWasUpdated::class => [SendNotificationsToContact::class],
+        ContactUpdated::class => [SendNotificationsToContact::class],
 
-        InvitationWasCreated::class => [SendNotification::class],
+        InvitationCreated::class => [SendNotification::class],
 
         MessageSending::class => [SetMailNotificationMessageInfo::class],
+
+        InvitationUpdated::class => [
+            NotifyInvitationsChanged::class,
+            NotifySubEventsChanged::class,
+        ],
+
+        InvitationCreated::class => [
+            NotifyInvitationsChanged::class,
+            NotifySubEventsChanged::class,
+        ],
+
+        PersonUpdated::class => [NotifyPeopleChanged::class],
+
+        InvitationsChanged::class => [NotifySubEventsChanged::class],
     ];
-
-    /**
-     * Register any events for your application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        parent::boot();
-
-        //
-    }
 }

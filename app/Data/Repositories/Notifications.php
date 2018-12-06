@@ -32,7 +32,8 @@ class Notifications extends Repository
             app(Invitations::class)
                 ->getAllInvitationsForContact($contact)
                 ->each(function ($invitation) {
-                    $invitation->send();
+                    $invitation->sendInvitation();
+                    //$invitation->sendCredentials(); FUTURO
                 });
         }
     }

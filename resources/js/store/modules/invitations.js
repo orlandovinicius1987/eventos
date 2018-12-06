@@ -113,11 +113,7 @@ const actions = merge_objects(actionsMixin, {
     },
 
     unInvite(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(
-            () => {
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/un-invite')
     },
 
     markAsAccepted(context, payload) {
@@ -126,9 +122,7 @@ const actions = merge_objects(actionsMixin, {
                 '/' +
                 payload.id +
                 '/mark-as-accepted/manual',
-        ).then(() => {
-            context.dispatch('load', payload)
-        })
+        )
     },
 
     markAsDeclined(context, payload) {
@@ -137,15 +131,15 @@ const actions = merge_objects(actionsMixin, {
                 '/' +
                 payload.id +
                 '/mark-as-rejected/manual',
-        ).then(() => {
-            context.dispatch('load', payload)
-        })
+        )
     },
 
-    send(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/send').then(() => {
-            context.dispatch('load', payload)
-        })
+    sendCredentials(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/sendCredentials')
+    },
+
+    sendInvitation(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/sendInvitation')
     },
 })
 

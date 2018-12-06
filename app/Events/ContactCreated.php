@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-class ContactWasCreated extends Event
+class ContactCreated extends Event
 {
     public $contact;
 

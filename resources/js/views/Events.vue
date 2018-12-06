@@ -173,7 +173,7 @@
             <div class="col-12">
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
-                    :title="invitations.data.links.pagination.total + ' convidados para ' + subEvents.selected.name + ' de ' + selected.name"
+                    :title="invitations.data.links.pagination.total + ' convidado' + (invitations.data.links.pagination.total == 1 ? '' : 's') + ' para ' + subEvents.selected.name + ' de ' + selected.name"
                     :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/'+subEvents.selected.id+'/invitations/create', disabled: cannot('create') }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
@@ -313,9 +313,9 @@
 
                             <td class="align-middle text-right">
                                 <div
-                                    @click="sendInvitation(invitation)"
+                                    @click="invitation.accepted_at ? sendCredentials(invitation) : sendInvitation(invitation) "
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && canSendEmail(invitation)"
+                                    v-if="can('update') && canSendEmail(invitation) && !invitation.accepted_at"
                                     :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
@@ -468,15 +468,26 @@ export default {
             })
         },
 
+        sendCredentials(invitation) {
+            invitation.busy = true
+            confirm(
+                'Deseja realmente enviar as credencias para ' + invitation.person_institution.person.name + '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    return this.$store.dispatch('invitations/sendCredentials', invitation)
+                }
+            })
+        },
+
         sendInvitation(invitation) {
             invitation.busy = true
-
             confirm(
                 'Deseja realmente enviar o convite para ' + invitation.person_institution.person.name + '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/send', invitation)
+                    return this.$store.dispatch('invitations/sendInvitation', invitation)
                 }
             })
         },

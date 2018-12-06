@@ -30,8 +30,7 @@
                         @goto-page="categorizablesGotoPage($event)"
                         :columns="[
                                     '#',
-                                    'Nome',
-                                    ''
+                                    'Nome'
                                 ]"
                     >
                         <tr

@@ -2,14 +2,13 @@
 
 namespace App\Data\Repositories;
 
-use App\Events\InvitationAccepted;
-use App\Events\InvitationRejected;
-use App\Events\InvitationWasCreated;
 use DB as Database;
+use App\Events\InvitationsChanged;
 use App\Data\Models\Invitation;
+use App\Events\InvitationUpdated;
+use App\Events\InvitationCreated;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
-use App\Events\InvitationsChanged;
 
 class Invitations extends Repository
 {
@@ -117,12 +116,24 @@ class Invitations extends Repository
         ) {
             $invitation->delete();
 
+            event(new InvitationsChanged($invitation->subEvent));
+
             return true;
         }
 
         return false;
     }
 
+    /**
+     *
+     * Accept a message and return true iff it wasn't accepted
+     *
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @param null $how
+     * @return bool
+     */
     public function markAsAccepted(
         $eventId,
         $subEventId,
@@ -136,24 +147,24 @@ class Invitations extends Repository
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
-            $invitation->accepted_at = now();
-
-            $invitation->declined_at = null;
-
-            if ($how === 'manual') {
-                $invitation->accepted_by_id = $invitation->getCurrentAuthenticatedUserId();
-            }
-
-            $invitation->save();
-
-            event(new InvitationAccepted($invitation->id));
+            $invitation->accept($how);
 
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
+    /**
+     *
+     * Decline a message and return true iff it wasn't declined
+     *
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @param null $how
+     * @return bool
+     */
     public function markAsRejected(
         $eventId,
         $subEventId,
@@ -163,20 +174,11 @@ class Invitations extends Repository
         $invitation = $this->findById($invitationId);
 
         if (
+            !$invitation->declined_at &&
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
-            $invitation->accepted_at = null;
-
-            $invitation->declined_at = now();
-
-            if ($how === 'manual') {
-                $invitation->declined_by_id = $invitation->getCurrentAuthenticatedUserId();
-            }
-
-            $invitation->save();
-
-            event(new InvitationRejected($invitation->id));
+            $invitation->reject($how);
 
             return true;
         }
@@ -192,21 +194,44 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
 
-            event(new InvitationWasCreated($invitation));
+            event(new InvitationCreated($invitation));
         }
     }
 
-    public function send($eventId, $subEventId, $invitationId)
+    private function canSend($eventId, $subEventId, $invitation)
+    {
+        $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
+
+        return $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId;
+    }
+
+    public function sendInvitation($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
-        $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
+        if ($this->canSend($eventId, $subEventId, $invitation)) {
+            $invitation->sendInvitation(true);
+        }
+    }
 
-        if (
-            $invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId
-        ) {
-            $invitation->send();
+    // FUTURO
+    public function sendCredentials($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if ($this->canSend($eventId, $subEventId, $invitation) && false) {
+            //FIXME FUTURO
+            //$invitation->sendCredentials(true);
+        }
+    }
+
+    public function sendRejection($eventId, $subEventId, $invitationId)
+    {
+        $invitation = $this->findById($invitationId);
+
+        if ($this->canSend($eventId, $subEventId, $invitation)) {
+            $invitation->sendRejection();
         }
     }
 
@@ -244,7 +269,9 @@ class Invitations extends Repository
 
             $invitation->save();
 
-            $invitation->send();
+            $invitation->sendInvitation();
+
+            event(new InvitationUpdated($invitation));
         }
     }
 
@@ -269,17 +296,21 @@ class Invitations extends Repository
             remove_punctuation($cpf_stored) !=
                 remove_punctuation($cpf_confirmed)
         ) {
-            return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
+            return 'Parece que há algo errado com o seu convite e/ou CPF. Por favor entre em contato com o Cerimonial Alerj.';
         } else {
             if (is_null($cpf_stored)) {
                 $invitation->personInstitution->person->cpf = $cpf_confirmed;
                 $invitation->personInstitution->person->save();
             }
 
-            $this->markAsAccepted($eventId, $subEventId, $invitation->id);
+            if ($this->markAsAccepted($eventId, $subEventId, $invitation->id)) {
+                //If it wasn't accepted yet
+                return 'Muito obrigado por CONFIRMAR presença no evento. Em breve enviaremos a sua credencial para acesso ao evento.';
+            } else {
+                //If it was accepted
+                return 'Detectamos que a sua presença já foi CONFIRMADA. Em breve enviaremos a sua credencial para acesso ao evento.';
+            }
         }
-
-        return 'Muito obrigado por CONFIRMAR presença no evento, em breve enviaremos a sua credencial para acesso ao evento.';
     }
 
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
@@ -289,12 +320,16 @@ class Invitations extends Repository
             remove_punctuation($invitation->personInstitution->person->cpf) !=
             remove_punctuation($cpf_confirmed)
         ) {
-            return 'Parece que há algo errado com a seu convite e/ou CPF, por favor entre em contato com o Cerimonial Alerj.';
+            return 'Parece que há algo errado com o seu convite e/ou CPF. Por favor entre em contato com o Cerimonial Alerj.';
         }
 
-        $this->markAsRejected($eventId, $subEventId, $invitation->id);
-
-        return 'Registramos que você declinou o comparecimento ao evento.';
+        if ($this->markAsRejected($eventId, $subEventId, $invitation->id)) {
+            //If it wasn't declined yet
+            return 'Registramos que você declinou o comparecimento ao evento.';
+        } else {
+            //If it was declined
+            return 'Detectamos que este convite já foi DECLINADO.';
+        }
     }
 
     /**

@@ -9,11 +9,36 @@ sudo apt-get update
 sudo apt-get install php-imagick
 ```
 
+### Executar
+
+```
+composer install
+composer migrate
+php artisan horizon:terminate
+php artisan config:cache
+php artisan route:cache
+php artisan horizon
+php artisan websockets:serve
+```
+
+### Broadcasting
+- Check if you are broadcasting (order.1) and listening (order.1) to the very same channel
+- Check if the event name (OrderUpdated) is correct, double check them
+- Check if the server is up and you can connect to it
+- Execute `telnet <websockets server hostname or ip> 6001` to test the connection
+- If you are using `ngrok` to test, you may have to change `echoConfig.wsHost = window.location.hostname` to your physical IP address
+- `MIX_PUSHER_???` variables get cached weirdly, and sometimes reloading the page, config:clear, cache:clear, and whatever else is not enough, so:
+- Config variable types are strict: `encrypted: 'true'` will raise errors, it must be `encrypted: true` or `encrypted: process.env.MIX_PUSHER_ENCRYPTED === 'true'` 
+- When moving from Pusher to Laravel Websockets or after editing your .env: 
+    - Delete app.js 
+    - Re-run `npm run watch`, because only forcing a rerun doesn't work sometimes
+- Don't forget to hard reload your browser tab just in case
+ 
 ### Exemplos
 
 #### imagens
 
-```
+````
 ![convite]({site_url}/invitations/{uuid_convite}/received/images|invitations|2019-01-posse-governador.jpg)
 ```
 

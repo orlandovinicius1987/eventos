@@ -1,9 +1,11 @@
 <?php
 namespace App\Data\Repositories;
 
+use App\Data\Models\PersonInstitution;
 use App\Data\Models\Address as AddressModel;
-use App\Data\Models\PersonInstitution as PersonInstitutionModel;
 use App\Data\Repositories\Traits\AddressesTraits;
+use App\Events\PersonInstitutionAddressesGotChanged;
+use App\Data\Models\PersonInstitution as PersonInstitutionModel;
 
 class Addresses extends Repository
 {
@@ -51,14 +53,25 @@ class Addresses extends Repository
 
     public function storeForPersonInstitution($id, $attributes)
     {
-        return $this->createAddress(
+        $address = $this->createAddress(
             app(PersonInstitutions::class)->findById($id),
             $attributes
         );
+
+        $this->fireEvents($address, 'Created');
+
+        return $address;
     }
 
     public function update($id, $attributes)
     {
-        return $this->updateAddress($this->findById($id), $attributes);
+        $this->updateAddress(($model = $this->findById($id)), $attributes);
+
+        $this->fireEvents($model, 'Updated');
+    }
+
+    public function fireEventsForRelationships($model)
+    {
+        event(new PersonInstitutionAddressesGotChanged($model->addressable));
     }
 }

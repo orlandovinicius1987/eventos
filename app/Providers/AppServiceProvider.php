@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
-    private function registerLogging()
+    protected function registerLogging()
     {
         if ($this->app->environment(['staging', 'production'])) {
             $this->app->register(

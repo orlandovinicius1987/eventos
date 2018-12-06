@@ -3,9 +3,11 @@
 namespace App\Data\Models;
 
 use Ramsey\Uuid\Uuid;
+use App\Events\InvitationUpdated;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
-use App\Notifications\SendCredentials;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
@@ -46,6 +48,8 @@ class Invitation extends Base
 
     protected $pathToQRCodes;
 
+    protected $mailSubject;
+
     private function canSendEmail()
     {
         return !is_null($this->subEvent->confirmed_at) && $this->hasEmail();
@@ -76,22 +80,46 @@ class Invitation extends Base
             );
     }
 
-    private function getMailSubject()
+    /**
+     *
+     * Accepts a message
+     *
+     * @param $how
+     */
+    public function accept($how)
     {
-        return $this->hasBeenAccepted()
-            ? 'Credencial para acesso ao evento '
-            : ($this->hasBeenDeclined()
-                ? 'Convite Declinado - ' . $this->subEvent->event->name
-                : 'Convite - ' . $this->subEvent->event->name);
+        $this->accepted_at = now();
+        $this->accepted_by_id =
+            $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
+
+        $this->declined_at = null;
+        $this->declined_by_id = null;
+
+        $this->save();
+
+        event(new InvitationAccepted($this->id));
+        event(new InvitationUpdated($this));
     }
 
-    private function getMailable()
+    /**
+     *
+     * Declines a message
+     *
+     * @param $how
+     */
+    public function reject($how)
     {
-        return $this->hasBeenAccepted()
-            ? null // SendCredentials::class
-            : ($this->hasBeenDeclined()
-                ? SendRejection::class
-                : SendInvitation::class);
+        $this->declined_at = now();
+        $this->declined_by_id =
+            $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
+
+        $this->accepted_at = null;
+        $this->accepted_by_id = null;
+
+        $this->save();
+
+        event(new InvitationRejected($this->id));
+        event(new InvitationUpdated($this));
     }
 
     /**
@@ -185,10 +213,39 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send()
+    public function sendInvitation($force = false)
     {
-        if ($this->canSendEmail() && ($mailable = $this->getMailable())) {
-            $this->dispatchMails($mailable);
+        if (
+            $this->canSendEmail() &&
+            ($force || !$this->hasBeenDeclined()) &&
+            !$this->hasBeenAccepted()
+        ) {
+            $this->mailSubject = 'Convite - ' . $this->subEvent->event->name;
+            $this->dispatchMails(SendInvitation::class);
+        }
+    }
+
+    public function sendCredentials($force = false)
+    {
+        //FIXME FUTURO
+        if (
+            false &&
+            $this->canSendEmail() &&
+            ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
+        ) {
+            $this->mailSubject =
+                'Credencial para acesso ao evento - ' .
+                $this->subEvent->event->name;
+            //$this->dispatchMails(SendCredentials::class);
+        }
+    }
+
+    public function sendRejection($force = false)
+    {
+        if ($this->canSendEmail() && ($force || $this->hasBeenDeclined())) {
+            $this->mailSubject =
+                'Convite declinado - ' . $this->subEvent->event->name;
+            $this->dispatchMails(SendRejection::class);
         }
     }
 
@@ -197,7 +254,7 @@ class Invitation extends Base
         return app(Notifications::class)->create([
             'invitation_id' => $this->id,
             'destination' => $destination,
-            'subject' => $this->getMailSubject(),
+            'subject' => $this->mailSubject,
         ]);
     }
 
@@ -411,10 +468,25 @@ class Invitation extends Base
 
     public function markAsSent()
     {
-        $this->sent_at = now();
+        if (!$this->sent_at) {
+            $this->sent_at = now();
 
-        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
+            $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
 
-        $this->save();
+            $this->save();
+
+            event(new InvitationUpdated($this->subEvent));
+        }
+    }
+
+    public function markAsReceived()
+    {
+        if (!$this->received_at) {
+            $this->received_at = now();
+
+            $this->save();
+
+            event(new InvitationUpdated($this->subEvent));
+        }
     }
 }

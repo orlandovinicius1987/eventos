@@ -73,12 +73,14 @@ class Invitations extends Controller
         UninviteRequest $request,
         $eventId,
         $subEventId,
-        $invitationId
+        $invitationId,
+        $how
     ) {
         app(InvitationsRepository::class)->markAsAccepted(
             $eventId,
             $subEventId,
-            $invitationId
+            $invitationId,
+            $how
         );
 
         return $this->emptyResponse();
@@ -97,12 +99,14 @@ class Invitations extends Controller
         UninviteRequest $request,
         $eventId,
         $subEventId,
-        $invitationId
+        $invitationId,
+        $how
     ) {
         app(InvitationsRepository::class)->markAsRejected(
             $eventId,
             $subEventId,
-            $invitationId
+            $invitationId,
+            $how
         );
 
         return $this->emptyResponse();
@@ -151,9 +155,28 @@ class Invitations extends Controller
         return app(InvitationsRepository::class)->html($id);
     }
 
-    public function send($eventId, $subEventId, $id)
+    public function sendInvitation($eventId, $subEventId, $id)
     {
-        return app(InvitationsRepository::class)->send(
+        return app(InvitationsRepository::class)->sendInvitation(
+            $eventId,
+            $subEventId,
+            $id
+        );
+    }
+
+    public function sendCredentials($eventId, $subEventId, $id)
+    {
+        // FUTURO
+        return app(InvitationsRepository::class)->sendCredentials(
+            $eventId,
+            $subEventId,
+            $id
+        );
+    }
+
+    public function sendRejection($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->sendInvitation(
             $eventId,
             $subEventId,
             $id
