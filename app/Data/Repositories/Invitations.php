@@ -220,8 +220,8 @@ class Invitations extends Repository
     {
         $invitation = $this->findById($invitationId);
 
-        if ($this->canSend($eventId, $subEventId, $invitation)) {
-            $invitation->sendCredentials(true);
+        if ($this->canSend($eventId, $subEventId, $invitation) && false) { //FIXME FUTURO
+            //$invitation->sendCredentials(true);
         }
     }
 

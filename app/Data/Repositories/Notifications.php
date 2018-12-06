@@ -33,7 +33,7 @@ class Notifications extends Repository
                 ->getAllInvitationsForContact($contact)
                 ->each(function ($invitation) {
                     $invitation->sendInvitation();
-                    $invitation->sendCredentials();
+                    //$invitation->sendCredentials(); FUTURO
                 });
         }
     }

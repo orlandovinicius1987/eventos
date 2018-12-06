@@ -171,7 +171,11 @@ class Invitation extends Base
 
     public function sendInvitation($force = false)
     {
-        if ($this->canSendEmail() && ($force || !$this->hasBeenDeclined())) {
+        if (
+            $this->canSendEmail() &&
+            ($force || !$this->hasBeenDeclined()) &&
+            !$this->hasBeenAccepted()
+        ) {
             $this->mailSubject = 'Convite - ' . $this->subEvent->event->name;
             $this->dispatchMails(SendInvitation::class);
         }
@@ -179,15 +183,16 @@ class Invitation extends Base
 
     public function sendCredentials($force = false)
     {
-        // FUTURO
+        //FIXME FUTURO
         if (
+            false &&
             $this->canSendEmail() &&
             ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
         ) {
             $this->mailSubject =
                 'Credencial para acesso ao evento - ' .
                 $this->subEvent->event->name;
-            $this->dispatchMails(SendCredentials::class);
+            //$this->dispatchMails(SendCredentials::class);
         }
     }
 
