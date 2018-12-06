@@ -1,4 +1,4 @@
-recordButtonText<template>
+<template>
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
@@ -152,6 +152,8 @@ export default {
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
+        this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
 
@@ -296,6 +298,8 @@ export default {
                 }),
             }
 
+            this.resetCheckedPeople()
+
             this.$store.dispatch('invitables/invite', invitees)
         },
 
@@ -312,6 +316,8 @@ export default {
                 }),
             }
 
+            this.resetCheckedPeople()
+
             this.$store.dispatch('invitables/moveInvitations', invitees)
 
             // this.$router.go(0)
@@ -325,6 +331,10 @@ export default {
             return items
         },
     },
+
+    beforeDestroy() {
+        this.$store.state['invitables'].data.filter.text = null
+    }
 }
 </script>
 

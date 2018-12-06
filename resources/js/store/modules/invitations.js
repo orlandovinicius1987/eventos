@@ -142,8 +142,14 @@ const actions = merge_objects(actionsMixin, {
         })
     },
 
-    send(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/send').then(() => {
+    sendCredentials(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/sendCredentials').then(() => {
+            context.dispatch('load', payload)
+        })
+    },
+
+    sendInvitation(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/sendInvitation').then(() => {
             context.dispatch('load', payload)
         })
     },

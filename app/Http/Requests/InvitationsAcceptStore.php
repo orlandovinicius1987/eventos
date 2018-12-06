@@ -20,7 +20,22 @@ class InvitationsAcceptStore extends BaseStore
     public function rules()
     {
         return [
-            'cpf' => 'required|cpf_cnpj',
+            'cpf' => 'required|cpf',
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function sanitize()
+    {
+        $input = $this->all();
+        $input['cpf'] = preg_replace(
+            '/(\d\d\d)(\d\d\d)(\d\d\d)(\d\d)/',
+            '$1.$2.$3-$4',
+            only_numbers($this->get('cpf'))
+        );
+        $this->replace($input);
+        return $this->all();
     }
 }
