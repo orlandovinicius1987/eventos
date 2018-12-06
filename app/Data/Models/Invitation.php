@@ -10,6 +10,8 @@ use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
 use App\Services\QRCode\Service as QRCode;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
 
 class Invitation extends Base
 {
@@ -92,6 +94,48 @@ class Invitation extends Base
             : ($this->hasBeenDeclined()
                 ? SendRejection::class
                 : SendInvitation::class);
+    }
+
+    /**
+     *
+     * Accepts a message
+     *
+     * @param $how
+     */
+    public function accept($how)
+    {
+        $this->accepted_at = now();
+
+        $this->declined_at = null;
+
+        if ($how === 'manual') {
+            $this->accepted_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
+        $this->save();
+
+        event(new InvitationAccepted($this->id));
+    }
+
+    /**
+     *
+     * Declines a message
+     *
+     * @param $how
+     */
+    public function decline($how)
+    {
+        $this->accepted_at = null;
+
+        $this->declined_at = now();
+
+        if ($how === 'manual') {
+            $this->declined_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
+        $this->save();
+
+        event(new InvitationRejected($this->id));
     }
 
     /**
