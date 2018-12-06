@@ -52,6 +52,10 @@ class Invitations extends Repository
                 ) = 0');
         }
 
+        if (isset($filter['sent']) && $filter['sent']) {
+            $query->whereNotNull('sent_at');
+        }
+
         if (isset($filter['notSent']) && $filter['notSent']) {
             $query->whereNull('sent_at');
         }
@@ -60,8 +64,16 @@ class Invitations extends Repository
             $query->whereNull('received_at');
         }
 
+        if (isset($filter['received']) && $filter['received']) {
+            $query->whereNotNull('received_at');
+        }
+
         if (isset($filter['notAccepted']) && $filter['notAccepted']) {
             $query->whereNull('accepted_at');
+        }
+
+        if (isset($filter['accepted']) && $filter['accepted']) {
+            $query->whereNotNull('accepted_at');
         }
 
         if (isset($filter['notCheckedIn']) && $filter['notCheckedIn']) {

@@ -192,6 +192,16 @@
                         ></app-input>
 
                         <app-input
+                            name="sentCheckbox"
+                            label="enviados"
+                            type="checkbox"
+                            v-model="sentCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
                             name="notSentCheckbox"
                             label="não enviados"
                             type="checkbox"
@@ -212,10 +222,30 @@
                         ></app-input>
 
                         <app-input
+                            name="receivedCheckbox"
+                            label="recebidos"
+                            type="checkbox"
+                            v-model="receivedCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
                             name="notAcceptedCheckbox"
                             label="não aceitos"
                             type="checkbox"
                             v-model="notAcceptedCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
+                            name="acceptedCheckbox"
+                            label="aceitos"
+                            type="checkbox"
+                            v-model="acceptedCheckbox"
                             :required="true"
                             :form="form"
                             inline="true"
@@ -654,6 +684,23 @@ export default {
             },
         },
 
+        sentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.sent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'sent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
         notSentCheckbox: {
             get() {
                 return this.$store.state['invitations'].data.filter.checkboxes.notSent
@@ -671,6 +718,23 @@ export default {
             },
         },
 
+        receivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.received
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'received', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
         notReceivedCheckbox: {
             get() {
                 return this.$store.state['invitations'].data.filter.checkboxes.notReceived
@@ -680,6 +744,23 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'notReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        acceptedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.accepted
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'accepted', value: filter},
                 )
 
                 this.$store.dispatch(
