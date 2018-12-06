@@ -17,6 +17,7 @@ const __emptyModel = {
 
 const state = merge_objects(statesMixin.common, {
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
 
     data: {
@@ -27,12 +28,18 @@ const state = merge_objects(statesMixin.common, {
             },
         },
     },
+
+    model: {
+        name: 'person',
+
+        class: 'Person',
+    },
 })
 
 let actions = merge_objects(
     {
         selectPerson(context, payload) {
-            context.dispatch('people/select', payload, { root: true })
+            context.dispatch('select', payload)
 
             context.dispatch('personInstitutions/setPerson', payload, {
                 root: true,
@@ -85,8 +92,21 @@ let actions = merge_objects(
         selectAdvisors(context, payload) {
             context.dispatch('advisors/select', payload, { root: true })
         },
+
         selectAdvisorContacts(context, payload) {
             context.dispatch('advisorContacts/select', payload, { root: true })
+        },
+
+        subscribeExtraChannels(context, payload) {
+            subscribePublicChannel(
+                'person.' + payload.id,
+                '.App\\Events\\CategoriesUpdated',
+                () => {
+                    context.dispatch('personCategories/load', payload, {
+                        root: true,
+                    })
+                },
+            )
         },
     },
     actionsMixin,

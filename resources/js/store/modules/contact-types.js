@@ -14,7 +14,14 @@ const __emptyModel = {
 let state = merge_objects(
     {
         form: new Form(clone(__emptyModel)),
+
         emptyForm: clone(__emptyModel),
+
+        model: {
+            name: 'contact-type',
+
+            class: 'ContactType',
+        },
     },
     statesMixin.common,
 )

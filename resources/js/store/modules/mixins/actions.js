@@ -6,13 +6,11 @@ export function load(context) {
     let url = makeDataUrl(context)
 
     if (url) {
-        return axios
-            .get(url, {
-                params: { query: context.getters.getQueryFilter },
-            })
-            .then(response => {
-                context.dispatch('setDataAfterLoad', response.data)
-            })
+        return get(url, {
+            params: { query: context.getters.getQueryFilter },
+        }).then(response => {
+            context.dispatch('setDataAfterLoad', response.data)
+        })
     }
 }
 
@@ -28,11 +26,7 @@ export function save(context, payload) {
             ? makeStoreUrl(context)
             : makeUpdateUrl(context) + '/' + context.state.form.fields.id
 
-    return context.state.form
-        .post(url, context.state.form.fields)
-        .then(response => {
-            context.dispatch('load')
-        })
+    return context.state.form.post(url, context.state.form.fields)
 }
 
 export function clearForm(context) {
@@ -74,6 +68,8 @@ export function updateUserPerPage(context, payload) {
 }
 
 export function select(context, payload) {
+    context.dispatch('subscribe', payload)
+
     context.commit('mutateSetSelected', payload)
 
     context.commit('mutateFormData', payload)
@@ -89,4 +85,16 @@ export function mutateFilterSelect(context, payload) {
     context.commit('mutateFilterSelect', payload)
 
     loadDebounced(context)
+}
+
+export function subscribe(context, payload) {
+    subscribePublicChannel(
+        context.state.model.name + '.' + payload.id,
+        '.App\\Events\\' + context.state.model.class + 'Updated',
+        () => {
+            context.dispatch('load')
+        },
+    )
+
+    dd(context._actions)
 }

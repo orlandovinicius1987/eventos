@@ -30,11 +30,7 @@ const actions = merge_objects(actionsMixin, {
     },
 
     unCategorize(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/').then(
-            () => {
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/')
     },
 })
 

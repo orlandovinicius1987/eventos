@@ -18,6 +18,7 @@ let state = merge_objects(
         selectedRole: __emptyModel,
 
         form: new Form(clone(__emptyModel)),
+
         emptyForm: clone(__emptyModel),
 
         mode: null,
@@ -25,28 +26,19 @@ let state = merge_objects(
         subRolesQuery: {},
 
         invitationsQuery: {},
+
+        model: {
+            name: 'role',
+
+            class: 'Role',
+        },
     },
+
     statesMixin.common,
 )
 
-let actions = merge_objects(
-    {
-        selectRole(context, payload) {
-            context.commit('selectRole', payload)
-        },
-    },
-    actionsMixin,
-)
-
-let mutations = merge_objects(
-    {
-        selectRole(state, payload) {
-            state.selectedRole = payload
-        },
-    },
-    mutationsMixin,
-)
-
+let actions = actionsMixin
+let mutations = mutationsMixin
 let getters = gettersMixin
 
 export default {

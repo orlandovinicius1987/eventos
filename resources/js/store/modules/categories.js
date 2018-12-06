@@ -13,12 +13,21 @@ const __emptyModel = {
 let state = merge_objects(
     {
         form: new Form(clone(__emptyModel)),
+
         emptyForm: clone(__emptyModel),
+
+        model: {
+            name: 'category',
+
+            class: 'Category',
+        },
     },
+
     statesMixin.common,
 )
 
 let actions = actionsMixin
+
 let mutations = mutationsMixin
 let getters = gettersMixin
 

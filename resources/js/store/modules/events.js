@@ -20,15 +20,6 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     selectEvent(context, payload) {
-        publicChannel('event.' + payload.id).listen(
-            '.App\\Events\\EventWasUpdated',
-            () => {
-                context.dispatch('load')
-
-                context.dispatch('subEvents/load', payload, { root: true })
-            },
-        )
-
         context.dispatch('select', payload)
 
         context.dispatch('subEvents/setEvent', payload, { root: true })
@@ -47,7 +38,7 @@ const actions = merge_objects(actionsMixin, {
         )
 
         publicChannel('sub-event.' + payload.id).listen(
-            '.App\\Events\\SubEventWasUpdated',
+            '.App\\Events\\SubEventUpdated',
             () => {
                 context.dispatch('subEvents/load', payload, { root: true })
             },
@@ -66,6 +57,18 @@ const actions = merge_objects(actionsMixin, {
 
     sendInvitations(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/send-invitations')
+    },
+
+    subscribe(context, payload) {
+        subscribePublicChannel(
+            'event.' + payload.id,
+            '.App\\Events\\EventUpdated',
+            () => {
+                context.dispatch('load')
+
+                context.dispatch('subEvents/load', payload, { root: true })
+            },
+        )
     },
 })
 
