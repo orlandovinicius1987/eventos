@@ -111,6 +111,7 @@ class Invitations extends Repository
         $invitation = $this->findById($invitationId);
 
         if (
+            $invitation &&
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
