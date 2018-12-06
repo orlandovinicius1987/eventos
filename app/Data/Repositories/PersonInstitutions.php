@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Events\PersonInstitutionsGotChanged;
 use Illuminate\Database\Query\Builder;
 use App\Data\Models\PersonInstitution as PersonInstitutionModel;
 
@@ -57,5 +58,10 @@ class PersonInstitutions extends Repository
     public function allAdvisorsByPersonInstitution($personInstitutionId)
     {
         return $this->filterByAdvisedId($personInstitutionId);
+    }
+
+    public function fireEventsForRelationships($model)
+    {
+        event(new PersonInstitutionsGotChanged($model->person));
     }
 }

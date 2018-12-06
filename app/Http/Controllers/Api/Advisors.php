@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Data\Repositories\Advisors as AdvisorsRepository;
-use App\Data\Repositories\PersonInstitutions as PersonInstitutionsRepository;
-use App\Http\Requests\AdvisorStore;
-use App\Http\Requests\AdvisorUpdate;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdvisorStore;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AdvisorUpdate;
+use App\Data\Repositories\Advisors as AdvisorsRepository;
 
 class Advisors extends Controller
 {
@@ -44,9 +43,7 @@ class Advisors extends Controller
      */
     public function store(AdvisorStore $request)
     {
-        return app(PersonInstitutionsRepository::class)->storeFromArray(
-            $request->all()
-        );
+        return app(AdvisorsRepository::class)->storeFromArray($request->all());
     }
 
     /**
@@ -62,9 +59,6 @@ class Advisors extends Controller
         $personInstitutionId,
         $id
     ) {
-        return app(PersonInstitutionsRepository::class)->update(
-            $id,
-            $request->all()
-        );
+        return app(AdvisorsRepository::class)->update($id, $request->all());
     }
 }

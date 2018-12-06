@@ -2,11 +2,12 @@
 
 namespace App\Data\Repositories;
 
+use App\Events\InvitationsChanged;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Events\InvitationAccepted;
 use App\Events\InvitationRejected;
-use App\Events\InvitationsUpdated;
+use App\Events\InvitationUpdated;
 use App\Events\InvitationCreated;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
@@ -117,7 +118,7 @@ class Invitations extends Repository
         ) {
             $invitation->delete();
 
-            event(new InvitationsUpdated($invitation->subEvent));
+            event(new InvitationsChanged($invitation->subEvent));
 
             return true;
         }
@@ -150,7 +151,7 @@ class Invitations extends Repository
             $invitation->save();
 
             event(new InvitationAccepted($invitation->id));
-            event(new InvitationsUpdated($invitation->subEvent));
+            event(new InvitationUpdated($invitation));
 
             return true;
         }
@@ -182,7 +183,7 @@ class Invitations extends Repository
             $invitation->save();
 
             event(new InvitationRejected($invitation->id));
-            event(new InvitationsUpdated($invitation->subEvent));
+            event(new InvitationUpdated($invitation));
 
             return true;
         }
@@ -200,8 +201,6 @@ class Invitations extends Repository
 
             event(new InvitationCreated($invitation));
         }
-
-        event(new InvitationsUpdated($invitation->subEvent));
     }
 
     private function canSend($eventId, $subEventId, $invitation)
@@ -275,10 +274,8 @@ class Invitations extends Repository
             $invitation->save();
 
             $invitation->sendInvitation();
-        }
 
-        if (($invitation = $invitations->first())) {
-            event(new InvitationsUpdated($invitation->subEvent));
+            event(new InvitationUpdated($invitation));
         }
     }
 

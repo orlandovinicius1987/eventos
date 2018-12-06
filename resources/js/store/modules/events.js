@@ -15,11 +15,31 @@ const __emptyModel = {
 
 const state = merge_objects(statesMixin.common, {
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
+
+    model: {
+        name: 'event',
+
+        table: 'events',
+
+        class: { singular: 'Event', plural: 'Events' },
+    },
 })
 
 const actions = merge_objects(actionsMixin, {
     selectEvent(context, payload) {
+        publicChannel('event.' + payload.id).listen(
+            '.App\\Events\\SubEventsChanged',
+            () => {
+                context.dispatch('subEvents/load', payload, { root: true })
+
+                context.dispatch('invitations/load', payload, { root: true })
+
+                context.dispatch('invitables/load', payload, { root: true })
+            },
+        )
+
         context.dispatch('select', payload)
 
         context.dispatch('subEvents/setEvent', payload, { root: true })
@@ -27,7 +47,7 @@ const actions = merge_objects(actionsMixin, {
 
     selectSubEvent(context, payload) {
         publicChannel('sub-event.' + payload.id).listen(
-            '.App\\Events\\InvitationsUpdated',
+            '.App\\Events\\InvitationsChanged',
             () => {
                 context.dispatch('subEvents/load', payload, { root: true })
 
@@ -59,7 +79,7 @@ const actions = merge_objects(actionsMixin, {
         post(makeDataUrl(context) + '/' + payload.id + '/send-invitations')
     },
 
-    subscribe(context, payload) {
+    subscribeToModelEvents(context, payload) {
         subscribePublicChannel(
             'event.' + payload.id,
             '.App\\Events\\EventUpdated',

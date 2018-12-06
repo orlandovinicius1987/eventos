@@ -20,7 +20,9 @@ let state = merge_objects(
         model: {
             name: 'contact-type',
 
-            class: 'ContactType',
+            table: 'contact-types',
+
+            class: { singular: 'ContactType', plural: 'ContactTypes' },
         },
     },
     statesMixin.common,

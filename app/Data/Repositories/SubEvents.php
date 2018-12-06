@@ -31,7 +31,7 @@ class SubEvents extends Repository
 
         $subEvent->save();
 
-        event(new InvitationsChanged($eventId));
+        event(new InvitationsChanged($subEvent));
         event(new SubEventUpdated($subEvent));
     }
 
@@ -59,7 +59,7 @@ class SubEvents extends Repository
 
         $subEvent->save();
 
-        event(new InvitationsChanged($eventId));
+        event(new InvitationsChanged($subEvent));
         event(new SubEventUpdated($subEvent));
     }
 

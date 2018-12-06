@@ -35,14 +35,14 @@ return [
             'app_id' => env('PUSHER_APP_ID'),
             'options' => array_merge(
                 [
-                    'cluster' => env('PUSHER_APP_CLUSTER'),
+                    'cluster' => env('PUSHER_APP_CLUSTER', 'us2'),
                     'encrypted' => false,
                 ],
                 env('PUSHER_SERVER') === 'laravel-websockets'
                     ? [
-                        'host' => '127.0.0.1',
-                        'port' => 6001,
-                        'scheme' => 'http',
+                        'host' => env('PUSHER_BACKEND_HOST', '127.0.0.1'),
+                        'port' => env('PUSHER_PORT', '6001'),
+                        'scheme' => env('PUSHER_SCHEME', 'http'),
                     ]
                     : []
             ),

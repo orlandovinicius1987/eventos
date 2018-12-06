@@ -30,7 +30,9 @@ let state = merge_objects(
         model: {
             name: 'role',
 
-            class: 'Role',
+            table: 'roles',
+
+            class: { singular: 'Role', plural: 'Roles' },
         },
     },
 

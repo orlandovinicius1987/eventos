@@ -5,7 +5,7 @@ namespace App\Listeners;
 use App\Events\InvitationAccepted;
 use App\Data\Repositories\Invitations;
 
-class SendCredentials
+class SendCredentials extends Listener
 {
     /**
      * Handle the event.

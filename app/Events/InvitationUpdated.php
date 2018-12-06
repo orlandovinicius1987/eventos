@@ -4,23 +4,23 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class InvitationsUpdated extends Event
+class InvitationUpdated extends Event
 {
     /**
-     * Information about the subEvent update.
+     * Information about the invitation update.
      *
      * @var string
      */
-    public $subEvent;
+    public $invitation;
 
     /**
      * Create a new event instance.
      *
-     * @param $subEvent
+     * @param $invitation
      */
-    public function __construct($subEvent)
+    public function __construct($invitation)
     {
-        $this->subEvent = $subEvent;
+        $this->invitation = $invitation;
     }
 
     /**
@@ -30,6 +30,6 @@ class InvitationsUpdated extends Event
      */
     public function broadcastOn()
     {
-        return new Channel('sub-event.' . $this->subEvent->id);
+        return new Channel('invitation.' . $this->invitation->id);
     }
 }

@@ -22,7 +22,9 @@ let state = merge_objects(statesMixin.common, {
     model: {
         name: 'institution',
 
-        class: 'Institution',
+        table: 'institutions',
+
+        class: { singular: 'Institution', plural: 'Institutions' },
     },
 })
 

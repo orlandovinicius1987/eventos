@@ -68,7 +68,7 @@ export function updateUserPerPage(context, payload) {
 }
 
 export function select(context, payload) {
-    context.dispatch('subscribe', payload)
+    context.dispatch('subscribeToModelEvents', payload)
 
     context.commit('mutateSetSelected', payload)
 
@@ -87,14 +87,32 @@ export function mutateFilterSelect(context, payload) {
     loadDebounced(context)
 }
 
-export function subscribe(context, payload) {
-    subscribePublicChannel(
-        context.state.model.name + '.' + payload.id,
-        '.App\\Events\\' + context.state.model.class + 'Updated',
-        () => {
-            context.dispatch('load')
-        },
-    )
+export function subscribeToModelEvents(context, payload) {
+    if (context.state.model) {
+        subscribePublicChannel(
+            context.state.model.name + '.' + payload.id,
+            '.App\\Events\\' + context.state.model.class.singular + 'Updated',
+            () => {
+                loadDebounced(context)
+            },
+        )
+    }
 
-    dd(context._actions)
+    context.dispatch('subscribeExtraChannels', payload)
 }
+
+export function subscribeToTableEvents(context) {
+    if (context.state.model) {
+        subscribePublicChannel(
+            context.state.model.table,
+            '.App\\Events\\' + context.state.model.class.plural + 'Changed',
+            () => {
+                loadDebounced(context)
+            },
+        )
+
+        context.dispatch('subscribeExtraChannels')
+    }
+}
+
+export function subscribeExtraChannels(context, payload = null) {}

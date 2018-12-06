@@ -55,12 +55,12 @@ let echoConfig = {
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: false,
+    encrypted: process.env.MIX_PUSHER_ENCRYPTED,
 }
 
 if (process.env.MIX_PUSHER_SERVER === 'laravel-websockets') {
-    echoConfig.wsHost = window.location.hostname
-    echoConfig.wsPort = 6001
+    echoConfig.wsHost = process.env.MIX_PUSHER_FRONTEND_HOST
+    echoConfig.wsPort = process.env.MIX_PUSHER_SERVER_PORT
     echoConfig.disableStats = false
 }
 

@@ -79,6 +79,32 @@ abstract class Repository
         }
     }
 
+    protected function fireEventForTable($model, $eventType)
+    {
+        $tableName = studly($model->getTable());
+
+        $eventClass = "App\\Events\\{$tableName}{$eventType}";
+
+        if (class_exists($eventClass)) {
+            event(new $eventClass($model));
+        }
+    }
+
+    /**
+     * @param $model
+     * @param string $type
+     */
+    protected function fireEvents($model, $type = 'Updated')
+    {
+        $this->fireEventForModel($model, $type);
+
+        $this->fireEventForTable($model, 'Changed');
+
+        if (method_exists($this, 'fireEventsForRelationships')) {
+            $this->fireEventsForRelationships($model, $type);
+        }
+    }
+
     protected function qualifyColumn($name)
     {
         return $this->model()->qualifyColumn($name);
@@ -101,7 +127,7 @@ abstract class Repository
 
         $model->save();
 
-        $this->fireEventForModel($model, 'Created');
+        $this->fireEvents($model, 'Created');
 
         return $model;
     }
@@ -460,7 +486,7 @@ abstract class Repository
 
         $model->save();
 
-        $this->fireEventForModel($model, 'Updated');
+        $this->fireEvents($model);
 
         return $model;
     }

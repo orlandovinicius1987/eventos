@@ -4,18 +4,18 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class CategoriesUpdated extends Event
+class PersonInstitutionContactsGotChanged extends Event
 {
-    public $person;
+    public $personIntitution;
 
     /**
      * Create a new event instance.
      *
-     * @param $person
+     * @param $personIntitution
      */
-    public function __construct($person)
+    public function __construct($personIntitution)
     {
-        $this->person = $person;
+        $this->personIntitution = $personIntitution;
     }
 
     /**
@@ -25,6 +25,6 @@ class CategoriesUpdated extends Event
      */
     public function broadcastOn()
     {
-        return new Channel('person.' . $this->person->id);
+        return new Channel('person-institution.' . $this->personIntitution->id);
     }
 }

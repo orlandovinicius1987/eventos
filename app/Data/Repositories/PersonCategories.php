@@ -3,7 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Category;
-use App\Events\CategoriesUpdated;
+use App\Events\PersonCategoriesChanged;
 
 class PersonCategories extends Repository
 {
@@ -52,7 +52,7 @@ class PersonCategories extends Repository
     protected function broadcastUpdate($oldCategories, $person): void
     {
         if ($oldCategories !== $person->fresh()->categories->toArray()) {
-            event(new CategoriesUpdated($person));
+            event(new PersonCategoriesChanged($person));
         }
     }
 
@@ -69,7 +69,7 @@ class PersonCategories extends Repository
             ->categories()
             ->detach($id);
 
-        event(new CategoriesUpdated($person));
+        event(new PersonCategoriesChanged($person));
     }
 
     public function categorize($personId, $categories)

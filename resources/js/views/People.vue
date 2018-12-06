@@ -148,7 +148,7 @@
                                     personCategories.data.links.pagination
                                 "
                                 @goto-page="personCategoriesGotoPage($event)"
-                                :columns="['#', 'Nome']"
+                                :columns="['#', 'Nome', '']"
                             >
                                 <tr
                                     v-for="personCategory in personCategories
@@ -221,6 +221,7 @@
                                     'Instituição',
                                     'Função',
                                     'Status',
+                                    '',
                                 ]"
                             >
                                 <tr
@@ -322,7 +323,7 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato', 'Status']"
+                                :columns="['#', 'Tipo', 'Contato', 'Status', '']"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -412,7 +413,8 @@
                                     'Numero',
                                     'Complemento',
                                     'Bairro',
-                                    'Cidade'
+                                    'Cidade',
+                                    '',
                                 ]"
                                 :rows="addresses.data.rows"
                             >
@@ -503,7 +505,8 @@
                                     '#',
                                     'Tratamento',
                                     'Nome',
-                                    'Nome Público'
+                                    'Nome Público',
+                                    ''
                                 ]"
                             >
                                 <tr
@@ -583,7 +586,7 @@
                                     advisorContacts.data.links.pagination
                                 "
                                 @goto-page="advisorContactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato']"
+                                :columns="['#', 'Tipo', 'Contato', '']"
                             >
                                 <tr
                                     @click="

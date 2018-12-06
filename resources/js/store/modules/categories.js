@@ -19,7 +19,9 @@ let state = merge_objects(
         model: {
             name: 'category',
 
-            class: 'Category',
+            table: 'categories',
+
+            class: { singular: 'Category', plural: 'Categories' },
         },
     },
 

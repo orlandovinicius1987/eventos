@@ -6,6 +6,8 @@ class PersonInstitution extends Base
 {
     protected $orderBy = ['people.name' => 'asc'];
 
+    protected $table = 'person_institutions';
+
     /**
      * @var array
      */

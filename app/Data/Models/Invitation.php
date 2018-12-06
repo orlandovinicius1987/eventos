@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-use App\Events\InvitationsUpdated;
+use App\Events\InvitationUpdated;
 use Ramsey\Uuid\Uuid;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
@@ -427,7 +427,7 @@ class Invitation extends Base
 
             $this->save();
 
-            event(new InvitationsUpdated($this->subEvent));
+            event(new InvitationUpdated($this->subEvent));
         }
     }
 
@@ -438,7 +438,7 @@ class Invitation extends Base
 
             $this->save();
 
-            event(new InvitationsUpdated($this->subEvent));
+            event(new InvitationUpdated($this->subEvent));
         }
     }
 }
