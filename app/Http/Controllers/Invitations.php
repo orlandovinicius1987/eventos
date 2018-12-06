@@ -48,10 +48,7 @@ class Invitations extends Controller
             $request['cpf']
         );
 
-        session()->put('message', $message);
-        session()->reflash();
-
-        return redirect()->route('messages.show');
+        return redirect()->route('messages.show', ['message' => $message]);
     }
 
     /**
@@ -93,11 +90,7 @@ class Invitations extends Controller
             $request['cpf']
         );
 
-        session()->put('message', $message);
-
-        session()->reflash();
-
-        return redirect()->route('messages.show');
+        return redirect()->route('messages.show', ['message' => $message]);
     }
 
     /**

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+
 class Messages extends Controller
 {
-    public function show()
+    public function show(Request $request)
     {
         return view('messages.common')->with([
-            'message' => session()->pull('message'),
+            'message' => $request->input('message'),
         ]);
     }
 }
