@@ -134,7 +134,9 @@ export default {
 
         saveModel() {
             this.save(this.mode).then(() => {
-                this.load()
+                dd('saved.')
+
+                // this.load()
 
                 this.back()
 

@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-use App\Events\EventWasUpdated;
+use App\Events\EventUpdated;
 use Illuminate\Support\Facades\DB;
 
 class Event extends BaseWithClient
@@ -17,7 +17,7 @@ class Event extends BaseWithClient
     protected static function bootObservers()
     {
         static::updated(function ($model) {
-            event(new EventWasUpdated($model));
+            event(new EventUpdated($model));
         });
     }
 

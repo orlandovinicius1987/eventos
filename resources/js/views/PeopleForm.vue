@@ -216,12 +216,10 @@ export default {
             })
         },
 
-        savePerson(){
-            if (this.currentNameIsDuplicate) {
-                this.confirmNameDuplicate()
-            } else {
-                this.saveModel()
-            }
+        savePerson() {
+            this.currentNameIsDuplicate
+                ? this.confirmNameDuplicate()
+                : this.saveModel()
         },
     },
 

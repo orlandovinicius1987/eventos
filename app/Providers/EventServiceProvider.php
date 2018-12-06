@@ -3,14 +3,14 @@
 namespace App\Providers;
 
 use App\Listeners\SendRejection;
-use App\Events\ContactWasCreated;
-use App\Events\ContactWasUpdated;
+use App\Events\ContactCreated;
+use App\Events\ContactUpdated;
 use App\Events\InvitationRejected;
 use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
 use App\Listeners\SendCredentials;
 use App\Listeners\SendNotification;
-use App\Events\InvitationWasCreated;
+use App\Events\InvitationCreated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Mail\Events\MessageSending;
 use App\Listeners\SendNotificationsToContact;
@@ -34,11 +34,11 @@ class EventServiceProvider extends ServiceProvider
 
         InvitationRejected::class => [SendRejection::class],
 
-        ContactWasCreated::class => [SendNotificationsToContact::class],
+        ContactCreated::class => [SendNotificationsToContact::class],
 
-        ContactWasUpdated::class => [SendNotificationsToContact::class],
+        ContactUpdated::class => [SendNotificationsToContact::class],
 
-        InvitationWasCreated::class => [SendNotification::class],
+        InvitationCreated::class => [SendNotification::class],
 
         MessageSending::class => [SetMailNotificationMessageInfo::class],
     ];

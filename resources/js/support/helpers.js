@@ -287,3 +287,7 @@ window.publicChannel = channel => {
 window.privateChannel = channel => {
     return window.Echo.private(channel)
 }
+
+window.subscribePublicChannel = (model, className, callable) => {
+    publicChannel(model).listen(className, callable)
+}

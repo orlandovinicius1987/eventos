@@ -2,8 +2,8 @@
 
 namespace App\Data\Models;
 
-use App\Events\EventWasUpdated;
-use App\Events\SubEventWasUpdated;
+use App\Events\EventUpdated;
+use App\Events\SubEventUpdated;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -58,9 +58,9 @@ class SubEvent extends Base
     protected static function bootObservers()
     {
         static::updated(function ($model) {
-            event(new EventWasUpdated($model->event));
+            event(new EventUpdated($model->event));
 
-            event(new SubEventWasUpdated($model));
+            event(new SubEventUpdated($model));
         });
     }
 

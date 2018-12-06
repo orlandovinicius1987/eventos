@@ -3,11 +3,12 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\SubEvent;
-use App\Data\Repositories\Traits\SubEventsDownload;
+use App\Events\InvitationsChanged;
+use App\Events\SubEventUpdated;
 use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
+use App\Data\Repositories\Traits\SubEventsDownload;
 use App\Data\Repositories\Addresses as AddressesRepository;
-use App\Events\InvitationsChanged;
 
 class SubEvents extends Repository
 {
@@ -31,6 +32,7 @@ class SubEvents extends Repository
         $subEvent->save();
 
         event(new InvitationsChanged($eventId));
+        event(new SubEventUpdated($subEvent));
     }
 
     private function createOrUpdateAddress($subEvent, $address)
@@ -56,6 +58,9 @@ class SubEvents extends Repository
         $subEvent->ended_at = now();
 
         $subEvent->save();
+
+        event(new InvitationsChanged($eventId));
+        event(new SubEventUpdated($subEvent));
     }
 
     /**
@@ -142,5 +147,7 @@ class SubEvents extends Repository
 
             $replicable->save();
         });
+
+        event(new SubEventUpdated($subEvent));
     }
 }

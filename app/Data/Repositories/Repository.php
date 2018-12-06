@@ -10,6 +10,7 @@ use App\Data\Repositories\Traits\DataProcessing;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use ReflectionClass;
 
 abstract class Repository
 {
@@ -65,6 +66,19 @@ abstract class Repository
         return $query;
     }
 
+    protected function fireEventForModel($model, $eventType)
+    {
+        $reflect = new ReflectionClass($model);
+
+        $className = $reflect->getShortName();
+
+        $eventClass = "App\\Events\\{$className}{$eventType}";
+
+        if (class_exists($eventClass)) {
+            event(new $eventClass($model));
+        }
+    }
+
     protected function qualifyColumn($name)
     {
         return $this->model()->qualifyColumn($name);
@@ -86,6 +100,8 @@ abstract class Repository
         $model->fill($data);
 
         $model->save();
+
+        $this->fireEventForModel($model, 'Created');
 
         return $model;
     }
@@ -443,6 +459,8 @@ abstract class Repository
         $model->fill($array);
 
         $model->save();
+
+        $this->fireEventForModel($model, 'Updated');
 
         return $model;
     }

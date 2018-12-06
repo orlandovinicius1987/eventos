@@ -49,15 +49,22 @@ import Echo from 'laravel-echo'
 
 window.Pusher = require('pusher-js')
 
-window.Echo = new Echo({
+dd(process.env.MIX_PUSHER_SERVER, process.env.MIX_PUSHER_APP_CLUSTER)
+
+let echoConfig = {
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: false,
-    wsHost: '10.17.13.24', // window.location.hostname,
-    wsPort: 6001,
-    disableStats: false,
-})
+}
+
+if (process.env.MIX_PUSHER_SERVER === 'laravel-websockets') {
+    echoConfig.wsHost = window.location.hostname
+    echoConfig.wsPort = 6001
+    echoConfig.disableStats = false
+}
+
+window.Echo = new Echo(echoConfig)
 
 /**
  * Vue

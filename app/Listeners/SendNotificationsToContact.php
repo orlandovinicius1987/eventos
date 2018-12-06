@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\ContactWasCreated;
+use App\Events\ContactCreated;
 use App\Data\Repositories\Notifications;
 
 class SendNotificationsToContact extends Listener
@@ -10,10 +10,10 @@ class SendNotificationsToContact extends Listener
     /**
      * Handle the event.
      *
-     * @param  ContactWasCreated  $event
+     * @param  ContactCreated  $event
      * @return void
      */
-    public function handle(ContactWasCreated $event)
+    public function handle(ContactCreated $event)
     {
         app(Notifications::class)->notifyContact($event->contact);
     }

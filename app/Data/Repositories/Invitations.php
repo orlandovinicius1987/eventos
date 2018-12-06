@@ -2,13 +2,12 @@
 
 namespace App\Data\Repositories;
 
-use App\Events\InvitationsChanged;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Events\InvitationAccepted;
 use App\Events\InvitationRejected;
 use App\Events\InvitationsUpdated;
-use App\Events\InvitationWasCreated;
+use App\Events\InvitationCreated;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
 
@@ -199,7 +198,7 @@ class Invitations extends Repository
                 'person_institution_id' => $invitee['id'],
             ]);
 
-            event(new InvitationWasCreated($invitation));
+            event(new InvitationCreated($invitation));
         }
 
         event(new InvitationsUpdated($invitation->subEvent));
@@ -276,6 +275,10 @@ class Invitations extends Repository
             $invitation->save();
 
             $invitation->sendInvitation();
+        }
+
+        if (($invitation = $invitations->first())) {
+            event(new InvitationsUpdated($invitation->subEvent));
         }
     }
 
