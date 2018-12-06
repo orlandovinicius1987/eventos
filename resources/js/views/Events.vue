@@ -331,8 +331,8 @@
                                         <span v-if="!invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não recebido</span>
                                         <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
 
-                                        <span v-if="!invitation.accepted_by_id && invitation.received_at && invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                        <span v-if="!invitation.declined_by_id && invitation.received_at && invitation.declined_at" class="badge badge-warning">declinou</span>
+                                        <span v-if="!invitation.accepted_by_id && invitation.accepted_at" class="badge badge-success">aceitou</span>
+                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-warning">declinou</span>
                                     </template>
                                 </h6>
                             </td>
