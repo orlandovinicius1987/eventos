@@ -49,17 +49,15 @@ import Echo from 'laravel-echo'
 
 window.Pusher = require('pusher-js')
 
-dd(process.env.MIX_PUSHER_SERVER, process.env.MIX_PUSHER_APP_CLUSTER)
-
 let echoConfig = {
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: process.env.MIX_PUSHER_ENCRYPTED,
+    encrypted: process.env.MIX_PUSHER_ENCRYPTED === 'true',
 }
 
 if (process.env.MIX_PUSHER_SERVER === 'laravel-websockets') {
-    echoConfig.wsHost = process.env.MIX_PUSHER_FRONTEND_HOST
+    echoConfig.wsHost = process.env.MIX_PUSHER_FRONTEND_SERVER_HOST
     echoConfig.wsPort = process.env.MIX_PUSHER_SERVER_PORT
     echoConfig.disableStats = false
 }
