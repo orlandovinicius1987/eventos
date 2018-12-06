@@ -79,9 +79,15 @@ Route::group(['prefix' => '/events'], function () {
                 'Invitations@markAsRejected'
             )->name('api.invitations.mark-as-rejected');
 
-            Route::post('/{id}/send', 'Invitations@send')->name(
-                'invitations.send'
-            );
+            Route::post(
+                '/{id}/sendInvitation',
+                'Invitations@sendInvitation'
+            )->name('invitations.send-invitation');
+
+            Route::post(
+                '/{id}/sendCredentials',
+                'Invitations@sendCredentials'
+            )->name('invitations.send-credentials');
         });
     });
 });

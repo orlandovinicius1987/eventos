@@ -30,7 +30,7 @@ class EventServiceProvider extends ServiceProvider
 
         InvitationsChanged::class => [],
 
-        InvitationAccepted::class => [SendCredentials::class],
+        InvitationAccepted::class => [],
 
         InvitationRejected::class => [SendRejection::class],
 
