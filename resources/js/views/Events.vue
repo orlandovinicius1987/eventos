@@ -192,6 +192,16 @@
                         ></app-input>
 
                         <app-input
+                            name="sentCheckbox"
+                            label="enviados"
+                            type="checkbox"
+                            v-model="sentCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
                             name="notSentCheckbox"
                             label="não enviados"
                             type="checkbox"
@@ -212,10 +222,30 @@
                         ></app-input>
 
                         <app-input
+                            name="receivedCheckbox"
+                            label="recebidos"
+                            type="checkbox"
+                            v-model="receivedCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
                             name="notAcceptedCheckbox"
                             label="não aceitos"
                             type="checkbox"
                             v-model="notAcceptedCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
+                            name="acceptedCheckbox"
+                            label="aceitos"
+                            type="checkbox"
+                            v-model="acceptedCheckbox"
                             :required="true"
                             :form="form"
                             inline="true"
@@ -283,8 +313,9 @@
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.received_at" class="badge badge-success">sim</span>
-                                    <span v-else class="badge badge-danger">não</span>
+                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">sim</span>
+                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">manualmente</span>
+                                    <span v-if="!invitation.received_at" class="badge badge-danger">não</span>
                                 </h6>
                             </td>
 
@@ -301,8 +332,8 @@
                                         <span v-if="!invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não recebido</span>
                                         <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
 
-                                        <span v-if="!invitation.accepted_by_id && invitation.received_at && invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                        <span v-if="!invitation.declined_by_id && invitation.received_at && invitation.declined_at" class="badge badge-warning">declinou</span>
+                                        <span v-if="!invitation.accepted_by_id && invitation.accepted_at" class="badge badge-success">aceitou</span>
+                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-warning">declinou</span>
                                     </template>
                                 </h6>
                             </td>
@@ -322,12 +353,22 @@
                                 </div>
 
                                 <div
+                                    @click="markAsReceived(invitation)"
+                                    class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
+                                    title="Receber o convite manualmente"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </div>
+
+
+                                <div
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
                                     title="Aceitar o convite manualmente"
                                 >
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-check-double"></i>
                                 </div>
 
                                 <div
@@ -443,6 +484,19 @@ export default {
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('invitations/markAsAccepted', invitation)
+                }
+            })
+        },
+
+        markAsReceived(invitation) {
+            confirm(
+                'Deseja realment marcar como recebido o covite de ' +
+                invitation.person_institution.person.name +
+                '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    return this.$store.dispatch('invitations/markAsReceived', invitation)
                 }
             })
         },
@@ -654,6 +708,23 @@ export default {
             },
         },
 
+        sentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.sent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'sent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
         notSentCheckbox: {
             get() {
                 return this.$store.state['invitations'].data.filter.checkboxes.notSent
@@ -671,6 +742,23 @@ export default {
             },
         },
 
+        receivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.received
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'received', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
         notReceivedCheckbox: {
             get() {
                 return this.$store.state['invitations'].data.filter.checkboxes.notReceived
@@ -680,6 +768,23 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'notReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        acceptedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.accepted
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'accepted', value: filter},
                 )
 
                 this.$store.dispatch(

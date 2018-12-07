@@ -125,6 +125,15 @@ const actions = merge_objects(actionsMixin, {
         )
     },
 
+    markAsReceived(context, payload) {
+        post(
+            makeDataUrl(context) +
+                '/' +
+                payload.id +
+                '/mark-as-received/manual',
+        )
+    },
+
     markAsDeclined(context, payload) {
         post(
             makeDataUrl(context) +
