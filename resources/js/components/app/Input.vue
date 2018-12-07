@@ -2,6 +2,10 @@
     <span :class="type === 'checkbox' ? (inline ?  '' : 'form-check') + ' m-4' : ''">
         <label v-if="type !== 'checkbox'" :for="name" class="mb-0 mt-4">{{ label }}</label>
 
+        <small class="text-danger" v-if="form.errors.has(name)" >
+            <i class="fas fa-exclamation-triangle"></i> {{ form.errors.get(name) }}
+        </small>
+
         <input
             :value="value"
             @input="type !== 'checkbox' ? $emit('input', $event.target.value) : null"
@@ -17,9 +21,7 @@
 
         <label v-if="type === 'checkbox'" :for="name" class="form-check-label">{{ label }}</label>
 
-        <small class="text-danger" v-if="form.errors.has(name)" >
-            {{ form.errors.get(name) }}
-        </small>
+
     </span>
 </template>
 
