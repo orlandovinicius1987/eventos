@@ -508,7 +508,7 @@ class Invitation extends Base
         }
     }
 
-    public function markAsReceived($how)
+    public function markAsReceived($how = 'automatically')
     {
         if (!$this->received_at) {
             $this->received_at = now();
