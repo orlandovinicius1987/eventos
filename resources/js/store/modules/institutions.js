@@ -16,7 +16,16 @@ const __emptyModel = {
 
 let state = merge_objects(statesMixin.common, {
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
+
+    model: {
+        name: 'institution',
+
+        table: 'institutions',
+
+        class: { singular: 'Institution', plural: 'Institutions' },
+    },
 })
 
 let actions = merge_objects(actionsMixin, {

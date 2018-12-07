@@ -2,19 +2,19 @@
 
 namespace App\Listeners;
 
-use App\Events\InvitationWasCreated;
+use App\Events\InvitationCreated;
 
 class SendNotification extends Listener
 {
     /**
      * Handle the event.
      *
-     * @param  InvitationWasCreated  $event
+     * @param  InvitationCreated  $event
      * @return void
      */
-    public function handle(InvitationWasCreated $event)
+    public function handle(InvitationCreated $event)
     {
         $event->invitation->sendInvitation();
-        $event->invitation->sendCredentials();
+        //$event->invitation->sendCredentials();
     }
 }

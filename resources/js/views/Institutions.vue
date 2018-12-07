@@ -17,7 +17,7 @@
                     <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['#', 'Nome', 'Sigla', 'Número do partido']"
+                        :columns="['#', 'Nome', 'Sigla', 'Número do partido', '']"
                     >
                         <tr
                             @click="select(institution)"

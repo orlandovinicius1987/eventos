@@ -93,23 +93,15 @@ const actions = merge_objects(actionsMixin, {
     },
 
     confirm(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/confirm').then(() => {
-            context.dispatch('load', payload)
-        })
+        post(makeDataUrl(context) + '/' + payload.id + '/confirm')
     },
 
     finalize(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/finalize').then(() => {
-            context.dispatch('load', payload)
-        })
+        post(makeDataUrl(context) + '/' + payload.id + '/finalize')
     },
 
     replicateCommonInfo(context, payload) {
-        post(
-            makeDataUrl(context) + '/' + payload.id + '/replicate-common-info',
-        ).then(() => {
-            context.dispatch('load', payload)
-        })
+        post(makeDataUrl(context) + '/' + payload.id + '/replicate-common-info')
     },
 })
 

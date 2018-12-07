@@ -167,11 +167,20 @@ window.objectAttributeFromString = (str, state) => {
 
 window.buildApiUrl = (uri, state) => {
     let str = uri
+
+    let hasNulls = false
+
     _.each(uri.match(/(\{.*?\})/g), param => {
         str = str.replace(param, objectAttributeFromString(param, state))
+
+        hasNulls = hasNulls || objectAttributeFromString(param, state) === null
     })
 
-    return '/api/v1/' + str
+    if (hasNulls) {
+        // dd('could not buildApiUrl from URI and STATE', uri, state)
+    }
+
+    return hasNulls ? null : '/api/v1/' + str
 }
 
 window.makeDataUrl = context => {
@@ -269,4 +278,16 @@ window.downloadPDF = fileUrl => {
 
         link.click()
     })
+}
+
+window.publicChannel = channel => {
+    return window.Echo.channel(channel)
+}
+
+window.privateChannel = channel => {
+    return window.Echo.private(channel)
+}
+
+window.subscribePublicChannel = (model, className, callable) => {
+    publicChannel(model).listen(className, callable)
 }

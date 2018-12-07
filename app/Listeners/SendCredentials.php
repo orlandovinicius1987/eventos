@@ -2,11 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Data\Repositories\Invitations;
 use App\Events\InvitationAccepted;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Data\Repositories\Invitations;
 
-class SendCredentials implements ShouldQueue
+class SendCredentials extends Listener
 {
     /**
      * Handle the event.

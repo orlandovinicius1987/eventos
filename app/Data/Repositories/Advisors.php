@@ -2,8 +2,9 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Advisor as AdvisorModel;
+use App\Events\PersonInstitutionAdvisorsGotChanged;
 
-class Advisors extends Repository
+class Advisors extends PersonInstitutions
 {
     /**
      * @var string
@@ -17,5 +18,10 @@ class Advisors extends Repository
     public function allByPersonInstitutionId($personInstitutionId)
     {
         return $this->filterByPersonInstitutionId($personInstitutionId);
+    }
+
+    public function fireEventsForRelationships($model)
+    {
+        event(new PersonInstitutionAdvisorsGotChanged($model->advised));
     }
 }

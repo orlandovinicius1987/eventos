@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Events\EventUpdated;
 use Illuminate\Support\Facades\DB;
 
 class Event extends BaseWithClient
@@ -12,6 +13,13 @@ class Event extends BaseWithClient
     protected $fillable = ['name', 'confirmed_by', 'confirmed_at', 'client_id'];
 
     protected $orderBy = ['name' => 'asc'];
+
+    protected static function bootObservers()
+    {
+        static::updated(function ($model) {
+            event(new EventUpdated($model));
+        });
+    }
 
     /**
      * Scope a query to only include events that will happen in 7 days.

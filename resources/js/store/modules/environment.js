@@ -33,79 +33,65 @@ const getters = gettersMixin
 
 const actions = {
     load(context) {
-        return axios.get('/api/v1/environment').then(response => {
+        return get('/api/v1/environment').then(response => {
             context.commit('mutateSetData', response.data)
         })
     },
 
     loadContactTypes(context) {
-        return axios
-            .get('/api/v1/contact-types', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetContactTypes', response.data)
-            })
+        return get('/api/v1/contact-types', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetContactTypes', response.data)
+        })
     },
 
     loadInstitutions(context) {
-        return axios
-            .get('/api/v1/institutions', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetInstitutions', response.data)
-            })
+        return get('/api/v1/institutions', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetInstitutions', response.data)
+        })
     },
 
     loadRoles(context) {
-        return axios
-            .get('/api/v1/roles', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetRoles', response.data)
-            })
+        return get('/api/v1/roles', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetRoles', response.data)
+        })
     },
 
     loadPeople(context) {
-        return axios
-            .get('/api/v1/people', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetPeople', response.data)
-            })
+        return get('/api/v1/people', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetPeople', response.data)
+        })
     },
 
     loadCostumes(context) {
-        return axios
-            .get('/api/v1/costumes', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetCostumes', response.data)
-            })
+        return get('/api/v1/costumes', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetCostumes', response.data)
+        })
     },
 
     loadSectors(context) {
-        return axios
-            .get('/api/v1/sectors', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetSectors', response.data)
-            })
+        return get('/api/v1/sectors', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetSectors', response.data)
+        })
     },
 
     loadSubEvents(context) {
-        return axios
-            .get('/api/v1/sub-events', {
-                params: { query: context.getters.getFullQueryFilter },
-            })
-            .then(response => {
-                context.commit('mutateSetSubEvents', response.data)
-            })
+        return get('/api/v1/sub-events', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetSubEvents', response.data)
+        })
     },
 
     absorbLaravel(context) {

@@ -107,6 +107,8 @@ export default {
             } else {
                 this.fillFormWhenEditing()
             }
+
+            this.$store.dispatch(this.service.name + '/subscribeToTableEvents')
         },
 
         fillFormWhenEditing() {
@@ -134,8 +136,6 @@ export default {
 
         saveModel() {
             this.save(this.mode).then(() => {
-                this.load()
-
                 this.back()
 
                 this.clearForm()

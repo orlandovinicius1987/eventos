@@ -3,9 +3,11 @@
 namespace App\Data\Models;
 
 use Ramsey\Uuid\Uuid;
+use App\Events\InvitationUpdated;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
-use App\Notifications\SendCredentials;
 use App\Notifications\SendInvitation;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
@@ -76,6 +78,48 @@ class Invitation extends Base
                 'contact_type_id',
                 app(ContactTypes::class)->findByCode('email')->id
             );
+    }
+
+    /**
+     *
+     * Accepts a message
+     *
+     * @param $how
+     */
+    public function accept($how)
+    {
+        $this->accepted_at = now();
+        $this->accepted_by_id =
+            $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
+
+        $this->declined_at = null;
+        $this->declined_by_id = null;
+
+        $this->save();
+
+        event(new InvitationAccepted($this->id));
+        event(new InvitationUpdated($this));
+    }
+
+    /**
+     *
+     * Declines a message
+     *
+     * @param $how
+     */
+    public function reject($how)
+    {
+        $this->declined_at = now();
+        $this->declined_by_id =
+            $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
+
+        $this->accepted_at = null;
+        $this->accepted_by_id = null;
+
+        $this->save();
+
+        event(new InvitationRejected($this->id));
+        event(new InvitationUpdated($this));
     }
 
     /**
@@ -171,7 +215,11 @@ class Invitation extends Base
 
     public function sendInvitation($force = false)
     {
-        if ($this->canSendEmail() && ($force || !$this->hasBeenDeclined())) {
+        if (
+            $this->canSendEmail() &&
+            ($force || !$this->hasBeenDeclined()) &&
+            !$this->hasBeenAccepted()
+        ) {
             $this->mailSubject = 'Convite - ' . $this->subEvent->event->name;
             $this->dispatchMails(SendInvitation::class);
         }
@@ -179,15 +227,16 @@ class Invitation extends Base
 
     public function sendCredentials($force = false)
     {
-        // FUTURO
+        //FIXME FUTURO
         if (
+            false &&
             $this->canSendEmail() &&
             ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
         ) {
             $this->mailSubject =
                 'Credencial para acesso ao evento - ' .
                 $this->subEvent->event->name;
-            $this->dispatchMails(SendCredentials::class);
+            //$this->dispatchMails(SendCredentials::class);
         }
     }
 
@@ -419,10 +468,25 @@ class Invitation extends Base
 
     public function markAsSent()
     {
-        $this->sent_at = now();
+        if (!$this->sent_at) {
+            $this->sent_at = now();
 
-        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
+            $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
 
-        $this->save();
+            $this->save();
+
+            event(new InvitationUpdated($this->subEvent));
+        }
+    }
+
+    public function markAsReceived()
+    {
+        if (!$this->received_at) {
+            $this->received_at = now();
+
+            $this->save();
+
+            event(new InvitationUpdated($this->subEvent));
+        }
     }
 }
