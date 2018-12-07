@@ -48,3 +48,18 @@
     }
   }
 }
+
+.event-name {
+
+  @media screen and (max-width: 1025px) {
+    max-width: 230px;
+  }
+}
+
+
+.subevents-buttons {
+
+  @media screen and (max-width: 1025px) {
+    /*min-width: 90px;*/
+  }
+}

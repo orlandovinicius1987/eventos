@@ -21348,6 +21348,18 @@ a.text-gray-darkest:focus {
   padding-right: 1rem;
 }
 
+@media screen and (max-width: 1025px) {
+  .event-name {
+    max-width: 230px;
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .subevents-buttons {
+    /*min-width: 90px;*/
+  }
+}
+
 body {
   color: #495057;
 }

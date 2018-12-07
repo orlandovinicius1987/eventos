@@ -37,14 +37,14 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['Nome','']"
+                        :columns="[{title: 'Nome', trClass: 'text-left event-label-name'},'']"
                     >
                         <tr
                             @click="selectEvent(event)"
                             v-for="event in events.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(event, selected)}"
                         >
-                            <td class="align-middle text-left">{{ event.name }}</td>
+                            <td class="align-middle text-left event-name">{{ event.name }}</td>
 
                             <td class="align-middle text-right">
                                 <button
@@ -85,14 +85,14 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['Setor', 'Nome', {title: 'Convidados', trClass: 'text-right'}, 'Data', 'Hora', 'Confirmado em', 'Realizado em', '']"
+                        :columns="['Setor', 'Nome', {title: 'Convidados', trClass: 'text-right'}, 'Data', 'Hora', 'Confirmado', 'Realizado', '']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
                             v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(subEvent, subEvents.selected)}"
                         >
-                            <td class="align-middle">
+                            <td class="align-middle subevents-sector">
                                 <span class="badge text-white p-2" :style="{'background-color': subEvent.sector ? subEvent.sector.color : '', 'text-transform': 'uppercase'}">
                                     {{ subEvent.sector ? subEvent.sector.name : '' }}
                                 </span>
@@ -105,15 +105,15 @@
 
                             <td class="align-middle text-right">{{ subEvent.invitations_count }}</td>
 
-                            <td class="align-middle">{{ subEvent.date }}</td>
+                            <td class="align-middle text-center">{{ subEvent.date }}</td>
 
                             <td class="align-middle">{{ subEvent.time }}</td>
 
-                            <td class="align-middle">{{ subEvent.confirmed_at }}</td>
+                            <td class="align-middle text-center">{{ subEvent.confirmed_at }}</td>
 
-                            <td class="align-middle">{{ subEvent.ended_at }}</td>
+                            <td class="align-middle text-center">{{ subEvent.ended_at }}</td>
 
-                            <td class="align-middle text-right">
+                            <td class="align-middle text-right subevents-buttons">
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility ml-1 pull-right"
