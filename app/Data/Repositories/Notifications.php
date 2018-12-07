@@ -33,7 +33,6 @@ class Notifications extends Repository
                 ->getAllInvitationsForContact($contact)
                 ->each(function ($invitation) {
                     $invitation->sendInvitation();
-                    //$invitation->sendCredentials(); FUTURO
                 });
         }
     }
@@ -44,7 +43,7 @@ class Notifications extends Repository
 
         $notification->message_id = $messageId;
 
-        $notification->save();
+        $notification->markAsSent();
     }
 
     public function registerMessageStatus($status, $data)

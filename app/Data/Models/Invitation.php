@@ -9,6 +9,7 @@ use App\Events\InvitationRejected;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
 use App\Notifications\SendInvitation;
+use App\Notifications\SendCredentials;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
 use App\Services\QRCode\Service as QRCode;
@@ -256,16 +257,14 @@ class Invitation extends Base
 
     public function sendCredentials($force = false)
     {
-        //FIXME FUTURO
         if (
-            false &&
             $this->canSendEmail() &&
             ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
         ) {
             $this->mailSubject =
                 'Credencial para acesso ao evento - ' .
                 $this->subEvent->event->name;
-            //$this->dispatchMails(SendCredentials::class);
+            $this->dispatchMails(SendCredentials::class);
         }
     }
 
@@ -485,6 +484,28 @@ class Invitation extends Base
     public function scopeNotSent($query)
     {
         return $query->whereNull('sent_at');
+    }
+
+    /**
+     * Invitation sent scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSent($query)
+    {
+        return $query->whereNotNull('sent_at');
+    }
+
+    /**
+     * Not sent credential scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCredentialsNotSent($query)
+    {
+        return $query->whereNull('credentials_sent_at');
     }
 
     public function notifications()

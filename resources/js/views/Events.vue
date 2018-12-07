@@ -49,6 +49,16 @@
                             <td class="align-middle text-right">
                                 <button
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    @click="sendCredentials(event)"
+                                    :disabled="cannot('update')"
+                                    title="Enviar todas as credênciais não enviadas"
+                                >
+                                    <i v-if="!event.busy" class="fa fa-angle-double-right"></i>
+                                    <i v-if="event.busy" class="fa fa-cog fa-spin"></i>
+                                </button>
+
+                                <button
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     @click="sendInvitations(event)"
                                     :disabled="cannot('update')"
                                     title="Enviar todos os convites não enviados"
@@ -287,9 +297,11 @@
                                     'Código',
                                     'Convidado',
                                     {title: 'Pendências', trClass: 'text-center'},
-                                    {title: 'Enviado', trClass: 'text-center'},
-                                    {title: 'Recebido', trClass: 'text-center'},
-                                    {title: 'Aceito', trClass: 'text-center'},
+                                    {title: 'Convite<br>enviado', trClass: 'text-center'},
+                                    {title: 'Convite<br>recebido', trClass: 'text-center'},
+                                    {title: 'Convite<br>aceito', trClass: 'text-center'},
+                                    {title: 'Credêncial<br>enviada', trClass: 'text-center'},
+                                    {title: 'Credêncial<br>recebida', trClass: 'text-center'},
                                     {title: 'Check in', trClass: 'text-center'},
                                     ''
                                 ]"
@@ -299,27 +311,27 @@
                             v-for="invitation in invitations.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitation, invitations.selected)}"
                         >
-                            <td class="align-middle">{{ invitation.code }}</td>
+                            <td class="align-middle">{{ invitation.code }}</td> <!-- Código -->
 
-                            <td class="align-middle">
+                            <td class="align-middle"> <!-- Convidado -->
                                 <strong>{{ invitation.person_institution.person.name }}</strong> ({{ invitation.person_institution.title }})<br>
                                 {{ invitation.person_institution.role.name }} - {{ invitation.person_institution.institution.name }}
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle text-center"> <!-- Pendências -->
                                 <h6 v-for="pending in invitation.pending" class="m-0">
                                     <span :class="'badge badge-' + pending.type">{{ pending.label }}</span>
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle text-center"> <!-- Convite enviado -->
                                 <h6 class="mb-0">
                                     <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ invitation.notifications.length }}</span>
                                     <span v-else class="badge badge-danger">não enviado</span>
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle text-center"> <!-- Convite recebido -->
                                 <h6 class="mb-0">
                                     <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">sim</span>
                                     <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">manualmente</span>
@@ -327,7 +339,7 @@
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle text-center"> <!-- Convite aceito -->
                                 <h6 class="mb-0">
                                     <template v-if="!invitation.sent_at">
                                         <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
@@ -346,13 +358,28 @@
                                 </h6>
                             </td>
 
+                            <td class="align-middle text-center"> <!-- Credêncial enviada -->
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ invitation.notifications.length }}</span>
+                                    <span v-else class="badge badge-danger">não enviada</span>
+                                </h6>
+                            </td>
+
+                            <td class="align-middle text-center"> <!-- Credêncial recebida -->
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.credentials_received_at && !invitation.credentials_received_atreceived_by_id" class="badge badge-success">sim</span>
+                                    <span v-if="invitation.credentials_received_at && invitation.credentials_received_atreceived_by_id" class="badge badge-warning">manualmente</span>
+                                    <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não</span>
+                                </h6>
+                            </td>
+
                             <td class="align-middle text-center">
                                 {{ invitation.checkin_at }}
                             </td>
 
                             <td class="align-middle text-right">
                                 <div
-                                    @click="invitation.accepted_at ? sendCredentials(invitation) : sendInvitation(invitation) "
+                                    @click="invitation.accepted_at ? sendCredential(invitation) : sendInvitation(invitation) "
                                     class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation) && !invitation.accepted_at"
                                     :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
@@ -530,14 +557,14 @@ export default {
             })
         },
 
-        sendCredentials(invitation) {
+        sendCredential(invitation) {
             invitation.busy = true
             confirm(
                 'Deseja realmente enviar as credencias para ' + invitation.person_institution.person.name + '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/sendCredentials', invitation)
+                    return this.$store.dispatch('invitations/sendCredential', invitation)
                 }
             })
         },
@@ -598,6 +625,21 @@ export default {
                     event.busy = true
 
                     return this.$store.dispatch('events/sendInvitations', event).then(() => {
+                        event.busy = false
+                    })
+                }
+            })
+        },
+
+        sendCredentials(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todas as credênciais agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store.dispatch('events/sendCredentials', event).then(() => {
                         event.busy = false
                     })
                 }

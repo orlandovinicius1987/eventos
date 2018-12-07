@@ -4,6 +4,8 @@ namespace App\Notifications;
 
 class SendCredentials extends Notification
 {
+    protected $notification;
+
     /**
      * Get the mail representation of the notification.
      *

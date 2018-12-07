@@ -58,5 +58,8 @@ class EventServiceProvider extends ServiceProvider
         PersonUpdated::class => [NotifyPeopleChanged::class],
 
         InvitationsChanged::class => [NotifySubEventsChanged::class],
+
+        InvitationsChanged::class => [NotifySubEventsChanged::class],
+        InvitationsChanged::class => [NotifySubEventsChanged::class],
     ];
 }
