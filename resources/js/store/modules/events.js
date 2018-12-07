@@ -49,6 +49,8 @@ const actions = merge_objects(actionsMixin, {
         publicChannel('sub-event.' + payload.id).listen(
             '.App\\Events\\InvitationsChanged',
             () => {
+                dd('reload invitations')
+
                 context.dispatch('subEvents/load', payload, { root: true })
 
                 context.dispatch('invitations/load', payload, { root: true })
