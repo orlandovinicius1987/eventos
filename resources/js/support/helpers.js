@@ -254,8 +254,8 @@ window.extractFileNameFromResponse = (response, filename = 'eventos.pdf') => {
     return filename
 }
 
-window.flush_image_cache = imageUrl => {
-    if (imageUrl && !imageUrl.includes('data:image/')) {
+window.flush_image_cache = (imageUrl, otherPeopleSelected = false) => {
+    if (imageUrl && !imageUrl.includes('data:image/') && otherPeopleSelected) {
         imageUrl = imageUrl + '?' + Math.random()
     }
 

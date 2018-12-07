@@ -1,6 +1,14 @@
 import { mapState, mapActions } from 'vuex'
 
 export default {
+    data: () => {
+        return {
+            people_current: {
+                id: 'null',
+            },
+        }
+    },
+
     methods: {
         ...mapActions('people', ['clearForm']),
 
@@ -13,7 +21,10 @@ export default {
                 photoUrl = this.people.selected.photoUrl
             }
 
-            return flush_image_cache(photoUrl)
+            let otherPeopleSelected = this.people_current.id != this.people.selected.id
+            this.people_current.id = this.people.selected.id
+
+            return flush_image_cache(photoUrl, otherPeopleSelected)
         },
     },
 
