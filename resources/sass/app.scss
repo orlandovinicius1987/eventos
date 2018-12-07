@@ -110,7 +110,6 @@ html {
 }
 
 
-
 .h-80 {
   height: 80% !important;
   @media screen and (max-width: 479px) {
@@ -126,7 +125,6 @@ html {
 .bg-primary {
   background: $blue-lighter02;
 }
-
 
 
 /*
@@ -151,3 +149,7 @@ html {
 //.container-fluid {
 //  display: none !important;
 //}
+
+.text-danger {
+  font-weight:600;
+}
