@@ -313,8 +313,9 @@
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.received_at" class="badge badge-success">sim</span>
-                                    <span v-else class="badge badge-danger">não</span>
+                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">sim</span>
+                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">manualmente</span>
+                                    <span v-if="!invitation.received_at" class="badge badge-danger">não</span>
                                 </h6>
                             </td>
 
@@ -352,12 +353,22 @@
                                 </div>
 
                                 <div
+                                    @click="markAsReceived(invitation)"
+                                    class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
+                                    title="Receber o convite manualmente"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </div>
+
+
+                                <div
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
                                     title="Aceitar o convite manualmente"
                                 >
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-check-double"></i>
                                 </div>
 
                                 <div
@@ -473,6 +484,19 @@ export default {
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('invitations/markAsAccepted', invitation)
+                }
+            })
+        },
+
+        markAsReceived(invitation) {
+            confirm(
+                'Deseja realment marcar como recebido o covite de ' +
+                invitation.person_institution.person.name +
+                '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    return this.$store.dispatch('invitations/markAsReceived', invitation)
                 }
             })
         },

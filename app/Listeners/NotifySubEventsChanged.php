@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-use App\Events\InvitationCreated;
 use App\Events\SubEventsChanged;
 
 class NotifySubEventsChanged extends Listener

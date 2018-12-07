@@ -80,6 +80,11 @@ Route::group(['prefix' => '/events'], function () {
             )->name('api.invitations.mark-as-rejected');
 
             Route::post(
+                '/{id}/mark-as-received/{how?}',
+                'Invitations@markAsReceived'
+            )->name('api.invitations.mark-as-received');
+
+            Route::post(
                 '/{id}/sendInvitation',
                 'Invitations@sendInvitation'
             )->name('invitations.send-invitation');
