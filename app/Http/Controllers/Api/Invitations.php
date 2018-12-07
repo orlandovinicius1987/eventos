@@ -112,6 +112,32 @@ class Invitations extends Controller
         return $this->emptyResponse();
     }
 
+    /**
+     * Mark an invite as accepted
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function markAsReceived(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $how
+    ) {
+        app(InvitationsRepository::class)->markAsReceived(
+            $eventId,
+            $subEventId,
+            $invitationId,
+            $how
+        );
+
+        return $this->emptyResponse();
+    }
+
     public function invitables($eventId, $subEventId)
     {
         return app(InvitablesRepository::class)->getInvitables(

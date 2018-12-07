@@ -199,6 +199,37 @@ class Invitations extends Repository
         return false;
     }
 
+    /**
+     *
+     * Decline a message and return true iff it wasn't declined
+     *
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @param null $how
+     * @return bool
+     */
+    public function markAsReceived(
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $how = null
+    ) {
+        $invitation = $this->findById($invitationId);
+
+        if (
+            !$invitation->received_at &&
+            $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId
+        ) {
+            $invitation->markAsReceived($how);
+
+            return true;
+        }
+
+        return false;
+    }
+
     public function invite($eventId, $subEventId, $invitees)
     {
         foreach ($invitees as $invitee) {

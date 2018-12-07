@@ -50,6 +50,18 @@ class Invitation extends Base
 
     protected $mailSubject;
 
+    /**
+     * @param $how
+     */
+    protected function setReceivedAt($how)
+    {
+        $this->received_at = $this->received_at
+            ? $this->received_at
+            : ($how === 'manual'
+                ? null
+                : now());
+    }
+
     private function canSendEmail()
     {
         return !is_null($this->subEvent->confirmed_at) && $this->hasEmail();
@@ -92,6 +104,8 @@ class Invitation extends Base
         $this->accepted_by_id =
             $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
 
+        $this->setReceivedAt($how);
+
         $this->declined_at = null;
         $this->declined_by_id = null;
 
@@ -116,10 +130,25 @@ class Invitation extends Base
         $this->accepted_at = null;
         $this->accepted_by_id = null;
 
+        $this->setReceivedAt($how);
+
         $this->save();
 
         event(new InvitationRejected($this->id));
         event(new InvitationUpdated($this));
+    }
+
+    /**
+     *
+     * Declines a message
+     *
+     * @param $how
+     */
+    public function received($how)
+    {
+        $this->setReceivedAt($how);
+
+        $this->save();
     }
 
     /**
@@ -475,18 +504,23 @@ class Invitation extends Base
 
             $this->save();
 
-            event(new InvitationUpdated($this->subEvent));
+            event(new InvitationUpdated($this));
         }
     }
 
-    public function markAsReceived()
+    public function markAsReceived($how)
     {
         if (!$this->received_at) {
             $this->received_at = now();
 
+            $this->received_by_id =
+                $how === 'manual'
+                    ? $this->getCurrentAuthenticatedUserId()
+                    : null;
+
             $this->save();
 
-            event(new InvitationUpdated($this->subEvent));
+            event(new InvitationUpdated($this));
         }
     }
 }
