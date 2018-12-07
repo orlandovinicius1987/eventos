@@ -85,7 +85,15 @@
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
-                        :columns="['Setor', 'Nome', {title: 'Convidados', trClass: 'text-right'}, 'Data', 'Hora', 'Confirmado em', 'Realizado em', '']"
+                        :columns="[
+                        'Setor',
+                        'Nome',
+                        {title: 'Convidados', trClass: 'text-right'},
+                        'Data',
+                        'Hora',
+                        'Confirmado em',
+                        'Realizado em',
+                        '']"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
@@ -146,7 +154,7 @@
 
                                 <router-link
                                     :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     title="Editar Sub-evento"
@@ -392,7 +400,7 @@
 
                                 <router-link
                                     :to="'/events/'+invitation.sub_event.event.id+'/sub-events/'+invitation.sub_event.id+'/invitations/'+invitation.id+'/show'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     title="Ver todos os dados do convite"
