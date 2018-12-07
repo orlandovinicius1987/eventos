@@ -21459,3 +21459,7 @@ html {
   background-size: 300px;
 }
 
+.text-danger {
+  font-weight: 600;
+}
+
