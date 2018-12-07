@@ -31,7 +31,7 @@
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="'/roles/'+role.id+'/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
                                     title="Editar Função"
