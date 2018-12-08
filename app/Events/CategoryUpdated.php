@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class CategoryUpdated extends Broadcastable
 {
-    public $category;
+    protected $category;
 
     /**
      * Create a new event instance.

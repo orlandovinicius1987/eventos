@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class SubEventsChanged extends Broadcastable
 {
-    public $event;
+    protected $event;
 
     /**
      * Create a new event instance.

@@ -197,97 +197,154 @@
                     @set-per-page="invitationsPerPage = $event"
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
+                    dont-center-filters="true"
                 >
                     <template slot="checkboxes">
-                        <app-input
-                            name="hasNoEmailCheckbox"
-                            label="sem e-mail"
-                            type="checkbox"
-                            v-model="hasNoEmailCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                        <div class="row">
+                            <div class="col">
+                                <app-input
+                                    name="hasNoEmailCheckbox"
+                                    label="sem e-mail"
+                                    type="checkbox"
+                                    v-model="hasNoEmailCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
 
-                        <app-input
-                            name="sentCheckbox"
-                            label="enviados"
-                            type="checkbox"
-                            v-model="sentCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                            <div class="col">
+                                <app-input
+                                    name="sentCheckbox"
+                                    label="enviados"
+                                    type="checkbox"
+                                    v-model="sentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
 
-                        <app-input
-                            name="notSentCheckbox"
-                            label="não enviados"
-                            type="checkbox"
-                            v-model="notSentCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <br>
 
-                        <app-input
-                            name="notReceivedCheckbox"
-                            label="não recebidos"
-                            type="checkbox"
-                            v-model="notReceivedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <app-input
+                                    name="notSentCheckbox"
+                                    label="não enviados"
+                                    type="checkbox"
+                                    v-model="notSentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
 
-                        <app-input
-                            name="receivedCheckbox"
-                            label="recebidos"
-                            type="checkbox"
-                            v-model="receivedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                            <div class="col">
+                                <app-input
+                                    name="receivedCheckbox"
+                                    label="recebidos"
+                                    type="checkbox"
+                                    v-model="receivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
 
-                        <app-input
-                            name="notAcceptedCheckbox"
-                            label="não aceitos"
-                            type="checkbox"
-                            v-model="notAcceptedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <br>
 
-                        <app-input
-                            name="acceptedCheckbox"
-                            label="aceitos"
-                            type="checkbox"
-                            v-model="acceptedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <app-input
+                                    name="notReceivedCheckbox"
+                                    label="não recebidos"
+                                    type="checkbox"
+                                    v-model="notReceivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
 
-                        <app-input
-                            name="notCheckedInCheckbox"
-                            label="não fizeram check in"
-                            type="checkbox"
-                            v-model="notCheckedInCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                            <div class="col">
+                                <app-input
+                                    name="acceptedCheckbox"
+                                    label="aceitos"
+                                    type="checkbox"
+                                    v-model="acceptedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
 
-                        <app-input
-                            name="notAnsweredCheckbox"
-                            label="não respondidos"
-                            type="checkbox"
-                            v-model="notAnsweredCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <br>
+
+                                <app-input
+                                    name="notAcceptedCheckbox"
+                                    label="não aceitos"
+                                    type="checkbox"
+                                    v-model="notAcceptedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+
+                            <div class="col">
+                                <app-input
+                                    name="credentialsSentCheckbox"
+                                    label="credenciais enviadas"
+                                    type="checkbox"
+                                    v-model="credentialsSentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+
+                                <br>
+
+                                <app-input
+                                    name="credentialsNotSentCheckbox"
+                                    label="credenciais não enviadas"
+                                    type="checkbox"
+                                    v-model="credentialsNotSentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+
+                            <div class="col">
+                                <app-input
+                                    name="credentialsReceivedCheckbox"
+                                    label="credenciais recebidas"
+                                    type="checkbox"
+                                    v-model="credentialsReceivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+
+                                <br>
+
+                                <app-input
+                                    name="credentialsNotReceivedCheckbox"
+                                    label="credenciais não recebidas"
+                                    type="checkbox"
+                                    v-model="credentialsNotReceivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+
+                            <div class="col">
+                                <app-input
+                                    name="notCheckedInCheckbox"
+                                    label="não fizeram check in"
+                                    type="checkbox"
+                                    v-model="notCheckedInCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+                        </div>
                     </template>
 
                     <app-table
@@ -352,16 +409,24 @@
                             </td>
 
                             <td class="align-middle text-center"> <!-- Credencial enviada -->
-                                <h6 class="mb-0">
-                                    <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ filterNotifications(invitation.notifications, 'credentials').length }}</span>
-                                    <span v-else class="badge badge-danger">não enviada</span>
-                                </h6>
+                                <span v-if="!invitation.declined_at">
+                                    <h6 class="mb-0">
+                                        <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ filterNotifications(invitation.notifications, 'credentials').length }}</span>
+                                        <span v-else class="badge badge-danger">não enviada</span>
+                                    </h6>
 
-                                <h6 class="mb-0">
-                                    <span v-if="invitation.credentials_received_at && !invitation.credentials_received_by_id" class="badge badge-success">recebidas: {{ filterNotificationsReceived(invitation.notifications, 'credentials').length }}</span>
-                                    <span v-if="invitation.credentials_received_at && invitation.credentials_received_by_id" class="badge badge-warning">recebida manualmente</span>
-                                    <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não recebida</span>
-                                </h6>
+                                    <h6 class="mb-0">
+                                        <span v-if="invitation.credentials_received_at && !invitation.credentials_received_by_id" class="badge badge-success">recebidas: {{ filterNotificationsReceived(invitation.notifications, 'credentials').length }}</span>
+                                        <span v-if="invitation.credentials_received_at && invitation.credentials_received_by_id" class="badge badge-warning">recebida manualmente</span>
+                                        <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não recebida</span>
+                                    </h6>
+                                </span>
+
+                                <span v-else>
+                                    <h6 class="mb-0">
+                                        <span class="badge badge-primary">convite declinado</span>
+                                    </h6>
+                                </span>
                             </td>
 
                             <td class="align-middle text-center">
@@ -380,10 +445,19 @@
                                 </div>
 
                                 <div
-                                    @click="markAsReceived(invitation)"
+                                    @click="markAsReceived(invitation, 'invitation')"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
-                                    title="Receber o convite manualmente"
+                                    title="Marcar o convite como 'recebido manualmente'"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </div>
+
+                                <div
+                                    @click="markAsReceived(invitation, 'credentials')"
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && invitation.accepted_at&& !invitation.credentials_received_at"
+                                    title="Marcar as credenciais como 'recebida manualmente'"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
@@ -514,7 +588,7 @@ export default {
             })
         },
 
-        markAsReceived(invitation) {
+        markAsReceived(invitation, type) {
             confirm(
                 'Deseja realment marcar como recebido o covite de ' +
                 invitation.person_institution.person.name +
@@ -522,7 +596,7 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/markAsReceived', invitation)
+                    return this.$store.dispatch('invitations/markAsReceived', {invitation: invitation, type: type})
                 }
             })
         },
@@ -555,7 +629,7 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/sendCredential', invitation)
+                    return this.$store.dispatch('invitations/sendCredentials', invitation)
                 }
             })
         },
@@ -821,6 +895,74 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'notReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsSentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsSent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsSent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsNotSentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsNotSent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsNotSent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsReceivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsReceived
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsNotReceivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsNotReceived
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsNotReceived', value: filter},
                 )
 
                 this.$store.dispatch(

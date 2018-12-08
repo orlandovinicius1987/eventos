@@ -15,11 +15,11 @@
                         :columns="[
                             '#',
                             'Tipo',
+                            'Recebido',
                             'Assunto',
                             'Destino',
                             'Criado em',
                             'Enviado em',
-                            'Recebido'
                         ]"
                     >
                         <tr

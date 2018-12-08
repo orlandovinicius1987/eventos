@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class RoleUpdated extends Broadcastable
 {
-    public $role;
+    protected $role;
 
     /**
      * Create a new event instance.

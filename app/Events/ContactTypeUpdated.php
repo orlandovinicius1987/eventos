@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class ContactTypeUpdated extends Broadcastable
 {
-    public $contactType;
+    protected $contactType;
 
     /**
      * Create a new event instance.

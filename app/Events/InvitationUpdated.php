@@ -11,7 +11,7 @@ class InvitationUpdated extends Broadcastable
      *
      * @var string
      */
-    public $invitation;
+    protected $invitation;
 
     /**
      * Create a new event instance.

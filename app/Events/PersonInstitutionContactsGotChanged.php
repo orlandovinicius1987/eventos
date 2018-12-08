@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class PersonInstitutionContactsGotChanged extends Broadcastable
 {
-    public $personIntitution;
+    protected $personIntitution;
 
     /**
      * Create a new event instance.

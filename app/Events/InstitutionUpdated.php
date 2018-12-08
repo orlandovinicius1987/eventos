@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class InstitutionUpdated extends Broadcastable
 {
-    public $institution;
+    protected $institution;
 
     /**
      * Create a new event instance.

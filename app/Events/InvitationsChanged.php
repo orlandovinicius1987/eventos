@@ -6,7 +6,7 @@ use Illuminate\Broadcasting\Channel;
 
 class InvitationsChanged extends Broadcastable
 {
-    public $subEvent;
+    protected $subEvent;
 
     /**
      * Create a new subEvent instance.

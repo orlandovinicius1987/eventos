@@ -2,14 +2,8 @@
 
 namespace App\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-
-class InvitationRejected
+class InvitationRejected extends Event
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
     public $invitation;
 
     /**
