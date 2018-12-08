@@ -48,8 +48,6 @@ class EventServiceProvider extends ServiceProvider
             NotifyInvitationsChanged::class,
 
             NotifySubEventsChanged::class,
-
-            SendNotification::class,
         ],
 
         InvitationCreated::class => [
