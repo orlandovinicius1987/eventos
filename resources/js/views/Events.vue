@@ -48,12 +48,12 @@
 
                             <td class="align-middle text-right">
                                 <button
-                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
                                     :disabled="cannot('update')"
-                                    title="Enviar todas as credênciais não enviadas"
+                                    title="Enviar todas as credenciais não enviadas"
                                 >
-                                    <i v-if="!event.busy" class="fa fa-angle-double-right"></i>
+                                    <i v-if="!event.busy" class="fa fa-landmark"></i>
                                     <i v-if="event.busy" class="fa fa-cog fa-spin"></i>
                                 </button>
 
@@ -134,7 +134,7 @@
                             <td class="align-middle text-right">
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
-                                    class="btn btn-info btn-sm btn-table-utility ml-1 pull-right"
+                                    class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
                                     @click="replicateCommonInfo(subEvent)"
                                     :disabled="cannot('update')"
                                     title="Replicar textos para todos os outros subeventos"
@@ -300,8 +300,8 @@
                                     {title: 'Convite<br>enviado', trClass: 'text-center'},
                                     {title: 'Convite<br>recebido', trClass: 'text-center'},
                                     {title: 'Convite<br>aceito', trClass: 'text-center'},
-                                    {title: 'Credêncial<br>enviada', trClass: 'text-center'},
-                                    {title: 'Credêncial<br>recebida', trClass: 'text-center'},
+                                    {title: 'Credencial<br>enviada', trClass: 'text-center'},
+                                    {title: 'Credencial<br>recebida', trClass: 'text-center'},
                                     {title: 'Check in', trClass: 'text-center'},
                                     ''
                                 ]"
@@ -358,14 +358,14 @@
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center"> <!-- Credêncial enviada -->
+                            <td class="align-middle text-center"> <!-- Credencial enviada -->
                                 <h6 class="mb-0">
                                     <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ invitation.notifications.length }}</span>
                                     <span v-else class="badge badge-danger">não enviada</span>
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center"> <!-- Credêncial recebida -->
+                            <td class="align-middle text-center"> <!-- Credencial recebida -->
                                 <h6 class="mb-0">
                                     <span v-if="invitation.credentials_received_at && !invitation.credentials_received_atreceived_by_id" class="badge badge-success">sim</span>
                                     <span v-if="invitation.credentials_received_at && invitation.credentials_received_atreceived_by_id" class="badge badge-warning">manualmente</span>
@@ -380,11 +380,12 @@
                             <td class="align-middle text-right">
                                 <div
                                     @click="invitation.accepted_at ? sendCredential(invitation) : sendInvitation(invitation) "
-                                    class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && canSendEmail(invitation) && !invitation.accepted_at"
+                                    class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    v-if="can('update') && canSendEmail(invitation)"
                                     :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
                                 >
-                                    <i class="fa fa-mail-bulk"></i>
+                                    <i v-if="invitation.accepted_at" class="fa fa-landmark"></i>
+                                    <i v-if="!invitation.accepted_at" class="fa fa-mail-bulk"></i>
                                 </div>
 
                                 <div
@@ -395,7 +396,6 @@
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
-
 
                                 <div
                                     @click="markAsAccepted(invitation)"
@@ -633,7 +633,7 @@ export default {
 
         sendCredentials(event) {
             confirm(
-                'Você tem certeza que deseja enviar todas as credênciais agora?',
+                'Você tem certeza que deseja enviar todas as credenciais agora?',
                 this,
             ).then(value => {
                 if (value) {
