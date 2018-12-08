@@ -390,13 +390,16 @@ class Invitations extends Repository
 
     public function getAllInvitationsFor($invitation)
     {
-        return collect(
-            array_merge([$invitation], $invitation->related())
-        )->sortBy(function ($invitation) {
-            return is_null($invitation->subEvent->associated_subevent_id)
-                ? 10
-                : 100;
-        });
+        return collect(array_merge([$invitation], $invitation->related()))
+            ->reject(function ($invitation) {
+                return is_null($invitation->subEvent->confirmed_at) ||
+                    $invitation->subEvent->ended_at;
+            })
+            ->sortBy(function ($invitation) {
+                return is_null($invitation->subEvent->associated_subevent_id)
+                    ? 10
+                    : 100;
+            });
     }
 
     public function getAllInvitationsForContact($contact)
