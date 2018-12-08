@@ -106,7 +106,7 @@
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="'/people/' + person.id + '/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     title="Editar Pessoa"
@@ -281,7 +281,7 @@
                                                     personInstitution.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Função"
@@ -365,7 +365,7 @@
                                                     contact.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Contato"
@@ -459,7 +459,7 @@
                                                     address.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Endereço"
@@ -538,7 +538,7 @@
                                                     advisor.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Assessor"
@@ -626,7 +626,7 @@
                                                     advisorContact.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Contato do Assessor"

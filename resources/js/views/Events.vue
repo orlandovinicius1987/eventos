@@ -59,7 +59,7 @@
 
                                 <router-link
                                     :to="'/events/'+event.id+'/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     title="Editar Evento"
