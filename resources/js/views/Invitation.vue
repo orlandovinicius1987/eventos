@@ -12,12 +12,41 @@
                     :title="'Notificações (' + invitation.notifications.length + ')'"
                 >
                     <app-table
-                        :columns="['#','Assunto', 'Destino', 'Criado em', 'Enviado em', 'Recebido']"
+                        :columns="[
+                            '#',
+                            'Tipo',
+                            'Recebido',
+                            'Assunto',
+                            'Destino',
+                            'Criado em',
+                            'Enviado em',
+                        ]"
                     >
                         <tr
                             v-for="notification in invitation.notifications"
                         >
                             <td class="align-middle">{{ notification.id }}</td>
+
+                           <td class="align-middle">
+                                <span v-if="notification.content_type === 'invitation'" class="badge badge-primary p-2">
+                                    CONVITE
+                                </span>
+
+                                <span v-if="notification.content_type === 'credentials'" class="badge badge-info p-2">
+                                    CREDENCIAIS
+                                </span>
+
+                                <span v-if="notification.content_type === 'rejection'" class="badge badge-warning p-2">
+                                    DECLINAÇÃO
+                                </span>
+                            </td>
+
+                            <td class="align-middle">
+                                <h6 class="mb-0">
+                                    <span v-if="notification.received_at" class="badge badge-success">recebido</span>
+                                    <span v-else class="badge badge-danger">não recebido</span>
+                                </h6>
+                            </td>
 
                             <td class="align-middle">{{ notification.subject }}</td>
 
@@ -26,13 +55,6 @@
                             <td class="align-middle">{{ notification.created_at }}</td>
 
                             <td class="align-middle">{{ notification.sent_at }}</td>
-
-                            <td class="align-middle">
-                                <h6 class="mb-0">
-                                    <span v-if="notification.received_at" class="badge badge-success">recebido</span>
-                                    <span v-else class="badge badge-danger">não recebido</span>
-                                </h6>
-                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>

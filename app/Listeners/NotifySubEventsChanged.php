@@ -16,7 +16,9 @@ class NotifySubEventsChanged extends Listener
     {
         event(
             new SubEventsChanged(
-                $event->subEvent->event ?? $event->invitation->subEvent->event
+                $event->getSubEvent()->event ??
+                    $event->getInvitation()->subEvent->event ??
+                    $event->getNotification()->invitation->subEvent->event
             )
         );
     }

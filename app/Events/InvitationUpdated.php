@@ -4,14 +4,14 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class InvitationUpdated extends Event
+class InvitationUpdated extends Broadcastable
 {
     /**
      * Information about the invitation update.
      *
      * @var string
      */
-    public $invitation;
+    protected $invitation;
 
     /**
      * Create a new event instance.

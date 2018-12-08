@@ -3,9 +3,9 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
+use App\Data\Models\Notification;
 use Illuminate\Queue\SerializesModels;
 use App\Data\Repositories\Invitations;
-use App\Data\Models\Notification;
 use Illuminate\Mail\Mailable as IlluminateMailable;
 use Illuminate\Contracts\Mail\Mailer as MailerContract;
 
@@ -47,7 +47,5 @@ class Mailable extends IlluminateMailable
     public function send(MailerContract $mailer)
     {
         parent::send($mailer);
-
-        $this->notification->markAsSent();
     }
 }

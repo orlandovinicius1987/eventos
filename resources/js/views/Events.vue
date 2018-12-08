@@ -48,6 +48,16 @@
 
                             <td class="align-middle text-right">
                                 <button
+                                    class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
+                                    @click="sendCredentials(event)"
+                                    :disabled="cannot('update')"
+                                    title="Enviar todas as credenciais não enviadas"
+                                >
+                                    <i v-if="!event.busy" class="fa fa-landmark"></i>
+                                    <i v-if="event.busy" class="fa fa-cog fa-spin"></i>
+                                </button>
+
+                                <button
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     @click="sendInvitations(event)"
                                     :disabled="cannot('update')"
@@ -124,7 +134,7 @@
                             <td class="align-middle text-right">
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
-                                    class="btn btn-info btn-sm btn-table-utility ml-1 pull-right"
+                                    class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
                                     @click="replicateCommonInfo(subEvent)"
                                     :disabled="cannot('update')"
                                     title="Replicar textos para todos os outros subeventos"
@@ -187,97 +197,154 @@
                     @set-per-page="invitationsPerPage = $event"
                     :filter-text="invitationsFilterText"
                     @input-filter-text="invitationsFilterText = $event.target.value"
+                    dont-center-filters="true"
                 >
                     <template slot="checkboxes">
-                        <app-input
-                            name="hasNoEmailCheckbox"
-                            label="sem e-mail"
-                            type="checkbox"
-                            v-model="hasNoEmailCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                        <div class="row">
+                            <div class="col">
+                                <app-input
+                                    name="hasNoEmailCheckbox"
+                                    label="sem e-mail"
+                                    type="checkbox"
+                                    v-model="hasNoEmailCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
 
-                        <app-input
-                            name="sentCheckbox"
-                            label="enviados"
-                            type="checkbox"
-                            v-model="sentCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                            <div class="col">
+                                <app-input
+                                    name="sentCheckbox"
+                                    label="enviados"
+                                    type="checkbox"
+                                    v-model="sentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
 
-                        <app-input
-                            name="notSentCheckbox"
-                            label="não enviados"
-                            type="checkbox"
-                            v-model="notSentCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <br>
 
-                        <app-input
-                            name="notReceivedCheckbox"
-                            label="não recebidos"
-                            type="checkbox"
-                            v-model="notReceivedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <app-input
+                                    name="notSentCheckbox"
+                                    label="não enviados"
+                                    type="checkbox"
+                                    v-model="notSentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
 
-                        <app-input
-                            name="receivedCheckbox"
-                            label="recebidos"
-                            type="checkbox"
-                            v-model="receivedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                            <div class="col">
+                                <app-input
+                                    name="receivedCheckbox"
+                                    label="recebidos"
+                                    type="checkbox"
+                                    v-model="receivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
 
-                        <app-input
-                            name="notAcceptedCheckbox"
-                            label="não aceitos"
-                            type="checkbox"
-                            v-model="notAcceptedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <br>
 
-                        <app-input
-                            name="acceptedCheckbox"
-                            label="aceitos"
-                            type="checkbox"
-                            v-model="acceptedCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <app-input
+                                    name="notReceivedCheckbox"
+                                    label="não recebidos"
+                                    type="checkbox"
+                                    v-model="notReceivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
 
-                        <app-input
-                            name="notCheckedInCheckbox"
-                            label="não fizeram check in"
-                            type="checkbox"
-                            v-model="notCheckedInCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                            <div class="col">
+                                <app-input
+                                    name="acceptedCheckbox"
+                                    label="aceitos"
+                                    type="checkbox"
+                                    v-model="acceptedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
 
-                        <app-input
-                            name="notAnsweredCheckbox"
-                            label="não respondidos"
-                            type="checkbox"
-                            v-model="notAnsweredCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
-                        ></app-input>
+                                <br>
+
+                                <app-input
+                                    name="notAcceptedCheckbox"
+                                    label="não aceitos"
+                                    type="checkbox"
+                                    v-model="notAcceptedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+
+                            <div class="col">
+                                <app-input
+                                    name="credentialsSentCheckbox"
+                                    label="credenciais enviadas"
+                                    type="checkbox"
+                                    v-model="credentialsSentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+
+                                <br>
+
+                                <app-input
+                                    name="credentialsNotSentCheckbox"
+                                    label="credenciais não enviadas"
+                                    type="checkbox"
+                                    v-model="credentialsNotSentCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+
+                            <div class="col">
+                                <app-input
+                                    name="credentialsReceivedCheckbox"
+                                    label="credenciais recebidas"
+                                    type="checkbox"
+                                    v-model="credentialsReceivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+
+                                <br>
+
+                                <app-input
+                                    name="credentialsNotReceivedCheckbox"
+                                    label="credenciais não recebidas"
+                                    type="checkbox"
+                                    v-model="credentialsNotReceivedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+
+                            <div class="col">
+                                <app-input
+                                    name="notCheckedInCheckbox"
+                                    label="não fizeram check in"
+                                    type="checkbox"
+                                    v-model="notCheckedInCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+                            </div>
+                        </div>
                     </template>
 
                     <app-table
@@ -287,9 +354,8 @@
                                     'Código',
                                     'Convidado',
                                     {title: 'Pendências', trClass: 'text-center'},
-                                    {title: 'Enviado', trClass: 'text-center'},
-                                    {title: 'Recebido', trClass: 'text-center'},
-                                    {title: 'Aceito', trClass: 'text-center'},
+                                    {title: 'Convite', trClass: 'text-center'},
+                                    {title: 'Credencial', trClass: 'text-center'},
                                     {title: 'Check in', trClass: 'text-center'},
                                     ''
                                 ]"
@@ -299,35 +365,31 @@
                             v-for="invitation in invitations.data.rows"
                             :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitation, invitations.selected)}"
                         >
-                            <td class="align-middle">{{ invitation.code }}</td>
+                            <td class="align-middle">{{ invitation.code }}</td> <!-- Código -->
 
-                            <td class="align-middle">
+                            <td class="align-middle"> <!-- Convidado -->
                                 <strong>{{ invitation.person_institution.person.name }}</strong> ({{ invitation.person_institution.title }})<br>
                                 {{ invitation.person_institution.role.name }} - {{ invitation.person_institution.institution.name }}
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle text-center"> <!-- Pendências -->
                                 <h6 v-for="pending in invitation.pending" class="m-0">
                                     <span :class="'badge badge-' + pending.type">{{ pending.label }}</span>
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center">
+                            <td class="align-middle text-center"> <!-- Convite enviado -->
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ invitation.notifications.length }}</span>
+                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ filterNotifications(invitation.notifications, 'invitation').length }}</span>
                                     <span v-else class="badge badge-danger">não enviado</span>
                                 </h6>
-                            </td>
 
-                            <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">sim</span>
-                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">manualmente</span>
-                                    <span v-if="!invitation.received_at" class="badge badge-danger">não</span>
+                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">recebidos: {{ filterNotificationsReceived(invitation.notifications, 'invitation').length }}</span>
+                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">recebido manualmente</span>
+                                    <span v-if="!invitation.received_at" class="badge badge-danger">não recebido</span>
                                 </h6>
-                            </td>
 
-                            <td class="align-middle text-center">
                                 <h6 class="mb-0">
                                     <template v-if="!invitation.sent_at">
                                         <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
@@ -341,9 +403,30 @@
                                         <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
 
                                         <span v-if="!invitation.accepted_by_id && invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-warning">declinou</span>
+                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-danger">declinou</span>
                                     </template>
                                 </h6>
+                            </td>
+
+                            <td class="align-middle text-center"> <!-- Credencial enviada -->
+                                <span v-if="!invitation.declined_at">
+                                    <h6 class="mb-0">
+                                        <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ filterNotifications(invitation.notifications, 'credentials').length }}</span>
+                                        <span v-else class="badge badge-danger">não enviada</span>
+                                    </h6>
+
+                                    <h6 class="mb-0">
+                                        <span v-if="invitation.credentials_received_at && !invitation.credentials_received_by_id" class="badge badge-success">recebidas: {{ filterNotificationsReceived(invitation.notifications, 'credentials').length }}</span>
+                                        <span v-if="invitation.credentials_received_at && invitation.credentials_received_by_id" class="badge badge-warning">recebida manualmente</span>
+                                        <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não recebida</span>
+                                    </h6>
+                                </span>
+
+                                <span v-else>
+                                    <h6 class="mb-0">
+                                        <span class="badge badge-primary">convite declinado</span>
+                                    </h6>
+                                </span>
                             </td>
 
                             <td class="align-middle text-center">
@@ -352,23 +435,32 @@
 
                             <td class="align-middle text-right">
                                 <div
-                                    @click="invitation.accepted_at ? sendCredentials(invitation) : sendInvitation(invitation) "
-                                    class="btn btn-info btn-sm btn-table-utility btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && canSendEmail(invitation) && !invitation.accepted_at"
+                                    @click="invitation.accepted_at ? sendCredential(invitation) : sendInvitation(invitation) "
+                                    class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    v-if="can('update') && canSendEmail(invitation)"
                                     :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
                                 >
-                                    <i class="fa fa-mail-bulk"></i>
+                                    <i v-if="invitation.accepted_at" class="fa fa-landmark"></i>
+                                    <i v-if="!invitation.accepted_at" class="fa fa-mail-bulk"></i>
                                 </div>
 
                                 <div
-                                    @click="markAsReceived(invitation)"
+                                    @click="markAsReceived(invitation, 'invitation')"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
-                                    title="Receber o convite manualmente"
+                                    title="Marcar o convite como 'recebido manualmente'"
                                 >
                                     <i class="fa fa-check"></i>
                                 </div>
 
+                                <div
+                                    @click="markAsReceived(invitation, 'credentials')"
+                                    class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && invitation.accepted_at&& !invitation.credentials_received_at"
+                                    title="Marcar as credenciais como 'recebida manualmente'"
+                                >
+                                    <i class="fa fa-check"></i>
+                                </div>
 
                                 <div
                                     @click="markAsAccepted(invitation)"
@@ -496,7 +588,7 @@ export default {
             })
         },
 
-        markAsReceived(invitation) {
+        markAsReceived(invitation, type) {
             confirm(
                 'Deseja realment marcar como recebido o covite de ' +
                 invitation.person_institution.person.name +
@@ -504,7 +596,7 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/markAsReceived', invitation)
+                    return this.$store.dispatch('invitations/markAsReceived', {invitation: invitation, type: type})
                 }
             })
         },
@@ -530,7 +622,7 @@ export default {
             })
         },
 
-        sendCredentials(invitation) {
+        sendCredential(invitation) {
             invitation.busy = true
             confirm(
                 'Deseja realmente enviar as credencias para ' + invitation.person_institution.person.name + '?',
@@ -604,6 +696,21 @@ export default {
             })
         },
 
+        sendCredentials(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todas as credenciais agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store.dispatch('events/sendCredentials', event).then(() => {
+                        event.busy = false
+                    })
+                }
+            })
+        },
+
         downloadSubEventPDF(subEvent) {
             this.downloading = true
 
@@ -633,6 +740,18 @@ export default {
                         })
                     }
                 })
+            })
+        },
+
+        filterNotifications(notifications, type) {
+            return _.filter(notifications, notification => {
+                return notification.content_type === type
+            })
+        },
+
+        filterNotificationsReceived(notifications, type) {
+            return _.filter(this.filterNotifications(notifications, type), notification => {
+                return notification.received_at
             })
         },
     },
@@ -776,6 +895,74 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'notReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsSentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsSent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsSent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsNotSentCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsNotSent
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsNotSent', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsReceivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsReceived
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsReceived', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        credentialsNotReceivedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.credentialsNotReceived
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'credentialsNotReceived', value: filter},
                 )
 
                 this.$store.dispatch(

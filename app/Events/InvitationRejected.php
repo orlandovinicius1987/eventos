@@ -2,23 +2,17 @@
 
 namespace App\Events;
 
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
-
-class InvitationRejected
+class InvitationRejected extends Event
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    public $invitationId;
+    public $invitation;
 
     /**
      * Create a new event instance.
      *
-     * @param $invitationId
+     * @param $invitation
      */
-    public function __construct($invitationId)
+    public function __construct($invitation)
     {
-        $this->invitationId = $invitationId;
+        $this->invitation = $invitation;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class CategoriesChanged extends Event
+class CategoriesChanged extends Broadcastable
 {
     /**
      * Get the channels the event should broadcast on.

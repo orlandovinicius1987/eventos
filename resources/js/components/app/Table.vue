@@ -9,8 +9,9 @@
                         v-if="columns"
                         v-for="column in columns"
                         :class="is_object(column) ? column.trClass : ''"
+                        v-html="is_object(column) ? column.title : column"
                     >
-                        {{ is_object(column) ? column.title : column }}
+
                     </th>
                 </tr>
             </thead>
