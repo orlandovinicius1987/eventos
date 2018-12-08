@@ -4,7 +4,7 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class CategoryUpdated extends Event
+class CategoryUpdated extends Broadcastable
 {
     public $category;
 

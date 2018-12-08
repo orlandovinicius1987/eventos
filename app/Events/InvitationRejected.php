@@ -10,15 +10,15 @@ class InvitationRejected
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $invitationId;
+    public $invitation;
 
     /**
      * Create a new event instance.
      *
-     * @param $invitationId
+     * @param $invitation
      */
-    public function __construct($invitationId)
+    public function __construct($invitation)
     {
-        $this->invitationId = $invitationId;
+        $this->invitation = $invitation;
     }
 }

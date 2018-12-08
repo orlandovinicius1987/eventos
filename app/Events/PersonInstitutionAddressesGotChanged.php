@@ -4,7 +4,7 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class PersonInstitutionAddressesGotChanged extends Event
+class PersonInstitutionAddressesGotChanged extends Broadcastable
 {
     public $personInstitution;
 
