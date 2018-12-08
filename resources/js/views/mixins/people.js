@@ -21,7 +21,8 @@ export default {
                 photoUrl = this.people.selected.photoUrl
             }
 
-            let otherPeopleSelected = this.people_current.id != this.people.selected.id
+            let otherPeopleSelected =
+                this.people_current.id != this.people.selected.id
             this.people_current.id = this.people.selected.id
 
             return flush_image_cache(photoUrl, otherPeopleSelected)
