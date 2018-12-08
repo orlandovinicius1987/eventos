@@ -50,13 +50,6 @@ class Notification extends IlluminateNotification implements ShouldQueue
 
     protected function getDelay()
     {
-        info(
-            'minutes: ' .
-                $this->calculateMinutes() .
-                ' - ' .
-                $this->getMailSentCount()
-        );
-
         $minutes = now()->addMinutes($this->calculateMinutes());
 
         $this->addMailSentToCount();
