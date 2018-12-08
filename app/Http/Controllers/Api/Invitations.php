@@ -193,7 +193,7 @@ class Invitations extends Controller
     public function sendCredentials($eventId, $subEventId, $id)
     {
         // FUTURO
-        return app(InvitationsRepository::class)->sendCredentials(
+        return app(InvitationsRepository::class)->sendCredential(
             $eventId,
             $subEventId,
             $id

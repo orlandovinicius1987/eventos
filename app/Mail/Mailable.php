@@ -47,7 +47,5 @@ class Mailable extends IlluminateMailable
     public function send(MailerContract $mailer)
     {
         parent::send($mailer);
-
-        $this->notification->markAsSent();
     }
 }

@@ -260,13 +260,13 @@ class Invitations extends Repository
     }
 
     // FUTURO
-    public function sendCredentials($eventId, $subEventId, $invitationId)
+    public function sendCredential($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
         if ($this->canSend($eventId, $subEventId, $invitation) && false) {
             //FIXME FUTURO
-            //$invitation->sendCredentials(true);
+            //$invitation->sendCredential(true);
         }
     }
 

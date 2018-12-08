@@ -9,6 +9,10 @@ Route::group(['prefix' => '/events'], function () {
         'events.send-invitations'
     );
 
+    Route::post('/{id}/send-credentials', 'Events@sendCredentials')->name(
+        'events.send-credentials'
+    );
+
     Route::post('/{id}', 'Events@update')->name('events.update');
 
     Route::group(['prefix' => '{eventId}/sub-events'], function () {
@@ -90,9 +94,9 @@ Route::group(['prefix' => '/events'], function () {
             )->name('invitations.send-invitation');
 
             Route::post(
-                '/{id}/sendCredentials',
-                'Invitations@sendCredentials'
-            )->name('invitations.send-credentials');
+                '/{id}/sendCredential',
+                'Invitations@sendCredential'
+            )->name('invitations.send-credential');
         });
     });
 });
