@@ -297,11 +297,8 @@
                                     'Código',
                                     'Convidado',
                                     {title: 'Pendências', trClass: 'text-center'},
-                                    {title: 'Convite<br>enviado', trClass: 'text-center'},
-                                    {title: 'Convite<br>recebido', trClass: 'text-center'},
-                                    {title: 'Convite<br>aceito', trClass: 'text-center'},
-                                    {title: 'Credencial<br>enviada', trClass: 'text-center'},
-                                    {title: 'Credencial<br>recebida', trClass: 'text-center'},
+                                    {title: 'Convite', trClass: 'text-center'},
+                                    {title: 'Credencial', trClass: 'text-center'},
                                     {title: 'Check in', trClass: 'text-center'},
                                     ''
                                 ]"
@@ -326,20 +323,16 @@
 
                             <td class="align-middle text-center"> <!-- Convite enviado -->
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ invitation.notifications.length }}</span>
+                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ filterNotifications(invitation.notifications, 'invitation').length }}</span>
                                     <span v-else class="badge badge-danger">não enviado</span>
                                 </h6>
-                            </td>
 
-                            <td class="align-middle text-center"> <!-- Convite recebido -->
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">sim</span>
-                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">manualmente</span>
-                                    <span v-if="!invitation.received_at" class="badge badge-danger">não</span>
+                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">recebidos: {{ filterNotificationsReceived(invitation.notifications, 'invitation').length }}</span>
+                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">recebido manualmente</span>
+                                    <span v-if="!invitation.received_at" class="badge badge-danger">não recebido</span>
                                 </h6>
-                            </td>
 
-                            <td class="align-middle text-center"> <!-- Convite aceito -->
                                 <h6 class="mb-0">
                                     <template v-if="!invitation.sent_at">
                                         <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
@@ -353,23 +346,21 @@
                                         <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
 
                                         <span v-if="!invitation.accepted_by_id && invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-warning">declinou</span>
+                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-danger">declinou</span>
                                     </template>
                                 </h6>
                             </td>
 
                             <td class="align-middle text-center"> <!-- Credencial enviada -->
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ invitation.notifications.length }}</span>
+                                    <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ filterNotifications(invitation.notifications, 'credentials').length }}</span>
                                     <span v-else class="badge badge-danger">não enviada</span>
                                 </h6>
-                            </td>
 
-                            <td class="align-middle text-center"> <!-- Credencial recebida -->
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.credentials_received_at && !invitation.credentials_received_atreceived_by_id" class="badge badge-success">sim</span>
-                                    <span v-if="invitation.credentials_received_at && invitation.credentials_received_atreceived_by_id" class="badge badge-warning">manualmente</span>
-                                    <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não</span>
+                                    <span v-if="invitation.credentials_received_at && !invitation.credentials_received_by_id" class="badge badge-success">recebidas: {{ filterNotificationsReceived(invitation.notifications, 'credentials').length }}</span>
+                                    <span v-if="invitation.credentials_received_at && invitation.credentials_received_by_id" class="badge badge-warning">recebida manualmente</span>
+                                    <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não recebida</span>
                                 </h6>
                             </td>
 
@@ -675,6 +666,18 @@ export default {
                         })
                     }
                 })
+            })
+        },
+
+        filterNotifications(notifications, type) {
+            return _.filter(notifications, notification => {
+                return notification.content_type === type
+            })
+        },
+
+        filterNotificationsReceived(notifications, type) {
+            return _.filter(this.filterNotifications(notifications, type), notification => {
+                return notification.received_at
             })
         },
     },
