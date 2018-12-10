@@ -449,7 +449,7 @@
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation)"
                                     :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
-                                    :disabled="!invitation.accepted_at || !environment.debug"
+                                    :disabled="invitation.accepted_at && !environment.debug"
                                 >
                                     <i v-if="invitation.accepted_at" class="fa fa-landmark"></i>
                                     <i v-if="!invitation.accepted_at" class="fa fa-mail-bulk"></i>
