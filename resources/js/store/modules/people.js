@@ -116,21 +116,12 @@ let actions = merge_objects(actionsMixin, {
                 'person.' + payload.id,
                 '.App\\Events\\PersonInstitutionsGotChanged',
                 () => {
+                    dd('changed: PersonInstitutionsGotChanged')
                     context.dispatch('personInstitutions/load', payload, {
                         root: true,
                     })
                 },
             )
-
-            // subscribePublicChannel(
-            //     'person.' + payload.id,
-            //     '.App\\Events\\PersonAddressesGotChanged',
-            //     () => {
-            //         context.dispatch('personAddresses/load', payload, {
-            //             root: true,
-            //         })
-            //     },
-            // )
 
             subscribePublicChannel(
                 'person.' + payload.id,

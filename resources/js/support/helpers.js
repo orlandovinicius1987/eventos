@@ -289,5 +289,10 @@ window.privateChannel = channel => {
 }
 
 window.subscribePublicChannel = (model, className, callable) => {
+    dd('EVENT HOOK ---- model: ', model, 'className: ', className)
+
     publicChannel(model).listen(className, callable)
 }
+
+// Channel: person.539, Event:  .App\Events\PersonInstitutionsGotChanged ---
+//          person.539 ssName:  .App\Events\PersonInstitutionsGotChanged
