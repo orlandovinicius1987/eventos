@@ -1,6 +1,7 @@
 <?php
 
 use App\Data\Repositories\Clients;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 function startTimer()
@@ -89,6 +90,20 @@ function set_current_client_id($id)
 function make_pdf_filename($baseName)
 {
     return str_slug($baseName . ' ' . now()->format('Y m d H i')) . '.pdf';
+}
+
+function extract_info_from_mailgun_webhook($data)
+{
+    return [
+        'timestamp' => Carbon::createFromTimestamp(
+            array_get($data, 'signature.timestamp')
+        ),
+
+        'message_id' => array_get(
+            $data,
+            'event-data.message.headers.message-id'
+        ),
+    ];
 }
 
 class Timer

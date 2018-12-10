@@ -1,9 +1,10 @@
 recordButtonText<template>
     <div>
         <div class="py-2 text-center">
-            <h1>{{ events.selected.name }}</h1>
-            <h2>{{ subEvents.selected.name }}</h2>
-            <h2>Convidar Pessoas</h2>
+            <h1>Convidar pessoas para o sub-evento</h1>
+            <h2>{{ events.selected.name }}</h2>
+            <h2>{{ subEvents.selected.name }} - {{ subEvents.selected.sector ? subEvents.selected.sector.name : '' }}</h2>
+            <h2>{{ subEvents.selected.place }}</h2>
         </div>
 
         <div class="row justify-content-center">
@@ -16,14 +17,44 @@ recordButtonText<template>
                     :filter-text="invitablesFilterText"
                     @input-filter-text="invitablesFilterText = $event.target.value"
                 >
-                    <app-select
-                        name="sub_event_id"
-                        label="Filtrar convidados de outro sub-evento"
-                        v-model="subEventSelectFilter"
-                        :required="true"
-                        :form="form"
-                        :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
-                    ></app-select>
+                    <template slot="checkboxes">
+                        <app-input
+                                name="not_invited"
+                                label="Somente não convidados"
+                                type="checkbox"
+                                v-model="notInvited"
+                                :required="true"
+                                :form="form"
+                                inline="true"
+                        ></app-input>
+                    </template>
+
+                    <template slot="selects">
+                        <app-institution-filter-for-invitation
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                        ></app-institution-filter-for-invitation>
+
+                        <app-role-filter-for-invitation
+                            name="role_id"
+                            label="Função"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                        ></app-role-filter-for-invitation>
+
+                        <app-select
+                            name="sub_event_id"
+                            label="Filtrar convidados de outro sub-evento"
+                            v-model="subEventSelectFilter"
+                            :required="true"
+                            :form="form"
+                            :options="except(this.environment.tables.sub_events, this.subEvents.form.fields.id)"
+                        ></app-select>
+                    </template>
 
                     <template slot="buttons">
                         <div
@@ -52,17 +83,18 @@ recordButtonText<template>
                                     'Nome',
                                     'Instituição',
                                     'Cargo',
+                                    'Convidado',
                                     ''
                                 ]"
                     >
                         <tr
                             v-for="invitable in invitables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(invitable, invitables.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitable, invitables.selected)}"
                         >
                             <td class="align-middle">{{ invitable.id }}</td>
 
                             <td class="align-middle">
-                                <input
+                                <input v-if="!invitable.is_invited_to_sub_event"
                                     :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
@@ -76,6 +108,12 @@ recordButtonText<template>
                             <td class="align-middle">{{ invitable.institution.name }}</td>
 
                             <td class="align-middle">{{ invitable.role.name }}</td>
+
+                            <td class="align-middle text-center">
+                                <h6 class="mb-0">
+                                    <span v-if="invitable.is_invited_to_sub_event" class="badge badge-success">Já convidado</span>
+                                </h6>
+                            </td>
 
                             <td class="align-middle">
                                 <a
@@ -114,6 +152,8 @@ export default {
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
+        this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
 
@@ -127,6 +167,30 @@ export default {
 
             subEvents: state => state.subEvents,
         }),
+
+        notInvited: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.not_invited
+            },
+
+            set(filter) {
+                if (filter) {
+                    this.$store.commit(
+                        'invitables/mutateFilterCheckbox',
+                        {field: 'not_invited', value: this.subEvents.selected.id},
+                    )
+                }else{
+                    this.$store.commit(
+                        'invitables/mutateFilterCheckbox',
+                        {field: 'not_invited', value: null},
+                    )
+                }
+
+                this.$store.dispatch(
+                    'invitables/load'
+                )
+            },
+        },
 
         selectedSubEvent:{
             get(){
@@ -234,9 +298,9 @@ export default {
                 }),
             }
 
-            this.$store.dispatch('invitables/invite', invitees)
+            this.resetCheckedPeople()
 
-            // this.$router.go(0)
+            this.$store.dispatch('invitables/invite', invitees)
         },
 
         moveInvitations() {
@@ -252,6 +316,8 @@ export default {
                 }),
             }
 
+            this.resetCheckedPeople()
+
             this.$store.dispatch('invitables/moveInvitations', invitees)
 
             // this.$router.go(0)
@@ -263,7 +329,7 @@ export default {
             items.rows = except(list.rows, id)
 
             return items
-        }
+        },
     },
 }
 </script>

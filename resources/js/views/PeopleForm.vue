@@ -60,6 +60,11 @@
                                 id="name"
                                 required="required"
                             >
+
+                            <div class="text-danger" v-if="form.errors.has('name')" >
+                                {{ form.errors.get('name') }}
+                            </div>
+
                             <div class="alert alert-warning" role="alert" v-if="currentNameIsDuplicate" id="nameDuplicate">
                                 Foi encontrado uma pessoa com este mesmo nome: {{form.fields.name}}, recomenda-se verificar as pessoas cadastradas.
                             </div>
@@ -213,12 +218,10 @@ export default {
             })
         },
 
-        savePerson(){
-            if (this.currentNameIsDuplicate) {
-                this.confirmNameDuplicate()
-            } else {
-                this.saveModel()
-            }
+        savePerson() {
+            this.currentNameIsDuplicate
+                ? this.confirmNameDuplicate()
+                : this.saveModel()
         },
     },
 

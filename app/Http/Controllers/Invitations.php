@@ -45,13 +45,12 @@ class Invitations extends Controller
             $eventId,
             $subEventId,
             $invitationId,
-            only_numbers($request['cpf'])
+            $request['cpf']
         );
 
-        session()->put('message', $message);
-        session()->reflash();
-
-        return redirect()->route('messages.show');
+        return view('messages.common')->with([
+            'message' => $message,
+        ]);
     }
 
     /**
@@ -90,14 +89,12 @@ class Invitations extends Controller
             $eventId,
             $subEventId,
             $invitationId,
-            only_numbers($request['cpf'])
+            $request['cpf']
         );
 
-        session()->put('message', $message);
-
-        session()->reflash();
-
-        return redirect()->route('messages.show');
+        return view('messages.common')->with([
+            'message' => $message,
+        ]);
     }
 
     /**

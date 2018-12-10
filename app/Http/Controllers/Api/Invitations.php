@@ -13,6 +13,8 @@ use App\Http\Requests\MoveInvitations as MoveInvitationsRequest;
 
 class Invitations extends Controller
 {
+    const MARK_MODE_MANUAL = 'manual';
+
     /**
      * Get all data
      *
@@ -61,7 +63,7 @@ class Invitations extends Controller
     }
 
     /**
-     * UnInvite a person
+     * Mark an invite as accepted
      *
      * @param UninviteRequest $request
      * @param $eventId
@@ -78,7 +80,60 @@ class Invitations extends Controller
         app(InvitationsRepository::class)->markAsAccepted(
             $eventId,
             $subEventId,
-            $invitationId
+            $invitationId,
+            self::MARK_MODE_MANUAL
+        );
+
+        return $this->emptyResponse();
+    }
+
+    /**
+     * Mark an invite as rejected
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function markAsRejected(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId
+    ) {
+        app(InvitationsRepository::class)->markAsRejected(
+            $eventId,
+            $subEventId,
+            $invitationId,
+            self::MARK_MODE_MANUAL
+        );
+
+        return $this->emptyResponse();
+    }
+
+    /**
+     * Mark an invite as accepted
+     *
+     * @param UninviteRequest $request
+     * @param $eventId
+     * @param $subEventId
+     * @param $invitationId
+     * @return mixed
+     */
+    public function markAsReceived(
+        UninviteRequest $request,
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $type
+    ) {
+        app(InvitationsRepository::class)->markAsReceived(
+            $eventId,
+            $subEventId,
+            $invitationId,
+            self::MARK_MODE_MANUAL,
+            $type
         );
 
         return $this->emptyResponse();
@@ -86,7 +141,10 @@ class Invitations extends Controller
 
     public function invitables($eventId, $subEventId)
     {
-        return app(InvitablesRepository::class)->getInvitables($subEventId);
+        return app(InvitablesRepository::class)->getInvitables(
+            $subEventId,
+            request()->get('query')
+        );
     }
 
     public function invite($eventId, $subEventId)
@@ -124,9 +182,27 @@ class Invitations extends Controller
         return app(InvitationsRepository::class)->html($id);
     }
 
-    public function send($eventId, $subEventId, $id)
+    public function sendInvitation($eventId, $subEventId, $id)
     {
-        return app(InvitationsRepository::class)->send(
+        return app(InvitationsRepository::class)->sendInvitation(
+            $eventId,
+            $subEventId,
+            $id
+        );
+    }
+
+    public function sendCredentials($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->sendCredentials(
+            $eventId,
+            $subEventId,
+            $id
+        );
+    }
+
+    public function sendRejection($eventId, $subEventId, $id)
+    {
+        return app(InvitationsRepository::class)->sendInvitation(
             $eventId,
             $subEventId,
             $id

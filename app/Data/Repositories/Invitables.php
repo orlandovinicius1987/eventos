@@ -13,13 +13,11 @@ class Invitables extends Repository
 
     protected function filterAllColumns($query, $text)
     {
-        $query
-            ->join('people', 'person_institutions.person_id', '=', 'people.id')
-            ->where(function ($query) use ($text) {
-                $query->orWhere('institutions.name', 'ilike', "%{$text}%");
-                $query->orWhere('people.name', 'ilike', "%{$text}%");
-                $query->orWhere('roles.name', 'ilike', "%{$text}%");
-            });
+        $query->where(function ($query) use ($text) {
+            $query->orWhere('institutions.name', 'ilike', "%{$text}%");
+            $query->orWhere('people.name', 'ilike', "%{$text}%");
+            $query->orWhere('roles.name', 'ilike', "%{$text}%");
+        });
 
         return $query;
     }
@@ -28,13 +26,24 @@ class Invitables extends Repository
     {
         return $this->applyFilter(
             app(PersonInstitutions::class)
-                ->newQuery()
-                ->whereRaw(
-                    'person_institutions.id not in (select person_institution_id from invitations where sub_event_id = ' .
+                ->newQuery(null)
+                ->selectRaw(
+                    '(select count("invitations"."person_institution_id") from "invitations" where "person_institutions"."id" = "invitations"."person_institution_id" and "invitations"."sub_event_id" = ' .
                         $subEventId .
-                        ')'
+                        ') as is_invited_to_sub_event'
                 )
         );
+    }
+
+    protected function filterCheckboxes($query, array $filter)
+    {
+        if (isset($filter['not_invited']) && $filter['not_invited']) {
+            $query->whereRaw(
+                'person_institutions.id not in (select person_institution_id from invitations where sub_event_id = ' .
+                    $filter['not_invited'] .
+                    ')'
+            );
+        }
     }
 
     /**
@@ -48,6 +57,12 @@ class Invitables extends Repository
     {
         if (isset($filter['sub_event']) && !is_null($filter['sub_event'])) {
             $query->invitedToSubEvent($filter['sub_event']);
+        }
+        if (isset($filter['role']) && !is_null($filter['role'])) {
+            $query->where('role_id', $filter['role']);
+        }
+        if (isset($filter['institution']) && !is_null($filter['institution'])) {
+            $query->where('institution_id', $filter['institution']);
         }
 
         return $query;

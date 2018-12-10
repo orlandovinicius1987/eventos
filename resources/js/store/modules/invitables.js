@@ -10,15 +10,21 @@ const __emptyModel = {}
 const state = merge_objects(statesMixin.common, {
     subEvent: { id: null },
 
-    service: { name: 'invitables', uri: 'invitables' },
+    service: {
+        name: 'invitables',
+        uri: 'events/{eventId}/sub-events/{subEventId}/invitations/invitables',
+    },
 
-    form: new Form(__emptyModel),
-    emptyForm: __emptyModel,
+    form: new Form(clone(__emptyModel)),
+
+    emptyForm: clone(__emptyModel),
 
     data: {
         filter: {
             selects: {
                 sub_event: null,
+                institution: null,
+                role: null,
             },
         },
     },
@@ -26,19 +32,11 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     invite(context, payload) {
-        post(makeDataUrl(context), payload).then(() => {
-            context.dispatch('load', payload)
-        })
-
-        context.dispatch('load')
+        post(makeDataUrl(context), payload)
     },
 
     moveInvitations(context, payload) {
-        post(makeDataUrl(context) + '/move', payload).then(() => {
-            context.dispatch('load', payload)
-        })
-
-        context.dispatch('load')
+        post(makeDataUrl(context) + '/move', payload)
     },
 })
 

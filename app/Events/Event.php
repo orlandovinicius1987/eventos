@@ -3,21 +3,35 @@
 namespace App\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
-class Event
+abstract class Event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
+    public function __call($method, $arguments)
     {
-        return new PrivateChannel('channel-name');
+        if (starts_with($method, 'get')) {
+            return $this->hasProperty(
+                ($property = $this->makeProperty('get', $method))
+            )
+                ? $this->$property
+                : null;
+        }
+
+        throw new \Exception(
+            "Method {$method} does not exists in " . get_class($this)
+        );
+    }
+
+    protected function hasProperty($param)
+    {
+        return property_exists($this, $param);
+    }
+
+    protected function makeProperty($string, $method)
+    {
+        return camel_case(substr(snake_case($method), strlen($string)));
     }
 }

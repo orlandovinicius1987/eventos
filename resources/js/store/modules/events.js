@@ -4,6 +4,7 @@ import * as mutationsMixin from './mixins/mutations.js'
 import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
+import Echo from 'laravel-echo'
 
 const __emptyModel = {
     id: null,
@@ -13,18 +14,58 @@ const __emptyModel = {
 }
 
 const state = merge_objects(statesMixin.common, {
-    form: new Form(__emptyModel),
-    emptyForm: __emptyModel,
+    form: new Form(clone(__emptyModel)),
+
+    emptyForm: clone(__emptyModel),
+
+    model: {
+        name: 'event',
+
+        table: 'events',
+
+        class: { singular: 'Event', plural: 'Events' },
+    },
 })
 
 const actions = merge_objects(actionsMixin, {
     selectEvent(context, payload) {
+        publicChannel('event.' + payload.id).listen(
+            '.App\\Events\\SubEventsChanged',
+            () => {
+                context.dispatch('subEvents/load', payload, { root: true })
+
+                context.dispatch('invitations/load', payload, { root: true })
+
+                context.dispatch('invitables/load', payload, { root: true })
+            },
+        )
+
         context.dispatch('select', payload)
 
         context.dispatch('subEvents/setEvent', payload, { root: true })
     },
 
     selectSubEvent(context, payload) {
+        publicChannel('sub-event.' + payload.id).listen(
+            '.App\\Events\\InvitationsChanged',
+            () => {
+                dd('reload invitations')
+
+                context.dispatch('subEvents/load', payload, { root: true })
+
+                context.dispatch('invitations/load', payload, { root: true })
+
+                context.dispatch('invitables/load', payload, { root: true })
+            },
+        )
+
+        publicChannel('sub-event.' + payload.id).listen(
+            '.App\\Events\\SubEventUpdated',
+            () => {
+                context.dispatch('subEvents/load', payload, { root: true })
+            },
+        )
+
         context.dispatch('subEvents/select', payload, { root: true })
 
         context.dispatch('invitations/setSubEvent', payload, { root: true })
@@ -38,6 +79,22 @@ const actions = merge_objects(actionsMixin, {
 
     sendInvitations(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/send-invitations')
+    },
+
+    sendCredentials(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send-credentials')
+    },
+
+    subscribeToModelEvents(context, payload) {
+        subscribePublicChannel(
+            'event.' + payload.id,
+            '.App\\Events\\EventUpdated',
+            () => {
+                context.dispatch('load')
+
+                context.dispatch('subEvents/load', payload, { root: true })
+            },
+        )
     },
 })
 

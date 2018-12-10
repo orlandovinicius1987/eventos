@@ -57,7 +57,18 @@ abstract class Base extends Model implements AuditableContract
      */
     protected $filterableColumns = ['name'];
 
-    private function flushKeys()
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::bootObservers();
+    }
+
+    protected static function bootObservers()
+    {
+    }
+
+    protected function flushKeys()
     {
         coollect($this->flushKeys)->each(function ($key) {
             Cache::forget($key);
@@ -134,5 +145,10 @@ abstract class Base extends Model implements AuditableContract
     public function getFilterableColumns()
     {
         return coollect($this->filterableColumns);
+    }
+
+    public function getCurrentAuthenticatedUserId()
+    {
+        return auth()->user()->id ?? null;
     }
 }

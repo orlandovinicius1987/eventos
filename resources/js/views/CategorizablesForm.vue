@@ -30,13 +30,12 @@
                         @goto-page="categorizablesGotoPage($event)"
                         :columns="[
                                     '#',
-                                    'Nome',
-                                    ''
+                                    'Nome'
                                 ]"
                     >
                         <tr
                             v-for="categorizable in categorizables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(categorizable, categorizables.selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(categorizable, categorizables.selected)}"
                         >
                             <td class="align-middle">{{ categorizable.id }}</td>
 

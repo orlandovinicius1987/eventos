@@ -15,6 +15,6 @@ class SendInvitations extends Listener
      */
     public function handle(InvitationsChanged $event)
     {
-        app(Events::class)->sendInvitations($event->eventId);
+        app(Events::class)->sendInvitations($event->getSubEvent()->event->id);
     }
 }

@@ -54,7 +54,7 @@
 
                         <app-role-filter-for-person
                                 name="role_id"
-                                label="Funções"
+                                label="Função"
                                 :required="true"
                                 :form="form"
                                 :options="environment.tables.roles"
@@ -106,7 +106,7 @@
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="'/people/' + person.id + '/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('update')"
                                     title="Editar Pessoa"
@@ -148,7 +148,7 @@
                                     personCategories.data.links.pagination
                                 "
                                 @goto-page="personCategoriesGotoPage($event)"
-                                :columns="['#', 'Nome']"
+                                :columns="['#', 'Nome', '']"
                             >
                                 <tr
                                     v-for="personCategory in personCategories
@@ -221,6 +221,7 @@
                                     'Instituição',
                                     'Função',
                                     'Status',
+                                    '',
                                 ]"
                             >
                                 <tr
@@ -280,7 +281,7 @@
                                                     personInstitution.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Função"
@@ -322,7 +323,7 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato', 'Status']"
+                                :columns="['#', 'Tipo', 'Contato', 'Status', '']"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -364,7 +365,7 @@
                                                     contact.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Contato"
@@ -377,10 +378,7 @@
                         </app-table-panel>
                     </div>
 
-                    <div
-                        class="col-12"
-                        v-if="personInstitutions.selected.advised_id == null"
-                    >
+                    <div class="col-12">
                         <app-table-panel
                             v-if="
                                 personInstitutions.selected.id &&
@@ -415,7 +413,8 @@
                                     'Numero',
                                     'Complemento',
                                     'Bairro',
-                                    'Cidade'
+                                    'Cidade',
+                                    '',
                                 ]"
                                 :rows="addresses.data.rows"
                             >
@@ -460,7 +459,7 @@
                                                     address.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Endereço"
@@ -473,10 +472,7 @@
                         </app-table-panel>
                     </div>
 
-                    <div
-                        class="col-12"
-                        v-if="personInstitutions.selected.advised_id == null"
-                    >
+                    <div class="col-12">
                         <app-table-panel
                             v-if="
                                 personInstitutions.selected.id &&
@@ -509,7 +505,8 @@
                                     '#',
                                     'Tratamento',
                                     'Nome',
-                                    'Nome Público'
+                                    'Nome Público',
+                                    ''
                                 ]"
                             >
                                 <tr
@@ -541,7 +538,7 @@
                                                     advisor.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Assessor"
@@ -589,7 +586,7 @@
                                     advisorContacts.data.links.pagination
                                 "
                                 @goto-page="advisorContactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato']"
+                                :columns="['#', 'Tipo', 'Contato', '']"
                             >
                                 <tr
                                     @click="
@@ -629,7 +626,7 @@
                                                     advisorContact.id +
                                                     '/update'
                                             "
-                                            tag="div"
+                                            tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
                                             :disabled="cannot('update')"
                                             title="Editar Contato do Assessor"

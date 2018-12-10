@@ -60,8 +60,7 @@
                             '#',
                             'Tratamento',
                             'Nome',
-                            'Nome público',
-                            ''
+                            'Nome público'
                         ]"
                     >
                         <tr

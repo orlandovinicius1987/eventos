@@ -7,7 +7,15 @@ export function mutateSetQuery(state, payload) {
 }
 
 export function mutateSetFormField(state, payload) {
-    state.form.fields[payload.field] = payload.value
+    let formField = '{form.fields'
+
+    if (payload.hasOwnProperty('object')) {
+        formField = formField + '.' + payload.object
+    }
+    formField = formField + '}'
+
+    let object = objectAttributeFromString(formField, state)
+    object[payload.field] = payload.value
 }
 
 export function mutateSetErrors(state, payload) {

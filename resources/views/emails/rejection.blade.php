@@ -1,12 +1,6 @@
 @component('mail::message')
-    # Confirmação de CANCELAMENTO do convite
+{!! $invitation->getViewVariables()['rejection_text'] !!}<img src="{{ route('notifications.received', [$notification->uuid, 'images|dummy.png']) }}" alt="">
 
-    Evento: {{$invitation->subEvent->event->name}}
-    Sub-Evento: {{$invitation->subEvent->name}}
+@include('emails.signature')
 
-    Nós sentimos muito pelo seu Cancelamento.
-
-    Obrigado,
-    {{ $client_full_name }}
-    Alerj
 @endcomponent

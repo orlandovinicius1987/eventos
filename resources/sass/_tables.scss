@@ -5,13 +5,24 @@
   thead {
     background: $grey-lighter05;
     border-top: 1px solid #ffffff;
+
+    th{
+
+      &:first-child {
+        text-align: center;
+        /*padding-left: 1rem;*/
+      }
+    }
   }
 
   td {
     border-top: 1px solid $grey-lighter04;
+    &:first-child {
+      text-align: center;
+      padding-left: 0.5rem;
+    }
   }
 }
-
 
 .table-hover {
   tbody {
@@ -30,10 +41,32 @@
     padding: 0.7rem 0.3rem;
 
     &:first-child {
-      padding-left: 1rem;
+      padding-left: 0.5rem;
     }
     &:last-child {
       padding-right: 1rem;
     }
+  }
+}
+
+
+.fa {
+  height: 13px;
+  line-height: 13px;
+  width: 13px;
+}
+
+.event-name {
+
+  @media screen and (max-width: 1025px) {
+    max-width: 230px;
+  }
+}
+
+
+.subevents-buttons {
+
+  @media screen and (max-width: 1025px) {
+    /*min-width: 90px;*/
   }
 }

@@ -5,6 +5,52 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
+const __emptyEvent = {
+    id: null,
+
+    name: null,
+    client_id: null,
+}
+
+const __emptyAddress = {
+    zipcode: null,
+    street: null,
+    number: null,
+    complement: null,
+    neighbourhood: null,
+    city: null,
+    state: null,
+    latitude: laravel.google_maps.geolocation.latitude,
+    longitude: laravel.google_maps.geolocation.longitude,
+}
+
+const __emptySubEvent = {
+    address: __emptyAddress,
+    event: __emptyEvent,
+
+    associated_subevent_id: null,
+    credentials_text: null,
+    confirmed_at: null,
+    confirmed_by: null,
+    costume: null,
+    costume_id: null,
+    thank_you_text: null,
+    rejection_text: null,
+    date: null,
+    ended_at: null,
+    ended_by: null,
+    event_id: null,
+    id: null,
+    invitation_text: null,
+    model: null,
+    name: null,
+    place: null,
+    sector_id: null,
+    started_at: null,
+    started_by: null,
+    time: null,
+}
+
 const __emptyModel = {
     id: null,
     sub_event_id: null,
@@ -28,8 +74,8 @@ const state = merge_objects(statesMixin.common, {
         performLoad: false,
     },
 
-    form: new Form(__emptyModel),
-    emptyForm: __emptyModel,
+    form: new Form(clone(__emptyModel)),
+    emptyForm: clone(__emptyModel),
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -52,6 +98,12 @@ const actions = merge_objects(actionsMixin, {
         })
     },
 
+    resetSubEvent(context, payload) {
+        context.commit('mutateSetSubEvent', __emptySubEvent)
+
+        context.commit('mutateSetSelected', __emptyModel)
+    },
+
     setSubEvent(context, payload) {
         context.commit('mutateSetSubEvent', payload)
 
@@ -61,25 +113,33 @@ const actions = merge_objects(actionsMixin, {
     },
 
     unInvite(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/un-invite').then(
-            () => {
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/un-invite')
     },
 
     markAsAccepted(context, payload) {
-        post(
-            makeDataUrl(context) + '/' + payload.id + '/mark-as-accepted',
-        ).then(() => {
-            context.dispatch('load', payload)
-        })
+        post(makeDataUrl(context) + '/' + payload.id + '/mark-as-accepted')
     },
 
-    send(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/send').then(() => {
-            context.dispatch('load', payload)
-        })
+    markAsReceived(context, payload) {
+        post(
+            makeDataUrl(context) +
+                '/' +
+                payload.invitation.id +
+                '/mark-as-received/' +
+                payload.type,
+        )
+    },
+
+    markAsDeclined(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/mark-as-rejected')
+    },
+
+    sendCredentials(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send-credentials')
+    },
+
+    sendInvitation(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send-invitation')
     },
 })
 

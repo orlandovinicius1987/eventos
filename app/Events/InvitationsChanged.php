@@ -2,12 +2,29 @@
 
 namespace App\Events;
 
-class InvitationsChanged extends Event
-{
-    public $eventId;
+use Illuminate\Broadcasting\Channel;
 
-    public function __construct($eventId)
+class InvitationsChanged extends Broadcastable
+{
+    protected $subEvent;
+
+    /**
+     * Create a new subEvent instance.
+     *
+     * @param $subEvent
+     */
+    public function __construct($subEvent)
     {
-        $this->eventId = $eventId;
+        $this->subEvent = $subEvent;
+    }
+
+    /**
+     * Get the channels the subEvent should broadcast on.
+     *
+     * @return \Illuminate\Broadcasting\Channel|array
+     */
+    public function broadcastOn()
+    {
+        return new Channel('sub-event.' . $this->subEvent->id);
     }
 }

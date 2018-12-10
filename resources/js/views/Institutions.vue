@@ -17,12 +17,12 @@
                     <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['#', 'Nome', 'Sigla', 'Número do partido']"
+                        :columns="['#', 'Nome', 'Sigla', 'Número do partido', '']"
                     >
                         <tr
                             @click="select(institution)"
                             v-for="institution in institutions.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(institution, selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(institution, selected)}"
                         >
                             <td class="align-middle">{{ institution.id }}</td>
                             <td class="align-middle">{{ institution.name }}</td>
@@ -31,7 +31,7 @@
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="'/institutions/'+institution.id+'/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
                                     title="Editar Instituição"

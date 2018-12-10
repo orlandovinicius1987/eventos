@@ -53,7 +53,7 @@
                                 v-model="subEvents.form.fields.associated_subevent_id"
                                 :required="true"
                                 :form="form"
-                                :options="except(environment.tables.sub_events, subEvents.form.fields.id)"
+                                :options="exceptSubEventList(environment.tables.sub_events, subEvents.form.fields.id, subEvents.form.fields.event_id)"
                             ></app-select>
 
                             <app-select
@@ -74,11 +74,37 @@
                                     :options="environment.tables.sectors"
                             ></app-select>
 
-                            <app-markdown-text-area :form="form" label="Texto de convite" id="invitation_text" :value="subEvents.form.fields.invitation_text" @changeText="changeText($event)"></app-markdown-text-area>
-                            <app-markdown-text-area :form="form" label="Texto de confirmação" id="confirmation_text" :value="subEvents.form.fields.confirmation_text" @changeText="changeText($event)"></app-markdown-text-area>
-                            <app-markdown-text-area :form="form" label="Texto de envio de credencial" id="credential_send_text" :value="subEvents.form.fields.credential_send_text" @changeText="changeText($event)"></app-markdown-text-area>
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'invitation_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto do convite"
+                                    id="invitation_text"
+                                    :value="subEvents.form.fields.invitation_text"
+                            ></app-markdown-text-area>
 
-                            <!--:add-button="{ uri: 'events/{events.selected.id}/sub-event/'+subEvent.selected.id+'/addresses/create', disabled: cannot('create') }"-->
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'credentials_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto de envio das credencials de acesso ao evento"
+                                    id="credentials_text"
+                                    :value="subEvents.form.fields.credentials_text"
+                            ></app-markdown-text-area>
+
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'thank_you_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto de agradecimento pela presença"
+                                    id="thank_you_text"
+                                    :value="subEvents.form.fields.thank_you_text"
+                            ></app-markdown-text-area>
+
+                            <app-markdown-text-area
+                                    @input="changeText({field: 'rejection_text', text: $event})"
+                                    :form="form"
+                                    label="Email: texto de declinação do convite"
+                                    id="rejection_text"
+                                    :value="subEvents.form.fields.rejection_text"
+                            ></app-markdown-text-area>
 
                             <app-table-panel
                                     v-if="mode == 'create'"
@@ -91,23 +117,11 @@
                                     <tr
                                             @click="selectAddressInsideEvent(address)"
                                             v-for="address in subEvents.data.available_addresses" class="cursor-pointer"
-                                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(address, addresses.selected)}"
+                                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(address, addresses.selected)}"
                                     >
                                         <td>{{ address.id }}</td>
+                                        <td>{{ address.full_address }}</td>
 
-                                        <td>{{ address.street + ', ' + address.number + (address.complement ? ' - '+address.complement : '')}}</td>
-
-                                        <td class="align-middle text-right">
-                                            <router-link
-                                                    :to="'events/{events.selected.id}/sub-event/'+subEvents.selected.id+'/addresses/'+address.id+'/update'"
-                                                    tag="div"
-                                                    class="btn btn-danger btn-sm ml-1 pull-right"
-                                                    :disabled="cannot('update')"
-                                                    title="Editar Endereço"
-                                            >
-                                                <i class="fa fa-edit"></i>
-                                            </router-link>
-                                        </td>
                                     </tr>
                                 </app-table>
                             </app-table-panel>
@@ -123,7 +137,7 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveSubEvent()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
 
                             <router-link to="/events" tag="button" class="btn btn-success">
                                 cancelar
@@ -138,6 +152,7 @@
 
 <script>
 import crud from './mixins/crud'
+import events from './mixins/events'
 import subEvents from './mixins/sub-events'
 import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
@@ -152,7 +167,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, subEvents, permissions],
+    mixins: [crud, events, subEvents, permissions],
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
@@ -166,57 +181,54 @@ export default {
     methods: {
         changeText($event){
             this.$store.commit('subEvents/mutateSetFormField', {
-                field: $event.fieldName,
+                field: $event.field,
                 value: $event.text,
             })
         },
 
-        saveSubEvent() {
-            this.save(this.mode).then(() => {
-                this.load()
-
-                this.back()
-
-                this.clearForm()
-
-                this.$store.dispatch('invitations/load')
-            })
-        },
-
         selectAddressInsideEvent(address) {
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'zipcode',
                 value: address.zipcode,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'street',
                 value: address.street,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'number',
                 value: address.number,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'complement',
                 value: address.complement,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'neighbourhood',
                 value: address.neighbourhood,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'city',
                 value: address.city,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'state',
                 value: address.state,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'latitude',
                 value: address.latitude,
             })
-            context.commit('mutateSetFormField', {
+            this.$store.commit('subEvents/mutateSetFormField', {
+                object: 'address',
                 field: 'longitude',
                 value: address.longitude,
             })
@@ -229,10 +241,14 @@ export default {
             })
         },
 
-        except(list, id) {
+        exceptSubEventList(list, subEventId, eventId) {
             let items = clone(list)
 
-            items.rows = except(list.rows, id)
+            items.rows = except(list.rows, subEventId)
+
+            items.rows = _.filter(items.rows, item => {
+                return !eventId || !item.event_id || item.event_id == eventId
+            })
 
             return items
         }

@@ -13,7 +13,12 @@ class Notification extends Base
     /**
      * @var array
      */
-    protected $fillable = ['invitation_id', 'subject', 'destination'];
+    protected $fillable = [
+        'invitation_id',
+        'subject',
+        'destination',
+        'content_type',
+    ];
 
     protected $table = 'notifications';
 
@@ -33,18 +38,25 @@ class Notification extends Base
     {
         $this->sent_at = now();
 
+        $this->sent_by_id = $this->getCurrentAuthenticatedUserId();
+
         $this->save();
+
+        $this->invitation->markAsSent($this->content_type);
     }
 
     public function markAsReceived()
     {
-        $this->received_at = now();
+        if (!$this->received_at) {
+            $this->received_at = now();
 
-        $this->save();
+            $this->save();
 
-        $this->invitation->received_at = now();
-
-        $this->invitation->save();
+            $this->invitation->markAsReceived(
+                'automatically',
+                $this->content_type
+            );
+        }
     }
 
     public function routeNotificationForMail()
@@ -54,6 +66,6 @@ class Notification extends Base
 
     public function invitations()
     {
-        app(Invitations::class)->getAllInvitationsFor($this->invitation);
+        return app(Invitations::class)->getAllInvitationsFor($this->invitation);
     }
 }

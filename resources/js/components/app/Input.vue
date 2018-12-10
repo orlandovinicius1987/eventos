@@ -1,6 +1,10 @@
 <template>
-    <span :class="type === 'checkbox' ? (inline ?  '' : 'form-check') + ' m-4' : ''">
+    <span :class="type === 'checkbox' ? (inline ?  '' : 'form-check') + ' m-4' : ''" style="white-space: nowrap">
         <label v-if="type !== 'checkbox'" :for="name" class="mb-0 mt-4">{{ label }}</label>
+
+        <small class="text-danger" v-if="form.errors.has(name)" >
+            <i class="fas fa-exclamation-triangle"></i> {{ form.errors.get(name) }}
+        </small>
 
         <input
             :value="value"
@@ -15,11 +19,7 @@
             :checked="value"
         >
 
-        <label v-if="type === 'checkbox'" :for="name" class="form-check-label">{{ label }}</label>
-
-        <small class="text-danger" v-if="form.errors.has(name)" >
-            {{ form.errors.get(name) }}
-        </small>
+        <label v-if="type === 'checkbox'" :for="name" class="form-check-label d-inline-block">{{ label }}</label>
     </span>
 </template>
 

@@ -10,6 +10,7 @@ use App\Data\Repositories\Traits\DataProcessing;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use ReflectionClass;
 
 abstract class Repository
 {
@@ -65,6 +66,45 @@ abstract class Repository
         return $query;
     }
 
+    protected function fireEventForModel($model, $eventType)
+    {
+        $reflect = new ReflectionClass($model);
+
+        $className = $reflect->getShortName();
+
+        $eventClass = "App\\Events\\{$className}{$eventType}";
+
+        if (class_exists($eventClass)) {
+            event(new $eventClass($model));
+        }
+    }
+
+    protected function fireEventForTable($model, $eventType)
+    {
+        $tableName = studly($model->getTable());
+
+        $eventClass = "App\\Events\\{$tableName}{$eventType}";
+
+        if (class_exists($eventClass)) {
+            event(new $eventClass($model));
+        }
+    }
+
+    /**
+     * @param $model
+     * @param string $type
+     */
+    protected function fireEvents($model, $type = 'Updated')
+    {
+        $this->fireEventForModel($model, $type);
+
+        $this->fireEventForTable($model, 'Changed');
+
+        if (method_exists($this, 'fireEventsForRelationships')) {
+            $this->fireEventsForRelationships($model, $type);
+        }
+    }
+
     protected function qualifyColumn($name)
     {
         return $this->model()->qualifyColumn($name);
@@ -86,6 +126,8 @@ abstract class Repository
         $model->fill($data);
 
         $model->save();
+
+        $this->fireEvents($model, 'Created');
 
         return $model;
     }
@@ -117,12 +159,13 @@ abstract class Repository
 
         return $this->makePaginationResult(
             $query->paginate(
-                $queryFilter->pagination
+                $queryFilter->pagination && $queryFilter->pagination->perPage
                     ? $queryFilter->pagination->perPage
                     : 5,
                 ['*'],
                 'page',
-                $queryFilter->pagination
+                $queryFilter->pagination &&
+                $queryFilter->pagination->currentPage
                     ? $queryFilter->pagination->currentPage
                     : 1
             )
@@ -442,6 +485,8 @@ abstract class Repository
         $model->fill($array);
 
         $model->save();
+
+        $this->fireEvents($model);
 
         return $model;
     }

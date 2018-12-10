@@ -66,7 +66,26 @@ class Events extends Repository
                     ->notSent()
                     ->get()
                     ->each(function ($invitation) {
-                        $invitation->send();
+                        $invitation->sendInvitation();
+                    });
+            });
+    }
+
+    public function sendCredentials($eventId)
+    {
+        $this->selectCurrentClientForEvent($eventId);
+
+        $this->findById($eventId)
+            ->subEvents()
+            ->confirmed()
+            ->get()
+            ->each(function ($subEvent) {
+                $subEvent
+                    ->invitations()
+                    ->credentialsNotSent()
+                    ->get()
+                    ->each(function ($invitation) {
+                        $invitation->sendCredentials();
                     });
             });
     }

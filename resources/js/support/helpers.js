@@ -142,32 +142,45 @@ window.loadDebounced = _.debounce(context => {
     context.dispatch('load')
 }, 650)
 
+window.objectAttributeFromString = (str, state) => {
+    let hasNulls = false
+    let object = str
+
+    let elements = str.match(/(\w+)/g)
+
+    let result = _.reduce(
+        elements,
+        (carry, value) => {
+            carry = carry && carry.hasOwnProperty(value) ? carry[value] : null
+
+            if (carry === null) {
+                hasNulls = true
+            }
+
+            return carry
+        },
+        state,
+    )
+
+    return hasNulls ? null : result
+}
+
 window.buildApiUrl = (uri, state) => {
-    let url = '/api/v1/' + uri
+    let str = uri
+
     let hasNulls = false
 
     _.each(uri.match(/(\{.*?\})/g), param => {
-        let elements = param.match(/(\w+)/g)
+        str = str.replace(param, objectAttributeFromString(param, state))
 
-        let result = _.reduce(
-            elements,
-            (carry, value) => {
-                carry =
-                    carry && carry.hasOwnProperty(value) ? carry[value] : null
-
-                if (carry === null) {
-                    hasNulls = true
-                }
-
-                return carry
-            },
-            state,
-        )
-
-        url = url.replace(param, result)
+        hasNulls = hasNulls || objectAttributeFromString(param, state) === null
     })
 
-    return hasNulls ? null : url
+    if (hasNulls) {
+        // dd('could not buildApiUrl from URI and STATE', uri, state)
+    }
+
+    return hasNulls ? null : '/api/v1/' + str
 }
 
 window.makeDataUrl = context => {
@@ -242,8 +255,8 @@ window.extractFileNameFromResponse = (response, filename = 'eventos.pdf') => {
     return filename
 }
 
-window.flush_image_cache = imageUrl => {
-    if (imageUrl && !imageUrl.includes('data:image/')) {
+window.flush_image_cache = (imageUrl, otherPeopleSelected = false) => {
+    if (imageUrl && !imageUrl.includes('data:image/') && otherPeopleSelected) {
         imageUrl = imageUrl + '?' + Math.random()
     }
 
@@ -267,3 +280,20 @@ window.downloadPDF = fileUrl => {
         link.click()
     })
 }
+
+window.publicChannel = channel => {
+    return window.Echo.channel(channel)
+}
+
+window.privateChannel = channel => {
+    return window.Echo.private(channel)
+}
+
+window.subscribePublicChannel = (model, className, callable) => {
+    dd('EVENT HOOK ---- model: ', model, 'className: ', className)
+
+    publicChannel(model).listen(className, callable)
+}
+
+// Channel: person.539, Event:  .App\Events\PersonInstitutionsGotChanged ---
+//          person.539 ssName:  .App\Events\PersonInstitutionsGotChanged

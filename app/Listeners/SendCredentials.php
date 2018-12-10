@@ -2,11 +2,10 @@
 
 namespace App\Listeners;
 
-use App\Data\Repositories\Invitations;
 use App\Events\InvitationAccepted;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Data\Repositories\Invitations;
 
-class SendCredential implements ShouldQueue
+class SendCredentials extends Listener
 {
     /**
      * Handle the event.
@@ -17,7 +16,7 @@ class SendCredential implements ShouldQueue
     public function handle(InvitationAccepted $event)
     {
         app(Invitations::class)
-            ->findById($event->invitationId)
-            ->send();
+            ->findById($event->getInvitation()->id)
+            ->sendCredentials();
     }
 }

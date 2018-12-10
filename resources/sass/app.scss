@@ -68,13 +68,16 @@ h2 {
 
 html {
   font-size: 14px;
-}
 
-@media (min-width: 768px) {
-  html {
+  @media (min-width: 768px) {
+    font-size: 14px;
+  }
+  @media (min-width: 1368px) {
     font-size: 16px;
   }
 }
+
+
 
 .container {
   max-width: 960px;
@@ -107,11 +110,8 @@ html {
 }
 
 
-
 .h-80 {
-
   height: 80% !important;
-
   @media screen and (max-width: 479px) {
     height: 80% !important;
   }
@@ -125,7 +125,6 @@ html {
 .bg-primary {
   background: $blue-lighter02;
 }
-
 
 
 /*
@@ -150,3 +149,7 @@ html {
 //.container-fluid {
 //  display: none !important;
 //}
+
+.text-danger {
+  font-weight:600;
+}

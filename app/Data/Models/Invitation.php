@@ -3,13 +3,16 @@
 namespace App\Data\Models;
 
 use Ramsey\Uuid\Uuid;
+use App\Events\InvitationUpdated;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
 use App\Services\Markdown\Service;
 use App\Notifications\SendRejection;
-use App\Notifications\SendCredential;
 use App\Notifications\SendInvitation;
+use App\Notifications\SendCredentials;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
-use App\Services\QrCode\Service as QrCode;
+use App\Services\QRCode\Service as QRCode;
 
 class Invitation extends Base
 {
@@ -26,7 +29,7 @@ class Invitation extends Base
         'checkin_at',
     ];
 
-    protected $with = ['personInstitution', 'subEvent'];
+    protected $with = ['personInstitution', 'subEvent', 'notifications'];
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
@@ -44,13 +47,77 @@ class Invitation extends Base
 
     protected $viewVariables;
 
-    protected $pathToQrCodes;
-
-    private function canSendEmail()
+    protected function extractEmails($contactList)
     {
-        return !is_null($this->subEvent->confirmed_at) &&
-            $this->hasEmail() &&
-            is_null($this->declined_at);
+        return collect(preg_split('/[\\,;\/ |]/', $contactList))
+            ->map(function ($email) {
+                return trim($email);
+            })
+            ->filter(function ($email) {
+                return filter_var($email, FILTER_VALIDATE_EMAIL);
+            });
+    }
+
+    protected function extractEmailsFromContact($contacts)
+    {
+        $emails = [];
+
+        $contacts->each(function ($contact) use (&$emails) {
+            $this->extractEmails($contact->contact)->each(function (
+                $email
+            ) use (&$emails) {
+                $emails[] = $email;
+            });
+        });
+
+        return collect($emails);
+    }
+
+    protected function makeNotificationContentType($notification): string
+    {
+        return $notification === SendCredentials::class
+            ? 'credentials'
+            : ($notification === SendRejection::class
+                ? 'rejection'
+                : 'invitation');
+    }
+
+    protected function makeSubject($notification)
+    {
+        $subject =
+            $notification === SendCredentials::class
+                ? 'CREDENCIAL DE ACESSO'
+                : ($notification === SendRejection::class
+                    ? 'CONVITE DECLINADO'
+                    : 'CONVITE');
+
+        return "{$this->subEvent->event->name} - {$subject}";
+    }
+
+    /**
+     * @param $how
+     */
+    protected function setReceivedAt($how)
+    {
+        $this->received_at = $this->received_at
+            ? $this->received_at
+            : ($how === 'manual'
+                ? null
+                : now());
+    }
+
+    protected function canSendEmail()
+    {
+        return !is_null($this->subEvent->confirmed_at) && $this->hasEmail();
+    }
+
+    protected function dispatchMails($notification)
+    {
+        $this->getEmails()->each(function ($email) use ($notification) {
+            $this->createNotificationModel($email, $notification)->notify(
+                new $notification()
+            );
+        });
     }
 
     /**
@@ -58,24 +125,73 @@ class Invitation extends Base
      */
     protected function getEmails()
     {
-        return $this->personInstitution->contacts->where(
-            'contact_type_id',
-            app(ContactTypes::class)->findByCode('email')->id
+        return $this->extractEmailsFromContact(
+            $this->personInstitution->contacts
+                ->where('is_active', true)
+                ->where(
+                    'contact_type_id',
+                    app(ContactTypes::class)->findByCode('email')->id
+                )
         );
     }
 
-    private function getMailSubject()
+    /**
+     *
+     * Accepts a message
+     *
+     * @param $how
+     */
+    public function accept($how)
     {
-        return ($this->hasBeenAccepted()
-            ? 'Credencial para acesso ao evento '
-            : 'Convite - ') . $this->subEvent->event->name;
+        $this->accepted_at = now();
+        $this->accepted_by_id =
+            $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
+
+        $this->setReceivedAt($how);
+
+        $this->declined_at = null;
+        $this->declined_by_id = null;
+
+        $this->save();
+
+        event(new InvitationAccepted($this));
+        event(new InvitationUpdated($this));
     }
 
-    private function getMailable()
+    /**
+     *
+     * Declines a message
+     *
+     * @param $how
+     */
+    public function reject($how)
     {
-        return $this->hasBeenAccepted()
-            ? SendCredential::class
-            : SendInvitation::class;
+        $this->declined_at = now();
+        $this->declined_by_id =
+            $how === 'manual' ? $this->getCurrentAuthenticatedUserId() : null;
+
+        $this->accepted_at = null;
+        $this->accepted_by_id = null;
+
+        $this->setReceivedAt($how);
+
+        $this->save();
+
+        event(new InvitationRejected($this));
+        event(new InvitationUpdated($this));
+    }
+
+    /**
+     *
+     * Declines a message
+     *
+     * @param $how
+     */
+    public function received($how)
+    {
+        $this->setReceivedAt($how);
+
+        $this->save();
     }
 
     /**
@@ -86,7 +202,15 @@ class Invitation extends Base
         return filled($this->accepted_at);
     }
 
-    private function parseMarkdown($text)
+    /**
+     * @return mixed
+     */
+    protected function hasBeenDeclined()
+    {
+        return filled($this->declined_at);
+    }
+
+    protected function parseMarkdown($text)
     {
         return app(Service::class)->text($text);
     }
@@ -111,6 +235,14 @@ class Invitation extends Base
         $this->code = $this->code ?? $this->invitationCodeGenerator();
 
         $this->uuid = $this->uuid ?? (string) Uuid::uuid4();
+
+        if (blank($this->id)) {
+            $this->created_by_id = $this->getCurrentAuthenticatedUserId();
+        }
+
+        if (filled($this->id)) {
+            $this->updated_by_id = $this->getCurrentAuthenticatedUserId();
+        }
 
         return parent::save($options);
     }
@@ -153,31 +285,42 @@ class Invitation extends Base
         return $related;
     }
 
-    public function send()
+    public function sendInvitation($force = false)
     {
-        if ($this->canSendEmail()) {
-            $this->getEmails()->each(function ($contact) {
-                $mailable = $this->getMailable();
-
-                $this->createNotification($contact->contact)->notify(
-                    new $mailable()
-                );
-            });
+        if (
+            $this->canSendEmail() &&
+            ($force || !$this->hasBeenDeclined()) &&
+            !$this->hasBeenAccepted()
+        ) {
+            $this->dispatchMails(SendInvitation::class);
         }
     }
 
-    public function createNotification($destination)
+    public function sendCredentials($force = false)
+    {
+        if (
+            $this->canSendEmail() &&
+            ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
+        ) {
+            $this->dispatchMails(SendCredentials::class);
+        }
+    }
+
+    public function sendRejection($force = false)
+    {
+        if ($this->canSendEmail() && ($force || $this->hasBeenDeclined())) {
+            $this->dispatchMails(SendRejection::class);
+        }
+    }
+
+    public function createNotificationModel($destination, $notification)
     {
         return app(Notifications::class)->create([
             'invitation_id' => $this->id,
             'destination' => $destination,
-            'subject' => $this->getMailSubject(),
+            'subject' => $this->makeSubject($notification),
+            'content_type' => $this->makeNotificationContentType($notification),
         ]);
-    }
-
-    public function sendRejection()
-    {
-        $this->notify(new SendRejection($this->id));
     }
 
     public function getClientIdAttribute()
@@ -251,7 +394,7 @@ class Invitation extends Base
         $variables = [
             'site_url' => route('home'),
 
-            'empresa' => '',
+            'uuid_convite' => $this->uuid,
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
                 $this->personInstitution->person->nickname,
@@ -273,40 +416,21 @@ class Invitation extends Base
             'convite_codigo' => $this->code,
             'instituicao_nome' => $this->personInstitution->institution->name,
             'cargo' => $this->personInstitution->role->name,
-            'endereco_rua' => $this->subEvent->address
-                ? $this->subEvent->address->street
-                : '',
-            'endereco_numero' => $this->subEvent->address
-                ? $this->subEvent->address->number
-                : '',
-            'endereco_complemento' => $this->subEvent->address
-                ? $this->subEvent->address->complement
-                : '',
-            'endereco_bairro' => $this->subEvent->address
-                ? $this->subEvent->address->neighbourhood
-                : '',
-            'endereco_cidade' => $this->subEvent->address
-                ? $this->subEvent->address->city
-                : '',
-            'endereco_uf' => $this->subEvent->address
-                ? $this->subEvent->address->state
-                : '',
-            'endereco_cep' => $this->subEvent->address
-                ? $this->subEvent->address->zipcode
-                : '',
-            'latitude' => $this->subEvent->address
-                ? $this->subEvent->address->latitude
-                : '',
-            'longitude' => $this->subEvent->address
-                ? $this->subEvent->address->longitude
-                : '',
-            'endereco_completo' => $this->subEvent->address
-                ? $this->subEvent->address->full_address
-                : '',
-            'google_maps_link' => $this->subEvent->address
-                ? $this->subEvent->address->google_maps_url
-                : '',
-            //            '{google_maps_imagem} (url - pensar)' => $invitation,
+            'endereco_rua' => $this->subEvent->address->street ?? '',
+            'endereco_numero' => $this->subEvent->address->number ?? '',
+            'endereco_complemento' =>
+                $this->subEvent->address->complement ?? '',
+            'endereco_bairro' => $this->subEvent->address->neighbourhood ?? '',
+            'endereco_cidade' => $this->subEvent->address->city ?? '',
+            'endereco_uf' => $this->subEvent->address->state ?? '',
+            'endereco_cep' => $this->subEvent->address->zipcode ?? '',
+            'latitude' => $this->subEvent->address->latitude ?? '',
+            'longitude' => $this->subEvent->address->longitude ?? '',
+            'endereco_completo' => $this->subEvent->address->full_address ?? '',
+            'google_maps_link_url' =>
+                $this->subEvent->address->google_maps_link_url ?? '',
+            'google_maps_image_url' =>
+                $this->subEvent->address->google_maps_image_url ?? '',
         ];
 
         $variables['invitation_text'] = $this->parseMarkdown(
@@ -316,18 +440,19 @@ class Invitation extends Base
             )
         );
 
-        $variables['confirmation_text'] = $this->parseMarkdown(
+        $variables['credentials_text'] = $this->parseMarkdown(
             $this->replaceVariables(
-                $this->subEvent->confirmation_text,
+                $this->subEvent->credentials_text,
                 $variables
             )
         );
 
-        $variables['credential_send_text'] = $this->parseMarkdown(
-            $this->replaceVariables(
-                $this->subEvent->credential_send_text,
-                $variables
-            )
+        $variables['rejection_text'] = $this->parseMarkdown(
+            $this->replaceVariables($this->subEvent->rejection_text, $variables)
+        );
+
+        $variables['thank_you_text'] = $this->parseMarkdown(
+            $this->replaceVariables($this->subEvent->thank_you_text, $variables)
         );
 
         return $this->viewVariables = $variables;
@@ -349,15 +474,18 @@ class Invitation extends Base
      *
      * @return string
      */
-    public function generateQrCodeFile()
+    public function generateQRCodeFile()
     {
         $relativePath = 'qr-codes/';
+
         $fullPath = storage_path($relativePath);
-        $this->pathToQrCodes = $fullPath;
+
         $fileName = $this->code . '.png';
 
-        $qrCode = app(QrCode::class);
+        $qrCode = app(QRCode::class);
+
         $text = $this->code;
+
         $qrCode->generateFile($fileName, $fullPath, $text);
 
         return $fullPath . $fileName;
@@ -368,9 +496,9 @@ class Invitation extends Base
      *
      * @return mixed
      */
-    public function getQrCodeAttribute()
+    public function getQRCodeAttribute()
     {
-        $qrCode = app(QrCode::class);
+        $qrCode = app(QRCode::class);
 
         return $qrCode->generateString(
             route('invitations.show-via-qrcode', ['uuid' => $this->uuid])
@@ -382,7 +510,7 @@ class Invitation extends Base
      *
      * @return mixed
      */
-    public function getQrCodeBlobAttribute()
+    public function getQRCodeBlobAttribute()
     {
         return base64_encode($this->qr_code);
     }
@@ -396,5 +524,66 @@ class Invitation extends Base
     public function scopeNotSent($query)
     {
         return $query->whereNull('sent_at');
+    }
+
+    /**
+     * Invitation sent scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSent($query)
+    {
+        return $query->whereNotNull('sent_at');
+    }
+
+    /**
+     * Not sent credential scope.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCredentialsNotSent($query)
+    {
+        return $query->whereNull('credentials_sent_at');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class)->orderBy(
+            'created_at',
+            'desc'
+        );
+    }
+
+    public function markAsDone(
+        $what,
+        $content_type = 'invitation',
+        $how = 'automatically'
+    ) {
+        $prefix = $content_type === 'invitation' ? '' : 'credentials_';
+
+        if (!$this->{$prefix . $what . '_at'}) {
+            $this->{$prefix . $what . '_at'} = now();
+
+            $this->{$prefix . $what . '_by_id'} =
+                $how === 'manual'
+                    ? $this->getCurrentAuthenticatedUserId()
+                    : null;
+
+            $this->save();
+
+            event(new InvitationUpdated($this));
+        }
+    }
+
+    public function markAsSent($content_type = 'invitation')
+    {
+        $this->markAsDone('sent', $content_type);
+    }
+
+    public function markAsReceived($how = 'automatically', $type = 'invitation')
+    {
+        $this->markAsDone('received', $type, $how);
     }
 }

@@ -8,14 +8,24 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = {
     id: null,
     party_number: null,
-    is_party: null,
+    initials: null,
+    is_party: false,
     is_active: false,
     name: null,
 }
 
 let state = merge_objects(statesMixin.common, {
-    form: new Form(__emptyModel),
-    emptyForm: __emptyModel,
+    form: new Form(clone(__emptyModel)),
+
+    emptyForm: clone(__emptyModel),
+
+    model: {
+        name: 'institution',
+
+        table: 'institutions',
+
+        class: { singular: 'Institution', plural: 'Institutions' },
+    },
 })
 
 let actions = merge_objects(actionsMixin, {

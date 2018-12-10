@@ -43,13 +43,13 @@
                             </router-link>
                         </div>
 
-                        <div class="col-12">
-                            <div class="text-center p-12 mb-2 mt-2 bg-cyan">
+                        <div class="col-12" v-if="hasCheckboxes()">
+                            <div :class="'p-2 mb-2 mt-2 bg-gray-light' + (dontCenterFilters ? '' : ' text-center')">
                                 <slot name="checkboxes"></slot>
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-12" v-if="hasSelects()">
                             <div class="p-12 mb-2 mt-2">
                                 <slot name="selects"></slot>
                             </div>
@@ -74,6 +74,21 @@
             'columns',
             'filter-text',
             'per-page',
+            'dont-center-filters'
         ],
+
+        methods: {
+            hasSelects() {
+                return this.hasSlot('selects')
+            },
+
+            hasCheckboxes() {
+                return this.hasSlot('checkboxes')
+            },
+
+            hasSlot(name) {
+                return !!this.$slots[ name ] || !!this.$scopedSlots[ name ];
+            },
+        }
     }
 </script>

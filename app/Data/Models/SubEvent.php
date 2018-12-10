@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Events\EventUpdated;
+use App\Events\SubEventUpdated;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -16,8 +18,9 @@ class SubEvent extends Base
         'time',
         'place',
         'invitation_text',
-        'confirmation_text',
-        'credential_send_text',
+        'credentials_text',
+        'thank_you_text',
+        'rejection_text',
         'event_id',
         'costume_id',
         'sector_id',
@@ -37,11 +40,28 @@ class SubEvent extends Base
 
     protected $with = ['event', 'address', 'costume', 'sector'];
 
-    protected $orderBy = ['date' => 'asc', 'time' => 'asc'];
+    protected $orderBy = [
+        'date' => 'asc',
+        'time' => 'asc',
+        'sector_id' => 'asc',
+        'place' => 'asc',
+        'name' => 'asc',
+    ];
+
+    protected $withCount = ['invitations'];
 
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable');
+    }
+
+    protected static function bootObservers()
+    {
+        static::updated(function ($model) {
+            event(new EventUpdated($model->event));
+
+            event(new SubEventUpdated($model));
+        });
     }
 
     public function event()

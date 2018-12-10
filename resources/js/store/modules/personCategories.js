@@ -16,7 +16,8 @@ const state = merge_objects(statesMixin.common, {
         isForm: true,
     },
 
-    form: new Form(__emptyModel),
+    form: new Form(clone(__emptyModel)),
+    emptyForm: clone(__emptyModel),
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -29,11 +30,7 @@ const actions = merge_objects(actionsMixin, {
     },
 
     unCategorize(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/').then(
-            () => {
-                context.dispatch('load', payload)
-            },
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/')
     },
 })
 

@@ -4,6 +4,10 @@ namespace App\Data\Models;
 
 class PersonInstitution extends Base
 {
+    protected $orderBy = ['people.name' => 'asc'];
+
+    protected $table = 'person_institutions';
+
     /**
      * @var array
      */
@@ -23,9 +27,9 @@ class PersonInstitution extends Base
     protected $filterableColumns = [
         'roles.name',
         'institutions.name',
-        'advisors.name',
-        'advisors.nickname',
-        'advisors.title',
+        'people.name',
+        'people.nickname',
+        'people.title',
     ];
 
     protected $selectColumns = [
@@ -42,11 +46,7 @@ class PersonInstitution extends Base
     ];
 
     protected $joins = [
-        'people as advisors' => [
-            'advisors.id',
-            '=',
-            'person_institutions.person_id',
-        ],
+        'people' => ['people.id', '=', 'person_institutions.person_id'],
     ];
 
     public function addresses()

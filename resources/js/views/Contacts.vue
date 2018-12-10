@@ -22,7 +22,7 @@
                         <tr
                                 @click="select(category)"
                                 v-for="contactType in contactTypes.data.rows"
-                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contactType, selected)}"
+                                :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(contactType, selected)}"
                         >
                             <td class="align-middle">{{ contactType.id }}</td>
 

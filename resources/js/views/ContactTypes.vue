@@ -17,12 +17,12 @@
                     <app-table
                             :pagination="pagination"
                             @goto-page="gotoPage($event)"
-                            :columns="['#', 'Nome', 'Código']"
+                            :columns="['#', 'Nome', 'Código', '']"
                     >
                         <tr
                                 @click="select(contactType)"
                                 v-for="contactType in contactTypes.data.rows"
-                                :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(contactType, selected)}"
+                                :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(contactType, selected)}"
                         >
                             <td class="align-middle">{{ contactType.id }}</td>
 
@@ -33,7 +33,7 @@
                             <td class="align-middle text-right">
                                 <router-link
                                         :to="'/contact-types/'+contactType.id+'/update'"
-                                        tag="div"
+                                        tag="button"
                                         class="btn btn-danger btn-sm ml-1 pull-right"
                                         :disabled="cannot('create')"
                                         title="Editar Tipo de Contato"

@@ -2,8 +2,11 @@
 
 Auth::routes();
 
-Route::get('/', 'Home@index')->name('home');
+/// No Auth
+require __DIR__ . '/no-auth/api.php';
+require __DIR__ . '/no-auth/web.php';
 
+<<<<<<< HEAD
 Route::group(
     [
         'prefix' => '/admin',
@@ -421,3 +424,8 @@ Route::group(
         Route::get('/messages', 'Messages@show')->name('messages.show');
     }
 );
+=======
+/// Auth
+require __DIR__ . '/auth/api.php';
+require __DIR__ . '/auth/admin.php';
+>>>>>>> upstream/master

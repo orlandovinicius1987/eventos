@@ -17,12 +17,12 @@
                     <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['#', 'Nome']"
+                        :columns="['#', 'Nome', '']"
                     >
                         <tr
                             @click="select(role)"
                             v-for="role in roles.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary text-white': isCurrent(role, selected)}"
+                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(role, selected)}"
                         >
                             <td class="align-middle">{{ role.id }}</td>
 
@@ -31,7 +31,7 @@
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="'/roles/'+role.id+'/update'"
-                                    tag="div"
+                                    tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
                                     title="Editar Função"
