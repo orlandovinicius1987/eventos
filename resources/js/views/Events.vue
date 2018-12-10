@@ -50,7 +50,7 @@
                                 <button
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('update') || !environment.debug"
                                     title="Enviar todas as credenciais não enviadas"
                                 >
                                     <i v-if="!event.busy" class="fa fa-landmark"></i>
@@ -419,10 +419,6 @@
                                 </h6>
 
                                 <h6 class="mb-0">
-                                    <template v-if="!invitation.sent_at">
-                                        <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
-                                    </template>
-
                                     <span v-if="invitation.accepted_at && invitation.accepted_by_id" class="badge badge-warning">aceito manualmente</span>
                                     <span v-if="invitation.declined_at && invitation.declined_by_id" class="badge badge-warning">declinado manualmente</span>
 
@@ -462,62 +458,54 @@
                             </td>
 
                             <td class="align-middle text-right">
-                                <div
+                                <button
                                     @click="invitation.accepted_at ? sendCredential(invitation) : sendInvitation(invitation) "
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation)"
                                     :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
+                                    :disabled="invitation.accepted_at && !environment.debug"
                                 >
                                     <i v-if="invitation.accepted_at" class="fa fa-landmark"></i>
                                     <i v-if="!invitation.accepted_at" class="fa fa-mail-bulk"></i>
-                                </div>
+                                </button>
 
-                                <div
+                                <button
                                     @click="markAsReceived(invitation, 'invitation')"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
                                     title="Marcar o convite como 'recebido manualmente'"
                                 >
-                                    <i class="fa fa-check-double"></i>
-                                </div>
+                                    <i class="fa fa-check"></i>
+                                </button>
 
-                                <div
-                                    @click="markAsDeclined(invitation)"
-                                    class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
-                                    title="Declinar o convite manualmente"
-                                >
-                                    <i class="fa fa-calendar-times"></i>
-                                </div>
-
-                                <div
+                                <button
                                     @click="markAsReceived(invitation, 'credentials')"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && invitation.accepted_at&& !invitation.credentials_received_at"
                                     title="Marcar as credenciais como 'recebida manualmente'"
                                 >
                                     <i class="fa fa-check"></i>
-                                </div>
+                                </button>
 
-                                <div
+                                <button
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
                                     title="Aceitar o convite manualmente"
                                 >
                                     <i class="fa fa-check-double"></i>
-                                </div>
+                                </button>
 
-                                <div
+                                <button
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
                                     title="Declinar o convite manualmente"
                                 >
                                     <i class="fa fa-calendar-times"></i>
-                                </div>
+                                </button>
 
-                                <div
+                                <button
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && canSendEmail(invitation) && invitation.accepted_at"
@@ -525,7 +513,7 @@
                                 >
                                     <i v-if="!invitation.busy" class="fa fa-id-badge"></i>
                                     <i v-if="invitation.busy" class="fa fa-cog fa-spin"></i>
-                                </div>
+                                </button>
 
                                 <router-link
                                     :to="'/events/'+invitation.sub_event.event.id+'/sub-events/'+invitation.sub_event.id+'/invitations/'+invitation.id+'/show'"
@@ -537,14 +525,14 @@
                                     <i class="fa fa-eye"></i>
                                 </router-link>
 
-                                <div
+                                <button
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="can('update') && !invitation.sent_at"
                                     title="Excluir convite (ainda não foi enviado)"
                                 >
                                     <i class="fa fa-trash"></i>
-                                </div>
+                                </button>
                             </td>
                         </tr>
                     </app-table>
