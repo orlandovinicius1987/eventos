@@ -39,6 +39,22 @@ Route::group(['prefix' => '/events'], function () {
             'sub-events.download'
         );
 
+        Route::group(['prefix' => '{subEventId}/receptive'], function () {
+            Route::get('/', 'Receptive@invitationAccepted')->name(
+                'receptive.invitationAccepted'
+            );
+
+            Route::post(
+                '/{invitationId}/checkin',
+                'Receptive@makeCheckin'
+            )->name('receptive.makeCheckin');
+
+            Route::post(
+                '/{invitationId}/checkin-with-code',
+                'Receptive@makeCheckinWithCode'
+            )->name('receptive.make-checkin-with-code');
+        });
+
         Route::group(['prefix' => '{subEventId}/invitations'], function () {
             Route::get('/', 'Invitations@all')->name('invitations.all');
 

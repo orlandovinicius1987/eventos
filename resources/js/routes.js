@@ -22,6 +22,7 @@ import InviteForm from './views/InviteForm'
 import Invitation from './views/Invitation'
 import EventsForm from './views/EventsForm'
 import SubEventsForm from './views/SubEventsForm'
+import Receptive from './views/Receptive.vue'
 import Import from './views/Import'
 import PhoneBook from './views/PhoneBook'
 
@@ -64,6 +65,10 @@ let routes = [
         path: '/events/:eventId/sub-events/:subEventId/update',
         component: SubEventsForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/events/:eventId/sub-events/:subEventId/receptive',
+        component: Receptive,
     },
     {
         path: '/events/:eventId/sub-events/:subEventId/invitations/create',

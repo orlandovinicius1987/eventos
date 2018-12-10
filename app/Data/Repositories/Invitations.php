@@ -131,7 +131,7 @@ class Invitations extends Repository
             ->join('people', 'person_institutions.person_id', '=', 'people.id')
             ->join('roles', 'person_institutions.role_id', '=', 'roles.id')
             ->where(function ($query) use ($text) {
-                $query->orWhere('code', 'i≤like', "%{$text}%");
+                $query->orWhere('code', 'ilike', "%{$text}%");
                 $query->orWhere('institutions.name', 'ilike', "%{$text}%");
                 $query->orWhere('people.name', 'ilike', "%{$text}%");
                 $query->orWhere('roles.name', 'ilike', "%{$text}%");
@@ -451,5 +451,59 @@ class Invitations extends Repository
             ->whereNull('sub_events.ended_at')
             ->whereNull('sub_events.associated_subevent_id')
             ->get();
+    }
+
+    public function fillteredAcceptedBySubEventId($subEventId)
+    {
+        return $this->applyFilter(
+            $this->newQuery()
+                ->whereNotNull('accepted_at')
+                ->where('sub_event_id', $subEventId)
+        );
+    }
+
+    public function fillteredAcceptedByEventId($eventId)
+    {
+        return $this->applyFilter(
+            $this->newQuery()
+                ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
+                ->whereNotNull('accepted_at')
+                ->where('event_id', $eventId)
+        );
+    }
+
+    public function makeCheckin($invitationId)
+    {
+        $this->model = $this->findById($invitationId);
+
+        info($this->model);
+
+        $data = date('m-d-Y');
+        $data .= ' ' . date('H:i:s');
+
+        $this->model->checkin_at = $data;
+        $this->model->save();
+
+        return $this->model;
+    }
+
+    public function makeCheckinWithCode($subEventId, $code)
+    {
+        $this->model = $this->findBySubEventIdAndCode($subEventId, $code);
+
+        $data = date('m-d-Y');
+        $data .= ' ' . date('H:i:s');
+
+        $this->model->checkin_at = $data;
+        $this->model->save();
+
+        return $this->model;
+    }
+
+    public function findBySubEventIdAndCode($subEventId, $code)
+    {
+        return InvitationModel::where('sub_event_id', $subEventId)
+            ->where('code', $code)
+            ->first();
     }
 }
