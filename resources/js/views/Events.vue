@@ -132,6 +132,16 @@
                             <td class="align-middle">{{ subEvent.ended_at }}</td>
 
                             <td class="align-middle text-right">
+                                <button
+                                    v-if="!subEvent.associated_subevent_id"
+                                    class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    @click="replicateCommonInfo(subEvent)"
+                                    :disabled="cannot('update')"
+                                    title="Replicar textos para todos os outros subeventos"
+                                >
+                                    <i class="fa fa-copy"></i>
+                                </button>
+
                                 <router-link
                                         :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/receptive'"
                                         tag="div"
@@ -458,7 +468,16 @@
                                     v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
                                     title="Marcar o convite como 'recebido manualmente'"
                                 >
-                                    <i class="fa fa-check"></i>
+                                    <i class="fa fa-check-double"></i>
+                                </div>
+
+                                <div
+                                    @click="markAsDeclined(invitation)"
+                                    class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
+                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
+                                    title="Declinar o convite manualmente"
+                                >
+                                    <i class="fa fa-calendar-times"></i>
                                 </div>
 
                                 <div
@@ -698,6 +717,21 @@ export default {
                     event.busy = true
 
                     return this.$store.dispatch('events/sendInvitations', event).then(() => {
+                        event.busy = false
+                    })
+                }
+            })
+        },
+
+        sendCredentials(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todas as credenciais agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store.dispatch('events/sendCredentials', event).then(() => {
                         event.busy = false
                     })
                 }
