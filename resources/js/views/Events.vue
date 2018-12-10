@@ -401,10 +401,6 @@
                                 </h6>
 
                                 <h6 class="mb-0">
-                                    <template v-if="!invitation.sent_at">
-                                        <span v-if="!invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não enviado</span>
-                                    </template>
-
                                     <span v-if="invitation.accepted_at && invitation.accepted_by_id" class="badge badge-warning">aceito manualmente</span>
                                     <span v-if="invitation.declined_at && invitation.declined_by_id" class="badge badge-warning">declinado manualmente</span>
 
