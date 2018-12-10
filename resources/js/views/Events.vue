@@ -283,6 +283,16 @@
                                     :form="form"
                                     inline="true"
                                 ></app-input>
+
+                                <app-input
+                                    name="declinedCheckbox"
+                                    label="declinados"
+                                    type="checkbox"
+                                    v-model="declinedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
                             </div>
 
                             <div class="col">
@@ -980,6 +990,23 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'accepted', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        declinedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.declined
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'declined', value: filter},
                 )
 
                 this.$store.dispatch(

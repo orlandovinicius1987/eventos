@@ -76,6 +76,10 @@ class Invitations extends Repository
             $query->whereNotNull('accepted_at');
         }
 
+        if (isset($filter['declined']) && $filter['declined']) {
+            $query->whereNotNull('declined_at');
+        }
+
         if (isset($filter['notCheckedIn']) && $filter['notCheckedIn']) {
             $query->whereNull('checkin_at');
         }
