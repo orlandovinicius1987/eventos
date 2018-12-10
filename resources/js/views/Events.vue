@@ -101,8 +101,8 @@
                         {title: 'Convidados', trClass: 'text-right'},
                         'Data',
                         'Hora',
-                        'Confirmado em',
-                        'Realizado em',
+                        'Confirmado',
+                        'Realizado',
                         '']"
                     >
                         <tr
@@ -131,7 +131,7 @@
 
                             <td class="align-middle">{{ subEvent.ended_at }}</td>
 
-                            <td class="align-middle text-right">
+                            <td class="align-middle text-right subevents-buttons">
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
@@ -297,6 +297,16 @@
                                     label="não aceitos"
                                     type="checkbox"
                                     v-model="notAcceptedCheckbox"
+                                    :required="true"
+                                    :form="form"
+                                    inline="true"
+                                ></app-input>
+
+                                <app-input
+                                    name="declinedCheckbox"
+                                    label="declinados"
+                                    type="checkbox"
+                                    v-model="declinedCheckbox"
                                     :required="true"
                                     :form="form"
                                     inline="true"
@@ -1022,6 +1032,23 @@ export default {
                 this.$store.commit(
                     'invitations/mutateFilterCheckbox',
                     {field: 'accepted', value: filter},
+                )
+
+                this.$store.dispatch(
+                    'invitations/load'
+                )
+            },
+        },
+
+        declinedCheckbox: {
+            get() {
+                return this.$store.state['invitations'].data.filter.checkboxes.declined
+            },
+
+            set(filter) {
+                this.$store.commit(
+                    'invitations/mutateFilterCheckbox',
+                    {field: 'declined', value: filter},
                 )
 
                 this.$store.dispatch(
