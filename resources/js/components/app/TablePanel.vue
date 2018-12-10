@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="col-12" v-if="hasCheckboxes()">
-                            <div class="text-center p-2 mb-2 mt-2 bg-gray-light">
+                            <div :class="'p-2 mb-2 mt-2 bg-gray-light' + (dontCenterFilters ? '' : ' text-center')">
                                 <slot name="checkboxes"></slot>
                             </div>
                         </div>
@@ -74,6 +74,7 @@
             'columns',
             'filter-text',
             'per-page',
+            'dont-center-filters'
         ],
 
         methods: {

@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Events\ContactCreated;
 use App\Events\ContactUpdated;
 use App\Events\InvitationUpdated;
+use App\Events\NotificationSent;
 use App\Listeners\SendRejection;
 use App\Events\InvitationCreated;
 use App\Events\InvitationRejected;
@@ -31,9 +32,9 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [SendEmailVerificationNotification::class],
 
-        InvitationsChanged::class => [],
+        InvitationsChanged::class => [NotifySubEventsChanged::class],
 
-        InvitationAccepted::class => [],
+        InvitationAccepted::class => [NotifySubEventsChanged::class],
 
         InvitationRejected::class => [SendRejection::class],
 
@@ -47,8 +48,6 @@ class EventServiceProvider extends ServiceProvider
             NotifyInvitationsChanged::class,
 
             NotifySubEventsChanged::class,
-
-            SendNotification::class,
         ],
 
         InvitationCreated::class => [
@@ -61,6 +60,6 @@ class EventServiceProvider extends ServiceProvider
 
         PersonUpdated::class => [NotifyPeopleChanged::class],
 
-        InvitationsChanged::class => [NotifySubEventsChanged::class],
+        NotificationSent::class => [NotifySubEventsChanged::class],
     ];
 }

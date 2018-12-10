@@ -9,6 +9,10 @@ Route::group(['prefix' => '/events'], function () {
         'events.send-invitations'
     );
 
+    Route::post('/{id}/send-credentials', 'Events@sendCredentials')->name(
+        'events.send-credentials'
+    );
+
     Route::post('/{id}', 'Events@update')->name('events.update');
 
     Route::group(['prefix' => '{eventId}/sub-events'], function () {
@@ -70,27 +74,27 @@ Route::group(['prefix' => '/events'], function () {
             );
 
             Route::post(
-                '/{id}/mark-as-accepted/{how?}',
+                '/{id}/mark-as-accepted',
                 'Invitations@markAsAccepted'
             )->name('api.invitations.mark-as-accepted');
 
             Route::post(
-                '/{id}/mark-as-rejected/{how?}',
+                '/{id}/mark-as-rejected',
                 'Invitations@markAsRejected'
             )->name('api.invitations.mark-as-rejected');
 
             Route::post(
-                '/{id}/mark-as-received/{how?}',
+                '/{id}/mark-as-received/{type}',
                 'Invitations@markAsReceived'
             )->name('api.invitations.mark-as-received');
 
             Route::post(
-                '/{id}/sendInvitation',
+                '/{id}/send-invitation',
                 'Invitations@sendInvitation'
             )->name('invitations.send-invitation');
 
             Route::post(
-                '/{id}/sendCredentials',
+                '/{id}/send-credentials',
                 'Invitations@sendCredentials'
             )->name('invitations.send-credentials');
         });

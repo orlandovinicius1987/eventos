@@ -4,9 +4,9 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class ContactTypeUpdated extends Event
+class ContactTypeUpdated extends Broadcastable
 {
-    public $contactType;
+    protected $contactType;
 
     /**
      * Create a new event instance.

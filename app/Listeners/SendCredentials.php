@@ -16,7 +16,7 @@ class SendCredentials extends Listener
     public function handle(InvitationAccepted $event)
     {
         app(Invitations::class)
-            ->findById($event->invitationId)
+            ->findById($event->getInvitation()->id)
             ->sendCredentials();
     }
 }

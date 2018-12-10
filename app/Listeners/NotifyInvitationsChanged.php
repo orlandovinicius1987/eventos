@@ -14,6 +14,6 @@ class NotifyInvitationsChanged extends Listener
      */
     public function handle($event)
     {
-        event(new InvitationsChanged($event->invitation->subEvent));
+        event(new InvitationsChanged($event->getInvitation()->subEvent));
     }
 }
