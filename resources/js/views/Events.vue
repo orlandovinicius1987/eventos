@@ -101,8 +101,8 @@
                         {title: 'Convidados', trClass: 'text-right'},
                         'Data',
                         'Hora',
-                        'Confirmado em',
-                        'Realizado em',
+                        'Confirmado',
+                        'Realizado',
                         '']"
                     >
                         <tr
@@ -131,7 +131,7 @@
 
                             <td class="align-middle">{{ subEvent.ended_at }}</td>
 
-                            <td class="align-middle text-right">
+                            <td class="align-middle text-right subevents-buttons">
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
