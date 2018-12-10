@@ -13,7 +13,12 @@ class Notification extends Base
     /**
      * @var array
      */
-    protected $fillable = ['invitation_id', 'subject', 'destination'];
+    protected $fillable = [
+        'invitation_id',
+        'subject',
+        'destination',
+        'content_type',
+    ];
 
     protected $table = 'notifications';
 
@@ -37,7 +42,7 @@ class Notification extends Base
 
         $this->save();
 
-        $this->invitation->markAsSent();
+        $this->invitation->markAsSent($this->content_type);
     }
 
     public function markAsReceived()
@@ -47,7 +52,10 @@ class Notification extends Base
 
             $this->save();
 
-            $this->invitation->markAsReceived();
+            $this->invitation->markAsReceived(
+                'automatically',
+                $this->content_type
+            );
         }
     }
 

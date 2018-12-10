@@ -84,6 +84,35 @@ class Invitations extends Repository
             $query->whereNull('accepted_at');
             $query->whereNull('declined_at');
         }
+
+        if (isset($filter['credentialsSent']) && $filter['credentialsSent']) {
+            $query->whereNotNull('credentials_sent_at');
+            $query->whereNotNull('credentials_sent_at');
+        }
+
+        if (
+            isset($filter['credentialsNotSent']) &&
+            $filter['credentialsNotSent']
+        ) {
+            $query->whereNull('credentials_sent_at');
+            $query->whereNull('credentials_sent_at');
+        }
+
+        if (
+            isset($filter['credentialsReceived']) &&
+            $filter['credentialsReceived']
+        ) {
+            $query->whereNotNull('credentials_received_at');
+            $query->whereNotNull('credentials_received_at');
+        }
+
+        if (
+            isset($filter['credentialsNotReceived']) &&
+            $filter['credentialsNotReceived']
+        ) {
+            $query->whereNull('credentials_received_at');
+            $query->whereNull('credentials_received_at');
+        }
     }
 
     protected function filterAllColumns($query, $text)
@@ -207,22 +236,23 @@ class Invitations extends Repository
      * @param $subEventId
      * @param $invitationId
      * @param null $how
+     * @param string $type
      * @return bool
      */
     public function markAsReceived(
         $eventId,
         $subEventId,
         $invitationId,
-        $how = null
+        $how = null,
+        $type = 'invitation'
     ) {
         $invitation = $this->findById($invitationId);
 
         if (
-            !$invitation->received_at &&
             $invitation->subEvent->event->id == $eventId &&
             $invitation->subEvent->id == $subEventId
         ) {
-            $invitation->markAsReceived($how);
+            $invitation->markAsReceived($how, $type);
 
             return true;
         }
@@ -259,14 +289,12 @@ class Invitations extends Repository
         }
     }
 
-    // FUTURO
-    public function sendCredential($eventId, $subEventId, $invitationId)
+    public function sendCredentials($eventId, $subEventId, $invitationId)
     {
         $invitation = $this->findById($invitationId);
 
-        if ($this->canSend($eventId, $subEventId, $invitation) && false) {
-            //FIXME FUTURO
-            //$invitation->sendCredential(true);
+        if ($this->canSend($eventId, $subEventId, $invitation)) {
+            $invitation->sendCredentials(true);
         }
     }
 
@@ -333,6 +361,7 @@ class Invitations extends Repository
     public function accept($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
         $invitation = $this->findById($invitationId);
+
         if (
             !is_null(
                 ($cpf_stored = $invitation->personInstitution->person->cpf)
@@ -348,11 +377,11 @@ class Invitations extends Repository
             }
 
             if ($this->markAsAccepted($eventId, $subEventId, $invitation->id)) {
-                //If it wasn't accepted yet
-                return 'Muito obrigado por CONFIRMAR presença no evento. Em breve enviaremos a sua credencial para acesso ao evento.';
+                return 'Muito obrigado por CONFIRMAR presença.<br>Em breve enviaremos a sua credencial para acesso ao evento.';
             } else {
-                //If it was accepted
-                return 'Detectamos que a sua presença já foi CONFIRMADA. Em breve enviaremos a sua credencial para acesso ao evento.';
+                return 'A sua presença já havia sido confirmada anteriormente.<br>' .
+                    'Em breve enviaremos a sua credencial para acesso ao evento.<br>' .
+                    'Caso esteja tendo dificuldades, por favor entre em contato com o Cerimonial Alerj.';
             }
         }
     }
@@ -360,6 +389,7 @@ class Invitations extends Repository
     public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
     {
         $invitation = $this->findById($invitationId);
+
         if (
             remove_punctuation($invitation->personInstitution->person->cpf) !=
             remove_punctuation($cpf_confirmed)
@@ -368,11 +398,9 @@ class Invitations extends Repository
         }
 
         if ($this->markAsRejected($eventId, $subEventId, $invitation->id)) {
-            //If it wasn't declined yet
             return 'Registramos que você declinou o comparecimento ao evento.';
         } else {
-            //If it was declined
-            return 'Detectamos que este convite já foi DECLINADO.';
+            return 'Este convite já foi declinado. Caso esteja tendo dificuldades, por favor entre em contato com o Cerimonial Alerj.';
         }
     }
 

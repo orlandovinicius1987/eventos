@@ -15,6 +15,6 @@ class SendNotificationsToContact extends Listener
      */
     public function handle(ContactCreated $event)
     {
-        app(Notifications::class)->notifyContact($event->contact);
+        app(Notifications::class)->notifyContact($event->getContact());
     }
 }

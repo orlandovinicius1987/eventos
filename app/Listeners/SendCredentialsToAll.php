@@ -15,6 +15,6 @@ class SendCredentialsToAll extends Listener
      */
     public function handle(InvitationsChanged $event)
     {
-        app(Events::class)->SendCredentials($event->eventId);
+        app(Events::class)->SendCredentials($event->getSubEvent()->event->id);
     }
 }

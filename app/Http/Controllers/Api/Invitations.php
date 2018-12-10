@@ -13,6 +13,8 @@ use App\Http\Requests\MoveInvitations as MoveInvitationsRequest;
 
 class Invitations extends Controller
 {
+    const MARK_MODE_MANUAL = 'manual';
+
     /**
      * Get all data
      *
@@ -73,14 +75,13 @@ class Invitations extends Controller
         UninviteRequest $request,
         $eventId,
         $subEventId,
-        $invitationId,
-        $how
+        $invitationId
     ) {
         app(InvitationsRepository::class)->markAsAccepted(
             $eventId,
             $subEventId,
             $invitationId,
-            $how
+            self::MARK_MODE_MANUAL
         );
 
         return $this->emptyResponse();
@@ -99,14 +100,13 @@ class Invitations extends Controller
         UninviteRequest $request,
         $eventId,
         $subEventId,
-        $invitationId,
-        $how
+        $invitationId
     ) {
         app(InvitationsRepository::class)->markAsRejected(
             $eventId,
             $subEventId,
             $invitationId,
-            $how
+            self::MARK_MODE_MANUAL
         );
 
         return $this->emptyResponse();
@@ -126,13 +126,14 @@ class Invitations extends Controller
         $eventId,
         $subEventId,
         $invitationId,
-        $how
+        $type
     ) {
         app(InvitationsRepository::class)->markAsReceived(
             $eventId,
             $subEventId,
             $invitationId,
-            $how
+            self::MARK_MODE_MANUAL,
+            $type
         );
 
         return $this->emptyResponse();
@@ -192,8 +193,7 @@ class Invitations extends Controller
 
     public function sendCredentials($eventId, $subEventId, $id)
     {
-        // FUTURO
-        return app(InvitationsRepository::class)->sendCredential(
+        return app(InvitationsRepository::class)->sendCredentials(
             $eventId,
             $subEventId,
             $id

@@ -2,23 +2,36 @@
 
 namespace App\Events;
 
-use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-abstract class Event implements ShouldBroadcast
+abstract class Event
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    /**
-     * Get the channels the event should broadcast on.
-     *
-     * @return \Illuminate\Broadcasting\Channel|array
-     */
-    public function broadcastOn()
+    public function __call($method, $arguments)
     {
-        return new Channel('channel-must-be-set-on-the-event-class');
+        if (starts_with($method, 'get')) {
+            return $this->hasProperty(
+                ($property = $this->makeProperty('get', $method))
+            )
+                ? $this->$property
+                : null;
+        }
+
+        throw new \Exception(
+            "Method {$method} does not exists in " . get_class($this)
+        );
+    }
+
+    protected function hasProperty($param)
+    {
+        return property_exists($this, $param);
+    }
+
+    protected function makeProperty($string, $method)
+    {
+        return camel_case(substr(snake_case($method), strlen($string)));
     }
 }

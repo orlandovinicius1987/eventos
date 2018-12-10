@@ -4,9 +4,9 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class RoleUpdated extends Event
+class RoleUpdated extends Broadcastable
 {
-    public $role;
+    protected $role;
 
     /**
      * Create a new event instance.

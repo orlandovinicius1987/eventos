@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\Notification as NotificationModel;
+use App\Events\NotificationSent;
 
 class Notifications extends Repository
 {
@@ -44,6 +45,8 @@ class Notifications extends Repository
         $notification->message_id = $messageId;
 
         $notification->markAsSent();
+
+        event(new NotificationSent($notification));
     }
 
     public function registerMessageStatus($status, $data)
