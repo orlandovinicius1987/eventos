@@ -56,10 +56,17 @@
   width: 13px;
 }
 
-.event-name {
 
-  @media screen and (max-width: 1025px) {
-    max-width: 230px;
+
+@media screen and (max-width: 1025px) {
+  .event-name {
+  max-width: 230px;
+  }
+  .btn.btn-sm {
+    margin-bottom: 7px;
+  }
+  .subevents-buttons {
+    width: 87px;
   }
 }
 

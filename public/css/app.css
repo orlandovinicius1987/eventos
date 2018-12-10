@@ -21358,6 +21358,15 @@ a.text-gray-darkest:focus {
   .event-name {
     max-width: 230px;
   }
+
+  .btn.btn-sm,
+  .btn-group-sm > .btn {
+    margin-bottom: 7px;
+  }
+
+  .subevents-buttons {
+    width: 87px;
+  }
 }
 
 @media screen and (max-width: 1025px) {
