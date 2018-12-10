@@ -21348,6 +21348,24 @@ a.text-gray-darkest:focus {
   padding-right: 1rem;
 }
 
+.fa {
+  height: 13px;
+  line-height: 13px;
+  width: 13px;
+}
+
+@media screen and (max-width: 1025px) {
+  .event-name {
+    max-width: 230px;
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .subevents-buttons {
+    /*min-width: 90px;*/
+  }
+}
+
 body {
   color: #495057;
 }
@@ -21445,5 +21463,9 @@ html {
   background-repeat: no-repeat;
   background-position: bottom 100px center;
   background-size: 300px;
+}
+
+.text-danger {
+  font-weight: 600;
 }
 

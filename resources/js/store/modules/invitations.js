@@ -117,38 +117,29 @@ const actions = merge_objects(actionsMixin, {
     },
 
     markAsAccepted(context, payload) {
-        post(
-            makeDataUrl(context) +
-                '/' +
-                payload.id +
-                '/mark-as-accepted/manual',
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/mark-as-accepted')
     },
 
     markAsReceived(context, payload) {
         post(
             makeDataUrl(context) +
                 '/' +
-                payload.id +
-                '/mark-as-received/manual',
+                payload.invitation.id +
+                '/mark-as-received/' +
+                payload.type,
         )
     },
 
     markAsDeclined(context, payload) {
-        post(
-            makeDataUrl(context) +
-                '/' +
-                payload.id +
-                '/mark-as-rejected/manual',
-        )
+        post(makeDataUrl(context) + '/' + payload.id + '/mark-as-rejected')
     },
 
     sendCredentials(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/sendCredentials')
+        post(makeDataUrl(context) + '/' + payload.id + '/send-credentials')
     },
 
     sendInvitation(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/sendInvitation')
+        post(makeDataUrl(context) + '/' + payload.id + '/send-invitation')
     },
 })
 

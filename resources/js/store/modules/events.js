@@ -81,6 +81,10 @@ const actions = merge_objects(actionsMixin, {
         post(makeDataUrl(context) + '/' + payload.id + '/send-invitations')
     },
 
+    sendCredentials(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/send-credentials')
+    },
+
     subscribeToModelEvents(context, payload) {
         subscribePublicChannel(
             'event.' + payload.id,

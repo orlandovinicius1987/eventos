@@ -16,7 +16,7 @@ class SendRejection extends Listener
     public function handle(InvitationRejected $event)
     {
         app(Invitations::class)
-            ->findById($event->invitationId)
+            ->findById($event->getInvitation()->id)
             ->sendRejection();
     }
 }

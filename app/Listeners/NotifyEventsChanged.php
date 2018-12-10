@@ -14,6 +14,6 @@ class NotifyEventsChanged extends Listener
      */
     public function handle($event)
     {
-        event(new EventUpdated($event->subEvent->event));
+        event(new EventUpdated($event->getSubEvent()->event));
     }
 }

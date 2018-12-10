@@ -4,9 +4,9 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class SubEventsChanged extends Event
+class SubEventsChanged extends Broadcastable
 {
-    public $event;
+    protected $event;
 
     /**
      * Create a new event instance.

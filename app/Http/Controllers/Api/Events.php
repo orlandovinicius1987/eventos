@@ -54,4 +54,9 @@ class Events extends Controller
     {
         return app(EventsRepository::class)->sendInvitations($id);
     }
+
+    public function sendCredentials($id)
+    {
+        return app(EventsRepository::class)->sendCredentials($id);
+    }
 }

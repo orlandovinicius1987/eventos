@@ -70,4 +70,23 @@ class Events extends Repository
                     });
             });
     }
+
+    public function sendCredentials($eventId)
+    {
+        $this->selectCurrentClientForEvent($eventId);
+
+        $this->findById($eventId)
+            ->subEvents()
+            ->confirmed()
+            ->get()
+            ->each(function ($subEvent) {
+                $subEvent
+                    ->invitations()
+                    ->credentialsNotSent()
+                    ->get()
+                    ->each(function ($invitation) {
+                        $invitation->sendCredentials();
+                    });
+            });
+    }
 }

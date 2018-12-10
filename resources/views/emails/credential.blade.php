@@ -2,21 +2,22 @@
 {!! $invitation->getViewVariables()['credentials_text'] !!}<img src="{{ route('notifications.received', [$notification->uuid, 'images|dummy.png']) }}" alt="">
 @foreach ($credentials as $credential)
 <h2 style="text-align: center;">{{$credential->subEvent->name}}</h2>
-**Endereço**<br>
+<strong>Endereço</strong><br>
 {{$credential->variables['endereco_completo']}},<br>
 <a href="{{ $credential->variables['google_maps_link_url'] }}">Link para o Mapa no Google</a><br>
 <img src="{{ $credential->variables['google_maps_image_url'] }}" alt="mapa">
 <br>
+<br>
 @if (!$credential->subEvent->associated_subevent_id)
-**Traje: {{$credential->variables['traje_nome']}}** <br>
+<strong>Traje: {{$credential->variables['traje_nome']}}</strong> <br>
 {{$credential->variables['traje_descricao']}},<br>
 @endif
 @if (!$loop->last)
 <hr>
 @endif
 @endforeach
-
-<br><br>
+<br>
+<br>
 <table>
 <tr>
 <td>
