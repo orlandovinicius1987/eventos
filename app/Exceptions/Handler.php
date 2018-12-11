@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -22,6 +23,29 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = ['password', 'password_confirmation'];
+
+    protected function handleResponse(
+        \Illuminate\Http\Request $request,
+        Exception $exception
+    ) {
+        if (
+            $request->expectsJson() ||
+            config('app.debug') ||
+            $exception instanceof AuthenticationException ||
+            $this->isRedirect($exception)
+        ) {
+            return null;
+        }
+
+        return response()->view('errors.default', [], 500);
+    }
+
+    protected function isRedirect(Exception $exception)
+    {
+        return method_exists($exception, 'redirectTo')
+            ? $exception->redirectTo()
+            : false;
+    }
 
     /**
      * Report or log an exception.
@@ -43,8 +67,8 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if (!$request->expectsJson() && !config('app.debug')) {
-            return response()->view('errors.default', [], 500);
+        if (($result = $this->handleResponse($request, $exception))) {
+            return $result;
         }
 
         return parent::render($request, $exception);
