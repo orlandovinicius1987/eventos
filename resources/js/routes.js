@@ -1,29 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from './views/Dashboard'
-import People from './views/People'
-import PeopleForm from './views/PeopleForm'
-import CategorizablesForm from './views/CategorizablesForm'
-import Events from './views/Events'
-import Categories from './views/Categories'
-import CategoriesForm from './views/CategoriesForm'
-import PersonInstitutionsForm from './views/PersonInstitutionsForm'
-import PersonInstitutionsAddressesForm from './views/PersonInstitutionsAddressesForm'
-import Roles from './views/Roles'
-import RolesForm from './views/RolesForm'
-import Institutions from './views/Institutions'
-import InstitutionsForm from './views/InstitutionsForm'
-import ContactTypes from './views/ContactTypes'
-import ContactTypesForm from './views/ContactTypesForm'
-import ContactsForm from './views/ContactsForm'
-import AdvisorContactsForm from './views/AdvisorContactsForm'
-import AdvisorsForm from './views/AdvisorsForm'
-import InviteForm from './views/InviteForm'
-import Invitation from './views/Invitation'
-import EventsForm from './views/EventsForm'
-import SubEventsForm from './views/SubEventsForm'
-import Import from './views/Import'
-import PhoneBook from './views/PhoneBook'
+
+const Dashboard = () => import('./views/Dashboard')
+const People = () => import('./views/People')
+const PeopleForm = () => import('./views/PeopleForm')
+const CategorizablesForm = () => import('./views/CategorizablesForm')
+const Events = () => import('./views/Events')
+const Categories = () => import('./views/Categories')
+const CategoriesForm = () => import('./views/CategoriesForm')
+const PersonInstitutionsForm = () => import('./views/PersonInstitutionsForm')
+const PersonInstitutionsAddressesForm = () =>
+    import('./views/PersonInstitutionsAddressesForm')
+const Roles = () => import('./views/Roles')
+const RolesForm = () => import('./views/RolesForm')
+const Institutions = () => import('./views/Institutions')
+const InstitutionsForm = () => import('./views/InstitutionsForm')
+const ContactTypes = () => import('./views/ContactTypes')
+const ContactTypesForm = () => import('./views/ContactTypesForm')
+const ContactsForm = () => import('./views/ContactsForm')
+const AdvisorContactsForm = () => import('./views/AdvisorContactsForm')
+const AdvisorsForm = () => import('./views/AdvisorsForm')
+const InviteForm = () => import('./views/InviteForm')
+const Invitation = () => import('./views/Invitation')
+const EventsForm = () => import('./views/EventsForm')
+const SubEventsForm = () => import('./views/SubEventsForm')
+const Import = () => import('./views/Import')
+const PhoneBook = () => import('./views/PhoneBook')
 
 Vue.use(VueRouter)
 
