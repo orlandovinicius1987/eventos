@@ -445,7 +445,7 @@
                                         class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                         v-if="can('update') && canSendEmail(invitation)"
                                         title="Enviar convite"
-                                        :disabled="invitation.accepted_at && !environment.debug"
+                                        :disabled="!environment.debug"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
                                 </button>
@@ -455,18 +455,9 @@
                                         class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                         v-if="can('update') && canSendEmail(invitation)"
                                         title="Enviar credenciais"
-                                        :disabled="invitation.accepted_at && !environment.debug"
+                                        :disabled="!environment.debug"
                                 >
                                     <i class="fa fa-landmark"></i>
-                                </button>
-
-                                <button
-                                        @click="markAsReceived(invitation, 'invitation')"
-                                        class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
-                                        v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
-                                        title="Marcar o convite como 'recebido manualmente'"
-                                >
-                                    <i class="fa fa-check"></i>
                                 </button>
 
                                 <button
