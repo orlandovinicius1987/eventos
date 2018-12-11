@@ -131,8 +131,8 @@ Vue.use(() => import('vue2-google-maps'), {
 /**
  * Autoload Vue components
  */
-const files = require.context('./components/app/', true, /\.vue$/i)
-files.keys().map(file => {
+const file = require.context('./components/app/', true, /\.vue$/i)
+file.keys().map(file => {
     const name = 'App' + _.last(file.split('/')).split('.')[0]
 
     return Vue.component(name, () =>
