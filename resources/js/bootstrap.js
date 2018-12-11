@@ -148,10 +148,6 @@ Vue.component('vue-select', () => import('vue-select'))
 /**
  * Vue Croppa
  */
-
-Vue.use(() => import('vue-croppa'), { componentName: 'vue-croppa' })
-
-/**
- * Vue QrCoder
- */
-Vue.use(() => import('vue-qrcode-reader'))
+//Vue.use(() => import('vue-croppa'), { componentName: 'vue-croppa' })
+import Croppa from 'vue-croppa'
+Vue.use(Croppa, { componentName: 'vue-croppa' })
