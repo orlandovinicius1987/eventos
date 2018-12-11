@@ -289,8 +289,7 @@ class Invitation extends Base
     {
         if (
             $this->canSendEmail() &&
-            ($force || !$this->hasBeenDeclined()) &&
-            !$this->hasBeenAccepted()
+            ($force || (!$this->hasBeenDeclined() && !$this->hasBeenAccepted()))
         ) {
             $this->dispatchMails(SendInvitation::class);
         }
