@@ -445,7 +445,6 @@
                                         class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                         v-if="can('update') && canSendEmail(invitation)"
                                         title="Enviar convite"
-                                        :disabled="!environment.debug"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
                                 </button>
@@ -455,7 +454,7 @@
                                         class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                         v-if="can('update') && canSendEmail(invitation)"
                                         title="Enviar credenciais"
-                                        :disabled="!environment.debug"
+                                        :disabled="!invitation.accepted_at && !environment.debug"
                                 >
                                     <i class="fa fa-landmark"></i>
                                 </button>
