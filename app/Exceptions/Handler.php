@@ -42,7 +42,9 @@ class Handler extends ExceptionHandler
 
     protected function isRedirect(Exception $exception)
     {
-        return $exception->redirectTo() ?? false;
+        return method_exists($exception, 'redirectTo')
+            ? $exception->redirectTo()
+            : false;
     }
 
     /**
