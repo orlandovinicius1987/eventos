@@ -50,19 +50,17 @@ import Echo from 'laravel-echo'
 window.Pusher = require('pusher-js')
 
 let echoConfig = {
-    broadcaster: window.laravel.broadcast.driver,
-    key: window.laravel.pusher.key,
-    cluster: window.laravel.pusher.options.cluster,
-    encrypted: window.laravel.pusher.options.encrypted === 'true',
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    encrypted: process.env.MIX_PUSHER_ENCRYPTED === 'true',
 }
 
-if (window.laravel.pusher.server === 'laravel-websockets') {
-    echoConfig.wsHost = window.laravel.pusher.options.host
-    echoConfig.wsPort = window.laravel.pusher.options.port
+if (process.env.MIX_PUSHER_SERVER === 'laravel-websockets') {
+    echoConfig.wsHost = process.env.MIX_PUSHER_FRONTEND_SERVER_HOST
+    echoConfig.wsPort = process.env.MIX_PUSHER_SERVER_PORT
     echoConfig.disableStats = false
 }
-
-dd(echoConfig, window.laravel.broadcast)
 
 window.Echo = new Echo(echoConfig)
 
@@ -133,17 +131,14 @@ Vue.use(() => import('vue2-google-maps'), {
 /**
  * Autoload Vue components
  */
+const files = require.context('./components/app/', true, /\.vue$/i)
+files.keys().map(file => {
+    const name = 'App' + _.last(file.split('/')).split('.')[0]
 
-require
-    .context('./components/app/', true, /\.vue$/i)
-    .keys()
-    .map(file => {
-        const name = 'App' + _.last(file.split('/')).split('.')[0]
-
-        return Vue.component(name, () =>
-            import('./components/app/' + basename(file)),
-        )
-    })
+    return Vue.component(name, () =>
+        import('./components/app/' + basename(file)),
+    )
+})
 
 /**
  * VueSelect

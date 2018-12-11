@@ -116,7 +116,6 @@ let actions = merge_objects(actionsMixin, {
                 'person.' + payload.id,
                 '.App\\Events\\PersonInstitutionsGotChanged',
                 () => {
-                    dd('changed: PersonInstitutionsGotChanged')
                     context.dispatch('personInstitutions/load', payload, {
                         root: true,
                     })
