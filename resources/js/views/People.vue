@@ -560,7 +560,7 @@
                             :title="
                                 'Contatos de ' +
                                     advisors.selected.person.name +
-                                    ': ' +
+                                    ': '+
                                     advisorContacts.data.links.pagination.total
                             "
                             :add-button="{

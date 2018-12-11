@@ -1,5 +1,7 @@
 import Vue from 'vue'
+
 import VueRouter from 'vue-router'
+Vue.use(VueRouter)
 
 const Dashboard = () => import('./views/Dashboard')
 const People = () => import('./views/People')
@@ -26,8 +28,7 @@ const EventsForm = () => import('./views/EventsForm')
 const SubEventsForm = () => import('./views/SubEventsForm')
 const Import = () => import('./views/Import')
 const PhoneBook = () => import('./views/PhoneBook')
-
-Vue.use(VueRouter)
+const Receptive = () => import('./views/Receptive.vue')
 
 let routes = [
     {
@@ -66,6 +67,10 @@ let routes = [
         path: '/events/:eventId/sub-events/:subEventId/update',
         component: SubEventsForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/events/:eventId/sub-events/:subEventId/receptive',
+        component: Receptive,
     },
     {
         path: '/events/:eventId/sub-events/:subEventId/invitations/create',

@@ -36,18 +36,21 @@
                             :columns="['#','Nome do Evento','Nome do Subevento', 'Dia', 'Horário']"
                     >
                         <router-link
-                            :to="'/rotaDaPaginaDeRecepção'"
+                            :to="'/events/'+ subEventDashBoard.event.id+'/sub-events/'+subEventDashBoard.id+'/receptive'"
                             tag="tr"
                             :disabled="cannot('update')"
                             v-for="subEventDashBoard in subEventsDashBoard.data.rows"
                             style="cursor: pointer;"
                             :key="subEventDashBoard.id"
+
                         >
-                            <td class="align-middle">{{ subEventDashBoard.id }}</td>
-                            <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
-                            <td class="align-middle">{{ subEventDashBoard.name }}</td>
-                            <td class="align-middle">{{ subEventDashBoard.date}}</td>
-                            <td class="align-middle">{{ subEventDashBoard.time }}</td>
+
+                            <td @click="selectSubEventDashBoard(subEventDashBoard)" class="align-middle">{{ subEventDashBoard.id }}</td>
+                            <td @click="selectSubEventDashBoard(subEventDashBoard)" class="align-middle">{{ subEventDashBoard.event.name }}</td>
+                            <td @click="selectSubEventDashBoard(subEventDashBoard)" class="align-middle">{{ subEventDashBoard.name }}</td>
+                            <td @click="selectSubEventDashBoard(subEventDashBoard)" class="align-middle">{{ subEventDashBoard.date}}</td>
+                            <td @click="selectSubEventDashBoard(subEventDashBoard)" class="align-middle">{{ subEventDashBoard.time }}</td>
+
                         </router-link>
                     </app-table>
                 </app-table-panel>
@@ -72,7 +75,7 @@ export default {
     },
 
     methods: {
-        ...mapActions('subEventsDashboard', ['clearForm']),
+        ...mapActions('dashboard', ['selectSubEventDashBoard','clearForm']),
     },
 
     computed: {

@@ -184,6 +184,7 @@ window.buildApiUrl = (uri, state) => {
 }
 
 window.makeDataUrl = context => {
+    dd('makeDataUrl - context.state.service && context.state.service.uri - ',context.state.service && context.state.service.uri)
     return context.state.service && context.state.service.uri
         ? buildApiUrl(context.state.service.uri, context.rootState)
         : null

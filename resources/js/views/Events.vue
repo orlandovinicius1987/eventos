@@ -142,6 +142,24 @@
                                     <i class="fa fa-copy"></i>
                                 </button>
 
+                                <router-link
+                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/receptive'"
+                                        tag="div"
+                                        class="btn btn-primary btn-sm ml-1 pull-right"
+                                >
+                                    <i class="fas fa-info-circle"></i>
+                                </router-link>
+
+                                <button
+                                    v-if="!subEvent.associated_subevent_id"
+                                    class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    @click="replicateCommonInfo(subEvent)"
+                                    :disabled="cannot('update')"
+                                    title="Replicar textos para todos os outros subeventos"
+                                >
+                                    <i class="fa fa-copy"></i>
+                                </button>
+
                                 <button
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
@@ -697,6 +715,21 @@ export default {
                     event.busy = true
 
                     return this.$store.dispatch('events/sendInvitations', event).then(() => {
+                        event.busy = false
+                    })
+                }
+            })
+        },
+
+        sendCredentials(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todas as credenciais agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store.dispatch('events/sendCredentials', event).then(() => {
                         event.busy = false
                     })
                 }
