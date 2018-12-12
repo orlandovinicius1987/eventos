@@ -1,14 +1,15 @@
 <template>
     <div>
-        <div class="py-2 text-center">
-            <h2>Categorias</h2>
-        </div>
+        <div class="py-2 text-center"><h2>Categorias</h2></div>
 
         <div class="row">
             <div class="col-4">
                 <app-table-panel
                     :title="'Categorias (' + pagination.total + ')'"
-                    :add-button="{ uri: '/categories/create', disabled: cannot('create') }"
+                    :add-button="{
+                        uri: '/categories/create',
+                        disabled: cannot('create')
+                    }"
                     :per-page="perPage"
                     :filter-text="filterText"
                     @input-filter-text="filterText = $event.target.value"
@@ -22,7 +23,13 @@
                         <tr
                             @click="select(category)"
                             v-for="category in categories.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(category, selected)}"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    category,
+                                    selected
+                                )
+                            }"
                         >
                             <td class="align-middle">{{ category.id }}</td>
 
@@ -30,7 +37,9 @@
 
                             <td class="align-middle text-right">
                                 <router-link
-                                    :to="'/categories/'+category.id+'/update'"
+                                    :to="
+                                        '/categories/' + category.id + '/update'
+                                    "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
@@ -59,11 +68,10 @@ export default {
 
     data() {
         return {
-            service: service,
+            service: service
         }
-    },
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

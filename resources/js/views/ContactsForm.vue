@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Novo ':'Editar '}}Contato</h2>
+            <h2>{{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Contato</h2>
 
             <h2>&nbsp;{{ form.fields.contact ? form.fields.contact : '' }}</h2>
         </div>
@@ -31,9 +31,19 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button
+                                @click.prevent="saveModel()"
+                                class="btn btn-outline-secondary"
+                                type="submit"
+                            >
+                                gravar
+                            </button>
 
-                            <router-link to="/people/" tag="button" class="btn btn-success">
+                            <router-link
+                                to="/people/"
+                                tag="button"
+                                class="btn btn-success"
+                            >
                                 cancelar
                             </router-link>
                         </div>
@@ -53,7 +63,7 @@ const service = {
     name: 'contacts',
     uri:
         'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
-    isForm: true,
+    isForm: true
 }
 
 export default {
@@ -65,7 +75,7 @@ export default {
         this.$store.dispatch('environment/loadContactTypes')
 
         return {
-            service: service,
+            service: service
         }
     },
 
@@ -73,12 +83,11 @@ export default {
         fillAdditionalFormFields() {
             this.$store.commit('contacts/mutateSetFormField', {
                 field: 'person_institution_id',
-                value: this.contacts.personInstitution.id,
+                value: this.contacts.personInstitution.id
             })
-        },
-    },
+        }
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

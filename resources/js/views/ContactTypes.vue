@@ -1,28 +1,35 @@
 <template>
     <div>
-        <div class="py-2 text-center">
-            <h2>Categorias</h2>
-        </div>
+        <div class="py-2 text-center"><h2>Categorias</h2></div>
 
         <div class="row">
             <div class="col-4">
                 <app-table-panel
-                        :title="'Tipos de Contato (' + pagination.total + ')'"
-                        :add-button="{ uri: '/contact-types/create', disabled: cannot('create') }"
-                        :per-page="perPage"
-                        :filter-text="filterText"
-                        @input-filter-text="filterText = $event.target.value"
-                        @set-per-page="perPage = $event"
+                    :title="'Tipos de Contato (' + pagination.total + ')'"
+                    :add-button="{
+                        uri: '/contact-types/create',
+                        disabled: cannot('create')
+                    }"
+                    :per-page="perPage"
+                    :filter-text="filterText"
+                    @input-filter-text="filterText = $event.target.value"
+                    @set-per-page="perPage = $event"
                 >
                     <app-table
-                            :pagination="pagination"
-                            @goto-page="gotoPage($event)"
-                            :columns="['#', 'Nome', 'Código', '']"
+                        :pagination="pagination"
+                        @goto-page="gotoPage($event)"
+                        :columns="['#', 'Nome', 'Código', '']"
                     >
                         <tr
-                                @click="select(contactType)"
-                                v-for="contactType in contactTypes.data.rows"
-                                :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(contactType, selected)}"
+                            @click="select(contactType)"
+                            v-for="contactType in contactTypes.data.rows"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    contactType,
+                                    selected
+                                )
+                            }"
                         >
                             <td class="align-middle">{{ contactType.id }}</td>
 
@@ -32,11 +39,15 @@
 
                             <td class="align-middle text-right">
                                 <router-link
-                                        :to="'/contact-types/'+contactType.id+'/update'"
-                                        tag="button"
-                                        class="btn btn-danger btn-sm ml-1 pull-right"
-                                        :disabled="cannot('create')"
-                                        title="Editar Tipo de Contato"
+                                    :to="
+                                        '/contact-types/' +
+                                            contactType.id +
+                                            '/update'
+                                    "
+                                    tag="button"
+                                    class="btn btn-danger btn-sm ml-1 pull-right"
+                                    :disabled="cannot('create')"
+                                    title="Editar Tipo de Contato"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -61,11 +72,10 @@ export default {
 
     data() {
         return {
-            service: service,
+            service: service
         }
-    },
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

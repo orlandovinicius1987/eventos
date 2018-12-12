@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Nova ':'Editar '}}Pessoa</h2>
+            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar ' }}Pessoa</h2>
             <h2>{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
 
@@ -16,7 +16,7 @@
                                 class="img-thumbnail rounded mx-auto d-block"
                                 width="200"
                                 height="200"
-                            >
+                            />
 
                             <p>{{ form.fields.photoUrl }}</p>
 
@@ -35,11 +35,17 @@
                                 ></vue-croppa>
 
                                 <div slot="modal-footer" class="w-100">
-                                    <div class="float-right btn btn-success" @click="showCropper = false">
+                                    <div
+                                        class="float-right btn btn-success"
+                                        @click="showCropper = false"
+                                    >
                                         Cancelar
                                     </div>
 
-                                    <div class="float-right btn btn-outline-secondary mr-2" @click="usePhoto()">
+                                    <div
+                                        class="float-right btn btn-outline-secondary mr-2"
+                                        @click="usePhoto()"
+                                    >
                                         OK
                                     </div>
                                 </div>
@@ -49,7 +55,6 @@
 
                     <div class="row">
                         <div class="col-12 mb-3">
-
                             <label for="name" class="mb-0 mt-2">Nome</label>
 
                             <input
@@ -59,14 +64,24 @@
                                 class="form-control"
                                 id="name"
                                 required="required"
-                            >
+                            />
 
-                            <div class="text-danger" v-if="form.errors.has('name')" >
+                            <div
+                                class="text-danger"
+                                v-if="form.errors.has('name')"
+                            >
                                 {{ form.errors.get('name') }}
                             </div>
 
-                            <div class="alert alert-warning" role="alert" v-if="currentNameIsDuplicate" id="nameDuplicate">
-                                Foi encontrado uma pessoa com este mesmo nome: {{form.fields.name}}, recomenda-se verificar as pessoas cadastradas.
+                            <div
+                                class="alert alert-warning"
+                                role="alert"
+                                v-if="currentNameIsDuplicate"
+                                id="nameDuplicate"
+                            >
+                                Foi encontrado uma pessoa com este mesmo nome:
+                                {{ form.fields.name }}, recomenda-se verificar
+                                as pessoas cadastradas.
                             </div>
 
                             <app-input
@@ -164,7 +179,7 @@ export default {
                 },
                 'image/jpeg',
                 0.85
-            );
+            )
         },
 
         usePhoto() {
@@ -174,10 +189,10 @@ export default {
         },
 
         mutatePhoto(blob) {
-            blob_to_base64(blob, (result) => {
+            blob_to_base64(blob, result => {
                 this.mutateSetFormField({
                     field: 'photo',
-                    value: blob.type + ';' + result,
+                    value: blob.type + ';' + result
                 })
             })
         },
@@ -185,7 +200,7 @@ export default {
         mutatePhotoUrl(url) {
             this.mutateSetFormField({
                 field: 'photoUrl',
-                value: url,
+                value: url
             })
         },
 
@@ -196,23 +211,26 @@ export default {
         verifyDuplicateName(payload) {
             clearTimeout(this.timeout)
 
-            this.currentNameIsDuplicate = false;
+            this.currentNameIsDuplicate = false
 
             this.timeout = setTimeout(() => {
-                post('/api/v1/people/validate-name', { name: payload })
-                    .catch(error => {
-                        this.currentNameIsDuplicate = true;
+                post('/api/v1/people/validate-name', { name: payload }).catch(
+                    error => {
+                        this.currentNameIsDuplicate = true
                         console.log(error)
-                    })
+                    }
+                )
             }, 500)
         },
 
         confirmNameDuplicate() {
             confirm(
-                'Deseja realmente cadastrar novamente o nome: ' + this.form.fields.name + '?',
+                'Deseja realmente cadastrar novamente o nome: ' +
+                    this.form.fields.name +
+                    '?',
                 this
             ).then(value => {
-                if(value) {
+                if (value) {
                     this.saveModel()
                 }
             })
@@ -222,18 +240,15 @@ export default {
             this.currentNameIsDuplicate
                 ? this.confirmNameDuplicate()
                 : this.saveModel()
-        },
+        }
     },
 
     computed: {
         photoUrlField() {
             return flush_image_cache(this.form.fields.photoUrl)
         }
-    },
+    }
 }
 </script>
 
 <style></style>
-
-
-
