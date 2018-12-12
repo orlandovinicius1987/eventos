@@ -492,4 +492,26 @@ class Invitations extends Repository
 
         throw new InvitationNotFoundException('Convite não localizado');
     }
+
+    public function sendThankYou($invitation)
+    {
+        if (!$invitation->canSendThankYou()) {
+            return;
+        }
+
+        $invitation->sendThankYou();
+
+        $this->newQuery()
+            ->where('person_institution_id', $invitation->person_institution_id)
+            ->whereIn(
+                'sub_event_id',
+                $invitation->subEvent->event->subEvents->pluck('id')
+            )
+            ->get()
+            ->each(function ($invitation) {
+                $invitation->thanked_at = now();
+
+                $invitation->save();
+            });
+    }
 }

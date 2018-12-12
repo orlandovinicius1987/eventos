@@ -13,6 +13,7 @@ use App\Events\InvitationRejected;
 use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
 use App\Listeners\SendNotification;
+use App\Listeners\SendThankYouToInvitee;
 use App\Listeners\NotifyPeopleChanged;
 use App\Listeners\NotifyInviteesChanged;
 use Illuminate\Auth\Events\Registered;
@@ -64,6 +65,9 @@ class EventServiceProvider extends ServiceProvider
 
         NotificationSent::class => [NotifySubEventsChanged::class],
 
-        InviteeCheckedIn::class => [NotifyInviteesChanged::class],
+        InviteeCheckedIn::class => [
+            NotifyInviteesChanged::class,
+            SendThankYouToInvitee::class,
+        ],
     ];
 }
