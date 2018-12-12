@@ -77,7 +77,9 @@
                             <td>
                                 <strong>{{invitation.person_institution.person.name}}</strong><br>
                                 {{invitation.sub_event.name}}<br>
-                                {{invitation.sub_event.sector.name}}
+                                <span class="badge text-white p-1" :style="{'background-color': invitation.sub_event.sector ? invitation.sub_event.sector.color : '', 'text-transform': 'uppercase'}">
+                                    {{ invitation.sub_event.sector ? invitation.sub_event.sector.name : '' }}
+                                </span>
                             </td>
 
                             <td>
