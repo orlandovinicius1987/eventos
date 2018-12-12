@@ -6,6 +6,7 @@ use App\Events\ContactCreated;
 use App\Events\ContactUpdated;
 use App\Events\InvitationUpdated;
 use App\Events\NotificationSent;
+use App\Events\InviteeCheckedIn;
 use App\Listeners\SendRejection;
 use App\Events\InvitationCreated;
 use App\Events\InvitationRejected;
@@ -13,6 +14,7 @@ use App\Events\InvitationsChanged;
 use App\Events\InvitationAccepted;
 use App\Listeners\SendNotification;
 use App\Listeners\NotifyPeopleChanged;
+use App\Listeners\NotifyInviteesChanged;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\NotifySubEventsChanged;
 use Illuminate\Mail\Events\MessageSending;
@@ -61,5 +63,7 @@ class EventServiceProvider extends ServiceProvider
         PersonUpdated::class => [NotifyPeopleChanged::class],
 
         NotificationSent::class => [NotifySubEventsChanged::class],
+
+        InviteeCheckedIn::class => [NotifyInviteesChanged::class],
     ];
 }

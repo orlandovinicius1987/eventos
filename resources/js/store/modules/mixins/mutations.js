@@ -15,6 +15,7 @@ export function mutateSetFormField(state, payload) {
     formField = formField + '}'
 
     let object = objectAttributeFromString(formField, state)
+
     object[payload.field] = payload.value
 }
 

@@ -15,6 +15,14 @@ Route::group(['prefix' => '/events'], function () {
 
     Route::post('/{id}', 'Events@update')->name('events.update');
 
+    Route::group(['prefix' => '/{eventId}/receptive'], function () {
+        Route::get('/', 'Receptive@invitations')->name('receptive.invitations');
+
+        Route::post('/checkin', 'Receptive@makeCheckin')->name(
+            'receptive.makeCheckin'
+        );
+    });
+
     Route::group(['prefix' => '{eventId}/sub-events'], function () {
         Route::get('/', 'SubEvents@all')->name('sub-events.all');
 

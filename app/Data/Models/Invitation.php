@@ -2,6 +2,7 @@
 
 namespace App\Data\Models;
 
+use App\Events\InviteeCheckedIn;
 use Ramsey\Uuid\Uuid;
 use App\Events\InvitationUpdated;
 use App\Events\InvitationAccepted;
@@ -585,5 +586,25 @@ class Invitation extends Base
     public function markAsReceived($how = 'automatically', $type = 'invitation')
     {
         $this->markAsDone('received', $type, $how);
+    }
+
+    public function checkedIn()
+    {
+        return !is_null($this->checkin_at);
+    }
+
+    public function makeCheckin()
+    {
+        if ($this->checkedIn()) {
+            return false;
+        }
+
+        $this->checkin_at = now();
+
+        $this->save();
+
+        event(new InviteeCheckedIn($this));
+
+        return true;
     }
 }

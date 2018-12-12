@@ -62,6 +62,14 @@ window.confirm = (title, vue) => {
     })
 }
 
+window.showMessage = (title, vue) => {
+    return vue.$swal({
+        icon: 'info',
+        title: title,
+        dangerMode: true,
+    })
+}
+
 window.post = (...args) => {
     return axios.post(...args)
 }
@@ -254,13 +262,22 @@ window.extractFileNameFromResponse = (response, filename = 'eventos.pdf') => {
     return filename
 }
 
-window.flush_image_cache = (imageUrl, otherPeopleSelected = false) => {
-    if (imageUrl && !imageUrl.includes('data:image/') && otherPeopleSelected) {
+window.flush_image_cache = imageUrl => {
+    if (imageUrl && !imageUrl.includes('data:image/')) {
         imageUrl = imageUrl + '?' + Math.random()
     }
 
     return imageUrl
 }
+
+//FIXME - &&&&&
+// window.flush_image_cache = (imageUrl, otherPeopleSelected = false) => {
+//     if (imageUrl && !imageUrl.includes('data:image/') && otherPeopleSelected) {
+//         imageUrl = imageUrl + '?' + Math.random()
+//     }
+//
+//     return imageUrl
+// }
 
 window.downloadPDF = fileUrl => {
     return axios({

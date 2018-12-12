@@ -9,7 +9,13 @@ const __emptyModel = { id: null }
 
 let state = merge_objects({}, statesMixin.common)
 
-let actions = actionsMixin
+const actions = merge_objects(actionsMixin, {
+    selectEventDashBoard(context, payload) {
+        context.dispatch('events/select', payload.event, {
+            root: true,
+        })
+    },
+})
 
 let mutations = mutationsMixin
 
