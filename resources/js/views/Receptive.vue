@@ -4,6 +4,18 @@
             <h3>{{ events.selected.name }}</h3>
         </div>
 
+        <div class="card card-block bg-faded">
+            <div class="row">
+                <div class="col-6 text-center">
+                    confirmados: 657
+                </div>
+
+                <div class="col-6 text-center">
+                    ingressaram: 128
+                </div>
+            </div>
+        </div>
+
         <div class="row" v-if="can('read') && getCheckedIn().data">
             <div class="col-12">
                 <div v-if="getCheckedIn() && getCheckedIn().data">
@@ -65,7 +77,9 @@
                             <td>
                                 <strong>{{invitation.person_institution.person.name}}</strong><br>
                                 {{invitation.sub_event.name}}<br>
-                                {{invitation.sub_event.sector.name}}
+                                <span class="badge text-white p-1" :style="{'background-color': invitation.sub_event.sector ? invitation.sub_event.sector.color : '', 'text-transform': 'uppercase'}">
+                                    {{ invitation.sub_event.sector ? invitation.sub_event.sector.name : '' }}
+                                </span>
                             </td>
 
                             <td>
@@ -137,9 +151,10 @@
 
             confirmCheckin(invitation) {
                 if (invitation.checkin_at == null) {
+                    dd(invitation)
                     confirm(
-                        'Deseja realizar o check-in de ' +
-                        + invitation.person_institution.title + ' '+invitation.person_institution.person.name +
+                        'Deseja realizar o check-in de '
+                        + invitation.person_institution.person.name +
                         '?', this,
                     ).then((value) => {
                         if (value) {
@@ -147,7 +162,7 @@
                         }
                     })
                 } else {
-                    showMessage('Este convidado já fez check-in no evento')
+                    showMessage('Este convidado já fez check-in no evento', this)
                 }
             },
 
