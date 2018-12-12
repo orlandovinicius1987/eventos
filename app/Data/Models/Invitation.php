@@ -49,7 +49,7 @@ class Invitation extends Base
 
     protected function extractEmails($contactList)
     {
-        return collect(preg_split('/[\\,;\/ |]/', $contactList))
+        return collect(preg_split('/[\\,;\/ |]/', trim($contactList)))
             ->map(function ($email) {
                 return trim($email);
             })
