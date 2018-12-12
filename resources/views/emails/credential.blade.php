@@ -10,7 +10,7 @@
 <br>
 @if (!$credential->subEvent->associated_subevent_id)
 <strong>Traje: {{$credential->variables['traje_nome']}}</strong> <br>
-{{$credential->variables['traje_descricao']}},<br>
+{{--{{$credential->variables['traje_descricao']}},<br>--}}
 @endif
 @if (!$loop->last)
 <hr>
