@@ -137,9 +137,10 @@
 
             confirmCheckin(invitation) {
                 if (invitation.checkin_at == null) {
+                    dd(invitation)
                     confirm(
-                        'Deseja realizar o check-in de ' +
-                        + invitation.person_institution.title + ' '+invitation.person_institution.person.name +
+                        'Deseja realizar o check-in de '
+                        + invitation.person_institution.person.name +
                         '?', this,
                     ).then((value) => {
                         if (value) {
@@ -147,7 +148,7 @@
                         }
                     })
                 } else {
-                    showMessage('Este convidado já fez check-in no evento')
+                    showMessage('Este convidado já fez check-in no evento', this)
                 }
             },
 
