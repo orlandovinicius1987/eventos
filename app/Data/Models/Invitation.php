@@ -51,7 +51,7 @@ class Invitation extends Base
 
     protected function extractEmails($contactList)
     {
-        return collect(preg_split('/[\\,;\/ |]/', $contactList))
+        return collect(preg_split('/[\\,;\/ |]/', trim($contactList)))
             ->map(function ($email) {
                 return trim($email);
             })
@@ -339,8 +339,7 @@ class Invitation extends Base
     {
         if (
             $this->canSendEmail() &&
-            ($force || !$this->hasBeenDeclined()) &&
-            !$this->hasBeenAccepted()
+            ($force || (!$this->hasBeenDeclined() && !$this->hasBeenAccepted()))
         ) {
             $this->dispatchMails(SendInvitation::class);
         }

@@ -460,14 +460,22 @@
 
                             <td class="align-middle text-right">
                                 <button
-                                    @click="invitation.accepted_at ? sendCredential(invitation) : sendInvitation(invitation) "
-                                    class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
-                                    v-if="can('update') && canSendEmail(invitation)"
-                                    :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
-                                    :disabled="invitation.accepted_at && !environment.debug"
+                                        @click="sendInvitation(invitation)"
+                                        class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                        v-if="can('update') && canSendEmail(invitation)"
+                                        title="Enviar convite"
                                 >
-                                    <i v-if="invitation.accepted_at" class="fa fa-landmark"></i>
-                                    <i v-if="!invitation.accepted_at" class="fa fa-mail-bulk"></i>
+                                    <i class="fa fa-mail-bulk"></i>
+                                </button>
+
+                                <button
+                                        @click="sendCredential(invitation)"
+                                        class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                        v-if="can('update') && canSendEmail(invitation)"
+                                        title="Enviar credenciais"
+                                        :disabled="!invitation.accepted_at && !environment.debug"
+                                >
+                                    <i class="fa fa-landmark"></i>
                                 </button>
 
                                 <button
