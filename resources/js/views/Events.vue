@@ -47,6 +47,15 @@
                             <td class="align-middle text-left">{{ event.name }}</td>
 
                             <td class="align-middle text-right">
+                                <router-link
+                                    :to="'receptive/'+event.id"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm ml-1 pull-right"
+                                    title="Receptivo"
+                                >
+                                    <i class="fas fa-user-friends"></i>
+                                </router-link>
+
                                 <button
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
@@ -132,6 +141,16 @@
                             <td class="align-middle">{{ subEvent.ended_at }}</td>
 
                             <td class="align-middle text-right subevents-buttons">
+                                <button
+                                    v-if="!subEvent.associated_subevent_id"
+                                    class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    @click="replicateCommonInfo(subEvent)"
+                                    :disabled="cannot('update')"
+                                    title="Replicar textos para todos os outros subeventos"
+                                >
+                                    <i class="fa fa-copy"></i>
+                                </button>
+
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
@@ -441,14 +460,22 @@
 
                             <td class="align-middle text-right">
                                 <button
-                                    @click="invitation.accepted_at ? sendCredential(invitation) : sendInvitation(invitation) "
-                                    class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
-                                    v-if="can('update') && canSendEmail(invitation)"
-                                    :title="'Enviar ' + (invitation.accepted_at ? 'credenciais' : 'convite')"
-                                    :disabled="invitation.accepted_at && !environment.debug"
+                                        @click="sendInvitation(invitation)"
+                                        class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                        v-if="can('update') && canSendEmail(invitation)"
+                                        title="Enviar convite"
                                 >
-                                    <i v-if="invitation.accepted_at" class="fa fa-landmark"></i>
-                                    <i v-if="!invitation.accepted_at" class="fa fa-mail-bulk"></i>
+                                    <i class="fa fa-mail-bulk"></i>
+                                </button>
+
+                                <button
+                                        @click="sendCredential(invitation)"
+                                        class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                        v-if="can('update') && canSendEmail(invitation)"
+                                        title="Enviar credenciais"
+                                        :disabled="!invitation.accepted_at && !environment.debug"
+                                >
+                                    <i class="fa fa-landmark"></i>
                                 </button>
 
                                 <button
@@ -697,6 +724,21 @@ export default {
                     event.busy = true
 
                     return this.$store.dispatch('events/sendInvitations', event).then(() => {
+                        event.busy = false
+                    })
+                }
+            })
+        },
+
+        sendCredentials(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todas as credenciais agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store.dispatch('events/sendCredentials', event).then(() => {
                         event.busy = false
                     })
                 }

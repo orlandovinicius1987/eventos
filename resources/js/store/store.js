@@ -21,6 +21,7 @@ import * as mutations from './mutations'
  */
 import environment from './modules/environment'
 import dashboard from './modules/dashboard'
+import receptive from './modules/receptive'
 import gate from './modules/gate'
 import events from './modules/events'
 import subEvents from './modules/subEvents'
@@ -78,6 +79,7 @@ let store = new Vuex.Store({
         advisorContacts,
         phoneBook,
         subEventsDashBoard,
+        receptive,
     },
 })
 

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Data\Repositories\ContactTypes as ContactTypesRepository;
 use App\Rules\Contact;
 
-class ContactUpdate extends BaseStore
+class ContactUpdate extends BaseContact
 {
     /**
      * Get the validation rules that apply to the request.

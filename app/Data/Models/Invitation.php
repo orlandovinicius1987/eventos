@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Events\InviteeCheckedIn;
+use App\Notifications\SendThankYou;
 use Ramsey\Uuid\Uuid;
 use App\Events\InvitationUpdated;
 use App\Events\InvitationAccepted;
@@ -49,7 +51,7 @@ class Invitation extends Base
 
     protected function extractEmails($contactList)
     {
-        return collect(preg_split('/[\\,;\/ |]/', $contactList))
+        return collect(preg_split('/[\\,;\/ |]/', trim($contactList)))
             ->map(function ($email) {
                 return trim($email);
             })
@@ -73,25 +75,46 @@ class Invitation extends Base
         return collect($emails);
     }
 
+    protected function makeSubjectText($notification): string
+    {
+        switch ($notification) {
+            case SendCredentials::class:
+                return 'CREDENCIAL DE ACESSO';
+            case SendRejection::class:
+                return 'CONVITE DECLINADO';
+            case SendInvitation::class:
+                return 'CONVITE';
+            case SendThankYou::class:
+                return 'NOSSO OBRIGADO';
+        }
+
+        throw new \Exception(
+            'Notification class not supported: ' . $notification
+        );
+    }
+
     protected function makeNotificationContentType($notification): string
     {
-        return $notification === SendCredentials::class
-            ? 'credentials'
-            : ($notification === SendRejection::class
-                ? 'rejection'
-                : 'invitation');
+        switch ($notification) {
+            case SendCredentials::class:
+                return 'credentials';
+            case SendRejection::class:
+                return 'rejection';
+            case SendInvitation::class:
+                return 'invitation';
+            case SendThankYou::class:
+                return 'thanks';
+        }
+
+        throw new \Exception(
+            'Notification class not supported: ' . $notification
+        );
     }
 
     protected function makeSubject($notification)
     {
-        $subject =
-            $notification === SendCredentials::class
-                ? 'CREDENCIAL DE ACESSO'
-                : ($notification === SendRejection::class
-                    ? 'CONVITE DECLINADO'
-                    : 'CONVITE');
-
-        return "{$this->subEvent->event->name} - {$subject}";
+        return "{$this->subEvent->event->name} - " .
+            $this->makeSubjectText($notification);
     }
 
     /**
@@ -197,6 +220,22 @@ class Invitation extends Base
     /**
      * @return mixed
      */
+    protected function hasCheckedIn()
+    {
+        return filled($this->checkin_at);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function hasBeenThanked()
+    {
+        return filled($this->thanked_at);
+    }
+
+    /**
+     * @return mixed
+     */
     protected function hasBeenAccepted()
     {
         return filled($this->accepted_at);
@@ -285,12 +324,22 @@ class Invitation extends Base
         return $related;
     }
 
+    public function sendThankYou()
+    {
+        if (
+            $this->canSendEmail() &&
+            $this->hasCheckedIn() &&
+            !$this->hasBeenThanked()
+        ) {
+            $this->dispatchMails(SendThankYou::class);
+        }
+    }
+
     public function sendInvitation($force = false)
     {
         if (
             $this->canSendEmail() &&
-            ($force || !$this->hasBeenDeclined()) &&
-            !$this->hasBeenAccepted()
+            ($force || (!$this->hasBeenDeclined() && !$this->hasBeenAccepted()))
         ) {
             $this->dispatchMails(SendInvitation::class);
         }
@@ -352,15 +401,17 @@ class Invitation extends Base
      */
     public function scopeFilterByPersonInstitutions($query, $personInstitutions)
     {
-        $idsArray = array_pluck($personInstitutions, 'id');
-
-        return $query->whereIn('invitations.person_institution_id', $idsArray);
+        return $query->whereIn(
+            'invitations.person_institution_id',
+            array_pluck($personInstitutions, 'id')
+        );
     }
 
     /**
      * Scope a query to only include invitations from subEvent
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param $subEventId
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeFilterBySubEvent($query, $subEventId)
@@ -585,5 +636,30 @@ class Invitation extends Base
     public function markAsReceived($how = 'automatically', $type = 'invitation')
     {
         $this->markAsDone('received', $type, $how);
+    }
+
+    public function checkedIn()
+    {
+        return !is_null($this->checkin_at);
+    }
+
+    public function makeCheckin()
+    {
+        if ($this->checkedIn()) {
+            return false;
+        }
+
+        $this->checkin_at = now();
+
+        $this->save();
+
+        event(new InviteeCheckedIn($this));
+
+        return true;
+    }
+
+    public function canSendThankYou()
+    {
+        return blank($this->thanked_at);
     }
 }
