@@ -1,7 +1,9 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Nova ':'Editar '}}Instituição</h2>
+            <h2>
+                {{ this.mode === 'create' ? 'Nova ' : 'Editar ' }}Instituição
+            </h2>
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
 
@@ -19,18 +21,27 @@
                             ></app-input>
 
                             <app-input
-                                    name="initials"
-                                    label="Sigla"
-                                    v-model="form.fields.initials"
-                                    :required="false"
-                                    :form="form"
+                                name="initials"
+                                label="Sigla"
+                                v-model="form.fields.initials"
+                                :required="false"
+                                :form="form"
                             ></app-input>
 
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-check mt-4">
-                                        <input v-model="form.fields.is_party" class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                                        <label class="form-check-label" for="defaultCheck1">
+                                        <input
+                                            v-model="form.fields.is_party"
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            value=""
+                                            id="defaultCheck1"
+                                        />
+                                        <label
+                                            class="form-check-label"
+                                            for="defaultCheck1"
+                                        >
                                             É partido politico?
                                         </label>
                                     </div>
@@ -52,9 +63,19 @@
 
                     <div class="row">
                         <div class="col-12 text-right mb-3">
-                            <button @click.prevent="saveModel()" class="btn btn-outline-secondary" type="submit">gravar</button>
+                            <button
+                                @click.prevent="saveModel()"
+                                class="btn btn-outline-secondary"
+                                type="submit"
+                            >
+                                gravar
+                            </button>
 
-                            <router-link to="/institutions" tag="button" class="btn btn-success">
+                            <router-link
+                                to="/institutions"
+                                tag="button"
+                                class="btn btn-success"
+                            >
                                 cancelar
                             </router-link>
                         </div>
@@ -73,7 +94,7 @@ import { mapActions } from 'vuex'
 const service = {
     name: 'institutions',
     uri: 'institutions',
-    performLoad: false,
+    performLoad: false
 }
 
 export default {
@@ -83,15 +104,14 @@ export default {
 
     data() {
         return {
-            service: service,
+            service: service
         }
     },
 
     methods: {
-        ...mapActions(service.name, ['selectInstitution']),
-    },
+        ...mapActions(service.name, ['selectInstitution'])
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

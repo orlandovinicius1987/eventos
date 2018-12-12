@@ -12,7 +12,7 @@
                     <div class="brand-name align-self-center"></div>
                 </a> --}}
 
-                <div class="d-flex bd-highlight mb-3" style="height: 100px">
+                <div class="d-flex bd-highlight mb-3">
                     <div class="align-self-center p-2 bd-highlight">
                         <img src="/svg/logo-eventos-alerj.svg" class="brand-logo align-self-center">
                     </div>
