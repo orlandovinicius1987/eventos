@@ -10,16 +10,7 @@ const __emptyModel = { id: null }
 let state = merge_objects({}, statesMixin.common)
 
 const actions = merge_objects(actionsMixin, {
-
-    selectSubEventDashBoard(context, payload){
-
-        dd(payload)
-
-
-        context.dispatch('subEvents/select', payload, {
-            root: true,
-        })
-
+    selectEventDashBoard(context, payload) {
         context.dispatch('events/select', payload.event, {
             root: true,
         })

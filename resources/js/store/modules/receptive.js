@@ -5,51 +5,90 @@ import * as actionsMixin from './mixins/actions.js'
 import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
-const __emptyModel = { id: null }
-
-const state = merge_objects(statesMixin.common, {
-    form: new Form({
-        name: null,
-        code: null,
-    }),
-
-    data: {
-        filter: {
-            selects: {
-                name: null,
-                code: null,
-            },
-        },
-    }
-})
-
-const service = {
-    name: 'receptive',
-    uri: 'events/{events.selected.id}/sub-events/{sub-events.selected.id}/receptive',
+const __emptyModel = {
+    id: null,
+    name: null,
+    code: null,
+    sub_event_id: null,
+    person_institution_id: null,
+    accepted_at: null,
+    sent_at: null,
+    checkin_at: null,
 }
 
-const actions = merge_objects(actionsMixin, {
-    selectReceptiveInvitation(context, payload) {
-        dd('action - receptive - selectReceptiveInvitation - payload dd: ',payload)
-        context.dispatch('receptiveInvitations/select', payload, { root: true })
+const __emptyCheckedIn = {
+    data: null,
+    success: null,
+    errors: null,
+}
 
-        context.dispatch('receptiveInvitations/setInvitation', payload, {
-            root: true,
-        })
+const state = merge_objects(statesMixin.common, {
+    form: new Form(clone(__emptyModel)),
+
+    emptyForm: clone(__emptyModel),
+
+    checkedIn: __emptyCheckedIn,
+
+    model: {
+        name: 'invitation',
+
+        table: 'invitations',
+
+        class: { singular: 'Invitation', plural: 'Invitations' },
     },
 })
 
+const actions = merge_objects(actionsMixin, {
+    selectInvitation(context, payload) {
+        context.dispatch('select')
 
-let mutations = merge_objects(mutationsMixin, {
-
-    selectReceptiveInvitation(state, payload) {
-        dd('mutation - receptive - selectReceptiveInvitation - payload dd: ',payload)
-        state.selectedReceptiveInvitation = payload
+        context.dispatch('setInvitation')
     },
 
-    setReceptiveInvitations(state, payload) {
-        dd('receptive - setReceptiveInvitations - payload dd: ',payload)
-        state.receptiveInvitations = payload
+    setInvitation(context, payload) {
+        context.commit('mutateSetSelected', payload)
+
+        context.dispatch('load', payload)
+    },
+
+    makeCheckin(context, payload) {
+        post(makeDataUrl(context) + '/checkin', { uuid: payload }).then(
+            response => {
+                context.commit('mutateCheckedIn', response.data)
+            },
+        )
+    },
+
+    subscribeExtraChannels(context, payload) {
+        subscribePublicChannel(
+            'invitees',
+            '.App\\Events\\InviteesChanged',
+            () => {
+                context.dispatch('load', payload)
+            },
+        )
+    },
+})
+
+let mutations = merge_objects(mutationsMixin, {
+    selectInvitation(state, payload) {
+        state.selectedInvitation = payload
+    },
+
+    setInvitations(state, payload) {
+        state.invitations = payload
+    },
+
+    mutateSetInvitation(state, payload) {
+        state.invitation = payload
+    },
+
+    mutateCheckedIn(state, payload) {
+        state.checkedIn = payload
+    },
+
+    clearCheckedIn(state) {
+        state.checkedIn = clone(__emptyCheckedIn)
     },
 })
 

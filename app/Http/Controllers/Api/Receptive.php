@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Data\Repositories\Roles as RolesRepository;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Exceptions\InvitationNotFoundException;
 use App\Data\Repositories\Invitations as InvitationsRepository;
 
 class Receptive extends Controller
@@ -12,34 +12,33 @@ class Receptive extends Controller
     /**
      * Get all data
      *
+     * @param Request $request
+     * @param $eventId
      * @return array
      */
-    public function invitationAccepted(Request $request, $eventId, $subEventId)
+    public function invitations(Request $request, $eventId)
     {
-        //dd('01' . $request);
         return app(InvitationsRepository::class)->fillteredAcceptedByEventId(
             $eventId
         );
     }
 
-    public function makeCheckin(
-        Request $request,
-        $eventId,
-        $subEventId,
-        $invitationId
-    ) {
-        return app(InvitationsRepository::class)->makeCheckin($invitationId);
-    }
+    public function makeCheckin(Request $request, $eventId)
+    {
+        try {
+            $invitation = app(InvitationsRepository::class)->findByUuid(
+                $request->get('uuid')
+            );
 
-    public function makeCheckinWithCode(
-        Request $request,
-        $eventId,
-        $subEventId,
-        $code
-    ) {
-        return app(InvitationsRepository::class)->makeCheckinWithCode(
-            $subEventId,
-            $code
-        );
+            return $this->response(
+                $invitation,
+                0,
+                !$invitation->makeCheckin()
+                    ? 'Este convidado já havia feito check-in'
+                    : null
+            );
+        } catch (InvitationNotFoundException $exception) {
+            return $this->response(false, 0, 'Convite não localizado');
+        }
     }
 }

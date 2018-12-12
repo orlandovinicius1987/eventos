@@ -31,10 +31,7 @@ const state = merge_objects(statesMixin.common, {
     data: __emptyTable,
 })
 
-const actions = merge_objects(actionsMixin, {
-
-     
-})
+const actions = merge_objects(actionsMixin, {})
 
 const mutations = merge_objects(mutationsMixin, {})
 

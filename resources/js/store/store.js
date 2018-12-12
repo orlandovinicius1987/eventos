@@ -22,7 +22,6 @@ import * as mutations from './mutations'
 import environment from './modules/environment'
 import dashboard from './modules/dashboard'
 import receptive from './modules/receptive'
-import receptiveInvitations from './modules/receptiveInvitations'
 import gate from './modules/gate'
 import events from './modules/events'
 import subEvents from './modules/subEvents'
@@ -81,7 +80,6 @@ let store = new Vuex.Store({
         phoneBook,
         subEventsDashBoard,
         receptive,
-        receptiveInvitations,
     },
 })
 

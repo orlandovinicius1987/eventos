@@ -7,8 +7,9 @@ export default {
 
     computed: {
         ...mapState({
+            invitations: state => state.invitations,
 
-            receptiveInvitations: state => state.receptiveInvitations,
+            receptive: state => state.receptive,
         }),
     },
 }

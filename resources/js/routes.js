@@ -69,7 +69,7 @@ let routes = [
         props: { mode: 'update' },
     },
     {
-        path: '/events/:eventId/sub-events/:subEventId/receptive',
+        path: '/receptive/:eventId',
         component: Receptive,
     },
     {

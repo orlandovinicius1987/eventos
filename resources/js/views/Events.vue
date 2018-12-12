@@ -47,6 +47,15 @@
                             <td class="align-middle text-left">{{ event.name }}</td>
 
                             <td class="align-middle text-right">
+                                <router-link
+                                    :to="'receptive/'+event.id"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm ml-1 pull-right"
+                                    title="Receptivo"
+                                >
+                                    <i class="fas fa-user-friends"></i>
+                                </router-link>
+
                                 <button
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
@@ -141,14 +150,6 @@
                                 >
                                     <i class="fa fa-copy"></i>
                                 </button>
-
-                                <router-link
-                                        :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/receptive'"
-                                        tag="div"
-                                        class="btn btn-primary btn-sm ml-1 pull-right"
-                                >
-                                    <i class="fas fa-info-circle"></i>
-                                </router-link>
 
                                 <button
                                     v-if="!subEvent.associated_subevent_id"

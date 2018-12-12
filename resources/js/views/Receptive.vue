@@ -1,85 +1,91 @@
 <template>
     <div>
-        <div class="py-2 mb-4 text-center">
-            <h2>Dia do Evento</h2>
+        <div class="py-2 text-center">
+            <h3>{{ events.selected.name }}</h3>
         </div>
 
-        <div class="row" v-if="can('read')">
-            <div class="col-4">
-                <app-table-panel
-                        :title="'Convidados'"
-                        :per-page="perPage"
-                        :filter-text="filterText"
-                        @input-filter-text="filterText = $event.target.value"
-                        @set-per-page="perPage = $event"
-                >
-                    <app-table
-                            :pagination="receptiveInvitations.data.links.pagination"
-                            @goto-page="gotoPage($event)"
-                            :columns="['#','Convidado', 'Sub-Evento','Código', 'Check-in','Photo']"
-
+        <div class="row" v-if="can('read') && getCheckedIn().data">
+            <div class="col-12">
+                <div v-if="getCheckedIn() && getCheckedIn().data">
+                    <img
+                        :src="getCheckedIn().data.person_institution.person.photoUrl"
+                        class="img-thumbnail rounded mx-auto d-block mb-2"
+                        width="200"
+                        height="200"
                     >
-                        <tr
-                                v-for="invitation in receptiveInvitations.data.rows" class="cursor-pointer"
-                                @click="confirmCheckin(invitation)"
-                        >
-                            <td>{{invitation.id}}</td>
-                            <td>{{invitation.person_institution.person.name}}</td>
-                            <td>{{invitation.sub_event.name}}</td>
-                            <td>{{invitation.code}}</td>
-                            <td>
-                                <h6 class="mb-0">
-                                    <span v-if="invitation.checkin_at" class="badge badge-success">Feito às {{invitation.checkin_at}}</span>
-                                    <span v-if="!invitation.checkin_at" class="badge badge-danger">Não chegou</span>
-                                </h6>
-                                </td>
-                            <td><img
-                                    :src="invitation.person_institution.person.photoUrl"
-                                    class="img-thumbnail rounded mx-auto d-block mb-2"
-                                    width="200"
-                                    height="200"
-                            ></td>
-                        </tr>
-                    </app-table>
+
+                    <h2 class="text-center">{{ getCheckedIn().data.code }}</h2>
+                    <h5 class="text-center">{{ getCheckedIn().data.person_institution.person.name }}</h5>
+                    <h6 class="text-center">{{ getCheckedIn().data.person_institution.role.name }}</h6>
+                    <h6 class="text-center">{{ getCheckedIn().data.person_institution.institution.name }}</h6>
+
+                    <br><br>
+
+                    <div @click="clearCheckedIn()" :class="'btn btn-lg btn-block ' + (getCheckedIn().success ? 'btn-success' : 'btn-danger')">
+                        {{ getCheckedIn().errors ? checkedIn.errors : 'Check-in feito com sucesso!' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" v-if="can('read') && !getCheckedIn().data">
+            <div class="col-sm-12 col-md-6">
+                <app-table-panel
+                    title="Leitura QRCode"
+                >
+                    <div class="m-4">
+                        <qrcode-drop-zone @decode="onDecode">
+                            <qrcode-stream @decode="onDecode" @init="onInit" />
+                        </qrcode-drop-zone>
+                        <qrcode-capture v-if="noStreamApiSupport" @decode="onDecode" />
+                    </div>
+
+                    {{ qrCodeError }}
                 </app-table-panel>
             </div>
 
-            <div class="col-4">
-                <p class="one-line"><b>{{ result }}</b></p>
-                <qrcode-drop-zone @decode="onDecode">
-                    <qrcode-stream @decode="onDecode" @init="onInit" />
-                </qrcode-drop-zone>
-
-                <qrcode-capture v-if="noStreamApiSupport" @decode="onDecode" />
-
-            </div>
-
-            <div class="col-4">
-                <p class="one-line">Ultimo Check-in Realizado:</p>
-                <div v-if="receptiveInvitations.selected.id">
-                <div class="col-4">
-                    <img
-                            :src="receptiveInvitations.selected.person_institution.person.photoUrl"
-                            class="img-thumbnail rounded mx-auto d-block mb-2"
-                            width="200"
-                            height="200"
+            <div class="col-sm-12 col-md-6">
+                <app-table-panel
+                    :title="'Convidados'"
+                    :per-page="perPage"
+                    :filter-text="filterText"
+                    @input-filter-text="filterText = $event.target.value"
+                    @set-per-page="perPage = $event"
+                >
+                    <app-table
+                        :pagination="receptive.data.links.pagination"
+                        @goto-page="gotoPage($event)"
+                        :columns="['Convite', 'Convidado', 'Check-in', 'Photo']"
                     >
-                    <div class="row">
-                        <b>Nome:</b> {{receptiveInvitations.selected.person_institution.person.name}}
-                    </div>
-                    <div class="row">
-                        <b>Check-in:</b> {{receptiveInvitations.selected.checkin_at}}
-                    </div>
-                    <!--<div class="row">-->
-                        <!--<b>Categoria:</b> {{receptiveInvitations.receptiveInvitation.person_institution.category.name}}-->
-                    <!--</div>-->
-                    <div class="row">
-                        <b>Função:</b> {{receptiveInvitations.selected.person_institution.role.name}}
-                    </div>
-                </div>
+                        <tr
+                            v-for="invitation in receptive.data.rows" class="cursor-pointer"
+                            @click="confirmCheckin(invitation)"
+                        >
+                            <td>{{invitation.code}}</td>
+                            <td>
+                                <strong>{{invitation.person_institution.person.name}}</strong><br>
+                                {{invitation.sub_event.name}}<br>
+                                {{invitation.sub_event.sector.name}}
+                            </td>
 
+                            <td>
+                                <h6 class="mb-0">
+                                    <span v-if="invitation.checkin_at" class="badge badge-success">{{ getCheckedInTime(invitation) }}</span>
+                                    <span v-if="!invitation.checkin_at" class="badge badge-danger">não</span>
+                                </h6>
+                            </td>
 
-                </div>
+                            <td>
+                                <img
+                                    :src="invitation.person_institution.person.photoUrl"
+                                    class="img-thumbnail rounded mx-auto d-block mb-2"
+                                    width="50"
+                                    height="50"
+                                >
+                            </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
             </div>
         </div>
     </div>
@@ -93,17 +99,18 @@
     import subEvents from './mixins/sub-events'
     import { mapActions, mapState } from 'vuex'
     import { QrcodeStream, QrcodeDropZone, QrcodeCapture } from 'vue-qrcode-reader'
+    import { parse, format } from 'date-fns'
 
     const service = {
-        name: 'receptiveInvitations',
-        uri: 'events/{events.selected.id}/sub-events/{subEvents.selected.id}/receptive',
+        name: 'receptive',
+        uri: 'events/{events.selected.id}/receptive',
         isForm: true,
     }
 
     export default {
         props: ['mode'],
 
-        mixins: [crud, receptive, permissions, events,subEvents],
+        mixins: [ crud, receptive, permissions, events, subEvents ],
 
         components: { QrcodeStream, QrcodeDropZone, QrcodeCapture },
 
@@ -113,85 +120,82 @@
                 result: '',
                 noStreamApiSupport: false,
                 inv: '',
-
+                qrCodeError: null,
             }
-
         },
 
         computed: {
             ...mapState({
-                invitations: state=> state.receptive.invitations,
+                checkedIn: state => state.receptive.checkedIn,
             }),
         },
 
         methods: {
             ...mapActions(service.name, [
-                'selectReceptiveInvitation',
+                'selectInvitation',
             ]),
 
-            confirmCheckin(invitation){
-                const $this = this
-
-                dd('invitation.ckeckin_at - ',invitation.checkin_at)
-                if(invitation.checkin_at == null) {
-
+            confirmCheckin(invitation) {
+                if (invitation.checkin_at == null) {
                     confirm(
-                        'Deseja realizar o checkin de ' +
+                        'Deseja realizar o check-in de ' +
                         + invitation.person_institution.title + ' '+invitation.person_institution.person.name +
                         '?', this,
-                    ).then(function (value) {
+                    ).then((value) => {
                         if (value) {
-                            $this.makeCheckin(invitation)
-                            $this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
+                            this.makeCheckin(invitation.uuid)
                         }
                     })
-
+                } else {
+                    showMessage('Este convidado já fez check-in no evento')
                 }
-
             },
 
             makeCheckin(invitation) {
-                this.$store.dispatch('receptiveInvitations/load')
-                this.$store.dispatch('receptive/selectReceptiveInvitation', invitation)
-                this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.title + ' '+invitation.person_institution.person.name
-                return this.$store.dispatch('receptiveInvitations/makeCheckin', invitation)
+                // this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.title + ' '+invitation.person_institution.person.name
+
+                return this.$store.dispatch('receptive/makeCheckin', invitation)
             },
 
             onDecode (result) {
-              return this.makeCheckinWithCode(result)
+                return this.makeCheckin(result)
             },
 
-            makeCheckinWithCode(url){
-                const $this = this
-
-                let urlArray = url.split('/')
-                dd('urlArray',urlArray)
-                dd('this.receptiveInvitations.data.rows',this.receptiveInvitations.data.rows)
-
-                this.receptiveInvitations.data.rows.forEach(function(invitation){
-                    urlArray.forEach(function(element){
-                        if(invitation.uuid == element && invitation.checkin_at == null){
-                            $this.makeCheckin(invitation)
-                        }
-                    })
-
-                })
-
-            },
             async onInit (promise) {
                 try {
                     await promise
                 } catch (error) {
-                    if (error.name === 'StreamApiNotSupportedError') {
-                        this.noStreamApiSupport = true
+                    if (error.name === 'NotAllowedError') {
+                        this.qrCodeError = "ERROR: you need to grant camera access permisson"
+                    } else if (error.name === 'NotFoundError') {
+                        this.qrCodeError = "ERROR: no camera on this device"
+                    } else if (error.name === 'NotSupportedError') {
+                        this.qrCodeError = "ERROR: secure context required (HTTPS, localhost)"
+                    } else if (error.name === 'NotReadableError') {
+                        this.qrCodeError = "ERROR: is the camera already in use?"
+                    } else if (error.name === 'OverconstrainedError') {
+                        this.qrCodeError = "ERROR: installed cameras are not suitable"
+                    } else if (error.name === 'StreamApiNotSupportedError') {
+                        this.qrCodeError = "ERROR: Stream API is not supported in this browser"
                     }
                 }
             },
 
+            getCheckedIn() {
+                return this.$store.state.receptive.checkedIn
+            },
+
+            clearCheckedIn() {
+                return this.$store.commit('receptive/clearCheckedIn')
+            },
+
+            getCheckedInTime(invitation) {
+                return format(parse(invitation.checkin_at), 'HH[h]mm')
+            }
         },
 
-        mounted(){
-            this.$store.dispatch('receptiveInvitations/load')
+        mounted() {
+            this.$store.dispatch('receptive/load')
         }
     }
 </script>

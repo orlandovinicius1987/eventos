@@ -9,22 +9,22 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div v-if="perPage" class="row">
                 <div class="col-12 card-filters bg-filters py-2">
                     <div class="row">
                         <div v-if="perPage" class="col-4">
                             <input
-                                    class="form-control"
-                                    :value="filterText"
-                                    @input="$emit('input-filter-text', $event)"
-                                    placeholder="filtrar"
+                                class="form-control"
+                                :value="filterText"
+                                @input="$emit('input-filter-text', $event)"
+                                placeholder="filtrar"
                             />
                         </div>
 
                         <div v-if="perPage" class="col-2 p-0">
                             <app-per-page
-                                    :value="perPage"
-                                    @input="$emit('set-per-page', $event)"
+                                :value="perPage"
+                                @input="$emit('set-per-page', $event)"
                             ></app-per-page>
                         </div>
 
@@ -32,12 +32,12 @@
                             <slot name="buttons"></slot>
 
                             <router-link
-                                    v-if="addButton"
-                                    :to="addButton.uri"
-                                    tag="div"
-                                    class="btn btn-primary pull-right"
-                                    :disabled="addButton.disabled"
-                                    dusk="createEventButton"
+                                v-if="addButton"
+                                :to="addButton.uri"
+                                tag="div"
+                                class="btn btn-primary pull-right"
+                                :disabled="addButton.disabled"
+                                dusk="createEventButton"
                             >
                                 <i class="fa fa-plus"></i>
                             </router-link>
