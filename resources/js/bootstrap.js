@@ -50,15 +50,15 @@ import Echo from 'laravel-echo'
 window.Pusher = require('pusher-js')
 
 let echoConfig = {
-    broadcaster: 'pusher',
-    key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    encrypted: process.env.MIX_PUSHER_ENCRYPTED === 'true',
+    broadcaster: window.laravel.broadcast.driver,
+    key: window.laravel.pusher.key,
+    cluster: window.laravel.pusher.options.cluster,
+    encrypted: window.laravel.pusher.options.encrypted === 'true',
 }
 
-if (process.env.MIX_PUSHER_SERVER === 'laravel-websockets') {
-    echoConfig.wsHost = process.env.MIX_PUSHER_FRONTEND_SERVER_HOST
-    echoConfig.wsPort = process.env.MIX_PUSHER_SERVER_PORT
+if (window.laravel.pusher.server === 'laravel-websockets') {
+    echoConfig.wsHost = window.laravel.pusher.options.host
+    echoConfig.wsPort = window.laravel.pusher.options.port
     echoConfig.disableStats = false
 }
 
@@ -83,11 +83,10 @@ moment.locale('pt-br')
 /**
  * Vue Grecaptcha
  */
-import VueRecaptcha from 'vue-recaptcha'
-Vue.use(VueRecaptcha, {
+Vue.use(() => import('vue-recaptcha'), {
     sitekey: '6LchDyAUAAAAAPPYWb2ZcFQOh12bI88qpJjKei9J',
 })
-Vue.component('vue-recaptcha', VueRecaptcha)
+Vue.component('vue-recaptcha', () => import('vue-recaptcha'))
 
 /**
  * sha256
@@ -104,14 +103,12 @@ window.cheerio = cheerio
 /**
  * Vue The Mask
  */
-import VueTheMask from 'vue-the-mask'
-Vue.use(VueTheMask)
+Vue.use(() => import('vue-the-mask'))
 
 /**
  * SweetAlert
  */
-import VueSwal from 'vue-swal'
-Vue.use(VueSwal)
+Vue.use(() => import('vue-swal'))
 
 /**
  * Vue Bootstrap
@@ -124,9 +121,7 @@ Vue.use(Button)
 /**
  * Vue Google Maps
  */
-import * as VueGoogleMaps from 'vue2-google-maps'
-
-Vue.use(VueGoogleMaps, {
+Vue.use(() => import('vue2-google-maps'), {
     load: {
         key: laravel.google_maps.api_key,
         libraries: 'places',
@@ -136,20 +131,21 @@ Vue.use(VueGoogleMaps, {
 /**
  * Autoload Vue components
  */
-const files = require.context('./components/app/', true, /\.vue$/i)
-files.keys().map(key => {
-    const name = 'App' + _.last(key.split('/')).split('.')[0]
-    return Vue.component(name, files(key))
+const file = require.context('./components/app/', true, /\.vue$/i)
+file.keys().map(file => {
+    const name = 'App' + _.last(file.split('/')).split('.')[0]
+
+    return Vue.component(name, () =>
+        import('./components/app/' + basename(file)),
+    )
 })
 
 /**
  * VueSelect
  */
-import VueSelect from 'vue-select'
-Vue.component('vue-select', VueSelect)
+Vue.component('vue-select', () => import('vue-select'))
 
 /**
  * Vue Croppa
  */
-import Croppa from 'vue-croppa'
-Vue.use(Croppa, { componentName: 'vue-croppa' })
+Vue.use(() => import('vue-croppa'), { componentName: 'vue-croppa' })

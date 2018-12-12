@@ -291,3 +291,13 @@ window.privateChannel = channel => {
 window.subscribePublicChannel = (model, className, callable) => {
     publicChannel(model).listen(className, callable)
 }
+
+window.basename = str => {
+    let base = new String(str).substring(str.lastIndexOf('/') + 1)
+
+    if (base.lastIndexOf('.') != -1) {
+        base = base.substring(0, base.lastIndexOf('.'))
+    }
+
+    return base
+}

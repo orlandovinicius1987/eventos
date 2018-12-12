@@ -29,7 +29,8 @@ return [
 
     'connections' => [
         'pusher' => [
-            'driver' => env('PUSHER_APP_DRIVER', 'pusher'),
+            'server' => env('PUSHER_SERVER', 'pusher'),
+            'driver' => env('BROADCAST_DRIVER', 'pusher'),
             'key' => env('PUSHER_APP_KEY'),
             'secret' => env('PUSHER_APP_SECRET'),
             'app_id' => env('PUSHER_APP_ID'),

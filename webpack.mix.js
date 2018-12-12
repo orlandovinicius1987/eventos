@@ -25,4 +25,8 @@ const LiveReloadPlugin = require('webpack-livereload-plugin')
 
 mix.webpackConfig({
     plugins: [new LiveReloadPlugin()],
+
+    output: {
+        chunkFilename: 'js/chunks/chunk-[name].js',
+    },
 })

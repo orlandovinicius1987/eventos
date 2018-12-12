@@ -122,16 +122,6 @@ let actions = merge_objects(actionsMixin, {
                 },
             )
 
-            // subscribePublicChannel(
-            //     'person.' + payload.id,
-            //     '.App\\Events\\PersonAddressesGotChanged',
-            //     () => {
-            //         context.dispatch('personAddresses/load', payload, {
-            //             root: true,
-            //         })
-            //     },
-            // )
-
             subscribePublicChannel(
                 'person.' + payload.id,
                 '.App\\Events\\PersonContactsGotChanged',
