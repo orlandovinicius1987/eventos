@@ -21,7 +21,7 @@
                                 class="img-thumbnail rounded mx-auto d-block mb-2"
                                 width="200"
                                 height="200"
-                            >
+                            />
                         </div>
                     </div>
                 </div>
@@ -45,19 +45,19 @@
                 >
                     <template slot="selects">
                         <app-institution-filter-for-person
-                                name="institution_id"
-                                label="Instituição"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.institutions"
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
                         ></app-institution-filter-for-person>
 
                         <app-role-filter-for-person
-                                name="role_id"
-                                label="Função"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.roles"
+                            name="role_id"
+                            label="Função"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
                         ></app-role-filter-for-person>
                     </template>
 
@@ -221,7 +221,7 @@
                                     'Instituição',
                                     'Função',
                                     'Status',
-                                    '',
+                                    ''
                                 ]"
                             >
                                 <tr
@@ -260,7 +260,9 @@
                                     <td class="align-middle">
                                         <h6 class="m-0">
                                             <app-active-badge
-                                                :value="personInstitution.is_active"
+                                                :value="
+                                                    personInstitution.is_active
+                                                "
                                                 :labels="['ativo', 'inativo']"
                                             ></app-active-badge>
                                         </h6>
@@ -323,7 +325,13 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato', 'Status', '']"
+                                :columns="[
+                                    '#',
+                                    'Tipo',
+                                    'Contato',
+                                    'Status',
+                                    ''
+                                ]"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -337,11 +345,17 @@
                                         )
                                     }"
                                 >
-                                    <td class="align-middle">{{ contact.id }}</td>
+                                    <td class="align-middle">
+                                        {{ contact.id }}
+                                    </td>
 
-                                    <td class="align-middle">{{ contact.contact_type.name }}</td>
+                                    <td class="align-middle">
+                                        {{ contact.contact_type.name }}
+                                    </td>
 
-                                    <td class="align-middle">{{ contact.contact }}</td>
+                                    <td class="align-middle">
+                                        {{ contact.contact }}
+                                    </td>
 
                                     <td class="align-middle">
                                         <h6 class="m-0">
@@ -414,7 +428,7 @@
                                     'Complemento',
                                     'Bairro',
                                     'Cidade',
-                                    '',
+                                    ''
                                 ]"
                                 :rows="addresses.data.rows"
                             >
@@ -430,21 +444,37 @@
                                         )
                                     }"
                                 >
-                                    <td class="align-middle">{{ address.id }}</td>
+                                    <td class="align-middle">
+                                        {{ address.id }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.street }}</td>
+                                    <td class="align-middle">
+                                        {{ address.street }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.number }}</td>
+                                    <td class="align-middle">
+                                        {{ address.number }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.complement }}</td>
+                                    <td class="align-middle">
+                                        {{ address.complement }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.neighbourhood }}</td>
+                                    <td class="align-middle">
+                                        {{ address.neighbourhood }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.zipcode }}</td>
+                                    <td class="align-middle">
+                                        {{ address.zipcode }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.city }}</td>
+                                    <td class="align-middle">
+                                        {{ address.city }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.state }}</td>
+                                    <td class="align-middle">
+                                        {{ address.state }}
+                                    </td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -521,10 +551,18 @@
                                         )
                                     }"
                                 >
-                                    <td class="align-middle">{{ advisor.id }}</td>
-                                    <td class="align-middle">{{ advisor.person.title }}</td>
-                                    <td class="align-middle">{{ advisor.person.name }}</td>
-                                    <td class="align-middle">{{ advisor.person.nickname }}</td>
+                                    <td class="align-middle">
+                                        {{ advisor.id }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ advisor.person.title }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ advisor.person.name }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ advisor.person.nickname }}
+                                    </td>
                                     <td class="align-middle">
                                         <router-link
                                             :to="
@@ -560,7 +598,7 @@
                             :title="
                                 'Contatos de ' +
                                     advisors.selected.person.name +
-                                    ': '+
+                                    ': ' +
                                     advisorContacts.data.links.pagination.total
                             "
                             :add-button="{
@@ -603,13 +641,17 @@
                                         )
                                     }"
                                 >
-                                    <td class="align-middle">{{ advisorContact.id }}</td>
+                                    <td class="align-middle">
+                                        {{ advisorContact.id }}
+                                    </td>
 
                                     <td class="align-middle">
                                         {{ advisorContact.contact_type.name }}
                                     </td>
 
-                                    <td class="align-middle">{{ advisorContact.contact }}</td>
+                                    <td class="align-middle">
+                                        {{ advisorContact.contact }}
+                                    </td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -642,8 +684,6 @@
             </div>
         </div>
     </div>
-
-
 </template>
 
 <script>
@@ -914,15 +954,17 @@ export default {
 
         hasNoPhotoCheckbox: {
             get() {
-                return this.$store.state['people'].data.filter.checkboxes.hasNoPhoto
+                return this.$store.state['people'].data.filter.checkboxes
+                    .hasNoPhoto
             },
 
             set(filter) {
-                this.$store.dispatch(
-                    'people/mutateFilterCheckbox', {field: 'hasNoPhoto', value: filter}
-                )
-            },
-        },
+                this.$store.dispatch('people/mutateFilterCheckbox', {
+                    field: 'hasNoPhoto',
+                    value: filter
+                })
+            }
+        }
     }
 }
 </script>
