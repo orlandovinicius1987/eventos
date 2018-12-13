@@ -21,6 +21,10 @@ const __emptyCheckedIn = {
     success: null,
     errors: null,
 }
+const __emptyTotals = {
+    confirmed: null,
+    totalcheckedIn: null,
+}
 
 const state = merge_objects(statesMixin.common, {
     form: new Form(clone(__emptyModel)),
@@ -28,6 +32,8 @@ const state = merge_objects(statesMixin.common, {
     emptyForm: clone(__emptyModel),
 
     checkedIn: __emptyCheckedIn,
+
+    totals: __emptyTotals,
 
     model: {
         name: 'invitation',
@@ -85,6 +91,10 @@ let mutations = merge_objects(mutationsMixin, {
 
     mutateCheckedIn(state, payload) {
         state.checkedIn = payload
+    },
+
+    mutateTotals(state, payload) {
+        state.totals = payload
     },
 
     clearCheckedIn(state) {

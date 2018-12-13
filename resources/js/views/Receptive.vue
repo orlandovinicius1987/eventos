@@ -7,11 +7,11 @@
         <div class="card card-block bg-faded">
             <div class="row">
                 <div class="col-6 text-center">
-                    confirmados: 657
+                    confirmados: {{totals.confirmed}}
                 </div>
 
                 <div class="col-6 text-center">
-                    ingressaram: 128
+                    ingressaram: {{totals.totalcheckedIn}}
                 </div>
             </div>
         </div>
@@ -141,6 +141,7 @@
         computed: {
             ...mapState({
                 checkedIn: state => state.receptive.checkedIn,
+                totals: state => state.receptive.totals,
             }),
         },
 
