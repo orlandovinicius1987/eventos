@@ -12,11 +12,7 @@ trait SubEventsDownload
 
         return app(PDF::class)
             ->initialize($this->generateHtml($subEvent))
-            ->download(
-                make_pdf_filename(
-                    $subEvent->event->name . ' ' . $subEvent->name
-                )
-            );
+            ->download(make_pdf_filename($subEvent->event->name));
     }
 
     public function generateHtml($subEvent)
