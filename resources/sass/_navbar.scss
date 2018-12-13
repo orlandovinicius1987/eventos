@@ -6,6 +6,15 @@
   /*padding: 0.5rem 1rem 0 1rem ;*/
 
 
+  .navbar-brand{
+
+    @media (max-width: 390px) {
+      display: contents;
+
+    }
+  }
+
+
 
   .navbar-nav {
     font-weight: 600;
