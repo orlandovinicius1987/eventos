@@ -74,7 +74,9 @@
             {{--<div class="page-number"></div>--}}
         {{--</div>--}}
 
-        <h2>{{ $title }}</h2>
+        @if (isset($title))
+            <h2>{{ $title }}</h2>
+        @endif
 
         <div class="container">
             @yield('content')

@@ -21,16 +21,17 @@ trait SubEventsDownload
 
     public function generateHtml($subEvent)
     {
-        return view('pdf.sub-events')
-            ->with([
-                'heading' => $subEvent->event->name,
-                'subHeading' => $subEvent->name,
-                'title' => 'Lista Geral de Convidados',
-                'date' => now()->format('m/d/Y  H:i'),
-                'subEvent' => $subEvent,
-                'invitations' => $this->getInvitations($subEvent),
-            ])
-            ->render();
+        return //'subHeading' => $subEvent->name,
+            //'title' => 'Lista Geral de Convidados',
+            view('pdf.sub-events')
+                ->with([
+                    'heading' => $subEvent->event->name,
+                    'subHeading' => 'Lista Geral de Convidados',
+                    'date' => now()->format('m/d/Y  H:i'),
+                    'subEvent' => $subEvent,
+                    'invitations' => $this->getInvitations($subEvent),
+                ])
+                ->render();
     }
 
     public function orderInvitations($invitations)
