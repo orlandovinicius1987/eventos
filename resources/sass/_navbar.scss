@@ -3,61 +3,8 @@
 
 .navbar {
 
-  padding: 0.5rem 1rem 0 1rem ;
+  /*padding: 0.5rem 1rem 0 1rem ;*/
 
-  .navbar-brand {
-    img {
-      padding-right: 5px;
-    }
-
-    .brand-complement {
-      border-left: 2px solid #B2B1B7 ;
-      padding-left: 7px;
-      color: #8C9D45;
-      text-transform: uppercase;
-      font-family: 'DIN';
-      font-weight: 300;
-      font-style: normal;
-      font-size: 1.4rem;
-      margin-left: 6px;
-      position: relative;
-
-      @media (max-width: 426px) {
-        font-size: 1.6rem;
-        bottom: -2px;
-      }
-      @media (max-width: 376px) {
-        font-size: 1.45rem;
-        bottom: -2px;
-      }
-      @media (max-width: 321px) {
-        font-size: 1.125rem;
-        bottom: -2px;
-      }
-
-      @media (min-width: 1368px) {
-        font-size: 1.7rem;
-      }
-
-      /*bottom: -6px;*/
-
-/*      &:before {
-        content: "";
-        background: #ff00ff;
-        width: 2px;
-        height: 100px;
-      }*/
-    }
-
-    @media (min-width: 1368px) {
-      margin-left: 30px;
-    }
-
-
-    /*padding-bottom: 20px;*/
-
-
-  }
 
 
   .navbar-nav {
@@ -128,6 +75,11 @@
 
 }
 
+
+
+
+/*
+
 .brand-name {
   text-transform: uppercase;
   font-family: 'DIN';
@@ -137,7 +89,17 @@
   color: #8C9D45;
 }
 
+*/
+
+
 
 .brand-logo {
   width: 70%;
+}
+
+
+
+
+.svg-logo {
+  width:70%;
 }
