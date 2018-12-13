@@ -23,6 +23,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="gravar-funções-pessoas"
                             >
                                 gravar
                             </button>

@@ -44,14 +44,14 @@
                             </router-link>
 
                             <router-link id="events-menu" to="/events" tag="li" class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a dusk="opcao-eventos" href="#" class="nav-link">
                                     <i class="vl_events"></i>
                                     <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
                                 </a>
                             </router-link>
 
                             <router-link id="events-menu" to="/people" tag="li" class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a dusk="opcao-pessoas" href="#" class="nav-link">
                                     <i class="vl_events"></i>
                                     <span class="nav-link-text"> <i class="fas fa-users"></i> Pessoas</span>
                                 </a>
@@ -76,6 +76,7 @@
                                     data-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
+                                    dusk="opcao-tabelas"
                                 >
                                     <i class="fas fa-table"></i> Tabelas
                                 </a>
@@ -93,19 +94,19 @@
                                         Lista telefônica
                                     </router-link>
 
-                                    <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
+                                    <router-link dusk="opcao-categorias" id="people-menu" to="/categories" tag="a" class="dropdown-item">
                                         Categorias
                                     </router-link>
 
-                                    <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item">
+                                    <router-link dusk="opcao-funcao" id="people-menu" to="/roles" tag="a" class="dropdown-item">
                                         Funções
                                     </router-link>
 
-                                    <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
+                                    <router-link dusk="opcao-instituicao" id="people-menu" to="/institutions" tag="a" class="dropdown-item">
                                         Instituições
                                     </router-link>
 
-                                    <router-link id="people-menu" to="/contact-types" tag="a" class="dropdown-item">
+                                    <router-link dusk="opcao-contato" id="people-menu" to="/contact-types" tag="a" class="dropdown-item">
                                         Tipos de Contatos
                                     </router-link>
 

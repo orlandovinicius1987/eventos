@@ -28,6 +28,7 @@
             :required="true"
             :form="form"
             type="email"
+            dusk="contact-email"
         ></app-input>
     </div>
 </template>
