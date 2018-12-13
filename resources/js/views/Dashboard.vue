@@ -24,9 +24,9 @@
                                 <button
                                     :disabled="cannot('update')"
                                     @click="receptive(subEvent)"
-                                    class="btn btn-sm btn-block btn-danger"
+                                    class="btn btn-sm btn-block btn-danger bnt-lg"
                                 >
-                                    ENTRAR NO RECEPTIVO
+                                    <h4 class="mb-1">RECEPCIONAR CONVIDADOS</h4>
                                 </button>
                             </div>
                         </div>
