@@ -91,7 +91,7 @@
                             'Nome do Evento',
                             'Nome do Subevento',
                             'Dia',
-                            'Horário'
+                            'Horário',
                         ]"
                     >
                         <router-link
@@ -152,7 +152,7 @@ export default {
 
     data() {
         return {
-            service: { name: 'dashboard', uri: 'dashboard' }
+            service: { name: 'dashboard', uri: 'dashboard' },
         }
     },
 
@@ -166,17 +166,20 @@ export default {
         },
 
         eventsHappening() {
-            return _.filter(this.subEventsDashBoard.data.rows, subEvent => {
-                return subEvent.is_happening
-            })
-        }
+            return _.uniqBy(
+                _.filter(this.subEventsDashBoard.data.rows, subEvent => {
+                    return subEvent.is_happening
+                }),
+                'event_id',
+            )
+        },
     },
 
     computed: {
         ...mapState({
             dashboard: state => state.dashboard.data.rows,
 
-            subEventsDashBoard: state => state.subEventsDashBoard
+            subEventsDashBoard: state => state.subEventsDashBoard,
         }),
 
         subEventsDashboardFilterText: {
@@ -187,15 +190,15 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'subEventsDashBoard/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
-        }
+            },
+        },
     },
 
     mounted() {
         this.$store.dispatch('subEventsDashBoard/load')
-    }
+    },
 }
 </script>
 
