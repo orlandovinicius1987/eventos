@@ -23,13 +23,12 @@ trait SubEventsDownload
     {
         return view('pdf.sub-events')
             ->with([
-                'heading' => $subEvent->event->name . ' - ' . $subEvent->name,
+                'heading' => $subEvent->event->name,
+                'subHeading' => $subEvent->name,
                 'title' => 'Lista Geral de Convidados',
-                'date' => now()->format('m/d/Y H i'),
+                'date' => now()->format('m/d/Y  H:i'),
                 'subEvent' => $subEvent,
-                'invitations' => $this->orderInvitations(
-                    $subEvent->invitations
-                ),
+                'invitations' => $this->getInvitations($subEvent),
             ])
             ->render();
     }
@@ -37,8 +36,26 @@ trait SubEventsDownload
     public function orderInvitations($invitations)
     {
         return $invitations->sortBy(function ($invitation) {
-            return $invitation->personInstitution->institution->name .
-                $invitation->personInstitution->person->name;
+            return $invitation->personInstitution->person->name;
         });
+    }
+
+    public function getInvitations($subEvent)
+    {
+        $invitations = collect();
+
+        $subEvent->event->subEvents
+            ->filter(function ($subEvent) {
+                return blank($subEvent->associated_subevent_id);
+            })
+            ->each(function ($subEvent) use ($invitations) {
+                $subEvent->invitations->each(function ($invitation) use (
+                    $invitations
+                ) {
+                    $invitations->push($invitation);
+                });
+            });
+
+        return $this->orderInvitations($invitations);
     }
 }

@@ -2,71 +2,50 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-        <title>Header and Footer example</title>
-        <style type="text/css">
+        <title>Eventos</title>
 
+        <style type="text/css">
             @page {
-                margin: 2cm;
+                margin-top: 60px;
+                margin-bottom: 0;
             }
 
             body {
                 font-family: sans-serif;
-                margin: 0.5cm 0;
                 text-align: justify;
             }
 
             p {
                 font-size: 0.8em;
-                margin: 2px;
+                margin: 0;
             }
 
-            #header,
-            #footer {
+            #header {
+                top: -40px;
                 position: fixed;
                 left: 0;
                 right: 0;
                 color: #aaa;
                 font-size: 0.9em;
-            }
-
-            #header {
-                top: 0;
                 border-bottom: 0.1pt solid #aaa;
             }
 
-            #footer {
-                bottom: 0;
-                border-top: 0.1pt solid #aaa;
-            }
-
-            #header table,
-            #footer table {
+            #header table {
                 width: 100%;
                 border-collapse: collapse;
                 border: none;
             }
 
-            #header td,
-            #footer td {
+            #header td {
                 padding: 0;
                 width: 50%;
-            }
-
-            .page-number {
-                text-align: center;
-            }
-
-            .page-number:before {
-                content: "Page " counter(page);
             }
 
             hr {
                 page-break-after: always;
                 border: 0;
             }
-
         </style>
-
     </head>
 
     <body marginwidth="0" marginheight="0">
@@ -76,6 +55,11 @@
                     <tr>
                         <td>
                             {{ $heading }}
+
+                            @if (isset($subHeading))
+                                <br>
+                                {{ $subHeading }}
+                            @endif
                         </td>
 
                         <td style="text-align: right;">
@@ -92,6 +76,8 @@
 
         <h2>{{ $title }}</h2>
 
-        @yield('content')
+        <div class="container">
+            @yield('content')
+        </div>
     </body>
 </html>
