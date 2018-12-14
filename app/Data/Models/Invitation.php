@@ -674,4 +674,11 @@ class Invitation extends Base
     {
         return $this->belongsTo(User::class, 'checkin_by_id');
     }
+
+    public function canBeManipulatedByInvitee()
+    {
+        return blank($this->subEvent->confirmations_end_date) ||
+            $this->subEvent->confirmations_end_date->isToday() ||
+            $this->subEvent->confirmations_end_date->isFuture();
+    }
 }
