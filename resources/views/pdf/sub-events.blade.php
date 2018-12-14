@@ -4,7 +4,7 @@
     @foreach ($invitations as $invitation)
         <p style="page-break-inside: avoid;">
             <span>
-                {{ $invitation->personInstitution->person->name }}
+                {{ $invitation->personInstitution->person->name ?? 'N/C' }}
 
                 <span style="color: gray; font-size: 0.7em;">
                     ({{ $invitation->code }})
@@ -14,15 +14,15 @@
             <br>
 
             <div style="color: gray; font-size: 0.7em;">
-                {{ $invitation->personInstitution->title }}
+                {{ $invitation->personInstitution->title ?? 'N/C' }}
 
                 -
 
-                {{ $invitation->personInstitution->role->name }} / {{ $invitation->personInstitution->institution->name }}
+                {{ $invitation->personInstitution->role->name ?? 'N/C'}} / {{ $invitation->personInstitution->institution->name ?? 'N/C'}}
 
                 <br>
 
-                {{ $invitation->subEvent->sector->name }}
+                {{ $invitation->subEvent->sector->name ?? 'N/C'}}
 
                 -
 
