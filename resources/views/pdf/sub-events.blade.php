@@ -5,6 +5,10 @@
         <p style="page-break-inside: avoid;">
             <span>
                 {{ $invitation->personInstitution->person->name }}
+
+                <span style="color: gray; font-size: 0.7em;">
+                    ({{ $invitation->code }})
+                </span>
             </span>
 
             <br>
