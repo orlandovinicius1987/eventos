@@ -20,10 +20,19 @@
                 </div>
 
 --}}
+{{--
+
 
                 <a class="navbar-brand pb-2" href="#">
                     <img src="/svg/logo-eventos-alerj.svg"  class="svg-logo" alt="">
                 </a>
+
+--}}
+
+                <a href="#" class="navbar-brand">
+                    <img src="/svg/logo-eventos-alerj.svg" height="30" alt="" class="d-inline-block align-top">
+                </a>
+
 
 
 
