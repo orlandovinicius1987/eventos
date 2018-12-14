@@ -58,9 +58,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
-    }
+    },
 }
 </script>
 

@@ -63,7 +63,7 @@ const service = {
     name: 'contacts',
     uri:
         'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts',
-    isForm: true
+    isForm: true,
 }
 
 export default {
@@ -75,7 +75,7 @@ export default {
         this.$store.dispatch('environment/loadContactTypes')
 
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -83,10 +83,10 @@ export default {
         fillAdditionalFormFields() {
             this.$store.commit('contacts/mutateSetFormField', {
                 field: 'person_institution_id',
-                value: this.contacts.personInstitution.id
+                value: this.contacts.personInstitution.id,
             })
-        }
-    }
+        },
+    },
 }
 </script>
 
