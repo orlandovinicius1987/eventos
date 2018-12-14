@@ -585,4 +585,11 @@ class Invitation extends Base
     {
         $this->markAsDone('received', $type, $how);
     }
+
+    public function canBeManipulatedByInvitee()
+    {
+        return blank($this->subEvent->confirmations_end_date) ||
+            $this->subEvent->confirmations_end_date->isToday() ||
+            $this->subEvent->confirmations_end_date->isFuture();
+    }
 }

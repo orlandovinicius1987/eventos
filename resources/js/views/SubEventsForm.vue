@@ -19,14 +19,29 @@
                                 :form="form"
                             ></app-input>
 
-                            <app-input
-                                name="date"
-                                label="Data"
-                                type="date"
-                                v-model="subEvents.form.fields.date"
-                                :required="true"
-                                :form="form"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <app-input
+                                        name="date"
+                                        label="Data"
+                                        type="date"
+                                        v-model="subEvents.form.fields.date"
+                                        :required="true"
+                                        :form="form"
+                                    ></app-input>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <app-input
+                                        name="confirmations_end_date"
+                                        label="Data final para confirmação"
+                                        type="date"
+                                        v-model="subEvents.form.fields.confirmations_end_date"
+                                        :required="true"
+                                        :form="form"
+                                    ></app-input>
+                                </div>
+                            </div>
 
                             <app-input
                                 name="time"
