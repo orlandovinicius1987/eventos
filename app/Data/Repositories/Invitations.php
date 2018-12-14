@@ -472,12 +472,16 @@ class Invitations extends Repository
 
     public function fillteredAcceptedByEventId($eventId)
     {
-        return $this->applyFilter(
+        $filltered = $this->applyFilter(
             $this->newQuery()
                 ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
                 ->whereNotNull('accepted_at')
                 ->where('event_id', $eventId)
         );
+
+        $filltered['statistics'] = $this->getStatistics($eventId);
+
+        return $filltered;
     }
 
     public function findByUuid($uuid)
@@ -513,5 +517,19 @@ class Invitations extends Repository
 
                 $invitation->save();
             });
+    }
+
+    public function getStatistics($eventId)
+    {
+        return Database::table('invitations')
+            ->select(
+                Database::raw(
+                    'count(person_institution_id) as confirmed, count(checkin_at) totalcheckedin'
+                )
+            )
+            ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
+            ->whereNull('associated_subevent_id')
+            ->where('event_id', '=', $eventId)
+            ->first();
     }
 }

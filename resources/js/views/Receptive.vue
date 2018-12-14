@@ -6,12 +6,12 @@
 
         <div class="card card-block bg-faded">
             <div class="row">
-                <div class="col-6 text-center">
-                    confirmados: {{totals.confirmed}}
+                <div class="col-6 text-center" v-if="receptive.data.statistics">
+                    confirmados: {{receptive.data.statistics.confirmed}}
                 </div>
 
-                <div class="col-6 text-center">
-                    ingressaram: {{totals.totalcheckedIn}}
+                <div class="col-6 text-center"  v-if="receptive.data.statistics">
+                    ingressaram: {{receptive.data.statistics.totalcheckedin}}
                 </div>
             </div>
         </div>
@@ -196,7 +196,6 @@ export default {
     computed: {
         ...mapState({
             checkedIn: state => state.receptive.checkedIn,
-            totals: state => state.receptive.totals,
         })
     },
 
