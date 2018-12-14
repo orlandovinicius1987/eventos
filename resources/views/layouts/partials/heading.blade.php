@@ -22,7 +22,7 @@
 --}}
 
                 <a class="navbar-brand pb-2" href="#">
-                    <img src="http://local.eventos.com/svg/logo-eventos-alerj.svg"  class="svg-logo" alt="">
+                    <img src="/svg/logo-eventos-alerj.svg"  class="svg-logo" alt="">
                 </a>
 
 
