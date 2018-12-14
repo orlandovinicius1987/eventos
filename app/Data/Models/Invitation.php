@@ -555,20 +555,40 @@ class Invitation extends Base
         );
     }
 
+    protected function getColumnNameByContentType($content_type): string
+    {
+        switch ($content_type) {
+            case 'invitation':
+                return '';
+            case 'credentials':
+                return 'credentials';
+            case 'rejection':
+                return 'declination';
+        }
+
+        throw new \Exception("Content type no supported: {$content_type}");
+    }
+
     public function markAsDone(
         $what,
         $content_type = 'invitation',
         $how = 'automatically'
     ) {
-        $prefix = $content_type === 'invitation' ? '' : 'credentials_';
+        $prefix = $this->getColumnNameByContentType($content_type);
 
-        if (!$this->{$prefix . $what . '_at'}) {
-            $this->{$prefix . $what . '_at'} = now();
+        $at = "{$prefix}_{$what}_at";
 
-            $this->{$prefix . $what . '_by_id'} =
-                $how === 'manual'
-                    ? $this->getCurrentAuthenticatedUserId()
-                    : null;
+        $by = "{$prefix}_{$what}_by_id";
+
+        if ($this->hasAttribute($at) && !$this->$at) {
+            $this->$at = now();
+
+            if ($this->hasAttribute($by)) {
+                $this->$by =
+                    $how === 'manual'
+                        ? $this->getCurrentAuthenticatedUserId()
+                        : null;
+            }
 
             $this->save();
 

@@ -151,4 +151,9 @@ abstract class Base extends Model implements AuditableContract
     {
         return auth()->user()->id ?? null;
     }
+
+    public function hasAttribute($attr)
+    {
+        return array_key_exists($attr, $this->attributes);
+    }
 }
