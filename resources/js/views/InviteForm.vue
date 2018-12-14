@@ -1,4 +1,4 @@
-recordButtonText<template>
+<template>
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
@@ -364,6 +364,10 @@ export default {
             return items
         },
     },
+
+    beforeDestroy() {
+        this.$store.state['invitables'].data.filter.text = null
+    }
 }
 </script>
 
