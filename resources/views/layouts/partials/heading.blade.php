@@ -11,12 +11,30 @@
                     <img src="/svg/logo-eventos-alerj.svg" class="img-fluid">
                     <div class="brand-name align-self-center"></div>
                 </a> --}}
+{{--
 
                 <div class="d-flex bd-highlight mb-3">
                     <div class="align-self-center p-2 bd-highlight">
                         <img src="/svg/logo-eventos-alerj.svg" class="brand-logo align-self-center">
                     </div>
                 </div>
+
+--}}
+{{--
+
+
+                <a class="navbar-brand pb-2" href="#">
+                    <img src="/svg/logo-eventos-alerj.svg"  class="svg-logo" alt="">
+                </a>
+
+--}}
+
+                <a href="#" class="navbar-brand">
+                    <img src="/svg/logo-eventos-alerj.svg" height="30" alt="" class="d-inline-block align-top">
+                </a>
+
+
+
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
