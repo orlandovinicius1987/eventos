@@ -59,7 +59,7 @@ const service = {
     name: 'addresses',
     uri:
         'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/addresses',
-    performLoad: false
+    performLoad: false,
 }
 
 export default {
@@ -69,13 +69,13 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
     },
 
     computed: {
-        ...mapState('addresses', ['selectedEvent', 'selectedSubEvent'])
-    }
+        ...mapState('addresses', ['selectedEvent', 'selectedSubEvent']),
+    },
 }
 </script>
 

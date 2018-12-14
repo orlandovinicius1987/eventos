@@ -2,13 +2,13 @@
 
 namespace App\Data\Models;
 
-use App\Events\InviteeCheckedIn;
-use App\Notifications\SendThankYou;
 use Ramsey\Uuid\Uuid;
+use App\Events\InviteeCheckedIn;
 use App\Events\InvitationUpdated;
 use App\Events\InvitationAccepted;
 use App\Events\InvitationRejected;
 use App\Services\Markdown\Service;
+use App\Notifications\SendThankYou;
 use App\Notifications\SendRejection;
 use App\Notifications\SendInvitation;
 use App\Notifications\SendCredentials;
@@ -31,7 +31,12 @@ class Invitation extends Base
         'checkin_at',
     ];
 
-    protected $with = ['personInstitution', 'subEvent', 'notifications'];
+    protected $with = [
+        'personInstitution',
+        'subEvent',
+        'notifications',
+        'checkedInBy',
+    ];
 
     protected $orderBy = ['invitations.id' => 'asc'];
 
@@ -651,6 +656,8 @@ class Invitation extends Base
 
         $this->checkin_at = now();
 
+        $this->checkin_by_id = current_user()->id;
+
         $this->save();
 
         event(new InviteeCheckedIn($this));
@@ -661,5 +668,17 @@ class Invitation extends Base
     public function canSendThankYou()
     {
         return blank($this->thanked_at);
+    }
+
+    public function checkedInBy()
+    {
+        return $this->belongsTo(User::class, 'checkin_by_id');
+    }
+
+    public function canBeManipulatedByInvitee()
+    {
+        return blank($this->subEvent->confirmations_end_date) ||
+            $this->subEvent->confirmations_end_date->isToday() ||
+            $this->subEvent->confirmations_end_date->isFuture();
     }
 }

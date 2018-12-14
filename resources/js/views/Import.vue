@@ -53,7 +53,7 @@ export default {
             file: null,
             error: null,
             success: false,
-            busy: false
+            busy: false,
         }
     },
 
@@ -87,8 +87,8 @@ export default {
                 .then(() => {
                     this.busy = false
                 })
-        }
-    }
+        },
+    },
 }
 </script>
 

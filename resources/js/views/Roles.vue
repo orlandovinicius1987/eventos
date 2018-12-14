@@ -8,7 +8,7 @@
                     :title="'Funções (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/roles/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -27,8 +27,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     role,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ role.id }}</td>
@@ -67,9 +67,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
-    }
+    },
 }
 </script>
 

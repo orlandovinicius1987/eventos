@@ -163,7 +163,7 @@ export default {
             photoUrl: 'https://dummyimage.com/200x200/fff/aaa',
             photoBlob: null,
             showCropper: false,
-            currentNameIsDuplicate: false
+            currentNameIsDuplicate: false,
         }
     },
 
@@ -178,7 +178,7 @@ export default {
                     this.mutatePhoto(blob)
                 },
                 'image/jpeg',
-                0.85
+                0.85,
             )
         },
 
@@ -192,7 +192,7 @@ export default {
             blob_to_base64(blob, result => {
                 this.mutateSetFormField({
                     field: 'photo',
-                    value: blob.type + ';' + result
+                    value: blob.type + ';' + result,
                 })
             })
         },
@@ -200,7 +200,7 @@ export default {
         mutatePhotoUrl(url) {
             this.mutateSetFormField({
                 field: 'photoUrl',
-                value: url
+                value: url,
             })
         },
 
@@ -218,7 +218,7 @@ export default {
                     error => {
                         this.currentNameIsDuplicate = true
                         console.log(error)
-                    }
+                    },
                 )
             }, 500)
         },
@@ -228,7 +228,7 @@ export default {
                 'Deseja realmente cadastrar novamente o nome: ' +
                     this.form.fields.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     this.saveModel()
@@ -240,14 +240,14 @@ export default {
             this.currentNameIsDuplicate
                 ? this.confirmNameDuplicate()
                 : this.saveModel()
-        }
+        },
     },
 
     computed: {
         photoUrlField() {
             return flush_image_cache(this.form.fields.photoUrl)
-        }
-    }
+        },
+    },
 }
 </script>
 

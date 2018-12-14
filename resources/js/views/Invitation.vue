@@ -20,7 +20,7 @@
                             'Assunto',
                             'Destino',
                             'Criado em',
-                            'Enviado em'
+                            'Enviado em',
                         ]"
                     >
                         <tr v-for="notification in invitation.notifications">
@@ -111,7 +111,7 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -119,9 +119,9 @@ export default {
         invitation: {
             get() {
                 return this.$store.state['invitations'].selected
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>
 

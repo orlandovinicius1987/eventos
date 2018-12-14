@@ -25,14 +25,29 @@
                                 :form="form"
                             ></app-input>
 
-                            <app-input
-                                name="date"
-                                label="Data"
-                                type="date"
-                                v-model="subEvents.form.fields.date"
-                                :required="true"
-                                :form="form"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-6">
+                                    <app-input
+                                        name="date"
+                                        label="Data"
+                                        type="date"
+                                        v-model="subEvents.form.fields.date"
+                                        :required="true"
+                                        :form="form"
+                                    ></app-input>
+                                </div>
+
+                                <div class="col-sm-12 col-md-6">
+                                    <app-input
+                                        name="confirmations_end_date"
+                                        label="Data final para confirmação"
+                                        type="date"
+                                        v-model="subEvents.form.fields.confirmations_end_date"
+                                        :required="true"
+                                        :form="form"
+                                    ></app-input>
+                                </div>
+                            </div>
 
                             <app-input
                                 name="time"
@@ -65,7 +80,7 @@
                                     exceptSubEventList(
                                         environment.tables.sub_events,
                                         subEvents.form.fields.id,
-                                        subEvents.form.fields.event_id
+                                        subEvents.form.fields.event_id,
                                     )
                                 "
                             ></app-select>
@@ -92,7 +107,7 @@
                                 @input="
                                     changeText({
                                         field: 'invitation_text',
-                                        text: $event
+                                        text: $event,
                                     })
                                 "
                                 :form="form"
@@ -105,7 +120,7 @@
                                 @input="
                                     changeText({
                                         field: 'credentials_text',
-                                        text: $event
+                                        text: $event,
                                     })
                                 "
                                 :form="form"
@@ -118,7 +133,7 @@
                                 @input="
                                     changeText({
                                         field: 'thank_you_text',
-                                        text: $event
+                                        text: $event,
                                     })
                                 "
                                 :form="form"
@@ -131,7 +146,7 @@
                                 @input="
                                     changeText({
                                         field: 'rejection_text',
-                                        text: $event
+                                        text: $event,
                                     })
                                 "
                                 :form="form"
@@ -164,8 +179,8 @@
                                             'cursor-pointer': true,
                                             'bg-primary-lighter text-white': isCurrent(
                                                 address,
-                                                addresses.selected
-                                            )
+                                                addresses.selected,
+                                            ),
                                         }"
                                     >
                                         <td>{{ address.id }}</td>
@@ -213,13 +228,11 @@ import crud from './mixins/crud'
 import events from './mixins/events'
 import subEvents from './mixins/sub-events'
 import permissions from './mixins/permissions'
-import { mapState } from 'vuex'
-import * as VueGoogleMaps from 'vue2-google-maps'
 
 const service = {
     name: 'subEvents',
     uri: 'events/{events.selected.id}/sub-events',
-    performLoad: false
+    performLoad: false,
 }
 
 export default {
@@ -232,7 +245,7 @@ export default {
         this.$store.dispatch('environment/loadCostumes')
         this.$store.dispatch('environment/loadSectors')
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -240,7 +253,7 @@ export default {
         changeText($event) {
             this.$store.commit('subEvents/mutateSetFormField', {
                 field: $event.field,
-                value: $event.text
+                value: $event.text,
             })
         },
 
@@ -248,54 +261,54 @@ export default {
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'zipcode',
-                value: address.zipcode
+                value: address.zipcode,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'street',
-                value: address.street
+                value: address.street,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'number',
-                value: address.number
+                value: address.number,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'complement',
-                value: address.complement
+                value: address.complement,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'neighbourhood',
-                value: address.neighbourhood
+                value: address.neighbourhood,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'city',
-                value: address.city
+                value: address.city,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'state',
-                value: address.state
+                value: address.state,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'latitude',
-                value: address.latitude
+                value: address.latitude,
             })
             this.$store.commit('subEvents/mutateSetFormField', {
                 object: 'address',
                 field: 'longitude',
-                value: address.longitude
+                value: address.longitude,
             })
         },
 
         fillAdditionalFormFields() {
             this.$store.commit('subEvents/mutateSetFormField', {
                 field: 'event_id',
-                value: this.events.selected.id
+                value: this.events.selected.id,
             })
         },
 
@@ -309,10 +322,10 @@ export default {
             })
 
             return items
-        }
+        },
     },
 
-    mounted() {}
+    mounted() {},
 }
 </script>
 

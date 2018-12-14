@@ -55,7 +55,7 @@ const service = {
     name: 'advisorContacts',
     uri:
         'people/{people.selected.id}/person-institutions/{advisors.selected.id}/contacts',
-    isForm: true
+    isForm: true,
 }
 
 export default {
@@ -66,7 +66,7 @@ export default {
     data() {
         this.$store.dispatch('environment/loadContactTypes')
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -74,10 +74,10 @@ export default {
         fillAdditionalFormFields() {
             this.$store.commit('advisorContacts/mutateSetFormField', {
                 field: 'person_institution_id',
-                value: this.advisorContacts.personInstitution.id
+                value: this.advisorContacts.personInstitution.id,
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

@@ -8,7 +8,7 @@
                     :title="'Categorias (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/categories/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -27,8 +27,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     category,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ category.id }}</td>
@@ -68,9 +68,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
-    }
+    },
 }
 </script>
 

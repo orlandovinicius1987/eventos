@@ -49,6 +49,7 @@ const __emptyModel = {
     started_at: null,
     started_by: null,
     time: null,
+    confirmations_end_date: null,
 }
 
 const state = merge_objects(statesMixin.common, {

@@ -21,11 +21,15 @@ class Invitations extends Controller
             $invitationId
         );
 
-        return view('invitations.accept')
-            ->with('invitation', $invitation)
-            ->with('eventId', $eventId)
-            ->with('subEventId', $subEventId)
-            ->with('invitationId', $invitationId);
+        if ($invitation->canBeManipulatedByInvitee()) {
+            return view('invitations.accept')
+                ->with('invitation', $invitation)
+                ->with('eventId', $eventId)
+                ->with('subEventId', $subEventId)
+                ->with('invitationId', $invitationId);
+        }
+
+        return view('invitations.cannot-be-manipulated', compact('invitation'));
     }
 
     /**
@@ -65,11 +69,15 @@ class Invitations extends Controller
             $invitationId
         );
 
-        return view('invitations.reject')
-            ->with('invitation', $invitation)
-            ->with('eventId', $eventId)
-            ->with('subEventId', $subEventId)
-            ->with('invitationId', $invitationId);
+        if ($invitation->canBeManipulatedByInvitee()) {
+            return view('invitations.reject')
+                ->with('invitation', $invitation)
+                ->with('eventId', $eventId)
+                ->with('subEventId', $subEventId)
+                ->with('invitationId', $invitationId);
+        }
+
+        return view('invitations.cannot-be-manipulated', compact('invitation'));
     }
 
     /**
