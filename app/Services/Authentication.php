@@ -37,10 +37,13 @@ class Authentication
 
     public function attempt($request, $remember)
     {
-        if ($this->loginRequest($request)['success']) {
+        $response = $this->loginRequest($request);
+
+        if ($response['success']) {
             $user = $this->usersRepository->updateLoginUser(
                 $request,
-                $remember
+                $remember,
+                $response
             );
 
             if (!is_null($user)) {
@@ -87,7 +90,7 @@ class Authentication
     protected function loginRequest($request)
     {
         if (config('auth.authentication.mock')) {
-            return $this->successAuthentication($request);
+            return $this->mockedAuthentication($request);
         }
 
         try {
@@ -117,7 +120,7 @@ class Authentication
                     )
                 ) {
                     //Credenciais de login conferem com as salvas no banco
-                    return $this->successAuthentication($request);
+                    return $this->successAuthentication($user);
                 } else {
                     //Credenciais de login não conferem com as salvas no banco
                     return $this->failedAuthentication();
@@ -157,11 +160,34 @@ class Authentication
     }
 
     /**
+     * @param $user
+     *
+     * @return array
+     */
+    protected function successAuthentication($user)
+    {
+        return [
+            'success' => true,
+            'code' => 200,
+            'message' => null,
+            'data' => [
+                'name' => [$user->name],
+                'email' => [$user->username . '@alerj.rj.gov.br'],
+                'memberof' => [
+                    'CN=ProjEsp,OU=SDGI,OU=Departamentos,OU=ALERJ,DC=alerj,DC=gov,DC=br',
+                    'CN=SDGI,OU=SDGI,OU=Departamentos,OU=ALERJ,DC=alerj,DC=gov,DC=br',
+                ],
+                'description' => ['matricula: N/C'],
+            ],
+        ];
+    }
+
+    /**
      * @param $credentials
      *
      * @return array
      */
-    protected function successAuthentication($credentials)
+    protected function mockedAuthentication($credentials)
     {
         return [
             'success' => true,

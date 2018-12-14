@@ -56,4 +56,12 @@ class User extends Authenticatable
     {
         return 1;
     }
+
+    /**
+     * @return array
+     */
+    public function getJoins()
+    {
+        return coollect([]);
+    }
 }
