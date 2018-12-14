@@ -140,7 +140,7 @@ class Authentication
      */
     protected function loginUser($request, $response, $remember)
     {
-        if (($success = $response['success'])) {
+        if ($success = $response['success']) {
             $success = $this->usersRepository->loginUser($request, $remember);
 
             if (!$success) {
