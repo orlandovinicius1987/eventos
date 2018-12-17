@@ -3,10 +3,11 @@
 namespace App\Data\Repositories;
 
 use DB as Database;
-use App\Events\InvitationsChanged;
 use App\Data\Models\Invitation;
 use App\Events\InvitationUpdated;
 use App\Events\InvitationCreated;
+use App\Events\InvitationsChanged;
+use App\Exceptions\InvitationNotFoundException;
 use App\Data\Models\Invitation as InvitationModel;
 use App\Data\Repositories\Traits\InvitationDownload;
 
@@ -20,6 +21,13 @@ class Invitations extends Repository
     protected $model = InvitationModel::class;
 
     protected $variables;
+
+    protected function extractCodeFromUrl($code)
+    {
+        preg_match('/invitations\/(.*)\/qrcode/', $code, $matched);
+
+        return $matched[1] ?? $code;
+    }
 
     public function filterBySubEventId($subEventId)
     {
@@ -131,7 +139,7 @@ class Invitations extends Repository
             ->join('people', 'person_institutions.person_id', '=', 'people.id')
             ->join('roles', 'person_institutions.role_id', '=', 'roles.id')
             ->where(function ($query) use ($text) {
-                $query->orWhere('code', 'i≤like', "%{$text}%");
+                $query->orWhere('code', 'ilike', "%{$text}%");
                 $query->orWhere('institutions.name', 'ilike', "%{$text}%");
                 $query->orWhere('people.name', 'ilike', "%{$text}%");
                 $query->orWhere('roles.name', 'ilike', "%{$text}%");
@@ -140,7 +148,7 @@ class Invitations extends Repository
         return $query;
     }
 
-    private function getViewVariablesFor($invitation)
+    protected function getViewVariablesFor($invitation)
     {
         if (isset($this->variables[$invitation->id])) {
             return $this->variables[$invitation->id];
@@ -276,7 +284,7 @@ class Invitations extends Repository
         }
     }
 
-    private function canSend($eventId, $subEventId, $invitation)
+    protected function canSend($eventId, $subEventId, $invitation)
     {
         $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
 
@@ -451,5 +459,77 @@ class Invitations extends Repository
             ->whereNull('sub_events.ended_at')
             ->whereNull('sub_events.associated_subevent_id')
             ->get();
+    }
+
+    public function fillteredAcceptedBySubEventId($subEventId)
+    {
+        return $this->applyFilter(
+            $this->newQuery()
+                ->whereNotNull('accepted_at')
+                ->where('sub_event_id', $subEventId)
+        );
+    }
+
+    public function fillteredAcceptedByEventId($eventId)
+    {
+        $filltered = $this->applyFilter(
+            $this->newQuery()
+                ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
+                ->whereNotNull('accepted_at')
+                ->where('event_id', $eventId)
+        );
+
+        $filltered['statistics'] = $this->getStatistics($eventId);
+
+        return $filltered;
+    }
+
+    public function findByUuid($uuid)
+    {
+        if (
+            $invitation = $this->model
+                ::where('uuid', $this->extractCodeFromUrl($uuid))
+                ->first()
+        ) {
+            return $invitation;
+        }
+
+        throw new InvitationNotFoundException('Convite não localizado');
+    }
+
+    public function sendThankYou($invitation)
+    {
+        if (!$invitation->canSendThankYou()) {
+            return;
+        }
+
+        $invitation->sendThankYou();
+
+        $this->newQuery()
+            ->where('person_institution_id', $invitation->person_institution_id)
+            ->whereIn(
+                'sub_event_id',
+                $invitation->subEvent->event->subEvents->pluck('id')
+            )
+            ->get()
+            ->each(function ($invitation) {
+                $invitation->thanked_at = now();
+
+                $invitation->save();
+            });
+    }
+
+    public function getStatistics($eventId)
+    {
+        return Database::table('invitations')
+            ->select(
+                Database::raw(
+                    'count(person_institution_id) as confirmed, count(checkin_at) totalcheckedin'
+                )
+            )
+            ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
+            ->whereNull('associated_subevent_id')
+            ->where('event_id', '=', $eventId)
+            ->first();
     }
 }

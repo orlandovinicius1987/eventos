@@ -1,25 +1,37 @@
 <template>
     <div>
-        <div class="py-2 text-center">
-            <h2>Importar Dados</h2>
-        </div>
+        <div class="py-2 text-center"><h2>Importar Dados</h2></div>
 
         <div class="row">
             <div class="col-12 text-center">
-                <p>Por favor converta o arquivo para o padrão CSV, separado por ponto-e-vírgula (;) antes de importar aqui</p>
+                <p>
+                    Por favor converta o arquivo para o padrão CSV, separado por
+                    ponto-e-vírgula (;) antes de importar aqui
+                </p>
 
                 <p>
-                    <app-upload-file v-model="file" :busy="busy"></app-upload-file>
+                    <app-upload-file
+                        v-model="file"
+                        :busy="busy"
+                    ></app-upload-file>
                 </p>
 
                 <p v-if="file">
-                    <button class="btn btn-danger btn-lg" @click="uploadFile()" :disabled="busy">
+                    <button
+                        class="btn btn-danger btn-lg"
+                        @click="uploadFile()"
+                        :disabled="busy"
+                    >
                         <i v-if="busy" class="fas fa-spinner fa-spin"></i>
                         Importar
                     </button>
                 </p>
 
-                <div v-if="error && error[0]" class="alert alert-danger" role="alert">
+                <div
+                    v-if="error && error[0]"
+                    class="alert alert-danger"
+                    role="alert"
+                >
                     {{ error[0] }}
                 </div>
 
@@ -80,5 +92,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

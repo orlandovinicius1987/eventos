@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div class="table-responsive">
         <table class="table table-sm table-hover table-borderless card-body mb-0">
             <thead>
                 <tr>

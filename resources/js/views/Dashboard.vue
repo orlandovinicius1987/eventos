@@ -1,21 +1,68 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2> <i class="fas fa-cogs"></i> Painel de Controle</h2>
+            <h2><i class="fas fa-cogs"></i> Painel de Controle</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div v-if="eventsHappening().length > 0 || true">
+                    <div class="card-deck mb-3 text-center">
+                        <div
+                            v-for="subEvent in eventsHappening()"
+                            class="card mb-4 shadow-sm bg-info"
+                        >
+                            <div class="card-header bg-info">
+                                <h4
+                                    class="my-0 mb-3 font-weight-normal text-white"
+                                >
+                                    {{ subEvent.event.name }}
+                                </h4>
+                            </div>
+
+                            <div class="card-body">
+                                <button
+                                    :disabled="cannot('update')"
+                                    @click="receptive(subEvent)"
+                                    class="btn btn-sm btn-block btn-danger bnt-lg"
+                                >
+                                    <h4 class="mb-1">RECEPCIONAR CONVIDADOS</h4>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row" v-if="can('read')">
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
-                        <div v-for="item in dashboard" class="card mb-4 shadow-sm">
+                        <div
+                            v-for="item in dashboard"
+                            class="card mb-4 shadow-sm"
+                        >
                             <div class="card-header">
-                                <h4 class="my-0 font-weight-normal"> <span class="d-sm-none mobile-count">{{ item.count }}</span> {{ item.name }}</h4>
+                                <h4 class="my-0 font-weight-normal">
+                                    <span class="d-sm-none mobile-count">{{
+                                        item.count
+                                    }}</span>
+                                    {{ item.name }}
+                                </h4>
                             </div>
                             <div class="card-body">
-                                <h1 class="card-title pricing-card-title d-none d-sm-block">{{ item.count }}</h1>
+                                <h1
+                                    class="card-title pricing-card-title d-none d-sm-block"
+                                >
+                                    {{ item.count }}
+                                </h1>
 
-                                <router-link :to="item.route" tag="button" class="btn btn-sm btn-block btn-primary">
+                                <router-link
+                                    :to="item.route"
+                                    tag="button"
+                                    class="btn btn-sm btn-block btn-primary"
+                                >
                                     ver
                                 </router-link>
                             </div>
@@ -27,27 +74,65 @@
         <div class="row" v-if="can('read')">
             <div class="col-12">
                 <app-table-panel
-                        v-if="subEventsDashBoard.data.links"
-                        :title="'Eventos a serem iniciados (' + subEventsDashBoard.data.rows.length + ')'"
-                        :filter-text="subEventsDashboardFilterText"
-                        @input-filter-text="subEventsDashboardFilterText = $event.target.value"
+                    v-if="subEventsDashBoard.data.links"
+                    :title="
+                        'Eventos a serem iniciados (' +
+                            subEventsDashBoard.data.rows.length +
+                            ')'
+                    "
+                    :filter-text="subEventsDashboardFilterText"
+                    @input-filter-text="
+                        subEventsDashboardFilterText = $event.target.value
+                    "
                 >
                     <app-table
-                            :columns="['#','Nome do Evento','Nome do Subevento', 'Dia', 'Horário']"
+                        :columns="[
+                            '#',
+                            'Nome do Evento',
+                            'Nome do Subevento',
+                            'Dia',
+                            'Horário',
+                        ]"
                     >
                         <router-link
-                            :to="'/rotaDaPaginaDeRecepção'"
+                            :to="'/receptive/' + eventDashBoard.event.id"
                             tag="tr"
                             :disabled="cannot('update')"
-                            v-for="subEventDashBoard in subEventsDashBoard.data.rows"
+                            v-for="eventDashBoard in subEventsDashBoard.data
+                                .rows"
                             style="cursor: pointer;"
-                            :key="subEventDashBoard.id"
+                            :key="eventDashBoard.id"
                         >
-                            <td class="align-middle">{{ subEventDashBoard.id }}</td>
-                            <td class="align-middle">{{ subEventDashBoard.event.name }}</td>
-                            <td class="align-middle">{{ subEventDashBoard.name }}</td>
-                            <td class="align-middle">{{ subEventDashBoard.date}}</td>
-                            <td class="align-middle">{{ subEventDashBoard.time }}</td>
+                            <td
+                                @click="selectEventDashBoard(eventDashBoard)"
+                                class="align-middle"
+                            >
+                                {{ eventDashBoard.id }}
+                            </td>
+                            <td
+                                @click="selectEventDashBoard(eventDashBoard)"
+                                class="align-middle"
+                            >
+                                {{ eventDashBoard.event.name }}
+                            </td>
+                            <td
+                                @click="selectEventDashBoard(eventDashBoard)"
+                                class="align-middle"
+                            >
+                                {{ eventDashBoard.name }}
+                            </td>
+                            <td
+                                @click="selectEventDashBoard(eventDashBoard)"
+                                class="align-middle"
+                            >
+                                {{ eventDashBoard.date }}
+                            </td>
+                            <td
+                                @click="selectEventDashBoard(eventDashBoard)"
+                                class="align-middle"
+                            >
+                                {{ eventDashBoard.time }}
+                            </td>
                         </router-link>
                     </app-table>
                 </app-table-panel>
@@ -60,7 +145,7 @@
 import crud from './mixins/crud'
 import permissions from './mixins/permissions'
 import { mapState, mapActions } from 'vuex'
-import subEventsDashBoard from "../store/modules/subEventsDashBoard";
+import subEventsDashBoard from '../store/modules/subEventsDashBoard'
 
 export default {
     mixins: [crud, subEventsDashBoard, permissions],
@@ -72,7 +157,22 @@ export default {
     },
 
     methods: {
-        ...mapActions('subEventsDashboard', ['clearForm']),
+        ...mapActions('dashboard', ['selectEventDashBoard', 'clearForm']),
+
+        receptive(subEvent) {
+            this.selectEventDashBoard(subEvent)
+
+            this.$router.push({ path: '/receptive/' + subEvent.event.id })
+        },
+
+        eventsHappening() {
+            return _.uniqBy(
+                _.filter(this.subEventsDashBoard.data.rows, subEvent => {
+                    return subEvent.is_happening
+                }),
+                'event_id',
+            )
+        },
     },
 
     computed: {
@@ -102,5 +202,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

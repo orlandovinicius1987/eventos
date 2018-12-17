@@ -13,7 +13,9 @@
                     :per-page="categorizablesPerPage"
                     @set-per-page="categorizablesPerPage = $event"
                     :filter-text="categorizablesFilterText"
-                    @input-filter-text="categorizablesFilterText = $event.target.value"
+                    @input-filter-text="
+                        categorizablesFilterText = $event.target.value
+                    "
                 >
                     <template slot="buttons">
                         <button
@@ -28,14 +30,17 @@
                     <app-table
                         :pagination="categorizables.data.links.pagination"
                         @goto-page="categorizablesGotoPage($event)"
-                        :columns="[
-                                    '#',
-                                    'Nome'
-                                ]"
+                        :columns="['#', 'Nome']"
                     >
                         <tr
                             v-for="categorizable in categorizables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(categorizable, categorizables.selected)}"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    categorizable,
+                                    categorizables.selected,
+                                ),
+                            }"
                         >
                             <td class="align-middle">{{ categorizable.id }}</td>
 
@@ -44,11 +49,12 @@
                                     :checked="isChecked(categorizable)"
                                     @input="toggleCheck(categorizable)"
                                     type="checkbox"
-                                >
+                                />
                             </td>
 
-                            <td class="align-middle">{{ categorizable.name }}</td>
-
+                            <td class="align-middle">
+                                {{ categorizable.name }}
+                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -161,5 +167,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

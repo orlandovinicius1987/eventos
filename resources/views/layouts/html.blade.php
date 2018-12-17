@@ -19,6 +19,8 @@
     </head>
 
     <body>
+        @include('layouts.partials.environment')
+
         @yield('html-content')
 
         @include('partials.google-analytics')

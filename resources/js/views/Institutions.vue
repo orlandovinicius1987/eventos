@@ -1,14 +1,15 @@
 <template>
     <div>
-        <div class="py-2 text-center">
-            <h2>Instituições</h2>
-        </div>
+        <div class="py-2 text-center"><h2>Instituições</h2></div>
 
         <div class="row">
             <div class="col-4">
                 <app-table-panel
                     :title="'Instituições (' + pagination.total + ')'"
-                    :add-button="{ uri: '/institutions/create', disabled: cannot('create') }"
+                    :add-button="{
+                        uri: '/institutions/create',
+                        disabled: cannot('create'),
+                    }"
                     :per-page="perPage"
                     :filter-text="filterText"
                     @input-filter-text="filterText = $event.target.value"
@@ -17,20 +18,40 @@
                     <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['#', 'Nome', 'Sigla', 'Número do partido', '']"
+                        :columns="[
+                            '#',
+                            'Nome',
+                            'Sigla',
+                            'Número do partido',
+                            '',
+                        ]"
                     >
                         <tr
                             @click="select(institution)"
                             v-for="institution in institutions.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(institution, selected)}"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    institution,
+                                    selected,
+                                ),
+                            }"
                         >
                             <td class="align-middle">{{ institution.id }}</td>
                             <td class="align-middle">{{ institution.name }}</td>
-                            <td class="align-middle">{{ institution.initials }}</td>
-                            <td class="align-middle">{{ institution.party_number }}</td>
+                            <td class="align-middle">
+                                {{ institution.initials }}
+                            </td>
+                            <td class="align-middle">
+                                {{ institution.party_number }}
+                            </td>
                             <td class="align-middle text-right">
                                 <router-link
-                                    :to="'/institutions/'+institution.id+'/update'"
+                                    :to="
+                                        '/institutions/' +
+                                            institution.id +
+                                            '/update'
+                                    "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
@@ -65,5 +86,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

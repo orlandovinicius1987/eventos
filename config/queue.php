@@ -61,7 +61,7 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => 'default',
+            'queue' => 'queue.' . env('APP_HOST'),
             'retry_after' => 90,
             'block_for' => null,
         ],

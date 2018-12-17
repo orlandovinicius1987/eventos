@@ -2,9 +2,7 @@
     <div>
         <div class="py-2 text-center">
             <div class="row">
-                <div class="col-12">
-                    <h2>Eventos</h2>
-                </div>
+                <div class="col-12"><h2>Eventos</h2></div>
             </div>
 
             <div
@@ -15,7 +13,14 @@
                     <h3>
                         {{ selected.name }}
 
-                        <span v-if="subEvents.selected && subEvents.selected.id == events.selected.id && subEvents.selected.name">
+                        <span
+                            v-if="
+                                subEvents.selected &&
+                                    subEvents.selected.id ==
+                                        events.selected.id &&
+                                    subEvents.selected.name
+                            "
+                        >
                             - {{ subEvents.selected.name }}
                         </span>
                     </h3>
@@ -24,11 +29,15 @@
         </div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     v-if="events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
-                    :add-button="{ uri: '/events/create', disabled: cannot('create'), dusk:'createEventButton' }"
+                    :add-button="{
+                        uri: '/events/create',
+                        disabled: cannot('create'),
+                        dusk: 'createEventButton',
+                    }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
                     :filter-text="eventsFilterText"
@@ -37,24 +46,49 @@
                     <app-table
                         :pagination="events.data.links.pagination"
                         @goto-page="eventsGotoPage($event)"
-                        :columns="['Nome','']"
+                        :columns="['Nome', '']"
                     >
                         <tr
                             @click="selectEvent(event)"
                             v-for="event in events.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(event, selected)}"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    event,
+                                    selected,
+                                ),
+                            }"
                         >
-                            <td class="align-middle text-left">{{ event.name }}</td>
+                            <td class="align-middle text-left">
+                                {{ event.name }}
+                            </td>
 
                             <td class="align-middle text-right">
+                                <router-link
+                                    :to="'receptive/' + event.id"
+                                    tag="div"
+                                    class="btn btn-primary btn-sm ml-1 pull-right"
+                                    title="Receptivo"
+                                >
+                                    <i class="fas fa-user-friends"></i>
+                                </router-link>
+
                                 <button
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
-                                    :disabled="cannot('update') || !environment.debug"
+                                    :disabled="
+                                        cannot('update') || !environment.debug
+                                    "
                                     title="Enviar todas as credenciais não enviadas"
                                 >
-                                    <i v-if="!event.busy" class="fa fa-landmark"></i>
-                                    <i v-if="event.busy" class="fa fa-cog fa-spin"></i>
+                                    <i
+                                        v-if="!event.busy"
+                                        class="fa fa-landmark"
+                                    ></i>
+                                    <i
+                                        v-if="event.busy"
+                                        class="fa fa-cog fa-spin"
+                                    ></i>
                                 </button>
 
                                 <button
@@ -63,12 +97,18 @@
                                     :disabled="cannot('update')"
                                     title="Enviar todos os convites não enviados"
                                 >
-                                    <i v-if="!event.busy" class="fa fa-angle-double-right"></i>
-                                    <i v-if="event.busy" class="fa fa-cog fa-spin"></i>
+                                    <i
+                                        v-if="!event.busy"
+                                        class="fa fa-angle-double-right"
+                                    ></i>
+                                    <i
+                                        v-if="event.busy"
+                                        class="fa fa-cog fa-spin"
+                                    ></i>
                                 </button>
 
                                 <router-link
-                                    :to="'/events/'+event.id+'/update'"
+                                    :to="'/events/' + event.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
@@ -82,56 +122,98 @@
                 </app-table-panel>
             </div>
 
-            <div class="col-8">
+            <div class="col-12 col-lg-8">
                 <app-table-panel
                     v-if="selected.id && subEvents.data.links"
-                    :title="selected.name + ' (' + subEvents.data.links.pagination.total + ' subeventos)'"
-                    :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/create', disabled: cannot('create') }"
+                    :title="
+                        selected.name +
+                            ' (' +
+                            subEvents.data.links.pagination.total +
+                            ' subeventos)'
+                    "
+                    :add-button="{
+                        uri:
+                            '/events/' +
+                            subEvents.event.id +
+                            '/sub-events/create',
+                        disabled: cannot('create'),
+                    }"
                     :per-page="subEventsPerPage"
                     @set-per-page="subEventsPerPage = $event"
                     :filter-text="subEventsFilterText"
-                    @input-filter-text="subEventsFilterText = $event.target.value"
+                    @input-filter-text="
+                        subEventsFilterText = $event.target.value
+                    "
                 >
                     <app-table
                         :pagination="subEvents.data.links.pagination"
                         @goto-page="subEventsGotoPage($event)"
                         :columns="[
-                        'Setor',
-                        'Nome',
-                        {title: 'Convidados', trClass: 'text-right'},
-                        'Data',
-                        'Hora',
-                        'Confirmado',
-                        'Realizado',
-                        '']"
+                            'Setor',
+                            'Nome',
+                            { title: 'Convidados', trClass: 'text-right' },
+                            'Data',
+                            'Hora',
+                            'Confirmado',
+                            'Realizado',
+                            '',
+                        ]"
                     >
                         <tr
                             @click="selectSubEvent(subEvent)"
-                            v-for="subEvent in subEvents.data.rows" class="cursor-pointer"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(subEvent, subEvents.selected)}"
+                            v-for="subEvent in subEvents.data.rows"
+                            class="cursor-pointer"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    subEvent,
+                                    subEvents.selected,
+                                ),
+                            }"
                         >
                             <td class="align-middle">
-                                <span class="badge text-white p-2" :style="{'background-color': subEvent.sector ? subEvent.sector.color : '', 'text-transform': 'uppercase'}">
-                                    {{ subEvent.sector ? subEvent.sector.name : '' }}
+                                <span
+                                    class="badge text-white p-2"
+                                    :style="{
+                                        'background-color': subEvent.sector
+                                            ? subEvent.sector.color
+                                            : '',
+                                        'text-transform': 'uppercase',
+                                    }"
+                                >
+                                    {{
+                                        subEvent.sector
+                                            ? subEvent.sector.name
+                                            : ''
+                                    }}
                                 </span>
                             </td>
 
                             <td class="align-middle">
-                                <strong>{{ subEvent.name }}</strong><br>
+                                <strong>{{ subEvent.name }}</strong
+                                ><br />
                                 {{ subEvent.place }}
                             </td>
 
-                            <td class="align-middle text-right">{{ subEvent.invitations_count }}</td>
+                            <td class="align-middle text-right">
+                                {{ subEvent.invitations_count }}
+                            </td>
 
                             <td class="align-middle">{{ subEvent.date }}</td>
 
                             <td class="align-middle">{{ subEvent.time }}</td>
 
-                            <td class="align-middle">{{ subEvent.confirmed_at }}</td>
+                            <td class="align-middle">
+                                {{ subEvent.confirmed_at }}
+                            </td>
 
-                            <td class="align-middle">{{ subEvent.ended_at }}</td>
+                            <td class="align-middle">
+                                {{ subEvent.ended_at }}
+                            </td>
 
-                            <td class="align-middle text-right subevents-buttons">
+                            <td
+                                class="align-middle text-right subevents-buttons"
+                            >
                                 <button
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
@@ -146,14 +228,21 @@
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
-                                    :disabled="cannot('update') || !environment.events.confirmation.enabled"
+                                    :disabled="
+                                        cannot('update') ||
+                                            !environment.events.confirmation
+                                                .enabled
+                                    "
                                     title="Confirmar Sub-evento"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
 
                                 <button
-                                    v-if="!subEvent.ended_at && subEvent.confirmed_at"
+                                    v-if="
+                                        !subEvent.ended_at &&
+                                            subEvent.confirmed_at
+                                    "
                                     class="btn btn-primary btn-sm btn-table-utility ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
                                     :disabled="cannot('update')"
@@ -163,7 +252,13 @@
                                 </button>
 
                                 <router-link
-                                    :to="'events/'+subEvents.event.id+'/sub-events/'+subEvent.id+'/update'"
+                                    :to="
+                                        'events/' +
+                                            subEvents.event.id +
+                                            '/sub-events/' +
+                                            subEvent.id +
+                                            '/update'
+                                    "
                                     tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
@@ -177,8 +272,14 @@
                                     @click="downloadSubEventPDF(subEvent)"
                                     title="Imprimir lista de convidados"
                                 >
-                                    <i v-if="!downloading" class="fa fa-print"></i>
-                                    <i v-if="downloading" class="fa fa-cog fa-spin"></i>
+                                    <i
+                                        v-if="!downloading"
+                                        class="fa fa-print"
+                                    ></i>
+                                    <i
+                                        v-if="downloading"
+                                        class="fa fa-cog fa-spin"
+                                    ></i>
                                 </button>
                             </td>
                         </tr>
@@ -191,12 +292,32 @@
             <div class="col-12">
                 <app-table-panel
                     v-if="selected.id && invitations.data.links"
-                    :title="invitations.data.links.pagination.total + ' convidado' + (invitations.data.links.pagination.total == 1 ? '' : 's') + ' para ' + subEvents.selected.name + ' de ' + selected.name"
-                    :add-button="{ uri: '/events/'+subEvents.event.id+'/sub-events/'+subEvents.selected.id+'/invitations/create', disabled: cannot('create') }"
+                    :title="
+                        invitations.data.links.pagination.total +
+                            ' convidado' +
+                            (invitations.data.links.pagination.total == 1
+                                ? ''
+                                : 's') +
+                            ' para ' +
+                            subEvents.selected.name +
+                            ' de ' +
+                            selected.name
+                    "
+                    :add-button="{
+                        uri:
+                            '/events/' +
+                            subEvents.event.id +
+                            '/sub-events/' +
+                            subEvents.selected.id +
+                            '/invitations/create',
+                        disabled: cannot('create'),
+                    }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
                     :filter-text="invitationsFilterText"
-                    @input-filter-text="invitationsFilterText = $event.target.value"
+                    @input-filter-text="
+                        invitationsFilterText = $event.target.value
+                    "
                     dont-center-filters="true"
                 >
                     <template slot="checkboxes">
@@ -224,7 +345,7 @@
                                     inline="true"
                                 ></app-input>
 
-                                <br>
+                                <br />
 
                                 <app-input
                                     name="notSentCheckbox"
@@ -248,7 +369,7 @@
                                     inline="true"
                                 ></app-input>
 
-                                <br>
+                                <br />
 
                                 <app-input
                                     name="notReceivedCheckbox"
@@ -272,7 +393,7 @@
                                     inline="true"
                                 ></app-input>
 
-                                <br>
+                                <br />
 
                                 <app-input
                                     name="notAcceptedCheckbox"
@@ -306,7 +427,7 @@
                                     inline="true"
                                 ></app-input>
 
-                                <br>
+                                <br />
 
                                 <app-input
                                     name="credentialsNotSentCheckbox"
@@ -330,7 +451,7 @@
                                     inline="true"
                                 ></app-input>
 
-                                <br>
+                                <br />
 
                                 <app-input
                                     name="credentialsNotReceivedCheckbox"
@@ -361,76 +482,224 @@
                         :pagination="invitations.data.links.pagination"
                         @goto-page="invitationsGotoPage($event)"
                         :columns="[
-                                    'Código',
-                                    'Convidado',
-                                    {title: 'Pendências', trClass: 'text-center'},
-                                    {title: 'Convite', trClass: 'text-center'},
-                                    {title: 'Credencial', trClass: 'text-center'},
-                                    {title: 'Check in', trClass: 'text-center'},
-                                    ''
-                                ]"
+                            'Código',
+                            'Convidado',
+                            { title: 'Pendências', trClass: 'text-center' },
+                            { title: 'Convite', trClass: 'text-center' },
+                            { title: 'Credencial', trClass: 'text-center' },
+                            { title: 'Check in', trClass: 'text-center' },
+                            '',
+                        ]"
                     >
                         <tr
                             @click="selectInvitation(invitation)"
                             v-for="invitation in invitations.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitation, invitations.selected)}"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    invitation,
+                                    invitations.selected,
+                                ),
+                            }"
                         >
-                            <td class="align-middle">{{ invitation.code }}</td> <!-- Código -->
+                            <td class="align-middle">{{ invitation.code }}</td>
+                            <!-- Código -->
 
-                            <td class="align-middle"> <!-- Convidado -->
-                                <strong>{{ invitation.person_institution.person.name }}</strong> ({{ invitation.person_institution.title }})<br>
-                                {{ invitation.person_institution.role.name }} - {{ invitation.person_institution.institution.name }}
+                            <td class="align-middle">
+                                <!-- Convidado -->
+                                <strong>{{
+                                    invitation.person_institution.person.name
+                                }}</strong>
+                                ({{
+                                    invitation.person_institution.title
+                                }})<br />
+                                {{ invitation.person_institution.role.name }} -
+                                {{
+                                    invitation.person_institution.institution
+                                        .name
+                                }}
                             </td>
 
-                            <td class="align-middle text-center"> <!-- Pendências -->
-                                <h6 v-for="pending in invitation.pending" class="m-0">
-                                    <span :class="'badge badge-' + pending.type">{{ pending.label }}</span>
+                            <td class="align-middle text-center">
+                                <!-- Pendências -->
+                                <h6
+                                    v-for="pending in invitation.pending"
+                                    class="m-0"
+                                >
+                                    <span
+                                        :class="'badge badge-' + pending.type"
+                                        >{{ pending.label }}</span
+                                    >
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center"> <!-- Convite enviado -->
+                            <td class="align-middle text-center">
+                                <!-- Convite enviado -->
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.sent_at" class="badge badge-success">enviados: {{ filterNotifications(invitation.notifications, 'invitation').length }}</span>
-                                    <span v-else class="badge badge-danger">não enviado</span>
+                                    <span
+                                        v-if="invitation.sent_at"
+                                        class="badge badge-success"
+                                        >enviados:
+                                        {{
+                                            filterNotifications(
+                                                invitation.notifications,
+                                                'invitation',
+                                            ).length
+                                        }}</span
+                                    >
+                                    <span v-else class="badge badge-danger"
+                                        >não enviado</span
+                                    >
                                 </h6>
 
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.received_at && !invitation.received_by_id" class="badge badge-success">recebidos: {{ filterNotificationsReceived(invitation.notifications, 'invitation').length }}</span>
-                                    <span v-if="invitation.received_at && invitation.received_by_id" class="badge badge-warning">recebido manualmente</span>
-                                    <span v-if="!invitation.received_at" class="badge badge-danger">não recebido</span>
+                                    <span
+                                        v-if="
+                                            invitation.received_at &&
+                                                !invitation.received_by_id
+                                        "
+                                        class="badge badge-success"
+                                        >recebidos:
+                                        {{
+                                            filterNotificationsReceived(
+                                                invitation.notifications,
+                                                'invitation',
+                                            ).length
+                                        }}</span
+                                    >
+                                    <span
+                                        v-if="
+                                            invitation.received_at &&
+                                                invitation.received_by_id
+                                        "
+                                        class="badge badge-warning"
+                                        >recebido manualmente</span
+                                    >
+                                    <span
+                                        v-if="!invitation.received_at"
+                                        class="badge badge-danger"
+                                        >não recebido</span
+                                    >
                                 </h6>
 
                                 <h6 class="mb-0">
-                                    <span v-if="invitation.accepted_at && invitation.accepted_by_id" class="badge badge-warning">aceito manualmente</span>
-                                    <span v-if="invitation.declined_at && invitation.declined_by_id" class="badge badge-warning">declinado manualmente</span>
+                                    <span
+                                        v-if="
+                                            invitation.accepted_at &&
+                                                invitation.accepted_by_id
+                                        "
+                                        class="badge badge-warning"
+                                        >aceito manualmente</span
+                                    >
+                                    <span
+                                        v-if="
+                                            invitation.declined_at &&
+                                                invitation.declined_by_id
+                                        "
+                                        class="badge badge-warning"
+                                        >declinado manualmente</span
+                                    >
 
                                     <template v-if="invitation.sent_at">
-                                        <span v-if="!invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-danger">não recebido</span>
-                                        <span v-if="invitation.received_at && !invitation.accepted_at && !invitation.declined_at" class="badge badge-primary">não respondeu</span>
+                                        <span
+                                            v-if="
+                                                !invitation.received_at &&
+                                                    !invitation.accepted_at &&
+                                                    !invitation.declined_at
+                                            "
+                                            class="badge badge-danger"
+                                            >não recebido</span
+                                        >
+                                        <span
+                                            v-if="
+                                                invitation.received_at &&
+                                                    !invitation.accepted_at &&
+                                                    !invitation.declined_at
+                                            "
+                                            class="badge badge-primary"
+                                            >não respondeu</span
+                                        >
 
-                                        <span v-if="!invitation.accepted_by_id && invitation.accepted_at" class="badge badge-success">aceitou</span>
-                                        <span v-if="!invitation.declined_by_id && invitation.declined_at" class="badge badge-danger">declinou</span>
+                                        <span
+                                            v-if="
+                                                !invitation.accepted_by_id &&
+                                                    invitation.accepted_at
+                                            "
+                                            class="badge badge-success"
+                                            >aceitou</span
+                                        >
+                                        <span
+                                            v-if="
+                                                !invitation.declined_by_id &&
+                                                    invitation.declined_at
+                                            "
+                                            class="badge badge-danger"
+                                            >declinou</span
+                                        >
                                     </template>
                                 </h6>
                             </td>
 
-                            <td class="align-middle text-center"> <!-- Credencial enviada -->
+                            <td class="align-middle text-center">
+                                <!-- Credencial enviada -->
                                 <span v-if="!invitation.declined_at">
                                     <h6 class="mb-0">
-                                        <span v-if="invitation.credentials_sent_at" class="badge badge-success">enviadas: {{ filterNotifications(invitation.notifications, 'credentials').length }}</span>
-                                        <span v-else class="badge badge-danger">não enviada</span>
+                                        <span
+                                            v-if="
+                                                invitation.credentials_sent_at
+                                            "
+                                            class="badge badge-success"
+                                            >enviadas:
+                                            {{
+                                                filterNotifications(
+                                                    invitation.notifications,
+                                                    'credentials',
+                                                ).length
+                                            }}</span
+                                        >
+                                        <span v-else class="badge badge-danger"
+                                            >não enviada</span
+                                        >
                                     </h6>
 
                                     <h6 class="mb-0">
-                                        <span v-if="invitation.credentials_received_at && !invitation.credentials_received_by_id" class="badge badge-success">recebidas: {{ filterNotificationsReceived(invitation.notifications, 'credentials').length }}</span>
-                                        <span v-if="invitation.credentials_received_at && invitation.credentials_received_by_id" class="badge badge-warning">recebida manualmente</span>
-                                        <span v-if="!invitation.credentials_received_at" class="badge badge-danger">não recebida</span>
+                                        <span
+                                            v-if="
+                                                invitation.credentials_received_at &&
+                                                    !invitation.credentials_received_by_id
+                                            "
+                                            class="badge badge-success"
+                                            >recebidas:
+                                            {{
+                                                filterNotificationsReceived(
+                                                    invitation.notifications,
+                                                    'credentials',
+                                                ).length
+                                            }}</span
+                                        >
+                                        <span
+                                            v-if="
+                                                invitation.credentials_received_at &&
+                                                    invitation.credentials_received_by_id
+                                            "
+                                            class="badge badge-warning"
+                                            >recebida manualmente</span
+                                        >
+                                        <span
+                                            v-if="
+                                                !invitation.credentials_received_at
+                                            "
+                                            class="badge badge-danger"
+                                            >não recebida</span
+                                        >
                                     </h6>
                                 </span>
 
                                 <span v-else>
                                     <h6 class="mb-0">
-                                        <span class="badge badge-primary">convite declinado</span>
+                                        <span class="badge badge-primary"
+                                            >convite declinado</span
+                                        >
                                     </h6>
                                 </span>
                             </td>
@@ -441,37 +710,64 @@
 
                             <td class="align-middle text-right">
                                 <button
-                                        @click="sendInvitation(invitation)"
-                                        class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
-                                        v-if="can('update') && canSendEmail(invitation)"
-                                        title="Enviar convite"
+                                    @click="sendInvitation(invitation)"
+                                    class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    v-if="
+                                        can('update') &&
+                                            canSendEmail(invitation) &&
+                                            invitation.sub_event.send_invitations
+                                    "
+                                    title="Enviar convite"
                                 >
                                     <i class="fa fa-mail-bulk"></i>
                                 </button>
 
                                 <button
-                                        @click="sendCredential(invitation)"
-                                        class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
-                                        v-if="can('update') && canSendEmail(invitation)"
-                                        title="Enviar credenciais"
-                                        :disabled="!invitation.accepted_at && !environment.debug"
+                                    @click="sendCredential(invitation)"
+                                    class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
+                                    v-if="
+                                        can('update') &&
+                                            canSendEmail(invitation) &&
+                                            invitation.sub_event.send_credentials
+                                    "
+                                    title="Enviar credenciais"
+                                    :disabled="
+                                        !invitation.accepted_at &&
+                                            !environment.debug
+                                    "
                                 >
                                     <i class="fa fa-landmark"></i>
                                 </button>
 
                                 <button
-                                    @click="markAsReceived(invitation, 'invitation')"
+                                    @click="
+                                        markAsReceived(invitation, 'invitation')
+                                    "
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.received_at"
+                                    v-if="
+                                        can('update') &&
+                                            invitation.sub_event.confirmed_at &&
+                                            !invitation.received_at
+                                    "
                                     title="Marcar o convite como 'recebido manualmente'"
                                 >
                                     <i class="fa fa-check"></i>
                                 </button>
 
                                 <button
-                                    @click="markAsReceived(invitation, 'credentials')"
+                                    @click="
+                                        markAsReceived(
+                                            invitation,
+                                            'credentials',
+                                        )
+                                    "
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && invitation.sub_event.confirmed_at && invitation.accepted_at&& !invitation.credentials_received_at"
+                                    v-if="
+                                        can('update') &&
+                                            invitation.sub_event.confirmed_at &&
+                                            invitation.accepted_at &&
+                                            !invitation.credentials_received_at
+                                    "
                                     title="Marcar as credenciais como 'recebida manualmente'"
                                 >
                                     <i class="fa fa-check"></i>
@@ -480,7 +776,11 @@
                                 <button
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.accepted_at"
+                                    v-if="
+                                        can('update') &&
+                                            invitation.sub_event.confirmed_at &&
+                                            !invitation.accepted_at
+                                    "
                                     title="Aceitar o convite manualmente"
                                 >
                                     <i class="fa fa-check-double"></i>
@@ -489,7 +789,11 @@
                                 <button
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && invitation.sub_event.confirmed_at && !invitation.declined_at"
+                                    v-if="
+                                        can('update') &&
+                                            invitation.sub_event.confirmed_at &&
+                                            !invitation.declined_at
+                                    "
                                     title="Declinar o convite manualmente"
                                 >
                                     <i class="fa fa-calendar-times"></i>
@@ -498,15 +802,33 @@
                                 <button
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && canSendEmail(invitation) && invitation.accepted_at"
+                                    v-if="
+                                        can('update') &&
+                                            canSendEmail(invitation) &&
+                                            invitation.accepted_at
+                                    "
                                     title="Baixar PDF das credenciais"
                                 >
-                                    <i v-if="!invitation.busy" class="fa fa-id-badge"></i>
-                                    <i v-if="invitation.busy" class="fa fa-cog fa-spin"></i>
+                                    <i
+                                        v-if="!invitation.busy"
+                                        class="fa fa-id-badge"
+                                    ></i>
+                                    <i
+                                        v-if="invitation.busy"
+                                        class="fa fa-cog fa-spin"
+                                    ></i>
                                 </button>
 
                                 <router-link
-                                    :to="'/events/'+invitation.sub_event.event.id+'/sub-events/'+invitation.sub_event.id+'/invitations/'+invitation.id+'/show'"
+                                    :to="
+                                        '/events/' +
+                                            invitation.sub_event.event.id +
+                                            '/sub-events/' +
+                                            invitation.sub_event.id +
+                                            '/invitations/' +
+                                            invitation.id +
+                                            '/show'
+                                    "
                                     tag="button"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     :disabled="cannot('update')"
@@ -585,7 +907,10 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/unInvite', invitation)
+                    return this.$store.dispatch(
+                        'invitations/unInvite',
+                        invitation,
+                    )
                 }
             })
         },
@@ -593,12 +918,15 @@ export default {
         markAsAccepted(invitation) {
             confirm(
                 'Deseja realmente confirmar a presença de ' +
-                invitation.person_institution.person.name +
-                '?',
+                    invitation.person_institution.person.name +
+                    '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/markAsAccepted', invitation)
+                    return this.$store.dispatch(
+                        'invitations/markAsAccepted',
+                        invitation,
+                    )
                 }
             })
         },
@@ -606,12 +934,15 @@ export default {
         markAsReceived(invitation, type) {
             confirm(
                 'Deseja realment marcar como recebido o covite de ' +
-                invitation.person_institution.person.name +
-                '?',
+                    invitation.person_institution.person.name +
+                    '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/markAsReceived', {invitation: invitation, type: type})
+                    return this.$store.dispatch('invitations/markAsReceived', {
+                        invitation: invitation,
+                        type: type,
+                    })
                 }
             })
         },
@@ -619,12 +950,15 @@ export default {
         markAsDeclined(invitation) {
             confirm(
                 'Deseja realmente declinar a presença de ' +
-                invitation.person_institution.person.name +
-                '?',
+                    invitation.person_institution.person.name +
+                    '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/markAsDeclined', invitation)
+                    return this.$store.dispatch(
+                        'invitations/markAsDeclined',
+                        invitation,
+                    )
                 }
             })
         },
@@ -632,7 +966,12 @@ export default {
         downloadInvitation(invitation) {
             invitation.busy = true
 
-            downloadPDF(this.$store.getters['invitations/getDataUrl'] + '/' + invitation.id + '/download').then(() => {
+            downloadPDF(
+                this.$store.getters['invitations/getDataUrl'] +
+                    '/' +
+                    invitation.id +
+                    '/download',
+            ).then(() => {
                 invitation.busy = false
             })
         },
@@ -640,11 +979,16 @@ export default {
         sendCredential(invitation) {
             invitation.busy = true
             confirm(
-                'Deseja realmente enviar as credencias para ' + invitation.person_institution.person.name + '?',
+                'Deseja realmente enviar as credencias para ' +
+                    invitation.person_institution.person.name +
+                    '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/sendCredentials', invitation)
+                    return this.$store.dispatch(
+                        'invitations/sendCredentials',
+                        invitation,
+                    )
                 }
             })
         },
@@ -652,11 +996,16 @@ export default {
         sendInvitation(invitation) {
             invitation.busy = true
             confirm(
-                'Deseja realmente enviar o convite para ' + invitation.person_institution.person.name + '?',
+                'Deseja realmente enviar o convite para ' +
+                    invitation.person_institution.person.name +
+                    '?',
                 this,
             ).then(value => {
                 if (value) {
-                    return this.$store.dispatch('invitations/sendInvitation', invitation)
+                    return this.$store.dispatch(
+                        'invitations/sendInvitation',
+                        invitation,
+                    )
                 }
             })
         },
@@ -680,7 +1029,7 @@ export default {
                 this,
             ).then(value => {
                 if (value) {
-                    this.finalizeSubEventReconfirmed(subEvent);
+                    this.finalizeSubEventReconfirmed(subEvent)
                 }
             })
         },
@@ -704,9 +1053,11 @@ export default {
                 if (value) {
                     event.busy = true
 
-                    return this.$store.dispatch('events/sendInvitations', event).then(() => {
-                        event.busy = false
-                    })
+                    return this.$store
+                        .dispatch('events/sendInvitations', event)
+                        .then(() => {
+                            event.busy = false
+                        })
                 }
             })
         },
@@ -719,9 +1070,28 @@ export default {
                 if (value) {
                     event.busy = true
 
-                    return this.$store.dispatch('events/sendCredentials', event).then(() => {
-                        event.busy = false
-                    })
+                    return this.$store
+                        .dispatch('events/sendCredentials', event)
+                        .then(() => {
+                            event.busy = false
+                        })
+                }
+            })
+        },
+
+        sendCredentials(event) {
+            confirm(
+                'Você tem certeza que deseja enviar todas as credenciais agora?',
+                this,
+            ).then(value => {
+                if (value) {
+                    event.busy = true
+
+                    return this.$store
+                        .dispatch('events/sendCredentials', event)
+                        .then(() => {
+                            event.busy = false
+                        })
                 }
             })
         },
@@ -729,7 +1099,12 @@ export default {
         downloadSubEventPDF(subEvent) {
             this.downloading = true
 
-            downloadPDF(this.$store.getters['subEvents/getDataUrl'] + '/' + subEvent.id + '/download').then(() => {
+            downloadPDF(
+                this.$store.getters['subEvents/getDataUrl'] +
+                    '/' +
+                    subEvent.id +
+                    '/download',
+            ).then(() => {
                 this.downloading = false
             })
         },
@@ -740,19 +1115,22 @@ export default {
 
         replicateCommonInfo(subEvent) {
             confirm(
-                'Você tem certeza que replicar os textos de "'+subEvent.name+' - '+subEvent.sector.name+'" para os outros sub-eventos?',
+                'Você tem certeza que replicar os textos de "' +
+                    subEvent.name +
+                    ' - ' +
+                    subEvent.sector.name +
+                    '" para os outros sub-eventos?',
                 this,
             ).then(value => {
-                confirm(
-                    'CERTEZA ABSOLUTA?',
-                    this,
-                ).then(value => {
+                confirm('CERTEZA ABSOLUTA?', this).then(value => {
                     if (value) {
                         subEvent.busy = true
 
-                        return this.$store.dispatch('subEvents/replicateCommonInfo', subEvent).then(() => {
-                            subEvent.busy = false
-                        })
+                        return this.$store
+                            .dispatch('subEvents/replicateCommonInfo', subEvent)
+                            .then(() => {
+                                subEvent.busy = false
+                            })
                     }
                 })
             })
@@ -765,9 +1143,12 @@ export default {
         },
 
         filterNotificationsReceived(notifications, type) {
-            return _.filter(this.filterNotifications(notifications, type), notification => {
-                return notification.received_at
-            })
+            return _.filter(
+                this.filterNotifications(notifications, type),
+                notification => {
+                    return notification.received_at
+                },
+            )
         },
     },
 
@@ -835,239 +1216,225 @@ export default {
 
         hasNoEmailCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.hasNoEmail
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .hasNoEmail
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'hasNoEmail', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'hasNoEmail',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         sentCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.sent
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .sent
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'sent', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'sent',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         notSentCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.notSent
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .notSent
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'notSent', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'notSent',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         receivedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.received
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .received
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'received', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'received',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         notReceivedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.notReceived
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .notReceived
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'notReceived', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'notReceived',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         credentialsSentCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.credentialsSent
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .credentialsSent
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'credentialsSent', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'credentialsSent',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         credentialsNotSentCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.credentialsNotSent
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .credentialsNotSent
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'credentialsNotSent', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'credentialsNotSent',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         credentialsReceivedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.credentialsReceived
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .credentialsReceived
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'credentialsReceived', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'credentialsReceived',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         credentialsNotReceivedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.credentialsNotReceived
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .credentialsNotReceived
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'credentialsNotReceived', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'credentialsNotReceived',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         acceptedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.accepted
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .accepted
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'accepted', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'accepted',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         declinedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.declined
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .declined
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'declined', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'declined',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         notAcceptedCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.notAccepted
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .notAccepted
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'notAccepted', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'notAccepted',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         notCheckedInCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.notCheckedIn
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .notCheckedIn
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'notCheckedIn', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'notCheckedIn',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
         notAnsweredCheckbox: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.notAnswered
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .notAnswered
             },
 
             set(filter) {
-                this.$store.commit(
-                    'invitations/mutateFilterCheckbox',
-                    {field: 'notAnswered', value: filter},
-                )
+                this.$store.commit('invitations/mutateFilterCheckbox', {
+                    field: 'notAnswered',
+                    value: filter,
+                })
 
-                this.$store.dispatch(
-                    'invitations/load'
-                )
+                this.$store.dispatch('invitations/load')
             },
         },
 
@@ -1085,5 +1452,4 @@ export default {
 }
 </script>
 
-<style>
-</style>
+<style></style>

@@ -62,6 +62,14 @@ window.confirm = (title, vue) => {
     })
 }
 
+window.showMessage = (title, vue) => {
+    return vue.$swal({
+        icon: 'info',
+        title: title,
+        dangerMode: true,
+    })
+}
+
 window.post = (...args) => {
     return axios.post(...args)
 }

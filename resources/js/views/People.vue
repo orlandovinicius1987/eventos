@@ -21,7 +21,7 @@
                                 class="img-thumbnail rounded mx-auto d-block mb-2"
                                 width="200"
                                 height="200"
-                            >
+                            />
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                     :title="'Pessoas (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/people/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="peoplePerPage"
                     @set-per-page="peoplePerPage = $event"
@@ -45,19 +45,19 @@
                 >
                     <template slot="selects">
                         <app-institution-filter-for-person
-                                name="institution_id"
-                                label="Instituição"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.institutions"
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
                         ></app-institution-filter-for-person>
 
                         <app-role-filter-for-person
-                                name="role_id"
-                                label="Função"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.roles"
+                            name="role_id"
+                            label="Função"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
                         ></app-role-filter-for-person>
                     </template>
 
@@ -81,7 +81,7 @@
                             'Tratamento',
                             'Nome',
                             'Nome público',
-                            ''
+                            '',
                         ]"
                     >
                         <tr
@@ -91,8 +91,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary text-white': isCurrent(
                                     person,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ person.id }}</td>
@@ -134,7 +134,7 @@
                                     '/people/' +
                                     people.selected.id +
                                     '/categories/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="personCategoriesPerPage"
                             @set-per-page="personCategoriesPerPage = $event"
@@ -158,8 +158,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             personCategory,
-                                            personCategories.selected
-                                        )
+                                            personCategories.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -173,7 +173,7 @@
                                         <div
                                             @click="
                                                 confirmDeletePersonCategory(
-                                                    personCategory
+                                                    personCategory,
                                                 )
                                             "
                                             class="btn btn-danger btn-sm mr-1 pull-right"
@@ -200,7 +200,7 @@
                                     '/people/' +
                                     personInstitutions.person.id +
                                     '/person-institutions/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="personInstitutionsPerPage"
                             @set-per-page="personInstitutionsPerPage = $event"
@@ -227,7 +227,7 @@
                                 <tr
                                     @click="
                                         selectPersonInstitution(
-                                            personInstitution
+                                            personInstitution,
                                         )
                                     "
                                     v-for="personInstitution in personInstitutions
@@ -237,8 +237,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             personInstitution,
-                                            personInstitutions.selected
-                                        )
+                                            personInstitutions.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -260,7 +260,9 @@
                                     <td class="align-middle">
                                         <h6 class="m-0">
                                             <app-active-badge
-                                                :value="personInstitution.is_active"
+                                                :value="
+                                                    personInstitution.is_active
+                                                "
                                                 :labels="['ativo', 'inativo']"
                                             ></app-active-badge>
                                         </h6>
@@ -311,7 +313,7 @@
                                     '/person-institutions/' +
                                     contacts.personInstitution.id +
                                     '/contacts/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="contactsPerPage"
                             @set-per-page="contactsPerPage = $event"
@@ -323,7 +325,13 @@
                             <app-table
                                 :pagination="contacts.data.links.pagination"
                                 @goto-page="contactsGotoPage($event)"
-                                :columns="['#', 'Tipo', 'Contato', 'Status', '']"
+                                :columns="[
+                                    '#',
+                                    'Tipo',
+                                    'Contato',
+                                    'Status',
+                                    '',
+                                ]"
                             >
                                 <tr
                                     @click="selectContact(contact)"
@@ -333,15 +341,21 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             contact,
-                                            contacts.selected
-                                        )
+                                            contacts.selected,
+                                        ),
                                     }"
                                 >
-                                    <td class="align-middle">{{ contact.id }}</td>
+                                    <td class="align-middle">
+                                        {{ contact.id }}
+                                    </td>
 
-                                    <td class="align-middle">{{ contact.contact_type.name }}</td>
+                                    <td class="align-middle">
+                                        {{ contact.contact_type.name }}
+                                    </td>
 
-                                    <td class="align-middle">{{ contact.contact }}</td>
+                                    <td class="align-middle">
+                                        {{ contact.contact }}
+                                    </td>
 
                                     <td class="align-middle">
                                         <h6 class="m-0">
@@ -395,7 +409,7 @@
                                     '/person-institutions/' +
                                     addresses.personInstitution.id +
                                     '/addresses/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="addressesPerPage"
                             @set-per-page="addressesPerPage = $event"
@@ -426,25 +440,41 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             address,
-                                            addresses.selected
-                                        )
+                                            addresses.selected,
+                                        ),
                                     }"
                                 >
-                                    <td class="align-middle">{{ address.id }}</td>
+                                    <td class="align-middle">
+                                        {{ address.id }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.street }}</td>
+                                    <td class="align-middle">
+                                        {{ address.street }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.number }}</td>
+                                    <td class="align-middle">
+                                        {{ address.number }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.complement }}</td>
+                                    <td class="align-middle">
+                                        {{ address.complement }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.neighbourhood }}</td>
+                                    <td class="align-middle">
+                                        {{ address.neighbourhood }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.zipcode }}</td>
+                                    <td class="align-middle">
+                                        {{ address.zipcode }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.city }}</td>
+                                    <td class="align-middle">
+                                        {{ address.city }}
+                                    </td>
 
-                                    <td class="align-middle">{{ address.state }}</td>
+                                    <td class="align-middle">
+                                        {{ address.state }}
+                                    </td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -489,7 +519,7 @@
                                     '/person-institutions/' +
                                     advisors.personInstitution.id +
                                     '/advisors/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="advisorsPerPage"
                             @set-per-page="advisorsPerPage = $event"
@@ -506,7 +536,7 @@
                                     'Tratamento',
                                     'Nome',
                                     'Nome Público',
-                                    ''
+                                    '',
                                 ]"
                             >
                                 <tr
@@ -517,14 +547,22 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             advisor,
-                                            advisors.selected
-                                        )
+                                            advisors.selected,
+                                        ),
                                     }"
                                 >
-                                    <td class="align-middle">{{ advisor.id }}</td>
-                                    <td class="align-middle">{{ advisor.person.title }}</td>
-                                    <td class="align-middle">{{ advisor.person.name }}</td>
-                                    <td class="align-middle">{{ advisor.person.nickname }}</td>
+                                    <td class="align-middle">
+                                        {{ advisor.id }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ advisor.person.title }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ advisor.person.name }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ advisor.person.nickname }}
+                                    </td>
                                     <td class="align-middle">
                                         <router-link
                                             :to="
@@ -572,7 +610,7 @@
                                     '/advisors/' +
                                     advisorContacts.personInstitution.id +
                                     '/contacts/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="advisorContactsPerPage"
                             @set-per-page="advisorContactsPerPage = $event"
@@ -599,17 +637,21 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             advisorContact,
-                                            advisorContacts.selected
-                                        )
+                                            advisorContacts.selected,
+                                        ),
                                     }"
                                 >
-                                    <td class="align-middle">{{ advisorContact.id }}</td>
+                                    <td class="align-middle">
+                                        {{ advisorContact.id }}
+                                    </td>
 
                                     <td class="align-middle">
                                         {{ advisorContact.contact_type.name }}
                                     </td>
 
-                                    <td class="align-middle">{{ advisorContact.contact }}</td>
+                                    <td class="align-middle">
+                                        {{ advisorContact.contact }}
+                                    </td>
 
                                     <td class="align-middle text-right">
                                         <router-link
@@ -642,8 +684,6 @@
             </div>
         </div>
     </div>
-
-
 </template>
 
 <script>
@@ -659,7 +699,7 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -670,7 +710,7 @@ export default {
             'selectAddress',
             'selectContact',
             'selectAdvisor',
-            'selectAdvisorContacts'
+            'selectAdvisorContacts',
         ]),
 
         peopleGotoPage(page) {
@@ -681,7 +721,7 @@ export default {
             this.gotoPage(
                 page,
                 'personInstitutions',
-                this.personInstitutions.data.links.pagination
+                this.personInstitutions.data.links.pagination,
             )
         },
 
@@ -689,7 +729,7 @@ export default {
             this.gotoPage(
                 page,
                 'addresses',
-                this.addresses.data.links.pagination
+                this.addresses.data.links.pagination,
             )
         },
 
@@ -701,7 +741,7 @@ export default {
             this.gotoPage(
                 page,
                 'advisorContacts',
-                this.contacts.data.links.pagination
+                this.contacts.data.links.pagination,
             )
         },
 
@@ -709,7 +749,7 @@ export default {
             this.gotoPage(
                 page,
                 'personCategories',
-                this.personCategories.data.links.pagination
+                this.personCategories.data.links.pagination,
             )
         },
 
@@ -720,7 +760,7 @@ export default {
         confirmDeletePersonCategory(personCategory) {
             confirm(
                 'Deseja realmente desassociar ' + personCategory.name + '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     this.deletePersonCategory(personCategory)
@@ -731,9 +771,9 @@ export default {
         deletePersonCategory(personCategory) {
             return this.$store.dispatch(
                 'personCategories/unCategorize',
-                personCategory
+                personCategory,
             )
-        }
+        },
     },
 
     computed: {
@@ -745,9 +785,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         peoplePerPage: {
@@ -758,7 +798,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('people/setPerPage', perPage)
-            }
+            },
         },
 
         personInstitutionsFilterText: {
@@ -769,9 +809,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'personInstitutions/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         personInstitutionsPerPage: {
@@ -783,9 +823,9 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personInstitutions/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
+            },
         },
 
         addressesFilterText: {
@@ -796,9 +836,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'addresses/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         addressesPerPage: {
@@ -809,7 +849,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('addresses/setPerPage', perPage)
-            }
+            },
         },
 
         contactsFilterText: {
@@ -820,9 +860,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'contacts/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         contactsPerPage: {
@@ -833,7 +873,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('contacts/setPerPage', perPage)
-            }
+            },
         },
 
         personCategoriesFilterText: {
@@ -844,9 +884,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'personCategories/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         personCategoriesPerPage: {
@@ -858,9 +898,9 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personCategories/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
+            },
         },
         advisorsFilterText: {
             get() {
@@ -870,9 +910,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'advisors/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         advisorsPerPage: {
@@ -883,7 +923,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('advisors/setPerPage', perPage)
-            }
+            },
         },
         advisorContactsFilterText: {
             get() {
@@ -893,9 +933,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'advisorContacts/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         advisorContactsPerPage: {
@@ -907,23 +947,25 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'advisorContacts/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
+            },
         },
 
         hasNoPhotoCheckbox: {
             get() {
-                return this.$store.state['people'].data.filter.checkboxes.hasNoPhoto
+                return this.$store.state['people'].data.filter.checkboxes
+                    .hasNoPhoto
             },
 
             set(filter) {
-                this.$store.dispatch(
-                    'people/mutateFilterCheckbox', {field: 'hasNoPhoto', value: filter}
-                )
+                this.$store.dispatch('people/mutateFilterCheckbox', {
+                    field: 'hasNoPhoto',
+                    value: filter,
+                })
             },
         },
-    }
+    },
 }
 </script>
 

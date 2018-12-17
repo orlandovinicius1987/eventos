@@ -106,6 +106,11 @@ function extract_info_from_mailgun_webhook($data)
     ];
 }
 
+function current_user()
+{
+    return auth()->user();
+}
+
 class Timer
 {
     public static $starttime;

@@ -1,9 +1,16 @@
-recordButtonText<template>
+<template>
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
             <h2>{{ events.selected.name }}</h2>
-            <h2>{{ subEvents.selected.name }} - {{ subEvents.selected.sector ? subEvents.selected.sector.name : '' }}</h2>
+            <h2>
+                {{ subEvents.selected.name }} -
+                {{
+                    subEvents.selected.sector
+                        ? subEvents.selected.sector.name
+                        : ''
+                }}
+            </h2>
             <h2>{{ subEvents.selected.place }}</h2>
         </div>
 
@@ -15,17 +22,19 @@ recordButtonText<template>
                     :per-page="invitablesPerPage"
                     @set-per-page="invitablesPerPage = $event"
                     :filter-text="invitablesFilterText"
-                    @input-filter-text="invitablesFilterText = $event.target.value"
+                    @input-filter-text="
+                        invitablesFilterText = $event.target.value
+                    "
                 >
                     <template slot="checkboxes">
                         <app-input
-                                name="not_invited"
-                                label="Somente não convidados"
-                                type="checkbox"
-                                v-model="notInvited"
-                                :required="true"
-                                :form="form"
-                                inline="true"
+                            name="not_invited"
+                            label="Somente não convidados"
+                            type="checkbox"
+                            v-model="notInvited"
+                            :required="true"
+                            :form="form"
+                            inline="true"
                         ></app-input>
                     </template>
 
@@ -52,7 +61,12 @@ recordButtonText<template>
                             v-model="subEventSelectFilter"
                             :required="true"
                             :form="form"
-                            :options="except(this.environment.tables.sub_events, this.subEvents.form.fields.id)"
+                            :options="
+                                except(
+                                    this.environment.tables.sub_events,
+                                    this.subEvents.form.fields.id,
+                                )
+                            "
                         ></app-select>
                     </template>
 
@@ -77,41 +91,58 @@ recordButtonText<template>
                         :pagination="invitables.data.links.pagination"
                         @goto-page="invitablesGotoPage($event)"
                         :columns="[
-                                    '#',
-                                    'Convidar',
-                                    'Tratamento',
-                                    'Nome',
-                                    'Instituição',
-                                    'Cargo',
-                                    'Convidado',
-                                    ''
-                                ]"
+                            '#',
+                            'Convidar',
+                            'Tratamento',
+                            'Nome',
+                            'Instituição',
+                            'Cargo',
+                            'Convidado',
+                            '',
+                        ]"
                     >
                         <tr
                             v-for="invitable in invitables.data.rows"
-                            :class="{'cursor-pointer': true, 'bg-primary-lighter text-white': isCurrent(invitable, invitables.selected)}"
+                            :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    invitable,
+                                    invitables.selected,
+                                ),
+                            }"
                         >
                             <td class="align-middle">{{ invitable.id }}</td>
 
                             <td class="align-middle">
-                                <input v-if="!invitable.is_invited_to_sub_event"
+                                <input
+                                    v-if="!invitable.is_invited_to_sub_event"
                                     :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
-                                >
+                                />
                             </td>
 
                             <td class="align-middle">{{ invitable.title }}</td>
 
-                            <td class="align-middle">{{ invitable.person.name }}</td>
+                            <td class="align-middle">
+                                {{ invitable.person.name }}
+                            </td>
 
-                            <td class="align-middle">{{ invitable.institution.name }}</td>
+                            <td class="align-middle">
+                                {{ invitable.institution.name }}
+                            </td>
 
-                            <td class="align-middle">{{ invitable.role.name }}</td>
+                            <td class="align-middle">
+                                {{ invitable.role.name }}
+                            </td>
 
                             <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span v-if="invitable.is_invited_to_sub_event" class="badge badge-success">Já convidado</span>
+                                    <span
+                                        v-if="invitable.is_invited_to_sub_event"
+                                        class="badge badge-success"
+                                        >Já convidado</span
+                                    >
                                 </h6>
                             </td>
 
@@ -170,35 +201,36 @@ export default {
 
         notInvited: {
             get() {
-                return this.$store.state['invitations'].data.filter.checkboxes.not_invited
+                return this.$store.state['invitations'].data.filter.checkboxes
+                    .not_invited
             },
 
             set(filter) {
                 if (filter) {
-                    this.$store.commit(
-                        'invitables/mutateFilterCheckbox',
-                        {field: 'not_invited', value: this.subEvents.selected.id},
-                    )
-                }else{
-                    this.$store.commit(
-                        'invitables/mutateFilterCheckbox',
-                        {field: 'not_invited', value: null},
-                    )
+                    this.$store.commit('invitables/mutateFilterCheckbox', {
+                        field: 'not_invited',
+                        value: this.subEvents.selected.id,
+                    })
+                } else {
+                    this.$store.commit('invitables/mutateFilterCheckbox', {
+                        field: 'not_invited',
+                        value: null,
+                    })
                 }
 
-                this.$store.dispatch(
-                    'invitables/load'
-                )
+                this.$store.dispatch('invitables/load')
             },
         },
 
-        selectedSubEvent:{
-            get(){
-                return this.$store.state['invitables'].data.filter.selects['sub_event']
-            }
+        selectedSubEvent: {
+            get() {
+                return this.$store.state['invitables'].data.filter.selects[
+                    'sub_event'
+                ]
+            },
         },
 
-        recordButtonText:{
+        recordButtonText: {
             get() {
                 return this.selectedSubEvent ? 'copiar convidados' : 'convidar'
             },
@@ -234,19 +266,20 @@ export default {
 
         subEventSelectFilter: {
             get() {
-                return _.debounce( () => {
-                    this.$store.state['invitables'].data.filter.selects['sub_event']
+                return _.debounce(() => {
+                    this.$store.state['invitables'].data.filter.selects[
+                        'sub_event'
+                    ]
                 }, 650)
             },
 
             set(id) {
                 this.resetCheckedPeople()
 
-                return this.$store.dispatch(
-                    'invitables/mutateFilterSelect', {
-                        field: 'sub_event', value: id
-                    }
-                )
+                return this.$store.dispatch('invitables/mutateFilterSelect', {
+                    field: 'sub_event',
+                    value: id,
+                })
             },
         },
     },
@@ -260,7 +293,7 @@ export default {
             )
         },
 
-        resetCheckedPeople(){
+        resetCheckedPeople() {
             for (let key in this.checkedPeople) {
                 if (this.checkedPeople.hasOwnProperty(key)) {
                     this.checkedPeople[key].checked = false
@@ -331,8 +364,11 @@ export default {
             return items
         },
     },
+
+    beforeDestroy() {
+        this.$store.state['invitables'].data.filter.text = null
+    }
 }
 </script>
 
-<style>
-</style>
+<style></style>

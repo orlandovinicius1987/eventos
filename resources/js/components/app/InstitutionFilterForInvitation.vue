@@ -30,5 +30,10 @@ export default {
             },
         },
     },
+
+    beforeDestroy() {
+        this.$store.state['invitables'].data.filter.selects.institution = null
+    },
+
 }
 </script>

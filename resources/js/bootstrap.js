@@ -28,7 +28,7 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 /**
  * Next we will register the CSRF Token as a common header with Axios so that
- * all outgoing HTTP requests automatically have it attached. This is just
+ * all outgoing HTTP requests automatically have it att. This is just
  * a simple convenience so we don't have to attach every token manually.
  */
 
@@ -119,16 +119,6 @@ Vue.use(Modal)
 Vue.use(Button)
 
 /**
- * Vue Google Maps
- */
-Vue.use(() => import('vue2-google-maps'), {
-    load: {
-        key: laravel.google_maps.api_key,
-        libraries: 'places',
-    },
-})
-
-/**
  * Autoload Vue components
  */
 const file = require.context('./components/app/', true, /\.vue$/i)
@@ -148,5 +138,6 @@ Vue.component('vue-select', () => import('vue-select'))
 /**
  * Vue Croppa
  */
+//Vue.use(() => import('vue-croppa'), { componentName: 'vue-croppa' })
 import Croppa from 'vue-croppa'
 Vue.use(Croppa, { componentName: 'vue-croppa' })
