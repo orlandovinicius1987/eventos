@@ -7,11 +7,11 @@
         <div class="card card-block bg-faded">
             <div class="row">
                 <div class="col-6 text-center" v-if="receptive.data.statistics">
-                    confirmados: {{receptive.data.statistics.confirmed}}
+                    confirmados: {{ receptive.data.statistics.confirmed }}
                 </div>
 
-                <div class="col-6 text-center"  v-if="receptive.data.statistics">
-                    ingressaram: {{receptive.data.statistics.totalcheckedin}}
+                <div class="col-6 text-center" v-if="receptive.data.statistics">
+                    ingressaram: {{ receptive.data.statistics.totalcheckedin }}
                 </div>
             </div>
         </div>
@@ -195,7 +195,7 @@ export default {
     computed: {
         ...mapState({
             checkedIn: state => state.receptive.checkedIn,
-        })
+        }),
     },
 
     methods: {
@@ -203,7 +203,6 @@ export default {
 
         confirmCheckin(invitation) {
             if (invitation.checkin_at == null) {
-                dd(invitation)
                 confirm(
                     'Deseja realizar o check-in de ' +
                         invitation.person_institution.person.name +
