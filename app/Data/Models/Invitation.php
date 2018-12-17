@@ -136,7 +136,7 @@ class Invitation extends Base
 
     protected function canSendEmail()
     {
-        return !is_null($this->subEvent->confirmed_at) && $this->hasEmail();
+        return filled($this->subEvent->confirmed_at) && $this->hasEmail();
     }
 
     protected function dispatchMails($notification)
@@ -344,6 +344,7 @@ class Invitation extends Base
     {
         if (
             $this->canSendEmail() &&
+            $this->subEventCanReceiveInvitations() &&
             ($force || (!$this->hasBeenDeclined() && !$this->hasBeenAccepted()))
         ) {
             $this->dispatchMails(SendInvitation::class);
@@ -354,6 +355,7 @@ class Invitation extends Base
     {
         if (
             $this->canSendEmail() &&
+            $this->subEventCanReceiveCredentials() &&
             ($force || (!$this->hasBeenDeclined() && $this->hasBeenAccepted()))
         ) {
             $this->dispatchMails(SendCredentials::class);
@@ -680,5 +682,15 @@ class Invitation extends Base
         return blank($this->subEvent->confirmations_end_date) ||
             $this->subEvent->confirmations_end_date->isToday() ||
             $this->subEvent->confirmations_end_date->isFuture();
+    }
+
+    protected function subEventCanReceiveInvitations()
+    {
+        return $this->subEvent->send_invitations;
+    }
+
+    protected function subEventCanReceiveCredentials()
+    {
+        return $this->subEvent->send_credentials;
     }
 }
