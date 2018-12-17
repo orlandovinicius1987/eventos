@@ -2,13 +2,13 @@
 
 namespace App\Data\Repositories;
 
-use Illuminate\Pagination\LengthAwarePaginator;
+use App\Data\Repositories\Categories as CategoriesRepository;
 use App\Data\Repositories\Events as EventsRepository;
-use App\Data\Repositories\SubEvents as SubEventsRepository;
-use App\Data\Repositories\People as PeopleRepository;
 use App\Data\Repositories\Institutions as InstitutionsRepository;
 use App\Data\Repositories\Parties as PartiesRepository;
-use App\Data\Repositories\Categories as CategoriesRepository;
+use App\Data\Repositories\People as PeopleRepository;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class Dashboard extends Repository
 {

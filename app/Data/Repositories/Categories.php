@@ -9,4 +9,5 @@ class Categories extends Repository
      * @var string
      */
     protected $model = CategoryModel::class;
+
 }

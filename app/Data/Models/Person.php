@@ -109,4 +109,5 @@ class Person extends BaseWithClient
 
         return $query;
     }
+
 }
