@@ -59,6 +59,7 @@ class Contact implements Rule
     private function validatePhone($phone, $type)
     {
         $phone = preg_replace('/\D/', '', $phone);
+
         switch ($type) {
             case 'mobile':
                 return strlen($phone) == 11;
