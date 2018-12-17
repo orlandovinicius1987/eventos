@@ -10,7 +10,7 @@
 
                         <br><br>
 
-                        <h1>As alterações nos convites deste evento estão encerradas.</h1>
+                        <h1>As confirmações deste evento estão encerradas.</h1>
 
                         <br><br>
 
