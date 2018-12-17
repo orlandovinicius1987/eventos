@@ -46,14 +46,9 @@ const actions = merge_objects(actionsMixin, {
     },
 
     selectSubEvent(context, payload) {
-        dd('.App\\Events\\InvitationsChanged - subscribe - ' + 'sub-event.' + payload.id)
-        dd('.App\\Events\\SubEventUpdated - subscribe - ' + 'sub-event.' + payload.id)
-
         publicChannel('sub-event.' + payload.id).listen(
             '.App\\Events\\InvitationsChanged',
             () => {
-                dd('.App\\Events\\InvitationsChanged - EVENT! - ' + 'sub-event.' + payload.id)
-
                 context.dispatch('subEvents/load', payload, { root: true })
 
                 context.dispatch('invitations/load', payload, { root: true })
@@ -65,8 +60,6 @@ const actions = merge_objects(actionsMixin, {
         publicChannel('sub-event.' + payload.id).listen(
             '.App\\Events\\SubEventUpdated',
             () => {
-                dd('.App\\Events\\SubEventUpdated - EVENT! - ' + 'sub-event.' + payload.id)
-
                 context.dispatch('subEvents/load', payload, { root: true })
             },
         )
