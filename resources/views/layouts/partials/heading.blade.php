@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row mb-5">
         <div class="col-12 p-0">
-            <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+            <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 
                 {{--<a class="navbar-brand" href="{{ url('/') }}">
                    <img src="/svg/logo-eventos-alerj.svg" class="img-fluid"> <span class="brand-complement">cerimonial</span>
