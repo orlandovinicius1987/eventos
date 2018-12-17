@@ -29,7 +29,7 @@
         </div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     v-if="events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
@@ -122,7 +122,7 @@
                 </app-table-panel>
             </div>
 
-            <div class="col-8">
+            <div class="col-12 col-lg-8">
                 <app-table-panel
                     v-if="selected.id && subEvents.data.links"
                     :title="
