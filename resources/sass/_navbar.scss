@@ -17,6 +17,7 @@
 
     @media (max-width: 768px) {
       margin-top: 30px;
+      padding-bottom: 25px;
 
       .dropdown-menu {
         border: none;
@@ -72,7 +73,7 @@
 
       .nav-link {
         color: $grey;
-        letter-spacing: 0.04rem;
+        letter-spacing: 0.04rem;navbar-collapse
         /*padding-bottom: 15px;*/
 
         &:hover {
