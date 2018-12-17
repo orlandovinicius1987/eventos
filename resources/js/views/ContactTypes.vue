@@ -8,7 +8,7 @@
                     :title="'Tipos de Contato (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/contact-types/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -27,8 +27,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     contactType,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ contactType.id }}</td>
@@ -72,9 +72,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
-    }
+    },
 }
 </script>
 

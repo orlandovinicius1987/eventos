@@ -52,7 +52,7 @@ import roles from './mixins/roles'
 const service = {
     name: 'personInstitutions',
     uri: 'people/{people.selected.id}/person-institutions',
-    isForm: true
+    isForm: true,
 }
 
 export default {
@@ -64,7 +64,7 @@ export default {
         this.$store.dispatch('environment/loadRoles')
         this.$store.dispatch('environment/loadInstitutions')
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -72,20 +72,20 @@ export default {
         fillAdditionalFormFields() {
             if (this.mode === 'create') {
                 this.$store.dispatch('personInstitutions/clearForm', {
-                    root: true
+                    root: true,
                 })
             } else if (this.mode === 'update') {
                 this.$store.commit(
                     'personInstitutions/mutateFormData',
-                    this.personInstitutions.selected
+                    this.personInstitutions.selected,
                 )
             }
             this.$store.commit('personInstitutions/mutateSetFormField', {
                 field: 'person_id',
-                value: this.personInstitutions.person.id
+                value: this.personInstitutions.person.id,
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

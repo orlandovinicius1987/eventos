@@ -1,33 +1,55 @@
 @extends('layouts.pdf')
 
 @section('content')
-    @php
-        $currentInstitutionId = null
-    @endphp
-
     @foreach ($invitations as $invitation)
-        @if ($currentInstitutionId != $invitation->personInstitution->institution->id)
-            @php
-                $currentInstitutionId = $invitation->personInstitution->institution->id
-            @endphp
-
-            <h5>
-                {{ $invitation->personInstitution->institution->name }}
-            </h5>
-        @endif
-
-        <p>
-            <span style="color: gray;">
-                {{ $invitation->personInstitution->title }}
-            </span>
-
+        <p style="page-break-inside: avoid;">
             <span>
-                {{ $invitation->personInstitution->person->name }}
+                {{ $invitation->personInstitution->person->name ?? 'N/C' }}
+
+                <span style="color: gray; font-size: 0.7em;">
+                    ({{ $invitation->code }})
+                </span>
             </span>
 
-            <span style="color: gray;">
-                ({{ $invitation->personInstitution->role->name }})
-            </span>
+            <br>
+
+            <div style="color: gray; font-size: 0.7em;">
+                {{ $invitation->personInstitution->title ?? 'N/C' }}
+
+                -
+
+                {{ $invitation->personInstitution->role->name ?? 'N/C'}} / {{ $invitation->personInstitution->institution->name ?? 'N/C'}}
+
+                <br>
+
+                {{ $invitation->subEvent->sector->name ?? 'N/C'}}
+
+                -
+
+                @if ($invitation->sent_at)
+                    enviado -
+                @else
+                    não enviado -
+                @endif
+
+                @if ($invitation->received_at)
+                    recebido -
+                @endif
+
+                @if ($invitation->accepted_at)
+                    aceito -
+                @endif
+
+                @if ($invitation->declined_at)
+                    declinado -
+                @endif
+
+                @if ($invitation->credentials_received_at)
+                    credenciais recebidas -
+                @endif
+            </div>
         </p>
+
+        <br>
     @endforeach
 @stop

@@ -10,6 +10,8 @@ export default {
             invitations: state => state.invitations,
 
             receptive: state => state.receptive,
+
+            statistics: state =>state.receptive.data.statistics,
         }),
     },
 }

@@ -149,6 +149,11 @@ abstract class Base extends Model implements AuditableContract
 
     public function getCurrentAuthenticatedUserId()
     {
-        return auth()->user()->id ?? null;
+        return current_user()->id ?? null;
+    }
+
+    public function hasAttribute($attr)
+    {
+        return array_key_exists($attr, $this->attributes);
     }
 }

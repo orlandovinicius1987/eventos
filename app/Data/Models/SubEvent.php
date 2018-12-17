@@ -28,6 +28,9 @@ class SubEvent extends BaseWithClient
         'ended_at',
         'ended_by',
         'client_id',
+        'confirmations_end_date',
+        'send_invitations',
+        'send_credentials',
     ];
 
     protected $dates = [
@@ -37,9 +40,12 @@ class SubEvent extends BaseWithClient
         'confirmed_at',
         'started_at',
         'ended_at',
+        'confirmations_end_date',
     ];
 
     protected $with = ['event', 'address', 'costume', 'sector'];
+
+    protected $appends = ['is_happening'];
 
     protected $orderBy = [
         'date' => 'asc',
@@ -125,5 +131,10 @@ class SubEvent extends BaseWithClient
     public function scopeConfirmed($query)
     {
         return $query->whereNotNull('confirmed_at');
+    }
+
+    public function getIsHappeningAttribute()
+    {
+        return $this->date->between(now()->subDay(), now()->addDay());
     }
 }

@@ -10,6 +10,19 @@ use App\Data\Repositories\Invitations as InvitationsRepository;
 class Receptive extends Controller
 {
     /**
+     * @param $invitation
+     * @return string
+     */
+    protected function getUserName($invitation): string
+    {
+        $userName = filled($invitation->checkedInBy)
+            ? '<br>por ' . $invitation->checkedInBy->name
+            : '';
+
+        return $userName;
+    }
+
+    /**
      * Get all data
      *
      * @param Request $request
@@ -33,12 +46,22 @@ class Receptive extends Controller
             return $this->response(
                 $invitation,
                 0,
-                !$invitation->makeCheckin()
-                    ? 'Este convidado já havia feito check-in'
-                    : null
+                $this->makeResponseMessage($invitation)
             );
         } catch (InvitationNotFoundException $exception) {
             return $this->response(false, 0, 'Convite não localizado');
         }
+    }
+
+    /**
+     * @param $invitation
+     * @return string|null
+     */
+    protected function makeResponseMessage($invitation)
+    {
+        return !$invitation->makeCheckin()
+            ? 'Este convidado já havia feito check-in' .
+                    $this->getUserName($invitation)
+            : null;
     }
 }

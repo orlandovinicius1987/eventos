@@ -94,7 +94,7 @@ import { mapActions } from 'vuex'
 const service = {
     name: 'institutions',
     uri: 'institutions',
-    performLoad: false
+    performLoad: false,
 }
 
 export default {
@@ -104,13 +104,13 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
     },
 
     methods: {
-        ...mapActions(service.name, ['selectInstitution'])
-    }
+        ...mapActions(service.name, ['selectInstitution']),
+    },
 }
 </script>
 
