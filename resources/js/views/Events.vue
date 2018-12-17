@@ -714,7 +714,8 @@
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
                                         can('update') &&
-                                            canSendEmail(invitation)
+                                            canSendEmail(invitation) &&
+                                            invitation.sub_event.send_invitations
                                     "
                                     title="Enviar convite"
                                 >
@@ -726,7 +727,8 @@
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
                                         can('update') &&
-                                            canSendEmail(invitation)
+                                            canSendEmail(invitation) &&
+                                            invitation.sub_event.send_credentials
                                     "
                                     title="Enviar credenciais"
                                     :disabled="
