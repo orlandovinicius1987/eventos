@@ -63,7 +63,7 @@ import contactTypes from './mixins/contact-types'
 const service = {
     name: 'contactTypes',
     uri: 'contact-types',
-    performLoad: false
+    performLoad: false,
 }
 
 export default {
@@ -73,9 +73,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
-    }
+    },
 }
 </script>
 

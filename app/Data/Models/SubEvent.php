@@ -27,6 +27,7 @@ class SubEvent extends Base
         'associated_subevent_id',
         'ended_at',
         'ended_by',
+        'confirmations_end_date',
     ];
 
     protected $dates = [
@@ -36,6 +37,7 @@ class SubEvent extends Base
         'confirmed_at',
         'started_at',
         'ended_at',
+        'confirmations_end_date',
     ];
 
     protected $with = ['event', 'address', 'costume', 'sector'];

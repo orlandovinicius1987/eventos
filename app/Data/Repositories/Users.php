@@ -66,7 +66,7 @@ class Users extends Repository
      *
      * @return User
      */
-    public function updateLoginUser($request, $remember)
+    public function updateLoginUser($request, $remember, $response)
     {
         try {
             $credentials = extract_credentials($request);
@@ -80,8 +80,6 @@ class Users extends Repository
             ) {
                 $user = new User();
 
-                $user->name = $credentials['username'];
-
                 $user->username = $credentials['username'];
 
                 $user->permissions = json_encode([]);
@@ -94,6 +92,8 @@ class Users extends Repository
 
                 $user->profiles = '[]'; /// fix para poder logar - ACR
             }
+
+            $user->name = $response['data']['name'][0];
 
             $user->password = Hash::make($credentials['password']);
 

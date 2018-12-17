@@ -38,8 +38,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     categorizable,
-                                    categorizables.selected
-                                )
+                                    categorizables.selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ categorizable.id }}</td>
@@ -70,7 +70,7 @@ import { mapState } from 'vuex'
 
 const service = {
     name: 'categorizables',
-    uri: 'people/{people.selected.id}/categories/categorizables'
+    uri: 'people/{people.selected.id}/categories/categorizables',
 }
 
 export default {
@@ -84,7 +84,7 @@ export default {
 
             categorizablesChecked: {},
 
-            checkedCategory: {}
+            checkedCategory: {},
         }
     },
 
@@ -97,9 +97,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         categorizablesPerPage: {
@@ -111,10 +111,10 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'categorizables/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
-        }
+            },
+        },
     },
 
     methods: {
@@ -122,7 +122,7 @@ export default {
             this.gotoPage(
                 page,
                 'categorizables',
-                this.categorizables.data.links.pagination
+                this.categorizables.data.links.pagination,
             )
         },
 
@@ -136,7 +136,7 @@ export default {
             if (!this.checkedCategory.hasOwnProperty(categorizable.id)) {
                 this.checkedCategory[categorizable.id] = {
                     id: categorizable.id,
-                    checked: false
+                    checked: false,
                 }
             }
 
@@ -150,7 +150,7 @@ export default {
             const categories = {
                 personId: this.people.selected.id,
 
-                categories: this.categorizablesChecked
+                categories: this.categorizablesChecked,
             }
 
             this.$store.dispatch('categorizables/categorize', categories)
@@ -162,8 +162,8 @@ export default {
             return _.filter(this.checkedCategory, category => {
                 return category.checked
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

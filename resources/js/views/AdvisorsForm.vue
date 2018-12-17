@@ -61,7 +61,7 @@ const service = {
     name: 'advisors',
     uri:
         'people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/advisors',
-    isForm: true
+    isForm: true,
 }
 
 export default {
@@ -77,7 +77,7 @@ export default {
         this.$store.dispatch('environment/loadPeople')
 
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -85,20 +85,20 @@ export default {
         fillAdditionalFormFields() {
             if (this.mode === 'create') {
                 this.$store.dispatch('advisors/clearForm', {
-                    root: true
+                    root: true,
                 })
             } else if (this.mode === 'update') {
                 this.$store.commit(
                     'advisors/mutateFormData',
-                    this.advisors.selected
+                    this.advisors.selected,
                 )
             }
             this.$store.commit('advisors/mutateSetFormField', {
                 field: 'advised_id',
-                value: this.personInstitutions.selected.id
+                value: this.personInstitutions.selected.id,
             })
-        }
-    }
+        },
+    },
 }
 </script>
 

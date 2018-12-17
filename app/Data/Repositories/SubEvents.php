@@ -125,6 +125,12 @@ class SubEvents extends Repository
         $this->addTransformationPlugin(function ($subEvent) {
             $subEvent['date'] = substr((string) $subEvent['date'], 0, 10);
 
+            $subEvent['confirmations_end_date'] = substr(
+                (string) $subEvent['confirmations_end_date'],
+                0,
+                10
+            );
+
             $subEvent['time'] = substr($subEvent['time'], 0, 5);
 
             return $subEvent;

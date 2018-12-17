@@ -53,13 +53,12 @@
                                     ? 'btn-success'
                                     : 'btn-danger')
                         "
-                    >
-                        {{
+                        v-html="
                             getCheckedIn().errors
                                 ? checkedIn.errors
                                 : 'Check-in feito com sucesso!'
-                        }}
-                    </div>
+                        "
+                    ></div>
                 </div>
             </div>
         </div>
@@ -113,7 +112,7 @@
                                             .sector
                                             ? invitation.sub_event.sector.color
                                             : '',
-                                        'text-transform': 'uppercase'
+                                        'text-transform': 'uppercase',
                                     }"
                                 >
                                     {{
@@ -173,7 +172,7 @@ import { parse, format } from 'date-fns'
 const service = {
     name: 'receptive',
     uri: 'events/{events.selected.id}/receptive',
-    isForm: true
+    isForm: true,
 }
 
 export default {
@@ -189,7 +188,7 @@ export default {
             result: '',
             noStreamApiSupport: false,
             inv: '',
-            qrCodeError: null
+            qrCodeError: null,
         }
     },
 
@@ -209,7 +208,7 @@ export default {
                     'Deseja realizar o check-in de ' +
                         invitation.person_institution.person.name +
                         '?',
-                    this
+                    this,
                 ).then(value => {
                     if (value) {
                         this.makeCheckin(invitation.uuid)
@@ -264,12 +263,12 @@ export default {
 
         getCheckedInTime(invitation) {
             return format(parse(invitation.checkin_at), 'HH[h]mm')
-        }
+        },
     },
 
     mounted() {
         this.$store.dispatch('receptive/load')
-    }
+    },
 }
 </script>
 

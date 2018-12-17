@@ -36,7 +36,7 @@
                     :add-button="{
                         uri: '/events/create',
                         disabled: cannot('create'),
-                        dusk: 'createEventButton'
+                        dusk: 'createEventButton',
                     }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
@@ -55,8 +55,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     event,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle text-left">
@@ -136,7 +136,7 @@
                             '/events/' +
                             subEvents.event.id +
                             '/sub-events/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="subEventsPerPage"
                     @set-per-page="subEventsPerPage = $event"
@@ -156,7 +156,7 @@
                             'Hora',
                             'Confirmado',
                             'Realizado',
-                            ''
+                            '',
                         ]"
                     >
                         <tr
@@ -167,8 +167,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     subEvent,
-                                    subEvents.selected
-                                )
+                                    subEvents.selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">
@@ -178,7 +178,7 @@
                                         'background-color': subEvent.sector
                                             ? subEvent.sector.color
                                             : '',
-                                        'text-transform': 'uppercase'
+                                        'text-transform': 'uppercase',
                                     }"
                                 >
                                     {{
@@ -310,7 +310,7 @@
                             '/sub-events/' +
                             subEvents.selected.id +
                             '/invitations/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
@@ -488,7 +488,7 @@
                             { title: 'Convite', trClass: 'text-center' },
                             { title: 'Credencial', trClass: 'text-center' },
                             { title: 'Check in', trClass: 'text-center' },
-                            ''
+                            '',
                         ]"
                     >
                         <tr
@@ -498,8 +498,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     invitation,
-                                    invitations.selected
-                                )
+                                    invitations.selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ invitation.code }}</td>
@@ -543,7 +543,7 @@
                                         {{
                                             filterNotifications(
                                                 invitation.notifications,
-                                                'invitation'
+                                                'invitation',
                                             ).length
                                         }}</span
                                     >
@@ -563,7 +563,7 @@
                                         {{
                                             filterNotificationsReceived(
                                                 invitation.notifications,
-                                                'invitation'
+                                                'invitation',
                                             ).length
                                         }}</span
                                     >
@@ -653,7 +653,7 @@
                                             {{
                                                 filterNotifications(
                                                     invitation.notifications,
-                                                    'credentials'
+                                                    'credentials',
                                                 ).length
                                             }}</span
                                         >
@@ -673,7 +673,7 @@
                                             {{
                                                 filterNotificationsReceived(
                                                     invitation.notifications,
-                                                    'credentials'
+                                                    'credentials',
                                                 ).length
                                             }}</span
                                         >
@@ -756,7 +756,7 @@
                                     @click="
                                         markAsReceived(
                                             invitation,
-                                            'credentials'
+                                            'credentials',
                                         )
                                     "
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
@@ -866,7 +866,7 @@ export default {
     data() {
         return {
             service: service,
-            downloading: false
+            downloading: false,
         }
     },
 
@@ -874,7 +874,7 @@ export default {
         ...mapActions(service.name, [
             'selectEvent',
             'selectSubEvent',
-            'selectInvitation'
+            'selectInvitation',
         ]),
 
         eventsGotoPage(page) {
@@ -885,7 +885,7 @@ export default {
             this.gotoPage(
                 page,
                 'subEvents',
-                this.subEvents.data.links.pagination
+                this.subEvents.data.links.pagination,
             )
         },
 
@@ -893,7 +893,7 @@ export default {
             this.gotoPage(
                 page,
                 'invitations',
-                this.invitations.data.links.pagination
+                this.invitations.data.links.pagination,
             )
         },
 
@@ -902,12 +902,12 @@ export default {
                 'Deseja realmente desconvidar ' +
                     invitation.person_institution.person.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch(
                         'invitations/unInvite',
-                        invitation
+                        invitation,
                     )
                 }
             })
@@ -918,12 +918,12 @@ export default {
                 'Deseja realmente confirmar a presença de ' +
                     invitation.person_institution.person.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch(
                         'invitations/markAsAccepted',
-                        invitation
+                        invitation,
                     )
                 }
             })
@@ -934,12 +934,12 @@ export default {
                 'Deseja realment marcar como recebido o covite de ' +
                     invitation.person_institution.person.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('invitations/markAsReceived', {
                         invitation: invitation,
-                        type: type
+                        type: type,
                     })
                 }
             })
@@ -950,12 +950,12 @@ export default {
                 'Deseja realmente declinar a presença de ' +
                     invitation.person_institution.person.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch(
                         'invitations/markAsDeclined',
-                        invitation
+                        invitation,
                     )
                 }
             })
@@ -968,7 +968,7 @@ export default {
                 this.$store.getters['invitations/getDataUrl'] +
                     '/' +
                     invitation.id +
-                    '/download'
+                    '/download',
             ).then(() => {
                 invitation.busy = false
             })
@@ -980,12 +980,12 @@ export default {
                 'Deseja realmente enviar as credencias para ' +
                     invitation.person_institution.person.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch(
                         'invitations/sendCredentials',
-                        invitation
+                        invitation,
                     )
                 }
             })
@@ -997,12 +997,12 @@ export default {
                 'Deseja realmente enviar o convite para ' +
                     invitation.person_institution.person.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch(
                         'invitations/sendInvitation',
-                        invitation
+                        invitation,
                     )
                 }
             })
@@ -1011,7 +1011,7 @@ export default {
         confirmSubEvent(subEvent) {
             confirm(
                 'Deseja realmente confirmar ' + subEvent.name + '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('subEvents/confirm', subEvent)
@@ -1024,7 +1024,7 @@ export default {
                 'Deseja realmente confirmar que o evento foi realizado ' +
                     subEvent.name +
                     '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     this.finalizeSubEventReconfirmed(subEvent)
@@ -1035,7 +1035,7 @@ export default {
         finalizeSubEventReconfirmed(subEvent) {
             confirm(
                 'Tem certeza que deseja marcar este sub-evento como realizado?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     return this.$store.dispatch('subEvents/finalize', subEvent)
@@ -1046,7 +1046,7 @@ export default {
         sendInvitations(event) {
             confirm(
                 'Você tem certeza que deseja enviar todos os convites agora?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     event.busy = true
@@ -1063,7 +1063,7 @@ export default {
         sendCredentials(event) {
             confirm(
                 'Você tem certeza que deseja enviar todas as credenciais agora?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     event.busy = true
@@ -1080,7 +1080,7 @@ export default {
         sendCredentials(event) {
             confirm(
                 'Você tem certeza que deseja enviar todas as credenciais agora?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     event.busy = true
@@ -1101,7 +1101,7 @@ export default {
                 this.$store.getters['subEvents/getDataUrl'] +
                     '/' +
                     subEvent.id +
-                    '/download'
+                    '/download',
             ).then(() => {
                 this.downloading = false
             })
@@ -1118,7 +1118,7 @@ export default {
                     ' - ' +
                     subEvent.sector.name +
                     '" para os outros sub-eventos?',
-                this
+                this,
             ).then(value => {
                 confirm('CERTEZA ABSOLUTA?', this).then(value => {
                     if (value) {
@@ -1145,9 +1145,9 @@ export default {
                 this.filterNotifications(notifications, type),
                 notification => {
                     return notification.received_at
-                }
+                },
             )
-        }
+        },
     },
 
     computed: {
@@ -1159,9 +1159,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         eventsPerPage: {
@@ -1172,7 +1172,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('events/setPerPage', perPage)
-            }
+            },
         },
 
         subEventsFilterText: {
@@ -1183,9 +1183,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'subEvents/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         subEventsPerPage: {
@@ -1196,7 +1196,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('subEvents/setPerPage', perPage)
-            }
+            },
         },
 
         invitationsFilterText: {
@@ -1207,9 +1207,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'invitations/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         hasNoEmailCheckbox: {
@@ -1221,11 +1221,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'hasNoEmail',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         sentCheckbox: {
@@ -1237,11 +1237,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'sent',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         notSentCheckbox: {
@@ -1253,11 +1253,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'notSent',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         receivedCheckbox: {
@@ -1269,11 +1269,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'received',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         notReceivedCheckbox: {
@@ -1285,11 +1285,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'notReceived',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         credentialsSentCheckbox: {
@@ -1301,11 +1301,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'credentialsSent',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         credentialsNotSentCheckbox: {
@@ -1317,11 +1317,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'credentialsNotSent',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         credentialsReceivedCheckbox: {
@@ -1333,11 +1333,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'credentialsReceived',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         credentialsNotReceivedCheckbox: {
@@ -1349,11 +1349,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'credentialsNotReceived',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         acceptedCheckbox: {
@@ -1365,11 +1365,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'accepted',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         declinedCheckbox: {
@@ -1381,11 +1381,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'declined',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         notAcceptedCheckbox: {
@@ -1397,11 +1397,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'notAccepted',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         notCheckedInCheckbox: {
@@ -1413,11 +1413,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'notCheckedIn',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         notAnsweredCheckbox: {
@@ -1429,11 +1429,11 @@ export default {
             set(filter) {
                 this.$store.commit('invitations/mutateFilterCheckbox', {
                     field: 'notAnswered',
-                    value: filter
+                    value: filter,
                 })
 
                 this.$store.dispatch('invitations/load')
-            }
+            },
         },
 
         invitationsPerPage: {
@@ -1444,9 +1444,9 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('invitations/setPerPage', perPage)
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>
 
