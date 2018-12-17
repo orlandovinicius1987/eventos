@@ -50,6 +50,8 @@ const __emptyModel = {
     started_by: null,
     time: null,
     confirmations_end_date: null,
+    send_invitations: null,
+    send_credentials: null,
 }
 
 const state = merge_objects(statesMixin.common, {

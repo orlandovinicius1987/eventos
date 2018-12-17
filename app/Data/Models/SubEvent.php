@@ -28,6 +28,8 @@ class SubEvent extends Base
         'ended_at',
         'ended_by',
         'confirmations_end_date',
+        'send_invitations',
+        'send_credentials',
     ];
 
     protected $dates = [
