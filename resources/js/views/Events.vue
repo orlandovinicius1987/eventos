@@ -77,7 +77,7 @@
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
                                     :disabled="
-                                        cannot('update') || !environment.debug
+                                        cannot('edit') || !environment.debug
                                     "
                                     title="Enviar todas as credenciais não enviadas"
                                 >
@@ -94,7 +94,7 @@
                                 <button
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     @click="sendInvitations(event)"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Enviar todos os convites não enviados"
                                 >
                                     <i
@@ -111,7 +111,7 @@
                                     :to="'/events/' + event.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Editar Evento"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -218,7 +218,7 @@
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
                                     @click="replicateCommonInfo(subEvent)"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Replicar textos para todos os outros subeventos"
                                 >
                                     <i class="fa fa-copy"></i>
@@ -229,7 +229,7 @@
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
                                     :disabled="
-                                        cannot('update') ||
+                                        cannot('edit') ||
                                             !environment.events.confirmation
                                                 .enabled
                                     "
@@ -245,7 +245,7 @@
                                     "
                                     class="btn btn-primary btn-sm btn-table-utility ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Finalizar Sub-evento"
                                 >
                                     <i class="fa fa-times-circle"></i>
@@ -261,7 +261,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Editar Sub-evento"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -713,7 +713,7 @@
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event.send_invitations
                                     "
@@ -726,7 +726,7 @@
                                     @click="sendCredential(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event.send_credentials
                                     "
@@ -745,7 +745,7 @@
                                     "
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.received_at
                                     "
@@ -763,7 +763,7 @@
                                     "
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             invitation.accepted_at &&
                                             !invitation.credentials_received_at
@@ -777,7 +777,7 @@
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.accepted_at
                                     "
@@ -790,7 +790,7 @@
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.declined_at
                                     "
@@ -803,7 +803,7 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('update') &&
+                                        can('edit') &&
                                             canSendEmail(invitation) &&
                                             invitation.accepted_at
                                     "
@@ -831,7 +831,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Ver todos os dados do convite"
                                 >
                                     <i class="fa fa-eye"></i>
@@ -840,7 +840,7 @@
                                 <button
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('update') && !invitation.sent_at"
+                                    v-if="can('edit') && !invitation.sent_at"
                                     title="Excluir convite (ainda não foi enviado)"
                                 >
                                     <i class="fa fa-trash"></i>

@@ -22,7 +22,7 @@
 
                             <div class="card-body">
                                 <button
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('receptive')"
                                     @click="receptive(subEvent)"
                                     class="btn btn-sm btn-block btn-danger bnt-lg"
                                 >
@@ -57,7 +57,6 @@
                                 >
                                     {{ item.count }}
                                 </h1>
-
                                 <router-link
                                     :to="item.route"
                                     tag="button"
