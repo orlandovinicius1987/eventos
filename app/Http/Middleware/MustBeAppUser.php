@@ -17,7 +17,7 @@ class MustBeAppUser
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Gate::allows('canRead')) {
+        if (!Gate::allows('appUser')) {
             abort(403, 'Você não está autorizado a usar este sistema');
         }
 

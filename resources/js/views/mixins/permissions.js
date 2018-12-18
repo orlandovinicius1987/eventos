@@ -1,7 +1,11 @@
 export default {
     methods: {
         can(permission) {
-            return permission && true
+            if (this.environment.user.hasOwnProperty('permissions')) {
+                return JSON.parse(this.environment.user.permissions).hasOwnProperty(permission)
+            }else{
+                return false
+            }
         },
 
         cannot(permission) {

@@ -61,6 +61,7 @@
                                 </a>
                             </router-link>
 
+                        @can('canRead')
                             <router-link id="events-menu" to="/events" tag="li" class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="vl_events"></i>
@@ -132,6 +133,7 @@
                                     </router-link>
                                 </div>
                             </li>
+                            @endCan
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
