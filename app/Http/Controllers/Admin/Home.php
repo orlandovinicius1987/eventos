@@ -15,10 +15,20 @@ class Home extends Controller
      */
     public function index()
     {
-        return view('admin.index')->with(
-            'clients',
-            app(ClientsRepository::class)->all()
-        );
+        $clientsAllowed = app(ClientsRepository::class)->all();
+        $profiles = collect(json_decode(current_user()->profiles, true));
+
+        if (!$profiles->keys()->contains('Administrador')) {
+            $clientsAllowed = $clientsAllowed
+                ->map(function ($client) {
+                    return $client;
+                })
+                ->reject(function ($client) use ($profiles) {
+                    return !$profiles->keys()->contains($client->name);
+                });
+        }
+
+        return view('admin.index')->with('clients', $clientsAllowed);
     }
 
     public function changeClient(HomeUpdate $request)
