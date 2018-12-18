@@ -56,4 +56,8 @@ class User extends Authenticatable
     {
         return 1;
     }
+    public function getJoins()
+    {
+        return coollect($this->joins);
+    }
 }

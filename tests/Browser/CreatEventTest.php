@@ -28,6 +28,7 @@ class CreatEventTest extends DuskTestCase
                 $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
                     ->visit('/admin#')
                     ->waitForText('Painel')
+                    ->assertSee('Painel')
                     ->click('@opcao-eventos')
                     ->waitForText('Nome')
                     ->click('@create-event-button')

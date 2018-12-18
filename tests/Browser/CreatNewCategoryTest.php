@@ -26,6 +26,7 @@ class CreatNewCategoryTest extends DuskTestCase
                 $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
                     ->visit('/admin#')
                     ->waitForText('Painel')
+                    ->assertSee('Painel')
                     ->click('@opcao-tabelas')
                     ->waitForText('Importar')
                     ->click('@opcao-categorias')
