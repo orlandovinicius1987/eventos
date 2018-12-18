@@ -115,6 +115,16 @@
 </template>
 
 <script>
+import Vue from 'vue'
+import * as VueGoogleMaps from 'vue2-google-maps'
+
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: laravel.google_maps.api_key,
+        libraries: 'places',
+    },
+})
+
 export default {
     props: ['address', 'form', 'googleMaps'],
 

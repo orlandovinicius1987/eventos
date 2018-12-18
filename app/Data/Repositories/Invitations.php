@@ -349,11 +349,7 @@ class Invitations extends Repository
         foreach ($invitations as $invitation) {
             $invitation->sub_event_id = $newSubEventId;
 
-            $invitation->sent_at = null;
-
             $invitation->save();
-
-            $invitation->sendInvitation();
 
             event(new InvitationUpdated($invitation));
         }
