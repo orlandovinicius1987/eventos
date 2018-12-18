@@ -7,6 +7,12 @@ import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = {}
 
+const __emptyFilterSelects = {
+    sub_event: null,
+    institution: null,
+    role: null,
+}
+
 const state = merge_objects(statesMixin.common, {
     subEvent: { id: null },
 
@@ -21,11 +27,7 @@ const state = merge_objects(statesMixin.common, {
 
     data: {
         filter: {
-            selects: {
-                sub_event: null,
-                institution: null,
-                role: null,
-            },
+            selects: clone(__emptyFilterSelects),
         },
     },
 })
@@ -40,7 +42,11 @@ const actions = merge_objects(actionsMixin, {
     },
 })
 
-const mutations = merge_objects(mutationsMixin, {})
+const mutations = merge_objects(mutationsMixin, {
+    clearFilterSelects(state, payload) {
+        state.data.filter.selects = clone(__emptyFilterSelects)
+    },
+})
 
 let getters = gettersMixin
 
