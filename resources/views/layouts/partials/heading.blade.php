@@ -154,16 +154,18 @@
 
                             <form id="change-client-form" action="{{ route('change.client') }}" method="post" >
                                 @csrf
-                                <select name="clientId" class="select2 form-control" id="clientId" onchange="submit()">
-                                    <option value="">SELECIONE</option>
-                                    @foreach ($clients as $key => $client)
-                                        @if(get_current_client_id() == $client->id)
-                                            <option value="{{ $client->id }}" selected="selected">{{ $client->name}}</option>
-                                        @else
-                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
+                                @if(isset($clients) && count($clients) > 1)
+                                    <select name="clientId" class="select2 form-control" id="clientId" onchange="submit()">
+                                        <option value="">SELECIONE</option>
+                                        @foreach ($clients as $key => $client)
+                                            @if(get_current_client_id() == $client->id)
+                                                <option value="{{ $client->id }}" selected="selected">{{ $client->name}}</option>
+                                            @else
+                                                <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                @endif
                             </form>
                         @endguest
                     </ul>
