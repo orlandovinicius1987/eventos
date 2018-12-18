@@ -367,7 +367,9 @@ export default {
 
     beforeDestroy() {
         this.$store.state['invitables'].data.filter.text = null
-    }
+
+        this.$store.commit('invitables/clearFilterSelects')
+    },
 }
 </script>
 
