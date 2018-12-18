@@ -96,7 +96,7 @@
                             { title: 'Setor', trClass: 'text-center' },
                             'Convidado',
                             { title: 'Check-in', trClass: 'text-center' },
-                            { title: 'Photo', trClass: 'text-center' },
+                            { title: 'Foto', trClass: 'text-center' },
                         ]"
                     >
                         <tr
