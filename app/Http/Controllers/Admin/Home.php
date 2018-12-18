@@ -28,7 +28,10 @@ class Home extends Controller
                 });
         }
 
-        return view('admin.index')->with('clients', $clientsAllowed);
+        return view('admin.index')->with(
+            'clients',
+            count($clientsAllowed) > 1 ? $clientsAllowed : null
+        );
     }
 
     public function changeClient(HomeUpdate $request)
