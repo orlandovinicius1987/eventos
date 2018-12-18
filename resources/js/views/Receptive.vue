@@ -6,9 +6,13 @@
 
         <div class="card card-block bg-faded">
             <div class="row">
-                <div class="col-6 text-center">confirmados: 657</div>
+                <div class="col-6 text-center" v-if="receptive.data.statistics">
+                    confirmados: {{ receptive.data.statistics.confirmed }}
+                </div>
 
-                <div class="col-6 text-center">ingressaram: 128</div>
+                <div class="col-6 text-center" v-if="receptive.data.statistics">
+                    ingressaram: {{ receptive.data.statistics.totalcheckedin }}
+                </div>
             </div>
         </div>
 
@@ -49,13 +53,12 @@
                                     ? 'btn-success'
                                     : 'btn-danger')
                         "
-                    >
-                        {{
+                        v-html="
                             getCheckedIn().errors
                                 ? checkedIn.errors
                                 : 'Check-in feito com sucesso!'
-                        }}
-                    </div>
+                        "
+                    ></div>
                 </div>
             </div>
         </div>
@@ -109,7 +112,7 @@
                                             .sector
                                             ? invitation.sub_event.sector.color
                                             : '',
-                                        'text-transform': 'uppercase'
+                                        'text-transform': 'uppercase',
                                     }"
                                 >
                                     {{
@@ -169,7 +172,7 @@ import { parse, format } from 'date-fns'
 const service = {
     name: 'receptive',
     uri: 'events/{events.selected.id}/receptive',
-    isForm: true
+    isForm: true,
 }
 
 export default {
@@ -185,14 +188,14 @@ export default {
             result: '',
             noStreamApiSupport: false,
             inv: '',
-            qrCodeError: null
+            qrCodeError: null,
         }
     },
 
     computed: {
         ...mapState({
-            checkedIn: state => state.receptive.checkedIn
-        })
+            checkedIn: state => state.receptive.checkedIn,
+        }),
     },
 
     methods: {
@@ -200,12 +203,11 @@ export default {
 
         confirmCheckin(invitation) {
             if (invitation.checkin_at == null) {
-                dd(invitation)
                 confirm(
                     'Deseja realizar o check-in de ' +
                         invitation.person_institution.person.name +
                         '?',
-                    this
+                    this,
                 ).then(value => {
                     if (value) {
                         this.makeCheckin(invitation.uuid)
@@ -260,12 +262,12 @@ export default {
 
         getCheckedInTime(invitation) {
             return format(parse(invitation.checkin_at), 'HH[h]mm')
-        }
+        },
     },
 
     mounted() {
         this.$store.dispatch('receptive/load')
-    }
+    },
 }
 </script>
 

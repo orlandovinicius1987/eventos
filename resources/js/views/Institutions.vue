@@ -8,7 +8,7 @@
                     :title="'Instituições (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/institutions/create',
-                        disabled: cannot('create')
+                        disabled: cannot('create'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -23,7 +23,7 @@
                             'Nome',
                             'Sigla',
                             'Número do partido',
-                            ''
+                            '',
                         ]"
                     >
                         <tr
@@ -33,8 +33,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     institution,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ institution.id }}</td>
@@ -80,9 +80,9 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
-    }
+    },
 }
 </script>
 

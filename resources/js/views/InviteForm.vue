@@ -1,4 +1,4 @@
-recordButtonText<template>
+<template>
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
@@ -64,7 +64,7 @@ recordButtonText<template>
                             :options="
                                 except(
                                     this.environment.tables.sub_events,
-                                    this.subEvents.form.fields.id
+                                    this.subEvents.form.fields.id,
                                 )
                             "
                         ></app-select>
@@ -98,7 +98,7 @@ recordButtonText<template>
                             'Instituição',
                             'Cargo',
                             'Convidado',
-                            ''
+                            '',
                         ]"
                     >
                         <tr
@@ -107,8 +107,8 @@ recordButtonText<template>
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
                                     invitable,
-                                    invitables.selected
-                                )
+                                    invitables.selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ invitable.id }}</td>
@@ -173,7 +173,7 @@ import { mapState } from 'vuex'
 const service = {
     name: 'invitables',
     uri:
-        'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations/invitables'
+        'events/{events.selected.id}/sub-events/{subEvents.selected.id}/invitations/invitables',
 }
 
 export default {
@@ -188,7 +188,7 @@ export default {
         return {
             service: service,
 
-            checkedPeople: {}
+            checkedPeople: {},
         }
     },
 
@@ -196,7 +196,7 @@ export default {
         ...mapState({
             events: state => state.events,
 
-            subEvents: state => state.subEvents
+            subEvents: state => state.subEvents,
         }),
 
         notInvited: {
@@ -209,17 +209,17 @@ export default {
                 if (filter) {
                     this.$store.commit('invitables/mutateFilterCheckbox', {
                         field: 'not_invited',
-                        value: this.subEvents.selected.id
+                        value: this.subEvents.selected.id,
                     })
                 } else {
                     this.$store.commit('invitables/mutateFilterCheckbox', {
                         field: 'not_invited',
-                        value: null
+                        value: null,
                     })
                 }
 
                 this.$store.dispatch('invitables/load')
-            }
+            },
         },
 
         selectedSubEvent: {
@@ -227,13 +227,13 @@ export default {
                 return this.$store.state['invitables'].data.filter.selects[
                     'sub_event'
                 ]
-            }
+            },
         },
 
         recordButtonText: {
             get() {
                 return this.selectedSubEvent ? 'copiar convidados' : 'convidar'
-            }
+            },
         },
 
         invitablesFilterText: {
@@ -246,9 +246,9 @@ export default {
 
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         invitablesPerPage: {
@@ -261,7 +261,7 @@ export default {
                 this.resetCheckedPeople()
 
                 return this.$store.dispatch('invitables/setPerPage', perPage)
-            }
+            },
         },
 
         subEventSelectFilter: {
@@ -278,10 +278,10 @@ export default {
 
                 return this.$store.dispatch('invitables/mutateFilterSelect', {
                     field: 'sub_event',
-                    value: id
+                    value: id,
                 })
-            }
-        }
+            },
+        },
     },
 
     methods: {
@@ -289,7 +289,7 @@ export default {
             this.gotoPage(
                 page,
                 'invitables',
-                this.invitables.data.links.pagination
+                this.invitables.data.links.pagination,
             )
         },
 
@@ -311,7 +311,7 @@ export default {
             if (!this.checkedPeople.hasOwnProperty(invitation.id)) {
                 this.checkedPeople[invitation.id] = {
                     id: invitation.id,
-                    checked: false
+                    checked: false,
                 }
             }
 
@@ -328,7 +328,7 @@ export default {
 
                 invitees: _.filter(this.checkedPeople, person => {
                     return person.checked
-                })
+                }),
             }
 
             this.resetCheckedPeople()
@@ -346,7 +346,7 @@ export default {
 
                 invitees: _.filter(this.checkedPeople, person => {
                     return person.checked
-                })
+                }),
             }
 
             this.resetCheckedPeople()
@@ -362,8 +362,14 @@ export default {
             items.rows = except(list.rows, id)
 
             return items
-        }
-    }
+        },
+    },
+
+    beforeDestroy() {
+        this.$store.state['invitables'].data.filter.text = null
+
+        this.$store.commit('invitables/clearFilterSelects')
+    },
 }
 </script>
 

@@ -61,6 +61,10 @@ const actions = merge_objects(actionsMixin, {
             '.App\\Events\\SubEventUpdated',
             () => {
                 context.dispatch('subEvents/load', payload, { root: true })
+
+                context.dispatch('invitations/load', payload, { root: true })
+
+                context.dispatch('invitables/load', payload, { root: true })
             },
         )
 

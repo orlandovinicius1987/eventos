@@ -112,18 +112,6 @@ abstract class Base extends Model implements AuditableContract
         return parent::save($options);
     }
 
-    public function sendNotifications()
-    {
-        return $this;
-    }
-
-    public function logEmailWasSent()
-    {
-        $this->email_sent_at = now();
-
-        $this->save();
-    }
-
     public function sendNotificationsForClass(string $class)
     {
         if (($notifiables = $this->getNotifiables())->count() == 0) {
@@ -149,6 +137,11 @@ abstract class Base extends Model implements AuditableContract
 
     public function getCurrentAuthenticatedUserId()
     {
-        return auth()->user()->id ?? null;
+        return current_user()->id ?? null;
+    }
+
+    public function hasAttribute($attr)
+    {
+        return array_key_exists($attr, $this->attributes);
     }
 }

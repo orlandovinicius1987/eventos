@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row mb-5">
         <div class="col-12 p-0">
-            <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+            <nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
 
                 {{--<a class="navbar-brand" href="{{ url('/') }}">
                    <img src="/svg/logo-eventos-alerj.svg" class="img-fluid"> <span class="brand-complement">cerimonial</span>
@@ -11,12 +11,30 @@
                     <img src="/svg/logo-eventos-alerj.svg" class="img-fluid">
                     <div class="brand-name align-self-center"></div>
                 </a> --}}
+{{--
 
                 <div class="d-flex bd-highlight mb-3">
                     <div class="align-self-center p-2 bd-highlight">
                         <img src="/svg/logo-eventos-alerj.svg" class="brand-logo align-self-center">
                     </div>
                 </div>
+
+--}}
+{{--
+
+
+                <a class="navbar-brand pb-2" href="#">
+                    <img src="/svg/logo-eventos-alerj.svg"  class="svg-logo" alt="">
+                </a>
+
+--}}
+
+                <a href="#" class="navbar-brand">
+                    <img src="/svg/logo-eventos-alerj.svg" height="30" alt="" class="d-inline-block align-top">
+                </a>
+
+
+
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -118,7 +136,7 @@
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fas fa-user"></i> {{ Auth::user()->name }} <span class="caret"></span>
+                                    <i class="fas fa-user"></i> {{ Auth::user()->username }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

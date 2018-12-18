@@ -82,7 +82,7 @@
                             'Tratamento',
                             'Nome',
                             'Nome público',
-                            ''
+                            '',
                         ]"
                     >
                         <tr
@@ -92,8 +92,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary text-white': isCurrent(
                                     person,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ person.id }}</td>
@@ -137,6 +137,7 @@
                                     '/categories/create',
                                 disabled: cannot('create'),
                                 dusk:'add-category'
+
                             }"
                             :per-page="personCategoriesPerPage"
                             @set-per-page="personCategoriesPerPage = $event"
@@ -160,8 +161,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             personCategory,
-                                            personCategories.selected
-                                        )
+                                            personCategories.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -175,7 +176,7 @@
                                         <div
                                             @click="
                                                 confirmDeletePersonCategory(
-                                                    personCategory
+                                                    personCategory,
                                                 )
                                             "
                                             class="btn btn-danger btn-sm mr-1 pull-right"
@@ -224,13 +225,13 @@
                                     'Instituição',
                                     'Função',
                                     'Status',
-                                    ''
+                                    '',
                                 ]"
                             >
                                 <tr
                                     @click="
                                         selectPersonInstitution(
-                                            personInstitution
+                                            personInstitution,
                                         )
                                     "
                                     v-for="personInstitution in personInstitutions
@@ -240,8 +241,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             personInstitution,
-                                            personInstitutions.selected
-                                        )
+                                            personInstitutions.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -334,7 +335,7 @@
                                     'Tipo',
                                     'Contato',
                                     'Status',
-                                    ''
+                                    '',
                                 ]"
                             >
                                 <tr
@@ -345,8 +346,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             contact,
-                                            contacts.selected
-                                        )
+                                            contacts.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -413,7 +414,7 @@
                                     '/person-institutions/' +
                                     addresses.personInstitution.id +
                                     '/addresses/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="addressesPerPage"
                             @set-per-page="addressesPerPage = $event"
@@ -432,7 +433,7 @@
                                     'Complemento',
                                     'Bairro',
                                     'Cidade',
-                                    ''
+                                    '',
                                 ]"
                                 :rows="addresses.data.rows"
                             >
@@ -444,8 +445,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             address,
-                                            addresses.selected
-                                        )
+                                            addresses.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -523,7 +524,7 @@
                                     '/person-institutions/' +
                                     advisors.personInstitution.id +
                                     '/advisors/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="advisorsPerPage"
                             @set-per-page="advisorsPerPage = $event"
@@ -540,7 +541,7 @@
                                     'Tratamento',
                                     'Nome',
                                     'Nome Público',
-                                    ''
+                                    '',
                                 ]"
                             >
                                 <tr
@@ -551,8 +552,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             advisor,
-                                            advisors.selected
-                                        )
+                                            advisors.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -614,7 +615,7 @@
                                     '/advisors/' +
                                     advisorContacts.personInstitution.id +
                                     '/contacts/create',
-                                disabled: cannot('create')
+                                disabled: cannot('create'),
                             }"
                             :per-page="advisorContactsPerPage"
                             @set-per-page="advisorContactsPerPage = $event"
@@ -641,8 +642,8 @@
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
                                             advisorContact,
-                                            advisorContacts.selected
-                                        )
+                                            advisorContacts.selected,
+                                        ),
                                     }"
                                 >
                                     <td class="align-middle">
@@ -703,7 +704,7 @@ export default {
 
     data() {
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -714,7 +715,7 @@ export default {
             'selectAddress',
             'selectContact',
             'selectAdvisor',
-            'selectAdvisorContacts'
+            'selectAdvisorContacts',
         ]),
 
         peopleGotoPage(page) {
@@ -725,7 +726,7 @@ export default {
             this.gotoPage(
                 page,
                 'personInstitutions',
-                this.personInstitutions.data.links.pagination
+                this.personInstitutions.data.links.pagination,
             )
         },
 
@@ -733,7 +734,7 @@ export default {
             this.gotoPage(
                 page,
                 'addresses',
-                this.addresses.data.links.pagination
+                this.addresses.data.links.pagination,
             )
         },
 
@@ -745,7 +746,7 @@ export default {
             this.gotoPage(
                 page,
                 'advisorContacts',
-                this.contacts.data.links.pagination
+                this.contacts.data.links.pagination,
             )
         },
 
@@ -753,7 +754,7 @@ export default {
             this.gotoPage(
                 page,
                 'personCategories',
-                this.personCategories.data.links.pagination
+                this.personCategories.data.links.pagination,
             )
         },
 
@@ -764,7 +765,7 @@ export default {
         confirmDeletePersonCategory(personCategory) {
             confirm(
                 'Deseja realmente desassociar ' + personCategory.name + '?',
-                this
+                this,
             ).then(value => {
                 if (value) {
                     this.deletePersonCategory(personCategory)
@@ -775,9 +776,9 @@ export default {
         deletePersonCategory(personCategory) {
             return this.$store.dispatch(
                 'personCategories/unCategorize',
-                personCategory
+                personCategory,
             )
-        }
+        },
     },
 
     computed: {
@@ -789,9 +790,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     this.service.name + '/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         peoplePerPage: {
@@ -802,7 +803,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('people/setPerPage', perPage)
-            }
+            },
         },
 
         personInstitutionsFilterText: {
@@ -813,9 +814,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'personInstitutions/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         personInstitutionsPerPage: {
@@ -827,9 +828,9 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personInstitutions/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
+            },
         },
 
         addressesFilterText: {
@@ -840,9 +841,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'addresses/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         addressesPerPage: {
@@ -853,7 +854,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('addresses/setPerPage', perPage)
-            }
+            },
         },
 
         contactsFilterText: {
@@ -864,9 +865,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'contacts/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         contactsPerPage: {
@@ -877,7 +878,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('contacts/setPerPage', perPage)
-            }
+            },
         },
 
         personCategoriesFilterText: {
@@ -888,9 +889,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'personCategories/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         personCategoriesPerPage: {
@@ -902,9 +903,9 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personCategories/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
+            },
         },
         advisorsFilterText: {
             get() {
@@ -914,9 +915,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'advisors/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         advisorsPerPage: {
@@ -927,7 +928,7 @@ export default {
 
             set(perPage) {
                 return this.$store.dispatch('advisors/setPerPage', perPage)
-            }
+            },
         },
         advisorContactsFilterText: {
             get() {
@@ -937,9 +938,9 @@ export default {
             set(filter) {
                 return this.$store.dispatch(
                     'advisorContacts/mutateSetQueryFilterText',
-                    filter
+                    filter,
                 )
-            }
+            },
         },
 
         advisorContactsPerPage: {
@@ -951,9 +952,9 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'advisorContacts/setPerPage',
-                    perPage
+                    perPage,
                 )
-            }
+            },
         },
 
         hasNoPhotoCheckbox: {
@@ -965,11 +966,11 @@ export default {
             set(filter) {
                 this.$store.dispatch('people/mutateFilterCheckbox', {
                     field: 'hasNoPhoto',
-                    value: filter
+                    value: filter,
                 })
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>
 

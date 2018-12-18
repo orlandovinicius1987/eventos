@@ -18,9 +18,9 @@ class Notifications extends Repository
 
     public function markAsReceived($uuid)
     {
-        if (($notification = $this->findByUuid($uuid))) {
+        if ($notification = $this->findByUuid($uuid)) {
             $notification->markAsReceived();
-        } elseif (($invitation = app(Invitations::class)->findByUuid($uuid))) {
+        } elseif ($invitation = app(Invitations::class)->findByUuid($uuid)) {
             $invitation->notifications->each(function ($notification) {
                 $notification->markAsReceived();
             });
@@ -51,7 +51,7 @@ class Notifications extends Repository
 
     public function registerMessageStatus($status, $data)
     {
-        if (($message = $this->findByMessageId($data['message_id']))) {
+        if ($message = $this->findByMessageId($data['message_id'])) {
             $message->{$status . '_at'} = $data['timestamp'];
 
             $message->save();

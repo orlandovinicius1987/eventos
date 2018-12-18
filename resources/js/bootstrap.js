@@ -119,16 +119,6 @@ Vue.use(Modal)
 Vue.use(Button)
 
 /**
- * Vue Google Maps
- */
-Vue.use(() => import('vue2-google-maps'), {
-    load: {
-        key: laravel.google_maps.api_key,
-        libraries: 'places',
-    },
-})
-
-/**
  * Autoload Vue components
  */
 const file = require.context('./components/app/', true, /\.vue$/i)

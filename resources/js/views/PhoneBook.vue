@@ -65,8 +65,8 @@
                                 'cursor-pointer': true,
                                 'bg-primary text-white': isCurrent(
                                     person,
-                                    selected
-                                )
+                                    selected,
+                                ),
                             }"
                         >
                             <td class="align-middle">{{ person.id }}</td>
@@ -96,7 +96,7 @@
                             'Função',
                             'Instituição',
                             'Tipo',
-                            'Contato'
+                            'Contato',
                         ]"
                     >
                         <tr
@@ -137,7 +137,7 @@ export default {
         this.$store.dispatch('environment/loadRoles')
         this.$store.dispatch('environment/loadInstitutions')
         return {
-            service: service
+            service: service,
         }
     },
 
@@ -148,10 +148,10 @@ export default {
             this.$store.dispatch('people/select', payload, { root: true })
 
             this.$store.dispatch('phoneBook/setPerson', payload, {
-                root: true
+                root: true,
             })
-        }
-    }
+        },
+    },
 }
 </script>
 
