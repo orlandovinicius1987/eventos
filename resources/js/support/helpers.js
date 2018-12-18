@@ -336,3 +336,13 @@ window.hash = str => {
 
     return hash
 }
+
+window.first_last = string => {
+    const splitted = string.split(' ')
+
+    const first = splitted[0]
+
+    const last = splitted.slice(-1).join(' ')
+
+    return splitted[0] + (first !== last ? ' ' + last : '')
+}
