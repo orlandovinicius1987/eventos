@@ -619,10 +619,10 @@ class Invitation extends Base
         switch ($content_type) {
             case 'invitation':
                 return '';
-            case 'credentials':
-                return 'credentials';
+            case 'credentials_':
+                return 'credentials_';
             case 'rejection':
-                return 'declination';
+                return 'declination_';
         }
 
         throw new \Exception("Content type no supported: {$content_type}");
@@ -635,9 +635,9 @@ class Invitation extends Base
     ) {
         $prefix = $this->getColumnNameByContentType($content_type);
 
-        $at = "{$prefix}_{$what}_at";
+        $at = "{$prefix}{$what}_at";
 
-        $by = "{$prefix}_{$what}_by_id";
+        $by = "{$prefix}{$what}_by_id";
 
         if ($this->hasAttribute($at) && !$this->$at) {
             $this->$at = now();
