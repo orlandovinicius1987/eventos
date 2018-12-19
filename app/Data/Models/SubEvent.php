@@ -7,7 +7,7 @@ use App\Events\SubEventUpdated;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
-class SubEvent extends Base
+class SubEvent extends BaseWithClient
 {
     /**
      * @var array
@@ -27,6 +27,7 @@ class SubEvent extends Base
         'associated_subevent_id',
         'ended_at',
         'ended_by',
+        'client_id',
         'confirmations_end_date',
         'send_invitations',
         'send_credentials',

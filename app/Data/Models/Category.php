@@ -2,12 +2,12 @@
 
 namespace App\Data\Models;
 
-class Category extends Base
+class Category extends BaseWithClient
 {
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'client_id'];
 
     protected $table = 'categories';
 
