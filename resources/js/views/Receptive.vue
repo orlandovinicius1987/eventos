@@ -4,21 +4,52 @@
             <h3>{{ events.selected.name }}</h3>
         </div>
 
-        <div class="card card-block bg-faded">
-            <div class="row">
-                <div class="col-6 text-center" v-if="receptive.data.statistics">
-                    confirmados: {{ receptive.data.statistics.confirmed }}
-                </div>
-
-                <div class="col-6 text-center" v-if="receptive.data.statistics">
-                    ingressaram: {{ receptive.data.statistics.totalcheckedin }}
-                </div>
-            </div>
-        </div>
-
         <div class="row" v-if="getCheckedIn().data">
             <div class="col-12">
-                <div v-if="getCheckedIn() && getCheckedIn().data">
+                <div
+                    v-if="getCheckedIn() && getCheckedIn().data"
+                    class="text-center"
+                >
+                    <h4 class="text-center">
+                        {{ getCheckedIn().data.person_institution.person.name }}
+                    </h4>
+
+                    <h6 class="text-center">
+                        {{ getCheckedIn().data.person_institution.role.name }}
+                    </h6>
+
+                    <h6 class="text-center">
+                        {{
+                            getCheckedIn().data.person_institution.institution
+                                .name
+                        }}
+                    </h6>
+
+                    <br />
+
+                    <span
+                        class="badge text-white mb-4 pt-2 pb-3 pl-5 pr-5"
+                        :style="{
+                            'background-color': getCheckedIn().data.sub_event
+                                .sector
+                                ? getCheckedIn().data.sub_event.sector.color
+                                : '',
+                            'text-transform': 'uppercase',
+                        }"
+                    >
+                        <h3 class="mb-0">
+                            {{
+                                getCheckedIn().data.sub_event.sector
+                                    ? getCheckedIn().data.sub_event.sector.name
+                                    : ''
+                            }}
+                        </h3>
+
+                        <br />
+
+                        {{ getCheckedIn().data.sub_event.place }}
+                    </span>
+
                     <img
                         :src="
                             getCheckedIn().data.person_institution.person
@@ -30,20 +61,8 @@
                     />
 
                     <h2 class="text-center">{{ getCheckedIn().data.code }}</h2>
-                    <h5 class="text-center">
-                        {{ getCheckedIn().data.person_institution.person.name }}
-                    </h5>
-                    <h6 class="text-center">
-                        {{ getCheckedIn().data.person_institution.role.name }}
-                    </h6>
-                    <h6 class="text-center">
-                        {{
-                            getCheckedIn().data.person_institution.institution
-                                .name
-                        }}
-                    </h6>
 
-                    <br /><br />
+                    <br />
 
                     <div
                         @click="clearCheckedIn()"
@@ -65,6 +84,26 @@
 
         <div class="row" v-if="!getCheckedIn().data">
             <div class="col-sm-12 col-md-6">
+                <div class="card card-block bg-faded">
+                    <div class="row">
+                        <div
+                            class="col-6 text-center"
+                            v-if="receptive.data.statistics"
+                        >
+                            confirmados:
+                            {{ receptive.data.statistics.confirmed }}
+                        </div>
+
+                        <div
+                            class="col-6 text-center"
+                            v-if="receptive.data.statistics"
+                        >
+                            ingressaram:
+                            {{ receptive.data.statistics.totalcheckedin }}
+                        </div>
+                    </div>
+                </div>
+
                 <app-table-panel title="Leitura QRCode">
                     <div class="m-4">
                         <qrcode-drop-zone @decode="onDecode">
