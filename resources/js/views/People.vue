@@ -108,7 +108,7 @@
                                     :to="'/people/' + person.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('update')"
+                                    :disabled="cannot('edit')"
                                     title="Editar Pessoa"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -285,7 +285,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('update')"
+                                            :disabled="cannot('edit')"
                                             title="Editar Função"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -381,7 +381,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('update')"
+                                            :disabled="cannot('edit')"
                                             title="Editar Contato"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -491,7 +491,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('update')"
+                                            :disabled="cannot('edit')"
                                             title="Editar Endereço"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -578,7 +578,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('update')"
+                                            :disabled="cannot('edit')"
                                             title="Editar Assessor"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -670,7 +670,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('update')"
+                                            :disabled="cannot('edit')"
                                             title="Editar Contato do Assessor"
                                         >
                                             <i class="fa fa-edit"></i>

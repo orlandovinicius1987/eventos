@@ -46,5 +46,16 @@ class AuthServiceProvider extends ServiceProvider
                 'create'
             );
         });
+
+        Gate::define('appUser', function ($user) {
+            return app(UsersRepository::class)->userHasAnyPermission($user);
+        });
+
+        Gate::define('canReceptive', function ($user) {
+            return app(UsersRepository::class)->userHasPermission(
+                $user,
+                'receptive'
+            );
+        });
     }
 }

@@ -54,103 +54,93 @@
                                 <a class="nav-link" href="{{ route('login') }}">Entrar</a>
                             </li>
                         @else
-                            <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="vl_dashboard"></i>
-                                    <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
-                                </a>
-                            </router-link>
-
-                            <router-link id="events-menu" to="/events" tag="li" class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="vl_events"></i>
-                                    <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
-                                </a>
-                            </router-link>
-
-                            <router-link id="events-menu" to="/people" tag="li" class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="vl_events"></i>
-                                    <span class="nav-link-text"> <i class="fas fa-users"></i> Pessoas</span>
-                                </a>
-                            </router-link>
-
-
-
-                            <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="vl_events"></i>
-                                    <span class="nav-link-text"> <i class="fas fa-address-book"></i> Lista telefônica</span>
-                                </a>
-                            </router-link>
-
-
-
-                            <li class="nav-item dropdown">
-                                <a
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    id="tables-menu"
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
-                                >
-                                    <i class="fas fa-table"></i> Tabelas
-                                </a>
-
-                                <div class="dropdown-menu" aria-labelledby="dropdown01">
-                                    <router-link id="events-menu" to="/events" tag="li" class="dropdown-item">
-                                        Eventos
+                            @cannot('canRead')
+                                @can('canReceptive')
+                                    <router-link id="receptive-menu" to="/recept" tag="li" class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="vl_receptive"></i>
+                                            <span class="nav-link-text"><i class="fas fa-cogs"></i> Receptivo</span>
+                                        </a>
                                     </router-link>
+                                @endcan
+                            @else
+                                <router-link id="dashboard-menu" to="/dashboard" tag="li" class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="vl_dashboard"></i>
+                                        <span class="nav-link-text"><i class="fas fa-cogs"></i> Painel de Controle</span>
+                                    </a>
+                                </router-link>
 
-                                    <router-link id="people-menu" to="/people" tag="a" class="dropdown-item">
-                                        Pessoas
-                                    </router-link>
+                                <router-link id="events-menu" to="/events" tag="li" class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="vl_events"></i>
+                                        <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
+                                    </a>
+                                </router-link>
 
-                                    <router-link id="people-menu" to="/phone-book" tag="a" class="dropdown-item">
-                                        Lista telefônica
-                                    </router-link>
+                                <router-link id="events-menu" to="/people" tag="li" class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="vl_events"></i>
+                                        <span class="nav-link-text"> <i class="fas fa-users"></i> Pessoas</span>
+                                    </a>
+                                </router-link>
 
-                                    <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
-                                        Categorias
-                                    </router-link>
+                                <router-link id="events-menu" to="/phone-book" tag="li" class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="vl_events"></i>
+                                        <span class="nav-link-text"> <i class="fas fa-address-book"></i> Lista telefônica</span>
+                                    </a>
+                                </router-link>
 
-                                    <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item">
-                                        Funções
-                                    </router-link>
-
-                                    <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
-                                        Instituições
-                                    </router-link>
-
-                                    <router-link id="people-menu" to="/contact-types" tag="a" class="dropdown-item">
-                                        Tipos de Contatos
-                                    </router-link>
-
-                                    <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
-                                        Importar dados
-                                    </router-link>
-                                </div>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <i class="fas fa-user"></i> {{ Auth::user()->username }} <span class="caret"></span>
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                        Sair
+                                <li class="nav-item dropdown">
+                                    <a
+                                        class="nav-link dropdown-toggle"
+                                        href="#"
+                                        id="tables-menu"
+                                        data-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
+                                    >
+                                        <i class="fas fa-table"></i> Tabelas
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+                                        <router-link id="events-menu" to="/events" tag="li" class="dropdown-item">
+                                            Eventos
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/people" tag="a" class="dropdown-item">
+                                            Pessoas
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/phone-book" tag="a" class="dropdown-item">
+                                            Lista telefônica
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
+                                            Categorias
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item">
+                                            Funções
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
+                                            Instituições
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/contact-types" tag="a" class="dropdown-item">
+                                            Tipos de Contatos
+                                        </router-link>
+
+                                        <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
+                                            Importar dados
+                                        </router-link>
+                                    </div>
+                                </li>
+                            @endCan
+
+                            @include('layouts.partials.usermenu')
                         @endguest
                     </ul>
                 </div>
