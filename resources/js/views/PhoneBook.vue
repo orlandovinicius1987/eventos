@@ -29,7 +29,7 @@
         </div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     :title="'Pessoas (' + pagination.total + ')'"
                     :per-page="perPage"
