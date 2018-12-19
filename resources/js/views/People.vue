@@ -15,7 +15,7 @@
                             <h1 class="display-4 mb-0">{{ selected.name }}</h1>
                         </div>
 
-                        <div class="col-4">
+                        <div class="col-12 col-lg-4">
                             <img
                                 :src="makePhotoUrl(selected.photoUrl)"
                                 class="img-thumbnail rounded mx-auto d-block mb-2"
@@ -30,7 +30,7 @@
 
         <div class="row">
             <!-- LEFT COLUMN - PEOPLE -->
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     v-if="people.data.links"
                     :title="'Pessoas (' + pagination.total + ')'"
@@ -120,7 +120,7 @@
             </div>
 
             <!-- RIGHT COLUMN - ALL OTHER SUBTABLES -->
-            <div class="col-8">
+            <div class="col-12 col-lg-8">
                 <div class="row">
                     <div class="col-12">
                         <app-table-panel
