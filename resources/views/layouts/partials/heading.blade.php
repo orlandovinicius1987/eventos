@@ -13,7 +13,7 @@
                 </a> --}}
 {{--
 
-                <div class="d-flex bd-highlight mb-3">
+                <div class="d-flex bd-highlight mb-3" style="height: 100px">
                     <div class="align-self-center p-2 bd-highlight">
                         <img src="/svg/logo-eventos-alerj.svg" class="brand-logo align-self-center">
                     </div>
@@ -141,6 +141,24 @@
                             @endCan
 
                             @include('layouts.partials.usermenu')
+
+                            <form id="change-client-form" action="{{ route('change.client') }}" method="post" >
+                                @csrf
+
+                                @if (isset($clients) && count($clients) > 1)
+                                    <select name="clientId" class="select2 form-control" id="clientId" onchange="submit()">
+                                        <option value="">SELECIONE</option>
+
+                                        @foreach ($clients as $key => $client)
+                                            @if(get_current_client_id() == $client->id)
+                                                <option value="{{ $client->id }}" selected="selected">{{ $client->name }}</option>
+                                            @else
+                                                <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                @endif
+                            </form>
                         @endguest
                     </ul>
                 </div>
