@@ -15,7 +15,7 @@
                             <h1 class="display-4 mb-0">{{ selected.name }}</h1>
                         </div>
 
-                        <div class="col-12 col-lg-4">
+                        <div class="col-4">
                             <img
                                 :src="makePhotoUrl(selected.photoUrl)"
                                 class="img-thumbnail rounded mx-auto d-block mb-2"
