@@ -715,7 +715,8 @@
                                     v-if="
                                         can('edit') &&
                                             canSendEmail(invitation) &&
-                                            invitation.sub_event.send_invitations
+                                            invitation.sub_event
+                                                .send_invitations
                                     "
                                     title="Enviar convite"
                                 >
@@ -728,7 +729,8 @@
                                     v-if="
                                         can('edit') &&
                                             canSendEmail(invitation) &&
-                                            invitation.sub_event.send_credentials
+                                            invitation.sub_event
+                                                .send_credentials
                                     "
                                     title="Enviar credenciais"
                                     :disabled="

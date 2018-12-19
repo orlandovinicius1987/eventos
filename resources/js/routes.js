@@ -1,3 +1,4 @@
+import store from './store/store.js'
 import Vue from 'vue'
 
 import VueRouter from 'vue-router'
@@ -28,6 +29,7 @@ const EventsForm = () => import('./views/EventsForm')
 const SubEventsForm = () => import('./views/SubEventsForm')
 const Import = () => import('./views/Import')
 const PhoneBook = () => import('./views/PhoneBook')
+const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
 
 let routes = [
@@ -67,6 +69,10 @@ let routes = [
         path: '/events/:eventId/sub-events/:subEventId/update',
         component: SubEventsForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/recept',
+        component: Recept,
     },
     {
         path: '/receptive/:eventId',
@@ -247,7 +253,11 @@ router.beforeEach((to, from, next) => {
         if (result && result.length > 0) {
             next(result[0])
         } else {
-            next('/dashboard')
+            if (can(store.state['environment'].user, 'read')) {
+                next('/dashboard')
+            } else {
+                next('/recept')
+            }
         }
     }
 
