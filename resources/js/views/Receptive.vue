@@ -83,7 +83,7 @@
         </div>
 
         <div class="row" v-if="!getCheckedIn().data">
-            <div class="col-sm-12 col-md-6">
+            <div class="col-12">
                 <div class="card card-block bg-faded">
                     <div class="row">
                         <div
@@ -103,7 +103,9 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div class="col-sm-12 col-md-6">
                 <app-table-panel title="Leitura QRCode">
                     <div class="m-4">
                         <qrcode-drop-zone @decode="onDecode">
