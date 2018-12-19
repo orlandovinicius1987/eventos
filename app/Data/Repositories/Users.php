@@ -204,7 +204,7 @@ class Users extends Repository
      */
     public function userHasAnyPermission($user)
     {
-        return (count($user->permissions_array) > 0);
+        return count($user->permissions_array) > 0;
     }
 
     public function updatePerPage($user, $size)

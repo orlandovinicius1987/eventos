@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="can('read', 'receptive')">
         <div class="py-2 text-center">
             <h3>{{ events.selected.name }}</h3>
         </div>
@@ -16,7 +16,7 @@
             </div>
         </div>
 
-        <div class="row" v-if="can('read') && getCheckedIn().data">
+        <div class="row" v-if="getCheckedIn().data">
             <div class="col-12">
                 <div v-if="getCheckedIn() && getCheckedIn().data">
                     <img
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="row" v-if="can('read') && !getCheckedIn().data">
+        <div class="row" v-if="!getCheckedIn().data">
             <div class="col-sm-12 col-md-6">
                 <app-table-panel title="Leitura QRCode">
                     <div class="m-4">
