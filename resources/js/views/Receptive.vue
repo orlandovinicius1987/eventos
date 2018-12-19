@@ -91,22 +91,26 @@
                     <app-table
                         :pagination="receptive.data.links.pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['Convite', 'Convidado', 'Check-in', 'Photo']"
+                        :columns="[
+                            'Convite',
+                            { title: 'Setor', trClass: 'text-center' },
+                            'Convidado',
+                            { title: 'Check-in', trClass: 'text-center' },
+                            { title: 'Photo', trClass: 'text-center' },
+                        ]"
                     >
                         <tr
                             v-for="invitation in receptive.data.rows"
                             class="cursor-pointer"
                             @click="confirmCheckin(invitation)"
                         >
-                            <td>{{ invitation.code }}</td>
-                            <td>
-                                <strong>{{
-                                    invitation.person_institution.person.name
-                                }}</strong
-                                ><br />
-                                {{ invitation.sub_event.name }}<br />
+                            <td class="align-middle text-center">
+                                {{ invitation.code }}
+                            </td>
+
+                            <td class="align-middle text-center">
                                 <span
-                                    class="badge text-white p-1"
+                                    class="badge text-white p-2"
                                     :style="{
                                         'background-color': invitation.sub_event
                                             .sector
@@ -123,15 +127,35 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="align-middle">
+                                <strong>{{
+                                    invitation.person_institution.person.name
+                                }}</strong>
+
+                                <br />
+
+                                {{ invitation.sub_event.name }}<br />
+                            </td>
+
+                            <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span
-                                        v-if="invitation.checkin_at"
-                                        class="badge badge-success"
-                                        >{{
+                                    <div v-if="invitation.checkin_at">
+                                        <span class="badge badge-success">{{
                                             getCheckedInTime(invitation)
-                                        }}</span
-                                    >
+                                        }}</span>
+
+                                        <br />
+
+                                        <span class="text-sm"
+                                            ><small>{{
+                                                firstLast(
+                                                    invitation.checked_in_by
+                                                        .name,
+                                                )
+                                            }}</small></span
+                                        >
+                                    </div>
+
                                     <span
                                         v-if="!invitation.checkin_at"
                                         class="badge badge-danger"
@@ -140,7 +164,7 @@
                                 </h6>
                             </td>
 
-                            <td>
+                            <td class="align-middle text-center">
                                 <img
                                     :src="
                                         invitation.person_institution.person
@@ -262,6 +286,10 @@ export default {
 
         getCheckedInTime(invitation) {
             return format(parse(invitation.checkin_at), 'HH[h]mm')
+        },
+
+        firstLast(name) {
+            return first_last(name)
         },
     },
 

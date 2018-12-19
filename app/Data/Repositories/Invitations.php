@@ -473,6 +473,7 @@ class Invitations extends Repository
                 ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
                 ->whereNotNull('accepted_at')
                 ->where('event_id', $eventId)
+                ->orderByRaw('checkin_at desc nulls last')
         );
 
         $filltered['statistics'] = $this->getStatistics($eventId);
@@ -509,7 +510,7 @@ class Invitations extends Repository
             )
             ->get()
             ->each(function ($invitation) {
-                $invitation->thanked_at = now();
+                $invitation->thanks_sent_at = now();
 
                 $invitation->save();
             });
