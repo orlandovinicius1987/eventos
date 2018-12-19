@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Models\PersonInstitution;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Intervention\Image\Facades\Image;
 use App\Data\Models\Person as PersonModel;
@@ -106,5 +107,10 @@ class People extends Repository
         }
 
         return $query;
+    }
+
+    public function personInstitutions()
+    {
+        return $this->hasMany(PersonInstitution::class);
     }
 }
