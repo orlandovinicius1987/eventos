@@ -30,7 +30,7 @@
 
         <div class="row">
             <!-- LEFT COLUMN - PEOPLE -->
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     v-if="people.data.links"
                     :title="'Pessoas (' + pagination.total + ')'"
@@ -120,7 +120,7 @@
             </div>
 
             <!-- RIGHT COLUMN - ALL OTHER SUBTABLES -->
-            <div class="col-8">
+            <div class="col-12 col-lg-8">
                 <div class="row">
                     <div class="col-12">
                         <app-table-panel
