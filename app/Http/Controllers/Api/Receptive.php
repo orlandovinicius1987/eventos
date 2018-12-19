@@ -39,6 +39,10 @@ class Receptive extends Controller
     public function makeCheckin(Request $request, $eventId)
     {
         try {
+            if (!Gate::allows('canMakeCheckinIn')) {
+                return $this->response(false, 0, 'Usuário não autorizado para fazer checkin');
+            }
+
             $invitation = app(InvitationsRepository::class)->findByUuid(
                 $request->get('uuid')
             );
