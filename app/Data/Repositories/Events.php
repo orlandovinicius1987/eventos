@@ -2,8 +2,8 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\Event;
 use DB;
+use App\Data\Models\Event;
 
 class Events extends Repository
 {
