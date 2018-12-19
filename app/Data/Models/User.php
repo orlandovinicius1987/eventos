@@ -3,8 +3,8 @@
 namespace App\Data\Models;
 
 use App\Data\Models\Traits\Selectable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -63,5 +63,10 @@ class User extends Authenticatable
     public function getJoins()
     {
         return coollect([]);
+    }
+
+    public function getIsAdministratorAttribute()
+    {
+        return isset($this->profiles_array['Administrador']);
     }
 }

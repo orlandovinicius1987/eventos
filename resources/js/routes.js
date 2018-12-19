@@ -2,6 +2,7 @@ import store from './store/store.js'
 import Vue from 'vue'
 
 import VueRouter from 'vue-router'
+import ChangeInstitutionForm from './views/ChangeInstitutionForm'
 Vue.use(VueRouter)
 
 const Dashboard = () => import('./views/Dashboard')
@@ -87,6 +88,12 @@ let routes = [
         path:
             '/events/:eventId/sub-events/:subEventId/invitations/:invitationId/show',
         component: Invitation,
+        props: { mode: 'update' },
+    },
+    {
+        path:
+            '/events/:eventId/sub-events/:subEventId/invitations/:invitationId/change',
+        component: ChangeInstitutionForm,
         props: { mode: 'update' },
     },
     {
