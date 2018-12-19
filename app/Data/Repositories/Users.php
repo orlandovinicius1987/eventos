@@ -198,6 +198,15 @@ class Users extends Repository
         return false;
     }
 
+    /**
+     * @param $user
+     * @return bool
+     */
+    public function userHasAnyPermission($user)
+    {
+        return count($user->permissions_array) > 0;
+    }
+
     public function updatePerPage($user, $size)
     {
         $user->per_page = $size;

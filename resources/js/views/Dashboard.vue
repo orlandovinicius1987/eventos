@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="can('read', 'receptive')">
         <div class="py-2 text-center">
             <h2><i class="fas fa-cogs"></i> Painel de Controle</h2>
         </div>
@@ -22,7 +22,6 @@
 
                             <div class="card-body">
                                 <button
-                                    :disabled="cannot('update')"
                                     @click="receptive(subEvent)"
                                     class="btn btn-sm btn-block btn-danger bnt-lg"
                                 >
@@ -35,7 +34,7 @@
             </div>
         </div>
 
-        <div class="row" v-if="can('read')">
+        <div v-if="can('read')">
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
@@ -57,7 +56,6 @@
                                 >
                                     {{ item.count }}
                                 </h1>
-
                                 <router-link
                                     :to="item.route"
                                     tag="button"

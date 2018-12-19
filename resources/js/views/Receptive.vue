@@ -1,24 +1,55 @@
 <template>
-    <div>
+    <div v-if="can('read', 'receptive')">
         <div class="py-2 text-center">
             <h3>{{ events.selected.name }}</h3>
         </div>
 
-        <div class="card card-block bg-faded">
-            <div class="row">
-                <div class="col-6 text-center" v-if="receptive.data.statistics">
-                    confirmados: {{ receptive.data.statistics.confirmed }}
-                </div>
-
-                <div class="col-6 text-center" v-if="receptive.data.statistics">
-                    ingressaram: {{ receptive.data.statistics.totalcheckedin }}
-                </div>
-            </div>
-        </div>
-
-        <div class="row" v-if="can('read') && getCheckedIn().data">
+        <div class="row" v-if="getCheckedIn().data">
             <div class="col-12">
-                <div v-if="getCheckedIn() && getCheckedIn().data">
+                <div
+                    v-if="getCheckedIn() && getCheckedIn().data"
+                    class="text-center"
+                >
+                    <h4 class="text-center">
+                        {{ getCheckedIn().data.person_institution.person.name }}
+                    </h4>
+
+                    <h6 class="text-center">
+                        {{ getCheckedIn().data.person_institution.role.name }}
+                    </h6>
+
+                    <h6 class="text-center">
+                        {{
+                            getCheckedIn().data.person_institution.institution
+                                .name
+                        }}
+                    </h6>
+
+                    <br />
+
+                    <span
+                        class="badge text-white mb-4 pt-2 pb-3 pl-5 pr-5"
+                        :style="{
+                            'background-color': getCheckedIn().data.sub_event
+                                .sector
+                                ? getCheckedIn().data.sub_event.sector.color
+                                : '',
+                            'text-transform': 'uppercase',
+                        }"
+                    >
+                        <h3 class="mb-0">
+                            {{
+                                getCheckedIn().data.sub_event.sector
+                                    ? getCheckedIn().data.sub_event.sector.name
+                                    : ''
+                            }}
+                        </h3>
+
+                        <br />
+
+                        {{ getCheckedIn().data.sub_event.place }}
+                    </span>
+
                     <img
                         :src="
                             getCheckedIn().data.person_institution.person
@@ -30,20 +61,8 @@
                     />
 
                     <h2 class="text-center">{{ getCheckedIn().data.code }}</h2>
-                    <h5 class="text-center">
-                        {{ getCheckedIn().data.person_institution.person.name }}
-                    </h5>
-                    <h6 class="text-center">
-                        {{ getCheckedIn().data.person_institution.role.name }}
-                    </h6>
-                    <h6 class="text-center">
-                        {{
-                            getCheckedIn().data.person_institution.institution
-                                .name
-                        }}
-                    </h6>
 
-                    <br /><br />
+                    <br />
 
                     <div
                         @click="clearCheckedIn()"
@@ -63,7 +82,29 @@
             </div>
         </div>
 
-        <div class="row" v-if="can('read') && !getCheckedIn().data">
+        <div class="row" v-if="!getCheckedIn().data">
+            <div class="col-12">
+                <div class="card card-block bg-faded">
+                    <div class="row">
+                        <div
+                            class="col-6 text-center"
+                            v-if="receptive.data.statistics"
+                        >
+                            confirmados:
+                            {{ receptive.data.statistics.confirmed }}
+                        </div>
+
+                        <div
+                            class="col-6 text-center"
+                            v-if="receptive.data.statistics"
+                        >
+                            ingressaram:
+                            {{ receptive.data.statistics.totalcheckedin }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-sm-12 col-md-6">
                 <app-table-panel title="Leitura QRCode">
                     <div class="m-4">
@@ -91,22 +132,26 @@
                     <app-table
                         :pagination="receptive.data.links.pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['Convite', 'Convidado', 'Check-in', 'Photo']"
+                        :columns="[
+                            'Convite',
+                            { title: 'Setor', trClass: 'text-center' },
+                            'Convidado',
+                            { title: 'Check-in', trClass: 'text-center' },
+                            { title: 'Foto', trClass: 'text-center' },
+                        ]"
                     >
                         <tr
                             v-for="invitation in receptive.data.rows"
                             class="cursor-pointer"
                             @click="confirmCheckin(invitation)"
                         >
-                            <td>{{ invitation.code }}</td>
-                            <td>
-                                <strong>{{
-                                    invitation.person_institution.person.name
-                                }}</strong
-                                ><br />
-                                {{ invitation.sub_event.name }}<br />
+                            <td class="align-middle text-center">
+                                {{ invitation.code }}
+                            </td>
+
+                            <td class="align-middle text-center">
                                 <span
-                                    class="badge text-white p-1"
+                                    class="badge text-white p-2"
                                     :style="{
                                         'background-color': invitation.sub_event
                                             .sector
@@ -123,15 +168,35 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="align-middle">
+                                <strong>{{
+                                    invitation.person_institution.person.name
+                                }}</strong>
+
+                                <br />
+
+                                {{ invitation.sub_event.name }}<br />
+                            </td>
+
+                            <td class="align-middle text-center">
                                 <h6 class="mb-0">
-                                    <span
-                                        v-if="invitation.checkin_at"
-                                        class="badge badge-success"
-                                        >{{
+                                    <div v-if="invitation.checkin_at">
+                                        <span class="badge badge-success">{{
                                             getCheckedInTime(invitation)
-                                        }}</span
-                                    >
+                                        }}</span>
+
+                                        <br />
+
+                                        <span class="text-sm"
+                                            ><small>{{
+                                                firstLast(
+                                                    invitation.checked_in_by
+                                                        .name,
+                                                )
+                                            }}</small></span
+                                        >
+                                    </div>
+
                                     <span
                                         v-if="!invitation.checkin_at"
                                         class="badge badge-danger"
@@ -140,7 +205,7 @@
                                 </h6>
                             </td>
 
-                            <td>
+                            <td class="align-middle text-center">
                                 <img
                                     :src="
                                         invitation.person_institution.person
@@ -262,6 +327,10 @@ export default {
 
         getCheckedInTime(invitation) {
             return format(parse(invitation.checkin_at), 'HH[h]mm')
+        },
+
+        firstLast(name) {
+            return first_last(name)
         },
     },
 
