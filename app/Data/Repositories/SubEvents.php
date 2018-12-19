@@ -3,12 +3,12 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\SubEvent;
-use App\Events\InvitationsChanged;
-use App\Events\SubEventUpdated;
 use App\Data\Models\SubEvent as SubEventModel;
+use App\Data\Repositories\Addresses as AddressesRepository;
 use App\Data\Repositories\Traits\AddressesTraits;
 use App\Data\Repositories\Traits\SubEventsDownload;
-use App\Data\Repositories\Addresses as AddressesRepository;
+use App\Events\InvitationsChanged;
+use App\Events\SubEventUpdated;
 
 class SubEvents extends Repository
 {

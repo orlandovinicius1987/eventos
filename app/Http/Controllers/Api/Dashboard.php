@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Data\Repositories\Dashboard as DashboardRepository;
+use App\Http\Controllers\Controller;
 
 class Dashboard extends Controller
 {
