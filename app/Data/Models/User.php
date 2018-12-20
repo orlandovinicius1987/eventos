@@ -3,8 +3,8 @@
 namespace App\Data\Models;
 
 use App\Data\Models\Traits\Selectable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -57,11 +57,21 @@ class User extends Authenticatable
         return 1;
     }
 
+    public function getIsSecurityAttribute()
+    {
+        return (isset($this->profiles_array['Seguranca']) && !isset($this->profiles_array['Administrador']));
+    }
+
     /**
      * @return array
      */
     public function getJoins()
     {
         return coollect([]);
+    }
+
+    public function getIsAdministratorAttribute()
+    {
+        return isset($this->profiles_array['Administrador']);
     }
 }

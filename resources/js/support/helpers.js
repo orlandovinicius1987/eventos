@@ -1,4 +1,5 @@
 import DeepMerger from '../classes/DeepMerger.js'
+import environment from '../store/modules/environment'
 
 window.dd = (...args) => {
     if (
@@ -335,4 +336,18 @@ window.hash = str => {
     }
 
     return hash
+}
+
+window.first_last = string => {
+    const splitted = string.split(' ')
+
+    const first = splitted[0]
+
+    const last = splitted.slice(-1).join(' ')
+
+    return splitted[0] + (first !== last ? ' ' + last : '')
+}
+
+window.can = (user, permission) => {
+    return typeof JSON.parse(user.permissions)[permission] !== 'undefined'
 }

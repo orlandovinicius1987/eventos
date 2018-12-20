@@ -142,14 +142,6 @@ export default {
             })
         },
 
-        can(permission) {
-            return permission && false
-        },
-
-        cannot(permission) {
-            return !can(permission)
-        },
-
         gotoPage(page, namespace = null, pagination = null) {
             pagination = pagination ? pagination : this.pagination
 

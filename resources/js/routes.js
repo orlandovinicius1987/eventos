@@ -1,6 +1,8 @@
+import store from './store/store.js'
 import Vue from 'vue'
 
 import VueRouter from 'vue-router'
+import ChangeInstitutionForm from './views/ChangeInstitutionForm'
 Vue.use(VueRouter)
 
 const Dashboard = () => import('./views/Dashboard')
@@ -28,6 +30,7 @@ const EventsForm = () => import('./views/EventsForm')
 const SubEventsForm = () => import('./views/SubEventsForm')
 const Import = () => import('./views/Import')
 const PhoneBook = () => import('./views/PhoneBook')
+const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
 
 let routes = [
@@ -69,6 +72,10 @@ let routes = [
         props: { mode: 'update' },
     },
     {
+        path: '/recept',
+        component: Recept,
+    },
+    {
         path: '/receptive/:eventId',
         component: Receptive,
     },
@@ -81,6 +88,12 @@ let routes = [
         path:
             '/events/:eventId/sub-events/:subEventId/invitations/:invitationId/show',
         component: Invitation,
+        props: { mode: 'update' },
+    },
+    {
+        path:
+            '/events/:eventId/sub-events/:subEventId/invitations/:invitationId/change',
+        component: ChangeInstitutionForm,
         props: { mode: 'update' },
     },
     {
@@ -247,7 +260,11 @@ router.beforeEach((to, from, next) => {
         if (result && result.length > 0) {
             next(result[0])
         } else {
-            next('/dashboard')
+            if (can(store.state['environment'].user, 'read')) {
+                next('/dashboard')
+            } else {
+                next('/recept')
+            }
         }
     }
 

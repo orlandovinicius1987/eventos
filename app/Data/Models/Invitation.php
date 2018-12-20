@@ -235,7 +235,7 @@ class Invitation extends Base
      */
     protected function hasBeenThanked()
     {
-        return filled($this->thanked_at);
+        return filled($this->thanks_sent_at);
     }
 
     /**
@@ -623,6 +623,8 @@ class Invitation extends Base
                 return 'credentials_';
             case 'rejection':
                 return 'declination_';
+            case 'thanks':
+                return 'declination_';
         }
 
         throw new \Exception("Content type no supported: {$content_type}");
@@ -689,7 +691,7 @@ class Invitation extends Base
 
     public function canSendThankYou()
     {
-        return blank($this->thanked_at);
+        return blank($this->thanks_sent_at);
     }
 
     public function checkedInBy()
