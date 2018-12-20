@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use App\Data\Repositories\Users as UsersRepository;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -56,6 +57,22 @@ class AuthServiceProvider extends ServiceProvider
                 $user,
                 'receptive'
             );
+        });
+
+        Gate::define('canSecurity', function ($user) {
+            return app(UsersRepository::class)->userHasPermission(
+                $user,
+                'security'
+            );
+        });
+
+        Gate::define('canMakeCheckinIn', function ($user, $subEventId) {
+            $subEvent = app(SubEventsRepository::class)->findById($subEventId);
+            if(!$subEvent->security_can_recept && $user->is_security){
+                return false;
+            }else{
+                return true;
+            }
         });
     }
 }

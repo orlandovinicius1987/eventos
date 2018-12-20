@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\User;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Services\Authorization;
 use Illuminate\Support\Facades\Hash;
 

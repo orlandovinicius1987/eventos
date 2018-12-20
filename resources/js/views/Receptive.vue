@@ -1,5 +1,5 @@
 <template>
-    <div v-if="can('read', 'receptive')">
+    <div v-if="can('receptive')">
         <div class="py-2 text-center">
             <h3>{{ events.selected.name }}</h3>
         </div>
@@ -287,6 +287,8 @@ export default {
             // this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.title + ' '+invitation.person_institution.person.name
 
             return this.$store.dispatch('receptive/makeCheckin', invitation)
+
+            dd(this.getCheckedIn())
         },
 
         onDecode(result) {
