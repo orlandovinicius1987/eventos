@@ -510,14 +510,34 @@
                                 <strong>{{
                                     invitation.person_institution.person.name
                                 }}</strong>
-                                ({{
-                                    invitation.person_institution.title
-                                }})<br />
+
+                                ({{ invitation.person_institution.title }})
+
+                                <br />
+
                                 {{ invitation.person_institution.role.name }} -
                                 {{
                                     invitation.person_institution.institution
                                         .name
                                 }}
+
+                                <router-link
+                                    :to="
+                                        '/events/' +
+                                            invitation.sub_event.event.id +
+                                            '/sub-events/' +
+                                            invitation.sub_event.id +
+                                            '/invitations/' +
+                                            invitation.id +
+                                            '/change'
+                                    "
+                                    tag="button"
+                                    class="badge bg-info text-white cursor-pointer"
+                                    :disabled="cannot('edit')"
+                                    title="modificar instituição"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
                             </td>
 
                             <td class="align-middle text-center">

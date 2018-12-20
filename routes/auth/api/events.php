@@ -105,6 +105,20 @@ Route::group(['prefix' => '/events'], function () {
                 '/{id}/send-credentials',
                 'Invitations@sendCredentials'
             )->name('invitations.send-credentials');
+
+            Route::post(
+                '/{id}/send-credentials',
+                'Invitations@sendCredentials'
+            )->name('invitations.send-credentials');
+
+            Route::get('/{id}/institutions', 'Invitations@institutions')->name(
+                'invitations.institutions'
+            );
+
+            Route::post(
+                '/{id}/institutions/{personIntitutionId}/change',
+                'Invitations@changePersonInstitution'
+            )->name('invitations.institution.change');
         });
     });
 });

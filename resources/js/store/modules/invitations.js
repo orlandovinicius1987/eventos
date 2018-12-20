@@ -75,7 +75,10 @@ const state = merge_objects(statesMixin.common, {
     },
 
     form: new Form(clone(__emptyModel)),
+
     emptyForm: clone(__emptyModel),
+
+    selectedInstitutions: null,
 })
 
 const actions = merge_objects(actionsMixin, {
@@ -141,11 +144,39 @@ const actions = merge_objects(actionsMixin, {
     sendInvitation(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/send-invitation')
     },
+
+    loadInstitutions(context, payload) {
+        get(makeDataUrl(context) + '/' + payload.id + '/institutions').then(
+            response => {
+                context.commit(
+                    'mutateSetSelectedInstitutions',
+                    response.data.data,
+                )
+            },
+        )
+    },
+
+    changePersonInstitution(context, payload) {
+        dd(payload)
+
+        post(
+            makeDataUrl(context) +
+                '/' +
+                payload.invitation.id +
+                '/institutions/' +
+                payload.personInstitution.id +
+                '/change',
+        )
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
     mutateSetSubEvent(state, payload) {
         state.subEvent = payload
+    },
+
+    mutateSetSelectedInstitutions(state, payload) {
+        state.selectedInstitutions = payload
     },
 })
 

@@ -16,16 +16,14 @@ class Home extends Controller
     public function index()
     {
         $clientsAllowed = app(ClientsRepository::class)->all();
-        $profiles = collect(json_decode(current_user()->profiles, true));
+        $profiles = collect(current_user()->profiles_array);
 
-        if (!$profiles->keys()->contains('Administrador')) {
-            $clientsAllowed = $clientsAllowed
-                ->map(function ($client) {
-                    return $client;
-                })
-                ->reject(function ($client) use ($profiles) {
-                    return !$profiles->keys()->contains($client->name);
-                });
+        if (!current_user()->is_administrator) {
+            $clientsAllowed = $clientsAllowed->reject(function ($client) use (
+                $profiles
+            ) {
+                return !$profiles->keys()->contains($client->name);
+            });
         }
 
         return view('admin.index')->with('clients', $clientsAllowed);
@@ -34,9 +32,9 @@ class Home extends Controller
     public function changeClient(HomeUpdate $request)
     {
         if (
-            $client = app(ClientsRepository::class)->findById(
+            ($client = app(ClientsRepository::class)->findById(
                 $request['clientId']
-            )
+            ))
         ) {
             set_current_client_id($client->id);
         }

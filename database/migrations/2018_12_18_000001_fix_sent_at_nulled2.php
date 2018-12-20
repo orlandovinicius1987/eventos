@@ -18,11 +18,11 @@ class FixSentAtNulled2 extends Migration
             ->get()
             ->each(function ($invitation) {
                 if (
-                    $notification = $invitation
+                    ($notification = $invitation
                         ->notifications()
                         ->where('content_type', 'invitation')
                         ->orderBy('created_at', 'desc')
-                        ->first()
+                        ->first())
                 ) {
                     dump($invitation->code);
 

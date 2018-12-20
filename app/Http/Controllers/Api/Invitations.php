@@ -208,4 +208,31 @@ class Invitations extends Controller
             $id
         );
     }
+
+    public function institutions($eventId, $subEventId, $id)
+    {
+        return $this->response(
+            app(InvitationsRepository::class)->getInstitutions(
+                $eventId,
+                $subEventId,
+                $id
+            )
+        );
+    }
+
+    public function changePersonInstitution(
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $personInstitutionId
+    ) {
+        return $this->response(
+            app(InvitationsRepository::class)->changePersonInstitution(
+                $eventId,
+                $subEventId,
+                $invitationId,
+                $personInstitutionId
+            )
+        );
+    }
 }
