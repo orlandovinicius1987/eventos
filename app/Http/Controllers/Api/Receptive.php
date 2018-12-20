@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\InvitationNotFoundException;
 use App\Data\Repositories\Invitations as InvitationsRepository;
+use Illuminate\Support\Facades\Gate;
 
 class Receptive extends Controller
 {
@@ -39,10 +40,6 @@ class Receptive extends Controller
     public function makeCheckin(Request $request, $eventId)
     {
         try {
-            if (!Gate::allows('canMakeCheckinIn')) {
-                return $this->response(false, 0, 'Usuário não autorizado para fazer checkin');
-            }
-
             $invitation = app(InvitationsRepository::class)->findByUuid(
                 $request->get('uuid')
             );
@@ -63,6 +60,10 @@ class Receptive extends Controller
      */
     protected function makeResponseMessage($invitation)
     {
+        if (!Gate::allows('canMakeCheckinIn', $invitation->subEvent->id)) {
+            return 'Você não está autorizado a fazer checkin dessa credencial';
+        }
+
         return !$invitation->makeCheckin()
             ? 'Este convidado já havia feito check-in' .
                     $this->getUserName($invitation)
