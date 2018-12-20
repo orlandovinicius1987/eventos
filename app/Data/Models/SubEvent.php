@@ -31,6 +31,7 @@ class SubEvent extends BaseWithClient
         'confirmations_end_date',
         'send_invitations',
         'send_credentials',
+        'security_can_recept',
     ];
 
     protected $dates = [

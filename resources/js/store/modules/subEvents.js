@@ -52,6 +52,7 @@ const __emptyModel = {
     confirmations_end_date: null,
     send_invitations: null,
     send_credentials: null,
+    security_can_recept: null,
 }
 
 const state = merge_objects(statesMixin.common, {
