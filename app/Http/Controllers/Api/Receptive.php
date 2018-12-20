@@ -61,7 +61,7 @@ class Receptive extends Controller
     protected function makeResponseMessage($invitation)
     {
         if (!Gate::allows('canMakeCheckinIn', $invitation->subEvent->id)) {
-            return 'Você não está autorizado a fazer checkin dessa credencial';
+            return 'Credencial não autorizada para este setor';
         }
 
         return !$invitation->makeCheckin()
