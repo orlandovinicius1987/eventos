@@ -619,7 +619,7 @@ class Invitation extends Base
         switch ($content_type) {
             case 'invitation':
                 return '';
-            case 'credentials_':
+            case 'credentials':
                 return 'credentials_';
             case 'rejection':
                 return 'declination_';
