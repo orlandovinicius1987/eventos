@@ -76,9 +76,7 @@
                                 <button
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
-                                    :disabled="
-                                        cannot('edit') || !environment.debug
-                                    "
+                                    :disabled="cannot('edit')"
                                     title="Enviar todas as credenciais não enviadas"
                                 >
                                     <i
@@ -753,10 +751,7 @@
                                                 .send_credentials
                                     "
                                     title="Enviar credenciais"
-                                    :disabled="
-                                        !invitation.accepted_at &&
-                                            !environment.debug
-                                    "
+                                    :disabled="!invitation.accepted_at"
                                 >
                                     <i class="fa fa-landmark"></i>
                                 </button>
