@@ -49,6 +49,7 @@
                                 v-model="subEvents.form.fields.name"
                                 :required="true"
                                 :form="form"
+                                dusk="sub-nome"
                             ></app-input>
 
                             <div class="row">
@@ -60,6 +61,7 @@
                                         v-model="subEvents.form.fields.date"
                                         :required="true"
                                         :form="form"
+                                        dusk="sub-data"
                                     ></app-input>
                                 </div>
 
@@ -82,6 +84,7 @@
                                 v-model="subEvents.form.fields.time"
                                 :required="true"
                                 :form="form"
+                                dusk="sub-hora"
                             ></app-input>
 
                             <app-input
@@ -92,6 +95,7 @@
                                 :form="form"
                                 rows="10"
                                 cols="100"
+                                dusk="sub-local"
                             ></app-input>
 
                             <app-select
@@ -230,6 +234,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="sub-gravar"
                             >
                                 gravar
                             </button>

@@ -22,6 +22,7 @@
                             v-if="categorizablesChecked.length > 0"
                             class="btn btn-primary btn-sm pull-right"
                             @click="categorize()"
+                            dusk="associate-category-dusk"
                         >
                             associar categorias
                         </button>
@@ -49,6 +50,7 @@
                                     :checked="isChecked(categorizable)"
                                     @input="toggleCheck(categorizable)"
                                     type="checkbox"
+                                    dusk="select-category-dusk"
                                 />
                             </td>
 

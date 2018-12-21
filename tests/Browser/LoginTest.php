@@ -29,7 +29,7 @@ class LoginTest extends DuskTestCase
                     ->visit('login#/')
                     ->type('email', '4321')
                     ->type('password', '4321')
-                    ->click('@login-button')->assertPathIs('/login')
+                    ->click('@login-button')->assertPathIs('/login#')
                 ->screenshot('teste de login falho');
 
             });

@@ -9,6 +9,7 @@
                     :add-button="{
                         uri: '/roles/create',
                         disabled: cannot('create'),
+                        dusk:'create-roles-button'
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -42,6 +43,7 @@
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
                                     title="Editar Função"
+
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>

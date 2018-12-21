@@ -25,6 +25,7 @@
                                 type="checkbox"
                                 :required="true"
                                 :form="form"
+                                dusk="contact-active"
                             ></app-input>
                         </div>
                     </div>
@@ -35,6 +36,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="record-contact-button"
                             >
                                 gravar
                             </button>

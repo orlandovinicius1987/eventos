@@ -64,6 +64,7 @@
                                 class="form-control"
                                 id="name"
                                 required="required"
+                                dusk="people-name"
                             />
 
                             <div
@@ -125,6 +126,7 @@
                                 @click.prevent="savePerson()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="gravar-people-button"
                             >
                                 gravar
                             </button>

@@ -24,7 +24,7 @@ class CreatFuncaoTest extends DuskTestCase
             $user=app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
                 $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
-                    ->visit('/admin#')
+                    ->visit('/login#')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-tabelas')

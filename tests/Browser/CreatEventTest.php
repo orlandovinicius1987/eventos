@@ -24,9 +24,10 @@ class CreatEventTest extends DuskTestCase
         $this->seed(DatabaseSeeder::class);
         $this->browse(function (Browser $browser) {
             $user=app(UsersRepository::class)->randomElement()->username;
+//            $user=factory(UsersRepository::class)->make() ;
             $this->browse(function (Browser $browser) use ($user) {
                 $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
-                    ->visit('/admin#')
+                    ->visit('/login#')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-eventos')
@@ -36,7 +37,7 @@ class CreatEventTest extends DuskTestCase
 //                    ->assertSee('Novo Evento')
                     ->type('@event-name', 'evento teste')
                     ->click('@record-event-button')
-                    ->pause('4000')
+                    ->pause('20000')
                     ->waitForText('evento teste')
                     ->pause('4000')
                     ->screenshot('teste de Criar evento');

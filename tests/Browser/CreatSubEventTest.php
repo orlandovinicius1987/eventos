@@ -90,7 +90,7 @@ class CreatSubEventTest extends DuskTestCase
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-eventos')
-                    ->pause('7000')
+                    ->pause('20000')
 //                    ->waitForText('evento teste')
 //                    ->pause('5000')
                     ->click('@dusk-do-evento')
