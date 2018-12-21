@@ -473,6 +473,7 @@ class Invitations extends Repository
                 ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
                 ->whereNotNull('accepted_at')
                 ->where('event_id', $eventId)
+                ->orderByRaw('checkin_at desc nulls last')
         );
 
         $filltered['statistics'] = $this->getStatistics($eventId);
@@ -483,9 +484,9 @@ class Invitations extends Repository
     public function findByUuid($uuid)
     {
         if (
-            $invitation = $this->model
+            ($invitation = $this->model
                 ::where('uuid', $this->extractCodeFromUrl($uuid))
-                ->first()
+                ->first())
         ) {
             return $invitation;
         }
@@ -509,7 +510,7 @@ class Invitations extends Repository
             )
             ->get()
             ->each(function ($invitation) {
-                $invitation->thanked_at = now();
+                $invitation->thanks_sent_at = now();
 
                 $invitation->save();
             });
@@ -527,5 +528,27 @@ class Invitations extends Repository
             ->whereNull('associated_subevent_id')
             ->where('event_id', '=', $eventId)
             ->first();
+    }
+
+    public function getInstitutions($eventId, $subEventId, $invitationId)
+    {
+        return Invitation::find(
+            $invitationId
+        )->personInstitution->person->institutions;
+    }
+
+    public function changePersonInstitution(
+        $eventId,
+        $subEventId,
+        $invitationId,
+        $personInstitutionId
+    ) {
+        $invitation = Invitation::find($invitationId);
+
+        $invitation->person_institution_id = $personInstitutionId;
+
+        $invitation->save();
+
+        event(new InvitationsChanged($invitation->subEvent));
     }
 }

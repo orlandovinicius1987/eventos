@@ -235,7 +235,7 @@ class Invitation extends Base
      */
     protected function hasBeenThanked()
     {
-        return filled($this->thanked_at);
+        return filled($this->thanks_sent_at);
     }
 
     /**
@@ -619,9 +619,11 @@ class Invitation extends Base
         switch ($content_type) {
             case 'invitation':
                 return '';
-            case 'credentials_':
+            case 'credentials':
                 return 'credentials_';
             case 'rejection':
+                return 'declination_';
+            case 'thanks':
                 return 'declination_';
         }
 
@@ -689,7 +691,7 @@ class Invitation extends Base
 
     public function canSendThankYou()
     {
-        return blank($this->thanked_at);
+        return blank($this->thanks_sent_at);
     }
 
     public function checkedInBy()

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Exceptions\InvitationNotFoundException;
 use App\Data\Repositories\Invitations as InvitationsRepository;
+use Illuminate\Support\Facades\Gate;
 
 class Receptive extends Controller
 {
@@ -59,6 +60,10 @@ class Receptive extends Controller
      */
     protected function makeResponseMessage($invitation)
     {
+        if (!Gate::allows('canMakeCheckinIn', $invitation->subEvent->id)) {
+            return 'Credencial não autorizada para este setor';
+        }
+
         return !$invitation->makeCheckin()
             ? 'Este convidado já havia feito check-in' .
                     $this->getUserName($invitation)

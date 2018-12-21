@@ -18,7 +18,7 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <div class="row pt-1 pb-1 bg-primary-lighter">
-                                <div class="col-6 text-right">
+                                <div class="col-4 text-right">
                                     <app-input
                                         name="send_invitations"
                                         label="pode enviar convites"
@@ -30,15 +30,27 @@
                                     ></app-input>
                                 </div>
 
-                                <div class="col-6">
+                                <div class="col-4">
                                     <app-input
-                                        name="send_credentials"
-                                        label="pode enviar credenciais"
-                                        type="checkbox"
-                                        v-model="subEvents.form.fields.send_credentials"
-                                        :required="true"
-                                        :form="form"
-                                        inline="true"
+                                            name="send_credentials"
+                                            label="pode enviar credenciais"
+                                            type="checkbox"
+                                            v-model="subEvents.form.fields.send_credentials"
+                                            :required="true"
+                                            :form="form"
+                                            inline="true"
+                                    ></app-input>
+                                </div>
+
+                                <div class="col-4">
+                                    <app-input
+                                            name="security_can_recept"
+                                            label="segurança pode recepcionar"
+                                            type="checkbox"
+                                            v-model="subEvents.form.fields.security_can_recept"
+                                            :required="true"
+                                            :form="form"
+                                            inline="true"
                                     ></app-input>
                                 </div>
                             </div>

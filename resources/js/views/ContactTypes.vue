@@ -3,7 +3,7 @@
         <div class="py-2 text-center"><h2>Categorias</h2></div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     :title="'Tipos de Contato (' + pagination.total + ')'"
                     :add-button="{

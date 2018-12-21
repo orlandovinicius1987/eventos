@@ -29,7 +29,7 @@
         </div>
 
         <div class="row">
-            <div class="col-4">
+            <div class="col-12 col-lg-4">
                 <app-table-panel
                     :title="'Pessoas (' + pagination.total + ')'"
                     :per-page="perPage"
@@ -37,21 +37,23 @@
                     @input-filter-text="filterText = $event.target.value"
                     @set-per-page="perPage = $event"
                 >
-                    <app-institution-filter-for-person
-                        name="institution_id"
-                        label="Instituição"
-                        :required="true"
-                        :form="form"
-                        :options="environment.tables.institutions"
-                    ></app-institution-filter-for-person>
+                    <template slot="selects">
+                        <app-institution-filter-for-person
+                            name="institution_id"
+                            label="Instituição"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.institutions"
+                        ></app-institution-filter-for-person>
 
-                    <app-role-filter-for-person
-                        name="role_id"
-                        label="Funções"
-                        :required="true"
-                        :form="form"
-                        :options="environment.tables.roles"
-                    ></app-role-filter-for-person>
+                        <app-role-filter-for-person
+                            name="role_id"
+                            label="Funções"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
+                        ></app-role-filter-for-person>
+                    </template>
 
                     <app-table
                         :pagination="people.data.links.pagination"

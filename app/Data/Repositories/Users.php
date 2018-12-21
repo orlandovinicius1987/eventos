@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use App\Data\Models\User;
+use App\Data\Repositories\SubEvents as SubEventsRepository;
 use App\Services\Authorization;
 use Illuminate\Support\Facades\Hash;
 
@@ -196,6 +197,15 @@ class Users extends Repository
             }
         }
         return false;
+    }
+
+    /**
+     * @param $user
+     * @return bool
+     */
+    public function userHasAnyPermission($user)
+    {
+        return count($user->permissions_array) > 0;
     }
 
     public function updatePerPage($user, $size)

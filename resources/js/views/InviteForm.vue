@@ -147,17 +147,6 @@
                                     >
                                 </h6>
                             </td>
-
-                            <td class="align-middle">
-                                <a
-                                    @click="invite(invitable)"
-                                    class="btn btn-danger btn-sm ml-1 pull-right"
-                                    v-if="can('update')"
-                                    href="#"
-                                >
-                                    <i class="fa fa-plus"></i>
-                                </a>
-                            </td>
                         </tr>
                     </app-table>
                 </app-table-panel>
@@ -170,6 +159,7 @@
 import crud from './mixins/crud'
 import subEvents from './mixins/sub-events'
 import invitables from './mixins/invitables'
+import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
 
 const service = {
@@ -181,7 +171,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, invitables, subEvents],
+    mixins: [crud, invitables, subEvents, permissions],
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
