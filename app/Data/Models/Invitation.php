@@ -337,6 +337,9 @@ class Invitation extends Base
             !$this->hasBeenThanked()
         ) {
             $this->dispatchMails(SendThankYou::class);
+
+            $this->thanks_sent_at = now();
+            $this->save();
         }
     }
 
