@@ -501,19 +501,6 @@ class Invitations extends Repository
         }
 
         $invitation->sendThankYou();
-
-        $this->newQuery()
-            ->where('person_institution_id', $invitation->person_institution_id)
-            ->whereIn(
-                'sub_event_id',
-                $invitation->subEvent->event->subEvents->pluck('id')
-            )
-            ->get()
-            ->each(function ($invitation) {
-                $invitation->thanks_sent_at = now();
-
-                $invitation->save();
-            });
     }
 
     public function getStatistics($eventId)
