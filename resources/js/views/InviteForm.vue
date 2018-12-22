@@ -2,16 +2,21 @@
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
+
             <h2>{{ events.selected.name }}</h2>
-            <h2>
-                {{ subEvents.selected.name }} -
-                {{
-                    subEvents.selected.sector
-                        ? subEvents.selected.sector.name
-                        : ''
-                }}
-            </h2>
-            <h2>{{ subEvents.selected.place }}</h2>
+
+            <h2>{{ subEvents.selected.name }}</h2>
+
+            <app-sector-badge
+                key="invitation.id"
+                :class="key > 0 ? 'mt-2 p-4' : ''"
+                :sector="subEvents.selected.sector"
+                font-size="2em"
+                uppercase="true"
+                :complement="subEvents.selected.place"
+                complementFontSize="1.2em"
+                padding="3"
+            ></app-sector-badge>
         </div>
 
         <div class="row justify-content-center">
@@ -146,7 +151,7 @@
                                 >
                                     <app-sector-badge
                                         key="invitation.id"
-                                        class="mt-2"
+                                        :class="key > 0 ? 'mt-2' : ''"
                                         :sector="invitation.sub_event.sector"
                                         uppercase="true"
                                         :complement="invitation.sub_event.place"
@@ -154,13 +159,14 @@
 
                                     <br
                                         v-if="
-                                            index !=
-                                                Object.keys(
+                                            sortInvitations(
+                                                invitable.invitations,
+                                            ).length > 1 &&
+                                                key <
                                                     sortInvitations(
                                                         invitable.invitations,
-                                                    ),
-                                                ).length -
-                                                    1
+                                                    ).length -
+                                                        1
                                         "
                                     />
                                 </span>
