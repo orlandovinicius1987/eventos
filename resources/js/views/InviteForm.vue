@@ -137,14 +137,33 @@
                             </td>
 
                             <td class="align-middle text-center">
-                                <app-sector-badge
-                                    v-for="invitation in invitable.invitations"
-                                    key="invitation.id"
-                                    class="mt-2"
-                                    :sector="invitation.sub_event.sector"
-                                    uppercase="true"
-                                    :complement="invitation.sub_event.place"
-                                ></app-sector-badge>
+                                <span
+                                    v-for="(invitation,
+                                    key,
+                                    index) in sortInvitations(
+                                        invitable.invitations,
+                                    )"
+                                >
+                                    <app-sector-badge
+                                        key="invitation.id"
+                                        class="mt-2"
+                                        :sector="invitation.sub_event.sector"
+                                        uppercase="true"
+                                        :complement="invitation.sub_event.place"
+                                    ></app-sector-badge>
+
+                                    <br
+                                        v-if="
+                                            index !=
+                                                Object.keys(
+                                                    sortInvitations(
+                                                        invitable.invitations,
+                                                    ),
+                                                ).length -
+                                                    1
+                                        "
+                                    />
+                                </span>
                             </td>
                         </tr>
                     </app-table>
@@ -353,6 +372,10 @@ export default {
             items.rows = except(list.rows, id)
 
             return items
+        },
+
+        sortInvitations(invitations) {
+            return _.sortBy(invitations, 'order')
         },
     },
 

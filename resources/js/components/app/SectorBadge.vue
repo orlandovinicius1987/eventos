@@ -14,7 +14,7 @@
             {{ sector ? sector.name : '' }}
         </span>
 
-        <span v-if="complement">
+        <span v-if="complement" style="font-size: 0.7em;">
             <br />
 
             {{ complement }}
