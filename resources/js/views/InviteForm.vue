@@ -15,7 +15,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-sm-12 col-md-8">
                 <app-table-panel
                     v-if="invitables.data.links"
                     title="Pessoas"
@@ -97,7 +97,7 @@
                             'Nome',
                             'Instituição',
                             'Cargo',
-                            'Convidado',
+                            { title: 'Convites', trClass: 'text-center' },
                             '',
                         ]"
                     >
@@ -137,13 +137,14 @@
                             </td>
 
                             <td class="align-middle text-center">
-                                <h6 class="mb-0">
-                                    <span
-                                        v-if="invitable.is_invited_to_sub_event"
-                                        class="badge badge-success"
-                                        >Já convidado</span
-                                    >
-                                </h6>
+                                <app-sector-badge
+                                    v-for="invitation in invitable.invitations"
+                                    key="invitation.id"
+                                    class="mt-2"
+                                    :sector="invitation.sub_event.sector"
+                                    uppercase="true"
+                                    :complement="invitation.sub_event.place"
+                                ></app-sector-badge>
                             </td>
                         </tr>
                     </app-table>
