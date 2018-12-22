@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Models\Invitation;
 use App\Data\Models\PersonInstitution;
 
 class Invitables extends Repository
@@ -10,6 +11,31 @@ class Invitables extends Repository
      * @var string
      */
     protected $model = PersonInstitution::class;
+
+    protected function attachInvitations($subEventId, $personInstitutions)
+    {
+        $personInstitutions['rows'] = collect($personInstitutions['rows'])
+            ->map(function ($personInstitution) use ($subEventId) {
+                $personInstitution[
+                    'invitations'
+                ] = $personInstitution->invitations = Invitation::where(
+                    'person_institution_id',
+                    $personInstitution->id
+                )
+                    ->whereIn(
+                        'sub_event_id',
+                        SubEvents::findById(
+                            $subEventId
+                        )->event->subEvents->pluck('id')
+                    )
+                    ->get();
+
+                return $personInstitution;
+            })
+            ->toArray();
+
+        return $personInstitutions;
+    }
 
     protected function filterAllColumns($query, $text)
     {
@@ -24,14 +50,17 @@ class Invitables extends Repository
 
     public function getInvitables($subEventId)
     {
-        return $this->applyFilter(
-            app(PersonInstitutions::class)
-                ->newQuery(null)
-                ->selectRaw(
-                    '(select count("invitations"."person_institution_id") from "invitations" where "person_institutions"."id" = "invitations"."person_institution_id" and "invitations"."sub_event_id" = ' .
-                        $subEventId .
-                        ') as is_invited_to_sub_event'
-                )
+        return $this->attachInvitations(
+            $subEventId,
+            $this->applyFilter(
+                app(PersonInstitutions::class)
+                    ->newQuery(null)
+                    ->selectRaw(
+                        '(select count("invitations"."person_institution_id") from "invitations" where "person_institutions"."id" = "invitations"."person_institution_id" and "invitations"."sub_event_id" = ' .
+                            $subEventId .
+                            ') as is_invited_to_sub_event'
+                    )
+            )
         );
     }
 
