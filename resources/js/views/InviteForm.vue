@@ -146,7 +146,7 @@
                                 >
                                     <app-sector-badge
                                         key="invitation.id"
-                                        class="mt-2"
+                                        :class="key > 0 ? 'mt-2' : ''"
                                         :sector="invitation.sub_event.sector"
                                         uppercase="true"
                                         :complement="invitation.sub_event.place"
@@ -154,13 +154,14 @@
 
                                     <br
                                         v-if="
-                                            index !=
-                                                Object.keys(
+                                            sortInvitations(
+                                                invitable.invitations,
+                                            ).length > 1 &&
+                                                key <
                                                     sortInvitations(
                                                         invitable.invitations,
-                                                    ),
-                                                ).length -
-                                                    1
+                                                    ).length -
+                                                        1
                                         "
                                     />
                                 </span>
