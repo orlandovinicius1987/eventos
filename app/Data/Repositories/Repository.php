@@ -3,6 +3,7 @@
 namespace App\Data\Repositories;
 
 use Exception;
+use ReflectionClass;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
@@ -10,7 +11,6 @@ use App\Data\Repositories\Traits\DataProcessing;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
-use ReflectionClass;
 
 abstract class Repository
 {
@@ -444,6 +444,16 @@ abstract class Repository
         }
 
         throw new Exception('Method not found: ' . $name);
+    }
+
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public static function __callStatic($name, $arguments)
+    {
+        return app(static::class)->__call($name, $arguments);
     }
 
     /**
