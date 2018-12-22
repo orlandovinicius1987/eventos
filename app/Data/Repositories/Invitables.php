@@ -16,9 +16,7 @@ class Invitables extends Repository
     {
         $personInstitutions['rows'] = collect($personInstitutions['rows'])
             ->map(function ($personInstitution) use ($subEventId) {
-                $personInstitution[
-                    'invitations'
-                ] = $personInstitution->invitations = Invitation::where(
+                $personInstitution['invitations'] = Invitation::where(
                     'person_institution_id',
                     $personInstitution->id
                 )
@@ -28,7 +26,18 @@ class Invitables extends Repository
                             $subEventId
                         )->event->subEvents->pluck('id')
                     )
-                    ->get();
+                    ->get()
+                    ->map(function ($invitation) {
+                        $invitation->order = blank(
+                            $invitation->subEvent->associated_subevent_id
+                        )
+                            ? '0000-' . $invitation->id
+                            : '0001-' . $invitation->id;
+
+                        return $invitation;
+                    })
+                    ->sortBy('order')
+                    ->values();
 
                 return $personInstitution;
             })
