@@ -9,22 +9,37 @@
         <span
             :style="{
                 'text-transform': uppercase ? 'uppercase' : 'none',
+                'font-size': fontSize,
             }"
         >
             {{ sector ? sector.name : '' }}
         </span>
 
-        <span v-if="complement" style="font-size: 0.7em;">
+        <span v-if="complement">
             <br />
 
-            {{ complement }}
+            <span
+                style="{'font-size': complementFontSize ? complementFontSize : '0.7em'}"
+                class="mt-2"
+            >
+                <br v-if="fontSize > '1em'" />
+
+                {{ complement }}
+            </span>
         </span>
     </span>
 </template>
 
 <script>
 export default {
-    props: ['sector', 'complement', 'uppercase', 'padding'],
+    props: [
+        'sector',
+        'complement',
+        'uppercase',
+        'padding',
+        'fontSize',
+        'complementFontSize',
+    ],
 
     methods: {
         getPadding() {
