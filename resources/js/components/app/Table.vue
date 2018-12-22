@@ -1,6 +1,8 @@
 <template>
     <div class="table-responsive">
-        <table class="table table-sm table-hover table-borderless card-body mb-0">
+        <table
+            class="table table-sm table-hover table-borderless table-striped card-body mb-0"
+        >
             <thead>
                 <tr>
                     <slot name="thead"></slot>
@@ -10,9 +12,7 @@
                         v-for="column in columns"
                         :class="is_object(column) ? column.trClass : ''"
                         v-html="is_object(column) ? column.title : column"
-                    >
-
-                    </th>
+                    ></th>
                 </tr>
             </thead>
 
