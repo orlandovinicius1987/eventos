@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Data\Repositories\Clients as ClientsRepository;
-use App\Data\Repositories\SubEvents;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\HomeUpdate;
+use App\Http\Controllers\Controller;
+use App\Data\Repositories\Clients as ClientsRepository;
 
 class Home extends Controller
 {
@@ -16,9 +15,8 @@ class Home extends Controller
      */
     public function index()
     {
-        $ids = SubEvents::findById(934)->event->subEvents->pluck('id');
-
         $clientsAllowed = app(ClientsRepository::class)->all();
+
         $profiles = collect(current_user()->profiles_array);
 
         if (!current_user()->is_administrator) {
@@ -35,9 +33,9 @@ class Home extends Controller
     public function changeClient(HomeUpdate $request)
     {
         if (
-            $client = app(ClientsRepository::class)->findById(
+            ($client = app(ClientsRepository::class)->findById(
                 $request['clientId']
-            )
+            ))
         ) {
             set_current_client_id($client->id);
         }

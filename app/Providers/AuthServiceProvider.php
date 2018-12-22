@@ -68,9 +68,9 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('canMakeCheckinIn', function ($user, $subEventId) {
             $subEvent = app(SubEventsRepository::class)->findById($subEventId);
-            if(!$subEvent->security_can_recept && $user->is_security){
+            if (!$subEvent->security_can_recept && $user->is_security) {
                 return false;
-            }else{
+            } else {
                 return true;
             }
         });
