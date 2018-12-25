@@ -16,15 +16,15 @@
         </span>
 
         <span v-if="complement">
-            <br />
-
             <span
                 style="{'font-size': complementFontSize ? complementFontSize : '0.7em'}"
                 class="mt-2"
             >
-                <br v-if="fontSize > '1em'" />
-
-                {{ complement }}
+                <br />
+                <span v-for="part in breakString(complement)">
+                    <br />
+                    {{ part }}
+                </span>
             </span>
         </span>
     </span>
@@ -44,6 +44,10 @@ export default {
     methods: {
         getPadding() {
             return this.padding ? this.padding : 1
+        },
+
+        breakString(string) {
+            return splitString(string, 30)
         },
     },
 }
