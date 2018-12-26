@@ -2,20 +2,25 @@
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
+
             <h2>{{ events.selected.name }}</h2>
-            <h2>
-                {{ subEvents.selected.name }} -
-                {{
-                    subEvents.selected.sector
-                        ? subEvents.selected.sector.name
-                        : ''
-                }}
-            </h2>
-            <h2>{{ subEvents.selected.place }}</h2>
+
+            <h2>{{ subEvents.selected.name }}</h2>
+
+            <app-sector-badge
+                key="invitation.id"
+                :class="key > 0 ? 'mt-2 p-4' : ''"
+                :sector="subEvents.selected.sector"
+                font-size="2em"
+                uppercase="true"
+                :complement="subEvents.selected.place"
+                complementFontSize="1.2em"
+                padding="3"
+            ></app-sector-badge>
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-12">
                 <app-table-panel
                     v-if="invitables.data.links"
                     title="Pessoas"
@@ -97,7 +102,7 @@
                             'Nome',
                             'Instituição',
                             'Cargo',
-                            'Convidado',
+                            { title: 'Convites', trClass: 'text-center' },
                             '',
                         ]"
                     >
@@ -137,13 +142,34 @@
                             </td>
 
                             <td class="align-middle text-center">
-                                <h6 class="mb-0">
-                                    <span
-                                        v-if="invitable.is_invited_to_sub_event"
-                                        class="badge badge-success"
-                                        >Já convidado</span
-                                    >
-                                </h6>
+                                <span
+                                    v-for="(invitation,
+                                    key,
+                                    index) in sortInvitations(
+                                        invitable.invitations,
+                                    )"
+                                >
+                                    <app-sector-badge
+                                        key="invitation.id"
+                                        :class="key > 0 ? 'mt-2' : ''"
+                                        :sector="invitation.sub_event.sector"
+                                        uppercase="true"
+                                        :complement="invitation.sub_event.place"
+                                    ></app-sector-badge>
+
+                                    <br
+                                        v-if="
+                                            sortInvitations(
+                                                invitable.invitations,
+                                            ).length > 1 &&
+                                                key <
+                                                    sortInvitations(
+                                                        invitable.invitations,
+                                                    ).length -
+                                                        1
+                                        "
+                                    />
+                                </span>
                             </td>
                         </tr>
                     </app-table>
@@ -352,6 +378,10 @@ export default {
             items.rows = except(list.rows, id)
 
             return items
+        },
+
+        sortInvitations(invitations) {
+            return _.sortBy(invitations, 'order')
         },
     },
 

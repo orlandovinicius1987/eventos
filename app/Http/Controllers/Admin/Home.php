@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Data\Repositories\Clients as ClientsRepository;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\HomeUpdate;
+use App\Http\Controllers\Controller;
+use App\Data\Repositories\Clients as ClientsRepository;
 
 class Home extends Controller
 {
@@ -16,6 +16,7 @@ class Home extends Controller
     public function index()
     {
         $clientsAllowed = app(ClientsRepository::class)->all();
+
         $profiles = collect(current_user()->profiles_array);
 
         if (!current_user()->is_administrator) {
