@@ -23,7 +23,10 @@
                                         name="send_invitations"
                                         label="pode enviar convites"
                                         type="checkbox"
-                                        v-model="subEvents.form.fields.send_invitations"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .send_invitations
+                                        "
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -32,25 +35,31 @@
 
                                 <div class="col-4">
                                     <app-input
-                                            name="send_credentials"
-                                            label="pode enviar credenciais"
-                                            type="checkbox"
-                                            v-model="subEvents.form.fields.send_credentials"
-                                            :required="true"
-                                            :form="form"
-                                            inline="true"
+                                        name="send_credentials"
+                                        label="pode enviar credenciais"
+                                        type="checkbox"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .send_credentials
+                                        "
+                                        :required="true"
+                                        :form="form"
+                                        inline="true"
                                     ></app-input>
                                 </div>
 
                                 <div class="col-4">
                                     <app-input
-                                            name="security_can_recept"
-                                            label="segurança pode recepcionar"
-                                            type="checkbox"
-                                            v-model="subEvents.form.fields.security_can_recept"
-                                            :required="true"
-                                            :form="form"
-                                            inline="true"
+                                        name="security_can_recept"
+                                        label="segurança pode recepcionar"
+                                        type="checkbox"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .security_can_recept
+                                        "
+                                        :required="true"
+                                        :form="form"
+                                        inline="true"
                                     ></app-input>
                                 </div>
                             </div>
@@ -82,7 +91,10 @@
                                         name="confirmations_end_date"
                                         label="Data final para confirmação"
                                         type="date"
-                                        v-model="subEvents.form.fields.confirmations_end_date"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .confirmations_end_date
+                                        "
                                         :required="true"
                                         :form="form"
                                     ></app-input>

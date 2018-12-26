@@ -59,7 +59,8 @@ class User extends Authenticatable
 
     public function getIsSecurityAttribute()
     {
-        return (isset($this->profiles_array['Seguranca']) && !isset($this->profiles_array['Administrador']));
+        return isset($this->profiles_array['Seguranca']) &&
+            !isset($this->profiles_array['Administrador']);
     }
 
     /**

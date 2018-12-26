@@ -351,3 +351,26 @@ window.first_last = string => {
 window.can = (user, permission) => {
     return typeof JSON.parse(user.permissions)[permission] !== 'undefined'
 }
+
+window.splitString = (string, size) => {
+    let chunks = []
+    let start = 0
+    let lastSpace = -1
+    let end
+
+    for (end = 0; end < string.length; end++) {
+        if (string[end] === ' ') {
+            lastSpace = end
+        }
+
+        if (end - start > size) {
+            chunks.push(string.substr(start, lastSpace - start).trim())
+
+            start = lastSpace + 1
+        }
+    }
+
+    chunks.push(string.substr(start, end - start).trim())
+
+    return chunks
+}
