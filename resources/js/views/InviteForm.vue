@@ -9,7 +9,7 @@
 
             <app-sector-badge
                 key="invitation.id"
-                :class="key > 0 ? 'mt-2 p-4' : ''"
+                class="mt-2 p-4"
                 :sector="subEvents.selected.sector"
                 font-size="2em"
                 uppercase="true"
