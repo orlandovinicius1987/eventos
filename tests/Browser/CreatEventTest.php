@@ -20,14 +20,14 @@ class CreatEventTest extends DuskTestCase
 
     public function testCriarEvento()
     {
-        $this->artisan('migrate:fresh');
-        $this->seed(DatabaseSeeder::class);
+//        $this->artisan('migrate:fresh');
+//        $this->seed(DatabaseSeeder::class);
         $this->browse(function (Browser $browser) {
             $user=app(UsersRepository::class)->randomElement()->username;
 //            $user=factory(UsersRepository::class)->make() ;
             $this->browse(function (Browser $browser) use ($user) {
                 $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
-                    ->visit('/login#')
+                    ->visit('/admin#/dashboard')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-eventos')
