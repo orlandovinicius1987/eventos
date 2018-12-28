@@ -2,20 +2,25 @@
     <div>
         <div class="py-2 text-center">
             <h1>Convidar pessoas para o sub-evento</h1>
+
             <h2>{{ events.selected.name }}</h2>
-            <h2>
-                {{ subEvents.selected.name }} -
-                {{
-                    subEvents.selected.sector
-                        ? subEvents.selected.sector.name
-                        : ''
-                }}
-            </h2>
-            <h2>{{ subEvents.selected.place }}</h2>
+
+            <h2>{{ subEvents.selected.name }}</h2>
+
+            <app-sector-badge
+                key="invitation.id"
+                class="mt-2 p-4"
+                :sector="subEvents.selected.sector"
+                font-size="2em"
+                uppercase="true"
+                :complement="subEvents.selected.place"
+                complementFontSize="1.2em"
+                padding="3"
+            ></app-sector-badge>
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-6">
+            <div class="col-12">
                 <app-table-panel
                     v-if="invitables.data.links"
                     title="Pessoas"
@@ -97,7 +102,7 @@
                             'Nome',
                             'Instituição',
                             'Cargo',
-                            'Convidado',
+                            { title: 'Convites', trClass: 'text-center' },
                             '',
                         ]"
                     >
@@ -137,24 +142,34 @@
                             </td>
 
                             <td class="align-middle text-center">
-                                <h6 class="mb-0">
-                                    <span
-                                        v-if="invitable.is_invited_to_sub_event"
-                                        class="badge badge-success"
-                                        >Já convidado</span
-                                    >
-                                </h6>
-                            </td>
-
-                            <td class="align-middle">
-                                <a
-                                    @click="invite(invitable)"
-                                    class="btn btn-danger btn-sm ml-1 pull-right"
-                                    v-if="can('update')"
-                                    href="#"
+                                <span
+                                    v-for="(invitation,
+                                    key,
+                                    index) in sortInvitations(
+                                        invitable.invitations,
+                                    )"
                                 >
-                                    <i class="fa fa-plus"></i>
-                                </a>
+                                    <app-sector-badge
+                                        key="invitation.id"
+                                        :class="key > 0 ? 'mt-2' : ''"
+                                        :sector="invitation.sub_event.sector"
+                                        uppercase="true"
+                                        :complement="invitation.sub_event.place"
+                                    ></app-sector-badge>
+
+                                    <br
+                                        v-if="
+                                            sortInvitations(
+                                                invitable.invitations,
+                                            ).length > 1 &&
+                                                key <
+                                                    sortInvitations(
+                                                        invitable.invitations,
+                                                    ).length -
+                                                        1
+                                        "
+                                    />
+                                </span>
                             </td>
                         </tr>
                     </app-table>
@@ -168,6 +183,7 @@
 import crud from './mixins/crud'
 import subEvents from './mixins/sub-events'
 import invitables from './mixins/invitables'
+import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
 
 const service = {
@@ -179,7 +195,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, invitables, subEvents],
+    mixins: [crud, invitables, subEvents, permissions],
 
     data() {
         this.$store.dispatch('environment/loadSubEvents')
@@ -363,11 +379,17 @@ export default {
 
             return items
         },
+
+        sortInvitations(invitations) {
+            return _.sortBy(invitations, 'order')
+        },
     },
 
     beforeDestroy() {
         this.$store.state['invitables'].data.filter.text = null
-    }
+
+        this.$store.commit('invitables/clearFilterSelects')
+    },
 }
 </script>
 

@@ -46,6 +46,11 @@ class Person extends BaseWithClient
         return $this->hasMany(PersonInstitution::class);
     }
 
+    public function institutions()
+    {
+        return $this->hasMany(PersonInstitution::class);
+    }
+
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable');
@@ -109,5 +114,4 @@ class Person extends BaseWithClient
 
         return $query;
     }
-
 }

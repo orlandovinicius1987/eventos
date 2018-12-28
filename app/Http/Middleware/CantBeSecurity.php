@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Gate;
 
-class MustBeAppUser
+class CantBeSecurity
 {
     /**
      * Handle an incoming request.
@@ -17,8 +17,8 @@ class MustBeAppUser
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Gate::allows('appUser')) {
-            abort(403, 'Você não está autorizado a usar este sistema');
+        if (!Gate::allows('canSecurity')) {
+            abort(403, 'A segurança não está autorizada a fazer essa operação');
         }
 
         return $next($request);

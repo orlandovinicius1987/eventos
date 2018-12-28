@@ -8,15 +8,7 @@ const getters = {}
 
 const actions = {
     can(permission) {
-        if (
-            typeof JSON.parse(environment.state.user.permissions)[
-                permission
-            ] !== 'undefined'
-        ) {
-            return true
-        } else {
-            return false
-        }
+        return can(environment.state.user, permission)
     },
 }
 

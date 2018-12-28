@@ -11,8 +11,6 @@ class HomeUpdate extends Request
      */
     public function rules()
     {
-        return [
-
-        ];
+        return [];
     }
 }

@@ -1,4 +1,5 @@
 import DeepMerger from '../classes/DeepMerger.js'
+import environment from '../store/modules/environment'
 
 window.dd = (...args) => {
     if (
@@ -317,4 +318,59 @@ window.basename = str => {
     }
 
     return base
+}
+
+window.hash = str => {
+    let hash = 0,
+        i,
+        chr
+
+    if (str.length === 0) {
+        return hash
+    }
+
+    for (i = 0; i < str.length; i++) {
+        chr = str.charCodeAt(i)
+        hash = (hash << 5) - hash + chr
+        hash |= 0 // Convert to 32bit integer
+    }
+
+    return hash
+}
+
+window.first_last = string => {
+    const splitted = string.split(' ')
+
+    const first = splitted[0]
+
+    const last = splitted.slice(-1).join(' ')
+
+    return splitted[0] + (first !== last ? ' ' + last : '')
+}
+
+window.can = (user, permission) => {
+    return typeof JSON.parse(user.permissions)[permission] !== 'undefined'
+}
+
+window.splitString = (string, size) => {
+    let chunks = []
+    let start = 0
+    let lastSpace = -1
+    let end
+
+    for (end = 0; end < string.length; end++) {
+        if (string[end] === ' ') {
+            lastSpace = end
+        }
+
+        if (end - start > size) {
+            chunks.push(string.substr(start, lastSpace - start).trim())
+
+            start = lastSpace + 1
+        }
+    }
+
+    chunks.push(string.substr(start, end - start).trim())
+
+    return chunks
 }

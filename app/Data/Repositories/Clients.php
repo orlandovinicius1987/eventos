@@ -16,7 +16,8 @@ class Clients extends Repository
      */
     public function all()
     {
-        $query = app(ClientModel::class)->orderBy('name');
-        return $query->get();
+        return app(ClientModel::class)
+            ->orderBy('name')
+            ->get();
     }
 }
