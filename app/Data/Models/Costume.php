@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Costume extends Base
+class Costume extends BaseWithClient
 {
     /**
      * @var array

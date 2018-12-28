@@ -2,21 +2,21 @@
 
 namespace App\Data\Models;
 
-use Ramsey\Uuid\Uuid;
-use App\Events\InviteeCheckedIn;
-use App\Events\InvitationUpdated;
-use App\Events\InvitationAccepted;
-use App\Events\InvitationRejected;
-use App\Services\Markdown\Service;
-use App\Notifications\SendThankYou;
-use App\Notifications\SendRejection;
-use App\Notifications\SendInvitation;
-use App\Notifications\SendCredentials;
 use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
+use App\Events\InvitationAccepted;
+use App\Events\InvitationRejected;
+use App\Events\InvitationUpdated;
+use App\Events\InviteeCheckedIn;
+use App\Notifications\SendCredentials;
+use App\Notifications\SendInvitation;
+use App\Notifications\SendRejection;
+use App\Notifications\SendThankYou;
+use App\Services\Markdown\Service;
 use App\Services\QRCode\Service as QRCode;
+use Ramsey\Uuid\Uuid;
 
-class Invitation extends Base
+class Invitation extends BaseWithClient
 {
     /**
      * @var array

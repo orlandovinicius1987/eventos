@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class PersonInstitution extends Base
+class PersonInstitution extends BaseWithClient
 {
     protected $orderBy = ['people.name' => 'asc'];
 

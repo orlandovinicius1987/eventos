@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Role extends Base
+class Role extends BaseWithClient
 {
     /**
      * @var array

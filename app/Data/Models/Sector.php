@@ -1,7 +1,7 @@
 <?php
 namespace App\Data\Models;
 
-class Sector extends Base
+class Sector extends BaseWithClient
 {
     /**
      * @var array
