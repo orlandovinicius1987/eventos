@@ -32,6 +32,7 @@ const Import = () => import('./views/Import')
 const PhoneBook = () => import('./views/PhoneBook')
 const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
+const Sectors = () => import('./views/Sectors.vue')
 
 let routes = [
     {
@@ -147,6 +148,10 @@ let routes = [
         path: '/roles/:id/update',
         component: RolesForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/sectors',
+        component: Sectors,
     },
     {
         path: '/import',
