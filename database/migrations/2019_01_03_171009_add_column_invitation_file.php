@@ -14,7 +14,7 @@ class AddColumnInvitationFile extends Migration
     public function up()
     {
         Schema::table('sub_events', function (Blueprint $table) {
-            $table->string('invitation_file')->default(false);
+            $table->string('invitation_file')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddColumnInvitationFile extends Migration
      */
     public function down()
     {
-        Schema::table('invitations', function (Blueprint $table) {
+        Schema::table('sub_events', function (Blueprint $table) {
             $table->dropColumn('invitation_file');
         });
     }
