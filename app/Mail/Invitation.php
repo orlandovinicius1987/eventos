@@ -11,14 +11,15 @@ class Invitation extends Mailable
      */
     public function build()
     {
+        info($this->notification->invitation->subEvent->invitation_file);
         $this->to($this->notification->routeNotificationForMail())
             ->subject($this->notification->subject)
             ->markdown('emails.invitation')
             ->attach(
-                public_path('images/invitations/2019-01-posse-governador.jpg'),
+                public_path($this->notification->invitation->subEvent->invitation_file),
                 [
-                    'as' => 'convite.jpg',
-                    'mime' => 'application/jpg',
+                    'as' => 'convite.png',
+                    'mime' => 'image/png',
                 ]
             );
 
