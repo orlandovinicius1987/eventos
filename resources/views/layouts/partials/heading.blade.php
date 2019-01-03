@@ -133,6 +133,10 @@
                                             Lista telefônica
                                         </router-link>
 
+                                        <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
+                                            Instituições
+                                        </router-link>
+
                                         <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
                                             Categorias
                                         </router-link>
@@ -141,8 +145,8 @@
                                             Funções
                                         </router-link>
 
-                                        <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
-                                            Instituições
+                                        <router-link id="people-menu" to="/sectors" tag="a" class="dropdown-item">
+                                            Setores
                                         </router-link>
 
                                         <router-link id="people-menu" to="/contact-types" tag="a" class="dropdown-item">
