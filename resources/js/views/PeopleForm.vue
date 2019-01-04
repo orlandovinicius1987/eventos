@@ -18,8 +18,6 @@
                                 height="200"
                             />
 
-                            <p>{{ form.fields.photoUrl }}</p>
-
                             <b-modal
                                 id="croppaModal"
                                 body-class="mx-auto"
