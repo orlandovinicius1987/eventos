@@ -103,10 +103,10 @@ class SubEvent extends BaseWithClient
         return $this->date->format('d/m/Y');
     }
 
-    public function getInvitationFileHtmlAttribute()
+    public function getInvitationFileUrlAttribute()
     {
         if($this->invitation_file) {
-            return '<div><img class="invitation-file" src="data:image/png;base64,' . base64_encode(file_get_contents(public_path($this->invitation_file))) . '"></div>';
+            return 'data:image/png;base64,' . base64_encode(file_get_contents(public_path($this->invitation_file)));
         }else{
             return '';
         }

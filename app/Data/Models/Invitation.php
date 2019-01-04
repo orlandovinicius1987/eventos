@@ -492,7 +492,7 @@ class Invitation extends Base
                 $this->subEvent->address->google_maps_link_url ?? '',
             'google_maps_image_url' =>
                 $this->subEvent->address->google_maps_image_url ?? '',
-            'arquivo_convite' => $this->subEvent->invitation_file_html ?? '',
+            'arquivo_convite' => $this->subEvent->invitation_file_url ?? '',
         ];
 
         $variables['invitation_text'] = $this->parseMarkdown(
