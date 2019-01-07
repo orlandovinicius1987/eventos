@@ -11,7 +11,7 @@ export default {
 
             receptive: state => state.receptive,
 
-            statistics: state =>state.receptive.data.statistics,
+            statistics: state => state.receptive.data.statistics,
         }),
     },
 }

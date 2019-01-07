@@ -1,12 +1,12 @@
 <template>
     <div>
         <app-select
-                :name="name"
-                :label="label"
-                v-model="institutionSelectFilter"
-                :required="required"
-                :form="form"
-                :options="options"
+            :name="name"
+            :label="label"
+            v-model="institutionSelectFilter"
+            :required="required"
+            :form="form"
+            :options="options"
         ></app-select>
     </div>
 </template>
@@ -18,15 +18,15 @@ export default {
     computed: {
         institutionSelectFilter: {
             get() {
-                return this.$store.state['invitables'].data.filter.selects.institution
+                return this.$store.state['invitables'].data.filter.selects
+                    .institution
             },
 
             set(id) {
-                this.$store.dispatch(
-                    'invitables/mutateFilterSelect', {
-                        field: 'institution', value: id
-                    }
-                )
+                this.$store.dispatch('invitables/mutateFilterSelect', {
+                    field: 'institution',
+                    value: id,
+                })
             },
         },
     },
@@ -34,6 +34,5 @@ export default {
     beforeDestroy() {
         this.$store.state['invitables'].data.filter.selects.institution = null
     },
-
 }
 </script>
