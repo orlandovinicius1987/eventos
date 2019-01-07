@@ -7,7 +7,8 @@ class Invitation extends Mailable
     /**
      * @return mixed
      */
-    protected function hasAttachment(){
+    protected function hasAttachment()
+    {
         return $this->notification->invitation->subEvent->invitation_file;
     }
     /**
@@ -17,15 +18,20 @@ class Invitation extends Mailable
      */
     public function build()
     {
-        $filePath = public_path($this->notification->invitation->subEvent->invitation_file);
+        $filePath = public_path(
+            $this->notification->invitation->subEvent->invitation_file
+        );
         $this->to($this->notification->routeNotificationForMail())
             ->subject($this->notification->subject)
             ->markdown('emails.invitation');
-        if($this->hasAttachment()) {
+        if ($this->hasAttachment()) {
             $this->attach(
-                public_path($this->notification->invitation->subEvent->invitation_file),
+                public_path(
+                    $this->notification->invitation->subEvent->invitation_file
+                ),
                 [
-                    'as' => 'convite.' . pathinfo($filePath, PATHINFO_EXTENSION),
+                    'as' =>
+                        'convite.' . pathinfo($filePath, PATHINFO_EXTENSION),
                     'mime' => mime_content_type($filePath),
                 ]
             );
