@@ -33,9 +33,9 @@ class Home extends Controller
     public function changeClient(HomeUpdate $request)
     {
         if (
-            ($client = app(ClientsRepository::class)->findById(
+            $client = app(ClientsRepository::class)->findById(
                 $request['clientId']
-            ))
+            )
         ) {
             set_current_client_id($client->id);
         }
