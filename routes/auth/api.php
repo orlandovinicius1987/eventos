@@ -23,5 +23,6 @@ Route::group(
         require __DIR__ . '/api/sub-events.php';
         require __DIR__ . '/api/users.php';
         require __DIR__ . '/api/zip-code.php';
+        require __DIR__ . '/api/topics.php';
     }
 );

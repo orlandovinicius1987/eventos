@@ -156,6 +156,10 @@
                                         <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
                                             Importar dados
                                         </router-link>
+
+                                        <router-link id="people-menu" to="/topics" tag="a" class="dropdown-item">
+                                            Assuntos
+                                        </router-link>
                                     </div>
                                 </li>
                             @endCan

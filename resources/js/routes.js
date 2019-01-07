@@ -33,6 +33,7 @@ const PhoneBook = () => import('./views/PhoneBook')
 const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
 const Sectors = () => import('./views/Sectors.vue')
+const Topics = () => import('./views/Topics.vue')
 
 let routes = [
     {
@@ -156,6 +157,10 @@ let routes = [
     {
         path: '/import',
         component: Import,
+    },
+    {
+        path: '/topics',
+        component: Topics,
     },
     {
         path: '/categories',
