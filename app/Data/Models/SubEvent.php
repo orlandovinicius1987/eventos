@@ -32,6 +32,7 @@ class SubEvent extends BaseWithClient
         'send_invitations',
         'send_credentials',
         'security_can_recept',
+        'invitation_file',
     ];
 
     protected $dates = [
@@ -100,6 +101,13 @@ class SubEvent extends BaseWithClient
     public function getFormattedDateAttribute()
     {
         return $this->date->format('d/m/Y');
+    }
+
+    public function getInvitationFileUrlAttribute()
+    {
+        return $this->invitation_file
+            ? env('APP_URL') . '/' . $this->invitation_file
+            : '';
     }
 
     public function getFormattedTimeAttribute()
