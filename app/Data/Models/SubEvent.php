@@ -105,9 +105,7 @@ class SubEvent extends BaseWithClient
 
     public function getInvitationFileUrlAttribute()
     {
-        return $this->invitation_file
-            ? env('APP_URL') . '/' . $this->invitation_file
-            : '';
+        return $this->invitation_file ? url($this->invitation_file) : '';
     }
 
     public function getFormattedTimeAttribute()
