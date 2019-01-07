@@ -34,6 +34,7 @@ const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
 const Sectors = () => import('./views/Sectors.vue')
 const Topics = () => import('./views/Topics.vue')
+const TopicsForm = () => import('./views/TopicsForm.vue')
 
 let routes = [
     {
@@ -159,10 +160,6 @@ let routes = [
         component: Import,
     },
     {
-        path: '/topics',
-        component: Topics,
-    },
-    {
         path: '/categories',
         component: Categories,
     },
@@ -174,6 +171,20 @@ let routes = [
     {
         path: '/categories/:id/update',
         component: CategoriesForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/topics',
+        component: Topics,
+    },
+    {
+        path: '/topics/create',
+        component: TopicsForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/topics/:id/update',
+        component: TopicsForm,
         props: { mode: 'update' },
     },
     {

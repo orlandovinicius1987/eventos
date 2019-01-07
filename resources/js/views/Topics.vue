@@ -21,29 +21,29 @@
                         :columns="['#', 'Nome', '']"
                     >
                         <tr
-                            @click="select(category)"
-                            v-for="category in topics.data.rows"
+                            @click="select(topic)"
+                            v-for="topic in topics.data.rows"
                             :class="{
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
-                                    category,
+                                    topic,
                                     selected,
                                 ),
                             }"
                         >
-                            <td class="align-middle">{{ category.id }}</td>
+                            <td class="align-middle">{{ topic.id }}</td>
 
-                            <td class="align-middle">{{ category.name }}</td>
+                            <td class="align-middle">{{ topic.name }}</td>
 
                             <td class="align-middle text-right">
                                 <router-link
                                     :to="
-                                        '/topics/' + category.id + '/update'
+                                        '/topics/' + topic.id + '/update'
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
-                                    title="Editar Categoria"
+                                    title="Editar Assunto"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>

@@ -11,13 +11,4 @@ class Topics extends Repository
      */
     protected $model = TopicModel::class;
 
-    /**
-     * @return mixed
-     */
-    public function all()
-    {
-        return app(TopicModel::class)
-            ->orderBy('name')
-            ->get();
-    }
 }
