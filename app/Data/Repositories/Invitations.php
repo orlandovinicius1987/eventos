@@ -471,8 +471,22 @@ class Invitations extends Repository
         $filltered = $this->applyFilter(
             $this->newQuery()
                 ->join('sub_events', 'sub_event_id', '=', 'sub_events.id')
-                ->whereNotNull('accepted_at')
                 ->where('event_id', $eventId)
+                ->whereIn('person_institution_id', function ($query) use (
+                    $eventId
+                ) {
+                    $query
+                        ->select('person_institution_id')
+                        ->from('invitations')
+                        ->join(
+                            'sub_events',
+                            'sub_event_id',
+                            '=',
+                            'sub_events.id'
+                        )
+                        ->whereNotNull('accepted_at')
+                        ->where('sub_events.event_id', $eventId);
+                })
                 ->orderByRaw('checkin_at desc nulls last')
         );
 
@@ -501,19 +515,6 @@ class Invitations extends Repository
         }
 
         $invitation->sendThankYou();
-
-        $this->newQuery()
-            ->where('person_institution_id', $invitation->person_institution_id)
-            ->whereIn(
-                'sub_event_id',
-                $invitation->subEvent->event->subEvents->pluck('id')
-            )
-            ->get()
-            ->each(function ($invitation) {
-                $invitation->thanks_sent_at = now();
-
-                $invitation->save();
-            });
     }
 
     public function getStatistics($eventId)
