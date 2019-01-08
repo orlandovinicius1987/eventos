@@ -32,8 +32,16 @@
                         :style="{
                             'background-color': getCheckedIn().data.sub_event
                                 .sector
-                                ? getCheckedIn().data.sub_event.sector.color
+                                ? getColor(
+                                      getCheckedIn().data.sub_event.sector
+                                          .color,
+                                      0,
+                                  )
                                 : '',
+                            color: getColor(
+                                getCheckedIn().data.sub_event.sector.color,
+                                1,
+                            ),
                             'text-transform': 'uppercase',
                         }"
                     >
@@ -155,8 +163,16 @@
                                     :style="{
                                         'background-color': invitation.sub_event
                                             .sector
-                                            ? invitation.sub_event.sector.color
+                                            ? getColor(
+                                                  invitation.sub_event.sector
+                                                      .color,
+                                                  0,
+                                              )
                                             : '',
+                                        color: getColor(
+                                            invitation.sub_event.sector.color,
+                                            1,
+                                        ),
                                         'text-transform': 'uppercase',
                                     }"
                                 >
