@@ -6,6 +6,10 @@
             <div class="col-12 col-lg-4">
                 <app-table-panel
                     :title="'Setores (' + pagination.total + ')'"
+                    :add-button="{
+                        uri: '/sectors/create',
+                        disabled: cannot('create'),
+                    }"
                     :per-page="perPage"
                     :filter-text="filterText"
                     @input-filter-text="filterText = $event.target.value"
@@ -43,19 +47,15 @@
                             <td class="align-middle">{{ sector.color }}</td>
 
                             <td class="align-middle text-right">
-                                <!-- <router-link -->
-                                <!--
+                                <router-link
                                     :to="'/sectors/' + sector.id + '/update'"
-                                -->
-                                <!-- tag="button" -->
-                                <!--
+                                    tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                -->
-                                <!-- :disabled="cannot('create')" -->
-                                <!-- title="Editar Função" -->
-                                <!-- &gt; -->
-                                <!-- <i class="fa fa-edit"></i> -->
-                                <!-- </router-link> -->
+                                    :disabled="cannot('create')"
+                                    title="Editar Função"
+                                >
+                                    <i class="fa fa-edit"></i>
+                                </router-link>
                             </td>
                         </tr>
                     </app-table>

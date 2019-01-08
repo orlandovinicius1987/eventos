@@ -33,6 +33,7 @@ const PhoneBook = () => import('./views/PhoneBook')
 const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
 const Sectors = () => import('./views/Sectors.vue')
+const SectorForm = () => import('./views/SectorForm.vue')
 
 let routes = [
     {
@@ -152,6 +153,16 @@ let routes = [
     {
         path: '/sectors',
         component: Sectors,
+    },
+    {
+        path: '/sectors/create',
+        component: SectorForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/sectors/:id/update',
+        component: SectorForm,
+        props: { mode: 'update' },
     },
     {
         path: '/import',
