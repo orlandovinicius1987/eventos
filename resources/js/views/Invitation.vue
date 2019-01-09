@@ -48,13 +48,23 @@
                                 </span>
 
                                 <span
-                                    v-if="
+                                        v-if="
                                         notification.content_type ===
                                             'rejection'
                                     "
-                                    class="badge badge-warning p-2"
+                                        class="badge badge-warning p-2"
                                 >
                                     DECLINAÇÃO
+                                </span>
+
+                                <span
+                                        v-if="
+                                        notification.content_type ===
+                                            'thanks'
+                                    "
+                                        class="badge badge-dark p-2"
+                                >
+                                    AGRADECIMENTO
                                 </span>
                             </td>
 
