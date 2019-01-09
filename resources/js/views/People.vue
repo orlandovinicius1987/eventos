@@ -189,10 +189,10 @@
 
                     <div class="col-12">
                         <app-table-panel
-                                v-if="selected.id && personCategories.data.links"
+                                v-if="selected.id && personTopics.data.links"
                                 :title="
                                 'Assuntos: ' +
-                                    personCategories.data.links.pagination.total
+                                    personTopics.data.links.pagination.total
                             "
                                 :add-button="{
                                 uri:
@@ -201,44 +201,44 @@
                                     '/categories/create',
                                 disabled: cannot('create'),
                             }"
-                                :per-page="personCategoriesPerPage"
-                                @set-per-page="personCategoriesPerPage = $event"
-                                :filter-text="personCategoriesFilterText"
+                                :per-page="personTopicsPerPage"
+                                @set-per-page="personTopicsPerPage = $event"
+                                :filter-text="personTopicsFilterText"
                                 @input-filter-text="
-                                personCategoriesFilterText = $event.target.value
+                                personTopicsFilterText = $event.target.value
                             "
                         >
                             <app-table
                                     :pagination="
-                                    personCategories.data.links.pagination
+                                    personTopics.data.links.pagination
                                 "
-                                    @goto-page="personCategoriesGotoPage($event)"
+                                    @goto-page="personTopicsGotoPage($event)"
                                     :columns="['#', 'Nome', '']"
                             >
                                 <tr
-                                        v-for="personCategory in personCategories
+                                        v-for="personTopic in personTopics
                                         .data.rows"
                                         class="cursor-pointer"
                                         :class="{
                                         'cursor-pointer': true,
                                         'bg-primary text-white': isCurrent(
-                                            personCategory,
-                                            personCategories.selected,
+                                            personTopic,
+                                            personTopics.selected,
                                         ),
                                     }"
                                 >
                                     <td class="align-middle">
-                                        {{ personCategory.id }}
+                                        {{ personTopic.id }}
                                     </td>
                                     <td class="align-middle">
-                                        {{ personCategory.name }}
+                                        {{ personTopic.name }}
                                     </td>
 
                                     <td class="align-middle text-right">
                                         <div
                                                 @click="
                                                 confirmDeletePersonCategory(
-                                                    personCategory,
+                                                    personTopic,
                                                 )
                                             "
                                                 class="btn btn-danger btn-sm mr-1 pull-right"
@@ -790,6 +790,14 @@ export default {
             )
         },
 
+        personTopicsGotoPage(page) {
+            this.gotoPage(
+                page,
+                'personTopics',
+                this.personTopics.data.links.pagination,
+            )
+        },
+
         addressesGotoPage(page) {
             this.gotoPage(
                 page,
@@ -888,6 +896,33 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personInstitutions/setPerPage',
+                    perPage,
+                )
+            },
+        },
+
+        personTopicsFilterText: {
+            get() {
+                return this.$store.state['personTopics'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'personTopics/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        personTopicsPerPage: {
+            get() {
+                return this.$store.state['personTopics'].data.links
+                    .pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch(
+                    'personTopics/setPerPage',
                     perPage,
                 )
             },

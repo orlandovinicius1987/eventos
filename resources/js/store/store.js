@@ -34,6 +34,7 @@ import institutions from './modules/institutions'
 import personCategories from './modules/personCategories'
 import categorizables from './modules/categorizables'
 import personInstitutions from './modules/personInstitutions'
+import personTopics from './modules/personTopics'
 import contactTypes from './modules/contact-types'
 import contacts from './modules/contacts'
 import advisors from './modules/advisors'
@@ -76,6 +77,7 @@ let store = new Vuex.Store({
         personCategories,
         categorizables,
         personInstitutions,
+        personTopics,
         contactTypes,
         advisors,
         advisorContacts,
