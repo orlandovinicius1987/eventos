@@ -1,92 +1,171 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar ' }}Função</h2>
+            <h1>{{ people.selected.name }}</h1>
+            <h2>Associar Assuntos a Pessoas</h2>
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-8">
-                <form>
-                    <div class="row">
-                        <div class="col-12 mb-3">
-                            <app-person-institution-field
-                                :form="form"
-                                :environment="environment"
-                            >
-                            </app-person-institution-field>
-                        </div>
-                    </div>
+            <div class="col-6">
+                <app-table-panel
+                        v-if="topics.data.links"
+                        title="Assuntos"
+                        :per-page="categorizablesPerPage"
+                        @set-per-page="categorizablesPerPage = $event"
+                        :filter-text="categorizablesFilterText"
+                        @input-filter-text="
+                        categorizablesFilterText = $event.target.value
+                    "
+                >
+                    <template slot="buttons">
+                        <button
+                                v-if="categorizablesChecked.length > 0"
+                                class="btn btn-primary btn-sm pull-right"
+                                @click="categorize()"
+                        >
+                            associar categorias
+                        </button>
+                    </template>
 
-                    <div class="row">
-                        <div class="col-12 text-right mb-3">
-                            <button
-                                @click.prevent="saveModel()"
-                                class="btn btn-outline-secondary"
-                                type="submit"
-                            >
-                                gravar
-                            </button>
+                    <app-table
+                            :pagination="categorizables.data.links.pagination"
+                            @goto-page="categorizablesGotoPage($event)"
+                            :columns="['#', 'Nome']"
+                    >
+                        <tr
+                                v-for="categorizable in categorizables.data.rows"
+                                :class="{
+                                'cursor-pointer': true,
+                                'bg-primary-lighter text-white': isCurrent(
+                                    categorizable,
+                                    categorizables.selected,
+                                ),
+                            }"
+                        >
+                            <td class="align-middle">{{ categorizable.id }}</td>
 
-                            <router-link
-                                to="/people/"
-                                tag="button"
-                                class="btn btn-success"
-                            >
-                                cancelar
-                            </router-link>
-                        </div>
-                    </div>
-                </form>
+                            <td class="align-middle">
+                                <input
+                                        :checked="isChecked(categorizable)"
+                                        @input="toggleCheck(categorizable)"
+                                        type="checkbox"
+                                />
+                            </td>
+
+                            <td class="align-middle">
+                                {{ categorizable.name }}
+                            </td>
+                        </tr>
+                    </app-table>
+                </app-table-panel>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import crud from './mixins/crud'
-import personInstitutions from './mixins/personInstitutions'
-import people from './mixins/people'
-import advisors from './mixins/advisors'
-import roles from './mixins/roles'
+    import crud from './mixins/crud'
+    import personTopics from './mixins/personTopics'
+    import { mapState } from 'vuex'
 
-const service = {
-    name: 'personInstitutions',
-    uri: 'people/{people.selected.id}/person-institutions',
-    isForm: true,
-}
+    const service = {
+        name: 'personTopics',
+        //uri: 'people/{people.selected.id}/person-topics',
+        isForm: true,
+    }
 
-export default {
-    props: ['mode', 'source'],
+    export default {
+        props: ['mode'],
 
-    mixins: [crud, personInstitutions, people, advisors, roles],
+        mixins: [crud, personTopics],
 
-    data() {
-        this.$store.dispatch('environment/loadRoles')
-        this.$store.dispatch('environment/loadInstitutions')
-        return {
-            service: service,
-        }
-    },
+        data() {
+            return {
+                service: service,
 
-    methods: {
-        fillAdditionalFormFields() {
-            if (this.mode === 'create') {
-                this.$store.dispatch('personInstitutions/clearForm', {
-                    root: true,
-                })
-            } else if (this.mode === 'update') {
-                this.$store.commit(
-                    'personInstitutions/mutateFormData',
-                    this.personInstitutions.selected,
-                )
+                categorizablesChecked: {},
+
+                checkedCategory: {},
             }
-            this.$store.commit('personInstitutions/mutateSetFormField', {
-                field: 'person_id',
-                value: this.personInstitutions.person.id,
-            })
         },
-    },
-}
+
+        computed: {
+            categorizablesFilterText: {
+                get() {
+                    return this.$store.state['categorizables'].data.filter.text
+                },
+
+                set(filter) {
+                    return this.$store.dispatch(
+                        this.service.name + '/mutateSetQueryFilterText',
+                        filter,
+                    )
+                },
+            },
+
+            categorizablesPerPage: {
+                get() {
+                    return this.$store.state['categorizables'].data.links.pagination
+                        .per_page
+                },
+
+                set(perPage) {
+                    return this.$store.dispatch(
+                        'categorizables/setPerPage',
+                        perPage,
+                    )
+                },
+            },
+        },
+
+        methods: {
+            categorizablesGotoPage(page) {
+                this.gotoPage(
+                    page,
+                    'categorizables',
+                    this.categorizables.data.links.pagination,
+                )
+            },
+
+            isChecked(categorizable) {
+                return this.checkedCategory.hasOwnProperty(categorizable.id)
+                    ? this.checkedCategory[categorizable.id].checked
+                    : false
+            },
+
+            toggleCheck(categorizable) {
+                if (!this.checkedCategory.hasOwnProperty(categorizable.id)) {
+                    this.checkedCategory[categorizable.id] = {
+                        id: categorizable.id,
+                        checked: false,
+                    }
+                }
+
+                this.checkedCategory[categorizable.id].checked = !this
+                    .checkedCategory[categorizable.id].checked
+
+                this.categorizablesChecked = this.getCategorizablesChecked()
+            },
+
+            categorize() {
+                const categories = {
+                    personId: this.people.selected.id,
+
+                    categories: this.categorizablesChecked,
+                }
+
+                this.$store.dispatch('categorizables/categorize', categories)
+
+                this.$router.go(-1)
+            },
+
+            getCategorizablesChecked() {
+                return _.filter(this.checkedCategory, category => {
+                    return category.checked
+                })
+            },
+        },
+    }
 </script>
 
 <style></style>

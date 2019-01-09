@@ -198,7 +198,7 @@
                                 uri:
                                     '/people/' +
                                     people.selected.id +
-                                    '/categories/create',
+                                    '/person-topics/create',
                                 disabled: cannot('create'),
                             }"
                                 :per-page="personTopicsPerPage"

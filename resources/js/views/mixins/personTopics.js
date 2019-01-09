@@ -2,7 +2,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default {
     methods: {
-        ...mapActions('personInstitutions', ['clearForm']),
+        ...mapActions('personTopics', ['clearForm']),
     },
 
     computed: {

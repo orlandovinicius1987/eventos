@@ -28,15 +28,11 @@ const actions = merge_objects(actionsMixin, {
 
         context.dispatch('load', payload)
     },
-
-    unCategorize(context, payload) {
-        post(makeDataUrl(context) + '/' + payload.id + '/un-categorize/')
-    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
     mutateSetPersonTopic(state, payload) {
-        state.personCategory = payload
+        state.personTopic = payload
     },
 })
 
