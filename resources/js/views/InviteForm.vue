@@ -84,9 +84,9 @@
                         </div>
 
                         <div
-                            v-if="selectedSubEvent"
-                            class="btn btn-danger btn-sm pull-right"
-                            @click="moveInvitations()"
+                                v-if="selectedSubEvent"
+                                class="btn btn-danger btn-sm pull-right"
+                                @click="moveInvitations()"
                         >
                             mover convidados
                         </div>

@@ -13,6 +13,7 @@ class ContactTypeStore extends BaseStore
     {
         return [
             'name' => 'required',
+            'code' => 'required',
         ];
     }
 }
