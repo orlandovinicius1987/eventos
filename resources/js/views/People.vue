@@ -189,6 +189,71 @@
 
                     <div class="col-12">
                         <app-table-panel
+                                v-if="selected.id && personCategories.data.links"
+                                :title="
+                                'Assuntos: ' +
+                                    personCategories.data.links.pagination.total
+                            "
+                                :add-button="{
+                                uri:
+                                    '/people/' +
+                                    people.selected.id +
+                                    '/categories/create',
+                                disabled: cannot('create'),
+                            }"
+                                :per-page="personCategoriesPerPage"
+                                @set-per-page="personCategoriesPerPage = $event"
+                                :filter-text="personCategoriesFilterText"
+                                @input-filter-text="
+                                personCategoriesFilterText = $event.target.value
+                            "
+                        >
+                            <app-table
+                                    :pagination="
+                                    personCategories.data.links.pagination
+                                "
+                                    @goto-page="personCategoriesGotoPage($event)"
+                                    :columns="['#', 'Nome', '']"
+                            >
+                                <tr
+                                        v-for="personCategory in personCategories
+                                        .data.rows"
+                                        class="cursor-pointer"
+                                        :class="{
+                                        'cursor-pointer': true,
+                                        'bg-primary text-white': isCurrent(
+                                            personCategory,
+                                            personCategories.selected,
+                                        ),
+                                    }"
+                                >
+                                    <td class="align-middle">
+                                        {{ personCategory.id }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ personCategory.name }}
+                                    </td>
+
+                                    <td class="align-middle text-right">
+                                        <div
+                                                @click="
+                                                confirmDeletePersonCategory(
+                                                    personCategory,
+                                                )
+                                            "
+                                                class="btn btn-danger btn-sm mr-1 pull-right"
+                                                title="Excluir Assunto"
+                                        >
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </app-table>
+                        </app-table-panel>
+                    </div>
+
+                    <div class="col-12">
+                        <app-table-panel
                             v-if="selected.id && personInstitutions.data.links"
                             :title="
                                 'Funções: ' +

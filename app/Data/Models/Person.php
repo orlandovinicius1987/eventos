@@ -46,6 +46,10 @@ class Person extends BaseWithClient
         return $this->hasMany(PersonInstitution::class);
     }
 
+    public function person_topics(){
+        return $this->hasMany(PersonTopic::class);
+    }
+
     public function institutions()
     {
         return $this->hasMany(PersonInstitution::class);
