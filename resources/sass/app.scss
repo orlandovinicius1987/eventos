@@ -5,16 +5,19 @@
 @import '~tui-editor/dist/tui-editor-contents.css';
 @import '~highlight.js/styles/github.css';
 
-// Fonts
+// Google Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-
+// FontAwesome
 @import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
 @import '~@fortawesome/fontawesome-free/scss/solid.scss';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 
 @import '/fonts/vendor/din/stylesheet.css';
+
+// Swatches
+@import '~vue-swatches/dist/vue-swatches.min.css';
 
 // Vue Croppa
 @import '~vue-croppa/dist/vue-croppa.css';

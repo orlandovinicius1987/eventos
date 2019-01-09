@@ -1,8 +1,6 @@
 <template>
     <div>
-        <div class="mt-5 text-center">
-            <h2 class="mb-0">Endereço</h2>
-        </div>
+        <div class="mt-5 text-center"><h2 class="mb-0">Endereço</h2></div>
 
         <label for="zipcode" class="mb-0 mt-2">CEP</label>
 
@@ -13,10 +11,10 @@
             id="zipcode"
             required="required"
             dusk="zipcode"
-            v-mask='["##.###-###"]'
-        >
+            v-mask="['##.###-###']"
+        />
 
-        <small class="text-danger" v-if="form.errors.has('zipcode')" >
+        <small class="text-danger" v-if="form.errors.has('zipcode')">
             {{ form.errors.get('zipcode') }}
         </small>
 
@@ -83,7 +81,6 @@
             :required="true"
             :form="form"
         ></app-input>
-
 
         <div class="mt-4">
             <app-input
@@ -166,8 +163,8 @@ export default {
             this.latitude = this.latitude
                 ? this.latitude
                 : this.address.latitude
-                    ? this.address.latitude
-                    : laravel.google_maps.geolocation.latitude
+                ? this.address.latitude
+                : laravel.google_maps.geolocation.latitude
 
             return parseFloat(this.latitude)
         },
@@ -176,8 +173,8 @@ export default {
             this.longitude = this.longitude
                 ? this.longitude
                 : this.address.longitude
-                    ? this.address.longitude
-                    : laravel.google_maps.geolocation.longitude
+                ? this.address.longitude
+                : laravel.google_maps.geolocation.longitude
 
             return parseFloat(this.longitude)
         },
@@ -204,11 +201,11 @@ export default {
                 this.$refs.addressMap.$mapPromise.then(map => {
                     map.panTo({
                         lat: parseFloat(this.address.latitude),
-                        lng: parseFloat(this.address.longitude)
+                        lng: parseFloat(this.address.longitude),
                     })
                 })
             }
-        }
+        },
     },
 
     computed: {
@@ -229,8 +226,8 @@ export default {
         },
     },
 
-    mounted () {
+    mounted() {
         this.centerMap()
-    }
+    },
 }
 </script>
