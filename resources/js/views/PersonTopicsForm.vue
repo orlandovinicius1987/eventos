@@ -28,32 +28,32 @@
                     </template>
 
                     <app-table
-                            :pagination="categorizables.data.links.pagination"
+                            :pagination="topics.data.links.pagination"
                             @goto-page="categorizablesGotoPage($event)"
                             :columns="['#', 'Nome']"
                     >
                         <tr
-                                v-for="categorizable in categorizables.data.rows"
+                                v-for="topic in topics.data.rows"
                                 :class="{
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
-                                    categorizable,
-                                    categorizables.selected,
+                                    topic,
+                                    topic.selected,
                                 ),
                             }"
                         >
-                            <td class="align-middle">{{ categorizable.id }}</td>
+                            <td class="align-middle">{{ topic.id }}</td>
 
                             <td class="align-middle">
                                 <input
-                                        :checked="isChecked(categorizable)"
-                                        @input="toggleCheck(categorizable)"
+                                        :checked="isChecked(topic)"
+                                        @input="toggleCheck(topic)"
                                         type="checkbox"
                                 />
                             </td>
 
                             <td class="align-middle">
-                                {{ categorizable.name }}
+                                {{ topic.name }}
                             </td>
                         </tr>
                     </app-table>
