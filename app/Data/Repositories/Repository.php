@@ -198,7 +198,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if (($text = $filter['filter']['text'])) {
+        if ($text = $filter['filter']['text']) {
             $this->filterAllColumns($query, $text);
         }
 
@@ -368,22 +368,22 @@ abstract class Repository
     protected function makePaginationResult(LengthAwarePaginator $data)
     {
         return [
-            "links" => [
-                "pagination" => [
-                    "total" => $data->total(),
-                    "per_page" => $data->perPage(),
-                    "current_page" => $data->currentPage(),
-                    "last_page" => $data->lastPage(),
-                    "from" => ($from =
+            'links' => [
+                'pagination' => [
+                    'total' => $data->total(),
+                    'per_page' => $data->perPage(),
+                    'current_page' => $data->currentPage(),
+                    'last_page' => $data->lastPage(),
+                    'from' => ($from =
                         ($data->currentPage() - 1) * $data->perPage() + 1),
-                    "to" => $from + count($data->items()) - 1,
-                    "pages" => $this->generatePages($data),
+                    'to' => $from + count($data->items()) - 1,
+                    'pages' => $this->generatePages($data),
                 ],
             ],
 
-            "filter" => $this->getQueryFilter()['filter'],
+            'filter' => $this->getQueryFilter()['filter'],
 
-            "rows" => $this->transform($data->items()),
+            'rows' => $this->transform($data->items()),
         ];
     }
 

@@ -498,9 +498,9 @@ class Invitations extends Repository
     public function findByUuid($uuid)
     {
         if (
-            ($invitation = $this->model
+            $invitation = $this->model
                 ::where('uuid', $this->extractCodeFromUrl($uuid))
-                ->first())
+                ->first()
         ) {
             return $invitation;
         }

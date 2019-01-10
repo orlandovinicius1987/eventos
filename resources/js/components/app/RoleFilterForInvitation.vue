@@ -1,12 +1,12 @@
 <template>
     <div>
         <app-select
-                :name="name"
-                :label="label"
-                v-model="roleSelectFilter"
-                :required="required"
-                :form="form"
-                :options="options"
+            :name="name"
+            :label="label"
+            v-model="roleSelectFilter"
+            :required="required"
+            :form="form"
+            :options="options"
         ></app-select>
     </div>
 </template>
@@ -22,11 +22,10 @@ export default {
             },
 
             set(id) {
-                this.$store.dispatch(
-                    'invitables/mutateFilterSelect', {
-                        field: 'role', value: id
-                    }
-                )
+                this.$store.dispatch('invitables/mutateFilterSelect', {
+                    field: 'role',
+                    value: id,
+                })
             },
         },
     },
