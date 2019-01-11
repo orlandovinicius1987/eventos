@@ -19,8 +19,9 @@
                 >
                     <template slot="buttons">
                         <button
-                                v-if="personTopicsChecked.length > 0"
+                                v-if="topicsablesChecked.length > 0"
                                 class="btn btn-primary btn-sm pull-right"
+                                @click="topicize()"
                         >
                             associar categorias
                         </button>
@@ -29,30 +30,30 @@
                     <app-table
                             :pagination="topicsables.data.links.pagination"
                             @goto-page="personTopicsGotoPage($event)"
-                            :columns="['#', 'Nome']"
+                            :columns="['#', '','Nome']"
                     >
                         <tr
-                                v-for="topic in topicsables.data.rows"
+                                v-for="topicsable in topicsables.data.rows"
                                 :class="{
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
-                                    topic,
-                                    topic.selected,
+                                    topicsable,
+                                    topicsables.selected,
                                 ),
                             }"
                         >
-                            <td class="align-middle">{{ topic.id }}</td>
+                            <td class="align-middle">{{ topicsable.id }}</td>
 
                             <td class="align-middle">
                                 <input
-                                        :checked="isChecked(topic)"
-                                        @input="toggleCheck(topic)"
+                                        :checked="isChecked(topicsable)"
+                                        @input="toggleCheck(topicsable)"
                                         type="checkbox"
                                 />
                             </td>
 
                             <td class="align-middle">
-                                {{ topic.name }}
+                                {{ topicsable.name }}
                             </td>
                         </tr>
                     </app-table>
@@ -82,14 +83,14 @@
             return {
                 service: service,
 
-                personTopicsChecked: {},
+                topicsablesChecked: {},
 
                 checkedTopic: {},
             }
         },
 
         computed: {
-            personTopicsFilterText: {
+            topicsablesFilterText: {
                 get() {
                     return this.$store.state['topicsables'].data.filter.text
                 },
@@ -126,15 +127,41 @@
                 )
             },
 
-            isChecked(personTopic) {
-                return this.checkedTopic.hasOwnProperty(personTopic.id)
-                    ? this.checkedTopic[personTopic.id].checked
+            toggleCheck(topicsable) {
+                if (!this.checkedTopic.hasOwnProperty(topicsable.id)) {
+                    this.checkedTopic[topicsable.id] = {
+                        id: topicsable.id,
+                        checked: false,
+                    }
+                }
+
+                this.checkedTopic[topicsable.id].checked = !this
+                    .checkedTopic[topicsable.id].checked
+
+                this.topicsablesChecked = this.getTopicsablesChecked()
+            },
+
+            isChecked(topic) {
+                return this.checkedTopic.hasOwnProperty(topic.id)
+                    ? this.checkedTopic[topic.id].checked
                     : false
             },
 
-            getCategorizablesChecked() {
-                return _.filter(this.checkedTopic, category => {
-                    return category.checked
+            topicize() {
+                const topics = {
+                    personId: this.people.selected.id,
+
+                    topics: this.topicsablesChecked,
+                }
+
+                this.$store.dispatch('topicisable/topicize', topics)
+
+                this.$router.go(-1)
+            },
+
+            getTopicsablesChecked() {
+                return _.filter(this.checkedTopic, topic => {
+                    return topic.checked
                 })
             },
         },
