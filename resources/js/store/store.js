@@ -44,6 +44,7 @@ import phoneBook from './modules/phoneBook'
 import subEventsDashBoard from './modules/subEventsDashBoard'
 import sectors from './modules/sectors'
 import topics from './modules/topics'
+import topicsables from './modules/topicsables'
 
 /**
  * State
@@ -86,6 +87,7 @@ let store = new Vuex.Store({
         receptive,
         sectors,
         topics,
+        topicsables,
     },
 })
 

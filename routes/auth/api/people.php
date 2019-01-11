@@ -120,5 +120,9 @@ Route::group(['prefix' => '/people'], function () {
         Route::post('/{id}', 'PersonTopics@update')->name(
             'person-topics.update'
         );
+
+        Route::get('/topicsables/', 'PersonTopics@topicsables')->name(
+            'person-topics.topicsables'
+        );
     });
 });

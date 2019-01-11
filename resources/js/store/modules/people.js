@@ -63,6 +63,10 @@ let actions = merge_objects(actionsMixin, {
         context.dispatch('personCategories/select', payload, { root: true })
     },
 
+    selectPersonTopics(context, payload) {
+        context.dispatch('PersonTopics/select', payload, { root: true })
+    },
+
     selectPersonInstitution(context, payload) {
         context.dispatch('personInstitutions/select', payload, {
             root: true,
@@ -156,6 +160,8 @@ let mutations = merge_objects(
 
             state.selectedPersonInstitution = __emptyModel
 
+            state.selectedPersonTopic = __emptyModel
+
             state.selectedContact = __emptyModel
             state.selectedAddress = __emptyModel
 
@@ -184,6 +190,10 @@ let mutations = merge_objects(
 
         setPersonCategories(state, payload) {
             state.personCategories = payload
+        },
+
+        setPersonTopics(state, payload) {
+            state.personTopics = payload
         },
 
         setPersonInstitution(state, payload) {

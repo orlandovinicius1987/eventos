@@ -35,4 +35,25 @@ class PersonTopics extends Repository
 //    {
 //        event(new PersonTopicssGotChanged($model->person));
 //    }
+
+    public function topicsables($personId)
+    {
+        return $this->applyFilter(
+            app(Topics::class)
+                ->newQuery()
+                ->whereNotIn(
+                    'id',
+                    $this->getPersonTopics($personId)
+                        ->get()
+                        ->pluck('id')
+                )
+        );
+    }
+
+    private function getPersonTopics($personId)
+    {
+        return app(People::class)
+            ->findById($personId)
+            ->person_topics();
+    }
 }

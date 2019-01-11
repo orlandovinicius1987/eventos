@@ -61,4 +61,11 @@ class PersonTopics extends Controller
         );
     }
 
+    public function topicsables($personId)
+    {
+        return app(PersonTopicsRepository::class)->topicsables(
+            $personId
+        );
+    }
+
 }

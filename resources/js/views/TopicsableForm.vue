@@ -8,32 +8,31 @@
         <div class="row justify-content-center">
             <div class="col-6">
                 <app-table-panel
-                        v-if="topics.data.links"
+                        v-if="topicsables.data.links"
                         title="Assuntos"
-                        :per-page="categorizablesPerPage"
-                        @set-per-page="categorizablesPerPage = $event"
-                        :filter-text="categorizablesFilterText"
+                        :per-page="topicsablesPerPage"
+                        @set-per-page="topicsablesPerPage = $event"
+                        :filter-text="topicsablesFilterText"
                         @input-filter-text="
-                        categorizablesFilterText = $event.target.value
+                        topicsablesFilterText = $event.target.value
                     "
                 >
                     <template slot="buttons">
                         <button
-                                v-if="categorizablesChecked.length > 0"
+                                v-if="personTopicsChecked.length > 0"
                                 class="btn btn-primary btn-sm pull-right"
-                                @click="categorize()"
                         >
                             associar categorias
                         </button>
                     </template>
 
                     <app-table
-                            :pagination="topics.data.links.pagination"
-                            @goto-page="categorizablesGotoPage($event)"
+                            :pagination="topicsables.data.links.pagination"
+                            @goto-page="personTopicsGotoPage($event)"
                             :columns="['#', 'Nome']"
                     >
                         <tr
-                                v-for="topic in topics.data.rows"
+                                v-for="topic in topicsables.data.rows"
                                 :class="{
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
@@ -65,34 +64,34 @@
 
 <script>
     import crud from './mixins/crud'
-    import personTopics from './mixins/personTopics'
+    import topicsables from './mixins/topicsables'
     import { mapState } from 'vuex'
 
     const service = {
-        name: 'personTopics',
-        //uri: 'people/{people.selected.id}/person-topics',
+        name: 'topicsables',
+        uri: 'people/{people.selected.id}/person-topics/topicsables',
         isForm: true,
     }
 
     export default {
         props: ['mode'],
 
-        mixins: [crud, personTopics],
+        mixins: [crud,topicsables],
 
         data() {
             return {
                 service: service,
 
-                categorizablesChecked: {},
+                personTopicsChecked: {},
 
-                checkedCategory: {},
+                checkedTopic: {},
             }
         },
 
         computed: {
-            categorizablesFilterText: {
+            personTopicsFilterText: {
                 get() {
-                    return this.$store.state['categorizables'].data.filter.text
+                    return this.$store.state['topicsables'].data.filter.text
                 },
 
                 set(filter) {
@@ -103,15 +102,15 @@
                 },
             },
 
-            categorizablesPerPage: {
+            topicsablesPerPage: {
                 get() {
-                    return this.$store.state['categorizables'].data.links.pagination
+                    return this.$store.state['topicsables'].data.links.pagination
                         .per_page
                 },
 
                 set(perPage) {
                     return this.$store.dispatch(
-                        'categorizables/setPerPage',
+                        'topicsables/setPerPage',
                         perPage,
                     )
                 },
@@ -119,48 +118,22 @@
         },
 
         methods: {
-            categorizablesGotoPage(page) {
+            topicsablesGotoPage(page) {
                 this.gotoPage(
                     page,
-                    'categorizables',
-                    this.categorizables.data.links.pagination,
+                    'topicsables',
+                    this.topicsables.data.links.pagination,
                 )
             },
 
-            isChecked(categorizable) {
-                return this.checkedCategory.hasOwnProperty(categorizable.id)
-                    ? this.checkedCategory[categorizable.id].checked
+            isChecked(personTopic) {
+                return this.checkedTopic.hasOwnProperty(personTopic.id)
+                    ? this.checkedTopic[personTopic.id].checked
                     : false
             },
 
-            toggleCheck(categorizable) {
-                if (!this.checkedCategory.hasOwnProperty(categorizable.id)) {
-                    this.checkedCategory[categorizable.id] = {
-                        id: categorizable.id,
-                        checked: false,
-                    }
-                }
-
-                this.checkedCategory[categorizable.id].checked = !this
-                    .checkedCategory[categorizable.id].checked
-
-                this.categorizablesChecked = this.getCategorizablesChecked()
-            },
-
-            categorize() {
-                const categories = {
-                    personId: this.people.selected.id,
-
-                    categories: this.categorizablesChecked,
-                }
-
-                this.$store.dispatch('categorizables/categorize', categories)
-
-                this.$router.go(-1)
-            },
-
             getCategorizablesChecked() {
-                return _.filter(this.checkedCategory, category => {
+                return _.filter(this.checkedTopic, category => {
                     return category.checked
                 })
             },

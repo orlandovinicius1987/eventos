@@ -12,7 +12,7 @@ const CategorizablesForm = () => import('./views/CategorizablesForm')
 const Events = () => import('./views/Events')
 const Categories = () => import('./views/Categories')
 const CategoriesForm = () => import('./views/CategoriesForm')
-const PersonTopicsForm = ()=> import('./views/PersonTopicsForm')
+const TopicsableForm = ()=> import('./views/TopicsableForm')
 const PersonInstitutionsForm = () => import('./views/PersonInstitutionsForm')
 const PersonInstitutionsAddressesForm = () =>
     import('./views/PersonInstitutionsAddressesForm')
@@ -141,7 +141,7 @@ let routes = [
     },
     {
         path: '/people/:personId/person-topics/create',
-        component: PersonTopicsForm,
+        component: TopicsableForm,
         props: { mode: 'create' },
     },
     {
