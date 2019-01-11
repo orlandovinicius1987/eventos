@@ -34,6 +34,7 @@ const actions = merge_objects(actionsMixin, {
     },
 
     topicize(context, payload) {
+        dd('topicize')
         post(makeDataUrl(context), payload)
     },
 })

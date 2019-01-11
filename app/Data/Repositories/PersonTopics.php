@@ -56,4 +56,31 @@ class PersonTopics extends Repository
             ->findById($personId)
             ->person_topics();
     }
+
+    public function topicize($personId, $topics)
+    {
+        $person = app(People::class)->findById($personId);
+
+        $oldTopics = $person->person_topics->toArray();
+
+        $this->attachTopics($topics, $person);
+
+       // $this->broadcastUpdate($oldTopics, $person);
+        $person->save();
+        
+        return $person;
+    }
+
+    /**
+     * @param $categories
+     * @param $person
+     */
+    protected function attachTopics($topics, $person): void
+    {
+        coollect($topics)->each(function ($topic) use ($person) {
+            if ($topic->checked) {
+                $person->categories()->attach($topic->id);
+            }
+        });
+    }
 }

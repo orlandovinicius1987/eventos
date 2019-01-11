@@ -68,4 +68,18 @@ class PersonTopics extends Controller
         );
     }
 
+    /**
+     * @param Request $request
+     * @param $personId
+     * @return mixed
+     */
+    public function topicize($personId, Request $request)
+    {
+        //dd($request->get('topics'));
+        return app(PersonTopicsRepository::class)->topicize(
+            $personId,
+            $request->get('topics')
+        );
+    }
+
 }

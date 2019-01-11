@@ -154,7 +154,7 @@
                     topics: this.topicsablesChecked,
                 }
 
-                this.$store.dispatch('topicisable/topicize', topics)
+                this.$store.dispatch('topicsables/topicize', topics)
 
                 this.$router.go(-1)
             },

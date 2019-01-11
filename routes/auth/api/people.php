@@ -113,16 +113,12 @@ Route::group(['prefix' => '/people'], function () {
             'person-topics.all-by-person'
         );
 
-        Route::post('/', 'PersonTopics@store')->name(
-            'person-topics.store'
-        );
-
-        Route::post('/{id}', 'PersonTopics@update')->name(
-            'person-topics.update'
-        );
-
         Route::get('/topicsables/', 'PersonTopics@topicsables')->name(
             'person-topics.topicsables'
+        );
+
+        Route::post('/topicsables/', 'PersonTopics@topicize')->name(
+            'person-topics.topicize'
         );
     });
 });
