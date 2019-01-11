@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Models\PersonTopic;
 use App\Events\PersonInstitutionsGotChanged;
 use Illuminate\Database\Query\Builder;
 use App\Data\Models\PersonTopic as PersonTopicModel;
@@ -61,13 +62,15 @@ class PersonTopics extends Repository
     {
         $person = app(People::class)->findById($personId);
 
-        $oldTopics = $person->person_topics->toArray();
+      //  $oldTopics = $person->person_topics()->toArray();
+
+
 
         $this->attachTopics($topics, $person);
 
        // $this->broadcastUpdate($oldTopics, $person);
         $person->save();
-        
+
         return $person;
     }
 
@@ -79,8 +82,20 @@ class PersonTopics extends Repository
     {
         coollect($topics)->each(function ($topic) use ($person) {
             if ($topic->checked) {
-                $person->categories()->attach($topic->id);
+                $ps = new PersonTopic();
+                $ps->person_id = $person->id;
+                $ps->topic_id = $topic->id;
+                $ps->save();
             }
         });
+    }
+
+    public function unTopicize($personId, $id)
+    {
+        ($person = app(People::class)->findById($personId))
+            ->person_topics()
+            ->detach($id);
+
+       // event(new PersonCategoriesChanged($person));
     }
 }

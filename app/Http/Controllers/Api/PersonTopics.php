@@ -82,4 +82,16 @@ class PersonTopics extends Controller
         );
     }
 
+    /**
+     * @param $personId
+     * @param $id
+     * @return mixed
+     */
+    public function unTopicize($personId, $id)
+    {
+        return app(PersonTopicsRepository::class)->unTopicize(
+            $personId,
+            $id
+        );
+    }
 }

@@ -15,7 +15,7 @@ const state = merge_objects(statesMixin.common, {
 
     service: {
         name: 'personTopics',
-        uri: 'people/{people.selected.id}/person-topics/',
+        uri: 'people/{people.selected.id}/person-topics',
         isForm: true,
     },
 
@@ -30,6 +30,10 @@ const actions = merge_objects(actionsMixin, {
         context.commit('mutateSetSelected', __emptyModel)
 
         context.dispatch('load', payload)
+    },
+
+    unTopicize(context, payload) {
+        post(makeDataUrl(context) + '/' + payload.id + '/un-topicize/')
     },
 })
 

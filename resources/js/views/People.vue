@@ -231,13 +231,13 @@
                                         {{ personTopic.id }}
                                     </td>
                                     <td class="align-middle">
-                                        {{ personTopic.name }}
+                                        {{ personTopic.topic.name }}
                                     </td>
 
                                     <td class="align-middle text-right">
                                         <div
                                                 @click="
-                                                confirmDeletePersonCategory(
+                                                confirmDeletePersonTopic(
                                                     personTopic,
                                                 )
                                             "
@@ -847,6 +847,27 @@ export default {
                 personCategory,
             )
         },
+
+
+        confirmDeletePersonTopic(personTopic) {
+            confirm(
+                'Deseja realmente desassociar ' + personTopic.topic.name + '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    this.deletePersonTopic(personTopic)
+                }
+            })
+        },
+
+        deletePersonTopic(personTopic) {
+            return this.$store.dispatch(
+                'personTopics/unTopicize',
+                personTopic,
+            )
+        },
+
+
     },
 
     computed: {

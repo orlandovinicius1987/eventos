@@ -24,7 +24,10 @@ class PersonTopic extends Base
 
     protected $joins = [
         'people' => ['people.id', '=', 'person_topics.person_id'],
+        'topics' => ['topics.id', '=', 'person_topics.topic_id'],
     ];
+
+    protected $with = ['person', 'topic'];
 
     public function topic()
     {
