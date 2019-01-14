@@ -170,21 +170,11 @@
                             }"
                         >
                             <td class="align-middle">
-                                <span
-                                    class="badge text-white p-2"
-                                    :style="{
-                                        'background-color': subEvent.sector
-                                            ? subEvent.sector.color
-                                            : '',
-                                        'text-transform': 'uppercase',
-                                    }"
-                                >
-                                    {{
-                                        subEvent.sector
-                                            ? subEvent.sector.name
-                                            : ''
-                                    }}
-                                </span>
+                                <app-sector-badge
+                                    :sector="subEvent.sector"
+                                    uppercase="true"
+                                    padding="2"
+                                ></app-sector-badge>
                             </td>
 
                             <td class="align-middle">

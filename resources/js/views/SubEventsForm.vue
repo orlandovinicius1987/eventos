@@ -161,7 +161,7 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto do convite"
+                                label="Texto do convite"
                                 id="invitation_text"
                                 :value="subEvents.form.fields.invitation_text"
                             ></app-markdown-text-area>
@@ -174,7 +174,7 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto de envio das credencials de acesso ao evento"
+                                label="Texto de envio das credencials de acesso ao evento"
                                 id="credentials_text"
                                 :value="subEvents.form.fields.credentials_text"
                             ></app-markdown-text-area>
@@ -187,7 +187,7 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto de agradecimento pela presença"
+                                label="Texto de agradecimento pela presença"
                                 id="thank_you_text"
                                 :value="subEvents.form.fields.thank_you_text"
                             ></app-markdown-text-area>
@@ -200,10 +200,19 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto de declinação do convite"
+                                label="Texto de declinação do convite"
                                 id="rejection_text"
                                 :value="subEvents.form.fields.rejection_text"
                             ></app-markdown-text-area>
+
+                            <app-input
+                                name="invitation_file"
+                                label="Arquivo de imagem do convite"
+                                type="text"
+                                v-model="subEvents.form.fields.invitation_file"
+                                :form="form"
+                                inline="true"
+                            ></app-input>
 
                             <app-table-panel
                                 v-if="mode == 'create'"
