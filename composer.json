@@ -32,7 +32,8 @@
         "pragmarx/zipcode": "^1.5",
         "predis/predis": "^1.1",
         "rollbar/rollbar-laravel": "^4.0",
-        "sensiolabs/security-checker": "^5.0"
+        "sensiolabs/security-checker": "^5.0",
+        "villfa/invert-color": "^0.4.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.1",

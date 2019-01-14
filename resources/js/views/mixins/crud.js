@@ -185,6 +185,10 @@ export default {
         getUpdateStoreUrl() {
             return buildApiUrl(this.service.uri, this.$store.state)
         },
+
+        getColor(color, position) {
+            return get_color(color, position)
+        },
     },
 
     mounted() {

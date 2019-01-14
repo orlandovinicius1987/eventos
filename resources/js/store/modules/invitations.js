@@ -36,6 +36,7 @@ const __emptySubEvent = {
     costume_id: null,
     thank_you_text: null,
     rejection_text: null,
+    invitation_file: null,
     date: null,
     ended_at: null,
     ended_by: null,

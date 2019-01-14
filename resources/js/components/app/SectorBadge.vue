@@ -1,33 +1,14 @@
 <template>
-    <span
-        class="badge text-white"
-        :class="' p-' + getPadding()"
-        :style="{
-            'background-color': sector ? sector.color : '',
-        }"
+    <app-badge
+        :caption="sector ? sector.name : ''"
+        :complement="complement"
+        :complementFontSize="complementFontSize"
+        :color="sector && sector.color ? sector.color : '#000000,#FFFFFF'"
+        :uppercase="uppercase"
+        :padding="padding"
+        :fontSize="fontSize"
     >
-        <span
-            :style="{
-                'text-transform': uppercase ? 'uppercase' : 'none',
-                'font-size': fontSize,
-            }"
-        >
-            {{ sector ? sector.name : '' }}
-        </span>
-
-        <span v-if="complement">
-            <span
-                style="{'font-size': complementFontSize ? complementFontSize : '0.7em'}"
-                class="mt-2"
-            >
-                <br />
-                <span v-for="part in breakString(complement)">
-                    <br />
-                    {{ part }}
-                </span>
-            </span>
-        </span>
-    </span>
+    </app-badge>
 </template>
 
 <script>
@@ -40,15 +21,5 @@ export default {
         'fontSize',
         'complementFontSize',
     ],
-
-    methods: {
-        getPadding() {
-            return this.padding ? this.padding : 1
-        },
-
-        breakString(string) {
-            return splitString(string, 30)
-        },
-    },
 }
 </script>
