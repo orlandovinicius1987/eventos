@@ -6,7 +6,7 @@ class Role extends BaseWithClient
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'client_id'];
 
     protected $orderBy = ['roles.name' => 'asc'];
 

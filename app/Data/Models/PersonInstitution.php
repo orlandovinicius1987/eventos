@@ -18,6 +18,7 @@ class PersonInstitution extends BaseWithClient
         'title',
         'advised_id',
         'is_active',
+        'client_id',
     ];
 
     protected $with = ['person', 'institution', 'role'];

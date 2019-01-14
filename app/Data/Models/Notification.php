@@ -18,6 +18,7 @@ class Notification extends BaseWithClient
         'subject',
         'destination',
         'content_type',
+        'client_id',
     ];
 
     protected $table = 'notifications';

@@ -29,6 +29,7 @@ class Invitation extends BaseWithClient
         'sent_at',
         'received_at',
         'checkin_at',
+        'client_id',
     ];
 
     protected $with = [

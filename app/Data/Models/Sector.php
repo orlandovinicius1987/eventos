@@ -6,7 +6,7 @@ class Sector extends BaseWithClient
     /**
      * @var array
      */
-    protected $fillable = ['name', 'color'];
+    protected $fillable = ['name', 'color', 'client_id'];
 
     protected $orderBy = ['name' => 'asc'];
 
