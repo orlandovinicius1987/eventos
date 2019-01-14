@@ -33,7 +33,7 @@ class CreatEventTest extends DuskTestCase
                     ->click('@opcao-eventos')
                     ->waitForText('Nome')
                     ->click('@create-event-button')
-                    ->pause('2000')
+                    ->pause('3000')
 //                    ->assertSee('Novo Evento')
                     ->type('@event-name', 'evento teste')
                     ->click('@record-event-button')
