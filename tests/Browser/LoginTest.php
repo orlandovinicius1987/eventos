@@ -29,20 +29,23 @@ class LoginTest extends DuskTestCase
                     ->visit('login#/')
                     ->type('email', '4321')
                     ->type('password', '4321')
-                    ->click('@login-button')->assertPathIs('/login#')
-                ->screenshot('teste de login falho');
+                    ->click('@login-button')
+                    ->assertPathIs('/login')
+                    ->screenshot('teste de login falho');
 
             });
         }
         public function testLogin()
         {
             $this->browse(function (Browser $browser) {
-                $this->artisan('migrate');
-                $this->seed(DatabaseSeeder::class);
+//                $this->artisan('migrate');
+//                $this->seed(DatabaseSeeder::class);
                 $browser->visit('login#/')
                         ->type('email', app(UsersRepository::class)->randomElement()->username)
                         ->type('password', 'secret')
-                        ->click('@login-button')->assertPathIs('/admin')
+                        ->screenshot('teste usuario')
+                        ->click('@login-button')
+//                        ->assertPathIs('admin#/dashboard')
                         ->screenshot('teste de Login');
 
             });
