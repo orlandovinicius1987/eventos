@@ -8,19 +8,19 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateInstitutionsTable extends Migration
 {
-    private function import()
-    {
-        (new CSV())
-            ->parse(file_get_contents(database_path('data/parties.csv')))
-            ->each(function ($party) {
-                Institution::create([
-                    'name' => $party->name,
-                    'initials' => $party->initials,
-                    'party_number' => $party->number,
-                    'is_party' => true,
-                ]);
-            });
-    }
+//    private function import()
+//    {
+//        (new CSV())
+//            ->parse(file_get_contents(database_path('data/parties.csv')))
+//            ->each(function ($party) {
+//                Institution::create([
+//                    'name' => $party->name,
+//                    'initials' => $party->initials,
+//                    'party_number' => $party->number,
+//                    'is_party' => true,
+//                ]);
+//            });
+//    }
 
     /**
      * Run the migrations.
@@ -43,7 +43,7 @@ class CreateInstitutionsTable extends Migration
             $table->timestamps();
         });
 
-        $this->import();
+//        $this->import();
     }
 
     /**
