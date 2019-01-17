@@ -195,7 +195,7 @@
                         <app-table-panel
                                 v-if="selected.id && personTopics.data.links"
                                 :title="
-                                'Assuntos: ' +
+                                'Interesses: ' +
                                     personTopics.data.links.pagination.total
                             "
                                 :add-button="{
