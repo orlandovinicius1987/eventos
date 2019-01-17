@@ -2,7 +2,7 @@
 
 namespace App\Data\Models;
 
-class PersonTopic extends Base
+class PersonTopic extends BaseWithClient
 {
     protected $orderBy = ['topics.name' => 'asc'];
 
@@ -14,6 +14,7 @@ class PersonTopic extends Base
     protected $fillable = [
         'person_id',
         'topic_id',
+        'client_id',
     ];
 
     protected $selectColumns = [

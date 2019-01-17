@@ -1,12 +1,12 @@
 <?php
 namespace App\Data\Models;
 
-class Costume extends Base
+class Costume extends BaseWithClient
 {
     /**
      * @var array
      */
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'client_id',];
 
     protected $orderBy = ['name' => 'asc'];
 
