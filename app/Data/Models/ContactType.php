@@ -1,12 +1,12 @@
 <?php
 namespace App\Data\Models;
 
-class ContactType extends Base
+class ContactType extends BaseWithClient
 {
     /**
      * @var array
      */
-    protected $fillable = ['name', 'code'];
+    protected $fillable = ['name', 'code', 'client_id'];
 
     protected $orderBy = ['name' => 'asc'];
 
