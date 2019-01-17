@@ -37,11 +37,6 @@ class AddClientIdAndCreateIndexInAllTables extends Migration
             $this->tablesToAddColumnClientID,
             $this->tablesToAddIndexesClientID
         );
-        dd(
-            $this->tablesToAddColumnClientID,
-            $tables,
-            $this->tablesToAddIndexesClientID
-        );
         foreach ($tables as $tab) {
             Schema::table($tab, function (Blueprint $table) use ($tab) {
                 if (!Schema::hasColumn($tab, 'client_id')) {
