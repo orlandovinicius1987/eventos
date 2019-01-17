@@ -14,11 +14,11 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
-                                    name="name"
-                                    label="Nome"
-                                    v-model="form.fields.name"
-                                    :required="true"
-                                    :form="form"
+                                name="name"
+                                label="Nome"
+                                v-model="form.fields.name"
+                                :required="true"
+                                :form="form"
                             ></app-input>
                         </div>
                     </div>
@@ -26,11 +26,11 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-input
-                                    name="code"
-                                    label="Código"
-                                    v-model="form.fields.code"
-                                    :required="true"
-                                    :form="form"
+                                name="code"
+                                label="Código"
+                                v-model="form.fields.code"
+                                :required="true"
+                                :form="form"
                             ></app-input>
                         </div>
                     </div>
