@@ -1,11 +1,10 @@
 <?php
 
-use App\Data\Models\Sector;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddConvidadosSector extends Migration
+class CreatePersonTopicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,6 +13,14 @@ class AddConvidadosSector extends Migration
      */
     public function up()
     {
+        Schema::create('person_topics', function (Blueprint $table) {
+            $table->increments('id');
+
+            $table->integer('person_id');
+            $table->integer('topic_id');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,5 +30,6 @@ class AddConvidadosSector extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('person_topics');
     }
 }

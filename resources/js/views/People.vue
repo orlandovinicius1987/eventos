@@ -193,6 +193,71 @@
 
                     <div class="col-12">
                         <app-table-panel
+                                v-if="selected.id && personTopics.data.links"
+                                :title="
+                                'Assuntos: ' +
+                                    personTopics.data.links.pagination.total
+                            "
+                                :add-button="{
+                                uri:
+                                    '/people/' +
+                                    people.selected.id +
+                                    '/person-topics/create',
+                                disabled: cannot('create'),
+                            }"
+                                :per-page="personTopicsPerPage"
+                                @set-per-page="personTopicsPerPage = $event"
+                                :filter-text="personTopicsFilterText"
+                                @input-filter-text="
+                                personTopicsFilterText = $event.target.value
+                            "
+                        >
+                            <app-table
+                                    :pagination="
+                                    personTopics.data.links.pagination
+                                "
+                                    @goto-page="personTopicsGotoPage($event)"
+                                    :columns="['#', 'Nome', '']"
+                            >
+                                <tr
+                                        v-for="personTopic in personTopics
+                                        .data.rows"
+                                        class="cursor-pointer"
+                                        :class="{
+                                        'cursor-pointer': true,
+                                        'bg-primary text-white': isCurrent(
+                                            personTopic,
+                                            personTopics.selected,
+                                        ),
+                                    }"
+                                >
+                                    <td class="align-middle">
+                                        {{ personTopic.id }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ personTopic.topic.name }}
+                                    </td>
+
+                                    <td class="align-middle text-right">
+                                        <div
+                                                @click="
+                                                confirmDeletePersonTopic(
+                                                    personTopic,
+                                                )
+                                            "
+                                                class="btn btn-danger btn-sm mr-1 pull-right"
+                                                title="Excluir Assunto"
+                                        >
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </app-table>
+                        </app-table-panel>
+                    </div>
+
+                    <div class="col-12">
+                        <app-table-panel
                             v-if="selected.id && personInstitutions.data.links"
                             :title="
                                 'Funções: ' +
@@ -731,6 +796,14 @@ export default {
             )
         },
 
+        personTopicsGotoPage(page) {
+            this.gotoPage(
+                page,
+                'personTopics',
+                this.personTopics.data.links.pagination,
+            )
+        },
+
         addressesGotoPage(page) {
             this.gotoPage(
                 page,
@@ -780,6 +853,27 @@ export default {
                 personCategory,
             )
         },
+
+
+        confirmDeletePersonTopic(personTopic) {
+            confirm(
+                'Deseja realmente desassociar ' + personTopic.topic.name + '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    this.deletePersonTopic(personTopic)
+                }
+            })
+        },
+
+        deletePersonTopic(personTopic) {
+            return this.$store.dispatch(
+                'personTopics/unTopicize',
+                personTopic,
+            )
+        },
+
+
     },
 
     computed: {
@@ -829,6 +923,33 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personInstitutions/setPerPage',
+                    perPage,
+                )
+            },
+        },
+
+        personTopicsFilterText: {
+            get() {
+                return this.$store.state['personTopics'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'personTopics/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        personTopicsPerPage: {
+            get() {
+                return this.$store.state['personTopics'].data.links
+                    .pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch(
+                    'personTopics/setPerPage',
                     perPage,
                 )
             },
