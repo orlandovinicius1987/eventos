@@ -23,7 +23,7 @@
                                 class="btn btn-primary btn-sm pull-right"
                                 @click="topicize()"
                         >
-                            associar categorias
+                            associar assunto de interesse
                         </button>
                     </template>
 
