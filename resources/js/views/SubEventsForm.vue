@@ -3,7 +3,7 @@
         <div class="py-2 text-center">
             <h1>{{ events.selected.name }}</h1>
             <h2>
-                {{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Sub Evento
+                {{ this.mode === 'create' ? 'Criar ' : 'Editar ' }}Sub Evento
             </h2>
             <h2>
                 {{

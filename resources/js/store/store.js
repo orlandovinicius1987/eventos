@@ -87,12 +87,9 @@ let store = new Vuex.Store({
         subEventsDashBoard,
         receptive,
         sectors,
-<<<<<<< HEAD
         costumes,
-=======
         topics,
         topicsables,
->>>>>>> orlando/master
     },
 })
 
