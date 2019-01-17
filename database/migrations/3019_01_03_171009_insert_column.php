@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
+use App\Services\CSV;
+use App\Data\Models\Institution;
 use Illuminate\Database\Migrations\Migration;
 
 class InsertColumn extends Migration
@@ -11,7 +11,7 @@ class InsertColumn extends Migration
      *
      * @return void
      */
-    public function import()
+    public function up()
     {
         (new CSV())
             ->parse(file_get_contents(database_path('data/parties.csv')))
@@ -23,5 +23,14 @@ class InsertColumn extends Migration
                     'is_party' => true,
                 ]);
             });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
     }
 }
