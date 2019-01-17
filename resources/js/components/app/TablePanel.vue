@@ -37,7 +37,7 @@
                                 tag="div"
                                 class="btn btn-primary pull-right"
                                 :disabled="addButton.disabled"
-                                dusk="createEventButton"
+                                :dusk="addButton.dusk"
                             >
                                 <i class="fa fa-plus"></i>
                             </router-link>

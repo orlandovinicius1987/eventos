@@ -79,6 +79,7 @@
                         <div
                             class="btn btn-primary btn-sm pull-right"
                             @click="invite()"
+                            dusk="dusk-invite-button"
                         >
                             {{ recordButtonText }}
                         </div>
@@ -124,6 +125,7 @@
                                     :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
+                                    dusk="dusk-invite"
                                 />
                             </td>
 

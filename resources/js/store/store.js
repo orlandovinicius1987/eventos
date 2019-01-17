@@ -42,6 +42,7 @@ import invitables from './modules/invitables'
 import phoneBook from './modules/phoneBook'
 import subEventsDashBoard from './modules/subEventsDashBoard'
 import sectors from './modules/sectors'
+import costumes from './modules/costumes'
 
 /**
  * State
@@ -82,6 +83,7 @@ let store = new Vuex.Store({
         subEventsDashBoard,
         receptive,
         sectors,
+        costumes,
     },
 })
 

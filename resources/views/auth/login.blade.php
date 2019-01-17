@@ -85,7 +85,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-12">
-                                <button dusk="login_button" type="submit" class="btn btn-primary btn-block">
+                                <button dusk="login-button" type="submit" class="btn btn-primary btn-block">
                                     Entrar
                                 </button>
                             </div>

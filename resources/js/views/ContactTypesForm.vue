@@ -20,7 +20,11 @@
                                 :required="true"
                                 :form="form"
                             ></app-input>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-12 mb-3">
                             <app-input
                                 name="code"
                                 label="Código"

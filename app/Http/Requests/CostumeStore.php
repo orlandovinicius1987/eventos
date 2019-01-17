@@ -13,6 +13,7 @@ class CostumeStore extends BaseStore
     {
         return [
             'name' => 'required',
+            'description' => 'required',
         ];
     }
 }

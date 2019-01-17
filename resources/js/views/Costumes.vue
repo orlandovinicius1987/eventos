@@ -1,15 +1,14 @@
 <template>
     <div>
-        <div class="py-2 text-center"><h2>Funções</h2></div>
+        <div class="py-2 text-center"><h2>Trajes</h2></div>
 
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    :title="'Funções (' + pagination.total + ')'"
+                    :title="'Trajes (' + pagination.total + ')'"
                     :add-button="{
-                        uri: '/roles/create',
+                        uri: '/costumes/create',
                         disabled: cannot('create'),
-                        dusk: 'create-roles-button',
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -19,30 +18,32 @@
                     <app-table
                         :pagination="pagination"
                         @goto-page="gotoPage($event)"
-                        :columns="['#', 'Nome', '']"
+                        :columns="['#', 'Nome', 'Código', '']"
                     >
                         <tr
-                            @click="select(role)"
-                            v-for="role in roles.data.rows"
+                            @click="select(costume)"
+                            v-for="costume in costumes.data.rows"
                             :class="{
                                 'cursor-pointer': true,
                                 'bg-primary-lighter text-white': isCurrent(
-                                    role,
+                                    costume,
                                     selected,
                                 ),
                             }"
                         >
-                            <td class="align-middle">{{ role.id }}</td>
+                            <td class="align-middle">{{ costume.id }}</td>
 
-                            <td class="align-middle">{{ role.name }}</td>
+                            <td class="align-middle">{{ costume.name }}</td>
+
+                            <td class="align-middle">{{ costume.code }}</td>
 
                             <td class="align-middle text-right">
                                 <router-link
-                                    :to="'/roles/' + role.id + '/update'"
+                                    :to="'/costumes/' + costume.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('create')"
-                                    title="Editar Função"
+                                    title="Editar Traje"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>
@@ -57,14 +58,13 @@
 
 <script>
 import crud from './mixins/crud'
-import roles from './mixins/roles'
+import costumes from './mixins/costumes'
 import permissions from './mixins/permissions'
-import { mapActions, mapState } from 'vuex'
 
-const service = { name: 'roles', uri: 'roles' }
+const service = { name: 'costumes', uri: 'costumes' }
 
 export default {
-    mixins: [crud, roles, permissions],
+    mixins: [crud, costumes, permissions],
 
     data() {
         return {

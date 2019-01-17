@@ -56,6 +56,15 @@
                                 >
                                     DECLINAÇÃO
                                 </span>
+
+                                <span
+                                    v-if="
+                                        notification.content_type === 'thanks'
+                                    "
+                                    class="badge badge-dark p-2"
+                                >
+                                    AGRADECIMENTO
+                                </span>
                             </td>
 
                             <td class="align-middle">

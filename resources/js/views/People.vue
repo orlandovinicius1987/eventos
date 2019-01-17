@@ -37,6 +37,7 @@
                     :add-button="{
                         uri: '/people/create',
                         disabled: cannot('create'),
+                        dusk: 'create-people-button',
                     }"
                     :per-page="peoplePerPage"
                     @set-per-page="peoplePerPage = $event"
@@ -99,7 +100,9 @@
 
                             <td class="align-middle">{{ person.title }}</td>
 
-                            <td class="align-middle">{{ person.name }}</td>
+                            <td dusk="dusk-da-pessoa" class="align-middle">
+                                {{ person.name }}
+                            </td>
 
                             <td class="align-middle">{{ person.nickname }}</td>
 
@@ -135,6 +138,7 @@
                                     people.selected.id +
                                     '/categories/create',
                                 disabled: cannot('create'),
+                                dusk: 'add-category',
                             }"
                             :per-page="personCategoriesPerPage"
                             @set-per-page="personCategoriesPerPage = $event"
@@ -201,6 +205,7 @@
                                     personInstitutions.person.id +
                                     '/person-institutions/create',
                                 disabled: cannot('create'),
+                                dusk: 'add-function',
                             }"
                             :per-page="personInstitutionsPerPage"
                             @set-per-page="personInstitutionsPerPage = $event"
@@ -245,7 +250,7 @@
                                         {{ personInstitution.id }}
                                     </td>
 
-                                    <td class="align-middle">
+                                    <td dusk="role-click" class="align-middle">
                                         {{ personInstitution.title }}
                                     </td>
 
@@ -314,6 +319,7 @@
                                     contacts.personInstitution.id +
                                     '/contacts/create',
                                 disabled: cannot('create'),
+                                dusk: 'add-contact',
                             }"
                             :per-page="contactsPerPage"
                             @set-per-page="contactsPerPage = $event"

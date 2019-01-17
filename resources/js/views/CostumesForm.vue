@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar ' }}Categoria</h2>
+            <h2>{{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Traje</h2>
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
 
@@ -16,7 +16,18 @@
                                 v-model="form.fields.name"
                                 :required="true"
                                 :form="form"
-                                dusk="category-name"
+                            ></app-input>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <app-input
+                                name="description"
+                                label="Descrição"
+                                v-model="form.fields.description"
+                                :required="true"
+                                :form="form"
                             ></app-input>
                         </div>
                     </div>
@@ -27,13 +38,12 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
-                                dusk="record-category-button"
                             >
                                 gravar
                             </button>
 
                             <router-link
-                                to="/categories"
+                                to="/costumes"
                                 tag="button"
                                 class="btn btn-success"
                             >
@@ -49,14 +59,19 @@
 
 <script>
 import crud from './mixins/crud'
-import categories from './mixins/categories'
+import costumes from './mixins/costumes'
+import { mapActions } from 'vuex'
 
-const service = { name: 'categories', uri: 'categories', performLoad: false }
+const service = {
+    name: 'costumes',
+    uri: 'costumes',
+    performLoad: false,
+}
 
 export default {
     props: ['mode'],
 
-    mixins: [crud, categories],
+    mixins: [crud, costumes],
 
     data() {
         return {
