@@ -34,6 +34,8 @@ const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
 const Sectors = () => import('./views/Sectors.vue')
 const SectorForm = () => import('./views/SectorForm.vue')
+const Costumes = () => import('./views/Costumes.vue')
+const CostumesForm = () => import('./views/CostumesForm.vue')
 
 let routes = [
     {
@@ -163,6 +165,20 @@ let routes = [
         path: '/sectors/:id/update',
         component: SectorForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/costumes/create',
+        component: CostumesForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/costumes/:id/update',
+        component: CostumesForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/costumes',
+        component: Costumes,
     },
     {
         path: '/import',

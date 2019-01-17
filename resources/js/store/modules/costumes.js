@@ -8,12 +8,11 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = {
     id: null,
     name: null,
+    description: null,
 }
 
 let state = merge_objects(
     {
-        invitations: [],
-
         selectedRole: __emptyModel,
 
         form: new Form(clone(__emptyModel)),
@@ -22,16 +21,12 @@ let state = merge_objects(
 
         mode: null,
 
-        subRolesQuery: {},
-
-        invitationsQuery: {},
-
         model: {
-            name: 'role',
+            name: 'costume',
 
-            table: 'roles',
+            table: 'costumes',
 
-            class: { singular: 'Role', plural: 'Roles' },
+            class: { singular: 'Costume', plural: 'Costumes' },
         },
     },
 
