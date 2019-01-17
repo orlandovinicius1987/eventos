@@ -36,7 +36,7 @@
                     :add-button="{
                         uri: '/events/create',
                         disabled: cannot('create'),
-                        dusk:'create-event-button',
+                        dusk: 'create-event-button',
                     }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
@@ -59,7 +59,10 @@
                                 ),
                             }"
                         >
-                            <td class="align-middle text-left" dusk="dusk-do-evento">
+                            <td
+                                class="align-middle text-left"
+                                dusk="dusk-do-evento"
+                            >
                                 {{ event.name }}
                             </td>
 

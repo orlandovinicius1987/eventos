@@ -21,9 +21,14 @@ class SendEmailTest extends DuskTestCase
     public function testSendEmail()
     {
         $this->browse(function (Browser $browser) {
-            $user=app(UsersRepository::class)->randomElement()->username;
+            $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
+                    )
                     ->visit('/admin#')
                     ->waitForText('Painel')
                     ->click('@opcao-eventos')

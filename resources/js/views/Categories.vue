@@ -9,7 +9,7 @@
                     :add-button="{
                         uri: '/categories/create',
                         disabled: cannot('create'),
-                        dusk:'create-category-button'
+                        dusk: 'create-category-button',
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"

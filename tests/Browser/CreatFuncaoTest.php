@@ -21,9 +21,16 @@ class CreatFuncaoTest extends DuskTestCase
     public function testCriarFuncao()
     {
         $this->browse(function (Browser $browser) {
-            $user=app(UsersRepository::class)->randomElement()->username;
+            $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
+                //                    ->waitForText('#')
+                //                    ->waitForText('#')
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
+                    )
                     ->visit('/login#')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
@@ -31,13 +38,11 @@ class CreatFuncaoTest extends DuskTestCase
                     ->waitForText('Import')
                     ->click('@opcao-funcao')
                     ->screenshot('screen tabela função')
-//                    ->waitForText('#')
                     ->click('@create-roles-button')
                     ->waitForText('Nova Função')
                     ->type('@role-name', 'nova função')
                     ->click('@record-role-button')
                     ->screenshot('screen função gravada')
-//                    ->waitForText('#')
                     ->waitForText('nova função')
                     ->assertSee('nova função')
                     ->screenshot('teste de Criar funcao');

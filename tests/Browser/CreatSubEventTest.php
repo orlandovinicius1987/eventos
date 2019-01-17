@@ -21,16 +21,22 @@ class CreatSubEventTest extends DuskTestCase
     public function testCriarSubEvento()
     {
         $this->browse(function (Browser $browser) {
-            $user=app(UsersRepository::class)->randomElement()->username;
+            $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
+                //                    ->waitForText('evento teste')
+                //                    ->assertSee('evento teste')
+                //                    ->pause('7000')
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
+                    )
                     ->visit('/admin#')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-eventos')
                     ->pause('5000')
-//                    ->waitForText('evento teste')
-//                    ->assertSee('evento teste')
                     ->click('@dusk-do-evento')
                     ->waitForText('Confirmado')
                     ->click('@create-sub-event-button')
@@ -43,7 +49,6 @@ class CreatSubEventTest extends DuskTestCase
                     ->waitForText('Confirmado')
                     ->click('@dusk-do-evento')
                     ->waitForText('sub teste')
-//                    ->pause('7000')
                     ->click('@confirm-subevent')
                     ->screenshot('teste criar sub evento');
             });
@@ -54,13 +59,21 @@ class CreatSubEventTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
+                //                    ->assertSee('evento teste')
+                //                    ->waitForText('Convidar Pessoas')
+                //                    ->waitForText('Herlandson')
+                //                    ->pause('5000')
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
+                    )
                     ->visit('/admin#')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-eventos')
                     ->pause('10000')
-//                    ->assertSee('evento teste')
                     ->click('@dusk-do-evento')
                     ->waitForText('Confirmado')
                     ->waitForText('sub teste')
@@ -69,13 +82,10 @@ class CreatSubEventTest extends DuskTestCase
                     ->assertSee('convidados')
                     ->click('@add-convidado')
                     ->pause('5000')
-//                    ->waitForText('Convidar Pessoas')
-//                    ->waitForText('Herlandson')
                     ->click('@dusk-invite')
                     ->click('@dusk-invite-button')
                     ->click('@opcao-eventos')
                     ->waitForText('Herlandson')
-//                    ->pause('5000')
                     ->screenshot('teste convidar sub evento');
             });
         });
@@ -85,14 +95,19 @@ class CreatSubEventTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
+                //                    ->waitForText('evento teste')
+                //                    ->pause('5000')
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
+                    )
                     ->visit('/admin#')
                     ->waitForText('Painel')
                     ->assertSee('Painel')
                     ->click('@opcao-eventos')
                     ->pause('20000')
-//                    ->waitForText('evento teste')
-//                    ->pause('5000')
                     ->click('@dusk-do-evento')
                     ->waitForText('Confirmado')
                     ->waitForText('sub teste')

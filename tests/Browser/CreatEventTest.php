@@ -20,36 +20,40 @@ class CreatEventTest extends DuskTestCase
 
     public function testCriarEvento()
     {
-//        $this->artisan('migrate:fresh');
-//        $this->seed(DatabaseSeeder::class);
+        //        $this->artisan('migrate:fresh');
+        //        $this->seed(DatabaseSeeder::class);
         $this->browse(function (Browser $browser) {
-//            $user=app(UsersRepository::class)->randomElement()->username;
-//            $user=factory(UsersRepository::class)->make() ;
-//            $this->browse(function (Browser $browser) use ($user) {
+            //            $user=app(UsersRepository::class)->randomElement()->username;
+            //            $user=factory(UsersRepository::class)->make() ;
+            //            $this->browse(function (Browser $browser) use ($user) {
 
-//                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
-            $browser->visit('login#/')
-                ->type('email', app(UsersRepository::class)->randomElement()->username)
+            //                $browser->loginAs(app(UsersRepository::class)->findUserByEmail($user . '@alerj.rj.gov.br'))
+            //                    ->visit('/admin#/dashboard')
+            //                    ->waitForText('Painel')
+            //                    ->assertSee('Painel')
+            //                    ->assertSee('Novo Evento')
+            $browser
+                ->visit('login#/')
+                ->type(
+                    'email',
+                    app(UsersRepository::class)->randomElement()->username
+                )
                 ->type('password', 'secret')
                 ->click('@login-button')
-                    ->pause('4000')
-                    ->screenshot('teste de tela')
-//                    ->visit('/admin#/dashboard')
-                    ->screenshot('teste tela branca eventos')
-//                    ->waitForText('Painel')
-//                    ->assertSee('Painel')
-                    ->click('@opcao-eventos')
-                    ->waitForText('Nome')
-                    ->click('@create-event-button')
-                    ->pause('3000')
-//                    ->assertSee('Novo Evento')
-                    ->type('@event-name', 'evento teste')
-                    ->click('@record-event-button')
-                    ->pause('20000')
-                    ->waitForText('evento teste')
-                    ->pause('4000')
-                    ->screenshot('teste de Criar evento');
-            });
-//        });
+                ->pause('4000')
+                ->screenshot('teste de tela')
+                ->screenshot('teste tela branca eventos')
+                ->click('@opcao-eventos')
+                ->waitForText('Nome')
+                ->click('@create-event-button')
+                ->pause('3000')
+                ->type('@event-name', 'evento teste')
+                ->click('@record-event-button')
+                ->pause('20000')
+                ->waitForText('evento teste')
+                ->pause('4000')
+                ->screenshot('teste de Criar evento');
+        });
+        //        });
     }
 }

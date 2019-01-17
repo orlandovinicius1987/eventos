@@ -16,7 +16,7 @@
             v-model="form.fields.contact"
             :required="true"
             :form="form"
-            v-mask='makeMask(form.fields.contact_type_id)'
+            v-mask="makeMask(form.fields.contact_type_id)"
             :type="makeType(form.fields.contact_type_id)"
         ></app-input>
 
@@ -34,7 +34,6 @@
 </template>
 
 <script>
-
 export default {
     props: ['contact', 'form', 'environment'],
 
