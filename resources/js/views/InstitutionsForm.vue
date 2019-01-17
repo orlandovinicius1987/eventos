@@ -51,7 +51,7 @@
                                     <app-input
                                         v-if="form.fields.is_party"
                                         name="party_number"
-                                        label="Numero do Partido"
+                                        label="Número do Partido"
                                         v-model="form.fields.party_number"
                                         :required="false"
                                         :form="form"

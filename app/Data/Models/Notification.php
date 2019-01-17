@@ -2,9 +2,9 @@
 
 namespace App\Data\Models;
 
+use Ramsey\Uuid\Uuid;
 use App\Data\Repositories\Invitations;
 use Illuminate\Notifications\Notifiable;
-use Ramsey\Uuid\Uuid;
 
 class Notification extends BaseWithClient
 {

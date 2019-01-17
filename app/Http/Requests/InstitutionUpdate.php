@@ -13,6 +13,7 @@ class InstitutionUpdate extends BaseStore
     {
         return [
             'name' => 'required',
+            'party_number' => 'numeric',
         ];
     }
 }

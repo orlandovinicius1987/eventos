@@ -179,5 +179,6 @@ return [
         'message' => 'mensagem',
         'time' => 'hora',
         'date' => 'data',
+        'party_number' => 'número do partido',
     ],
 ];
