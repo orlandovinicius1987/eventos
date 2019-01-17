@@ -70,6 +70,7 @@
                                 v-model="subEvents.form.fields.name"
                                 :required="true"
                                 :form="form"
+                                dusk="sub-nome"
                             ></app-input>
 
                             <div class="row">
@@ -81,6 +82,7 @@
                                         v-model="subEvents.form.fields.date"
                                         :required="true"
                                         :form="form"
+                                        dusk="sub-data"
                                     ></app-input>
                                 </div>
 
@@ -106,6 +108,7 @@
                                 v-model="subEvents.form.fields.time"
                                 :required="true"
                                 :form="form"
+                                dusk="sub-hora"
                             ></app-input>
 
                             <app-input
@@ -116,6 +119,7 @@
                                 :form="form"
                                 rows="10"
                                 cols="100"
+                                dusk="sub-local"
                             ></app-input>
 
                             <app-select
@@ -161,7 +165,7 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto do convite"
+                                label="Texto do convite"
                                 id="invitation_text"
                                 :value="subEvents.form.fields.invitation_text"
                             ></app-markdown-text-area>
@@ -174,7 +178,7 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto de envio das credencials de acesso ao evento"
+                                label="Texto de envio das credencials de acesso ao evento"
                                 id="credentials_text"
                                 :value="subEvents.form.fields.credentials_text"
                             ></app-markdown-text-area>
@@ -187,7 +191,7 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto de agradecimento pela presença"
+                                label="Texto de agradecimento pela presença"
                                 id="thank_you_text"
                                 :value="subEvents.form.fields.thank_you_text"
                             ></app-markdown-text-area>
@@ -200,10 +204,19 @@
                                     })
                                 "
                                 :form="form"
-                                label="Email: texto de declinação do convite"
+                                label="Texto de declinação do convite"
                                 id="rejection_text"
                                 :value="subEvents.form.fields.rejection_text"
                             ></app-markdown-text-area>
+
+                            <app-input
+                                name="invitation_file"
+                                label="Arquivo de imagem do convite"
+                                type="text"
+                                v-model="subEvents.form.fields.invitation_file"
+                                :form="form"
+                                inline="true"
+                            ></app-input>
 
                             <app-table-panel
                                 v-if="mode == 'create'"
@@ -254,6 +267,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="sub-gravar"
                             >
                                 gravar
                             </button>

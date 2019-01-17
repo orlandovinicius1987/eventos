@@ -7,7 +7,6 @@ import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = {
     id: null,
-
     name: null,
 }
 

@@ -37,14 +37,21 @@
                                 tag="div"
                                 class="btn btn-primary pull-right"
                                 :disabled="addButton.disabled"
-                                dusk="createEventButton"
+                                :dusk="addButton.dusk"
                             >
                                 <i class="fa fa-plus"></i>
                             </router-link>
                         </div>
 
                         <div class="col-12" v-if="hasCheckboxes()">
-                            <div :class="'p-2 mb-2 mt-2 bg-gray-light' + (dontCenterFilters ? '' : ' text-center')">
+                            <div
+                                :class="
+                                    'p-2 mb-2 mt-2 bg-gray-light' +
+                                        (dontCenterFilters
+                                            ? ''
+                                            : ' text-center')
+                                "
+                            >
                                 <slot name="checkboxes"></slot>
                             </div>
                         </div>
@@ -66,29 +73,29 @@
 </template>
 
 <script>
-    export default {
-        props: [
-            'title',
-            'add-button',
-            'add-button-disabled',
-            'columns',
-            'filter-text',
-            'per-page',
-            'dont-center-filters'
-        ],
+export default {
+    props: [
+        'title',
+        'add-button',
+        'add-button-disabled',
+        'columns',
+        'filter-text',
+        'per-page',
+        'dont-center-filters',
+    ],
 
-        methods: {
-            hasSelects() {
-                return this.hasSlot('selects')
-            },
+    methods: {
+        hasSelects() {
+            return this.hasSlot('selects')
+        },
 
-            hasCheckboxes() {
-                return this.hasSlot('checkboxes')
-            },
+        hasCheckboxes() {
+            return this.hasSlot('checkboxes')
+        },
 
-            hasSlot(name) {
-                return !!this.$slots[ name ] || !!this.$scopedSlots[ name ];
-            },
-        }
-    }
+        hasSlot(name) {
+            return !!this.$slots[name] || !!this.$scopedSlots[name]
+        },
+    },
+}
 </script>

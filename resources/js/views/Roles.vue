@@ -9,6 +9,7 @@
                     :add-button="{
                         uri: '/roles/create',
                         disabled: cannot('create'),
+                        dusk: 'create-roles-button',
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"

@@ -34,6 +34,7 @@ import institutions from './modules/institutions'
 import personCategories from './modules/personCategories'
 import categorizables from './modules/categorizables'
 import personInstitutions from './modules/personInstitutions'
+import personTopics from './modules/personTopics'
 import contactTypes from './modules/contact-types'
 import contacts from './modules/contacts'
 import advisors from './modules/advisors'
@@ -41,6 +42,10 @@ import advisorContacts from './modules/advisorContacts'
 import invitables from './modules/invitables'
 import phoneBook from './modules/phoneBook'
 import subEventsDashBoard from './modules/subEventsDashBoard'
+import sectors from './modules/sectors'
+import costumes from './modules/costumes'
+import topics from './modules/topics'
+import topicsables from './modules/topicsables'
 
 /**
  * State
@@ -74,12 +79,20 @@ let store = new Vuex.Store({
         personCategories,
         categorizables,
         personInstitutions,
+        personTopics,
         contactTypes,
         advisors,
         advisorContacts,
         phoneBook,
         subEventsDashBoard,
         receptive,
+        sectors,
+<<<<<<< HEAD
+        costumes,
+=======
+        topics,
+        topicsables,
+>>>>>>> orlando/master
     },
 })
 

@@ -144,6 +144,7 @@ return [
         'updated_at' => 'atualizado em',
         'contact_type_id' => 'tipo de contato',
         'contact' => 'contato',
+        'description' => 'descrição',
         'from' => 'de',
         'status' => 'estado',
         'email_id' => 'email',

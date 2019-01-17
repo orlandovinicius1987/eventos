@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class AddClientIdAndCreateIndexInAllTables extends Migration
 {
-    private $tables = [
+    private $tablesToAddColumnClientID = [
         'contact_types',
         'contacts',
         'costumes',
@@ -15,6 +15,11 @@ class AddClientIdAndCreateIndexInAllTables extends Migration
         'person_institutions',
         'roles',
         'sectors',
+        'topics',
+        'person_topics',
+    ];
+
+    private $tablesToAddIndexesClientID = [
         //Indexes
         'categories',
         'institutions',
@@ -28,7 +33,16 @@ class AddClientIdAndCreateIndexInAllTables extends Migration
      */
     public function up()
     {
-        foreach ($this->tables as $tab) {
+        $tables = array_merge(
+            $this->tablesToAddColumnClientID,
+            $this->tablesToAddIndexesClientID
+        );
+        dd(
+            $this->tablesToAddColumnClientID,
+            $tables,
+            $this->tablesToAddIndexesClientID
+        );
+        foreach ($tables as $tab) {
             Schema::table($tab, function (Blueprint $table) use ($tab) {
                 if (!Schema::hasColumn($tab, 'client_id')) {
                     $table
@@ -56,10 +70,16 @@ class AddClientIdAndCreateIndexInAllTables extends Migration
      */
     public function down()
     {
-        foreach ($this->tables as $tab) {
+        foreach ($this->tablesToAddColumnClientID as $tab) {
             Schema::table($tab, function (Blueprint $table) use ($tab) {
                 $table->dropIndex($tab . '_client_id_index');
                 $table->dropColumn('client_id');
+            });
+        }
+
+        foreach ($this->tablesToAddIndexesClientID as $tab) {
+            Schema::table($tab, function (Blueprint $table) use ($tab) {
+                $table->dropIndex($tab . '_client_id_index');
             });
         }
     }

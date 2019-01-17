@@ -36,7 +36,7 @@
                     :add-button="{
                         uri: '/events/create',
                         disabled: cannot('create'),
-                        dusk: 'createEventButton',
+                        dusk: 'create-event-button',
                     }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
@@ -59,7 +59,10 @@
                                 ),
                             }"
                         >
-                            <td class="align-middle text-left">
+                            <td
+                                class="align-middle text-left"
+                                dusk="dusk-do-evento"
+                            >
                                 {{ event.name }}
                             </td>
 
@@ -170,21 +173,11 @@
                             }"
                         >
                             <td class="align-middle">
-                                <span
-                                    class="badge text-white p-2"
-                                    :style="{
-                                        'background-color': subEvent.sector
-                                            ? subEvent.sector.color
-                                            : '',
-                                        'text-transform': 'uppercase',
-                                    }"
-                                >
-                                    {{
-                                        subEvent.sector
-                                            ? subEvent.sector.name
-                                            : ''
-                                    }}
-                                </span>
+                                <app-sector-badge
+                                    :sector="subEvent.sector"
+                                    uppercase="true"
+                                    padding="2"
+                                ></app-sector-badge>
                             </td>
 
                             <td class="align-middle">

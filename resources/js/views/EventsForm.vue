@@ -16,7 +16,7 @@
                                 v-model="form.fields.name"
                                 :required="true"
                                 :form="form"
-                                dusk="eventName"
+                                dusk="event-name"
                             ></app-input>
                         </div>
                     </div>
@@ -27,6 +27,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="record-event-button"
                             >
                                 gravar
                             </button>

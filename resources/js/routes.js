@@ -12,6 +12,7 @@ const CategorizablesForm = () => import('./views/CategorizablesForm')
 const Events = () => import('./views/Events')
 const Categories = () => import('./views/Categories')
 const CategoriesForm = () => import('./views/CategoriesForm')
+const TopicsableForm = ()=> import('./views/TopicsableForm')
 const PersonInstitutionsForm = () => import('./views/PersonInstitutionsForm')
 const PersonInstitutionsAddressesForm = () =>
     import('./views/PersonInstitutionsAddressesForm')
@@ -32,6 +33,12 @@ const Import = () => import('./views/Import')
 const PhoneBook = () => import('./views/PhoneBook')
 const Recept = () => import('./views/Recept.vue')
 const Receptive = () => import('./views/Receptive.vue')
+const Sectors = () => import('./views/Sectors.vue')
+const SectorForm = () => import('./views/SectorForm.vue')
+const Costumes = () => import('./views/Costumes.vue')
+const CostumesForm = () => import('./views/CostumesForm.vue')
+const Topics = () => import('./views/Topics.vue')
+const TopicsForm = () => import('./views/TopicsForm.vue')
 
 let routes = [
     {
@@ -135,6 +142,11 @@ let routes = [
         props: { mode: 'create' },
     },
     {
+        path: '/people/:personId/person-topics/create',
+        component: TopicsableForm,
+        props: { mode: 'create' },
+    },
+    {
         path: '/roles',
         component: Roles,
     },
@@ -147,6 +159,34 @@ let routes = [
         path: '/roles/:id/update',
         component: RolesForm,
         props: { mode: 'update' },
+    },
+    {
+        path: '/sectors',
+        component: Sectors,
+    },
+    {
+        path: '/sectors/create',
+        component: SectorForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/sectors/:id/update',
+        component: SectorForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/costumes/create',
+        component: CostumesForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/costumes/:id/update',
+        component: CostumesForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/costumes',
+        component: Costumes,
     },
     {
         path: '/import',
@@ -164,6 +204,20 @@ let routes = [
     {
         path: '/categories/:id/update',
         component: CategoriesForm,
+        props: { mode: 'update' },
+    },
+    {
+        path: '/topics',
+        component: Topics,
+    },
+    {
+        path: '/topics/create',
+        component: TopicsForm,
+        props: { mode: 'create' },
+    },
+    {
+        path: '/topics/:id/update',
+        component: TopicsForm,
         props: { mode: 'update' },
     },
     {

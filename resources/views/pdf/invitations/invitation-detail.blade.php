@@ -1,5 +1,5 @@
 <header>
-    <div class="invited-sector" style="background-color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->color : '#000000' }};">
+    <div class="invited-sector" style="background-color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->background : '#000000' }}; color: {{ $invitation->subEvent->sector ? $invitation->subEvent->sector->foreground : '#FFFFFF' }};">
         {{ $invitation->subEvent->sector->name ?? '' }}
 
         <div class="invited-sector-place">
@@ -14,7 +14,6 @@
 
 
 <div class="bg-grey">
-
     <div class="invited-name">
         {{ $invitation->personInstitution->title }}<br>
         <span style="font-weight: bold; font-size: 1.2em;">{{ $invitation->personInstitution->person->name }}</span>
