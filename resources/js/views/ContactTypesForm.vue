@@ -2,7 +2,7 @@
     <div>
         <div class="py-2 text-center">
             <h2>
-                {{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Tipo de
+                {{ this.mode === 'create' ? 'Criar ' : 'Editar ' }}Tipo de
                 Contato
             </h2>
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
