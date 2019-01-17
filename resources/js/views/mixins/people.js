@@ -41,6 +41,8 @@ export default {
 
             personCategories: state => state.personCategories,
 
+            personTopics: state => state.personTopics,
+
             advisors: state => state.advisors,
 
             advisorContacts: state => state.advisorContacts,

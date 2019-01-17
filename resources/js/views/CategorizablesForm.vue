@@ -31,7 +31,7 @@
                     <app-table
                         :pagination="categorizables.data.links.pagination"
                         @goto-page="categorizablesGotoPage($event)"
-                        :columns="['#', 'Nome']"
+                        :columns="['#', '','Nome']"
                     >
                         <tr
                             v-for="categorizable in categorizables.data.rows"
