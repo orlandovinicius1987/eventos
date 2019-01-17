@@ -6,7 +6,7 @@ use Ramsey\Uuid\Uuid;
 use App\Data\Repositories\Invitations;
 use Illuminate\Notifications\Notifiable;
 
-class Notification extends Base
+class Notification extends BaseWithClient
 {
     use Notifiable;
 
@@ -18,6 +18,7 @@ class Notification extends Base
         'subject',
         'destination',
         'content_type',
+        'client_id',
     ];
 
     protected $table = 'notifications';

@@ -37,6 +37,7 @@
                     :add-button="{
                         uri: '/people/create',
                         disabled: cannot('create'),
+                        dusk: 'create-people-button',
                     }"
                     :per-page="peoplePerPage"
                     @set-per-page="peoplePerPage = $event"
@@ -99,7 +100,9 @@
 
                             <td class="align-middle">{{ person.title }}</td>
 
-                            <td class="align-middle">{{ person.name }}</td>
+                            <td dusk="dusk-da-pessoa" class="align-middle">
+                                {{ person.name }}
+                            </td>
 
                             <td class="align-middle">{{ person.nickname }}</td>
 
@@ -135,6 +138,7 @@
                                     people.selected.id +
                                     '/categories/create',
                                 disabled: cannot('create'),
+                                dusk: 'add-category',
                             }"
                             :per-page="personCategoriesPerPage"
                             @set-per-page="personCategoriesPerPage = $event"
@@ -189,6 +193,71 @@
 
                     <div class="col-12">
                         <app-table-panel
+                                v-if="selected.id && personTopics.data.links"
+                                :title="
+                                'Interesses: ' +
+                                    personTopics.data.links.pagination.total
+                            "
+                                :add-button="{
+                                uri:
+                                    '/people/' +
+                                    people.selected.id +
+                                    '/person-topics/create',
+                                disabled: cannot('create'),
+                            }"
+                                :per-page="personTopicsPerPage"
+                                @set-per-page="personTopicsPerPage = $event"
+                                :filter-text="personTopicsFilterText"
+                                @input-filter-text="
+                                personTopicsFilterText = $event.target.value
+                            "
+                        >
+                            <app-table
+                                    :pagination="
+                                    personTopics.data.links.pagination
+                                "
+                                    @goto-page="personTopicsGotoPage($event)"
+                                    :columns="['#', 'Nome', '']"
+                            >
+                                <tr
+                                        v-for="personTopic in personTopics
+                                        .data.rows"
+                                        class="cursor-pointer"
+                                        :class="{
+                                        'cursor-pointer': true,
+                                        'bg-primary text-white': isCurrent(
+                                            personTopic,
+                                            personTopics.selected,
+                                        ),
+                                    }"
+                                >
+                                    <td class="align-middle">
+                                        {{ personTopic.id }}
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ personTopic.topic.name }}
+                                    </td>
+
+                                    <td class="align-middle text-right">
+                                        <div
+                                                @click="
+                                                confirmDeletePersonTopic(
+                                                    personTopic,
+                                                )
+                                            "
+                                                class="btn btn-danger btn-sm mr-1 pull-right"
+                                                title="Excluir Assunto"
+                                        >
+                                            <i class="fa fa-trash"></i>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </app-table>
+                        </app-table-panel>
+                    </div>
+
+                    <div class="col-12">
+                        <app-table-panel
                             v-if="selected.id && personInstitutions.data.links"
                             :title="
                                 'Funções: ' +
@@ -201,6 +270,7 @@
                                     personInstitutions.person.id +
                                     '/person-institutions/create',
                                 disabled: cannot('create'),
+                                dusk: 'add-function',
                             }"
                             :per-page="personInstitutionsPerPage"
                             @set-per-page="personInstitutionsPerPage = $event"
@@ -245,7 +315,7 @@
                                         {{ personInstitution.id }}
                                     </td>
 
-                                    <td class="align-middle">
+                                    <td dusk="role-click" class="align-middle">
                                         {{ personInstitution.title }}
                                     </td>
 
@@ -314,6 +384,7 @@
                                     contacts.personInstitution.id +
                                     '/contacts/create',
                                 disabled: cannot('create'),
+                                dusk: 'add-contact',
                             }"
                             :per-page="contactsPerPage"
                             @set-per-page="contactsPerPage = $event"
@@ -725,6 +796,14 @@ export default {
             )
         },
 
+        personTopicsGotoPage(page) {
+            this.gotoPage(
+                page,
+                'personTopics',
+                this.personTopics.data.links.pagination,
+            )
+        },
+
         addressesGotoPage(page) {
             this.gotoPage(
                 page,
@@ -774,6 +853,27 @@ export default {
                 personCategory,
             )
         },
+
+
+        confirmDeletePersonTopic(personTopic) {
+            confirm(
+                'Deseja realmente desassociar ' + personTopic.topic.name + '?',
+                this,
+            ).then(value => {
+                if (value) {
+                    this.deletePersonTopic(personTopic)
+                }
+            })
+        },
+
+        deletePersonTopic(personTopic) {
+            return this.$store.dispatch(
+                'personTopics/unTopicize',
+                personTopic,
+            )
+        },
+
+
     },
 
     computed: {
@@ -823,6 +923,33 @@ export default {
             set(perPage) {
                 return this.$store.dispatch(
                     'personInstitutions/setPerPage',
+                    perPage,
+                )
+            },
+        },
+
+        personTopicsFilterText: {
+            get() {
+                return this.$store.state['personTopics'].data.filter.text
+            },
+
+            set(filter) {
+                return this.$store.dispatch(
+                    'personTopics/mutateSetQueryFilterText',
+                    filter,
+                )
+            },
+        },
+
+        personTopicsPerPage: {
+            get() {
+                return this.$store.state['personTopics'].data.links
+                    .pagination.per_page
+            },
+
+            set(perPage) {
+                return this.$store.dispatch(
+                    'personTopics/setPerPage',
                     perPage,
                 )
             },

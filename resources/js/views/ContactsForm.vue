@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Contato</h2>
+            <h2>{{ this.mode === 'create' ? 'Criar ' : 'Editar ' }}Contato</h2>
 
             <h2>&nbsp;{{ form.fields.contact ? form.fields.contact : '' }}</h2>
         </div>
@@ -25,6 +25,7 @@
                                 type="checkbox"
                                 :required="true"
                                 :form="form"
+                                dusk="contact-active"
                             ></app-input>
                         </div>
                     </div>
@@ -35,6 +36,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="record-contact-button"
                             >
                                 gravar
                             </button>

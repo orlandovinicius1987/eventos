@@ -52,6 +52,7 @@ class User extends Authenticatable
         return config('services.slack.webhook_url');
     }
 
+    //TODO trabalhar futuramente com uma escolha de o sistema favorito , para que este seja o sistema inicial da aplicação
     public function getClientIdAttribute()
     {
         return 1;
@@ -68,7 +69,7 @@ class User extends Authenticatable
      */
     public function getJoins()
     {
-        return coollect([]);
+        return coollect($this->joins);
     }
 
     public function getIsAdministratorAttribute()

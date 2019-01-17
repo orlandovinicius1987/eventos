@@ -7,6 +7,7 @@
             :required="true"
             :form="form"
             :options="environment.tables.institutions"
+            dusk="institution-select-dusk"
         ></app-select>
 
         <app-select
@@ -16,6 +17,7 @@
             :required="true"
             :form="form"
             :options="environment.tables.roles"
+            dusk="function-select-dusk"
         ></app-select>
 
         <app-input
@@ -24,6 +26,7 @@
             v-model="form.fields.title"
             :required="true"
             :form="form"
+            dusk="title-dusk"
         ></app-input>
 
         <app-input
@@ -33,6 +36,7 @@
             type="checkbox"
             :required="true"
             :form="form"
+            dusk="ativo-dusk"
         ></app-input>
     </div>
 </template>
