@@ -89,11 +89,7 @@ const actions = merge_objects(actionsMixin, {
         }
 
         return get(
-            '/api/v1/events/' +
-                context.state.subEvent.event.id +
-                '/sub-events/' +
-                context.state.subEvent.id +
-                '/invitations',
+            makeDataUrl(context),
             {
                 params: { query: context.getters.getQueryFilter },
             },
