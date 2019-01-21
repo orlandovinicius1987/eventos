@@ -27,9 +27,9 @@ class Home extends Controller
             });
         }
 
-        //TODO trabalhar futuramente com uma escolha de o sistema favorito, para que este seja o sistema inicial da aplicação
-        if (is_null(\Session::get('current_client_id'))) {
-            set_current_client_id($clientsAllowed->first()->id);
+        // TODO: trabalhar futuramente com uma escolha de o sistema favorito, para que este seja o sistema inicial da aplicação
+        if (!get_current_client_id()) {
+            set_current_client_id($clientsAllowed ? $clientsAllowed->first()->id : null);
         }
 
         return view('admin.index')->with('clients', $clientsAllowed);
