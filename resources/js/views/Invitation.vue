@@ -61,7 +61,7 @@
                                     v-if="
                                         notification.content_type === 'thanks'
                                     "
-                                    class="badge badge-dark p-2"
+                                    class="badge badge-success p-2"
                                 >
                                     AGRADECIMENTO
                                 </span>
