@@ -12,7 +12,7 @@ const CategorizablesForm = () => import('./views/CategorizablesForm')
 const Events = () => import('./views/Events')
 const Categories = () => import('./views/Categories')
 const CategoriesForm = () => import('./views/CategoriesForm')
-const TopicsableForm = ()=> import('./views/TopicsableForm')
+const TopicsableForm = () => import('./views/TopicsableForm')
 const PersonInstitutionsForm = () => import('./views/PersonInstitutionsForm')
 const PersonInstitutionsAddressesForm = () =>
     import('./views/PersonInstitutionsAddressesForm')
