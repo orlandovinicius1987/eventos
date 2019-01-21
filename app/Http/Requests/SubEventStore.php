@@ -16,6 +16,8 @@ class SubEventStore extends BaseStore
             'date' => 'required',
             'time' => 'required',
             'event_id' => 'required|exists:events,id',
+
+            'sector_id' => 'required',
         ];
     }
 }

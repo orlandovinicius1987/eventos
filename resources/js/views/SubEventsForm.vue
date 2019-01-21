@@ -23,10 +23,7 @@
                                         name="send_invitations"
                                         label="pode enviar convites"
                                         type="checkbox"
-                                        v-model="
-                                            subEvents.form.fields
-                                                .send_invitations
-                                        "
+                                        v-model="subEvents.form.fields.send_invitations"
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -38,10 +35,7 @@
                                         name="send_credentials"
                                         label="pode enviar credenciais"
                                         type="checkbox"
-                                        v-model="
-                                            subEvents.form.fields
-                                                .send_credentials
-                                        "
+                                        v-model="subEvents.form.fields.send_credentials"
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -53,10 +47,7 @@
                                         name="security_can_recept"
                                         label="segurança pode recepcionar"
                                         type="checkbox"
-                                        v-model="
-                                            subEvents.form.fields
-                                                .security_can_recept
-                                        "
+                                        v-model="subEvents.form.fields.security_can_recept"
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -64,14 +55,18 @@
                                 </div>
                             </div>
 
-                            <app-input
-                                name="name"
-                                label="Nome"
-                                v-model="subEvents.form.fields.name"
-                                :required="true"
-                                :form="form"
-                                dusk="sub-nome"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-input
+                                        name="name"
+                                        label="Nome"
+                                        v-model="subEvents.form.fields.name"
+                                        :required="true"
+                                        :form="form"
+                                        dusk="sub-nome"
+                                    ></app-input>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
@@ -91,71 +86,86 @@
                                         name="confirmations_end_date"
                                         label="Data final para confirmação"
                                         type="date"
-                                        v-model="
-                                            subEvents.form.fields
-                                                .confirmations_end_date
-                                        "
+                                        v-model="subEvents.form.fields.confirmations_end_date"
                                         :required="true"
                                         :form="form"
                                     ></app-input>
                                 </div>
                             </div>
 
-                            <app-input
-                                name="time"
-                                label="Horário"
-                                type="time"
-                                v-model="subEvents.form.fields.time"
-                                :required="true"
-                                :form="form"
-                                dusk="sub-hora"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-input
+                                        name="time"
+                                        label="Horário"
+                                        type="time"
+                                        v-model="subEvents.form.fields.time"
+                                        :required="true"
+                                        :form="form"
+                                        dusk="sub-hora"
+                                    ></app-input>
+                                </div>
+                            </div>
 
-                            <app-input
-                                name="place"
-                                label="Local"
-                                v-model="subEvents.form.fields.place"
-                                :required="true"
-                                :form="form"
-                                rows="10"
-                                cols="100"
-                                dusk="sub-local"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-input
+                                        name="place"
+                                        label="Local"
+                                        v-model="subEvents.form.fields.place"
+                                        :required="true"
+                                        :form="form"
+                                        rows="10"
+                                        cols="100"
+                                        dusk="sub-local"
+                                    ></app-input>
+                                </div>
+                            </div>
 
-                            <app-select
-                                name="associated_subevent_id"
-                                label="Subevento Associado"
-                                v-model="
-                                    subEvents.form.fields.associated_subevent_id
-                                "
-                                :required="true"
-                                :form="form"
-                                :options="
-                                    exceptSubEventList(
-                                        environment.tables.sub_events,
-                                        subEvents.form.fields.id,
-                                        subEvents.form.fields.event_id,
-                                    )
-                                "
-                            ></app-select>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="associated_subevent_id"
+                                        label="Subevento Associado"
+                                        v-model="subEvents.form.fields.associated_subevent_id"
+                                        :required="true"
+                                        :form="form"
+                                        :options="
+                                            exceptSubEventList(
+                                                environment.tables.sub_events,
+                                                subEvents.form.fields.id,
+                                                subEvents.form.fields.event_id,
+                                            )
+                                        "
+                                    ></app-select>
+                                </div>
+                            </div>
 
-                            <app-select
-                                name="costume_id"
-                                label="Traje"
-                                v-model="subEvents.form.fields.costume_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.costumes"
-                            ></app-select>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="costume_id"
+                                        label="Traje"
+                                        v-model="subEvents.form.fields.costume_id"
+                                        :required="true"
+                                        :form="form"
+                                        :options="environment.tables.costumes"
+                                    ></app-select>
+                                </div>
+                            </div>
 
-                            <app-select
-                                name="sector_id"
-                                label="Setor"
-                                v-model="subEvents.form.fields.sector_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.sectors"
-                            ></app-select>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="sector_id"
+                                        label="Setor"
+                                        v-model="subEvents.form.fields.sector_id"
+                                        :required="true"
+                                        :form="form"
+                                        :options="environment.tables.sectors"
+                                    ></app-select>
+                                </div>
+                            </div>
 
                             <app-markdown-text-area
                                 @input="
