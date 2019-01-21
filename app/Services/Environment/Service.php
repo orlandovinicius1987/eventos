@@ -21,6 +21,64 @@ class Service
 
     public function data()
     {
+        if (auth()->user()) {
+            return $this->authenticated();
+        }
+
+        return $this->nonAuthenticated();
+    }
+
+    public function nonAuthenticated()
+    {
+        return coollect([
+            'app' => [
+                'name' => config('app.name'),
+                'id' => auth()->user() ? auth()->user()->email : csrf_token(),
+                'version' => Version::format('compact'),
+            ],
+
+            'token' => csrf_token(),
+
+            'captcha_enabled' =>
+                app()->environment() == 'local' && env('DISABLE_CAPTCHA')
+                    ? false
+                    : true,
+
+            'captcha_siteKey' => config('services.recaptcha.siteKey'),
+
+            'debug' => config('app.debug'),
+
+            'session' => [
+                'lifetime' => config('session.lifetime'),
+
+                'frontend' => [
+                    'lifetime' => config('session.frontend.lifetime'),
+
+                    'warning' => config('session.frontend.warning'),
+                ],
+            ],
+
+            'user' => null,
+
+            'timestamp' => now()->toDateTimeString(),
+
+            'old' => coollect(old())
+                ->except('password', 'password_confirmation')
+                ->toArray(),
+
+            'google_maps' => [
+                'api_key' => config('services.google_maps.api_key'),
+
+                'geolocation' => [
+                    'latitude' => -22.90337724433402,
+                    'longitude' => -43.17343861373911,
+                ],
+            ],
+        ]);
+    }
+
+    public function authenticated()
+    {
         return coollect([
             'app' => [
                 'name' => config('app.name'),

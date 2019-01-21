@@ -43,28 +43,6 @@ if (token) {
 }
 
 /**
- * Echo & Pusher
- */
-import Echo from 'laravel-echo'
-
-window.Pusher = require('pusher-js')
-
-let echoConfig = {
-    broadcaster: window.laravel.broadcast.driver,
-    key: window.laravel.pusher.key,
-    cluster: window.laravel.pusher.options.cluster,
-    encrypted: window.laravel.pusher.options.encrypted === 'true',
-}
-
-if (window.laravel.pusher.server === 'laravel-websockets') {
-    echoConfig.wsHost = window.laravel.pusher.options.host
-    echoConfig.wsPort = window.laravel.pusher.options.port
-    echoConfig.disableStats = false
-}
-
-window.Echo = new Echo(echoConfig)
-
-/**
  * Vue
  */
 window.Vue = require('vue')
@@ -141,3 +119,6 @@ Vue.component('vue-select', () => import('vue-select'))
 //Vue.use(() => import('vue-croppa'), { componentName: 'vue-croppa' })
 import Croppa from 'vue-croppa'
 Vue.use(Croppa, { componentName: 'vue-croppa' })
+
+require('./support/broadcast')
+require('./support/interceptors')
