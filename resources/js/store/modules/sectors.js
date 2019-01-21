@@ -8,7 +8,7 @@ import * as gettersMixin from './mixins/getters.js'
 const __emptyModel = {
     id: null,
     name: null,
-    color: null,
+    color: '#ffd966,#000000',
 }
 
 let state = merge_objects(
