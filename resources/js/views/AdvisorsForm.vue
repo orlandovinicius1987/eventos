@@ -16,7 +16,12 @@
                                 v-model="form.fields.person_id"
                                 :required="true"
                                 :form="form"
-                                :options="environment.tables.people"
+                                :options="
+                                            exceptAdvisorList(
+                                                environment.tables.people,
+                                                people.selected.id
+                                            )
+                                        "
                             ></app-select>
                             <app-person-institution-field
                                 :form="form"
@@ -97,6 +102,14 @@ export default {
                 field: 'advised_id',
                 value: this.personInstitutions.selected.id,
             })
+        },
+
+        exceptAdvisorList(list, advisorId) {
+            let items = clone(list)
+
+            items.rows = except(list.rows, advisorId)
+
+            return items
         },
     },
 }
