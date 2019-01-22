@@ -180,5 +180,6 @@ return [
         'time' => 'hora',
         'date' => 'data',
         'party_number' => 'número do partido',
+        'sector_id' => 'setor',
     ],
 ];

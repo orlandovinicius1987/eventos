@@ -14,6 +14,7 @@
         </vue-select>
 
         <small class="text-danger" v-if="form.errors.has(name)">
+            <i class="fas fa-exclamation-triangle"></i>
             {{ form.errors.get(name) }}
         </small>
     </div>
