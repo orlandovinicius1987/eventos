@@ -29,6 +29,7 @@ const state = merge_objects(statesMixin.common, {
 
 const actions = merge_objects(actionsMixin, {
     selectEvent(context, payload) {
+
         publicChannel('event.' + payload.id).listen(
             '.App\\Events\\SubEventsChanged',
             () => {
@@ -60,6 +61,8 @@ const actions = merge_objects(actionsMixin, {
         publicChannel('sub-event.' + payload.id).listen(
             '.App\\Events\\SubEventUpdated',
             () => {
+
+                dd('Channel: SubEventUpdated',)
                 context.dispatch('subEvents/load', payload, { root: true })
 
                 context.dispatch('invitations/load', payload, { root: true })
