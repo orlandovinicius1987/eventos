@@ -25,6 +25,6 @@ class SubEventCreated extends Broadcastable
      */
     public function broadcastOn()
     {
-        return new Channel('sub-event.' . $this->subEvent->id);
+        return new Channel('event.' . $this->subEvent->id);
     }
 }
