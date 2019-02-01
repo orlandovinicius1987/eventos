@@ -62,6 +62,16 @@ const actions = {
         })
     },
 
+    loadCategories(context) {
+        dd('Carregando categorias...')
+        return get('/api/v1/categories', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            dd('categories.response.data',response.data)
+            context.commit('mutateSetCategories', response.data)
+        })
+    },
+
     loadPeople(context) {
         return get('/api/v1/people', {
             params: { query: context.getters.getFullQueryFilter },
@@ -103,6 +113,7 @@ const actions = {
             context.dispatch('loadContactTypes')
             context.dispatch('loadInstitutions')
             context.dispatch('loadRoles')
+            context.dispatch('loadCategories')
             context.dispatch('loadPeople')
             context.dispatch('loadCostumes')
             context.dispatch('loadSectors')
@@ -132,6 +143,9 @@ const mutations = {
 
     mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload
+    },
+    mutateSetCategories(state, payload) {
+        state['tables']['categories'] = payload
     },
     mutateSetPeople(state, payload) {
         state['tables']['people'] = payload

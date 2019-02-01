@@ -7,6 +7,7 @@ use App\Events\ContactUpdated;
 use App\Events\InvitationUpdated;
 use App\Events\NotificationSent;
 use App\Events\InviteeCheckedIn;
+use App\Events\SubEventCreated;
 use App\Listeners\SendRejection;
 use App\Events\InvitationCreated;
 use App\Events\InvitationRejected;
@@ -42,6 +43,8 @@ class EventServiceProvider extends ServiceProvider
         InvitationRejected::class => [SendRejection::class],
 
         ContactCreated::class => [SendNotificationsToContact::class],
+
+        SubEventCreated::class=> [NotifySubEventsChanged::class],
 
         ContactUpdated::class => [SendNotificationsToContact::class],
 

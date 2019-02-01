@@ -53,12 +53,20 @@
                         ></app-institution-filter-for-invitation>
 
                         <app-role-filter-for-invitation
-                            name="role_id"
-                            label="Função"
-                            :required="true"
-                            :form="form"
-                            :options="environment.tables.roles"
+                                name="role_id"
+                                label="Função"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.roles"
                         ></app-role-filter-for-invitation>
+
+                        <app-category-filter-for-invitation
+                                name="category_id"
+                                label="Categoria"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.categories"
+                        ></app-category-filter-for-invitation>
 
                         <app-select
                             name="sub_event_id"
@@ -202,6 +210,7 @@ export default {
     data() {
         this.$store.dispatch('environment/loadSubEvents')
         this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadCategories')
         this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
