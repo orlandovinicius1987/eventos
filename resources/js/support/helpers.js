@@ -1,5 +1,4 @@
 import DeepMerger from '../classes/DeepMerger.js'
-import environment from '../store/modules/environment'
 
 window.dd = (...args) => {
     if (
@@ -76,12 +75,11 @@ window.post = (...args) => {
 }
 
 window.get = (...args) => {
-    if(args[0]){
+    if (args[0]) {
         return axios.get(...args)
     } else {
-        return Promise.resolve({data: {}})
+        return Promise.resolve({ data: {} })
     }
-
 }
 
 window.object_get = (obj, descendants) => {
@@ -194,7 +192,7 @@ window.buildApiUrl = (uri, state) => {
         // dd('could not buildApiUrl from URI and STATE', uri, state)
     }
 
-    return hasNulls ? null : ('/api/v1/' + str)
+    return hasNulls ? null : '/api/v1/' + str
 }
 
 window.makeDataUrl = context => {

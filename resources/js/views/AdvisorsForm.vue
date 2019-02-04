@@ -17,11 +17,11 @@
                                 :required="true"
                                 :form="form"
                                 :options="
-                                            exceptAdvisorList(
-                                                environment.tables.people,
-                                                people.selected.id
-                                            )
-                                        "
+                                    exceptAdvisorList(
+                                        environment.tables.people,
+                                        people.selected.id,
+                                    )
+                                "
                             ></app-select>
                             <app-person-institution-field
                                 :form="form"

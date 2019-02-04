@@ -12,7 +12,7 @@ const CategorizablesForm = () => import('./views/CategorizablesForm')
 const Events = () => import('./views/Events')
 const Categories = () => import('./views/Categories')
 const CategoriesForm = () => import('./views/CategoriesForm')
-const TopicsableForm = ()=> import('./views/TopicsableForm')
+const TopicsableForm = () => import('./views/TopicsableForm')
 const PersonInstitutionsForm = () => import('./views/PersonInstitutionsForm')
 const PersonInstitutionsAddressesForm = () =>
     import('./views/PersonInstitutionsAddressesForm')
@@ -314,7 +314,7 @@ router.beforeEach((to, from, next) => {
         if (result && result.length > 0) {
             next(result[0])
         } else {
-            if (can(store.state['environment'].user, 'read')) {
+            if (can(Store.state['environment'].user, 'read')) {
                 next('/dashboard')
             } else {
                 next('/recept')

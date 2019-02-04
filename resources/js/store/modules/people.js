@@ -166,7 +166,6 @@ let mutations = merge_objects(
             state.selectedAddress = __emptyModel
 
             state.selectedAdvisors = __emptyModel
-
         },
 
         selectPersonInstitution(state, payload) {

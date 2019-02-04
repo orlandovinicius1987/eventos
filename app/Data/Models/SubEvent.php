@@ -57,11 +57,16 @@ class SubEvent extends BaseWithClient
         'name' => 'asc',
     ];
 
-    protected $withCount = ['invitations'];
-
     public function address()
     {
         return $this->morphOne(Address::class, 'addressable');
+    }
+
+    protected static function bootGlobalScopes()
+    {
+        static::addGlobalScope('invitationsCount', function($builder) {
+            $builder->withCount('invitations');
+        });
     }
 
     protected static function bootObservers()

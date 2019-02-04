@@ -88,12 +88,9 @@ const actions = merge_objects(actionsMixin, {
             return
         }
 
-        return get(
-            makeDataUrl(context),
-            {
-                params: { query: context.getters.getQueryFilter },
-            },
-        ).then(response => {
+        return get(makeDataUrl(context), {
+            params: { query: context.getters.getQueryFilter },
+        }).then(response => {
             context.dispatch('setDataAfterLoad', response.data)
         })
     },

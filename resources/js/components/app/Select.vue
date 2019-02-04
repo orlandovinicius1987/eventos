@@ -59,7 +59,7 @@ export default {
 
         placeholder() {
             return this.options.length === 0 ? 'NENHUM ITEM DISPONÍVEL' : ''
-        }
+        },
     },
 
     computed: {
@@ -70,11 +70,11 @@ export default {
             set(item) {
                 if (!item) {
                     return this.$emit('input', null)
-                }else {
+                } else {
                     return this.$emit('input', item.value)
                 }
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>

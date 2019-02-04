@@ -1,2 +1,6 @@
-require('./bootstrap')
+require('./support/core')
+require('./support/axios')
+require('./support/helpers')
+require('./support/vue')
+require('./support/broadcast')
 require('./pages/boostrap')
