@@ -64,7 +64,7 @@ class SubEvent extends BaseWithClient
 
     protected static function bootGlobalScopes()
     {
-        static::addGlobalScope('invitationsCount', function($builder) {
+        static::addGlobalScope('invitationsCount', function ($builder) {
             $builder->withCount('invitations');
         });
     }
