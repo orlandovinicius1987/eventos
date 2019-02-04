@@ -351,8 +351,13 @@ window.first_last = string => {
     return splitted[0] + (first !== last ? ' ' + last : '')
 }
 
-window.can = (user, permission) => {
-    return typeof JSON.parse(user.permissions)[permission] !== 'undefined'
+window.can = (...args) => {
+    for (var i = 0; i < args.length; i++) {
+        if (!Store.getters['gate/can'](args[i])) {
+            return false
+        }
+    }
+    return true
 }
 
 window.splitString = (string, size) => {

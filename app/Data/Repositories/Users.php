@@ -72,11 +72,11 @@ class Users extends Repository
             $credentials = extract_credentials($request);
 
             if (
-                is_null(
-                    ($user = $this->findUserByEmail(
-                        ($email = "{$credentials['username']}@alerj.rj.gov.br")
-                    ))
-                )
+            is_null(
+                ($user = $this->findUserByEmail(
+                    ($email = "{$credentials['username']}@alerj.rj.gov.br")
+                ))
+            )
             ) {
                 $user = new User();
 
@@ -191,7 +191,7 @@ class Users extends Repository
     public function userHasPermission($user, $permissionString)
     {
         foreach ($user->permissions_array as $key => $item) {
-            if ($key == $permissionString) {
+            if ($key == get_current_client()->name.' - '.$permissionString) {
                 return true;
             }
         }

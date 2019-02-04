@@ -1,23 +1,11 @@
 export default {
     methods: {
         can() {
-            if (this.environment.user.hasOwnProperty('permissions')) {
-                for (var i = 0; i < arguments.length; i++) {
-                    const hasPermission = JSON.parse(
-                        this.environment.user.permissions,
-                    ).hasOwnProperty(arguments[i])
-
-                    if (hasPermission) {
-                        return true
-                    }
-                }
-            }
-
-            return false
+            return can.apply(this, arguments)
         },
 
-        cannot(permission) {
-            return !this.can(permission)
-        },
+        cannot() {
+            return !this.can.apply(this, arguments)
+        }
     },
 }
