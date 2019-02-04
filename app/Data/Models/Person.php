@@ -46,7 +46,8 @@ class Person extends BaseWithClient
         return $this->hasMany(PersonInstitution::class);
     }
 
-    public function person_topics(){
+    public function person_topics()
+    {
         return $this->hasMany(PersonTopic::class);
     }
 
@@ -117,5 +118,10 @@ class Person extends BaseWithClient
         });
 
         return $query;
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class, 'person_topics');
     }
 }
