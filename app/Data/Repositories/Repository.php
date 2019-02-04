@@ -79,11 +79,14 @@ abstract class Repository
         }
     }
 
-    protected function fireEventForTable($model, $eventType)
+    protected function fireEventForTable($model, $eventType, $plural = false)
     {
         $tableName = studly($model->getTable());
 
+        $tableName = $plural ? str_plural($tableName) : $tableName;
+
         $eventClass = "App\\Events\\{$tableName}{$eventType}";
+        info($eventClass);
 
         if (class_exists($eventClass)) {
             event(new $eventClass($model));
@@ -94,15 +97,26 @@ abstract class Repository
      * @param $model
      * @param string $type
      */
-    protected function fireEvents($model, $type = 'Updated')
+    protected function fireEvents($model, $type = null)
     {
+        $type = $this->inferEventType($model, $type);
+
         $this->fireEventForModel($model, $type);
 
-        $this->fireEventForTable($model, 'Changed');
+        $this->fireEventForTable($model, 'Changed', true);
 
         if (method_exists($this, 'fireEventsForRelationships')) {
             $this->fireEventsForRelationships($model, $type);
         }
+    }
+
+    protected function inferEventType($model, $type)
+    {
+        return filled($type)
+            ? $type
+            : ($model->wasRecentlyCreated
+                ? 'Created'
+                : 'Updated');
     }
 
     protected function qualifyColumn($name)
@@ -198,7 +212,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if ($text = $filter['filter']['text']) {
+        if (($text = $filter['filter']['text'])) {
             $this->filterAllColumns($query, $text);
         }
 

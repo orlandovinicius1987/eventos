@@ -228,39 +228,19 @@
                                 inline="true"
                             ></app-input>
 
-                            <app-table-panel
-                                v-if="mode == 'create'"
-                                :title="
-                                    'Endereços disponíveis (' +
-                                        subEvents.data.available_addresses
-                                            .length +
-                                        ' endereços)'
-                                "
-                            >
-                                <app-table
-                                    :columns="['#', 'Endereço']"
-                                    :rows="subEvents.data.available_addresses"
-                                >
-                                    <tr
-                                        @click="
-                                            selectAddressInsideEvent(address)
-                                        "
-                                        v-for="address in subEvents.data
-                                            .available_addresses"
-                                        class="cursor-pointer"
-                                        :class="{
-                                            'cursor-pointer': true,
-                                            'bg-primary-lighter text-white': isCurrent(
-                                                address,
-                                                addresses.selected,
-                                            ),
-                                        }"
-                                    >
-                                        <td>{{ address.id }}</td>
-                                        <td>{{ address.full_address }}</td>
-                                    </tr>
-                                </app-table>
-                            </app-table-panel>
+                            <div class="row" v-if="mode == 'create'">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="address_id"
+                                        label="Endereço"
+                                        v-model="subEvents.form.fields.address_id"
+                                        :required="true"
+                                        :form="form"
+                                        :options="environment.tables.availableAddresses"
+                                        @input="selectAddressInsideEvent(subEvents.form.fields.address_id)"
+                                    ></app-select>
+                                </div>
+                            </div>
 
                             <app-address-field
                                 :form="subEvents.form"
@@ -318,6 +298,7 @@ export default {
         this.$store.dispatch('environment/loadSubEvents')
         this.$store.dispatch('environment/loadCostumes')
         this.$store.dispatch('environment/loadSectors')
+        this.$store.dispatch('environment/loadAddresses')
         return {
             service: service,
         }
@@ -331,52 +312,13 @@ export default {
             })
         },
 
-        selectAddressInsideEvent(address) {
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'zipcode',
-                value: address.zipcode,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'street',
-                value: address.street,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'number',
-                value: address.number,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'complement',
-                value: address.complement,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'neighbourhood',
-                value: address.neighbourhood,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'city',
-                value: address.city,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'state',
-                value: address.state,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'latitude',
-                value: address.latitude,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'longitude',
-                value: address.longitude,
-            })
+        selectAddressInsideEvent(address_id) {
+            if(address_id){
+                this.$store.dispatch('subEvents/loadAddress', {
+                    sub_event_id: this.events.selected.id,
+                    address_id: address_id,
+                })
+            }
         },
 
         fillAdditionalFormFields() {

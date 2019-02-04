@@ -26,6 +26,7 @@ const state = {
         costumes: __emptyTable,
         sectors: __emptyTable,
         sub_events: __emptyTable,
+        addresses: __emptyTable,
     },
 }
 
@@ -94,7 +95,23 @@ const actions = {
         })
     },
 
-    absorbLaravel(context) {
+    loadAddresses(context) {
+        return get('/api/v1/addresses', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetAddresses', response.data)
+        })
+    },
+
+    loadAvailableAddresses(context) {
+        return get('/api/v1/addresses/availableAddresses', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetAvailableAddresses', response.data)
+        })
+    },
+
+    boot(context) {
         context.commit('mutateSetData', window.laravel)
 
         context.dispatch('load')
@@ -107,8 +124,21 @@ const actions = {
             context.dispatch('loadCostumes')
             context.dispatch('loadSectors')
             context.dispatch('loadSubEvents')
+            context.dispatch('loadAvailableAddresses')
         }
+
+        context.dispatch('subscribeToChannels')
     },
+
+    subscribeToChannels(context) {
+        subscribePublicChannel(
+            'addresses',
+            '.App\\Events\\AddressesChanged',
+            () => {
+                context.dispatch('loadAvailableAddresses')
+            },
+        )
+    }
 }
 
 const mutations = {
@@ -133,15 +163,25 @@ const mutations = {
     mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload
     },
+
     mutateSetPeople(state, payload) {
         state['tables']['people'] = payload
     },
+
     mutateSetCostumes(state, payload) {
         state['tables']['costumes'] = payload
     },
 
     mutateSetSectors(state, payload) {
         state['tables']['sectors'] = payload
+    },
+
+    mutateSetAddresses(state, payload) {
+        state['tables']['addresses'] = payload
+    },
+
+    mutateSetAvailableAddresses(state, payload) {
+        state['tables']['availableAddresses'] = payload
     },
 
     mutateSetSubEvents(state, payload) {
