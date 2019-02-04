@@ -1,5 +1,4 @@
 import DeepMerger from '../classes/DeepMerger.js'
-import environment from '../store/modules/environment'
 
 window.dd = (...args) => {
     if (

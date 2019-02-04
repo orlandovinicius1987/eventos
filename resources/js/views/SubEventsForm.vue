@@ -23,7 +23,10 @@
                                         name="send_invitations"
                                         label="pode enviar convites"
                                         type="checkbox"
-                                        v-model="subEvents.form.fields.send_invitations"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .send_invitations
+                                        "
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -35,7 +38,10 @@
                                         name="send_credentials"
                                         label="pode enviar credenciais"
                                         type="checkbox"
-                                        v-model="subEvents.form.fields.send_credentials"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .send_credentials
+                                        "
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -47,7 +53,10 @@
                                         name="security_can_recept"
                                         label="segurança pode recepcionar"
                                         type="checkbox"
-                                        v-model="subEvents.form.fields.security_can_recept"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .security_can_recept
+                                        "
                                         :required="true"
                                         :form="form"
                                         inline="true"
@@ -86,7 +95,10 @@
                                         name="confirmations_end_date"
                                         label="Data final para confirmação"
                                         type="date"
-                                        v-model="subEvents.form.fields.confirmations_end_date"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .confirmations_end_date
+                                        "
                                         :required="true"
                                         :form="form"
                                     ></app-input>
@@ -127,7 +139,10 @@
                                     <app-select
                                         name="associated_subevent_id"
                                         label="Subevento Associado"
-                                        v-model="subEvents.form.fields.associated_subevent_id"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .associated_subevent_id
+                                        "
                                         :required="true"
                                         :form="form"
                                         :options="
@@ -146,7 +161,9 @@
                                     <app-select
                                         name="costume_id"
                                         label="Traje"
-                                        v-model="subEvents.form.fields.costume_id"
+                                        v-model="
+                                            subEvents.form.fields.costume_id
+                                        "
                                         :required="true"
                                         :form="form"
                                         :options="environment.tables.costumes"
@@ -159,7 +176,9 @@
                                     <app-select
                                         name="sector_id"
                                         label="Setor"
-                                        v-model="subEvents.form.fields.sector_id"
+                                        v-model="
+                                            subEvents.form.fields.sector_id
+                                        "
                                         :required="true"
                                         :form="form"
                                         :options="environment.tables.sectors"

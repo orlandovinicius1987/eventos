@@ -95,4 +95,4 @@ let store = new Vuex.Store({
 
 store.dispatch('environment/absorbLaravel')
 
-export default store
+window.Store = store

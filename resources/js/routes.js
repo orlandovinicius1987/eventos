@@ -314,7 +314,7 @@ router.beforeEach((to, from, next) => {
         if (result && result.length > 0) {
             next(result[0])
         } else {
-            if (can(store.state['environment'].user, 'read')) {
+            if (can(Store.state['environment'].user, 'read')) {
                 next('/dashboard')
             } else {
                 next('/recept')
