@@ -5,6 +5,7 @@ namespace App\Data\Models;
 use App\Data\Models\Traits\Selectable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Data\Repositories\Clients as ClientsRepository;
 
 class User extends Authenticatable
 {
@@ -55,7 +56,27 @@ class User extends Authenticatable
     //TODO trabalhar futuramente com uma escolha de o sistema favorito , para que este seja o sistema inicial da aplicação
     public function getClientIdAttribute()
     {
-        return 1;
+        return (array_first($this->allowed_clients)->id);
+    }
+
+    public function getAllowedClientsAttribute()
+    {
+        $clientsAllowed = app(ClientsRepository::class)->all();
+
+        $clientsInProfiles = collect($this->profiles_array);
+        $clientsInProfiles = $clientsInProfiles->mapWithKeys(function ($item, $key){
+            return [explode(' - ', $key)[0] => $item];
+        });
+
+        if (!$this->is_administrator) {
+            $clientsAllowed = $clientsAllowed->reject(function ($client) use (
+                $clientsInProfiles
+            ) {
+                return !$clientsInProfiles->keys()->contains($client->name);
+            });
+        }
+
+        return $clientsAllowed;
     }
 
     public function getIsSecurityAttribute()
