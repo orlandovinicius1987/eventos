@@ -105,6 +105,9 @@ class Invitables extends Repository
         if(isset($filter['category']) && !is_null($filter['category'])){
             $query->whereRaw('person_id in (select categorizable_id from categorizables where category_id = '.$filter['category'].')');
         }
+        if(isset($filter['topic']) && !is_null($filter['topic'])){
+            $query->whereRaw('person_id in (select person_id from person_topics where topic_id = '.$filter['topic'].')');
+        }
         return $query;
     }
 }

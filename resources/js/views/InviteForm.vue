@@ -60,6 +60,14 @@
                                 :options="environment.tables.roles"
                         ></app-role-filter-for-invitation>
 
+                        <app-topic-filter-for-invitation
+                                name="topic_id"
+                                label="Tópicos"
+                                :required="true"
+                                :form="form"
+                                :options="environment.tables.topics"
+                        ></app-topic-filter-for-invitation>
+
                         <app-category-filter-for-invitation
                                 name="category_id"
                                 label="Categoria"
