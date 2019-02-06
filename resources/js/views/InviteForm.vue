@@ -62,7 +62,7 @@
 
                         <app-topic-filter-for-invitation
                                 name="topic_id"
-                                label="Tópicos"
+                                label="Interesses"
                                 :required="true"
                                 :form="form"
                                 :options="environment.tables.topics"
