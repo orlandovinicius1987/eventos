@@ -219,6 +219,7 @@ export default {
         this.$store.dispatch('environment/loadSubEvents')
         this.$store.dispatch('environment/loadRoles')
         this.$store.dispatch('environment/loadCategories')
+        this.$store.dispatch('environment/loadTopics')
         this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
