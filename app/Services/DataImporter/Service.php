@@ -62,14 +62,14 @@ class Service
         }
     }
 
-    private function capitalize($name)
+    protected function capitalize($name)
     {
         //return capitalizeBrazilian($name);
 
         return $name;
     }
 
-    private function checkRow($row)
+    protected function checkRow($row)
     {
         $this->checkMandatoryFields($row);
 
@@ -91,7 +91,28 @@ class Service
         });
     }
 
-    private function getNotes($row)
+    protected function extractContacts($row, $name, $contactArray)
+    {
+        $contacts = collect();
+
+        foreach (['', 1, 2, 3, 4, 5, 6, 7, 8, 9] as $number) {
+            $current = "{$name}{$number}";
+
+            if (isset($row->$current)) {
+                foreach (explode(',', $row->$current) as $contact) {
+                    if (filled($contact)) {
+                        $contactArray['contact'] = $this->sanitize($contact);
+
+                        $contacts->push($contactArray);
+                    }
+                }
+            }
+        }
+
+        return $contacts;
+    }
+
+    protected function getNotes($row)
     {
         $notes = '';
 
@@ -106,7 +127,7 @@ class Service
             'observacoes5',
         ])->each(function ($obs) use (&$notes, $row) {
             if (isset($row[$obs])) {
-                $notes = $notes . ' ' . $row[$obs];
+                $notes = $notes . ' ' . $this->sanitize($row[$obs]);
             }
         });
 
@@ -217,7 +238,7 @@ class Service
     protected function imporRole($row)
     {
         return Role::firstOrCreate([
-            'name' => $this->capitalize($row->funcao),
+            'name' => $this->sanitize($this->capitalize($row->funcao)),
         ]);
     }
 
@@ -225,21 +246,21 @@ class Service
     {
         if ($row->endereco) {
             Address::create([
-                'zipcode' => $row->cep,
+                'zipcode' => $this->sanitize($row->cep),
 
-                'street' => $row->endereco,
+                'street' => $this->sanitize($row->endereco),
 
-                'number' => $row->numero ?? null,
+                'number' => $this->sanitize($row->numero ?? null),
 
-                'complement' => $row->complemento ?? null,
+                'complement' => $this->sanitize($row->complemento ?? null),
 
-                'neighbourhood' => $row->bairro,
+                'neighbourhood' => $this->sanitize($row->bairro),
 
-                'city' => $row->cidade,
+                'city' => $this->sanitize($row->cidade),
 
-                'state' => $row->estado ?? $row->uf ?? null,
+                'state' => $this->sanitize($row->estado ?? $row->uf ?? null),
 
-                'addressable_id' => $personInstitution->id,
+                'addressable_id' => $this->sanitize($personInstitution->id),
 
                 'addressable_type' => PersonInstitution::class,
             ]);
@@ -252,16 +273,18 @@ class Service
             return;
         }
 
-        $row->assessor_funcao = isset($row->assessor_funcao)
-            ? $row->assessor_funcao
-            : 'Assessor';
+        $row->assessor_funcao =
+            isset($row->assessor_funcao) &&
+            filled(($funcao = $this->sanitize($row->assessor_funcao)))
+                ? $funcao
+                : 'Assessor';
 
         $advisorInstitution = $this->importPersonInstitution(
             coollect(['tratamento' => null]),
 
             $this->importPerson(
                 coollect([
-                    'nome' => $row->assessor_nome,
+                    'nome' => $this->sanitize($row->assessor_nome),
                     'apelido' => null,
                     'partido' => null,
                     'tratamento' => null,
@@ -270,114 +293,44 @@ class Service
 
             Institution::find($personInstitution->institution_id),
 
-            $this->imporRole(coollect(['funcao' => $row->assessor_funcao])),
+            $this->imporRole(
+                coollect(['funcao' => $this->sanitize($row->assessor_funcao)])
+            ),
 
             $personInstitution
         );
 
-        collect([
-            [
-                'contact' => $row->assessor_telefone ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->assessor_telefone1 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->assessor_telefone2 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->assessor_telefone3 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->assessor_telefone4 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->assessor_telefone5 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->assessor_celular ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->assessor_celular1 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->assessor_celular2 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->assessor_celular3 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->assessor_celular4 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->assessor_celular5 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->assessor_email ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->assessor_email1 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->assessor_email2 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->assessor_email3 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->assessor_email4 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->assessor_email5 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-        ])->each(function ($contact) use (
-            $personInstitution,
-            $advisorInstitution
-        ) {
-            $this->importContact(
-                $contact['contact'],
-                $contact['type'],
-                $contact['type_name'],
-                $advisorInstitution,
-                PersonInstitution::class
-            );
-        });
+        collect()
+            ->merge(
+                $this->extractContacts($row, 'assessor_telefone', [
+                    'type' => 'phone',
+                    'type_name' => 'Telefone fixo',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'assessor_celular', [
+                    'type' => 'mobile',
+                    'type_name' => 'Celular',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'assessor_email', [
+                    'type' => 'email',
+                    'type_name' => 'E-mail',
+                ])
+            )
+            ->each(function ($contact) use (
+                $personInstitution,
+                $advisorInstitution
+            ) {
+                $this->importContact(
+                    $contact['contact'],
+                    $contact['type'],
+                    $contact['type_name'],
+                    $advisorInstitution,
+                    PersonInstitution::class
+                );
+            });
     }
 
     /**
@@ -390,7 +343,7 @@ class Service
             [
                 'slug' => make_slug($topic),
             ],
-            ['name' => $this->capitalize($topic)]
+            ['name' => $this->capitalize($this->sanitize($topic))]
         );
     }
 
@@ -402,7 +355,7 @@ class Service
     {
         return $row->categoria
             ? Category::firstOrCreate([
-                'name' => $this->capitalize($row->categoria),
+                'name' => $this->capitalize($this->sanitize($row->categoria)),
             ])
             : null;
     }
@@ -415,7 +368,7 @@ class Service
     {
         if (filled($row->evento)) {
             return Event::firstOrCreate([
-                'name' => $this->capitalize($row->evento),
+                'name' => $this->capitalize($this->sanitize($row->evento)),
             ]);
         }
 
@@ -424,25 +377,28 @@ class Service
 
     /**
      * @param $row
-     * @param $partyInitials
-     * @param $partyName
+     * @param $party
      * @return mixed
      */
     protected function importInstitution($row, $party)
     {
+        $name = $this->capitalize(
+            $party && $row->instituicao == $party->initials
+                ? $this->sanitize($party->name)
+                : $this->sanitize($row->instituicao)
+        );
+
+        $initials =
+            $party && $row->instituicao == $party->initials
+                ? $this->sanitize($party->initials)
+                : $this->sanitize($row->sigla ?? null);
+
         return Institution::firstOrCreate(
             [
-                'name' => $this->capitalize(
-                    $party && $row->instituicao == $party->initials
-                        ? $party->name
-                        : $row->instituicao
-                ),
+                'name' => filled($name) ? $name : 'Pessoa Física',
             ],
             [
-                'initials' =>
-                    $party && $row->instituicao == $party->initials
-                        ? $party->initials
-                        : $row->sigla ?? null,
+                'initials' => filled($initials) ? $initials : 'PF',
             ]
         );
     }
@@ -467,16 +423,18 @@ class Service
     {
         return Person::firstOrCreate(
             [
-                'name' => $this->capitalize($row->nome),
+                'name' => $this->capitalize($this->sanitize($row->nome)),
             ],
             [
                 'nickname' => $this->capitalize(
-                    isset($row->apelido) ? $row->apelido : $row->nome
+                    $this->sanitize(
+                        isset($row->apelido) ? $row->apelido : $row->nome
+                    )
                 ),
 
-                'party_id' => $party ? $party->id : null,
+                'party_id' => $this->sanitize($party ? $party->id : null),
 
-                'title' => trim($row->tratamento),
+                'title' => $this->sanitize($row->tratamento),
 
                 'client_id' => $this->client_id,
 
@@ -507,7 +465,7 @@ class Service
                 'role_id' => $role->id,
             ],
             [
-                'title' => $row->tratamento,
+                'title' => $this->sanitize($row->tratamento),
                 'advised_id' => $advised ? $advised->id : null,
             ]
         );
@@ -515,105 +473,33 @@ class Service
 
     protected function importContacts($row, $personInstitution)
     {
-        collect([
-            [
-                'contact' => $row->celular ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->celular1 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->celular2 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->celular3 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->celular4 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->celular5 ?? null,
-                'type' => 'mobile',
-                'type_name' => 'Celular',
-            ],
-            [
-                'contact' => $row->telefone ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->telefone1 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->telefone2 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->telefone3 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->telefone4 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->telefone5 ?? null,
-                'type' => 'phone',
-                'type_name' => 'Telefone fixo',
-            ],
-            [
-                'contact' => $row->email ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->email1 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->email2 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->email3 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->email4 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-            [
-                'contact' => $row->email5 ?? null,
-                'type' => 'email',
-                'type_name' => 'E-mail',
-            ],
-        ])->each(function ($contact) use ($personInstitution) {
-            $this->importContact(
-                $contact['contact'],
-                $contact['type'],
-                $contact['type_name'],
-                $personInstitution
-            );
-        });
+        collect()
+            ->merge(
+                $this->extractContacts($row, 'celular', [
+                    'type' => 'mobile',
+                    'type_name' => 'Celular',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'telefone', [
+                    'type' => 'phone',
+                    'type_name' => 'Telefone fixo',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'email', [
+                    'type' => 'email',
+                    'type_name' => 'E-mail',
+                ])
+            )
+            ->each(function ($contact) use ($personInstitution) {
+                $this->importContact(
+                    $contact['contact'],
+                    $contact['type'],
+                    $contact['type_name'],
+                    $personInstitution
+                );
+            });
     }
 
     protected function importContact(
@@ -665,7 +551,10 @@ class Service
         collect(explode(',', $row->interesses))
             ->filter()
             ->map(function ($interesse) {
-                return ['slug' => make_slug($interesse), 'name' => $interesse];
+                return [
+                    'slug' => $this->sanitize(make_slug($interesse)),
+                    'name' => $this->sanitize($interesse),
+                ];
             })
             ->unique('slug')
             ->each(function ($interesse) use ($person) {
@@ -696,6 +585,11 @@ class Service
     protected function rowIsEmpty($row)
     {
         return empty($row->nome);
+    }
+
+    private function sanitize($string)
+    {
+        return trim($string);
     }
 
     protected function throwError(string $string)
