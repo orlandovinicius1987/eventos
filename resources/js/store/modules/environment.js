@@ -30,7 +30,15 @@ const state = {
     },
 }
 
-const getters = gettersMixin
+let getters = merge_objects(gettersMixin, {
+    getPermissions(state, getters) {
+        return state.user.permissions_array
+    },
+
+    getCurrentClient(state, getters) {
+        return state.session.current_client
+    },
+})
 
 const actions = {
     load(context) {

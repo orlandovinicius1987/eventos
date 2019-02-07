@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Data\Models;
 
 class Client extends Base
@@ -9,4 +10,9 @@ class Client extends Base
     protected $fillable = ['name'];
 
     protected $orderBy = ['name' => 'asc'];
+
+    public function getSlugAttribute()
+    {
+        return str_slug($this->name);
+    }
 }

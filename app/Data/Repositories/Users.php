@@ -185,17 +185,12 @@ class Users extends Repository
 
     /**
      * @param $user
-     * @param $permissionString
+     * @param $permission
      * @return bool
      */
-    public function userHasPermission($user, $permissionString)
+    public function userHasPermission($user, $permission)
     {
-        foreach ($user->permissions_array as $key => $item) {
-            if ($key == $permissionString) {
-                return true;
-            }
-        }
-        return false;
+        return in_array($permission, $user->permissions_array);
     }
 
     /**
