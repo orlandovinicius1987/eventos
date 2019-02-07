@@ -3,6 +3,7 @@ namespace App\Data\Repositories;
 
 use App\Data\Models\PersonInstitution;
 use App\Data\Models\Address as AddressModel;
+use App\Data\Models\SubEvent as SubEventModel;
 use App\Data\Repositories\Traits\AddressesTraits;
 use App\Events\PersonInstitutionAddressesGotChanged;
 use App\Data\Models\PersonInstitution as PersonInstitutionModel;
@@ -66,12 +67,18 @@ class Addresses extends Repository
     public function update($id, $attributes)
     {
         $this->updateAddress(($model = $this->findById($id)), $attributes);
-
-        $this->fireEvents($model, 'Updated');
     }
 
     public function fireEventsForRelationships($model)
     {
         event(new PersonInstitutionAddressesGotChanged($model->addressable));
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAvailableAddresses()
+    {
+        return $this->filterByAddressableType(SubEventModel::class);
     }
 }
