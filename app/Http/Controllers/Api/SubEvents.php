@@ -8,6 +8,7 @@ use App\Http\Requests\SubEventStore;
 use App\Http\Requests\ConfirmSubEvent;
 use App\Http\Requests\SubEventUpdate;
 use App\Data\Repositories\SubEvents as SubEventsRepository;
+use App\Data\Repositories\Addresses as AddressesRepository;
 
 class SubEvents extends Controller
 {
@@ -92,5 +93,10 @@ class SubEvents extends Controller
         );
 
         return $this->emptyResponse();
+    }
+
+    public function address($eventId, $subEventId, $addressId)
+    {
+        return app(AddressesRepository::class)->findById($addressId);
     }
 }

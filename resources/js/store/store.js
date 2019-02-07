@@ -93,6 +93,6 @@ let store = new Vuex.Store({
     },
 })
 
-store.dispatch('environment/absorbLaravel')
+store.dispatch('environment/boot')
 
 window.Store = store

@@ -9,6 +9,7 @@ class Address extends BaseWithClient
     protected $orderBy = ['street' => 'asc'];
 
     protected $appends = [
+        'name',
         'model',
         'full_address',
         'google_maps_link_url',
@@ -36,6 +37,11 @@ class Address extends BaseWithClient
     public function addressable()
     {
         return $this->morphTo();
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->getFullAddressAttribute();
     }
 
     public function getFullAddressAttribute()
