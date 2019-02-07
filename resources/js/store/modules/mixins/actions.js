@@ -1,6 +1,7 @@
 let debouncedByUrl = {}
 
 export function load(context) {
+
     if (!makeDataUrl(context)) {
         return
     }
@@ -85,9 +86,6 @@ export function select(context, payload) {
     context.commit('mutateSetSelected', payload)
 
     context.commit('mutateFormData', payload)
-
-    dd('actions - select - context',context);
-    dd('actions - select - payload',payload);
 }
 
 export function mutateFilterCheckbox(context, payload) {
