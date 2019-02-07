@@ -1,5 +1,6 @@
 <?php
 
+use App\Data\Models\Client;
 use App\Data\Models\Sector;
 use App\Services\CSV;
 use App\Data\Models\ContactType;
@@ -82,6 +83,16 @@ No traje de gala, não tem negociação: o homem tem que usar smoking. O terno d
             ->parse(file_get_contents(database_path('data/parties.csv')))
             ->each(function ($party) {
                 Institution::firstOrCreate([
+                    'client_id' => Client::where('name', 'Cerimonial')->first()
+                        ->id,
+                    'name' => $party->name,
+                    'initials' => $party->initials,
+                    'party_number' => $party->number,
+                    'is_party' => true,
+                ]);
+
+                Institution::firstOrCreate([
+                    'client_id' => Client::where('name', 'Forum')->first()->id,
                     'name' => $party->name,
                     'initials' => $party->initials,
                     'party_number' => $party->number,
