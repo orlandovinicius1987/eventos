@@ -47,6 +47,12 @@ Route::group(['prefix' => '/events'], function () {
             'sub-events.download'
         );
 
+        Route::group(['prefix' => '{subEventId}/addresses'], function () {
+            Route::get('/{id}', 'SubEvents@address')->name(
+                'sub-events.address'
+            );
+        });
+
         Route::group(['prefix' => '{subEventId}/invitations'], function () {
             Route::get('/', 'Invitations@all')->name('invitations.all');
 

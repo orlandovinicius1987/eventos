@@ -4,18 +4,18 @@ namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 
-class SubEventCreated extends Broadcastable
+class AddressUpdated extends Broadcastable
 {
-    protected $subEvent;
+    protected $address;
 
     /**
      * Create a new event instance.
      *
-     * @param $subEvent
+     * @param $institution
      */
-    public function __construct($subEvent)
+    public function __construct($address)
     {
-        $this->subEvent = $subEvent;
+        $this->address = $address;
     }
 
     /**
@@ -25,6 +25,6 @@ class SubEventCreated extends Broadcastable
      */
     public function broadcastOn()
     {
-        return new Channel('event.' . $this->subEvent->id);
+        return new Channel('address.' . $this->address->id);
     }
 }
