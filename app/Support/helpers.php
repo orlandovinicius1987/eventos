@@ -230,6 +230,22 @@ function capitalizeBrazilian($name)
     return $string;
 }
 
+function extract_client_and_permission($string)
+{
+    $data = collect(explode('-', $string))
+        ->map(function ($value) {
+            return str_slug($value);
+        })
+        ->toArray();
+
+    if (!isset($data[1]) && str_slug($data[0]) === 'administrador') {
+        $data[0] = 'all';
+        $data[1] = 'administrador';
+    }
+
+    return [$data[0], $data[1]];
+}
+
 class Timer
 {
     public static $starttime;

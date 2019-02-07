@@ -6,6 +6,6 @@ export default {
 
         cannot() {
             return !this.can.apply(this, arguments)
-        }
+        },
     },
 }

@@ -18,9 +18,9 @@ class Home extends Controller
         $allowedClients = current_user()->allowed_clients;
 
         // TODO: trabalhar futuramente com uma escolha de o sistema favorito, para que este seja o sistema inicial da aplicação
-//        if (!get_current_client_id()) {
-//            set_current_client_id($allowedClients ? $allowedClients->first()->id : null);
-//        }
+        //        if (!get_current_client_id()) {
+        //            set_current_client_id($allowedClients ? $allowedClients->first()->id : null);
+        //        }
 
         return view('admin.index')->with('clients', $allowedClients);
     }

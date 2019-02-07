@@ -31,8 +31,9 @@ const state = {
 
 let getters = merge_objects(gettersMixin, {
     getPermissions(state, getters) {
-        return state.user.permissions
+        return state.user.permissions_array
     },
+
     getCurrentClient(state, getters) {
         return state.session.current_client
     },
