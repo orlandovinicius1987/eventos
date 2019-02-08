@@ -31,7 +31,7 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    v-if="events.data.links"
+                    v-if="can('events:read') && events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/events/create',
@@ -125,7 +125,7 @@
 
             <div class="col-12 col-lg-8">
                 <app-table-panel
-                    v-if="selected.id && subEvents.data.links"
+                    v-if="can('subevents:read') && selected.id && subEvents.data.links"
                     :title="
                         selected.name +
                             ' (' +
@@ -282,7 +282,7 @@
         <div class="row" v-if="invitations.subEvent.id">
             <div class="col-12">
                 <app-table-panel
-                    v-if="selected.id && invitations.data.links"
+                    v-if="can('subevents:read') && selected.id && invitations.data.links"
                     :title="
                         invitations.data.links.pagination.total +
                             ' convidado' +
@@ -301,7 +301,7 @@
                             '/sub-events/' +
                             subEvents.selected.id +
                             '/invitations/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('subevents:invite'),
                     }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
@@ -724,7 +724,7 @@
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event
                                                 .send_invitations
@@ -738,7 +738,7 @@
                                     @click="sendCredential(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event
                                                 .send_credentials
@@ -755,7 +755,7 @@
                                     "
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.received_at
                                     "
@@ -773,7 +773,7 @@
                                     "
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             invitation.accepted_at &&
                                             !invitation.credentials_received_at
@@ -787,7 +787,7 @@
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.accepted_at
                                     "
@@ -800,7 +800,7 @@
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.declined_at
                                     "
@@ -813,7 +813,7 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:edit') &&
                                             canSendEmail(invitation) &&
                                             invitation.accepted_at
                                     "
@@ -850,7 +850,7 @@
                                 <button
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('edit') && !invitation.sent_at"
+                                    v-if="can('subevents:edit') && !invitation.sent_at"
                                     title="Excluir convite (ainda não foi enviado)"
                                 >
                                     <i class="fa fa-trash"></i>
