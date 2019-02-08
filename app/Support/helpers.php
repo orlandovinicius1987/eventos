@@ -230,15 +230,22 @@ function capitalizeBrazilian($name)
     return $string;
 }
 
+function permission_slug($string)
+{
+    $string = str_replace(':', ($replace = 'xxxxxxxxxx'), $string);
+
+    return str_replace($replace, ':', str_slug($string));
+}
+
 function extract_client_and_permission($string)
 {
     $data = collect(explode('-', $string))
         ->map(function ($value) {
-            return str_slug($value);
+            return permission_slug($value);
         })
         ->toArray();
 
-    if (!isset($data[1]) && str_slug($data[0]) === 'administrador') {
+    if (!isset($data[1]) && permission_slug($data[0]) === 'administrador') {
         $data[0] = 'all';
         $data[1] = 'administrador';
     }
