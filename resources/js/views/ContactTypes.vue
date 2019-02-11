@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('contacttypes:read') || can('contacttypes:modify')"
                     :title="'Tipos de Contato (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/contact-types/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('contacttypes:modify'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -46,7 +47,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('contacttypes:modify')"
                                     title="Editar Tipo de Contato"
                                 >
                                     <i class="fa fa-edit"></i>

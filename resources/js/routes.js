@@ -314,7 +314,7 @@ router.beforeEach((to, from, next) => {
         if (result && result.length > 0) {
             next(result[0])
         } else {
-            if (can('read')) {
+            if (can('events:read') || can('events:modify')) {
                 next('/dashboard')
             } else {
                 next('/recept')

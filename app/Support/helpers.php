@@ -249,7 +249,6 @@ function extract_client_and_permission($string)
         $data[0] = 'all';
         $data[1] = 'administrador';
     }
-
     return [$data[0], $data[1]];
 }
 

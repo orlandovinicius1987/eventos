@@ -32,11 +32,11 @@
             <!-- LEFT COLUMN - PEOPLE -->
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    v-if="people.data.links"
+                    v-if="(can('people:read') || can('people:modify')) && people.data.links"
                     :title="'Pessoas (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/people/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('people:modify'),
                         dusk: 'create-people-button',
                     }"
                     :per-page="peoplePerPage"
@@ -111,7 +111,7 @@
                                     :to="'/people/' + person.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('people:modify')"
                                     title="Editar Pessoa"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -127,7 +127,7 @@
                 <div class="row">
                     <div class="col-12">
                         <app-table-panel
-                            v-if="selected.id && personCategories.data.links"
+                            v-if="(can('people:read') || can('people:modify')) && selected.id && personCategories.data.links"
                             :title="
                                 'Categorias: ' +
                                     personCategories.data.links.pagination.total
@@ -137,7 +137,7 @@
                                     '/people/' +
                                     people.selected.id +
                                     '/categories/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                                 dusk: 'add-category',
                             }"
                             :per-page="personCategoriesPerPage"
@@ -193,7 +193,7 @@
 
                     <div class="col-12">
                         <app-table-panel
-                            v-if="selected.id && personTopics.data.links"
+                            v-if="(can('people:read') || can('people:modify')) && selected.id && personTopics.data.links"
                             :title="
                                 'Assuntos: ' +
                                     personTopics.data.links.pagination.total
@@ -203,7 +203,7 @@
                                     '/people/' +
                                     people.selected.id +
                                     '/person-topics/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                             }"
                             :per-page="personTopicsPerPage"
                             @set-per-page="personTopicsPerPage = $event"
@@ -256,7 +256,7 @@
 
                     <div class="col-12">
                         <app-table-panel
-                            v-if="selected.id && personInstitutions.data.links"
+                            v-if="(can('people:read') || can('people:modify')) && selected.id && personInstitutions.data.links"
                             :title="
                                 'Funções: ' +
                                     personInstitutions.data.links.pagination
@@ -267,7 +267,7 @@
                                     '/people/' +
                                     personInstitutions.person.id +
                                     '/person-institutions/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                                 dusk: 'add-function',
                             }"
                             :per-page="personInstitutionsPerPage"
@@ -353,7 +353,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('edit')"
+                                            :disabled="cannot('people:modify')"
                                             title="Editar Função"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -367,7 +367,7 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                personInstitutions.selected.id &&
+                                (can('people:read') || can('people:modify')) && personInstitutions.selected.id &&
                                     contacts.data.links
                             "
                             :title="
@@ -381,7 +381,7 @@
                                     '/person-institutions/' +
                                     contacts.personInstitution.id +
                                     '/contacts/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                                 dusk: 'add-contact',
                             }"
                             :per-page="contactsPerPage"
@@ -450,7 +450,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('edit')"
+                                            :disabled="cannot('people:modify')"
                                             title="Editar Contato"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -464,7 +464,7 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                personInstitutions.selected.id &&
+                                (can('people:read') || can('people:modify')) && personInstitutions.selected.id &&
                                     addresses.data.links
                             "
                             :title="
@@ -478,7 +478,7 @@
                                     '/person-institutions/' +
                                     addresses.personInstitution.id +
                                     '/addresses/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                             }"
                             :per-page="addressesPerPage"
                             @set-per-page="addressesPerPage = $event"
@@ -560,7 +560,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('edit')"
+                                            :disabled="cannot('people:modify')"
                                             title="Editar Endereço"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -574,7 +574,7 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                personInstitutions.selected.id &&
+                                (can('people:read') || can('people:modify')) && personInstitutions.selected.id &&
                                     advisors.data.links
                             "
                             :title="
@@ -588,7 +588,7 @@
                                     '/person-institutions/' +
                                     advisors.personInstitution.id +
                                     '/advisors/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                             }"
                             :per-page="advisorsPerPage"
                             @set-per-page="advisorsPerPage = $event"
@@ -647,7 +647,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('edit')"
+                                            :disabled="cannot('people:modify')"
                                             title="Editar Assessor"
                                         >
                                             <i class="fa fa-edit"></i>
@@ -661,7 +661,7 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                advisors.selected.id &&
+                                (can('people:read') || can('people:modify')) && advisors.selected.id &&
                                     advisorContacts.data.links
                             "
                             :title="
@@ -679,7 +679,7 @@
                                     '/advisors/' +
                                     advisorContacts.personInstitution.id +
                                     '/contacts/create',
-                                disabled: cannot('create'),
+                                disabled: cannot('people:modify'),
                             }"
                             :per-page="advisorContactsPerPage"
                             @set-per-page="advisorContactsPerPage = $event"
@@ -739,7 +739,7 @@
                                             "
                                             tag="button"
                                             class="btn btn-danger btn-sm ml-1 pull-right"
-                                            :disabled="cannot('edit')"
+                                            :disabled="cannot('people:modify')"
                                             title="Editar Contato do Assessor"
                                         >
                                             <i class="fa fa-edit"></i>

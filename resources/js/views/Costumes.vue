@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('costumes:read') || can('costumes:modify')"
                     :title="'Trajes (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/costumes/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('costumes:modify'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -42,7 +43,7 @@
                                     :to="'/costumes/' + costume.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('costumes:modify')"
                                     title="Editar Traje"
                                 >
                                     <i class="fa fa-edit"></i>

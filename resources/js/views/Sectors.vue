@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('sectors:read') || can('sectors:modify')"
                     :title="'Setores (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/sectors/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('sectors:modify'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -51,7 +52,7 @@
                                     :to="'/sectors/' + sector.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('sectors:modify')"
                                     title="Editar Função"
                                 >
                                     <i class="fa fa-edit"></i>
