@@ -34,7 +34,7 @@
                             <router-link
                                 v-if="addButton"
                                 :to="addButton.uri"
-                                tag="div"
+                                tag="button"
                                 class="btn btn-primary pull-right"
                                 :disabled="addButton.disabled"
                                 :dusk="addButton.dusk"

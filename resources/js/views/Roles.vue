@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('roles:read') || can('roles:modify')"
                     :title="'Funções (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/roles/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('roles:modify'),
                         dusk: 'create-roles-button',
                     }"
                     :per-page="perPage"
@@ -41,7 +42,7 @@
                                     :to="'/roles/' + role.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('roles:modify')"
                                     title="Editar Função"
                                 >
                                     <i class="fa fa-edit"></i>

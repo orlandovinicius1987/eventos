@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('categories:read') || can('categories:modify')"
                     :title="'Categorias (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/categories/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('categories:modify'),
                         dusk: 'create-category-button',
                     }"
                     :per-page="perPage"
@@ -43,7 +44,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('categories:modify')"
                                     title="Editar Categoria"
                                 >
                                     <i class="fa fa-edit"></i>

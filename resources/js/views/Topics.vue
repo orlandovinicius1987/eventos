@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('topics:read') || can('topics:modify')"
                     :title="'Assuntos (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/topics/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('topics:modify'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -42,7 +43,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('topics:modify')"
                                     title="Editar Assunto"
                                 >
                                     <i class="fa fa-edit"></i>

@@ -5,10 +5,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
+                    v-if="can('institutions:read') || can('institutions:modify')"
                     :title="'Instituições (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/institutions/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('institutions:modify'),
                     }"
                     :per-page="perPage"
                     :filter-text="filterText"
@@ -54,7 +55,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
-                                    :disabled="cannot('create')"
+                                    :disabled="cannot('institutions:modify')"
                                     title="Editar Instituição"
                                 >
                                     <i class="fa fa-edit"></i>
