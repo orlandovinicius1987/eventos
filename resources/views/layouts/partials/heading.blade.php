@@ -112,6 +112,19 @@
                                     </a>
                                 </router-link>
                             @endif
+                            @if(
+                            Gate::check('events:read') || Gate::check('events:modify')
+                            || Gate::check('people:read') || Gate::check('people:modify')
+                            || Gate::check('phonebook:read') || Gate::check('phonebook:modify')
+                            || Gate::check('institutions:read') || Gate::check('institutions:modify')
+                            || Gate::check('categories:read') || Gate::check('categories:modify')
+                            || Gate::check('roles:read') || Gate::check('roles:modify')
+                            || Gate::check('sectors:read') || Gate::check('sectors:modify')
+                            || Gate::check('costumes:read') || Gate::check('costumes:modify')
+                            || Gate::check('contacttypes:read') || Gate::check('contacttypes:modify')
+                            || Gate::check('import:read') || Gate::check('import:modify')
+                            || Gate::check('topics:read') || Gate::check('topics:modify')
+                            )
                                 <li class="nav-item dropdown">
                                     <a
                                         class="nav-link dropdown-toggle"
@@ -192,6 +205,7 @@
                                         @endIf
                                     </div>
                                 </li>
+                            @endIf
 
                             @include('layouts.partials.usermenu')
                         @endguest

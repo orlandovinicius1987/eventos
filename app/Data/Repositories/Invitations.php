@@ -45,7 +45,7 @@ class Invitations extends Repository
 
             return $invitation;
         });
-        
+
         return parent::filterBySubEventId($subEventId);
     }
 
