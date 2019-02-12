@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueInCurrentClient;
+
 class PersonUpdate extends Request
 {
     /**
@@ -13,7 +15,7 @@ class PersonUpdate extends Request
     {
         return [
             'name' => 'required',
-            'cpf' => 'nullable|cpf|unique:people',
+            'cpf' => ['nullable','cpf', new UniqueInCurrentClient('people')],
         ];
     }
 }

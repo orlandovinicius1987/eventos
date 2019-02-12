@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueInCurrentClient;
+
 class NewPersonName extends Request
 {
     /**
@@ -12,7 +14,7 @@ class NewPersonName extends Request
     public function rules()
     {
         return [
-            'name' => 'unique:people',
+            'name' => [new UniqueInCurrentClient('people')],
         ];
     }
 }
