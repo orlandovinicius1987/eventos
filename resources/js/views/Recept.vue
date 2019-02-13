@@ -1,5 +1,5 @@
 <template>
-    <div v-if="can('read', 'receptive')">
+    <div v-if="can('receptive')">
         <div class="py-2 text-center">
             <h2><i class="fas fa-cogs"></i> Receptivo</h2>
         </div>

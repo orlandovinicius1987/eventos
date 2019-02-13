@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class CostumeUpdate extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class CostumeUpdate extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('costumes:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

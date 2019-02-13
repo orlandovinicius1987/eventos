@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class SubEventStore extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class SubEventStore extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('subevents:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

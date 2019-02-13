@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class CategoryUpdate extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class CategoryUpdate extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('categories:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

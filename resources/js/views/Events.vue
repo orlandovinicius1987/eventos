@@ -724,7 +724,7 @@
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('subevents:edit') &&
+                                        can('subevents:invite') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event
                                                 .send_invitations
@@ -739,7 +739,7 @@
                                     @click="sendCredential(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('subevents:edit') &&
+                                        can('subevents:invite') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event
                                                 .send_credentials
@@ -775,7 +775,7 @@
                                     "
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('subevents:edit') &&
+                                        can('subevents:invite') &&
                                             invitation.sub_event.confirmed_at &&
                                             invitation.accepted_at &&
                                             !invitation.credentials_received_at
@@ -790,7 +790,7 @@
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('subevents:modify') &&
+                                        can('subevents:invite') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.accepted_at
                                     "
@@ -804,7 +804,7 @@
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('subevents:modify') &&
+                                        can('subevents:invite') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.declined_at
                                     "
@@ -817,7 +817,7 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('subevents:modify') &&
+                                        can('subevents:read') &&
                                             canSendEmail(invitation) &&
                                             invitation.accepted_at
                                     "

@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class MoveInvitations extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class MoveInvitations extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('subevents:invite');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
