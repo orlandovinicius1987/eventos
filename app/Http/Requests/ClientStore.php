@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-class ClientStore extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class ClientStore extends Request
 {
     /**
      * Get the validation rules that apply to the request.

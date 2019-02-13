@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class AddressUpdate extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class AddressUpdate extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('people:modify') || Gate::allows('subevents:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

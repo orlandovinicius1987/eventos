@@ -4,7 +4,7 @@
             <h2><i class="fas fa-cogs"></i> Painel de Controle</h2>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="can('receptive')">
             <div class="col-12">
                 <div v-if="eventsHappening().length > 0 || true">
                     <div class="card-deck mb-3 text-center">

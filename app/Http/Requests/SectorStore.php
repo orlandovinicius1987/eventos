@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class SectorStore extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class SectorStore extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('sectors:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

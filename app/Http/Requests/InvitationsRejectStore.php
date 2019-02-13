@@ -2,14 +2,16 @@
 
 namespace App\Http\Requests;
 
-class InvitationsRejectStore extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class InvitationsRejectStore extends Request
 {
     /**
      * @return bool
      */
     public function authorize()
     {
-        return true;
+        return Gate::allows('subevents:invite');
     }
 
     /**
