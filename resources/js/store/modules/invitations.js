@@ -88,16 +88,9 @@ const actions = merge_objects(actionsMixin, {
             return
         }
 
-        return get(
-            '/api/v1/events/' +
-                context.state.subEvent.event.id +
-                '/sub-events/' +
-                context.state.subEvent.id +
-                '/invitations',
-            {
-                params: { query: context.getters.getQueryFilter },
-            },
-        ).then(response => {
+        return get(makeDataUrl(context), {
+            params: { query: context.getters.getQueryFilter },
+        }).then(response => {
             context.dispatch('setDataAfterLoad', response.data)
         })
     },

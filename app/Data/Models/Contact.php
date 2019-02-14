@@ -3,7 +3,7 @@ namespace App\Data\Models;
 
 use App\Data\Repositories\ContactTypes;
 
-class Contact extends Base
+class Contact extends BaseWithClient
 {
     /**
      * @var array

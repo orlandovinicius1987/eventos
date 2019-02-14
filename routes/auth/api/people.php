@@ -107,4 +107,22 @@ Route::group(['prefix' => '/people'], function () {
             'person-categories.categorize'
         );
     });
+
+    Route::group(['prefix' => '{personId}/person-topics'], function () {
+        Route::get('/', 'PersonTopics@allByPerson')->name(
+            'person-topics.all-by-person'
+        );
+
+        Route::post('/{id}/un-topicize/','PersonTopics@unTopicize')->name(
+            'person-topics.un-topicize'
+        );
+
+        Route::get('/topicsables/', 'PersonTopics@topicsables')->name(
+            'person-topics.topicsables'
+        );
+
+        Route::post('/topicsables/', 'PersonTopics@topicize')->name(
+            'person-topics.topicize'
+        );
+    });
 });

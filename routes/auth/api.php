@@ -13,7 +13,6 @@ Route::group(
         require __DIR__ . '/api/contacts.php';
         require __DIR__ . '/api/costumes.php';
         require __DIR__ . '/api/dashboard.php';
-        require __DIR__ . '/api/environment.php';
         require __DIR__ . '/api/events.php';
         require __DIR__ . '/api/import.php';
         require __DIR__ . '/api/institutions.php';
@@ -23,5 +22,6 @@ Route::group(
         require __DIR__ . '/api/sub-events.php';
         require __DIR__ . '/api/users.php';
         require __DIR__ . '/api/zip-code.php';
+        require __DIR__ . '/api/topics.php';
     }
 );

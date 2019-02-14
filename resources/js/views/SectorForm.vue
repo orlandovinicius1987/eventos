@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Setor</h2>
+            <h2>{{ this.mode === 'create' ? 'Criar ' : 'Editar ' }}Setor</h2>
             <h2>
                 <app-badge
                     :caption="form.fields.name ? form.fields.name : ''"

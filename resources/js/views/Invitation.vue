@@ -17,7 +17,7 @@
                             '#',
                             'Tipo',
                             'Recebido',
-                            'Assunto',
+                            'Interesse',
                             'Destino',
                             'Criado em',
                             'Enviado em',

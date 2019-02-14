@@ -31,12 +31,11 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    v-if="events.data.links"
                     :title="'Eventos (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/events/create',
-                        disabled: cannot('create'),
-                        dusk: 'createEventButton',
+                        disabled: cannot('events:modify'),
+                        dusk: 'create-event-button',
                     }"
                     :per-page="eventsPerPage"
                     @set-per-page="eventsPerPage = $event"
@@ -59,7 +58,10 @@
                                 ),
                             }"
                         >
-                            <td class="align-middle text-left">
+                            <td
+                                class="align-middle text-left"
+                                dusk="dusk-do-evento"
+                            >
                                 {{ event.name }}
                             </td>
 
@@ -76,7 +78,7 @@
                                 <button
                                     class="btn btn-info btn-sm text-white btn-table-utility ml-1 pull-right"
                                     @click="sendCredentials(event)"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('subevents:invite')"
                                     title="Enviar todas as credenciais não enviadas"
                                 >
                                     <i
@@ -92,7 +94,7 @@
                                 <button
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     @click="sendInvitations(event)"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('subevents:invite')"
                                     title="Enviar todos os convites não enviados"
                                 >
                                     <i
@@ -109,7 +111,7 @@
                                     :to="'/events/' + event.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('events:modify')"
                                     title="Editar Evento"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -122,7 +124,11 @@
 
             <div class="col-12 col-lg-8">
                 <app-table-panel
-                    v-if="selected.id && subEvents.data.links"
+                    v-if="
+                        (can('subevents:read') || can('subevents:modify')) &&
+                            selected.id &&
+                            subEvents.data.links
+                    "
                     :title="
                         selected.name +
                             ' (' +
@@ -134,7 +140,7 @@
                             '/events/' +
                             subEvents.event.id +
                             '/sub-events/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('subevents:modify'),
                     }"
                     :per-page="subEventsPerPage"
                     @set-per-page="subEventsPerPage = $event"
@@ -206,7 +212,7 @@
                                     v-if="!subEvent.associated_subevent_id"
                                     class="btn btn-info btn-sm btn-table-utility text-white ml-1 pull-right"
                                     @click="replicateCommonInfo(subEvent)"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('subevents:modify')"
                                     title="Replicar textos para todos os outros subeventos"
                                 >
                                     <i class="fa fa-copy"></i>
@@ -217,7 +223,7 @@
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     @click="confirmSubEvent(subEvent)"
                                     :disabled="
-                                        cannot('edit') ||
+                                        cannot('subevents:modify') ||
                                             !environment.events.confirmation
                                                 .enabled
                                     "
@@ -233,7 +239,7 @@
                                     "
                                     class="btn btn-primary btn-sm btn-table-utility ml-1 pull-right"
                                     @click="finalizeSubEvent(subEvent)"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('subevents:modify')"
                                     title="Finalizar Sub-evento"
                                 >
                                     <i class="fa fa-times-circle"></i>
@@ -249,7 +255,7 @@
                                     "
                                     tag="button"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    :disabled="cannot('edit')"
+                                    :disabled="cannot('subevents:modify')"
                                     title="Editar Sub-evento"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -279,7 +285,11 @@
         <div class="row" v-if="invitations.subEvent.id">
             <div class="col-12">
                 <app-table-panel
-                    v-if="selected.id && invitations.data.links"
+                    v-if="
+                        (can('subevents:read') || can('subevents:modify')) &&
+                            selected.id &&
+                            invitations.data.links
+                    "
                     :title="
                         invitations.data.links.pagination.total +
                             ' convidado' +
@@ -298,7 +308,7 @@
                             '/sub-events/' +
                             subEvents.selected.id +
                             '/invitations/create',
-                        disabled: cannot('create'),
+                        disabled: cannot('subevents:invite'),
                     }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"
@@ -521,7 +531,10 @@
                                     "
                                     tag="button"
                                     class="badge bg-info text-white cursor-pointer"
-                                    :disabled="cannot('edit')"
+                                    :disabled="
+                                        cannot('subevents:invite') ||
+                                            cannot('people:modify')
+                                    "
                                     title="modificar instituição"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -718,10 +731,11 @@
 
                             <td class="align-middle text-right">
                                 <button
+                                    :disabled="cannot('subevents:invite')"
                                     @click="sendInvitation(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:invite') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event
                                                 .send_invitations
@@ -732,27 +746,31 @@
                                 </button>
 
                                 <button
+                                    :disabled="
+                                        cannot('subevents:invite') ||
+                                            !invitation.accepted_at
+                                    "
                                     @click="sendCredential(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:invite') &&
                                             canSendEmail(invitation) &&
                                             invitation.sub_event
                                                 .send_credentials
                                     "
                                     title="Enviar credenciais"
-                                    :disabled="!invitation.accepted_at"
                                 >
                                     <i class="fa fa-landmark"></i>
                                 </button>
 
                                 <button
+                                    :disabled="cannot('subevents:invite')"
                                     @click="
                                         markAsReceived(invitation, 'invitation')
                                     "
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:modify') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.received_at
                                     "
@@ -762,6 +780,7 @@
                                 </button>
 
                                 <button
+                                    :disabled="cannot('subevents:invite')"
                                     @click="
                                         markAsReceived(
                                             invitation,
@@ -770,7 +789,7 @@
                                     "
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:invite') &&
                                             invitation.sub_event.confirmed_at &&
                                             invitation.accepted_at &&
                                             !invitation.credentials_received_at
@@ -781,10 +800,11 @@
                                 </button>
 
                                 <button
+                                    :disabled="cannot('subevents:invite')"
                                     @click="markAsAccepted(invitation)"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:invite') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.accepted_at
                                     "
@@ -794,10 +814,11 @@
                                 </button>
 
                                 <button
+                                    :disabled="cannot('subevents:invite')"
                                     @click="markAsDeclined(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:invite') &&
                                             invitation.sub_event.confirmed_at &&
                                             !invitation.declined_at
                                     "
@@ -810,7 +831,7 @@
                                     @click="downloadInvitation(invitation)"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
                                     v-if="
-                                        can('edit') &&
+                                        can('subevents:read') &&
                                             canSendEmail(invitation) &&
                                             invitation.accepted_at
                                     "
@@ -838,16 +859,16 @@
                                     "
                                     tag="button"
                                     class="btn btn-warning btn-sm btn-table-utility ml-1 pull-right"
-                                    :disabled="cannot('edit')"
                                     title="Ver todos os dados do convite"
                                 >
                                     <i class="fa fa-eye"></i>
                                 </router-link>
 
                                 <button
+                                    :disabled="cannot('subevents:invite')"
                                     @click="unInvite(invitation)"
                                     class="btn btn-danger btn-sm btn-table-utility ml-1 pull-right"
-                                    v-if="can('edit') && !invitation.sent_at"
+                                    v-if="!invitation.sent_at"
                                     title="Excluir convite (ainda não foi enviado)"
                                 >
                                     <i class="fa fa-trash"></i>

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class BaseContact extends BaseStore
+class BaseContact extends Request
 {
     /**
      * @return array

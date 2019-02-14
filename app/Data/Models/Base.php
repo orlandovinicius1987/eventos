@@ -62,9 +62,15 @@ abstract class Base extends Model implements AuditableContract
         parent::boot();
 
         static::bootObservers();
+
+        static::bootGlobalScopes();
     }
 
     protected static function bootObservers()
+    {
+    }
+
+    protected static function bootGlobalScopes()
     {
     }
 

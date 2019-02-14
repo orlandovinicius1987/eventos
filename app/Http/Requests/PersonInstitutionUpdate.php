@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class PersonInstitutionUpdate extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class PersonInstitutionUpdate extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('people:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

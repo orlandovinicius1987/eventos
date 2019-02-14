@@ -14,6 +14,7 @@
         </vue-select>
 
         <small class="text-danger" v-if="form.errors.has(name)">
+            <i class="fas fa-exclamation-triangle"></i>
             {{ form.errors.get(name) }}
         </small>
     </div>
@@ -58,7 +59,7 @@ export default {
 
         placeholder() {
             return this.options.length === 0 ? 'NENHUM ITEM DISPONÍVEL' : ''
-        }
+        },
     },
 
     computed: {
@@ -69,11 +70,11 @@ export default {
             set(item) {
                 if (!item) {
                     return this.$emit('input', null)
-                }else {
+                } else {
                     return this.$emit('input', item.value)
                 }
-            }
-        }
-    }
+            },
+        },
+    },
 }
 </script>

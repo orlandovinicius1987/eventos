@@ -26,10 +26,19 @@ const state = {
         costumes: __emptyTable,
         sectors: __emptyTable,
         sub_events: __emptyTable,
+        addresses: __emptyTable,
     },
 }
 
-const getters = gettersMixin
+let getters = merge_objects(gettersMixin, {
+    getPermissions(state, getters) {
+        return state.user.permissions_array
+    },
+
+    getCurrentClient(state, getters) {
+        return state.session.current_client
+    },
+})
 
 const actions = {
     load(context) {
@@ -59,6 +68,22 @@ const actions = {
             params: { query: context.getters.getFullQueryFilter },
         }).then(response => {
             context.commit('mutateSetRoles', response.data)
+        })
+    },
+
+    loadCategories(context) {
+        return get('/api/v1/categories', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetCategories', response.data)
+        })
+    },
+
+    loadTopics(context) {
+        return get('/api/v1/topics', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetTopics', response.data)
         })
     },
 
@@ -94,7 +119,23 @@ const actions = {
         })
     },
 
-    absorbLaravel(context) {
+    loadAddresses(context) {
+        return get('/api/v1/addresses', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetAddresses', response.data)
+        })
+    },
+
+    loadAvailableAddresses(context) {
+        return get('/api/v1/addresses/availableAddresses', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetAvailableAddresses', response.data)
+        })
+    },
+
+    boot(context) {
         context.commit('mutateSetData', window.laravel)
 
         context.dispatch('load')
@@ -103,11 +144,26 @@ const actions = {
             context.dispatch('loadContactTypes')
             context.dispatch('loadInstitutions')
             context.dispatch('loadRoles')
+            context.dispatch('loadCategories')
+            context.dispatch('loadTopics')
             context.dispatch('loadPeople')
             context.dispatch('loadCostumes')
             context.dispatch('loadSectors')
             context.dispatch('loadSubEvents')
+            context.dispatch('loadAvailableAddresses')
         }
+
+        context.dispatch('subscribeToChannels')
+    },
+
+    subscribeToChannels(context) {
+        subscribePublicChannel(
+            'addresses',
+            '.App\\Events\\AddressesChanged',
+            () => {
+                context.dispatch('loadAvailableAddresses')
+            },
+        )
     },
 }
 
@@ -133,15 +189,32 @@ const mutations = {
     mutateSetRoles(state, payload) {
         state['tables']['roles'] = payload
     },
+
+    mutateSetCategories(state, payload) {
+        state['tables']['categories'] = payload
+    },
+    mutateSetTopics(state, payload) {
+        state['tables']['topics'] = payload
+    },
+
     mutateSetPeople(state, payload) {
         state['tables']['people'] = payload
     },
+
     mutateSetCostumes(state, payload) {
         state['tables']['costumes'] = payload
     },
 
     mutateSetSectors(state, payload) {
         state['tables']['sectors'] = payload
+    },
+
+    mutateSetAddresses(state, payload) {
+        state['tables']['addresses'] = payload
+    },
+
+    mutateSetAvailableAddresses(state, payload) {
+        state['tables']['availableAddresses'] = payload
     },
 
     mutateSetSubEvents(state, payload) {

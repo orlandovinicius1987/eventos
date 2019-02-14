@@ -50,6 +50,8 @@ class Service
 
                     'warning' => config('session.frontend.warning'),
                 ],
+
+                'current_client' => get_current_client(),
             ],
 
             'user' => auth()->user(),

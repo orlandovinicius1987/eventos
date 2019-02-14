@@ -13,6 +13,7 @@ const __personModel = {
     cpf: null,
     photo: null,
     photoUrl: '/images/no-image.jpg',
+    notes: null,
 }
 
 const __institutionModel = {

@@ -111,6 +111,153 @@ function current_user()
     return auth()->user();
 }
 
+function unnacent($string)
+{
+    $table = array(
+        'Š' => 'S',
+        'š' => 's',
+        'Đ' => 'Dj',
+        'đ' => 'dj',
+        'Ž' => 'Z',
+        'ž' => 'z',
+        'Č' => 'C',
+        'č' => 'c',
+        'Ć' => 'C',
+        'ć' => 'c',
+        'À' => 'A',
+        'Á' => 'A',
+        'Â' => 'A',
+        'Ã' => 'A',
+        'Ä' => 'A',
+        'Å' => 'A',
+        'Æ' => 'A',
+        'Ç' => 'C',
+        'È' => 'E',
+        'É' => 'E',
+        'Ê' => 'E',
+        'Ë' => 'E',
+        'Ì' => 'I',
+        'Í' => 'I',
+        'Î' => 'I',
+        'Ï' => 'I',
+        'Ñ' => 'N',
+        'Ò' => 'O',
+        'Ó' => 'O',
+        'Ô' => 'O',
+        'Õ' => 'O',
+        'Ö' => 'O',
+        'Ø' => 'O',
+        'Ù' => 'U',
+        'Ú' => 'U',
+        'Û' => 'U',
+        'Ü' => 'U',
+        'Ý' => 'Y',
+        'Þ' => 'B',
+        'ß' => 'Ss',
+        'à' => 'a',
+        'á' => 'a',
+        'â' => 'a',
+        'ã' => 'a',
+        'ä' => 'a',
+        'å' => 'a',
+        'æ' => 'a',
+        'ç' => 'c',
+        'è' => 'e',
+        'é' => 'e',
+        'ê' => 'e',
+        'ë' => 'e',
+        'ì' => 'i',
+        'í' => 'i',
+        'î' => 'i',
+        'ï' => 'i',
+        'ð' => 'o',
+        'ñ' => 'n',
+        'ò' => 'o',
+        'ó' => 'o',
+        'ô' => 'o',
+        'õ' => 'o',
+        'ö' => 'o',
+        'ø' => 'o',
+        'ù' => 'u',
+        'ú' => 'u',
+        'û' => 'u',
+        'ý' => 'y',
+        'ý' => 'y',
+        'þ' => 'b',
+        'ÿ' => 'y',
+        'Ŕ' => 'R',
+        'ŕ' => 'r',
+    );
+
+    return strtr($string, $table);
+}
+
+function make_slug($string)
+{
+    return str_slug(unnacent($string));
+}
+
+function capitalizeBrazilian($name)
+{
+    $string = mb_convert_case($name, MB_CASE_TITLE);
+
+    $string = trim(preg_replace('/\s\s+/', ' ', $string));
+
+    collect(['de', 'da', 'do', 'das', 'dos', 'e'])->each(function (
+        $exception
+    ) use (&$string) {
+        $exception = mb_convert_case($exception, MB_CASE_TITLE);
+
+        $newCase = mb_convert_case($exception, MB_CASE_LOWER);
+
+        $string = str_replace(" {$exception} ", " {$newCase} ", $string);
+
+        preg_match_all('/(.\'.)/ui', $string, $matched);
+
+        if (isset($matched[0])) {
+            collect($matched[0])->each(function ($match) use (&$string) {
+                $newCase = mb_convert_case($match, MB_CASE_UPPER);
+
+                $string = str_replace(
+                    substr($match, 1),
+                    substr($newCase, 1),
+                    $string
+                );
+            });
+        }
+    });
+
+    return $string;
+}
+
+function permission_slug($string)
+{
+    $string = str_replace(':', ($replace = 'xxxxxxxxxx'), $string);
+
+    return str_replace($replace, ':', str_slug($string));
+}
+
+function extract_client_and_permission($string)
+{
+    $data = collect(explode('-', $string))
+        ->map(function ($value) {
+            return permission_slug($value);
+        })
+        ->toArray();
+
+    if (!isset($data[1])) {
+        if (permission_slug($data[0]) === 'administrador') {
+            $data[0] = 'all';
+            $data[1] = 'administrador';
+        } else {
+            $data[1] = $data[0];
+            $data[0] = 'none';
+        }
+    }
+
+    return [$data[0], $data[1]];
+}
+
 class Timer
 {
     public static $starttime;

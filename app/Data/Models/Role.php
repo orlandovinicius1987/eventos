@@ -1,12 +1,12 @@
 <?php
 namespace App\Data\Models;
 
-class Role extends Base
+class Role extends BaseWithClient
 {
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'client_id'];
 
     protected $orderBy = ['roles.name' => 'asc'];
 

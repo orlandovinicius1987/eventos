@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class ContactTypeStore extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class ContactTypeStore extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('people:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,6 +23,7 @@ class ContactTypeStore extends BaseStore
     {
         return [
             'name' => 'required',
+            'code' => 'required',
         ];
     }
 }

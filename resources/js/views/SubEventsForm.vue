@@ -3,7 +3,7 @@
         <div class="py-2 text-center">
             <h1>{{ events.selected.name }}</h1>
             <h2>
-                {{ this.mode === 'create' ? 'Novo ' : 'Editar ' }}Sub Evento
+                {{ this.mode === 'create' ? 'Criar ' : 'Editar ' }}Sub Evento
             </h2>
             <h2>
                 {{
@@ -64,13 +64,18 @@
                                 </div>
                             </div>
 
-                            <app-input
-                                name="name"
-                                label="Nome"
-                                v-model="subEvents.form.fields.name"
-                                :required="true"
-                                :form="form"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-input
+                                        name="name"
+                                        label="Nome"
+                                        v-model="subEvents.form.fields.name"
+                                        :required="true"
+                                        :form="form"
+                                        dusk="sub-nome"
+                                    ></app-input>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
@@ -81,6 +86,7 @@
                                         v-model="subEvents.form.fields.date"
                                         :required="true"
                                         :form="form"
+                                        dusk="sub-data"
                                     ></app-input>
                                 </div>
 
@@ -99,59 +105,86 @@
                                 </div>
                             </div>
 
-                            <app-input
-                                name="time"
-                                label="Horário"
-                                type="time"
-                                v-model="subEvents.form.fields.time"
-                                :required="true"
-                                :form="form"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-input
+                                        name="time"
+                                        label="Horário"
+                                        type="time"
+                                        v-model="subEvents.form.fields.time"
+                                        :required="true"
+                                        :form="form"
+                                        dusk="sub-hora"
+                                    ></app-input>
+                                </div>
+                            </div>
 
-                            <app-input
-                                name="place"
-                                label="Local"
-                                v-model="subEvents.form.fields.place"
-                                :required="true"
-                                :form="form"
-                                rows="10"
-                                cols="100"
-                            ></app-input>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-input
+                                        name="place"
+                                        label="Local"
+                                        v-model="subEvents.form.fields.place"
+                                        :required="true"
+                                        :form="form"
+                                        rows="10"
+                                        cols="100"
+                                        dusk="sub-local"
+                                    ></app-input>
+                                </div>
+                            </div>
 
-                            <app-select
-                                name="associated_subevent_id"
-                                label="Subevento Associado"
-                                v-model="
-                                    subEvents.form.fields.associated_subevent_id
-                                "
-                                :required="true"
-                                :form="form"
-                                :options="
-                                    exceptSubEventList(
-                                        environment.tables.sub_events,
-                                        subEvents.form.fields.id,
-                                        subEvents.form.fields.event_id,
-                                    )
-                                "
-                            ></app-select>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="associated_subevent_id"
+                                        label="Subevento Associado"
+                                        v-model="
+                                            subEvents.form.fields
+                                                .associated_subevent_id
+                                        "
+                                        :required="true"
+                                        :form="form"
+                                        :options="
+                                            exceptSubEventList(
+                                                environment.tables.sub_events,
+                                                subEvents.form.fields.id,
+                                                subEvents.form.fields.event_id,
+                                            )
+                                        "
+                                    ></app-select>
+                                </div>
+                            </div>
 
-                            <app-select
-                                name="costume_id"
-                                label="Traje"
-                                v-model="subEvents.form.fields.costume_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.costumes"
-                            ></app-select>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="costume_id"
+                                        label="Traje"
+                                        v-model="
+                                            subEvents.form.fields.costume_id
+                                        "
+                                        :required="true"
+                                        :form="form"
+                                        :options="environment.tables.costumes"
+                                    ></app-select>
+                                </div>
+                            </div>
 
-                            <app-select
-                                name="sector_id"
-                                label="Setor"
-                                v-model="subEvents.form.fields.sector_id"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.sectors"
-                            ></app-select>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="sector_id"
+                                        label="Setor"
+                                        v-model="
+                                            subEvents.form.fields.sector_id
+                                        "
+                                        :required="true"
+                                        :form="form"
+                                        :options="environment.tables.sectors"
+                                    ></app-select>
+                                </div>
+                            </div>
 
                             <app-markdown-text-area
                                 @input="
@@ -214,39 +247,29 @@
                                 inline="true"
                             ></app-input>
 
-                            <app-table-panel
-                                v-if="mode == 'create'"
-                                :title="
-                                    'Endereços disponíveis (' +
-                                        subEvents.data.available_addresses
-                                            .length +
-                                        ' endereços)'
-                                "
-                            >
-                                <app-table
-                                    :columns="['#', 'Endereço']"
-                                    :rows="subEvents.data.available_addresses"
-                                >
-                                    <tr
-                                        @click="
-                                            selectAddressInsideEvent(address)
+                            <div class="row" v-if="mode == 'create'">
+                                <div class="col-sm-12 col-md-12">
+                                    <app-select
+                                        name="address_id"
+                                        label="Endereço"
+                                        v-model="
+                                            subEvents.form.fields.address_id
                                         "
-                                        v-for="address in subEvents.data
-                                            .available_addresses"
-                                        class="cursor-pointer"
-                                        :class="{
-                                            'cursor-pointer': true,
-                                            'bg-primary-lighter text-white': isCurrent(
-                                                address,
-                                                addresses.selected,
-                                            ),
-                                        }"
-                                    >
-                                        <td>{{ address.id }}</td>
-                                        <td>{{ address.full_address }}</td>
-                                    </tr>
-                                </app-table>
-                            </app-table-panel>
+                                        :required="true"
+                                        :form="form"
+                                        :options="
+                                            environment.tables
+                                                .availableAddresses
+                                        "
+                                        @input="
+                                            selectAddressInsideEvent(
+                                                subEvents.form.fields
+                                                    .address_id,
+                                            )
+                                        "
+                                    ></app-select>
+                                </div>
+                            </div>
 
                             <app-address-field
                                 :form="subEvents.form"
@@ -263,6 +286,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="sub-gravar"
                             >
                                 gravar
                             </button>
@@ -303,6 +327,7 @@ export default {
         this.$store.dispatch('environment/loadSubEvents')
         this.$store.dispatch('environment/loadCostumes')
         this.$store.dispatch('environment/loadSectors')
+        this.$store.dispatch('environment/loadAddresses')
         return {
             service: service,
         }
@@ -316,52 +341,13 @@ export default {
             })
         },
 
-        selectAddressInsideEvent(address) {
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'zipcode',
-                value: address.zipcode,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'street',
-                value: address.street,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'number',
-                value: address.number,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'complement',
-                value: address.complement,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'neighbourhood',
-                value: address.neighbourhood,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'city',
-                value: address.city,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'state',
-                value: address.state,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'latitude',
-                value: address.latitude,
-            })
-            this.$store.commit('subEvents/mutateSetFormField', {
-                object: 'address',
-                field: 'longitude',
-                value: address.longitude,
-            })
+        selectAddressInsideEvent(address_id) {
+            if (address_id) {
+                this.$store.dispatch('subEvents/loadAddress', {
+                    sub_event_id: this.events.selected.id,
+                    address_id: address_id,
+                })
+            }
         },
 
         fillAdditionalFormFields() {

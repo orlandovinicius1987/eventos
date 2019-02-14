@@ -15,19 +15,14 @@ class Home extends Controller
      */
     public function index()
     {
-        $clientsAllowed = app(ClientsRepository::class)->all();
+        $allowedClients = current_user()->allowed_clients;
 
-        $profiles = collect(current_user()->profiles_array);
+        // TODO: trabalhar futuramente com uma escolha de o sistema favorito, para que este seja o sistema inicial da aplicação
+        //        if (!get_current_client_id()) {
+        //            set_current_client_id($allowedClients ? $allowedClients->first()->id : null);
+        //        }
 
-        if (!current_user()->is_administrator) {
-            $clientsAllowed = $clientsAllowed->reject(function ($client) use (
-                $profiles
-            ) {
-                return !$profiles->keys()->contains($client->name);
-            });
-        }
-
-        return view('admin.index')->with('clients', $clientsAllowed);
+        return view('admin.index')->with('clients', $allowedClients);
     }
 
     public function changeClient(HomeUpdate $request)

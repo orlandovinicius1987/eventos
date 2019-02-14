@@ -1,5 +1,4 @@
 import DeepMerger from '../classes/DeepMerger.js'
-import environment from '../store/modules/environment'
 
 window.dd = (...args) => {
     if (
@@ -76,7 +75,11 @@ window.post = (...args) => {
 }
 
 window.get = (...args) => {
-    return axios.get(...args)
+    if (args[0]) {
+        return axios.get(...args)
+    } else {
+        return Promise.resolve({ data: {} })
+    }
 }
 
 window.object_get = (obj, descendants) => {
@@ -348,8 +351,13 @@ window.first_last = string => {
     return splitted[0] + (first !== last ? ' ' + last : '')
 }
 
-window.can = (user, permission) => {
-    return typeof JSON.parse(user.permissions)[permission] !== 'undefined'
+window.can = (...args) => {
+    for (var i = 0; i < args.length; i++) {
+        if (!Store.getters['gate/can'](args[i])) {
+            return false
+        }
+    }
+    return true
 }
 
 window.splitString = (string, size) => {

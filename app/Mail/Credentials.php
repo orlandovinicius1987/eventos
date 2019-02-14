@@ -67,6 +67,8 @@ class Credentials extends Mailable
 
     protected function unlinkPdf()
     {
-        unlink($this->invitationFile);
+        if (file_exists($this->invitationFile)) {
+            unlink($this->invitationFile);
+        }
     }
 }

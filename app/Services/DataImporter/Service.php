@@ -2,6 +2,9 @@
 
 namespace App\Services\DataImporter;
 
+use App\Data\Models\ContactType;
+use App\Data\Models\PersonTopic;
+use App\Data\Models\Topic;
 use App\Services\CSV;
 use App\Data\Models\Role;
 use App\Data\Models\Event;
@@ -16,19 +19,16 @@ use App\Data\Models\Categorized;
 use App\Data\Repositories\Clients;
 use App\Data\Repositories\Parties;
 use App\Data\Models\PersonInstitution;
-use App\Data\Repositories\ContactTypes;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
 
 class Service
 {
     const FIELDS = [
-        'categoria' => true,
+        'categoria' => false,
         'instituicao' => true,
         'tratamento' => true,
         'nome' => true,
         'funcao' => true,
-
         'evento' => false,
         'partido' => false,
         'endereco' => false,
@@ -37,26 +37,14 @@ class Service
         'bairro' => false,
         'cep' => false,
         'cidade' => false,
-        'celular' => false,
-        'celular1' => false,
-        'celular2' => false,
-        'celular3' => false,
-        'celular4' => false,
-        'telefone' => false,
-        'telefone1' => false,
-        'telefone2' => false,
-        'telefone3' => false,
-        'telefone4' => false,
-        'email' => false,
-        'email1' => false,
-        'email2' => false,
-        'email3' => false,
-        'email4' => false,
+        'celular*' => false,
+        'telefone*' => false,
+        'email*' => false,
         'assessor_nome' => false,
         'assessor_funcao' => false,
-        'assessor_telefone' => false,
-        'assessor_email1' => false,
-        'assessor_email2' => false,
+        'assessor_celular*' => false,
+        'assessor_telefone*' => false,
+        'assessor_email*' => false,
     ];
 
     protected $client_id;
@@ -74,11 +62,89 @@ class Service
         }
     }
 
+    protected function capitalize($name)
+    {
+        //return capitalizeBrazilian($name);
+
+        return $name;
+    }
+
+    protected function checkRow($row)
+    {
+        $this->checkMandatoryFields($row);
+
+        $allowedBig = ['interesses'];
+        $allowedMany = ['interesses'];
+
+        $this->info(($name = $row['nome'] . ' - ' . $row['instituicao']));
+
+        $row->each(function ($value, $key) use ($allowedBig, $allowedMany) {
+            if (strlen($value) > 250 && !in_array($key, $allowedBig)) {
+                $this->throwError("O campo {$key} está grande demais");
+            }
+
+            if (strpos($value, ';') > 250 && !in_array($key, $allowedMany)) {
+                $this->throwError(
+                    "Não é permitido mais de um registro no campo {$key}"
+                );
+            }
+        });
+    }
+
+    protected function extractContacts($row, $name, $contactArray)
+    {
+        $contacts = collect();
+
+        foreach (['', 1, 2, 3, 4, 5, 6, 7, 8, 9] as $number) {
+            $current = "{$name}{$number}";
+
+            if (isset($row->$current)) {
+                foreach (explode(',', $row->$current) as $contact) {
+                    if (filled($contact)) {
+                        $contactArray['contact'] = $this->sanitize($contact);
+
+                        $contacts->push($contactArray);
+                    }
+                }
+            }
+        }
+
+        return $contacts;
+    }
+
+    protected function getNotes($row)
+    {
+        $notes = '';
+
+        collect([
+            'obs',
+            'notes',
+            'observacoes',
+            'observacoes1',
+            'observacoes2',
+            'observacoes3',
+            'observacoes4',
+            'observacoes5',
+        ])->each(function ($obs) use (&$notes, $row) {
+            if (isset($row[$obs])) {
+                $notes = $notes . ' ' . $this->sanitize($row[$obs]);
+            }
+        });
+
+        return trim($notes);
+    }
+
     public function importCSV($rows, $client = null, $command = null)
     {
         $this->command = $command;
 
         ini_set('memory_limit', '2500M');
+
+        //        (new CSV())->parse($rows)->each(function ($row) use ($client) {
+        //            if (!$this->rowIsEmpty($row)) {
+        //                $this->checkRow($row, $client);
+        //            }
+        //        });
 
         (new CSV())->parse($rows)->each(function ($row) use ($client) {
             if (!$this->rowIsEmpty($row)) {
@@ -89,15 +155,11 @@ class Service
 
     protected function importRow($row, $client = null)
     {
-        $this->makeClientId($client);
+        $this->makeClientId($client, $row);
 
-        $this->checkMandatoryFields($row);
-
-        $category = $this->importCategory($row);
-
-        $event = $this->importEvent($row);
-
-        $subEvent = $this->importSubEvent($event);
+        if ($event = $this->importEvent($row)) {
+            $subEvent = $this->importSubEvent($event);
+        }
 
         $institution = $this->importInstitution(
             $row,
@@ -106,7 +168,7 @@ class Service
 
         $person = $this->importPerson($row, $party);
 
-        $this->info($person->name);
+        $this->info($person->name . ' - ' . $institution->name);
 
         $role = $this->imporRole($row);
 
@@ -117,7 +179,9 @@ class Service
             $role
         );
 
-        $this->associateCategoryToPerson($person, $category);
+        if ($category = $this->importCategory($row)) {
+            $this->associateCategoryToPerson($person, $category);
+        }
 
         $this->importAddress($row, $personInstitution);
 
@@ -125,10 +189,14 @@ class Service
 
         $this->importAdvisor($row, $personInstitution);
 
-        Invitation::firstOrCreate([
-            'sub_event_id' => $subEvent->id,
-            'person_institution_id' => $personInstitution->id,
-        ]);
+        $this->importTopics($row, $person);
+
+        if ($event) {
+            Invitation::firstOrCreate([
+                'sub_event_id' => $subEvent->id,
+                'person_institution_id' => $personInstitution->id,
+            ]);
+        }
     }
 
     protected function checkMandatoryFields($row)
@@ -169,50 +237,54 @@ class Service
      */
     protected function imporRole($row)
     {
-        return Role::firstOrCreate(['name' => $row->funcao]);
+        return Role::firstOrCreate([
+            'name' => $this->sanitize($this->capitalize($row->funcao)),
+        ]);
     }
 
     protected function importAddress($row, $personInstitution)
     {
         if ($row->endereco) {
             Address::create([
-                'zipcode' => $row->cep,
+                'zipcode' => $this->sanitize($row->cep),
 
-                'street' => $row->endereco,
+                'street' => $this->sanitize($row->endereco),
 
-                'number' => $row->numero ?? null,
+                'number' => $this->sanitize($row->numero ?? null),
 
-                'complement' => $row->complemento ?? null,
+                'complement' => $this->sanitize($row->complemento ?? null),
 
-                'neighbourhood' => $row->bairro,
+                'neighbourhood' => $this->sanitize($row->bairro),
 
-                'city' => $row->cidade,
+                'city' => $this->sanitize($row->cidade),
 
-                'state' => $row->estado ?? $row->uf ?? null,
+                'state' => $this->sanitize($row->estado ?? $row->uf ?? null),
 
-                'addressable_id' => $personInstitution->id,
+                'addressable_id' => $this->sanitize($personInstitution->id),
 
                 'addressable_type' => PersonInstitution::class,
             ]);
         }
     }
 
-    private function importAdvisor($row, $personInstitution)
+    protected function importAdvisor($row, $personInstitution)
     {
         if (!isset($row->assessor_nome) || empty($row->assessor_nome)) {
             return;
         }
 
-        if (!isset($row->assessor_funcao)) {
-            $this->throwError('O campo assessor_funcao não existe no arquivo');
-        }
+        $row->assessor_funcao =
+            isset($row->assessor_funcao) &&
+            filled(($funcao = $this->sanitize($row->assessor_funcao)))
+                ? $funcao
+                : 'Assessor';
 
         $advisorInstitution = $this->importPersonInstitution(
             coollect(['tratamento' => null]),
 
             $this->importPerson(
                 coollect([
-                    'nome' => $row->assessor_nome,
+                    'nome' => $this->sanitize($row->assessor_nome),
                     'apelido' => null,
                     'partido' => null,
                     'tratamento' => null,
@@ -221,35 +293,58 @@ class Service
 
             Institution::find($personInstitution->institution_id),
 
-            $this->imporRole(coollect(['funcao' => $row->assessor_funcao])),
+            $this->imporRole(
+                coollect(['funcao' => $this->sanitize($row->assessor_funcao)])
+            ),
 
             $personInstitution
         );
 
-        collect([
-            ['contact' => $row->assessor_telefone ?? null, 'type' => 'phone'],
-            ['contact' => $row->assessor_telefone1 ?? null, 'type' => 'phone'],
-            ['contact' => $row->assessor_telefone2 ?? null, 'type' => 'phone'],
-            ['contact' => $row->assessor_telefone3 ?? null, 'type' => 'phone'],
-            ['contact' => $row->assessor_celular ?? null, 'type' => 'mobile'],
-            ['contact' => $row->assessor_celular1 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->assessor_celular2 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->assessor_celular3 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->assessor_email ?? null, 'type' => 'email'],
-            ['contact' => $row->assessor_email1 ?? null, 'type' => 'email'],
-            ['contact' => $row->assessor_email2 ?? null, 'type' => 'email'],
-            ['contact' => $row->assessor_email3 ?? null, 'type' => 'email'],
-        ])->each(function ($contact) use (
-            $personInstitution,
-            $advisorInstitution
-        ) {
-            $this->importContact(
-                $contact['contact'],
-                $contact['type'],
-                $advisorInstitution,
-                PersonInstitution::class
-            );
-        });
+        collect()
+            ->merge(
+                $this->extractContacts($row, 'assessor_telefone', [
+                    'type' => 'phone',
+                    'type_name' => 'Telefone fixo',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'assessor_celular', [
+                    'type' => 'mobile',
+                    'type_name' => 'Celular',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'assessor_email', [
+                    'type' => 'email',
+                    'type_name' => 'E-mail',
+                ])
+            )
+            ->each(function ($contact) use (
+                $personInstitution,
+                $advisorInstitution
+            ) {
+                $this->importContact(
+                    $contact['contact'],
+                    $contact['type'],
+                    $contact['type_name'],
+                    $advisorInstitution,
+                    PersonInstitution::class
+                );
+            });
+    }
+
+    /**
+     * @param $topic
+     * @return null
+     */
+    protected function importTopic($topic)
+    {
+        return Topic::firstOrCreate(
+            [
+                'slug' => make_slug($topic),
+            ],
+            ['name' => $this->capitalize($this->sanitize($topic))]
+        );
     }
 
     /**
@@ -260,7 +355,7 @@ class Service
     {
         return $row->categoria
             ? Category::firstOrCreate([
-                'name' => $row->categoria,
+                'name' => $this->capitalize($this->sanitize($row->categoria)),
             ])
             : null;
     }
@@ -271,29 +366,39 @@ class Service
      */
     protected function importEvent($row)
     {
-        return Event::firstOrCreate(['name' => $row->evento]);
+        if (filled($row->evento)) {
+            return Event::firstOrCreate([
+                'name' => $this->capitalize($this->sanitize($row->evento)),
+            ]);
+        }
+
+        return null;
     }
 
     /**
      * @param $row
-     * @param $partyInitials
-     * @param $partyName
+     * @param $party
      * @return mixed
      */
     protected function importInstitution($row, $party)
     {
+        $name = $this->capitalize(
+            $party && $row->instituicao == $party->initials
+                ? $this->sanitize($party->name)
+                : $this->sanitize($row->instituicao)
+        );
+
+        $initials =
+            $party && $row->instituicao == $party->initials
+                ? $this->sanitize($party->initials)
+                : $this->sanitize($row->sigla ?? null);
+
         return Institution::firstOrCreate(
             [
-                'name' =>
-                    $party && $row->instituicao == $party->initials
-                        ? $party->name
-                        : $row->instituicao,
+                'name' => filled($name) ? $name : 'Pessoa Física',
             ],
             [
-                'initials' =>
-                    $party && $row->instituicao == $party->initials
-                        ? $party->initials
-                        : $row->sigla ?? null,
+                'initials' => filled($initials) ? $initials : 'PF',
             ]
         );
     }
@@ -318,15 +423,22 @@ class Service
     {
         return Person::firstOrCreate(
             [
-                'name' => trim($row->nome),
+                'name' => $this->capitalize($this->sanitize($row->nome)),
             ],
             [
-                'nickname' => trim(
-                    isset($row->apelido) ? $row->apelido : $row->nome
+                'nickname' => $this->capitalize(
+                    $this->sanitize(
+                        isset($row->apelido) ? $row->apelido : $row->nome
+                    )
                 ),
-                'party_id' => $party ? $party->id : null,
-                'title' => trim($row->tratamento),
+
+                'party_id' => $this->sanitize($party ? $party->id : null),
+
+                'title' => $this->sanitize($row->tratamento),
+
                 'client_id' => $this->client_id,
+
+                'notes' => $this->getNotes($row),
             ]
         );
     }
@@ -353,7 +465,7 @@ class Service
                 'role_id' => $role->id,
             ],
             [
-                'title' => $row->tratamento,
+                'title' => $this->sanitize($row->tratamento),
                 'advised_id' => $advised ? $advised->id : null,
             ]
         );
@@ -361,39 +473,49 @@ class Service
 
     protected function importContacts($row, $personInstitution)
     {
-        collect([
-            ['contact' => $row->celular ?? null, 'type' => 'mobile'],
-            ['contact' => $row->celular1 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->celular2 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->celular3 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->celular4 ?? null, 'type' => 'mobile'],
-            ['contact' => $row->telefone ?? null, 'type' => 'phone'],
-            ['contact' => $row->telefone1 ?? null, 'type' => 'phone'],
-            ['contact' => $row->telefone2 ?? null, 'type' => 'phone'],
-            ['contact' => $row->telefone3 ?? null, 'type' => 'phone'],
-            ['contact' => $row->telefone4 ?? null, 'type' => 'phone'],
-            ['contact' => $row->email ?? null, 'type' => 'email'],
-            ['contact' => $row->email1 ?? null, 'type' => 'email'],
-            ['contact' => $row->email2 ?? null, 'type' => 'email'],
-            ['contact' => $row->email3 ?? null, 'type' => 'email'],
-            ['contact' => $row->email4 ?? null, 'type' => 'email'],
-        ])->each(function ($contact) use ($personInstitution) {
-            $this->importContact(
-                $contact['contact'],
-                $contact['type'],
-                $personInstitution
-            );
-        });
+        collect()
+            ->merge(
+                $this->extractContacts($row, 'celular', [
+                    'type' => 'mobile',
+                    'type_name' => 'Celular',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'telefone', [
+                    'type' => 'phone',
+                    'type_name' => 'Telefone fixo',
+                ])
+            )
+            ->merge(
+                $this->extractContacts($row, 'email', [
+                    'type' => 'email',
+                    'type_name' => 'E-mail',
+                ])
+            )
+            ->each(function ($contact) use ($personInstitution) {
+                $this->importContact(
+                    $contact['contact'],
+                    $contact['type'],
+                    $contact['type_name'],
+                    $personInstitution
+                );
+            });
     }
 
-    protected function importContact($contact, $type, $personInstitution)
-    {
+    protected function importContact(
+        $contact,
+        $type,
+        $typeName,
+        $personInstitution
+    ) {
         if ($contact) {
             Contact::create([
                 'contact' => $contact,
 
-                'contact_type_id' => app(ContactTypes::class)->findByCode($type)
-                    ->id,
+                'contact_type_id' => ContactType::firstOrCreate([
+                    'name' => $typeName,
+                    'code' => $type,
+                ])->id,
 
                 'person_institution_id' => $personInstitution->id,
             ]);
@@ -420,15 +542,41 @@ class Service
         return $subEvent;
     }
 
+    protected function importTopics($row, $person)
+    {
+        if (!isset($row->interesses) || empty($row->interesses)) {
+            return;
+        }
+
+        collect(explode(',', $row->interesses))
+            ->filter()
+            ->map(function ($interesse) {
+                return [
+                    'slug' => $this->sanitize(make_slug($interesse)),
+                    'name' => $this->sanitize($interesse),
+                ];
+            })
+            ->unique('slug')
+            ->each(function ($interesse) use ($person) {
+                PersonTopic::firstOrCreate([
+                    'person_id' => $person->id,
+                    'topic_id' => $this->importTopic($interesse['name'])->id,
+                    'client_id' => get_current_client_id(),
+                ]);
+            });
+    }
+
     /**
      * @param $client
      */
-    protected function makeClientId($client): void
+    protected function makeClientId($client, $row)
     {
+        $client = isset($row['cliente']) ? trim($row['cliente']) : $client;
+
         if ($client) {
             $this->client_id = app(Clients::class)->findByName($client)->id;
         } else {
-            $this->client_id = auth()->user()->client_id;
+            $this->client_id = get_current_client_id();
         }
 
         set_current_client_id($this->client_id);
@@ -439,7 +587,12 @@ class Service
         return empty($row->nome);
     }
 
-    private function throwError(string $string)
+    private function sanitize($string)
+    {
+        return trim($string);
+    }
+
+    protected function throwError(string $string)
     {
         throw ValidationException::withMessages([
             'field' => $string,

@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class EventUpdate extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class EventUpdate extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('events:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

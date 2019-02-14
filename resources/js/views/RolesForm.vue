@@ -16,6 +16,7 @@
                                 v-model="form.fields.name"
                                 :required="true"
                                 :form="form"
+                                dusk="role-name"
                             ></app-input>
                         </div>
                     </div>
@@ -26,6 +27,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="record-role-button"
                             >
                                 gravar
                             </button>

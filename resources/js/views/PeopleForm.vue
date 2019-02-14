@@ -62,6 +62,7 @@
                                 class="form-control"
                                 id="name"
                                 required="required"
+                                dusk="people-name"
                             />
 
                             <div
@@ -114,6 +115,14 @@
                                 type="date"
                                 :form="form"
                             ></app-input>
+
+                            <app-textarea
+                                label="Observações"
+                                v-model="form.fields.notes"
+                                name="notes"
+                                :form="form"
+                                :rows="15"
+                            ></app-textarea>
                         </div>
                     </div>
 
@@ -123,6 +132,7 @@
                                 @click.prevent="savePerson()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                dusk="gravar-people-button"
                             >
                                 gravar
                             </button>

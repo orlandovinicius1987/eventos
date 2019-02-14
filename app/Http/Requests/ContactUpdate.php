@@ -4,9 +4,18 @@ namespace App\Http\Requests;
 
 use App\Data\Repositories\ContactTypes as ContactTypesRepository;
 use App\Rules\Contact;
+use Illuminate\Support\Facades\Gate;
 
 class ContactUpdate extends BaseContact
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('people:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *

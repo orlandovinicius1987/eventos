@@ -3,8 +3,9 @@
 namespace App\Data\Models;
 
 use App\Data\Models\Traits\Selectable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Data\Repositories\Clients as ClientsRepository;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -25,12 +26,53 @@ class User extends Authenticatable
 
     protected $orderBy = ['name' => 'asc'];
 
+    protected $appends = ['permissions_array'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    private function filterProfilesForCurrentClient($permissions)
+    {
+        return collect(json_decode($permissions, true))
+            ->filter(function ($value, $key) {
+                list($client) = extract_client_and_permission($key);
+
+                return $client === get_current_client()->slug;
+            })
+            ->toJson();
+    }
+
+    private function filterPermissionsForCurrentClient($permissions)
+    {
+        return collect(json_decode($permissions, true))
+            ->mapWithKeys(function ($value, $key) {
+                list($client, $permission) = extract_client_and_permission(
+                    $key
+                );
+
+                return [
+                    $key => ['client' => $client, 'permission' => $permission],
+                ];
+            })
+            ->filter(function ($permission) {
+                return $permission['client'] === get_current_client()->slug;
+            })
+            ->pluck('permission')
+            ->values()
+            ->unique()
+            ->toArray();
+    }
+
+    public function getProfilesAttribute()
+    {
+        return $this->filterProfilesForCurrentClient(
+            $this->attributes['profiles']
+        );
+    }
 
     public function getProfilesArrayAttribute()
     {
@@ -39,7 +81,20 @@ class User extends Authenticatable
 
     public function getPermissionsArrayAttribute()
     {
-        return json_decode($this->permissions, true);
+        return $this->filterPermissionsForCurrentClient($this->permissions);
+    }
+
+    protected function makeProfilesList()
+    {
+        $allowed = collect(
+            json_decode($this->attributes['profiles'], true)
+        )->mapWithKeys(function ($value, $key) {
+            list($client, $profile) = extract_client_and_permission($key);
+
+            return [$client => $profile];
+        });
+
+        return $allowed;
     }
 
     /**
@@ -52,9 +107,31 @@ class User extends Authenticatable
         return config('services.slack.webhook_url');
     }
 
+    //TODO trabalhar futuramente com uma escolha de o sistema favorito , para que este seja o sistema inicial da aplicação
     public function getClientIdAttribute()
     {
-        return 1;
+        return array_first($this->allowed_clients)->id;
+    }
+
+    public function getAllowedClientsAttribute()
+    {
+        $allowed = $this->makeProfilesList();
+
+        return app(ClientsRepository::class)
+            ->all()
+            ->filter(function ($client) use ($allowed) {
+                return $this->isSuperUser($allowed) ||
+                    array_has($allowed, $client->slug);
+            });
+    }
+
+    /**
+     * @param $allowed
+     * @return bool
+     */
+    public function isSuperUser($allowed): bool
+    {
+        return isset($allowed['all']) && $allowed['all'] === 'administrador';
     }
 
     public function getIsSecurityAttribute()
@@ -68,7 +145,7 @@ class User extends Authenticatable
      */
     public function getJoins()
     {
-        return coollect([]);
+        return coollect($this->joins);
     }
 
     public function getIsAdministratorAttribute()

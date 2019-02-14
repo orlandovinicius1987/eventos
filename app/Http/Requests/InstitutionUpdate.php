@@ -2,8 +2,18 @@
 
 namespace App\Http\Requests;
 
-class InstitutionUpdate extends BaseStore
+use Illuminate\Support\Facades\Gate;
+
+class InstitutionUpdate extends Request
 {
+    /**
+     * @return bool
+     */
+    public function authorize()
+    {
+        return Gate::allows('institutions:modify');
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -13,6 +23,7 @@ class InstitutionUpdate extends BaseStore
     {
         return [
             'name' => 'required',
+            'party_number' => 'numeric',
         ];
     }
 }

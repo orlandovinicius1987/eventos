@@ -1,10 +1,10 @@
 <template>
-    <div v-if="can('read', 'receptive')">
+    <div>
         <div class="py-2 text-center">
             <h2><i class="fas fa-cogs"></i> Painel de Controle</h2>
         </div>
 
-        <div class="row">
+        <div class="row" v-if="can('receptive')">
             <div class="col-12">
                 <div v-if="eventsHappening().length > 0 || true">
                     <div class="card-deck mb-3 text-center">
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <div v-if="can('read')">
+        <div>
             <div class="col-12">
                 <div class="container">
                     <div class="card-deck mb-3 text-center">
@@ -69,81 +69,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- <div class="row" v-if="can('read')"> -->
-        <!-- <div class="col-12"> -->
-        <!-- <app-table-panel -->
-        <!-- v-if="subEventsDashBoard.data.links" -->
-        <!-- :title=" -->
-        <!-- 'Eventos a serem iniciados (' + -->
-        <!-- subEventsDashBoard.data.rows.length + -->
-        <!-- ')' -->
-        <!-- " -->
-        <!-- :filter-text="subEventsDashboardFilterText" -->
-        <!-- @input-filter-text=" -->
-        <!-- subEventsDashboardFilterText = $event.target.value -->
-        <!-- " -->
-        <!-- &gt; -->
-        <!-- <app-table -->
-        <!-- :columns="[ -->
-        <!-- '#', -->
-        <!-- 'Evento', -->
-        <!-- 'Sub-evento', -->
-        <!-- 'Setor', -->
-        <!-- 'Dia', -->
-        <!-- 'Horário', -->
-        <!-- ]" -->
-        <!-- &gt; -->
-        <!-- <router-link -->
-        <!-- :to="'/receptive/' + eventDashBoard.event.id" -->
-        <!-- tag="tr" -->
-        <!-- :disabled="cannot('update')" -->
-        <!-- v-for="eventDashBoard in subEventsDashBoard.data -->
-        <!-- .rows" -->
-        <!-- style="cursor: pointer;" -->
-        <!-- :key="eventDashBoard.id" -->
-        <!-- &gt; -->
-        <!-- <td -->
-        <!-- @click="selectEventDashBoard(eventDashBoard)" -->
-        <!-- class="align-middle" -->
-        <!-- &gt; -->
-        <!-- {{ eventDashBoard.id }} -->
-        <!-- </td> -->
-        <!-- <td -->
-        <!-- @click="selectEventDashBoard(eventDashBoard)" -->
-        <!-- class="align-middle" -->
-        <!-- &gt; -->
-        <!-- {{ eventDashBoard.event.name }} -->
-        <!-- </td> -->
-        <!-- <td -->
-        <!-- @click="selectEventDashBoard(eventDashBoard)" -->
-        <!-- class="align-middle" -->
-        <!-- &gt; -->
-        <!-- {{ eventDashBoard.name }} -->
-        <!-- </td> -->
-        <!-- <td -->
-        <!-- @click="selectEventDashBoard(eventDashBoard)" -->
-        <!-- class="align-middle" -->
-        <!-- &gt; -->
-        <!-- {{ eventDashBoard.sector.name }} -->
-        <!-- </td> -->
-        <!-- <td -->
-        <!-- @click="selectEventDashBoard(eventDashBoard)" -->
-        <!-- class="align-middle" -->
-        <!-- &gt; -->
-        <!-- {{ eventDashBoard.date }} -->
-        <!-- </td> -->
-        <!-- <td -->
-        <!-- @click="selectEventDashBoard(eventDashBoard)" -->
-        <!-- class="align-middle" -->
-        <!-- &gt; -->
-        <!-- {{ eventDashBoard.time }} -->
-        <!-- </td> -->
-        <!-- </router-link> -->
-        <!-- </app-table> -->
-        <!-- </app-table-panel> -->
-        <!-- </div> -->
-        <!-- </div> -->
     </div>
 </template>
 

@@ -25,5 +25,7 @@ trait AddressesTraits
         );
 
         $address->save();
+
+        $this->fireEvents($address, 'Updated');
     }
 }

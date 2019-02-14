@@ -60,6 +60,22 @@
                             :options="environment.tables.roles"
                         ></app-role-filter-for-invitation>
 
+                        <app-topic-filter-for-invitation
+                            name="topic_id"
+                            label="Interesses"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.topics"
+                        ></app-topic-filter-for-invitation>
+
+                        <app-category-filter-for-invitation
+                            name="category_id"
+                            label="Categoria"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.categories"
+                        ></app-category-filter-for-invitation>
+
                         <app-select
                             name="sub_event_id"
                             label="Filtrar convidados de outro sub-evento"
@@ -79,6 +95,7 @@
                         <div
                             class="btn btn-primary btn-sm pull-right"
                             @click="invite()"
+                            dusk="dusk-invite-button"
                         >
                             {{ recordButtonText }}
                         </div>
@@ -124,6 +141,7 @@
                                     :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
+                                    dusk="dusk-invite"
                                 />
                             </td>
 
@@ -200,6 +218,8 @@ export default {
     data() {
         this.$store.dispatch('environment/loadSubEvents')
         this.$store.dispatch('environment/loadRoles')
+        this.$store.dispatch('environment/loadCategories')
+        this.$store.dispatch('environment/loadTopics')
         this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,

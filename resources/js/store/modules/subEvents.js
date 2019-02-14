@@ -13,6 +13,7 @@ const __emptyEvent = {
 }
 
 const __emptyAddress = {
+    id: null,
     zipcode: null,
     street: null,
     number: null,
@@ -107,11 +108,27 @@ const actions = merge_objects(actionsMixin, {
     replicateCommonInfo(context, payload) {
         post(makeDataUrl(context) + '/' + payload.id + '/replicate-common-info')
     },
+
+    loadAddress(context, payload) {
+        get(
+            makeDataUrl(context) +
+                '/' +
+                payload.sub_event_id +
+                '/addresses/' +
+                payload.address_id,
+        ).then(response => {
+            context.commit('mutateSetAddress', response.data)
+        })
+    },
 })
 
 const mutations = merge_objects(mutationsMixin, {
     mutateSetEvent(state, payload) {
         state.event = payload
+    },
+
+    mutateSetAddress(state, payload) {
+        state.form.fields.address = payload
     },
 })
 

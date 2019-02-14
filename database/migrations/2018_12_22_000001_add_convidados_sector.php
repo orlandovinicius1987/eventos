@@ -14,17 +14,6 @@ class AddConvidadosSector extends Migration
      */
     public function up()
     {
-        Schema::table('populate_sectors', function (Blueprint $table) {
-            foreach (
-                [['name' => 'Convidados', 'color' => '#6F10B7']]
-                as $item
-            ) {
-                Sector::updateOrCreate(
-                    ['name' => $item['name']],
-                    ['color' => $item['color']]
-                );
-            }
-        });
     }
 
     /**

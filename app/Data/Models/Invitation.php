@@ -16,7 +16,7 @@ use App\Data\Repositories\ContactTypes;
 use App\Data\Repositories\Notifications;
 use App\Services\QRCode\Service as QRCode;
 
-class Invitation extends Base
+class Invitation extends BaseWithClient
 {
     /**
      * @var array
@@ -29,6 +29,7 @@ class Invitation extends Base
         'sent_at',
         'received_at',
         'checkin_at',
+        'client_id',
     ];
 
     protected $with = [

@@ -15,6 +15,7 @@ class Person extends BaseWithClient
         'birthdate',
         'cpf',
         'photo',
+        'notes',
     ];
 
     protected $table = 'people';
@@ -44,6 +45,11 @@ class Person extends BaseWithClient
     public function person_institutions()
     {
         return $this->hasMany(PersonInstitution::class);
+    }
+
+    public function person_topics()
+    {
+        return $this->hasMany(PersonTopic::class);
     }
 
     public function institutions()
@@ -113,5 +119,10 @@ class Person extends BaseWithClient
         });
 
         return $query;
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class, 'person_topics');
     }
 }
