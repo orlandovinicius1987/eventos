@@ -206,7 +206,7 @@
                                     personTopics.data.links
                             "
                             :title="
-                                'Assuntos: ' +
+                                'Interesses: ' +
                                     personTopics.data.links.pagination.total
                             "
                             :add-button="{
@@ -255,7 +255,7 @@
                                                 )
                                             "
                                             class="btn btn-danger btn-sm mr-1 pull-right"
-                                            title="Excluir Assunto"
+                                            title="Excluir Interesse"
                                         >
                                             <i class="fa fa-trash"></i>
                                         </div>
