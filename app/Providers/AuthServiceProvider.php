@@ -28,10 +28,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function ($user, $ability) {
-            if(app(UsersRepository::class)->userHasPermission(
-                $user,
-                $ability
-            )) return true;
+            if (
+                app(UsersRepository::class)->userHasPermission($user, $ability)
+            ) {
+                return true;
+            }
         });
 
         Gate::define('canEdit', function ($user) {

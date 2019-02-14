@@ -1,7 +1,6 @@
 let debouncedByUrl = {}
 
 export function load(context) {
-
     if (!makeDataUrl(context)) {
         return
     }

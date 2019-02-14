@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div class="py-2 text-center"><h2>Assuntos</h2></div>
+        <div class="py-2 text-center"><h2>Interesses</h2></div>
 
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
                     v-if="can('topics:read') || can('topics:modify')"
-                    :title="'Assuntos (' + pagination.total + ')'"
+                    :title="'Interesses (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/topics/create',
                         disabled: cannot('topics:modify'),
@@ -38,13 +38,11 @@
 
                             <td class="align-middle text-right">
                                 <router-link
-                                    :to="
-                                        '/topics/' + topic.id + '/update'
-                                    "
+                                    :to="'/topics/' + topic.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('topics:modify')"
-                                    title="Editar Assunto"
+                                    title="Editar Interesse"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </router-link>

@@ -110,14 +110,15 @@ const actions = merge_objects(actionsMixin, {
     },
 
     loadAddress(context, payload) {
-        get(makeDataUrl(context) + '/' + payload.sub_event_id + '/addresses/' + payload.address_id).then(
-            response => {
-                context.commit(
-                    'mutateSetAddress',
-                    response.data,
-                )
-            },
-        )
+        get(
+            makeDataUrl(context) +
+                '/' +
+                payload.sub_event_id +
+                '/addresses/' +
+                payload.address_id,
+        ).then(response => {
+            context.commit('mutateSetAddress', response.data)
+        })
     },
 })
 

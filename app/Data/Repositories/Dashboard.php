@@ -13,28 +13,31 @@ class Dashboard extends Repository
 {
     public function makeDashboardData()
     {
-        if(Gate::check('events:read') || Gate::check('events:modify')){
+        if (Gate::check('events:read') || Gate::check('events:modify')) {
             $returnArray['events'] = [
                 'name' => 'Eventos',
                 'route' => '/events',
                 'count' => app(EventsRepository::class)->count(),
             ];
         }
-        if(Gate::check('subevents:read') || Gate::check('subevents:modify')){
+        if (Gate::check('subevents:read') || Gate::check('subevents:modify')) {
             $returnArray['subevents'] = [
                 'name' => 'Sub-eventos',
                 'route' => '/events',
                 'count' => app(SubEventsRepository::class)->count(),
             ];
         }
-        if(Gate::check('people:read') || Gate::check('people:modify')){
+        if (Gate::check('people:read') || Gate::check('people:modify')) {
             $returnArray['people'] = [
                 'name' => 'Pessoas',
                 'route' => '/people',
                 'count' => app(PeopleRepository::class)->count(),
             ];
         }
-        if(Gate::check('institutions:read') || Gate::check('institutions:modify')){
+        if (
+            Gate::check('institutions:read') ||
+            Gate::check('institutions:modify')
+        ) {
             $returnArray['institutions'] = [
                 'name' => 'Instituições',
                 'route' => '/institutions',
@@ -46,7 +49,10 @@ class Dashboard extends Repository
                 'count' => app(PartiesRepository::class)->count(),
             ];
         }
-        if(Gate::check('categories:read') || Gate::check('categories:modify')){
+        if (
+            Gate::check('categories:read') ||
+            Gate::check('categories:modify')
+        ) {
             $returnArray['categories'] = [
                 'name' => 'Categorias',
                 'route' => '/categories',

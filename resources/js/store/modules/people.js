@@ -13,6 +13,7 @@ const __emptyModel = {
     cpf: null,
     photo: null,
     photoUrl: '/images/no-image.jpg',
+    notes: null,
 }
 
 const state = merge_objects(statesMixin.common, {

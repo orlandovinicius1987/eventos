@@ -79,7 +79,7 @@ const actions = {
         })
     },
 
-    loadTopics(context){
+    loadTopics(context) {
         return get('/api/v1/topics', {
             params: { query: context.getters.getFullQueryFilter },
         }).then(response => {
@@ -164,7 +164,7 @@ const actions = {
                 context.dispatch('loadAvailableAddresses')
             },
         )
-    }
+    },
 }
 
 const mutations = {

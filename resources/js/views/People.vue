@@ -32,7 +32,10 @@
             <!-- LEFT COLUMN - PEOPLE -->
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    v-if="(can('people:read') || can('people:modify')) && people.data.links"
+                    v-if="
+                        (can('people:read') || can('people:modify')) &&
+                            people.data.links
+                    "
                     :title="'Pessoas (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/people/create',
@@ -127,7 +130,11 @@
                 <div class="row">
                     <div class="col-12">
                         <app-table-panel
-                            v-if="(can('people:read') || can('people:modify')) && selected.id && personCategories.data.links"
+                            v-if="
+                                (can('people:read') || can('people:modify')) &&
+                                    selected.id &&
+                                    personCategories.data.links
+                            "
                             :title="
                                 'Categorias: ' +
                                     personCategories.data.links.pagination.total
@@ -193,9 +200,13 @@
 
                     <div class="col-12">
                         <app-table-panel
-                            v-if="(can('people:read') || can('people:modify')) && selected.id && personTopics.data.links"
+                            v-if="
+                                (can('people:read') || can('people:modify')) &&
+                                    selected.id &&
+                                    personTopics.data.links
+                            "
                             :title="
-                                'Assuntos: ' +
+                                'Interesses: ' +
                                     personTopics.data.links.pagination.total
                             "
                             :add-button="{
@@ -244,7 +255,7 @@
                                                 )
                                             "
                                             class="btn btn-danger btn-sm mr-1 pull-right"
-                                            title="Excluir Assunto"
+                                            title="Excluir Interesse"
                                         >
                                             <i class="fa fa-trash"></i>
                                         </div>
@@ -256,7 +267,11 @@
 
                     <div class="col-12">
                         <app-table-panel
-                            v-if="(can('people:read') || can('people:modify')) && selected.id && personInstitutions.data.links"
+                            v-if="
+                                (can('people:read') || can('people:modify')) &&
+                                    selected.id &&
+                                    personInstitutions.data.links
+                            "
                             :title="
                                 'Funções: ' +
                                     personInstitutions.data.links.pagination
@@ -367,7 +382,8 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                (can('people:read') || can('people:modify')) && personInstitutions.selected.id &&
+                                (can('people:read') || can('people:modify')) &&
+                                    personInstitutions.selected.id &&
                                     contacts.data.links
                             "
                             :title="
@@ -464,7 +480,8 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                (can('people:read') || can('people:modify')) && personInstitutions.selected.id &&
+                                (can('people:read') || can('people:modify')) &&
+                                    personInstitutions.selected.id &&
                                     addresses.data.links
                             "
                             :title="
@@ -574,7 +591,8 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                (can('people:read') || can('people:modify')) && personInstitutions.selected.id &&
+                                (can('people:read') || can('people:modify')) &&
+                                    personInstitutions.selected.id &&
                                     advisors.data.links
                             "
                             :title="
@@ -661,7 +679,8 @@
                     <div class="col-12">
                         <app-table-panel
                             v-if="
-                                (can('people:read') || can('people:modify')) && advisors.selected.id &&
+                                (can('people:read') || can('people:modify')) &&
+                                    advisors.selected.id &&
                                     advisorContacts.data.links
                             "
                             :title="

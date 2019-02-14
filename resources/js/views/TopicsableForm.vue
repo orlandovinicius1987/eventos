@@ -2,14 +2,14 @@
     <div>
         <div class="py-2 text-center">
             <h1>{{ people.selected.name }}</h1>
-            <h2>Associar Assuntos a Pessoas</h2>
+            <h2>Associar Interesses a Pessoas</h2>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-6">
                 <app-table-panel
                     v-if="topicsables.data.links"
-                    title="Assuntos"
+                    title="Interesses"
                     :per-page="topicsablesPerPage"
                     @set-per-page="topicsablesPerPage = $event"
                     :filter-text="topicsablesFilterText"

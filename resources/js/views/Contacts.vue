@@ -5,7 +5,9 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    v-if="can('contacttypes:read') || can('contacttypes:modify')"
+                    v-if="
+                        can('contacttypes:read') || can('contacttypes:modify')
+                    "
                     :title="'Tipos de Contato (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/contact-types/create',
