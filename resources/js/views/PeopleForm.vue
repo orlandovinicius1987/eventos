@@ -115,6 +115,14 @@
                                 type="date"
                                 :form="form"
                             ></app-input>
+
+                            <app-textarea
+                                label="Observações"
+                                v-model="form.fields.notes"
+                                name="notes"
+                                :form="form"
+                                :rows="15"
+                            ></app-textarea>
                         </div>
                     </div>
 

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <span>
         <label :for="name" class="mb-0 mt-4">{{ label }}</label>
 
         <textarea
@@ -12,10 +12,10 @@
             :cols="cols"
         ></textarea>
 
-        <small class="text-danger" v-if="form.errors.has(name)" >
+        <small class="text-danger" v-if="form.errors.has(name)">
             {{ form.errors.get(name) }}
         </small>
-    </div>
+    </span>
 </template>
 
 <script>
