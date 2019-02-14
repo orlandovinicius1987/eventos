@@ -124,7 +124,11 @@
 
             <div class="col-12 col-lg-8">
                 <app-table-panel
-                    v-if="(can('subevents:read') || can('subevents:modify')) && selected.id && subEvents.data.links"
+                    v-if="
+                        (can('subevents:read') || can('subevents:modify')) &&
+                            selected.id &&
+                            subEvents.data.links
+                    "
                     :title="
                         selected.name +
                             ' (' +
@@ -281,7 +285,11 @@
         <div class="row" v-if="invitations.subEvent.id">
             <div class="col-12">
                 <app-table-panel
-                    v-if="(can('subevents:read') || can('subevents:modify')) && selected.id && invitations.data.links"
+                    v-if="
+                        (can('subevents:read') || can('subevents:modify')) &&
+                            selected.id &&
+                            invitations.data.links
+                    "
                     :title="
                         invitations.data.links.pagination.total +
                             ' convidado' +
@@ -523,7 +531,10 @@
                                     "
                                     tag="button"
                                     class="badge bg-info text-white cursor-pointer"
-                                    :disabled="cannot('subevents:invite') || cannot('people:modify')"
+                                    :disabled="
+                                        cannot('subevents:invite') ||
+                                            cannot('people:modify')
+                                    "
                                     title="modificar instituição"
                                 >
                                     <i class="fa fa-edit"></i>
@@ -735,7 +746,10 @@
                                 </button>
 
                                 <button
-                                    :disabled="cannot('subevents:invite') || !invitation.accepted_at"
+                                    :disabled="
+                                        cannot('subevents:invite') ||
+                                            !invitation.accepted_at
+                                    "
                                     @click="sendCredential(invitation)"
                                     class="btn btn-info btn-sm btn-sm btn-table-utility text-white ml-1 pull-right"
                                     v-if="

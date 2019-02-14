@@ -24,7 +24,7 @@ class PersonStore extends Request
     {
         return [
             'name' => 'required',
-            'cpf' => ['nullable','cpf', new UniqueInCurrentClient('people')],
+            'cpf' => ['nullable', 'cpf', new UniqueInCurrentClient('people')],
         ];
     }
 }

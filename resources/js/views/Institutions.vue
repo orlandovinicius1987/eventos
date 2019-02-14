@@ -5,7 +5,9 @@
         <div class="row">
             <div class="col-12 col-lg-4">
                 <app-table-panel
-                    v-if="can('institutions:read') || can('institutions:modify')"
+                    v-if="
+                        can('institutions:read') || can('institutions:modify')
+                    "
                     :title="'Instituições (' + pagination.total + ')'"
                     :add-button="{
                         uri: '/institutions/create',

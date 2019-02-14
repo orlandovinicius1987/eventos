@@ -245,11 +245,11 @@ function extract_client_and_permission($string)
         })
         ->toArray();
 
-    if (!isset($data[1])){
-        if(permission_slug($data[0]) === 'administrador') {
+    if (!isset($data[1])) {
+        if (permission_slug($data[0]) === 'administrador') {
             $data[0] = 'all';
             $data[1] = 'administrador';
-        }else{
+        } else {
             $data[1] = $data[0];
             $data[0] = 'none';
         }

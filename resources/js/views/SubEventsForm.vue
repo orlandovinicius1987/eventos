@@ -252,11 +252,21 @@
                                     <app-select
                                         name="address_id"
                                         label="Endereço"
-                                        v-model="subEvents.form.fields.address_id"
+                                        v-model="
+                                            subEvents.form.fields.address_id
+                                        "
                                         :required="true"
                                         :form="form"
-                                        :options="environment.tables.availableAddresses"
-                                        @input="selectAddressInsideEvent(subEvents.form.fields.address_id)"
+                                        :options="
+                                            environment.tables
+                                                .availableAddresses
+                                        "
+                                        @input="
+                                            selectAddressInsideEvent(
+                                                subEvents.form.fields
+                                                    .address_id,
+                                            )
+                                        "
                                     ></app-select>
                                 </div>
                             </div>
@@ -332,7 +342,7 @@ export default {
         },
 
         selectAddressInsideEvent(address_id) {
-            if(address_id){
+            if (address_id) {
                 this.$store.dispatch('subEvents/loadAddress', {
                     sub_event_id: this.events.selected.id,
                     address_id: address_id,

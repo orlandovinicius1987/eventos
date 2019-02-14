@@ -212,7 +212,7 @@ abstract class Repository
      */
     protected function filterText($filter, $query)
     {
-        if (($text = $filter['filter']['text'])) {
+        if ($text = $filter['filter']['text']) {
             $this->filterAllColumns($query, $text);
         }
 

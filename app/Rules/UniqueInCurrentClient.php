@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\DB;
 
 class UniqueInCurrentClient implements Rule
 {
-
     public $table;
     /**
      * Create a new rule instance.
@@ -28,10 +27,13 @@ class UniqueInCurrentClient implements Rule
      */
     public function passes($attribute, $value)
     {
-        $result = DB::table($this->table)->where(function($query) use ($attribute, $value) {
-            $query->where($attribute, '=', $value)
-                ->where('client_id', '=', get_current_client()->id);
-        })->first();
+        $result = DB::table($this->table)
+            ->where(function ($query) use ($attribute, $value) {
+                $query
+                    ->where($attribute, '=', $value)
+                    ->where('client_id', '=', get_current_client()->id);
+            })
+            ->first();
 
         return $result ? false : true;
     }

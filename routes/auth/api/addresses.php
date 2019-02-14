@@ -7,5 +7,7 @@ Route::group(['prefix' => '/addresses'], function () {
 
     Route::post('/', 'Addresses@store')->name('addresses.store');
 
-    Route::get('/availableAddresses', 'Addresses@availableAddresses')->name('addresses.availableAddresses');
+    Route::get('/availableAddresses', 'Addresses@availableAddresses')->name(
+        'addresses.availableAddresses'
+    );
 });

@@ -38,9 +38,7 @@
 
                             <td class="align-middle text-right">
                                 <router-link
-                                    :to="
-                                        '/topics/' + topic.id + '/update'
-                                    "
+                                    :to="'/topics/' + topic.id + '/update'"
                                     tag="button"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
                                     :disabled="cannot('topics:modify')"

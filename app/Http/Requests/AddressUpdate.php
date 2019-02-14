@@ -11,7 +11,8 @@ class AddressUpdate extends Request
      */
     public function authorize()
     {
-        return Gate::allows('people:modify') || Gate::allows('subevents:modify');
+        return Gate::allows('people:modify') ||
+            Gate::allows('subevents:modify');
     }
 
     /**

@@ -22,8 +22,8 @@ class PersonTopicStore extends Request
     public function rules()
     {
         return [
-//            'person_id' => 'required',
-//            'topic_id' => 'required',
-        ];
+                //            'person_id' => 'required',
+                //            'topic_id' => 'required',
+            ];
     }
 }
