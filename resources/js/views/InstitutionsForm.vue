@@ -67,6 +67,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('institutions:modify')"
                             >
                                 gravar
                             </button>
@@ -89,6 +90,7 @@
 <script>
 import crud from './mixins/crud'
 import institutions from './mixins/institutions'
+import permissions from './mixins/permissions'
 import { mapActions } from 'vuex'
 
 const service = {
@@ -100,7 +102,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, institutions],
+    mixins: [crud, institutions, permissions],
 
     data() {
         return {

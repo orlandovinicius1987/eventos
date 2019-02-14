@@ -19,11 +19,12 @@
                 >
                     <template slot="buttons">
                         <button
+                            :disabled="cannot('people:modify')"
                             v-if="topicsablesChecked.length > 0"
                             class="btn btn-primary btn-sm pull-right"
                             @click="topicize()"
                         >
-                            associar categorias
+                            associar interesses
                         </button>
                     </template>
 
@@ -64,6 +65,7 @@
 <script>
 import crud from './mixins/crud'
 import topicsables from './mixins/topicsables'
+import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
 
 const service = {
@@ -75,7 +77,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, topicsables],
+    mixins: [crud, topicsables, permissions],
 
     data() {
         return {

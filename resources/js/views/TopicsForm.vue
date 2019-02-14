@@ -27,6 +27,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('topics:modify')"
                             >
                                 gravar
                             </button>
@@ -49,13 +50,14 @@
 <script>
 import crud from './mixins/crud'
 import topics from './mixins/topics'
+import permissions from './mixins/permissions'
 
 const service = { name: 'topics', uri: 'topics', performLoad: false }
 
 export default {
     props: ['mode'],
 
-    mixins: [crud, topics],
+    mixins: [crud, topics, permissions],
 
     data() {
         return {

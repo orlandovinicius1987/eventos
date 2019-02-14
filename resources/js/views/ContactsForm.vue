@@ -37,6 +37,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="record-contact-button"
+                                :disabled="cannot('people:modify')"
                             >
                                 gravar
                             </button>
@@ -60,6 +61,7 @@
 import crud from './mixins/crud'
 import contacts from './mixins/contacts'
 import advisorContacts from './mixins/advisorContacts'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'contacts',
@@ -71,7 +73,7 @@ const service = {
 export default {
     props: ['mode', 'source'],
 
-    mixins: [crud, contacts],
+    mixins: [crud, contacts, permissions],
 
     data() {
         this.$store.dispatch('environment/loadContactTypes')

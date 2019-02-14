@@ -277,6 +277,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="sub-gravar"
+                                :disabled="cannot('subevents:modify')"
                             >
                                 gravar
                             </button>

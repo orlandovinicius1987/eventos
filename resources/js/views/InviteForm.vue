@@ -96,6 +96,7 @@
                             class="btn btn-primary btn-sm pull-right"
                             @click="invite()"
                             dusk="dusk-invite-button"
+                            :disabled="cannot('subevents:invite')"
                         >
                             {{ recordButtonText }}
                         </div>
@@ -104,6 +105,7 @@
                             v-if="selectedSubEvent"
                             class="btn btn-danger btn-sm pull-right"
                             @click="moveInvitations()"
+                            :disabled="cannot('subevents:invite')"
                         >
                             mover convidados
                         </div>
