@@ -37,6 +37,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('people:modify')"
                             >
                                 gravar
                             </button>
@@ -61,6 +62,7 @@ import crud from './mixins/crud'
 import people from './mixins/people'
 import advisors from './mixins/advisors'
 import roles from './mixins/roles'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'advisors',
@@ -72,7 +74,7 @@ const service = {
 export default {
     props: ['mode', 'source'],
 
-    mixins: [crud, people, advisors, roles],
+    mixins: [crud, people, advisors, roles, permissions],
 
     data() {
         this.$store.dispatch('environment/loadRoles')
