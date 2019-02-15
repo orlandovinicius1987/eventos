@@ -133,6 +133,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="gravar-people-button"
+                                :disabled="cannot('people:modify')"
                             >
                                 gravar
                             </button>
@@ -155,6 +156,7 @@
 <script>
 import crud from './mixins/crud'
 import people from './mixins/people'
+import permissions from './mixins/permissions'
 import { mapActions } from 'vuex'
 
 const service = { name: 'people', uri: 'people', performLoad: false }
@@ -162,7 +164,7 @@ const service = { name: 'people', uri: 'people', performLoad: false }
 export default {
     props: ['mode'],
 
-    mixins: [crud, people],
+    mixins: [crud, people, permissions],
 
     data() {
         return {

@@ -22,7 +22,7 @@
 
         <app-input
             name="title"
-            label="Título"
+            label="Tratamento"
             v-model="form.fields.title"
             :required="true"
             :form="form"

@@ -31,6 +31,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('people:modify')"
                             >
                                 gravar
                             </button>
@@ -53,6 +54,7 @@
 <script>
 import crud from './mixins/crud'
 import addresses from './mixins/addresses'
+import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
 
 const service = {
@@ -65,7 +67,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, addresses],
+    mixins: [crud, addresses, permissions],
 
     data() {
         return {
