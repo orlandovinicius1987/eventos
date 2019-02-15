@@ -35,6 +35,11 @@ class SubEvents extends Repository
         event(new SubEventUpdated($subEvent));
     }
 
+    /**
+     * @param $subEvent - objet
+     * @param $address - array
+     * @return mixed
+     */
     private function createOrUpdateAddress($subEvent, $address)
     {
         if (!$subEvent->address) {
