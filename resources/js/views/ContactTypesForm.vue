@@ -41,6 +41,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('contacttypes:modify')"
                             >
                                 gravar
                             </button>
@@ -63,6 +64,7 @@
 <script>
 import crud from './mixins/crud'
 import contactTypes from './mixins/contact-types'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'contactTypes',
@@ -73,7 +75,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, contactTypes],
+    mixins: [crud, contactTypes, permissions],
 
     data() {
         return {

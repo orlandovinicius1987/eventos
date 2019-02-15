@@ -38,6 +38,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('costumes:modify')"
                             >
                                 gravar
                             </button>
@@ -60,6 +61,7 @@
 <script>
 import crud from './mixins/crud'
 import costumes from './mixins/costumes'
+import permissions from './mixins/permissions'
 import { mapActions } from 'vuex'
 
 const service = {
@@ -71,7 +73,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, costumes],
+    mixins: [crud, costumes, permissions],
 
     data() {
         return {

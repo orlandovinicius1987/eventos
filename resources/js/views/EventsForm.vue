@@ -28,6 +28,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="record-event-button"
+                                :disabled="cannot('events:modify')"
                             >
                                 gravar
                             </button>
@@ -50,13 +51,14 @@
 <script>
 import crud from './mixins/crud'
 import events from './mixins/events'
+import permissions from './mixins/permissions'
 
 const service = { name: 'events', uri: 'events', performLoad: false }
 
 export default {
     props: ['mode'],
 
-    mixins: [crud, events],
+    mixins: [crud, events, permissions],
 
     data() {
         return {

@@ -34,6 +34,7 @@
                                     "
                                     @click="changeTo(personInstitution)"
                                     class="btn btn-danger btn-sm ml-1 pull-right"
+                                    :disabled="cannot('people:modify')"
                                 >
                                     mudar para esta
                                 </button>
@@ -59,6 +60,7 @@
 
 <script>
 import crud from './mixins/crud'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'subEvents',
@@ -69,7 +71,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud],
+    mixins: [crud, permissions],
 
     data() {
         return {

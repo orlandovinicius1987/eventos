@@ -23,6 +23,7 @@
                             class="btn btn-primary btn-sm pull-right"
                             @click="categorize()"
                             dusk="associate-category-dusk"
+                            :disabled="cannot('people:modify')"
                         >
                             associar categorias
                         </button>
@@ -68,6 +69,7 @@
 <script>
 import crud from './mixins/crud'
 import categorizables from './mixins/categorizables'
+import permissions from './mixins/permissions'
 import { mapState } from 'vuex'
 
 const service = {
@@ -78,7 +80,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, categorizables],
+    mixins: [crud, categorizables, permissions],
 
     data() {
         return {

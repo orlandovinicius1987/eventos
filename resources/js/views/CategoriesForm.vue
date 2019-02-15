@@ -28,6 +28,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="record-category-button"
+                                :disabled="cannot('categories:modify')"
                             >
                                 gravar
                             </button>
@@ -50,13 +51,14 @@
 <script>
 import crud from './mixins/crud'
 import categories from './mixins/categories'
+import permissions from './mixins/permissions'
 
 const service = { name: 'categories', uri: 'categories', performLoad: false }
 
 export default {
     props: ['mode'],
 
-    mixins: [crud, categories],
+    mixins: [crud, categories, permissions],
 
     data() {
         return {
