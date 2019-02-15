@@ -49,14 +49,14 @@ class Authentication
             if (!is_null($user)) {
                 //Profiles
                 $profiles = app(Authorization::class)->getUserProfiles(
-                    extract_credentials($request)['username']
+                    $this->extractCredencialsForUsername($request)
                 );
 
                 $this->usersRepository->updateProfiles($user, $profiles);
 
                 //Permissions
                 $permissions = app(Authorization::class)->getUserPermissions(
-                    extract_credentials($request)['username']
+                    $this->extractCredencialsForUsername($request)
                 );
 
                 $this->usersRepository->updatePermissions($user, $permissions);
@@ -66,6 +66,21 @@ class Authentication
             }
         }
         return false;
+    }
+
+    /**
+     * @param $request
+     * @return mixed
+     */
+    protected function extractCredencialsForUsername($request)
+    {
+        $credentials = extract_credentials($request);
+
+        if (isset($credentials['username'])) {
+            return $credentials['username'];
+        }
+
+        return null;
     }
 
     protected function extractUsernameFromEmail($email)
@@ -103,7 +118,7 @@ class Authentication
             //Timeout no login
             $usersRepository = app(UsersRepository::class);
             $user = $usersRepository->findByUsername(
-                extract_credentials($request)['username']
+                $this->extractCredencialsForUsername($request)
             );
 
             if (is_null($user)) {
@@ -148,7 +163,7 @@ class Authentication
             }
 
             $permissions = app(Authorization::class)->getUserPermissions(
-                extract_credentials($request)['username']
+                $this->extractCredencialsForUsername($request)
             );
 
             $this->usersRepository->updateCurrentUserTypeViaPermissions(
