@@ -6,7 +6,6 @@ use App\Data\Repositories\Addresses as AddressesRepository;
 
 trait AddressesTraits
 {
-
     /**
      * @param $addressable
      * @param $attributes - array
