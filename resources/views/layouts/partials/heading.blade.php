@@ -200,7 +200,7 @@
 
                                         @if(Gate::check('topics:read') || Gate::check('topics:modify'))
                                             <router-link id="people-menu" to="/topics" tag="a" class="dropdown-item">
-                                                Assuntos
+                                                Interesses
                                             </router-link>
                                         @endIf
                                     </div>
