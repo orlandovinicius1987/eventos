@@ -28,6 +28,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="record-role-button"
+                                :disabled="cannot('roles:modify')"
                             >
                                 gravar
                             </button>
@@ -50,6 +51,7 @@
 <script>
 import crud from './mixins/crud'
 import roles from './mixins/roles'
+import permissions from './mixins/permissions'
 import { mapActions } from 'vuex'
 
 const service = { name: 'roles', uri: 'roles', performLoad: false }
@@ -57,7 +59,7 @@ const service = { name: 'roles', uri: 'roles', performLoad: false }
 export default {
     props: ['mode'],
 
-    mixins: [crud, roles],
+    mixins: [crud, roles, permissions],
 
     data() {
         return {

@@ -55,6 +55,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('sectors:modify')"
                             >
                                 gravar
                             </button>
@@ -77,6 +78,7 @@
 <script>
 import crud from './mixins/crud'
 import sectors from './mixins/sectors'
+import permissions from './mixins/permissions'
 import Swatches from 'vue-swatches'
 
 const service = { name: 'sectors', uri: 'sectors', performLoad: false }
@@ -84,7 +86,7 @@ const service = { name: 'sectors', uri: 'sectors', performLoad: false }
 export default {
     props: ['mode'],
 
-    mixins: [crud, sectors],
+    mixins: [crud, sectors, permissions],
 
     components: { Swatches },
 

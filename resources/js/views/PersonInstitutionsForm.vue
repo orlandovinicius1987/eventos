@@ -24,6 +24,7 @@
                                 class="btn btn-outline-secondary"
                                 type="submit"
                                 dusk="gravar-funções-pessoas"
+                                :disabled="cannot('people:modify')"
                             >
                                 gravar
                             </button>
@@ -49,6 +50,7 @@ import personInstitutions from './mixins/personInstitutions'
 import people from './mixins/people'
 import advisors from './mixins/advisors'
 import roles from './mixins/roles'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'personInstitutions',
@@ -59,7 +61,7 @@ const service = {
 export default {
     props: ['mode', 'source'],
 
-    mixins: [crud, personInstitutions, people, advisors, roles],
+    mixins: [crud, personInstitutions, people, advisors, roles, permissions],
 
     data() {
         this.$store.dispatch('environment/loadRoles')

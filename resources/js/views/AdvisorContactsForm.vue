@@ -28,6 +28,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
+                                :disabled="cannot('people:modify')"
                             >
                                 gravar
                             </button>
@@ -50,6 +51,7 @@
 <script>
 import crud from './mixins/crud'
 import advisorContacts from './mixins/advisorContacts'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'advisorContacts',
@@ -61,7 +63,7 @@ const service = {
 export default {
     props: ['mode', 'source'],
 
-    mixins: [crud, advisorContacts],
+    mixins: [crud, advisorContacts, permissions],
 
     data() {
         this.$store.dispatch('environment/loadContactTypes')
