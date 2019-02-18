@@ -192,15 +192,15 @@
                                             </router-link>
                                         @endIf
 
-                                        @if(Gate::check('import:read') || Gate::check('import:modify'))
-                                            <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
-                                                Importar dados
-                                            </router-link>
-                                        @endIf
-
                                         @if(Gate::check('topics:read') || Gate::check('topics:modify'))
                                             <router-link id="people-menu" to="/topics" tag="a" class="dropdown-item">
                                                 Interesses
+                                            </router-link>
+                                        @endIf
+
+                                       @if(Gate::check('import:read') || Gate::check('import:modify'))
+                                            <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
+                                                Importar dados
                                             </router-link>
                                         @endIf
                                     </div>

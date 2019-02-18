@@ -74,11 +74,25 @@ class Addresses extends Repository
         event(new PersonInstitutionAddressesGotChanged($model->addressable));
     }
 
-    /**
-     * @return mixed
-     */
     public function getAvailableAddresses()
     {
-        return $this->filterByAddressableType(SubEventModel::class);
+        $addresses = $this->filterByAddressableType(SubEventModel::class);
+
+        $this->removeDuplicateAddresses($addresses);
+
+        return $addresses;
+    }
+
+    private function removeDuplicateAddresses(&$addresses)
+    {
+        $filteredAddresses = collect($addresses['rows'])->unique(function (
+            $item
+        ) {
+            return $item['zipcode'] . $item['number'] . $item['complement'];
+        });
+
+        $addresses['rows'] = $filteredAddresses->toArray();
+
+        return $addresses;
     }
 }
