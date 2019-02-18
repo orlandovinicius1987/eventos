@@ -86,7 +86,7 @@ class Authorization
     {
         $permissionsArray = [];
 
-        foreach ($user->permissions_array as $key => $item) {
+        foreach ($user->all_permissions_array as $key => $item) {
             $permissionsArray[] = collect([
                 'nomeFuncao' => $key,
                 'evento' => $item,
@@ -105,7 +105,7 @@ class Authorization
     {
         $profilesArray = [];
 
-        foreach ($user->profiles_array as $key => $item) {
+        foreach ($user->all_profiles_array as $key => $item) {
             $profilesArray[] = collect([
                 'NOME_PERFIL' => $key,
                 'TIPO_PERFIL' => $item,

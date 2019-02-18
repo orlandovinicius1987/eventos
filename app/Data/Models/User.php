@@ -67,6 +67,16 @@ class User extends Authenticatable
             ->toArray();
     }
 
+    public function getAllProfilesArrayAttribute()
+    {
+        return json_decode($this->attributes['profiles'], true);
+    }
+
+    public function getAllPermissionsArrayAttribute()
+    {
+        return json_decode($this->attributes['permissions'], true);
+    }
+
     public function getProfilesAttribute()
     {
         return $this->filterProfilesForCurrentClient(
