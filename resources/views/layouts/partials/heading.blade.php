@@ -198,7 +198,7 @@
                                             </router-link>
                                         @endIf
 
-                                        @if(Gate::check('import:read') || Gate::check('import:modify'))
+                                       @if(Gate::check('import:read') || Gate::check('import:modify'))
                                             <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
                                                 Importar dados
                                             </router-link>
