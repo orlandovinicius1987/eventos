@@ -77,14 +77,27 @@ function get_current_client_id()
             : null);
 }
 
+function get_current_client_slug()
+{
+    return Session::get('current_client_slug') ??
+        ($client = get_current_client())
+        ? $client->slug
+        : null;
+}
+
 function get_current_client()
 {
-    return app(Clients::class)->findById(get_current_client_id());
+    return Session::get('current_client') ??
+        app(Clients::class)->findById(get_current_client_id());
 }
 
 function set_current_client_id($id)
 {
-    return Session::put('current_client_id', $id);
+    Session::put('current_client_id', $id);
+
+    Session::put('current_client', get_current_client());
+
+    Session::put('current_client_slug', get_current_client_slug());
 }
 
 function make_pdf_filename($baseName)
