@@ -30,6 +30,14 @@
             dusk="title-dusk"
         ></app-input>
 
+        <app-textarea
+                label="Observações"
+                v-model="form.fields.notes"
+                name="notes"
+                :form="form"
+                :rows="15"
+        ></app-textarea>
+
         <app-input
             name="is_active"
             label="Ativo"
