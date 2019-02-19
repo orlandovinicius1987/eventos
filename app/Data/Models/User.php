@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable, Selectable;
 
+    protected static $allowedClients;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -41,7 +43,7 @@ class User extends Authenticatable
             ->filter(function ($value, $key) {
                 list($client) = extract_client_and_permission($key);
 
-                return $client === get_current_client()->slug;
+                return $client === get_current_client_slug();
             })
             ->toJson();
     }
@@ -59,7 +61,7 @@ class User extends Authenticatable
                 ];
             })
             ->filter(function ($permission) {
-                return $permission['client'] === get_current_client()->slug;
+                return $permission['client'] === get_current_client_slug();
             })
             ->pluck('permission')
             ->values()
@@ -120,19 +122,27 @@ class User extends Authenticatable
     //TODO trabalhar futuramente com uma escolha de o sistema favorito , para que este seja o sistema inicial da aplicação
     public function getClientIdAttribute()
     {
-        return array_first($this->allowed_clients)->id;
+        return ($allowed = $this->allowed_clients)->isEmpty()
+            ? null
+            : $allowed->first()->id;
     }
 
     public function getAllowedClientsAttribute()
     {
-        $allowed = $this->makeProfilesList();
+        if (static::$allowedClients) {
+            return static::$allowedClients;
+        }
 
-        return app(ClientsRepository::class)
+        $profilesAllowed = $this->makeProfilesList();
+
+        static::$allowedClients = app(ClientsRepository::class)
             ->all()
-            ->filter(function ($client) use ($allowed) {
-                return $this->isSuperUser($allowed) ||
-                    array_has($allowed, $client->slug);
+            ->filter(function ($client) use ($profilesAllowed) {
+                return $this->isSuperUser($profilesAllowed) ||
+                    array_has($profilesAllowed, $client->slug);
             });
+
+        return static::$allowedClients;
     }
 
     /**
