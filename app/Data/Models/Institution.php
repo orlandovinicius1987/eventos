@@ -14,10 +14,21 @@ class Institution extends BaseWithClient
         'client_id',
     ];
 
+    protected $appends = ['composite_name'];
+
     protected $orderBy = ['institutions.name' => 'asc'];
 
     public function scopeIsParty($query)
     {
         return $query->where('is_party', true);
+    }
+
+    public function getCompositeNameAttribute()
+    {
+        if ($this->initials) {
+            return $this->name . ' (' . $this->initials . ')';
+        } else {
+            return $this->name;
+        }
     }
 }
