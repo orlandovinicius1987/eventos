@@ -24,6 +24,7 @@ class PersonUpdate extends Request
     {
         return [
             'name' => 'required',
+            'title' => 'required',
             'cpf' => ['nullable', 'cpf', new UniqueInCurrentClient('people')],
         ];
     }
@@ -34,7 +35,10 @@ class PersonUpdate extends Request
     public function sanitize()
     {
         $input = $this->all();
-        if (!isset($input['nickname']) || !$input['nickname']) {
+        if (
+            isset($input['name']) &&
+            (!isset($input['nickname']) || !$input['nickname'])
+        ) {
             $input['nickname'] = $input['name'];
         }
         $this->replace($input);
