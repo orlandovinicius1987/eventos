@@ -46,8 +46,6 @@ class Authentication
                 $response
             );
 
-
-
             if (!is_null($user)) {
                 //Profiles
                 $profiles = app(Authorization::class)->getUserProfiles(
@@ -56,13 +54,10 @@ class Authentication
 
                 $this->usersRepository->updateProfiles($user, $profiles);
 
-
                 //Permissions
                 $permissions = app(Authorization::class)->getUserPermissions(
                     $this->extractCredencialsForUsername($request)
                 );
-
-
 
                 $this->usersRepository->updatePermissions($user, $permissions);
 
