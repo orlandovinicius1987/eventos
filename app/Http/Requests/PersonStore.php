@@ -27,4 +27,17 @@ class PersonStore extends Request
             'cpf' => ['nullable', 'cpf', new UniqueInCurrentClient('people')],
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function sanitize()
+    {
+        $input = $this->all();
+        if (!isset($input['nickname']) || !$input['nickname']) {
+            $input['nickname'] = $input['name'];
+        }
+        $this->replace($input);
+        return $this->all();
+    }
 }
