@@ -8,6 +8,7 @@
             :form="form"
             :options="environment.tables.institutions"
             dusk="institution-select-dusk"
+            labelAttribute="composite_name"
         ></app-select>
 
         <app-select
