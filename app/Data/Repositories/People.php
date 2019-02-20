@@ -106,6 +106,14 @@ class People extends Repository
             $query->presentInRole($filter['role']);
         }
 
+        if (isset($filter['category']) && !is_null($filter['category'])) {
+            $query->hasCategory($filter['category']);
+        }
+
+        if (isset($filter['topic']) && !is_null($filter['topic'])) {
+            $query->hasTopic($filter['topic']);
+        }
+
         return $query;
     }
 
