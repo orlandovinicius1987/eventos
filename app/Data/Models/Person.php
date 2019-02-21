@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\Active as ActiveScope;
+
 class Person extends BaseWithClient
 {
     /**
@@ -174,5 +176,17 @@ class Person extends BaseWithClient
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'person_topics');
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new ActiveScope());
     }
 }

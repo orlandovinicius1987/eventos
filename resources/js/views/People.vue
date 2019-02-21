@@ -83,13 +83,23 @@
 
                     <template slot="checkboxes">
                         <app-input
-                            name="hasNoPhotoCheckbox"
-                            label="sem foto"
-                            type="checkbox"
-                            v-model="hasNoPhotoCheckbox"
-                            :required="true"
-                            :form="form"
-                            inline="true"
+                                name="hasNoPhotoCheckbox"
+                                label="sem foto"
+                                type="checkbox"
+                                v-model="hasNoPhotoCheckbox"
+                                :required="true"
+                                :form="form"
+                                inline="true"
+                        ></app-input>
+
+                        <app-input
+                                name="showInactive"
+                                label="mostrar inativos"
+                                type="checkbox"
+                                v-model="showInactive"
+                                :required="true"
+                                :form="form"
+                                inline="true"
                         ></app-input>
                     </template>
 
@@ -1124,6 +1134,20 @@ export default {
             set(filter) {
                 this.$store.dispatch('people/mutateFilterCheckbox', {
                     field: 'hasNoPhoto',
+                    value: filter,
+                })
+            },
+        },
+
+        showInactive: {
+            get() {
+                return this.$store.state['people'].data.filter.checkboxes
+                    .showInactive
+            },
+
+            set(filter) {
+                this.$store.dispatch('people/mutateFilterCheckbox', {
+                    field: 'showInactive',
                     value: filter,
                 })
             },

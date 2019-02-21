@@ -6,6 +6,7 @@ use App\Data\Models\PersonInstitution;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Intervention\Image\Facades\Image;
 use App\Data\Models\Person as PersonModel;
+use App\Data\Scopes\Active as ActiveScope;
 
 class People extends Repository
 {
@@ -86,6 +87,10 @@ class People extends Repository
     {
         if (isset($filter['hasNoPhoto']) && $filter['hasNoPhoto']) {
             $query->hasNoPhoto();
+        }
+
+        if (isset($filter['showInactive']) && $filter['showInactive']) {
+            $query->withoutGlobalScope(ActiveScope::class);
         }
     }
 
