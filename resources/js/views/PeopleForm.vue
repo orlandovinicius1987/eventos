@@ -123,6 +123,16 @@
                                 :form="form"
                                 :rows="15"
                             ></app-textarea>
+
+                            <app-input
+                                    name="is_active"
+                                    label="Ativo"
+                                    v-model="form.fields.is_active"
+                                    type="checkbox"
+                                    :required="true"
+                                    :form="form"
+                                    dusk="ativo-dusk"
+                            ></app-input>
                         </div>
                     </div>
 

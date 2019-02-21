@@ -16,6 +16,7 @@ class Person extends BaseWithClient
         'cpf',
         'photo',
         'notes',
+        'is_active',
     ];
 
     protected $table = 'people';

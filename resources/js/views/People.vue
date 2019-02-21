@@ -101,6 +101,7 @@
                             'Tratamento',
                             'Nome',
                             'Nome público',
+                            'Status',
                             '',
                         ]"
                     >
@@ -124,6 +125,17 @@
                             </td>
 
                             <td class="align-middle">{{ person.nickname }}</td>
+
+                            <td class="align-middle">
+                                <h6 class="m-0">
+                                    <app-active-badge
+                                            :value="
+                                                    person.is_active
+                                                "
+                                            :labels="['ativo', 'inativo']"
+                                    ></app-active-badge>
+                                </h6>
+                            </td>
 
                             <td class="align-middle text-right">
                                 <router-link
