@@ -9,7 +9,7 @@ export default {
         ...mapState({
             people: state => state.people,
 
-           // personTopics: state => state.personTopics,
+            // personTopics: state => state.personTopics,
 
             topics: state => state.topics,
         }),

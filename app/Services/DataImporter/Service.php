@@ -76,7 +76,7 @@ class Service
         $allowedBig = ['interesses'];
         $allowedMany = ['interesses'];
 
-        $this->info(($name = $row['nome'] . ' - ' . $row['instituicao']));
+        $this->info($name = $row['nome'] . ' - ' . $row['instituicao']);
 
         $row->each(function ($value, $key) use ($allowedBig, $allowedMany) {
             if (strlen($value) > 250 && !in_array($key, $allowedBig)) {
@@ -163,7 +163,7 @@ class Service
 
         $institution = $this->importInstitution(
             $row,
-            ($party = $this->getParty($row))
+            $party = $this->getParty($row)
         );
 
         $person = $this->importPerson($row, $party);
@@ -275,7 +275,7 @@ class Service
 
         $row->assessor_funcao =
             isset($row->assessor_funcao) &&
-            filled(($funcao = $this->sanitize($row->assessor_funcao)))
+            filled($funcao = $this->sanitize($row->assessor_funcao))
                 ? $funcao
                 : 'Assessor';
 

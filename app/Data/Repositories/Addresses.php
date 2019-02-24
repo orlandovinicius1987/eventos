@@ -66,7 +66,7 @@ class Addresses extends Repository
 
     public function update($id, $attributes)
     {
-        $this->updateAddress(($model = $this->findById($id)), $attributes);
+        $this->updateAddress($model = $this->findById($id), $attributes);
     }
 
     public function fireEventsForRelationships($model)

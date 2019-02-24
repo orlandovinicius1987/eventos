@@ -27,9 +27,7 @@ class PersonTopics extends Controller
      */
     public function allByTopic(Request $request, $topicId)
     {
-        return app(PersonTopicsRepository::class)->allByTopic(
-            $topicId
-        );
+        return app(PersonTopicsRepository::class)->allByTopic($topicId);
     }
 
     /**
@@ -50,22 +48,14 @@ class PersonTopics extends Controller
      * @param $id
      * @return mixed
      */
-    public function update(
-        $personId,
-        $id,
-        PersonTopicUpdateRequest $request
-    ) {
-        return app(PersonTopicsRepository::class)->update(
-            $id,
-            $request->all()
-        );
+    public function update($personId, $id, PersonTopicUpdateRequest $request)
+    {
+        return app(PersonTopicsRepository::class)->update($id, $request->all());
     }
 
     public function topicsables($personId)
     {
-        return app(PersonTopicsRepository::class)->topicsables(
-            $personId
-        );
+        return app(PersonTopicsRepository::class)->topicsables($personId);
     }
 
     /**
@@ -89,9 +79,6 @@ class PersonTopics extends Controller
      */
     public function unTopicize($personId, $id)
     {
-        return app(PersonTopicsRepository::class)->unTopicize(
-            $personId,
-            $id
-        );
+        return app(PersonTopicsRepository::class)->unTopicize($personId, $id);
     }
 }

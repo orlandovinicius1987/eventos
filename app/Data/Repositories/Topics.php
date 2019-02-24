@@ -10,5 +10,4 @@ class Topics extends Repository
      * @var string
      */
     protected $model = TopicModel::class;
-
 }

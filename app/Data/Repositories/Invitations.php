@@ -372,7 +372,7 @@ class Invitations extends Repository
 
         if (
             !is_null(
-                ($cpf_stored = $invitation->personInstitution->person->cpf)
+                $cpf_stored = $invitation->personInstitution->person->cpf
             ) &&
             remove_punctuation($cpf_stored) !=
                 remove_punctuation($cpf_confirmed)

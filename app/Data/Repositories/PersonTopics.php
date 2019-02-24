@@ -32,10 +32,10 @@ class PersonTopics extends Repository
         return $this->filterByTopicsId($topic_id);
     }
 
-//    public function fireEventsForRelationships($model)
-//    {
-//        event(new PersonTopicssGotChanged($model->person));
-//    }
+    //    public function fireEventsForRelationships($model)
+    //    {
+    //        event(new PersonTopicssGotChanged($model->person));
+    //    }
 
     public function topicsables($personId)
     {
@@ -62,13 +62,11 @@ class PersonTopics extends Repository
     {
         $person = app(People::class)->findById($personId);
 
-      //  $oldTopics = $person->person_topics()->toArray();
-
-
+        //  $oldTopics = $person->person_topics()->toArray();
 
         $this->attachTopics($topics, $person);
 
-       // $this->broadcastUpdate($oldTopics, $person);
+        // $this->broadcastUpdate($oldTopics, $person);
         $person->save();
 
         return $person;
@@ -96,6 +94,6 @@ class PersonTopics extends Repository
             ->person_topics()
             ->detach($id);
 
-       // event(new PersonCategoriesChanged($person));
+        // event(new PersonCategoriesChanged($person));
     }
 }

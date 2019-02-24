@@ -31,9 +31,7 @@ class Topics extends Controller
      */
     public function store(TopicStore $request)
     {
-        return app(TopicsRepository::class)->storeFromArray(
-            $request->all()
-        );
+        return app(TopicsRepository::class)->storeFromArray($request->all());
     }
 
     /**
