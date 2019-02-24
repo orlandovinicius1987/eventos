@@ -79,10 +79,10 @@ function get_current_client_id()
 
 function get_current_client_slug()
 {
+    $client = get_current_client();
+
     return Session::get('current_client_slug') ??
-        ($client = get_current_client())
-        ? $client->slug
-        : null;
+        ($client ? $client->slug : null);
 }
 
 function get_current_client()
@@ -245,7 +245,7 @@ function capitalizeBrazilian($name)
 
 function permission_slug($string)
 {
-    $string = str_replace(':', ($replace = 'xxxxxxxxxx'), $string);
+    $string = str_replace(':', $replace = 'xxxxxxxxxx', $string);
 
     return str_replace($replace, ':', str_slug($string));
 }

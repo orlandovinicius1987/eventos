@@ -11,11 +11,7 @@ class PersonTopic extends BaseWithClient
     /**
      * @var array
      */
-    protected $fillable = [
-        'person_id',
-        'topic_id',
-        'client_id',
-    ];
+    protected $fillable = ['person_id', 'topic_id', 'client_id'];
 
     protected $selectColumns = [
         'person_topics.id',
@@ -32,12 +28,11 @@ class PersonTopic extends BaseWithClient
 
     public function topic()
     {
-        return $this->belongsTo(Topic::class );
+        return $this->belongsTo(Topic::class);
     }
 
     public function person()
     {
         return $this->belongsTo(Person::class);
     }
-
 }

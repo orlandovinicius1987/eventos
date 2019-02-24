@@ -73,9 +73,9 @@ class Users extends Repository
 
             if (
                 is_null(
-                    ($user = $this->findUserByEmail(
-                        ($email = "{$credentials['username']}@alerj.rj.gov.br")
-                    ))
+                    $user = $this->findUserByEmail(
+                        $email = "{$credentials['username']}@alerj.rj.gov.br"
+                    )
                 )
             ) {
                 $user = new User();

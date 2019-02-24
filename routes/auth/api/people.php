@@ -113,7 +113,7 @@ Route::group(['prefix' => '/people'], function () {
             'person-topics.all-by-person'
         );
 
-        Route::post('/{id}/un-topicize/','PersonTopics@unTopicize')->name(
+        Route::post('/{id}/un-topicize/', 'PersonTopics@unTopicize')->name(
             'person-topics.un-topicize'
         );
 
