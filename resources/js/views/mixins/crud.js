@@ -135,11 +135,15 @@ export default {
         },
 
         saveModel() {
-            this.save(this.mode).then(() => {
-                this.back()
+            this.save(this.mode)
+                .then(() => {
+                    this.back()
 
-                this.clearForm()
-            })
+                    this.clearForm()
+                })
+                .catch(response => {
+                    dd('catch response', response)
+                })
         },
 
         gotoPage(page, namespace = null, pagination = null) {

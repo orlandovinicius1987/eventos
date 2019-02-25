@@ -3,11 +3,10 @@
         <app-select
             :name="name"
             :label="label"
-            v-model="institutionSelectFilter"
+            v-model="categorySelectFilter"
             :required="required"
             :form="form"
             :options="options"
-            labelAttribute="composite_name"
         ></app-select>
     </div>
 </template>
@@ -17,15 +16,14 @@ export default {
     props: ['value', 'name', 'label', 'required', 'form', 'options', 'model'],
 
     computed: {
-        institutionSelectFilter: {
+        categorySelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects
-                    .institution
+                return this.$store.state['people'].data.filter.selects.category
             },
 
             set(id) {
                 this.$store.dispatch('people/mutateFilterSelect', {
-                    field: 'institution',
+                    field: 'category',
                     value: id,
                 })
             },

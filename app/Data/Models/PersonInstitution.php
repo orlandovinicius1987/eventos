@@ -19,6 +19,7 @@ class PersonInstitution extends BaseWithClient
         'advised_id',
         'is_active',
         'client_id',
+        'notes',
     ];
 
     protected $with = ['person', 'institution', 'role'];
@@ -44,6 +45,7 @@ class PersonInstitution extends BaseWithClient
         'person_institutions.created_at',
         'person_institutions.updated_at',
         'person_institutions.is_active',
+        'person_institutions.notes',
     ];
 
     protected $joins = [

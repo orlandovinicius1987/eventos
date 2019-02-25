@@ -53,35 +53,19 @@
 
                     <div class="row">
                         <div class="col-12 mb-3">
-                            <label for="name" class="mb-0 mt-2">Nome</label>
-
-                            <input
+                            <app-input
                                 name="name"
-                                @keyup="verifyDuplicateName(form.fields.name)"
+                                label="Nome"
                                 v-model="form.fields.name"
-                                class="form-control"
-                                id="name"
-                                required="required"
-                                dusk="people-name"
-                            />
-
-                            <div
-                                class="text-danger"
-                                v-if="form.errors.has('name')"
-                            >
-                                {{ form.errors.get('name') }}
-                            </div>
-
-                            <div
-                                class="alert alert-warning"
-                                role="alert"
-                                v-if="currentNameIsDuplicate"
-                                id="nameDuplicate"
-                            >
-                                Foi encontrado uma pessoa com este mesmo nome:
-                                {{ form.fields.name }}, recomenda-se verificar
-                                as pessoas cadastradas.
-                            </div>
+                                :required="true"
+                                :form="form"
+                                @on-key-up="
+                                    verifyDuplicateName(form.fields.name)
+                                "
+                                :additional-error-message="
+                                    getNameDuplicateMessage()
+                                "
+                            ></app-input>
 
                             <app-input
                                 name="cpf"
@@ -123,6 +107,16 @@
                                 :form="form"
                                 :rows="15"
                             ></app-textarea>
+
+                            <app-input
+                                name="is_active"
+                                label="Ativo"
+                                v-model="form.fields.is_active"
+                                type="checkbox"
+                                :required="true"
+                                :form="form"
+                                dusk="ativo-dusk"
+                            ></app-input>
                         </div>
                     </div>
 
@@ -227,10 +221,16 @@ export default {
                 post('/api/v1/people/validate-name', { name: payload }).catch(
                     error => {
                         this.currentNameIsDuplicate = true
-                        console.log(error)
                     },
                 )
             }, 500)
+        },
+
+        getNameDuplicateMessage() {
+            return this.currentNameIsDuplicate
+                ? 'Foi encontrado uma pessoa com este mesmo nome. ' +
+                      'Recomenda-se verificar as pessoas cadastradas.'
+                : ''
         },
 
         confirmNameDuplicate() {

@@ -94,7 +94,7 @@
 
             <GmapMap
                 ref="addressMap"
-                :center="{ lat: getLatitude(), lng: getLongitude() }"
+                :center="{ lat: latitude, lng: longitude }"
                 :zoom="getZoom()"
                 map-type-id="roadmap"
                 style="width: 100%; height: 400px"
@@ -105,6 +105,7 @@
                     :position="getMarkerPosition()"
                     :clickable="true"
                     :draggable="true"
+                    @dragend="markerPositionChanged($event)"
                 />
             </GmapMap>
         </div>
@@ -127,12 +128,29 @@ export default {
 
     data() {
         return {
-            latitude: laravel.google_maps.geolocation.latitude,
-            longitude: laravel.google_maps.geolocation.longitude,
+            setLatitudeDebounced: _.debounce(lat => {
+                this.$store.commit('subEvents/mutateSetFormField', {
+                    object: 'address',
+                    field: 'latitude',
+                    value: lat,
+                })
+            }, 650),
+            setLongitudeDebounced: _.debounce(lat => {
+                this.$store.commit('subEvents/mutateSetFormField', {
+                    object: 'address',
+                    field: 'longitude',
+                    value: lat,
+                })
+            }, 650),
         }
     },
 
     methods: {
+        markerPositionChanged(event) {
+            this.setLatitudeDebounced(event.latLng.lat())
+            this.setLongitudeDebounced(event.latLng.lng())
+        },
+
         typeKeyZipcode(payload) {
             clearTimeout(this.timeout)
 
@@ -159,40 +177,19 @@ export default {
             }, 500)
         },
 
-        getLatitude() {
-            this.latitude = this.latitude
-                ? this.latitude
-                : this.address.latitude
-                ? this.address.latitude
-                : laravel.google_maps.geolocation.latitude
-
-            return parseFloat(this.latitude)
-        },
-
-        getLongitude() {
-            this.longitude = this.longitude
-                ? this.longitude
-                : this.address.longitude
-                ? this.address.longitude
-                : laravel.google_maps.geolocation.longitude
-
-            return parseFloat(this.longitude)
-        },
-
         getZoom() {
             return 17
         },
 
         makeUrl(event) {
-            this.address.latitude = event.lat()
-
-            this.address.longitude = event.lng()
+            this.latitude = event.lat()
+            this.longitude = event.lng()
         },
 
         getMarkerPosition() {
             return {
-                lat: Number(this.getLatitude()),
-                lng: Number(this.getLongitude()),
+                lat: Number(this.latitude),
+                lng: Number(this.longitude),
             }
         },
 
@@ -209,6 +206,30 @@ export default {
     },
 
     computed: {
+        latitude: {
+            get() {
+                return parseFloat(
+                    this.form.fields.address.latitude
+                        ? this.address.latitude
+                        : laravel.google_maps.geolocation.latitude,
+                )
+            },
+            set(lat) {
+                this.setLatitudeDebounced(lat)
+            },
+        },
+        longitude: {
+            get() {
+                return parseFloat(
+                    this.form.fields.address.longitude
+                        ? this.address.longitude
+                        : laravel.google_maps.geolocation.longitude,
+                )
+            },
+            set(lat) {
+                this.setLongitudeDebounced(lat)
+            },
+        },
         mapUrl: {
             get() {
                 if (this.address.latitude && this.address.longitude) {
