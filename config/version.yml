@@ -21,7 +21,12 @@ git:
     git-remote: 'git ls-remote {$repository}'
     branch: refs/heads/master
     repository: ''
-    version: { git-local: 'git describe', git-remote: 'git ls-remote {$repository} | grep tags/ | grep -v {} | cut -d / -f 3 | sort --version-sort | tail -1', matcher: '/[V|v]*[ersion]*\s*\.*(\d+)\.(\d+)\.(\d+)\.*(\w*)/' }
+    version:
+        {
+            git-local: 'git describe',
+            git-remote: 'git ls-remote {$repository} | grep tags/ | grep -v {} | cut -d / -f 3 | sort --version-sort | tail -1',
+            matcher: '/[V|v]*[ersion]*\s*\.*(\d+)\.(\d+)\.(\d+)\.*(\w*)/',
+        }
 format:
     major: '{$major}'
     minor: '{$minor}'
