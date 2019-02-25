@@ -1,5 +1,5 @@
 <template>
-    <span
+    <div
         :class="
             type === 'checkbox' ? (inline ? '' : 'form-check') + ' m-4' : ''
         "
@@ -26,11 +26,17 @@
             :dusk="dusk"
             :readonly="readonly"
             :checked="value"
+            @keyup="$emit('on-key-up')"
         />
 
         <small class="text-danger" v-if="form.errors.has(name)">
             <i class="fas fa-exclamation-triangle"></i>
             {{ form.errors.get(name) }}
+        </small>
+
+        <small class="text-danger" v-if="additionalErrorMessage">
+            <i class="fas fa-exclamation-triangle"></i>
+            {{ additionalErrorMessage }}
         </small>
 
         <label
@@ -40,7 +46,7 @@
         >
             {{ label }}
         </label>
-    </span>
+    </div>
 </template>
 
 <script>
@@ -56,6 +62,7 @@ export default {
         'readonly',
         'checked',
         'inline',
+        'additionalErrorMessage',
     ],
 }
 </script>

@@ -303,8 +303,6 @@ export default {
             // this.result = 'Seja Bem-vindo(a) ' + invitation.person_institution.title + ' '+invitation.person_institution.person.name
 
             return this.$store.dispatch('receptive/makeCheckin', invitation)
-
-            dd(this.getCheckedIn())
         },
 
         onDecode(result) {

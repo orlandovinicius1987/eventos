@@ -23,12 +23,12 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-textarea
-                                    name="description"
-                                    label="Descrição"
-                                    v-model="form.fields.description"
-                                    :form="form"
-                                    :rows="5"
-                                    :required="true"
+                                name="description"
+                                label="Descrição"
+                                v-model="form.fields.description"
+                                :form="form"
+                                :rows="5"
+                                :required="true"
                             ></app-textarea>
                         </div>
                     </div>

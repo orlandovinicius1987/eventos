@@ -1,13 +1,13 @@
 <template>
     <div>
         <app-select
-                :name="name"
-                :label="label"
-                v-model="institutionSelectFilter"
-                :required="required"
-                :form="form"
-                :options="options"
-                labelAttribute="composite_name"
+            :name="name"
+            :label="label"
+            v-model="institutionSelectFilter"
+            :required="required"
+            :form="form"
+            :options="options"
+            labelAttribute="composite_name"
         ></app-select>
     </div>
 </template>
@@ -19,15 +19,15 @@ export default {
     computed: {
         institutionSelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects.institution
+                return this.$store.state['people'].data.filter.selects
+                    .institution
             },
 
             set(id) {
-                this.$store.dispatch(
-                    'people/mutateFilterSelect', {
-                        field: 'institution', value: id
-                    }
-                )
+                this.$store.dispatch('people/mutateFilterSelect', {
+                    field: 'institution',
+                    value: id,
+                })
             },
         },
     },
