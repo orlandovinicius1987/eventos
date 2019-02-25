@@ -28,7 +28,7 @@ class Service
 
     public function save($fileName)
     {
-        if (!file_exists(($path = dirname($fileName)))) {
+        if (!file_exists($path = dirname($fileName))) {
             mkdir($path);
         }
 
