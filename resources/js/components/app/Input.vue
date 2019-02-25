@@ -29,12 +29,18 @@
             @keyup="$emit('on-key-up')"
         />
 
-        <small class="text-danger" v-if="form.errors.has(name)">
+        <small
+            class="validation-error text-danger"
+            v-if="form.errors.has(name)"
+        >
             <i class="fas fa-exclamation-triangle"></i>
             {{ form.errors.get(name) }}
         </small>
 
-        <small class="text-danger" v-if="additionalErrorMessage">
+        <small
+            class="validation-error text-danger"
+            v-if="additionalErrorMessage"
+        >
             <i class="fas fa-exclamation-triangle"></i>
             {{ additionalErrorMessage }}
         </small>
