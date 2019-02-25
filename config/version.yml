@@ -3,7 +3,7 @@ blade_directive: version
 current:
     major: 0
     minor: 9
-    patch: 5
+    patch: 6
     format: '{$major}.{$minor}.{$patch}'
     git_absorb: git-local
 cache:
@@ -12,7 +12,7 @@ cache:
     time: 525600
 build:
     mode: number
-    number: 4968c8
+    number: c09636
     length: 6
     increment_by: 1
     git_absorb: git-local
@@ -21,12 +21,7 @@ git:
     git-remote: 'git ls-remote {$repository}'
     branch: refs/heads/master
     repository: ''
-    version:
-        {
-            git-local: 'git describe',
-            git-remote: 'git ls-remote {$repository} | grep tags/ | grep -v {} | cut -d / -f 3 | sort --version-sort | tail -1',
-            matcher: '/[V|v]*[ersion]*\s*\.*(\d+)\.(\d+)\.(\d+)\.*(\w*)/',
-        }
+    version: { git-local: 'git describe', git-remote: 'git ls-remote {$repository} | grep tags/ | grep -v {} | cut -d / -f 3 | sort --version-sort | tail -1', matcher: '/[V|v]*[ersion]*\s*\.*(\d+)\.(\d+)\.(\d+)\.*(\w*)/' }
 format:
     major: '{$major}'
     minor: '{$minor}'
