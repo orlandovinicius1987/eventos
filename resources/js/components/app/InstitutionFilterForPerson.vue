@@ -7,6 +7,7 @@
                 :required="required"
                 :form="form"
                 :options="options"
+                labelAttribute="composite_name"
         ></app-select>
     </div>
 </template>

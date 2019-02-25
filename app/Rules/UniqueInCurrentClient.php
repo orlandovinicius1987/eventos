@@ -27,15 +27,21 @@ class UniqueInCurrentClient implements Rule
      */
     public function passes($attribute, $value)
     {
-        $result = DB::table($this->table)
-            ->where(function ($query) use ($attribute, $value) {
-                $query
-                    ->where($attribute, '=', $value)
-                    ->where('client_id', '=', get_current_client()->id);
-            })
-            ->first();
+        $result = DB::table($this->table)->where(function ($query) use (
+            $attribute,
+            $value
+        ) {
+            $query
+                ->where($attribute, '=', $value)
+                ->where('client_id', '=', get_current_client()->id);
+        });
 
-        return $result ? false : true;
+        if (isset(request()['id'])) {
+            //If we are updating
+            $result->where('id', '!=', request()->id);
+        }
+
+        return $result->first() ? false : true;
     }
 
     /**

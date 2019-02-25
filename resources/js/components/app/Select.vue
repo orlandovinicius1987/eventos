@@ -22,7 +22,7 @@
 
 <script>
 export default {
-    props: ['value', 'name', 'label', 'required', 'form', 'options'],
+    props: ['value', 'name', 'label', 'required', 'form', 'options', 'labelAttribute'],
 
     methods: {
         makeOptions(rows) {
@@ -50,7 +50,7 @@ export default {
                 return null
             }
 
-            return { label: value.name, value: value.id }
+            return { label: value[this.makeLabelAttributeName()], value: value.id }
         },
 
         disabled() {
@@ -59,6 +59,11 @@ export default {
 
         placeholder() {
             return this.options.length === 0 ? 'NENHUM ITEM DISPONÍVEL' : ''
+        },
+
+        makeLabelAttributeName() {
+            //Default label attribute is name
+            return this.labelAttribute ? this.labelAttribute : 'name'
         },
     },
 

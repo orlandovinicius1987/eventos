@@ -3,11 +3,10 @@
         <app-select
             :name="name"
             :label="label"
-            v-model="institutionSelectFilter"
+            v-model="topicSelectFilter"
             :required="required"
             :form="form"
             :options="options"
-            labelAttribute="composite_name"
         ></app-select>
     </div>
 </template>
@@ -17,15 +16,14 @@ export default {
     props: ['value', 'name', 'label', 'required', 'form', 'options', 'model'],
 
     computed: {
-        institutionSelectFilter: {
+        topicSelectFilter: {
             get() {
-                return this.$store.state['invitables'].data.filter.selects
-                    .institution
+                return this.$store.state['people'].data.filter.selects.topic
             },
 
             set(id) {
-                this.$store.dispatch('invitables/mutateFilterSelect', {
-                    field: 'institution',
+                this.$store.dispatch('people/mutateFilterSelect', {
+                    field: 'topic',
                     value: id,
                 })
             },
@@ -33,7 +31,7 @@ export default {
     },
 
     beforeDestroy() {
-        this.$store.state['invitables'].data.filter.selects.institution = null
+        this.$store.state['people'].data.filter.selects.topic = null
     },
 }
 </script>

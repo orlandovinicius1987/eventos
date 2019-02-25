@@ -24,7 +24,24 @@ class PersonUpdate extends Request
     {
         return [
             'name' => 'required',
+            'title' => 'required',
             'cpf' => ['nullable', 'cpf', new UniqueInCurrentClient('people')],
         ];
+    }
+
+    /**
+     * @return array
+     */
+    public function sanitize()
+    {
+        $input = $this->all();
+        if (
+            isset($input['name']) &&
+            (!isset($input['nickname']) || !$input['nickname'])
+        ) {
+            $input['nickname'] = $input['name'];
+        }
+        $this->replace($input);
+        return $this->all();
     }
 }
