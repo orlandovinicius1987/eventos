@@ -31,11 +31,11 @@
         ></app-input>
 
         <app-textarea
-                label="Observações"
-                v-model="form.fields.notes"
-                name="notes"
-                :form="form"
-                :rows="15"
+            label="Observações"
+            v-model="form.fields.notes"
+            name="notes"
+            :form="form"
+            :rows="15"
         ></app-textarea>
 
         <app-input

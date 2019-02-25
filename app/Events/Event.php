@@ -14,7 +14,7 @@ abstract class Event
     {
         if (starts_with($method, 'get')) {
             return $this->hasProperty(
-                ($property = $this->makeProperty('get', $method))
+                $property = $this->makeProperty('get', $method)
             )
                 ? $this->$property
                 : null;

@@ -57,49 +57,49 @@
                         ></app-institution-filter-for-person>
 
                         <app-role-filter-for-person
-                                name="role_id"
-                                label="Função"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.roles"
+                            name="role_id"
+                            label="Função"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.roles"
                         ></app-role-filter-for-person>
 
                         <app-category-filter-for-person
-                                name="category_id"
-                                label="Categoria"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.categories"
+                            name="category_id"
+                            label="Categoria"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.categories"
                         ></app-category-filter-for-person>
 
                         <app-topic-filter-for-person
-                                name="topic_id"
-                                label="Interesse"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.topics"
+                            name="topic_id"
+                            label="Interesse"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.topics"
                         ></app-topic-filter-for-person>
                     </template>
 
                     <template slot="checkboxes">
                         <app-input
-                                name="hasNoPhotoCheckbox"
-                                label="sem foto"
-                                type="checkbox"
-                                v-model="hasNoPhotoCheckbox"
-                                :required="true"
-                                :form="form"
-                                inline="true"
+                            name="hasNoPhotoCheckbox"
+                            label="sem foto"
+                            type="checkbox"
+                            v-model="hasNoPhotoCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
                         ></app-input>
 
                         <app-input
-                                name="showInactive"
-                                label="mostrar inativos"
-                                type="checkbox"
-                                v-model="showInactive"
-                                :required="true"
-                                :form="form"
-                                inline="true"
+                            name="showInactive"
+                            label="mostrar inativos"
+                            type="checkbox"
+                            v-model="showInactive"
+                            :required="true"
+                            :form="form"
+                            inline="true"
                         ></app-input>
                     </template>
 
@@ -139,10 +139,8 @@
                             <td class="align-middle">
                                 <h6 class="m-0">
                                     <app-active-badge
-                                            :value="
-                                                    person.is_active
-                                                "
-                                            :labels="['ativo', 'inativo']"
+                                        :value="person.is_active"
+                                        :labels="['ativo', 'inativo']"
                                     ></app-active-badge>
                                 </h6>
                             </td>

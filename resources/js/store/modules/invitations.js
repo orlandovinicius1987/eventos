@@ -151,8 +151,6 @@ const actions = merge_objects(actionsMixin, {
     },
 
     changePersonInstitution(context, payload) {
-        dd(payload)
-
         post(
             makeDataUrl(context) +
                 '/' +

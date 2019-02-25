@@ -42,7 +42,7 @@ class Controller extends BaseController
 
         $alerts[] = ['type' => $type, 'message' => $message];
 
-        session()->flash("alerts", $alerts);
+        session()->flash('alerts', $alerts);
     }
 
     protected function showSuccessMessage($message = null)

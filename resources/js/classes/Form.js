@@ -98,6 +98,8 @@ class Form {
      */
     onFail(errors) {
         this.errors.record(errors)
+
+        scroll_to_first_error()
     }
 }
 

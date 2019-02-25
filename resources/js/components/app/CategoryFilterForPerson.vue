@@ -18,8 +18,7 @@ export default {
     computed: {
         categorySelectFilter: {
             get() {
-                return this.$store.state['people'].data.filter.selects
-                    .category
+                return this.$store.state['people'].data.filter.selects.category
             },
 
             set(id) {

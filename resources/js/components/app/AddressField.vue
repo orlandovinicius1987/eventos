@@ -128,14 +128,14 @@ export default {
 
     data() {
         return {
-            setLatitudeDebounced: _.debounce((lat) => {
+            setLatitudeDebounced: _.debounce(lat => {
                 this.$store.commit('subEvents/mutateSetFormField', {
                     object: 'address',
                     field: 'latitude',
                     value: lat,
                 })
             }, 650),
-            setLongitudeDebounced: _.debounce((lat) => {
+            setLongitudeDebounced: _.debounce(lat => {
                 this.$store.commit('subEvents/mutateSetFormField', {
                     object: 'address',
                     field: 'longitude',
@@ -146,7 +146,7 @@ export default {
     },
 
     methods: {
-        markerPositionChanged(event){
+        markerPositionChanged(event) {
             this.setLatitudeDebounced(event.latLng.lat())
             this.setLongitudeDebounced(event.latLng.lng())
         },
@@ -207,22 +207,26 @@ export default {
 
     computed: {
         latitude: {
-            get(){
-                return parseFloat(this.form.fields.address.latitude
-                    ? this.address.latitude
-                    : laravel.google_maps.geolocation.latitude)
+            get() {
+                return parseFloat(
+                    this.form.fields.address.latitude
+                        ? this.address.latitude
+                        : laravel.google_maps.geolocation.latitude,
+                )
             },
-            set(lat){
+            set(lat) {
                 this.setLatitudeDebounced(lat)
             },
         },
         longitude: {
-            get(){
-                return parseFloat(this.form.fields.address.longitude
-                    ? this.address.longitude
-                    : laravel.google_maps.geolocation.longitude)
+            get() {
+                return parseFloat(
+                    this.form.fields.address.longitude
+                        ? this.address.longitude
+                        : laravel.google_maps.geolocation.longitude,
+                )
             },
-            set(lat){
+            set(lat) {
                 this.setLongitudeDebounced(lat)
             },
         },
