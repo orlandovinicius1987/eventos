@@ -46,6 +46,7 @@ import sectors from './modules/sectors'
 import costumes from './modules/costumes'
 import topics from './modules/topics'
 import topicsables from './modules/topicsables'
+import clients from './modules/clients'
 
 /**
  * State
@@ -90,6 +91,7 @@ let store = new Vuex.Store({
         costumes,
         topics,
         topicsables,
+        clients,
     },
 })
 
