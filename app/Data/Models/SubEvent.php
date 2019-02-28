@@ -88,6 +88,11 @@ class SubEvent extends BaseWithClient
         return $this->belongsTo(Costume::class);
     }
 
+    private function makeUrl($url)
+    {
+        return starts_with('http', lower($url)) ? $url : url($url);
+    }
+
     public function sector()
     {
         return $this->belongsTo(Sector::class);
@@ -110,7 +115,9 @@ class SubEvent extends BaseWithClient
 
     public function getInvitationFileUrlAttribute()
     {
-        return $this->invitation_file ? url($this->invitation_file) : '';
+        return $this->invitation_file
+            ? $this->makeUrl($this->invitation_file)
+            : '';
     }
 
     public function getFormattedTimeAttribute()
