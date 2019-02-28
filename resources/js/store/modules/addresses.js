@@ -18,27 +18,43 @@ const __personModel = {
 
 const __institutionModel = {
     id: null,
-
     name: null,
 }
 
 const __roleModel = {
     id: null,
-
     name: null,
 }
 
 const __emptyModel = {
     person_id: null,
-    role_id: null,
+    person: __personModel,
+
     institution_id: null,
+    institution: __institutionModel,
+
+    role_id: null,
+    model: __roleModel,
+
     advised_id: null,
     title: null,
     is_active: false,
 
-    person: __personModel,
-    institution: __institutionModel,
-    model: __roleModel,
+    addressable_id: null,
+    addressable_type: null,
+    city: null,
+    client_id: null,
+    complement: null,
+    full_address: null,
+    google_maps_image_url: null,
+    google_maps_link_url: null,
+    latitude: null,
+    longitude: null,
+    neighbourhood: null,
+    number: null,
+    state: null,
+    street: null,
+    zipcode: null,
 }
 
 const state = merge_objects(statesMixin.common, {
