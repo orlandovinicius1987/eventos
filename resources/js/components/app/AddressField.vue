@@ -94,7 +94,7 @@
 
             <GmapMap
                 ref="addressMap"
-                :center="{ lat: getLatitude(), lng: getLongitude() }"
+                :center="{ lat: latitude, lng: longitude }"
                 :zoom="getZoom()"
                 map-type-id="roadmap"
                 style="width: 100%; height: 400px"
@@ -105,6 +105,7 @@
                     :position="getMarkerPosition()"
                     :clickable="true"
                     :draggable="true"
+                    @dragend="markerPositionChanged($event)"
                 />
             </GmapMap>
         </div>
@@ -127,12 +128,22 @@ export default {
 
     data() {
         return {
-            latitude: laravel.google_maps.geolocation.latitude,
-            longitude: laravel.google_maps.geolocation.longitude,
+            setLatitudeDebounced: _.debounce(latitude => {
+                this.address.latitude = latitude
+            }, 650),
+
+            setLongitudeDebounced: _.debounce(longitude => {
+                this.address.longitude = longitude
+            }, 650),
         }
     },
 
     methods: {
+        markerPositionChanged(event) {
+            this.setLatitudeDebounced(event.latLng.lat())
+            this.setLongitudeDebounced(event.latLng.lng())
+        },
+
         typeKeyZipcode(payload) {
             clearTimeout(this.timeout)
 
@@ -143,13 +154,18 @@ export default {
                         if (response.data.addresses[0].street_name) {
                             this.address.zipcode =
                                 response.data.addresses[0].zip
+
                             this.address.street =
                                 response.data.addresses[0].street_name
+
                             this.address.neighbourhood =
                                 response.data.addresses[0].neighborhood
+
                             this.address.city = response.data.addresses[0].city
+
                             this.address.state =
                                 response.data.addresses[0].state_id
+
                             document.getElementById('number').focus()
                         }
                     })
@@ -159,40 +175,19 @@ export default {
             }, 500)
         },
 
-        getLatitude() {
-            this.latitude = this.latitude
-                ? this.latitude
-                : this.address.latitude
-                ? this.address.latitude
-                : laravel.google_maps.geolocation.latitude
-
-            return parseFloat(this.latitude)
-        },
-
-        getLongitude() {
-            this.longitude = this.longitude
-                ? this.longitude
-                : this.address.longitude
-                ? this.address.longitude
-                : laravel.google_maps.geolocation.longitude
-
-            return parseFloat(this.longitude)
-        },
-
         getZoom() {
             return 17
         },
 
         makeUrl(event) {
-            this.address.latitude = event.lat()
-
-            this.address.longitude = event.lng()
+            this.latitude = event.lat()
+            this.longitude = event.lng()
         },
 
         getMarkerPosition() {
             return {
-                lat: Number(this.getLatitude()),
-                lng: Number(this.getLongitude()),
+                lat: Number(this.latitude),
+                lng: Number(this.longitude),
             }
         },
 
@@ -209,6 +204,34 @@ export default {
     },
 
     computed: {
+        latitude: {
+            get() {
+                return parseFloat(
+                    this.address.latitude
+                        ? this.address.latitude
+                        : laravel.google_maps.geolocation.latitude,
+                )
+            },
+
+            set(latitude) {
+                this.setLatitudeDebounced(latitude)
+            },
+        },
+
+        longitude: {
+            get() {
+                return parseFloat(
+                    this.address.longitude
+                        ? this.address.longitude
+                        : laravel.google_maps.geolocation.longitude,
+                )
+            },
+
+            set(longitude) {
+                this.setLongitudeDebounced(longitude)
+            },
+        },
+
         mapUrl: {
             get() {
                 if (this.address.latitude && this.address.longitude) {

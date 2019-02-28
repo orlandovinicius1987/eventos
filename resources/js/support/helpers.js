@@ -421,3 +421,18 @@ window.invert_color = (hex, bw = true) => {
     // pad each with zeros and return
     return '#' + padZero(r) + padZero(g) + padZero(b)
 }
+
+window.scroll_to_first_error = () => {
+    setTimeout(() => {
+        const errorElement = jQuery('.validation-error')
+
+        if (errorElement) {
+            jQuery('html, body').animate(
+                {
+                    scrollTop: errorElement.offset().top - 70,
+                },
+                1500,
+            )
+        }
+    }, 500)
+}

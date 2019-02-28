@@ -26,10 +26,12 @@ if (token) {
     )
 }
 
-axios.interceptors.response.use(undefined, err => {
-    let res = err.response
+axios.interceptors.response.use(undefined, error => {
+    let res = error.response
 
     if (res.status === 401) {
         window.location = '/login'
+    } else {
+        return Promise.reject(error)
     }
 })

@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\Active as ActiveScope;
+
 class Person extends BaseWithClient
 {
     /**
@@ -16,6 +18,7 @@ class Person extends BaseWithClient
         'cpf',
         'photo',
         'notes',
+        'is_active',
     ];
 
     protected $table = 'people';
@@ -121,8 +124,69 @@ class Person extends BaseWithClient
         return $query;
     }
 
+    /**
+     * Select all people that has category
+     *
+     * @param $query
+     * @param $category_id
+     * @return mixed
+     */
+    public function scopeHasCategory($query, $category_id)
+    {
+        $query->whereIn('id', function ($query) use ($category_id) {
+            $query->select('categorizable_id')->from('categorizables');
+
+            $query->join(
+                'categories',
+                'categories.id',
+                'categorizables.category_id'
+            );
+
+            $query->where('categories.id', '=', $category_id);
+            $query->where(
+                'categorizables.categorizable_type',
+                '=',
+                get_class($this)
+            );
+        });
+
+        return $query;
+    }
+
+    /**
+     * Select all people that has topic
+     *
+     * @param $query
+     * @param $topic_id
+     * @return mixed
+     */
+    public function scopeHasTopic($query, $topic_id)
+    {
+        $query->whereIn('id', function ($query) use ($topic_id) {
+            $query->select('person_id')->from('person_topics');
+
+            $query->join('topics', 'topics.id', 'person_topics.topic_id');
+
+            $query->where('topics.id', '=', $topic_id);
+        });
+
+        return $query;
+    }
+
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'person_topics');
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new ActiveScope());
     }
 }

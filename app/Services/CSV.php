@@ -16,7 +16,7 @@ class CSV
 
         $data = collect($string)
             ->map(function ($line) {
-                return str_getcsv($line, ";", '');
+                return str_getcsv($line, ';', '');
             })
             ->toArray();
 

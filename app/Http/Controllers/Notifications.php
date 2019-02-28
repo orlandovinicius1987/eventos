@@ -12,7 +12,7 @@ class Notifications extends Controller
 
         $response = response()->make(
             file_get_contents(
-                ($fileName = public_path(str_replace('|', '/', $filePath)))
+                $fileName = public_path(str_replace('|', '/', $filePath))
             )
         );
 

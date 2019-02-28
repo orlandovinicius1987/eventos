@@ -63,6 +63,22 @@
                             :form="form"
                             :options="environment.tables.roles"
                         ></app-role-filter-for-person>
+
+                        <app-category-filter-for-person
+                            name="category_id"
+                            label="Categoria"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.categories"
+                        ></app-category-filter-for-person>
+
+                        <app-topic-filter-for-person
+                            name="topic_id"
+                            label="Interesse"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.topics"
+                        ></app-topic-filter-for-person>
                     </template>
 
                     <template slot="checkboxes">
@@ -71,6 +87,16 @@
                             label="sem foto"
                             type="checkbox"
                             v-model="hasNoPhotoCheckbox"
+                            :required="true"
+                            :form="form"
+                            inline="true"
+                        ></app-input>
+
+                        <app-input
+                            name="showInactive"
+                            label="mostrar inativos"
+                            type="checkbox"
+                            v-model="showInactive"
                             :required="true"
                             :form="form"
                             inline="true"
@@ -85,6 +111,7 @@
                             'Tratamento',
                             'Nome',
                             'Nome público',
+                            'Status',
                             '',
                         ]"
                     >
@@ -108,6 +135,15 @@
                             </td>
 
                             <td class="align-middle">{{ person.nickname }}</td>
+
+                            <td class="align-middle">
+                                <h6 class="m-0">
+                                    <app-active-badge
+                                        :value="person.is_active"
+                                        :labels="['ativo', 'inativo']"
+                                    ></app-active-badge>
+                                </h6>
+                            </td>
 
                             <td class="align-middle text-right">
                                 <router-link
@@ -1096,6 +1132,20 @@ export default {
             set(filter) {
                 this.$store.dispatch('people/mutateFilterCheckbox', {
                     field: 'hasNoPhoto',
+                    value: filter,
+                })
+            },
+        },
+
+        showInactive: {
+            get() {
+                return this.$store.state['people'].data.filter.checkboxes
+                    .showInactive
+            },
+
+            set(filter) {
+                this.$store.dispatch('people/mutateFilterCheckbox', {
+                    field: 'showInactive',
                     value: filter,
                 })
             },
