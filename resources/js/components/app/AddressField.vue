@@ -128,19 +128,12 @@ export default {
 
     data() {
         return {
-            setLatitudeDebounced: _.debounce(lat => {
-                this.$store.commit('subEvents/mutateSetFormField', {
-                    object: 'address',
-                    field: 'latitude',
-                    value: lat,
-                })
+            setLatitudeDebounced: _.debounce(latitude => {
+                this.address.latitude = latitude
             }, 650),
-            setLongitudeDebounced: _.debounce(lat => {
-                this.$store.commit('subEvents/mutateSetFormField', {
-                    object: 'address',
-                    field: 'longitude',
-                    value: lat,
-                })
+
+            setLongitudeDebounced: _.debounce(longitude => {
+                this.address.longitude = longitude
             }, 650),
         }
     },
@@ -161,13 +154,18 @@ export default {
                         if (response.data.addresses[0].street_name) {
                             this.address.zipcode =
                                 response.data.addresses[0].zip
+
                             this.address.street =
                                 response.data.addresses[0].street_name
+
                             this.address.neighbourhood =
                                 response.data.addresses[0].neighborhood
+
                             this.address.city = response.data.addresses[0].city
+
                             this.address.state =
                                 response.data.addresses[0].state_id
+
                             document.getElementById('number').focus()
                         }
                     })
@@ -209,27 +207,31 @@ export default {
         latitude: {
             get() {
                 return parseFloat(
-                    this.form.fields.address.latitude
+                    this.address.latitude
                         ? this.address.latitude
                         : laravel.google_maps.geolocation.latitude,
                 )
             },
-            set(lat) {
-                this.setLatitudeDebounced(lat)
+
+            set(latitude) {
+                this.setLatitudeDebounced(latitude)
             },
         },
+
         longitude: {
             get() {
                 return parseFloat(
-                    this.form.fields.address.longitude
+                    this.address.longitude
                         ? this.address.longitude
                         : laravel.google_maps.geolocation.longitude,
                 )
             },
-            set(lat) {
-                this.setLongitudeDebounced(lat)
+
+            set(longitude) {
+                this.setLongitudeDebounced(longitude)
             },
         },
+
         mapUrl: {
             get() {
                 if (this.address.latitude && this.address.longitude) {
