@@ -1,7 +1,11 @@
 <?php
 
 Route::group(['prefix' => '/clients'], function () {
-    Route::get('/', 'Clients@current')->name('clients.current');
+    Route::get('/{id}/settings', 'Clients@getSettings')->name(
+        'clients.get-settings'
+    );
 
-    Route::post('/{id}', 'Clients@update')->name('clients.update');
+    Route::post('/{clientId}/settings/{id}', 'Clients@updateSettings')->name(
+        'clients.update-settings'
+    );
 });

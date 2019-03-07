@@ -12,14 +12,14 @@ class Clients extends Controller
      *
      * @return array
      */
-    public function current()
+    public function getSettings($id)
     {
-        return app(ClientsRepository::class)->getCurrent();
+        return app(ClientsRepository::class)->getSettings($id);
     }
 
-    public function update($id)
+    public function updateSettings($id)
     {
-        return app(ClientsRepository::class)->updateCurrent(
+        return app(ClientsRepository::class)->updateSettings(
             $id,
             request()->all()
         );

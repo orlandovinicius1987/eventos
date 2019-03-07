@@ -39,7 +39,7 @@ const Costumes = () => import('./views/Costumes.vue')
 const CostumesForm = () => import('./views/CostumesForm.vue')
 const Topics = () => import('./views/Topics.vue')
 const TopicsForm = () => import('./views/TopicsForm.vue')
-const ClientSignatureForm = () => import('./views/ClientSignatureForm.vue')
+const ClientSettingsForm = () => import('./views/ClientSettingsForm.vue')
 
 let routes = [
     {
@@ -297,8 +297,8 @@ let routes = [
         props: { mode: 'view' },
     },
     {
-        path: '/client-signature',
-        component: ClientSignatureForm,
+        path: '/client-settings',
+        component: ClientSettingsForm,
         props: { mode: 'view' },
     },
 ]

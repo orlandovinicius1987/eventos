@@ -12,14 +12,31 @@
             <div class="col-8">
                 <form>
                     <div class="row">
-                        <div class="col-12 mb-3">
+                        <div v-if="currentClient" class="col-12 mb-3">
+                            <app-input
+                                name="mail_from_name"
+                                label="Remetente dos e-mails (nome)"
+                                v-model="form.fields.settings.mail_from_name"
+                                :required="true"
+                                inline="true"
+                                :form="form"
+                            ></app-input>
+
+                            <app-input
+                                name="mail_from_name"
+                                label="Remetente dos e-mails (e-mail)"
+                                v-model="form.fields.settings.mail_from_email"
+                                :required="true"
+                                inline="true"
+                                :form="form"
+                            ></app-input>
+
                             <app-markdown-text-area
-                                v-if="currentClient"
                                 @input="changeText($event)"
                                 :form="form"
                                 label="Assinatura para os e-mails"
                                 id="signature"
-                                :value="currentClient.signature"
+                                :value="currentClient.settings.signature"
                             ></app-markdown-text-area>
                         </div>
                     </div>
@@ -57,7 +74,7 @@ import permissions from './mixins/permissions'
 
 const service = {
     name: 'clients',
-    uri: 'clients',
+    uri: 'clients/{environment.session.current_client.id}/settings',
     performLoad: false,
 }
 
@@ -77,6 +94,7 @@ export default {
             this.$store.commit('clients/mutateSetFormField', {
                 field: 'signature',
                 value: $event,
+                object: 'settings',
             })
         },
     },
@@ -84,7 +102,9 @@ export default {
     mounted() {
         this.load().then(() => {
             setTimeout(() => {
-                this.select(this.$store.state.clients.data.rows[0])
+                if (this.$store.state.clients.data.rows) {
+                    this.select(this.$store.state.clients.data.rows[0])
+                }
             }, 1500)
         })
     },

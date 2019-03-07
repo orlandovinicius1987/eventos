@@ -21,15 +21,15 @@ class Clients extends Repository
             ->get();
     }
 
-    public function getCurrent()
+    public function getSettings($id)
     {
-        return $this->applyFilter(
-            $this->newQuery()->where('id', get_current_client_id())
-        );
+        return $this->applyFilter($this->newQuery()->where('id', $id));
     }
 
-    public function updateCurrent($id, $data)
+    public function updateSettings($id, $data)
     {
+        info($data);
+
         if ((int) $id !== get_current_client_id()) {
             return;
         }
@@ -39,6 +39,8 @@ class Clients extends Repository
         $client->fill($data);
 
         $client->save();
+
+        info($client->toArray());
 
         return $client;
     }

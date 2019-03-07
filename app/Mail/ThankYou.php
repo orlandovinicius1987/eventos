@@ -12,6 +12,7 @@ class ThankYou extends Mailable
     public function build()
     {
         $this->to($this->notification->routeNotificationForMail())
+            ->from($this->makeFromArray())
             ->subject($this->notification->subject)
             ->markdown('emails.thank-you');
 

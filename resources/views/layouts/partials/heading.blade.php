@@ -199,8 +199,8 @@
                                         @endif
 
                                         @if(Gate::check('events:modify'))
-                                            <router-link id="client-signature-menu" to="/client-signature" tag="a" class="dropdown-item">
-                                                Assinatura dos e-mails
+                                            <router-link id="client-settings-menu" to="/client-settings" tag="a" class="dropdown-item">
+                                                Configurações
                                             </router-link>
                                         @endif
 
