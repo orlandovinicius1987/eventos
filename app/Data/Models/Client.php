@@ -24,6 +24,16 @@ class Client extends Base
 
     public function getSignatureHtmlAttribute()
     {
-        return app(Service::class)->text($this->settings['signature']);
+        return app(Service::class)->text($this->getSetting('signature'));
+    }
+
+    public function getSetting($name)
+    {
+        return array_get(
+            is_string($this->settings)
+                ? json_decode($this->settings, true)
+                : $this->settings,
+            $name
+        );
     }
 }
