@@ -384,11 +384,6 @@ class Invitation extends BaseWithClient
         ]);
     }
 
-    public function getClientIdAttribute()
-    {
-        return $this->personInstitution->person->client_id;
-    }
-
     /**
      * Route notifications for the mail channel.
      *
