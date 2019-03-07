@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\Active as ActiveScope;
+
 class PersonInstitution extends BaseWithClient
 {
     protected $orderBy = ['people.name' => 'asc'];
@@ -69,7 +71,9 @@ class PersonInstitution extends BaseWithClient
 
     public function person()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Person::class)->withoutGlobalScope(
+            ActiveScope::class
+        );
     }
 
     public function institution()
