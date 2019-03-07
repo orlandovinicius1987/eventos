@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar ' }}Função</h2>
+            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar' }} Função</h2>
         </div>
 
         <div class="row justify-content-center">

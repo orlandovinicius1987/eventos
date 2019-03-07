@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="py-2 text-center">
-            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar ' }}Categoria</h2>
+            <h2>{{ this.mode === 'create' ? 'Nova ' : 'Editar' }} Categoria</h2>
             <h2>&nbsp;{{ form.fields.name ? form.fields.name : '' }}</h2>
         </div>
 
