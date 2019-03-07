@@ -28,8 +28,6 @@ export function mutateSetFormField(state, payload) {
 
     let object = objectAttributeFromString(formField, state)
 
-    dd('payload', payload.field, object[payload.field], payload.value)
-
     object[payload.field] = payload.value
 }
 
