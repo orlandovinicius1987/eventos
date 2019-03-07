@@ -1,1 +1,1 @@
-{{ $client_signature }}
+{!! $invitation->getViewVariables()['client_signature'] !!}

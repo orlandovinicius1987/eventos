@@ -86,7 +86,6 @@ abstract class Repository
         $tableName = $plural ? str_plural($tableName) : $tableName;
 
         $eventClass = "App\\Events\\{$tableName}{$eventType}";
-        info($eventClass);
 
         if (class_exists($eventClass)) {
             event(new $eventClass($model));

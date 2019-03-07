@@ -14,16 +14,12 @@
                     <div class="row">
                         <div class="col-12 mb-3">
                             <app-markdown-text-area
-                                @input="
-                                    changeText({
-                                        field: 'signature',
-                                        text: $event,
-                                    })
-                                "
+                                v-if="currentClient"
+                                @input="changeText($event)"
                                 :form="form"
                                 label="Assinatura para os e-mails"
                                 id="signature"
-                                :value="subEvents.form.fields.signature"
+                                :value="currentClient.signature"
                             ></app-markdown-text-area>
                         </div>
                     </div>
@@ -34,7 +30,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
-                                :disabled="cannot('client:modify')"
+                                :disabled="cannot('events:modify')"
                             >
                                 gravar
                             </button>
@@ -57,6 +53,7 @@
 <script>
 import crud from './mixins/crud'
 import clients from './mixins/clients'
+import permissions from './mixins/permissions'
 
 const service = {
     name: 'clients',
@@ -67,7 +64,7 @@ const service = {
 export default {
     props: ['mode'],
 
-    mixins: [crud, clients],
+    mixins: [crud, clients, permissions],
 
     data() {
         return {
@@ -75,7 +72,22 @@ export default {
         }
     },
 
-    methods: {},
+    methods: {
+        changeText($event) {
+            this.$store.commit('clients/mutateSetFormField', {
+                field: 'signature',
+                value: $event,
+            })
+        },
+    },
+
+    mounted() {
+        this.load().then(() => {
+            setTimeout(() => {
+                this.select(this.$store.state.clients.data.rows[0])
+            }, 1500)
+        })
+    },
 }
 </script>
 

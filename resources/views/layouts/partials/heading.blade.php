@@ -198,7 +198,7 @@
                                             </router-link>
                                         @endif
 
-                                        @if(Gate::check('clients:read') || Gate::check('clients:modify'))
+                                        @if(Gate::check('events:modify'))
                                             <router-link id="client-signature-menu" to="/client-signature" tag="a" class="dropdown-item">
                                                 Assinatura dos e-mails
                                             </router-link>

@@ -21,7 +21,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-            {{ date('Y') }} {{ $app_name }} - {{ $client_full_name }}.
+            {{ date('Y') }} {{ $app_name }}
         @endcomponent
     @endslot
 @endcomponent
