@@ -44,8 +44,6 @@ class Invitation extends BaseWithClient
 
     protected $selectColumns = ['person_institutions.*', 'invitations.*'];
 
-    protected $appends = ['client_id'];
-
     protected $joins = [
         'person_institutions' => [
             'person_institutions.id',
