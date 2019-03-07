@@ -2,6 +2,8 @@
 
 namespace App\Data\Models;
 
+use App\Data\Scopes\Active as ActiveScope;
+
 class PersonTopic extends BaseWithClient
 {
     protected $orderBy = ['topics.name' => 'asc'];
@@ -33,6 +35,8 @@ class PersonTopic extends BaseWithClient
 
     public function person()
     {
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Person::class)->withoutGlobalScope(
+            ActiveScope::class
+        );
     }
 }

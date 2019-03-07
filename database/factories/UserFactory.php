@@ -20,7 +20,7 @@ $factory->define(UserModel::class, function (Faker $faker) {
 
     do {
         $name = strtolower($faker->unique()->firstName);
-        $name = preg_replace("/([^a-zA-Z])/", "", $name);
+        $name = preg_replace('/([^a-zA-Z])/', '', $name);
     } while (
         !is_null($usersRepository->findByEmail($name . '@alerj.rj.gov.br'))
     );
