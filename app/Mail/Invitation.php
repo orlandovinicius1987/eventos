@@ -48,6 +48,7 @@ class Invitation extends Mailable
         );
 
         $this->to($this->notification->routeNotificationForMail())
+            ->from($this->fromArray('address'), $this->fromArray('name'))
             ->subject($this->notification->subject)
             ->markdown('emails.invitation');
 

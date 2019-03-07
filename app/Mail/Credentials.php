@@ -30,6 +30,7 @@ class Credentials extends Mailable
         );
 
         $this->to($this->notification->routeNotificationForMail())
+            ->from($this->makeFromArray())
             ->subject($this->notification->subject)
             ->markdown('emails.credential')
             ->attach($this->invitationFile, [

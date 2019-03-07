@@ -48,4 +48,21 @@ class Mailable extends IlluminateMailable
     {
         parent::send($mailer);
     }
+
+    public function fromArray($field)
+    {
+        return [
+            'name' =>
+                array_get(
+                    $this->invitation,
+                    'client.settings.mail_from_name'
+                ) ?? config('mail.from.name'),
+
+            'address' =>
+                array_get(
+                    $this->invitation,
+                    'client.settings.mail_from_email'
+                ) ?? config('mail.from.address'),
+        ][$field];
+    }
 }

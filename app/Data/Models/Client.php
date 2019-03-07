@@ -9,9 +9,13 @@ class Client extends Base
     /**
      * @var array
      */
-    protected $fillable = ['name', 'signature'];
+    protected $fillable = ['name', 'settings'];
 
     protected $orderBy = ['name' => 'asc'];
+
+    protected $casts = [
+        'settings' => 'array',
+    ];
 
     public function getSlugAttribute()
     {
@@ -20,6 +24,6 @@ class Client extends Base
 
     public function getSignatureHtmlAttribute()
     {
-        return app(Service::class)->text($this->signature);
+        return app(Service::class)->text($this->settings['signature']);
     }
 }

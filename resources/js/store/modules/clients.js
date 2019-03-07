@@ -6,7 +6,11 @@ import * as statesMixin from './mixins/states.js'
 import * as gettersMixin from './mixins/getters.js'
 
 const __emptyModel = {
-    signature: null,
+    settings: {
+        signature: null,
+        mail_from_name: null,
+        mail_from_email: null,
+    },
 }
 
 let state = merge_objects(
