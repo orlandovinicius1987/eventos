@@ -18,8 +18,6 @@ class GlobalComposer
         $view->with('environment', $this->getEnvironmentService());
 
         $view->with('app_name', config('app.name'));
-
-        $view->with('client_full_name', get_current_client()->name ?? '');
     }
 
     /**

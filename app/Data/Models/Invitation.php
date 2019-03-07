@@ -37,6 +37,7 @@ class Invitation extends BaseWithClient
         'subEvent',
         'notifications',
         'checkedInBy',
+        'client',
     ];
 
     protected $orderBy = ['invitations.id' => 'asc'];
@@ -494,6 +495,10 @@ class Invitation extends BaseWithClient
             'google_maps_image_url' =>
                 $this->subEvent->address->google_maps_image_url ?? '',
             'arquivo_convite' => $this->subEvent->invitation_file_url ?? '',
+
+            'client' => $this->client,
+            'client_full_name' => $this->client->name ?? null,
+            'client_signature' => $this->client->signatureHtml ?? null,
         ];
 
         $variables['invitation_text'] = $this->parseMarkdown(

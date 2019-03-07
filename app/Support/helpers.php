@@ -70,7 +70,7 @@ function ld($info)
 
 function get_current_client_id()
 {
-    return ($clientId = Session::get('current_client_id'))
+    return ($clientId = (int) Session::get('current_client_id'))
         ? $clientId
         : (auth()->user()
             ? auth()->user()->client_id
@@ -79,25 +79,32 @@ function get_current_client_id()
 
 function get_current_client_slug()
 {
-    $client = get_current_client();
+    if (!($current = Session::get('current_client'))) {
+        $current = set_current_client_id(get_current_client_id());
+    }
 
-    return Session::get('current_client_slug') ??
-        ($client ? $client->slug : null);
+    return $current ? $current->slug : null;
 }
 
 function get_current_client()
 {
-    return Session::get('current_client') ??
-        app(Clients::class)->findById(get_current_client_id());
+    if (!($current = Session::get('current_client'))) {
+        $current = set_current_client_id(get_current_client_id());
+    }
+
+    return $current;
 }
 
 function set_current_client_id($id)
 {
     Session::put('current_client_id', $id);
 
-    Session::put('current_client', get_current_client());
+    Session::put(
+        'current_client',
+        $client = app(Clients::class)->findById($id)
+    );
 
-    Session::put('current_client_slug', get_current_client_slug());
+    return $client;
 }
 
 function make_pdf_filename($baseName)

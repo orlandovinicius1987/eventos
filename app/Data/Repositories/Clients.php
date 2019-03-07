@@ -20,4 +20,26 @@ class Clients extends Repository
             ->orderBy('name')
             ->get();
     }
+
+    public function getCurrent()
+    {
+        return $this->applyFilter(
+            $this->newQuery()->where('id', get_current_client_id())
+        );
+    }
+
+    public function updateCurrent($id, $data)
+    {
+        if ((int) $id !== get_current_client_id()) {
+            return;
+        }
+
+        $client = app(Clients::class)->findById(get_current_client_id());
+
+        $client->fill($data);
+
+        $client->save();
+
+        return $client;
+    }
 }
