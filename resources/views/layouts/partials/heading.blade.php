@@ -86,7 +86,7 @@
                                         </a>
                                     </router-link>
                                 @endcan
-                            @endIf
+                            @endif
 
                             @if(Gate::check('events:read') || Gate::check('events:modify'))
                                 <router-link id="events-menu" to="/events" tag="li" class="nav-item">
@@ -142,70 +142,76 @@
                                             <router-link id="events-menu" to="/events" tag="li" class="dropdown-item">
                                                 Eventos
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('people:read') || Gate::check('people:modify'))
                                             <router-link id="people-menu" to="/people" tag="a" class="dropdown-item">
                                                 Pessoas
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('phonebook:read') || Gate::check('phonebook:modify'))
                                             <router-link id="people-menu" to="/phone-book" tag="a" class="dropdown-item">
                                                 Lista telefônica
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('institutions:read') || Gate::check('institutions:modify'))
                                             <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
                                                 Instituições
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('categories:read') || Gate::check('categories:modify'))
                                             <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
                                                 Categorias
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('roles:read') || Gate::check('roles:modify'))
                                             <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item">
                                                 Funções
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('sectors:read') || Gate::check('sectors:modify'))
                                             <router-link id="people-menu" to="/sectors" tag="a" class="dropdown-item">
                                                 Setores
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('costumes:read') || Gate::check('costumes:modify'))
                                             <router-link id="people-menu" to="/costumes" tag="a" class="dropdown-item">
                                                 Trajes
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('contacttypes:read') || Gate::check('contacttypes:modify'))
                                             <router-link id="people-menu" to="/contact-types" tag="a" class="dropdown-item">
                                                 Tipos de Contatos
                                             </router-link>
-                                        @endIf
+                                        @endif
 
                                         @if(Gate::check('topics:read') || Gate::check('topics:modify'))
                                             <router-link id="people-menu" to="/topics" tag="a" class="dropdown-item">
                                                 Interesses
                                             </router-link>
-                                        @endIf
+                                        @endif
 
-                                       @if(Gate::check('import:read') || Gate::check('import:modify'))
-                                            <router-link id="people-menu" to="/import" tag="a" class="dropdown-item">
+                                        @if(Gate::check('events:modify'))
+                                            <router-link id="client-signature-menu" to="/client-signature" tag="a" class="dropdown-item">
+                                                Assinatura dos e-mails
+                                            </router-link>
+                                        @endif
+
+                                        @if(Gate::check('import:read') || Gate::check('import:modify'))
+                                            <router-link id="import-menu" to="/import" tag="a" class="dropdown-item">
                                                 Importar dados
                                             </router-link>
-                                        @endIf
+                                        @endif
                                     </div>
                                 </li>
-                            @endIf
+                            @endif
 
                             @include('layouts.partials.usermenu')
                         @endguest

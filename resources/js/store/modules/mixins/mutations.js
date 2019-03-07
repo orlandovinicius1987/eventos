@@ -23,6 +23,7 @@ export function mutateSetFormField(state, payload) {
     if (payload.hasOwnProperty('object')) {
         formField = formField + '.' + payload.object
     }
+
     formField = formField + '}'
 
     let object = objectAttributeFromString(formField, state)

@@ -122,7 +122,7 @@ class Authentication
             );
 
             if (is_null($user)) {
-                //Sistema de login fora do ar e usuário novo
+                // Sistema de login fora do ar e usuário novo
                 dd(
                     'Não é possível logar pois o sistema de login está fora do ar e o seu usuário é novo'
                 );

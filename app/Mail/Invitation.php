@@ -4,6 +4,30 @@ namespace App\Mail;
 
 class Invitation extends Mailable
 {
+    private function downloadAndGetPath($file)
+    {
+        if (file_exists($publicFile = public_path($file))) {
+            return $publicFile;
+        }
+
+        if (filter_var($file, FILTER_VALIDATE_URL)) {
+            return $this->downloadAsTempFile($file);
+        }
+
+        return null;
+    }
+
+    private function downloadAsTempFile($file)
+    {
+        if (
+            !file_exists($downloaded = tempnam(sys_get_temp_dir(), sha1($file)))
+        ) {
+            copy($file, $downloaded);
+        }
+
+        return $downloaded;
+    }
+
     /**
      * @return mixed
      */
@@ -11,6 +35,7 @@ class Invitation extends Mailable
     {
         return $this->notification->invitation->subEvent->invitation_file;
     }
+
     /**
      * Build the message.
      *
@@ -18,23 +43,19 @@ class Invitation extends Mailable
      */
     public function build()
     {
-        $filePath = public_path(
+        $filePath = $this->downloadAndGetPath(
             $this->notification->invitation->subEvent->invitation_file
         );
+
         $this->to($this->notification->routeNotificationForMail())
             ->subject($this->notification->subject)
             ->markdown('emails.invitation');
+
         if ($this->hasAttachment()) {
-            $this->attach(
-                public_path(
-                    $this->notification->invitation->subEvent->invitation_file
-                ),
-                [
-                    'as' =>
-                        'convite.' . pathinfo($filePath, PATHINFO_EXTENSION),
-                    'mime' => mime_content_type($filePath),
-                ]
-            );
+            $this->attach($filePath, [
+                'as' => 'convite.' . pathinfo($filePath, PATHINFO_EXTENSION),
+                'mime' => mime_content_type($filePath),
+            ]);
         }
 
         return $this;
