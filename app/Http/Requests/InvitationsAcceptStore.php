@@ -11,7 +11,11 @@ class InvitationsAcceptStore extends Request
      */
     public function authorize()
     {
-        return Gate::allows('subevents:invite');
+        // TODO: check this bug
+        // Should not require login here
+        // return Gate::allows('subevents:invite');
+
+        return true;
     }
 
     /**
