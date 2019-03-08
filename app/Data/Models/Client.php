@@ -13,9 +13,7 @@ class Client extends Base
 
     protected $orderBy = ['name' => 'asc'];
 
-    protected $casts = [
-        'settings' => 'array',
-    ];
+    protected $casts = ['settings' => 'array'];
 
     public function getSlugAttribute()
     {
