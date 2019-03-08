@@ -1,1 +1,357 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{QW5b:function(t,e,i){"use strict";i.r(e);var r=i("jx1L"),s=i("bl0B"),n=i("CtO9"),a=i("L2JU");function o(t,e,i){return e in t?Object.defineProperty(t,e,{value:i,enumerable:!0,configurable:!0,writable:!0}):t[e]=i,t}var l={name:"institutions",uri:"institutions",performLoad:!1},c={props:["mode"],mixins:[r.a,s.a,n.a],data:function(){return{service:l}},methods:function(t){for(var e=1;e<arguments.length;e++){var i=null!=arguments[e]?arguments[e]:{},r=Object.keys(i);"function"==typeof Object.getOwnPropertySymbols&&(r=r.concat(Object.getOwnPropertySymbols(i).filter(function(t){return Object.getOwnPropertyDescriptor(i,t).enumerable}))),r.forEach(function(e){o(t,e,i[e])})}return t}({},Object(a.mapActions)(l.name,["selectInstitution"]))},f=i("KHd+"),u=Object(f.a)(c,function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("div",[i("div",{staticClass:"py-2 text-center"},[i("h2",[t._v("\n            "+t._s("create"===this.mode?"Nova ":"Editar")+" Instituição\n        ")]),t._v(" "),i("h2",[t._v(" "+t._s(t.form.fields.name?t.form.fields.name:""))])]),t._v(" "),i("div",{staticClass:"row justify-content-center"},[i("div",{staticClass:"col-8"},[i("form",[i("div",{staticClass:"row"},[i("div",{staticClass:"col-12 mb-3"},[i("app-input",{attrs:{name:"name",label:"Nome",required:!0,form:t.form},model:{value:t.form.fields.name,callback:function(e){t.$set(t.form.fields,"name",e)},expression:"form.fields.name"}}),t._v(" "),i("app-input",{attrs:{name:"initials",label:"Sigla",required:!1,form:t.form},model:{value:t.form.fields.initials,callback:function(e){t.$set(t.form.fields,"initials",e)},expression:"form.fields.initials"}}),t._v(" "),i("div",{staticClass:"row"},[i("div",{staticClass:"col-4"},[i("div",{staticClass:"form-check mt-4"},[i("input",{directives:[{name:"model",rawName:"v-model",value:t.form.fields.is_party,expression:"form.fields.is_party"}],staticClass:"form-check-input",attrs:{type:"checkbox",value:"",id:"defaultCheck1"},domProps:{checked:Array.isArray(t.form.fields.is_party)?t._i(t.form.fields.is_party,"")>-1:t.form.fields.is_party},on:{change:function(e){var i=t.form.fields.is_party,r=e.target,s=!!r.checked;if(Array.isArray(i)){var n=t._i(i,"");r.checked?n<0&&t.$set(t.form.fields,"is_party",i.concat([""])):n>-1&&t.$set(t.form.fields,"is_party",i.slice(0,n).concat(i.slice(n+1)))}else t.$set(t.form.fields,"is_party",s)}}}),t._v(" "),i("label",{staticClass:"form-check-label",attrs:{for:"defaultCheck1"}},[t._v("\n                                        É partido politico?\n                                    ")])])]),t._v(" "),i("div",{staticClass:"col-8"},[t.form.fields.is_party?i("app-input",{attrs:{name:"party_number",label:"Número do Partido",required:!1,form:t.form},model:{value:t.form.fields.party_number,callback:function(e){t.$set(t.form.fields,"party_number",e)},expression:"form.fields.party_number"}}):t._e()],1)])],1)]),t._v(" "),i("div",{staticClass:"row"},[i("div",{staticClass:"col-12 text-right mb-3"},[i("button",{staticClass:"btn btn-outline-secondary",attrs:{type:"submit",disabled:t.cannot("institutions:modify")},on:{click:function(e){return e.preventDefault(),t.saveModel()}}},[t._v("\n                            gravar\n                        ")]),t._v(" "),i("router-link",{staticClass:"btn btn-success",attrs:{to:"/institutions",tag:"button"}},[t._v("\n                            cancelar\n                        ")])],1)])])])])])},[],!1,null,null,null);e.default=u.exports},bl0B:function(t,e,i){"use strict";var r=i("L2JU");function s(t){for(var e=1;e<arguments.length;e++){var i=null!=arguments[e]?arguments[e]:{},r=Object.keys(i);"function"==typeof Object.getOwnPropertySymbols&&(r=r.concat(Object.getOwnPropertySymbols(i).filter(function(t){return Object.getOwnPropertyDescriptor(i,t).enumerable}))),r.forEach(function(e){n(t,e,i[e])})}return t}function n(t,e,i){return e in t?Object.defineProperty(t,e,{value:i,enumerable:!0,configurable:!0,writable:!0}):t[e]=i,t}e.a={methods:s({},Object(r.mapActions)("institutions",["clearForm"])),computed:s({},Object(r.mapState)({institutions:function(t){return t.institutions}}))}}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Institutions.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Institutions.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_crud__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins/crud */ "./resources/js/views/mixins/crud.js");
+/* harmony import */ var _mixins_institutions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/institutions */ "./resources/js/views/mixins/institutions.js");
+/* harmony import */ var _mixins_permissions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/permissions */ "./resources/js/views/mixins/permissions.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var service = {
+  name: 'institutions',
+  uri: 'institutions'
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_mixins_crud__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_institutions__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_permissions__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  data: function data() {
+    return {
+      service: service
+    };
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Institutions.vue?vue&type=template&id=7803a4da&":
+/*!**********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Institutions.vue?vue&type=template&id=7803a4da& ***!
+  \**********************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c(
+        "div",
+        { staticClass: "col-12 col-lg-4" },
+        [
+          _vm.can("institutions:read") || _vm.can("institutions:modify")
+            ? _c(
+                "app-table-panel",
+                {
+                  attrs: {
+                    title: "Instituições (" + _vm.pagination.total + ")",
+                    "add-button": {
+                      uri: "/institutions/create",
+                      disabled: _vm.cannot("institutions:modify")
+                    },
+                    "per-page": _vm.perPage,
+                    "filter-text": _vm.filterText
+                  },
+                  on: {
+                    "input-filter-text": function($event) {
+                      _vm.filterText = $event.target.value
+                    },
+                    "set-per-page": function($event) {
+                      _vm.perPage = $event
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "app-table",
+                    {
+                      attrs: {
+                        pagination: _vm.pagination,
+                        columns: ["#", "Nome", "Sigla", "Número do partido", ""]
+                      },
+                      on: {
+                        "goto-page": function($event) {
+                          return _vm.gotoPage($event)
+                        }
+                      }
+                    },
+                    _vm._l(_vm.institutions.data.rows, function(institution) {
+                      return _c(
+                        "tr",
+                        {
+                          class: {
+                            "cursor-pointer": true,
+                            "bg-primary-lighter text-white": _vm.isCurrent(
+                              institution,
+                              _vm.selected
+                            )
+                          },
+                          on: {
+                            click: function($event) {
+                              return _vm.select(institution)
+                            }
+                          }
+                        },
+                        [
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(institution.id))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(_vm._s(institution.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(institution.initials) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "align-middle" }, [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(institution.party_number) +
+                                "\n                        "
+                            )
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            { staticClass: "align-middle text-right" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass:
+                                    "btn btn-danger btn-sm ml-1 pull-right",
+                                  attrs: {
+                                    to:
+                                      "/institutions/" +
+                                      institution.id +
+                                      "/update",
+                                    tag: "button",
+                                    disabled: _vm.cannot("institutions:modify"),
+                                    title: "Editar Instituição"
+                                  }
+                                },
+                                [_c("i", { staticClass: "fa fa-edit" })]
+                              )
+                            ],
+                            1
+                          )
+                        ]
+                      )
+                    }),
+                    0
+                  )
+                ],
+                1
+              )
+            : _vm._e()
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "py-2 text-center" }, [
+      _c("h2", [_vm._v("Instituições")])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Institutions.vue":
+/*!*********************************************!*\
+  !*** ./resources/js/views/Institutions.vue ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Institutions_vue_vue_type_template_id_7803a4da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Institutions.vue?vue&type=template&id=7803a4da& */ "./resources/js/views/Institutions.vue?vue&type=template&id=7803a4da&");
+/* harmony import */ var _Institutions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Institutions.vue?vue&type=script&lang=js& */ "./resources/js/views/Institutions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Institutions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Institutions_vue_vue_type_template_id_7803a4da___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Institutions_vue_vue_type_template_id_7803a4da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Institutions.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/Institutions.vue?vue&type=script&lang=js&":
+/*!**********************************************************************!*\
+  !*** ./resources/js/views/Institutions.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Institutions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Institutions.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Institutions.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Institutions_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Institutions.vue?vue&type=template&id=7803a4da&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/views/Institutions.vue?vue&type=template&id=7803a4da& ***!
+  \****************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Institutions_vue_vue_type_template_id_7803a4da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Institutions.vue?vue&type=template&id=7803a4da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Institutions.vue?vue&type=template&id=7803a4da&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Institutions_vue_vue_type_template_id_7803a4da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Institutions_vue_vue_type_template_id_7803a4da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/institutions.js":
+/*!***************************************************!*\
+  !*** ./resources/js/views/mixins/institutions.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('institutions', ['clearForm'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    institutions: function institutions(state) {
+      return state.institutions;
+    }
+  }))
+});
+
+/***/ })
+
+}]);

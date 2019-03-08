@@ -1,1 +1,294 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[9],{"0HTz":function(t,e,n){"use strict";var o=n("L2JU");function c(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{},o=Object.keys(n);"function"==typeof Object.getOwnPropertySymbols&&(o=o.concat(Object.getOwnPropertySymbols(n).filter(function(t){return Object.getOwnPropertyDescriptor(n,t).enumerable}))),o.forEach(function(e){r(t,e,n[e])})}return t}function r(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}e.a={methods:c({},Object(o.mapActions)("advisorContacts",["clearForm"])),computed:c({},Object(o.mapState)({advisorContacts:function(t){return t.advisorContacts}}))}},"2c7n":function(t,e,n){"use strict";n.r(e);var o=n("jx1L"),c=n("L2JU");function r(t){for(var e=1;e<arguments.length;e++){var n=null!=arguments[e]?arguments[e]:{},o=Object.keys(n);"function"==typeof Object.getOwnPropertySymbols&&(o=o.concat(Object.getOwnPropertySymbols(n).filter(function(t){return Object.getOwnPropertyDescriptor(n,t).enumerable}))),o.forEach(function(e){i(t,e,n[e])})}return t}function i(t,e,n){return e in t?Object.defineProperty(t,e,{value:n,enumerable:!0,configurable:!0,writable:!0}):t[e]=n,t}var s={methods:r({},Object(c.mapActions)("contacts",["clearForm"])),computed:r({},Object(c.mapState)({contacts:function(t){return t.contacts}}))},a=(n("0HTz"),n("CtO9")),l={name:"contacts",uri:"people/{people.selected.id}/person-institutions/{personInstitutions.selected.id}/contacts",isForm:!0},u={props:["mode","source"],mixins:[o.a,s,a.a],data:function(){return this.$store.dispatch("environment/loadContactTypes"),{service:l}},methods:{fillAdditionalFormFields:function(){this.$store.commit("contacts/mutateSetFormField",{field:"person_institution_id",value:this.contacts.personInstitution.id})}}},d=n("KHd+"),f=Object(d.a)(u,function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",[n("div",{staticClass:"py-2 text-center"},[n("h2",[t._v(t._s("create"===this.mode?"Criar":"Editar")+" Contato")]),t._v(" "),n("h2",[t._v(" "+t._s(t.form.fields.contact?t.form.fields.contact:""))])]),t._v(" "),n("div",{staticClass:"row justify-content-center"},[n("div",{staticClass:"col-8"},[n("form",[n("div",{staticClass:"row"},[n("div",{staticClass:"col-12 mb-3"},[n("app-contact-field",{attrs:{contact:t.form.fields.contact,form:t.form,environment:t.environment}}),t._v(" "),n("app-input",{attrs:{name:"is_active",label:"Ativo",type:"checkbox",required:!0,form:t.form,dusk:"contact-active"},model:{value:t.form.fields.is_active,callback:function(e){t.$set(t.form.fields,"is_active",e)},expression:"form.fields.is_active"}})],1)]),t._v(" "),n("div",{staticClass:"row"},[n("div",{staticClass:"col-12 text-right mb-3"},[n("button",{staticClass:"btn btn-outline-secondary",attrs:{type:"submit",dusk:"record-contact-button",disabled:t.cannot("people:modify")},on:{click:function(e){return e.preventDefault(),t.saveModel()}}},[t._v("\n                            gravar\n                        ")]),t._v(" "),n("router-link",{staticClass:"btn btn-success",attrs:{to:"/people/",tag:"button"}},[t._v("\n                            cancelar\n                        ")])],1)])])])])])},[],!1,null,null,null);e.default=f.exports}}]);
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AdvisorContactsForm.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AdvisorContactsForm.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mixins_crud__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mixins/crud */ "./resources/js/views/mixins/crud.js");
+/* harmony import */ var _mixins_advisorContacts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mixins/advisorContacts */ "./resources/js/views/mixins/advisorContacts.js");
+/* harmony import */ var _mixins_permissions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mixins/permissions */ "./resources/js/views/mixins/permissions.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+var service = {
+  name: 'advisorContacts',
+  uri: 'people/{people.selected.id}/person-institutions/{advisors.selected.id}/contacts',
+  isForm: true
+};
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['mode', 'source'],
+  mixins: [_mixins_crud__WEBPACK_IMPORTED_MODULE_0__["default"], _mixins_advisorContacts__WEBPACK_IMPORTED_MODULE_1__["default"], _mixins_permissions__WEBPACK_IMPORTED_MODULE_2__["default"]],
+  data: function data() {
+    this.$store.dispatch('environment/loadContactTypes');
+    return {
+      service: service
+    };
+  },
+  methods: {
+    fillAdditionalFormFields: function fillAdditionalFormFields() {
+      this.$store.commit('advisorContacts/mutateSetFormField', {
+        field: 'person_institution_id',
+        value: this.advisorContacts.personInstitution.id
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AdvisorContactsForm.vue?vue&type=template&id=b94e3270&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/AdvisorContactsForm.vue?vue&type=template&id=b94e3270& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "py-2 text-center" }, [
+      _c("h2", [
+        _vm._v(
+          "\n            " +
+            _vm._s(this.mode === "create" ? "Criar" : "Editar") +
+            " Contato de\n            Assessor\n        "
+        )
+      ]),
+      _vm._v(" "),
+      _c("h2", [
+        _vm._v(" " + _vm._s(_vm.form.fields.name ? _vm.form.fields.name : ""))
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-8" }, [
+        _c("form", [
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 mb-3" },
+              [
+                _c("app-contact-field", {
+                  attrs: {
+                    contact: _vm.form.fields.contact,
+                    form: _vm.form,
+                    environment: _vm.environment
+                  }
+                })
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "row" }, [
+            _c(
+              "div",
+              { staticClass: "col-12 text-right mb-3" },
+              [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-outline-secondary",
+                    attrs: {
+                      type: "submit",
+                      disabled: _vm.cannot("people:modify")
+                    },
+                    on: {
+                      click: function($event) {
+                        $event.preventDefault()
+                        return _vm.saveModel()
+                      }
+                    }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            gravar\n                        "
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "btn btn-success",
+                    attrs: { to: "/people/", tag: "button" }
+                  },
+                  [
+                    _vm._v(
+                      "\n                            cancelar\n                        "
+                    )
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/AdvisorContactsForm.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/views/AdvisorContactsForm.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdvisorContactsForm_vue_vue_type_template_id_b94e3270___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdvisorContactsForm.vue?vue&type=template&id=b94e3270& */ "./resources/js/views/AdvisorContactsForm.vue?vue&type=template&id=b94e3270&");
+/* harmony import */ var _AdvisorContactsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdvisorContactsForm.vue?vue&type=script&lang=js& */ "./resources/js/views/AdvisorContactsForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AdvisorContactsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AdvisorContactsForm_vue_vue_type_template_id_b94e3270___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AdvisorContactsForm_vue_vue_type_template_id_b94e3270___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/AdvisorContactsForm.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/AdvisorContactsForm.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/views/AdvisorContactsForm.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdvisorContactsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AdvisorContactsForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AdvisorContactsForm.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdvisorContactsForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/AdvisorContactsForm.vue?vue&type=template&id=b94e3270&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/views/AdvisorContactsForm.vue?vue&type=template&id=b94e3270& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdvisorContactsForm_vue_vue_type_template_id_b94e3270___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./AdvisorContactsForm.vue?vue&type=template&id=b94e3270& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/AdvisorContactsForm.vue?vue&type=template&id=b94e3270&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdvisorContactsForm_vue_vue_type_template_id_b94e3270___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdvisorContactsForm_vue_vue_type_template_id_b94e3270___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/mixins/advisorContacts.js":
+/*!******************************************************!*\
+  !*** ./resources/js/views/mixins/advisorContacts.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('advisorContacts', ['clearForm'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    advisorContacts: function advisorContacts(state) {
+      return state.advisorContacts;
+    }
+  }))
+});
+
+/***/ })
+
+}]);
