@@ -19,9 +19,7 @@ class Invitation extends Mailable
 
     private function downloadAsTempFile($file)
     {
-        if (
-            !file_exists($downloaded = tempnam(sys_get_temp_dir(), sha1($file)))
-        ) {
+        if (!file_exists($downloaded = $this->makeAttachmentFileName($file))) {
             copy($file, $downloaded);
         }
 
@@ -60,5 +58,16 @@ class Invitation extends Mailable
         }
 
         return $this;
+    }
+
+    /**
+     * @param $file
+     * @return mixed
+     */
+    private function makeAttachmentFileName($file)
+    {
+        return tempnam(sys_get_temp_dir(), 'events-attachment-' . sha1($file)) .
+            '.' .
+            pathinfo($file, PATHINFO_EXTENSION);
     }
 }
