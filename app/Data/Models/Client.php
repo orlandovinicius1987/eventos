@@ -29,18 +29,11 @@ class Client extends Base
 
     public function getSetting($name)
     {
-        return array_get($this->settings, $name);
-    }
-
-    public function getSettingsAttribute()
-    {
-        return json_decode($this->attributes['settings'], true);
-    }
-
-    public function setSettingsAttribute($settings)
-    {
-        $this->attributes['settings'] = is_array($settings)
-            ? json_encode($settings)
-            : $settings;
+        return array_get(
+            is_string($this->settings)
+                ? json_decode($this->settings, true)
+                : $this->settings,
+            $name
+        );
     }
 }
