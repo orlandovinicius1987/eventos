@@ -4,6 +4,15 @@ namespace App\Mail;
 
 class Invitation extends Mailable
 {
+    private function copy($file, $downloaded)
+    {
+        if (!file_exists($downloaded)) {
+            info("Copying {$file} -> {$downloaded}");
+
+            copy($file, $downloaded);
+        }
+    }
+
     private function downloadAndGetPath($file)
     {
         if (file_exists($publicFile = public_path($file))) {
@@ -19,9 +28,7 @@ class Invitation extends Mailable
 
     private function downloadAsTempFile($file)
     {
-        if (!file_exists($downloaded = $this->makeAttachmentFileName($file))) {
-            copy($file, $downloaded);
-        }
+        $this->copy($file, $downloaded = $this->makeAttachmentFileName($file));
 
         return $downloaded;
     }
