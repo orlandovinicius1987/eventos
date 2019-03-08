@@ -8,7 +8,7 @@
 <img src="{{ $credential->variables['google_maps_image_url'] }}" alt="mapa">
 <br>
 <br>
-@if (!$credential->subEvent->associated_subevent_id)
+@if (!$credential->subEvent->associated_subevent_id && $credential->variables['traje_nome'])
 <strong>Traje: {{$credential->variables['traje_nome']}}</strong> <br>
 {{--{{$credential->variables['traje_descricao']}},<br>--}}
 @endif
