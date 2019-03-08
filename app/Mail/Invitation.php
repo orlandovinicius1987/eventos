@@ -73,7 +73,9 @@ class Invitation extends Mailable
      */
     private function makeAttachmentFileName($file)
     {
-        return tempnam(sys_get_temp_dir(), 'events-attachment-' . sha1($file)) .
+        return sys_get_temp_dir() .
+            '/events-attachment-' .
+            sha1($file) .
             '.' .
             pathinfo($file, PATHINFO_EXTENSION);
     }
