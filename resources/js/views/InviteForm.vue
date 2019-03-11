@@ -139,8 +139,8 @@
 
                             <td class="align-middle">
                                 <input
+                                    :id="'invitableCheckbox'+invitable.id"
                                     v-if="!invitable.is_invited_to_sub_event"
-                                    :checked="isChecked(invitable)"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
                                     dusk="dusk-invite"
@@ -335,14 +335,11 @@ export default {
             for (let key in this.checkedPeople) {
                 if (this.checkedPeople.hasOwnProperty(key)) {
                     this.checkedPeople[key].checked = false
+                    if(document.getElementById("invitableCheckbox"+key)){
+                        document.getElementById("invitableCheckbox"+key).checked = false
+                    }
                 }
             }
-        },
-
-        isChecked(invitation) {
-            return this.checkedPeople.hasOwnProperty(invitation.id)
-                ? this.checkedPeople[invitation.id].checked
-                : false
         },
 
         toggleCheck(invitation) {
