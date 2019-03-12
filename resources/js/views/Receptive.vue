@@ -142,10 +142,22 @@
                         @goto-page="gotoPage($event)"
                         :columns="[
                             'Convite',
-                            { title: 'Setor', trClass: 'text-center' },
+                            {
+                                type: 'label',
+                                title: 'Setor',
+                                trClass: 'text-center',
+                            },
                             'Convidado',
-                            { title: 'Check-in', trClass: 'text-center' },
-                            { title: 'Foto', trClass: 'text-center' },
+                            {
+                                type: 'label',
+                                title: 'Check-in',
+                                trClass: 'text-center',
+                            },
+                            {
+                                type: 'label',
+                                title: 'Foto',
+                                trClass: 'text-center',
+                            },
                         ]"
                     >
                         <tr

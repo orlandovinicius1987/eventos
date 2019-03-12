@@ -114,14 +114,19 @@
                     <app-table
                         :pagination="invitables.data.links.pagination"
                         @goto-page="invitablesGotoPage($event)"
+                        @input-checkbox-check-all="toggleCheckAllPeople($event)"
                         :columns="[
                             '#',
-                            'Convidar',
+                            { type: 'checkbox', trClass: '', id: 'check-all' },
                             'Tratamento',
                             'Nome',
                             'Instituição',
                             'Cargo',
-                            { title: 'Convites', trClass: 'text-center' },
+                            {
+                                type: 'label',
+                                title: 'Convites',
+                                trClass: 'text-center',
+                            },
                             '',
                         ]"
                     >
@@ -139,7 +144,7 @@
 
                             <td class="align-middle">
                                 <input
-                                    :id="'invitableCheckbox'+invitable.id"
+                                    :id="'invitable-checkbox' + invitable.id"
                                     v-if="!invitable.is_invited_to_sub_event"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
@@ -225,7 +230,6 @@ export default {
         this.$store.dispatch('environment/loadInstitutions')
         return {
             service: service,
-
             checkedPeople: {},
         }
     },
@@ -335,10 +339,44 @@ export default {
             for (let key in this.checkedPeople) {
                 if (this.checkedPeople.hasOwnProperty(key)) {
                     this.checkedPeople[key].checked = false
-                    if(document.getElementById("invitableCheckbox"+key)){
-                        document.getElementById("invitableCheckbox"+key).checked = false
+                    if (document.getElementById('invitable-checkbox' + key)) {
+                        document.getElementById(
+                            'invitable-checkbox' + key,
+                        ).checked = false
                     }
                 }
+            }
+            document.getElementById('check-all').checked = false
+        },
+
+        isChecked(invitableId) {
+            return
+            !this.checkedPeople.hasOwnProperty(invitableId) ||
+                !this.checkedPeople[invitableId].checked
+        },
+
+        checkInvitable(invitable) {
+            if (!this.isChecked(invitable.id)) {
+                this.toggleCheck(invitable)
+            }
+        },
+
+        checkAllPeople() {
+            for (let key in this.invitables.data.rows) {
+                if (this.invitables.data.rows.hasOwnProperty(key)) {
+                    let invitable = this.invitables.data.rows[key]
+                    if (!invitable.is_invited_to_sub_event) {
+                        this.checkInvitable(invitable)
+                    }
+                }
+            }
+        },
+
+        toggleCheckAllPeople($event) {
+            if ($event.target.checked) {
+                this.checkAllPeople()
+            } else {
+                this.resetCheckedPeople()
             }
         },
 
@@ -350,9 +388,10 @@ export default {
                 }
             }
 
-            this.checkedPeople[invitation.id].checked = !this.checkedPeople[
-                invitation.id
-            ].checked
+            document.getElementById(
+                'invitable-checkbox' + invitation.id,
+            ).checked = this.checkedPeople[invitation.id].checked = !this
+                .checkedPeople[invitation.id].checked
         },
 
         invite() {
