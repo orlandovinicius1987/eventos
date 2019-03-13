@@ -160,6 +160,7 @@ class Invitation extends BaseWithClient
                     'contact_type_id',
                     app(ContactTypes::class)->findByCode('email')->id
                 )
+                ->unique('contact')
         );
     }
 
