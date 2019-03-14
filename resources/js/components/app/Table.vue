@@ -6,13 +6,29 @@
             <thead>
                 <tr>
                     <slot name="thead"></slot>
-
                     <th
                         v-if="columns"
                         v-for="column in columns"
                         :class="is_object(column) ? column.trClass : ''"
-                        v-html="is_object(column) ? column.title : column"
-                    ></th>
+                    >
+                        <span v-if="!is_object(column)">
+                            {{ column }}
+                        </span>
+                        <span
+                            v-if="isComponent(column, 'label')"
+                            v-html="column.title"
+                        >
+                        </span>
+                        <span v-if="isComponent(column, 'checkbox')">
+                            <input
+                                @change="
+                                    $emit('input-checkbox-' + column.id, $event)
+                                "
+                                type="checkbox"
+                                :id="column.id"
+                            />
+                        </span>
+                    </th>
                 </tr>
             </thead>
 
@@ -36,6 +52,13 @@ export default {
     methods: {
         is_object(target) {
             return is_object(target)
+        },
+
+        isComponent(component, componentName) {
+            return (
+                component.hasOwnProperty('type') &&
+                component.type == componentName
+            )
         },
     },
 }

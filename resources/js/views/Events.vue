@@ -155,7 +155,11 @@
                         :columns="[
                             'Setor',
                             'Nome',
-                            { title: 'Convidados', trClass: 'text-right' },
+                            {
+                                type: 'label',
+                                title: 'Convidados',
+                                trClass: 'text-right',
+                            },
                             'Data',
                             'Hora',
                             'Confirmado',
@@ -482,10 +486,26 @@
                         :columns="[
                             'Código',
                             'Convidado',
-                            { title: 'Pendências', trClass: 'text-center' },
-                            { title: 'Convite', trClass: 'text-center' },
-                            { title: 'Credencial', trClass: 'text-center' },
-                            { title: 'Check in', trClass: 'text-center' },
+                            {
+                                type: 'label',
+                                title: 'Pendências',
+                                trClass: 'text-center',
+                            },
+                            {
+                                type: 'label',
+                                title: 'Convite',
+                                trClass: 'text-center',
+                            },
+                            {
+                                type: 'label',
+                                title: 'Credencial',
+                                trClass: 'text-center',
+                            },
+                            {
+                                type: 'label',
+                                title: 'Check in',
+                                trClass: 'text-center',
+                            },
                             '',
                         ]"
                     >
