@@ -282,6 +282,9 @@ class Invitations extends Repository
 
             event(new InvitationCreated($invitation));
         }
+
+        isset($invitation) &&
+            event(new InvitationsChanged($invitation->subEvent));
     }
 
     protected function canSend($eventId, $subEventId, $invitation)
