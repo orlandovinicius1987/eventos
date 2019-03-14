@@ -1,26 +1,24 @@
 let debouncedByUrl = {}
 
 export function load(context) {
-    if (!makeDataUrl(context)) {
-        return
-    }
-
-    let url = makeDataUrl(context)
+    const url = makeDataUrl(context)
 
     if (url) {
         let urlHash = hash(url + JSON.stringify(context.getters.getQueryFilter))
 
         if (typeof debouncedByUrl[urlHash] === 'undefined') {
-            debouncedByUrl[urlHash] = _.debounce(
-                (targetUrl, targetContext) =>
-                    get(targetUrl, {
-                        params: { query: targetContext.getters.getQueryFilter },
-                    }).then(response => {
-                        context.dispatch('setDataAfterLoad', response.data)
-                    }),
-                250,
-            )
+            debouncedByUrl[urlHash] = _.debounce((targetUrl, targetContext) => {
+                dd('loading: ', targetUrl)
+
+                get(targetUrl, {
+                    params: { query: targetContext.getters.getQueryFilter },
+                }).then(response => {
+                    context.dispatch('setDataAfterLoad', response.data)
+                })
+            }, 1500)
         }
+
+        dd('using debouncedByUrl: ', urlHash, url)
 
         return debouncedByUrl[urlHash](url, context)
     }

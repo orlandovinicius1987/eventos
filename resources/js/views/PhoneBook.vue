@@ -55,19 +55,19 @@
                         ></app-role-filter-for-person>
 
                         <app-category-filter-for-person
-                                name="category_id"
-                                label="Categoria"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.categories"
+                            name="category_id"
+                            label="Categoria"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.categories"
                         ></app-category-filter-for-person>
 
                         <app-topic-filter-for-person
-                                name="topic_id"
-                                label="Interesse"
-                                :required="true"
-                                :form="form"
-                                :options="environment.tables.topics"
+                            name="topic_id"
+                            label="Interesse"
+                            :required="true"
+                            :form="form"
+                            :options="environment.tables.topics"
                         ></app-topic-filter-for-person>
                     </template>
 

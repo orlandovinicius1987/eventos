@@ -152,7 +152,7 @@ window._ = require('lodash')
 
 window.loadDebounced = _.debounce(context => {
     context.dispatch('load')
-}, 650)
+}, 2000)
 
 window.objectAttributeFromString = (str, state) => {
     let hasNulls = false
@@ -323,22 +323,10 @@ window.basename = str => {
     return base
 }
 
+import sha256 from 'crypto-js/sha256'
+
 window.hash = str => {
-    let hash = 0,
-        i,
-        chr
-
-    if (str.length === 0) {
-        return hash
-    }
-
-    for (i = 0; i < str.length; i++) {
-        chr = str.charCodeAt(i)
-        hash = (hash << 5) - hash + chr
-        hash |= 0 // Convert to 32bit integer
-    }
-
-    return hash
+    return sha256(str).toString()
 }
 
 window.first_last = string => {
