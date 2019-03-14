@@ -350,9 +350,11 @@ export default {
         },
 
         isChecked(invitableId) {
-            return
-            !this.checkedPeople.hasOwnProperty(invitableId) ||
-                !this.checkedPeople[invitableId].checked
+            return !!(
+                this.checkedPeople.hasOwnProperty(invitableId) &&
+                this.checkedPeople[invitableId] &&
+                this.checkedPeople[invitableId].checked
+            )
         },
 
         checkInvitable(invitable) {
