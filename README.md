@@ -1,8 +1,8 @@
-## Eventos Alerj
+# Eventos Alerj
 
-### Instalar
+## Instalar
 
-##### Imagick (servidor + PHP)
+### Imagick (servidor + PHP)
 
 ```
 sudo apt-get update
@@ -34,7 +34,7 @@ php artisan websockets:serve
     - Re-run `npm run watch`, because only forcing a rerun doesn't work sometimes
 - Don't forget to hard reload your browser tab just in case
  
-### Exemplos
+### Exemplos de textos de convites
 
 #### imagens
 
@@ -90,4 +90,56 @@ Registramos e agradecemos a sua presença no evento de Posse dos Srs. Wilson Wit
 {instituicao_nome}
 #### {evento_nome}
 Registramos e sentimos muito que você não possa participar do evento de Posse dos Srs. Wilson Witzel e Claudio Castro, nos cargos de Governador e Vice-Governador do Estado do Rio de Janeiro. Caso mude de ideia, por favor entre em contato com o Cerimonial Alerj.
+```
+
+
+## Estatísticas do Código Fonte
+```
+LOC
+    Lines of code                               10002
+    Logical lines of code                       6778
+    Comment lines of code                       3224
+    Average volume                              121.74
+    Average comment weight                      36.05
+    Average intelligent content                 36.05
+    Logical lines of code by class              22
+    Logical lines of code by method             8
+
+Object oriented programming
+    Classes                                     309
+    Interface                                   0
+    Methods                                     862
+    Methods by class                            2.79
+    Lack of cohesion of methods                 1.93
+
+Coupling
+    Average afferent coupling                   0.97
+    Average efferent coupling                   2.03
+    Average instability                         0.82
+    Depth of Inheritance Tree                   1.63
+
+Package
+    Packages                                    33
+    Average classes per package                 9.36
+    Average distance                            0.17
+    Average incoming class dependencies         4.21
+    Average outgoing class dependencies         6.18
+    Average incoming package dependencies       1.03
+    Average outgoing package dependencies       2.91
+
+Complexity
+    Average Cyclomatic complexity by class      2.28
+    Average Weighted method count by class      4.16
+    Average Relative system complexity          66.65
+    Average Difficulty                          1.82
+
+Bugs
+    Average bugs by class                       0.04
+    Average defects by class (Kan)              0.21
+
+Violations
+    Critical                                    0
+    Error                                       15
+    Warning                                     17
+    Information                                 4
 ```
