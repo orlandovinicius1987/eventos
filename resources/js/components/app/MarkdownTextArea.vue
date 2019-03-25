@@ -2,48 +2,42 @@
     <div>
         <label :for="id" class="mb-0 mt-4">{{ label }}</label>
 
-        <editor :id="id" v-model="text"/>
+        <editor :id="id" v-model="text" />
 
-        <small class="text-danger" v-if="form.errors.has(id)" >
+        <small class="text-danger" v-if="form.errors.has(id)">
             {{ form.errors.get(id) }}
         </small>
     </div>
 </template>
 
 <script>
-    import { Editor } from '@toast-ui/vue-editor'
+import { Editor } from '@toast-ui/vue-editor'
 
-    export default {
-        components: {
-            'editor': Editor
-        },
+export default {
+    components: {
+        editor: Editor,
+    },
 
-        computed: {
-            text: {
-                get() {
-                    return this.value
-                },
+    computed: {
+        text: {
+            get() {
+                return this.value
+            },
 
-                set(newText) {
-                    this.$emit('input', newText)
-                }
+            set(newText) {
+                this.$emit('input', newText)
             },
         },
+    },
 
-        props: [
-            'id',
-            'value',
-            'label',
-            'form',
-        ],
+    props: ['id', 'value', 'label', 'form'],
 
-        data(){
-            return {
-            }
-        },
+    data() {
+        return {}
+    },
 
-        mounted(){
-            this.text = this.value
-        }
-    }
+    mounted() {
+        this.text = this.value
+    },
+}
 </script>
