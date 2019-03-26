@@ -13,6 +13,8 @@ class Dashboard extends Repository
 {
     public function makeDashboardData()
     {
+        $returnArray = [];
+
         if (Gate::check('events:read') || Gate::check('events:modify')) {
             $returnArray['events'] = [
                 'name' => 'Eventos',

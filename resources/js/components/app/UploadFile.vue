@@ -5,7 +5,7 @@
             <span v-else>Selecionar Arquivo</span>
         </div>
 
-        <input type="file" @change="handleFileChange"/>
+        <input type="file" @change="handleFileChange" />
     </label>
 </template>
 

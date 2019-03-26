@@ -16,7 +16,7 @@
             v-model="form.fields.contact"
             :required="true"
             :form="form"
-            v-mask="makeMask(form.fields.contact_type_id)"
+            v-mask="makeMask(form.fields.contact_type_id, form.fields.contact)"
             :type="makeType(form.fields.contact_type_id)"
         ></app-input>
 
@@ -38,20 +38,40 @@ export default {
     props: ['contact', 'form', 'environment'],
 
     methods: {
-        makeMask(id) {
+        makeMask(id, contact) {
             if (id == null) {
                 return ''
             }
+
+            contact = contact ? contact : ''
 
             const type = findById(this.environment.tables.contact_types, id)
 
             switch (type.code) {
                 case 'mobile':
-                    return '(##)#####-####'
                 case 'whatsapp':
-                    return '(##)#####-####'
+                    const numbers = contact.replace(/\D/g, '')
+                    if (numbers.length > 11) {
+                        return '+##(##)#####-####'
+                    } else {
+                        return '(##)#####-####'
+                    }
                 case 'phone':
-                    return ['(##)####-####', '(##)####-#### ramal #####']
+                    const regexMatch = contact.match(/(.*)\s[a-z]*?\s?(\d*?)$/)
+
+                    if (regexMatch) {
+                        if (regexMatch[1].replace(/\D/g, '').length > 10) {
+                            return '+##(##)####-#### ramal ####'
+                        } else {
+                            return '(##)####-#### ramal ####'
+                        }
+                    } else {
+                        if (contact.replace(/\D/g, '').length > 10) {
+                            return '+##(##)####-####'
+                        } else {
+                            return '(##)####-####'
+                        }
+                    }
             }
         },
 
