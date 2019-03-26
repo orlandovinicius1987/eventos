@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Scopes\CurrentClient;
 use Exception;
 use ReflectionClass;
 use Illuminate\Support\Str;
@@ -517,5 +518,16 @@ abstract class Repository
     public function count()
     {
         return $this->model::count();
+    }
+
+    public function selectRelatedClient($modelId)
+    {
+        $model = $this->model()
+            ->withoutGlobalScopes([CurrentClient::class])
+            ->find($modelId);
+
+        set_current_client_id($model->client_id);
+
+        return $this;
     }
 }
