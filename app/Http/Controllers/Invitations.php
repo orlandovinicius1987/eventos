@@ -17,9 +17,9 @@ class Invitations extends Controller
      */
     public function accept($eventId, $subEventId, $invitationId)
     {
-        $invitation = app(InvitationsRepository::class)->findById(
-            $invitationId
-        );
+        $invitation = app(InvitationsRepository::class)
+            ->selectRelatedClient($invitationId)
+            ->findById($invitationId);
 
         if ($invitation->canBeManipulatedByInvitee()) {
             return view('invitations.accept')
