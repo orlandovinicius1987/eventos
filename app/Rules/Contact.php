@@ -58,14 +58,24 @@ class Contact implements Rule
 
     private function validatePhone($phone, $type)
     {
-        $phone = preg_replace('/\D/', '', $phone);
-
         switch ($type) {
             case 'mobile':
-                return strlen($phone) == 11;
+            case 'whatsapp':
+                preg_match('/\+\d\d\(\d\d\)\d\d\d\d\d-\d\d\d\d/', $phone, $out1);
+                preg_match('/\(\d\d\)\d\d\d\d\d-\d\d\d\d/', $phone, $out2);
+                return isset($out1[0]) || isset($out2[0]);
                 break;
             case 'phone':
-                return strlen($phone) == 10;
+                preg_match('/ramal/', $phone, $out);
+                if(isset($out[0])){
+                    preg_match('/\(\d\d\)\d\d\d\d-\d\d\d\d ramal \d\d?\d?\d?$/', $phone, $out1);
+                    preg_match('/\+\d\d\(\d\d\)\d\d\d\d-\d\d\d\d ramal \d\d?\d?\d?$/', $phone, $out2);
+                    return isset($out1[0]) || isset($out2[0]);
+                }else{
+                    preg_match('/\+\d\d\(\d\d\)\d\d\d\d-\d\d\d\d$/', $phone, $out1);
+                    preg_match('/\(\d\d\)\d\d\d\d-\d\d\d\d$/', $phone, $out2);
+                    return isset($out1[0]) || isset($out2[0]);
+                }
                 break;
             default:
                 return false;
@@ -84,8 +94,6 @@ class Contact implements Rule
         if (!is_null($contact)) {
             switch ($contactTypeCode) {
                 case 'mobile':
-                    $pass = $this->validatePhone($contact, 'mobile');
-                    break;
                 case 'whatsapp':
                     $pass = $this->validatePhone($contact, 'mobile');
                     break;
