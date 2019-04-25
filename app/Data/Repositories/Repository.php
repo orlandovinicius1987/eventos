@@ -13,6 +13,8 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
+use App\Data\Scopes\Active as ActiveScope;
+
 abstract class Repository
 {
     use DataProcessing;
@@ -496,7 +498,8 @@ abstract class Repository
      */
     public function update($id, $array)
     {
-        return $this->fillAndSave($array, $this->findById($id));
+        //Insert all global scopes in withoutGlobalScopes except CurrentClient
+        return $this->fillAndSave($array, $this->model::withoutGlobalScopes([ActiveScope::class])->find($id));
     }
 
     /**
