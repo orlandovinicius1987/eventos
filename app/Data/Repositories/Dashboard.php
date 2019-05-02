@@ -1,4 +1,5 @@
-<?php namespace App\Data\Repositories;
+<?php
+namespace App\Data\Repositories;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Data\Repositories\People as PeopleRepository;

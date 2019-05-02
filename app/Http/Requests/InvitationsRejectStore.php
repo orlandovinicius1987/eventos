@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Gate;
@@ -25,8 +24,6 @@ class InvitationsRejectStore extends Request
      */
     public function rules()
     {
-        return [
-            'cpf' => 'cpf_cnpj',
-        ];
+        return ['cpf' => 'cpf_cnpj'];
     }
 }

@@ -54,4 +54,15 @@ class CSV
 
         return coollect($csv);
     }
+
+    public function generate($data)
+    {
+        $rows = implode(';', array_keys($data[0])) . ($lf = "\n");
+
+        foreach ($data as $row) {
+            $rows .= implode(';', $row) . $lf;
+        }
+
+        return $rows;
+    }
 }

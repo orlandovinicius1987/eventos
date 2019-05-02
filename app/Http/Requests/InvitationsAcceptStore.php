@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Requests;
 
 use Illuminate\Support\Facades\Gate;
@@ -25,9 +24,7 @@ class InvitationsAcceptStore extends Request
      */
     public function rules()
     {
-        return [
-            'cpf' => 'required|cpf',
-        ];
+        return ['cpf' => 'required|cpf'];
     }
 
     /**

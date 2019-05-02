@@ -2,14 +2,17 @@
 
 namespace App\Data\Repositories;
 
-use App\Data\Models\PersonInstitution;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Intervention\Image\Facades\Image;
+use App\Data\Models\PersonInstitution;
 use App\Data\Models\Person as PersonModel;
 use App\Data\Scopes\Active as ActiveScope;
+use App\Data\Repositories\Traits\PeopleExport;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class People extends Repository
 {
+    use PeopleExport;
+
     /**
      * @var string
      */

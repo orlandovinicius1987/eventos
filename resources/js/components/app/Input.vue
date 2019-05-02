@@ -1,33 +1,45 @@
 <template>
     <div
-        :class="
-            type === 'checkbox' ? (inline ? '' : 'form-check') + ' m-4' : ''
-        "
+        :class="{ 'form-check m-4': type === 'checkbox' && !inline }"
         style="white-space: nowrap"
     >
         <label v-if="type !== 'checkbox'" :for="name" class="mb-0 mt-4">
             {{ label }}
         </label>
 
-        <input
-            :value="value"
-            @input="
-                type !== 'checkbox' ? $emit('input', $event.target.value) : null
-            "
-            @change="
-                type === 'checkbox'
-                    ? $emit('input', $event.target.checked)
-                    : null
-            "
-            :class="type !== 'checkbox' ? 'form-control' : 'form-check-input'"
-            :id="name"
-            :type="type"
-            :required="required"
-            :dusk="dusk"
-            :readonly="readonly"
-            :checked="value"
-            @keyup="$emit('on-key-up')"
-        />
+        <div :class="{ 'form-check': type === 'checkbox' }">
+            <input
+                :value="value"
+                @input="
+                    type !== 'checkbox'
+                        ? $emit('input', $event.target.value)
+                        : null
+                "
+                @change="
+                    type === 'checkbox'
+                        ? $emit('input', $event.target.checked)
+                        : null
+                "
+                :class="
+                    type !== 'checkbox' ? 'form-control' : 'form-check-input'
+                "
+                :id="name"
+                :type="type"
+                :required="required"
+                :dusk="dusk"
+                :readonly="readonly"
+                :checked="value"
+                @keyup="$emit('on-key-up')"
+            />
+
+            <label
+                v-if="type === 'checkbox'"
+                :for="name"
+                class="form-check-label d-inline-block"
+            >
+                {{ label }}
+            </label>
+        </div>
 
         <small
             class="validation-error text-danger"
@@ -44,14 +56,6 @@
             <i class="fas fa-exclamation-triangle"></i>
             {{ additionalErrorMessage }}
         </small>
-
-        <label
-            v-if="type === 'checkbox'"
-            :for="name"
-            class="form-check-label d-inline-block"
-        >
-            {{ label }}
-        </label>
     </div>
 </template>
 

@@ -31,6 +31,14 @@
                         <div class="col-6 text-right">
                             <slot name="buttons"></slot>
 
+                            <div
+                                v-if="exportButton"
+                                class="btn btn-success"
+                                @click="$emit('export')"
+                            >
+                                <i class="fa fa-save"></i>
+                            </div>
+
                             <router-link
                                 v-if="addButton"
                                 :to="addButton.uri"
@@ -77,6 +85,7 @@ export default {
     props: [
         'title',
         'add-button',
+        'export-button',
         'add-button-disabled',
         'columns',
         'filter-text',
