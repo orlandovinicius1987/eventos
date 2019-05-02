@@ -844,6 +844,7 @@
                 </button>
 
                 <button
+                    v-if="false"
                     class="float-right btn btn-outline-secondary mr-2"
                     @click="doExport('pdf')"
                 >
