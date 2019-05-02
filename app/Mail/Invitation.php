@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 class Invitation extends Mailable
@@ -73,10 +72,12 @@ class Invitation extends Mailable
      */
     private function makeAttachmentFileName($file)
     {
-        return sys_get_temp_dir() .
+        return (
+            sys_get_temp_dir() .
             '/events-attachment-' .
             sha1($file) .
             '.' .
-            pathinfo($file, PATHINFO_EXTENSION);
+            pathinfo($file, PATHINFO_EXTENSION)
+        );
     }
 }

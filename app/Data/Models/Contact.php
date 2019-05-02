@@ -44,7 +44,7 @@ class Contact extends BaseWithClient
 
     public function scopeActiveOnly($query)
     {
-        return $query->where('is_active', true);
+        return $query->where('contacts.is_active', true);
     }
 
     public function scopeEmailOnly($query)

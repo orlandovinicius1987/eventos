@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Data\Repositories;
 
 use App\Data\Scopes\CurrentClient;
@@ -23,6 +22,8 @@ abstract class Repository
      * @var
      */
     protected $model;
+
+    protected $paginate = true;
 
     protected function buildJoins($query)
     {
@@ -162,6 +163,8 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
+        info(request()->toArray());
+
         $this->filterText($queryFilter, $query);
 
         $this->order($query);
@@ -175,9 +178,7 @@ abstract class Repository
 
         return $this->makePaginationResult(
             $query->paginate(
-                $queryFilter->pagination && $queryFilter->pagination->perPage
-                    ? $queryFilter->pagination->perPage
-                    : 5,
+                $this->getPageSize($queryFilter),
                 ['*'],
                 'page',
                 $queryFilter->pagination &&
@@ -283,7 +284,13 @@ abstract class Repository
 
     protected function getQueryFilter()
     {
-        return coollect(json_decode(request()->get('query'), true));
+        $query = request()->get('query');
+
+        if (is_string($query)) {
+            $query = json_decode($query, true);
+        }
+
+        return coollect($query);
     }
 
     protected function makeQueryByAnyColumnName(
@@ -396,9 +403,7 @@ abstract class Repository
                     'pages' => $this->generatePages($data),
                 ],
             ],
-
             'filter' => $this->getQueryFilter()['filter'],
-
             'rows' => $this->transform($data->items()),
         ];
     }
@@ -532,5 +537,28 @@ abstract class Repository
         set_current_client_id($model->client_id);
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function disablePagination()
+    {
+        $this->paginate = false;
+
+        return $this;
+    }
+
+    /**
+     * @param \PragmaRX\Coollection\Package\Coollection $queryFilter
+     * @return int|mixed|\PragmaRX\Coollection\Package\Coollection
+     */
+    protected function getPageSize($queryFilter)
+    {
+        return $this->paginate
+            ? ($queryFilter->pagination && $queryFilter->pagination->perPage
+                ? $queryFilter->pagination->perPage
+                : 10)
+            : 10000;
     }
 }

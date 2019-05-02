@@ -3,6 +3,8 @@
 Route::group(['prefix' => '/people'], function () {
     Route::get('/', 'People@all')->name('people.all');
 
+    Route::post('/export', 'People@export')->name('people.export');
+
     Route::post('/validate-name', 'People@validateName')->name(
         'people.validate-name'
     );

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Mail;
 
 class ThankYou extends Mailable

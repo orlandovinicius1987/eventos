@@ -47,6 +47,14 @@ const actions = {
         })
     },
 
+    loadExportableData(context) {
+        return get('/api/v1/exportable-data', {
+            params: { query: context.getters.getFullQueryFilter },
+        }).then(response => {
+            context.commit('mutateSetExportableData', response.data)
+        })
+    },
+
     loadContactTypes(context) {
         return get('/api/v1/contact-types', {
             params: { query: context.getters.getFullQueryFilter },
@@ -141,6 +149,7 @@ const actions = {
         context.dispatch('load')
 
         if (context.state.user != null) {
+            context.dispatch('loadExportableData')
             context.dispatch('loadContactTypes')
             context.dispatch('loadInstitutions')
             context.dispatch('loadRoles')
@@ -176,6 +185,10 @@ const mutations = {
         })
 
         state['loaded'] = true
+    },
+
+    mutateSetExportableData(state, payload) {
+        state['tables']['exportable_data'] = payload
     },
 
     mutateSetContactTypes(state, payload) {

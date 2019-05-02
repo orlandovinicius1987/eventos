@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Data\Models;
 
 use Ramsey\Uuid\Uuid;
@@ -155,7 +154,7 @@ class Invitation extends BaseWithClient
     {
         return $this->extractEmailsFromContact(
             $this->personInstitution->contacts
-                ->where('is_active', true)
+                ->where('contacts.is_active', true)
                 ->where(
                     'contact_type_id',
                     app(ContactTypes::class)->findByCode('email')->id
@@ -450,7 +449,6 @@ class Invitation extends BaseWithClient
 
         $variables = [
             'site_url' => route('home'),
-
             'uuid_convite' => $this->uuid,
             'convidado_nome' => $this->personInstitution->person->name,
             'convidado_nome_publico' =>
@@ -489,7 +487,6 @@ class Invitation extends BaseWithClient
             'google_maps_image_url' =>
                 $this->subEvent->address->google_maps_image_url ?? '',
             'arquivo_convite' => $this->subEvent->invitation_file_url ?? '',
-
             'client' => $this->client,
             'client_full_name' => $this->client->name ?? null,
             'client_signature' => $this->client->signatureHtml ?? null,
@@ -645,11 +642,11 @@ class Invitation extends BaseWithClient
 
         $by = "{$prefix}{$what}_by_id";
 
-        if ($this->hasAttribute($at) && !$this->$at) {
-            $this->$at = now();
+        if ($this->hasAttribute($at) && !$this->{$at}) {
+            $this->{$at} = now();
 
             if ($this->hasAttribute($by)) {
-                $this->$by =
+                $this->{$by} =
                     $how === 'manual'
                         ? $this->getCurrentAuthenticatedUserId()
                         : null;

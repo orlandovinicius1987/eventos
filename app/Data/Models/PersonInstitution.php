@@ -93,7 +93,7 @@ class PersonInstitution extends BaseWithClient
 
     public function scopeActive($query)
     {
-        $query->where('is_active', '=', true);
+        $query->where('person_institutions.is_active', '=', true);
     }
 
     public function getCorrectTitleAttribute()

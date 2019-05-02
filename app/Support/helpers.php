@@ -109,7 +109,13 @@ function set_current_client_id($id)
 
 function make_pdf_filename($baseName)
 {
-    return str_slug($baseName . ' ' . now()->format('Y m d H i')) . '.pdf';
+    return make_filename($baseName, 'pdf');
+}
+
+function make_filename($baseName, $extension)
+{
+    return str_slug($baseName . ' ' . now()->format('Y m d H i')) .
+        ".{$extension}";
 }
 
 function extract_info_from_mailgun_webhook($data)
