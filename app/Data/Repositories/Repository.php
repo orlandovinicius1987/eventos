@@ -504,7 +504,10 @@ abstract class Repository
     public function update($id, $array)
     {
         //Insert all global scopes in withoutGlobalScopes except CurrentClient
-        return $this->fillAndSave($array, $this->model::withoutGlobalScopes([ActiveScope::class])->find($id));
+        return $this->fillAndSave(
+            $array,
+            $this->model::withoutGlobalScopes([ActiveScope::class])->find($id)
+        );
     }
 
     /**
