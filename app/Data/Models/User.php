@@ -3,9 +3,11 @@
 namespace App\Data\Models;
 
 use App\Data\Models\Traits\Selectable;
+use function foo\func;
 use Illuminate\Notifications\Notifiable;
 use App\Data\Repositories\Clients as ClientsRepository;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -48,25 +50,34 @@ class User extends Authenticatable
             ->toJson();
     }
 
+    public function getAllPermissions()
+    {
+        return collect(config('roles'));
+    }
+    
     private function filterPermissionsForCurrentClient($permissions)
     {
-        return collect(json_decode($permissions, true))
-            ->mapWithKeys(function ($value, $key) {
-                list($client, $permission) = extract_client_and_permission(
-                    $key
-                );
+        if($this->isSuperUser($this->makeProfilesList())){
+            return $this->getAllPermissions()->toArray();
+        }else {
+            return collect(json_decode($permissions, true))
+                ->mapWithKeys(function ($value, $key) {
+                    list($client, $permission) = extract_client_and_permission(
+                        $key
+                    );
 
-                return [
-                    $key => ['client' => $client, 'permission' => $permission],
-                ];
-            })
-            ->filter(function ($permission) {
-                return $permission['client'] === get_current_client_slug();
-            })
-            ->pluck('permission')
-            ->values()
-            ->unique()
-            ->toArray();
+                    return [
+                        $key => ['client' => $client, 'permission' => $permission],
+                    ];
+                })
+                ->filter(function ($permission) {
+                    return $permission['client'] === get_current_client_slug();
+                })
+                ->pluck('permission')
+                ->values()
+                ->unique()
+                ->toArray();
+        }
     }
 
     public function getAllProfilesArrayAttribute()
