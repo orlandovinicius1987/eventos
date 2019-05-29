@@ -37,7 +37,7 @@ class Handler extends ExceptionHandler
             return null;
         }
 
-        return response()->view('errors.default', [], 500);
+        //return response()->view('errors.default', [], 500);
     }
 
     protected function isRedirect(Exception $exception)

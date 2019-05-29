@@ -151,7 +151,9 @@ No traje de gala, não tem negociação: o homem tem que usar smoking. O terno d
     public function up()
     {
         collect($this->newClients)->each(function ($item, $key) {
-            set_current_client_id(app(ClientsRepository::class)->findByName($item)->id);
+            set_current_client_id(
+                app(ClientsRepository::class)->findByName($item)->id
+            );
 
             $this->createParties();
 
