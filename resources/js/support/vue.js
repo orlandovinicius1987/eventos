@@ -28,6 +28,8 @@ Vue.use(() => import('vue-swal'))
  */
 import { Modal } from 'bootstrap-vue/es/components'
 import { Button } from 'bootstrap-vue/es/components'
+import { Alert } from 'bootstrap-vue/es/components'
+Vue.use(Alert)
 Vue.use(Modal)
 Vue.use(Button)
 
@@ -54,3 +56,9 @@ Vue.component('vue-select', () => import('vue-select'))
 //Vue.use(() => import('vue-croppa'), { componentName: 'vue-croppa' })
 import Croppa from 'vue-croppa'
 Vue.use(Croppa, { componentName: 'vue-croppa' })
+
+/**
+ * Vue Clipboard
+ */
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
