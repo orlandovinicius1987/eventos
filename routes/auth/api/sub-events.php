@@ -9,5 +9,8 @@ Route::group(['prefix' => '/sub-events'], function () {
         'sub-events.all-about-to-happen'
     );
 
-    Route::get('/invitation-image-url', 'SubEvents@makeInvitationImageUrl')->name('sub-events.make-invitation-image-url');
+    Route::get(
+        '/invitation-image-url',
+        'SubEvents@makeInvitationImageUrl'
+    )->name('sub-events.make-invitation-image-url');
 });
