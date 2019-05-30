@@ -242,7 +242,7 @@
                                 name="invitation_file"
                                 label="Arquivo de imagem do convite"
                                 type="text"
-                                v-model="subEvents.form.fields.invitation_file"
+                                v-model="imageUrl"
                                 :form="form"
                                 @on-key-up="
                                     typeKeyImage(
@@ -384,14 +384,31 @@ export default {
                             })
                     }
                 }, 200),
-                found: null,
+                found: false,
                 copyAlert: {
                     dismissSecs: 2,
                     dismissCountDown: 0,
-                    show: false,
+                    show: true,
                 },
             },
         }
+    },
+
+    computed: {
+        imageUrl: {
+            get() {
+                this.updateImageUrl(this.form.fields.invitation_file)
+                return this.form.fields.invitation_file
+            },
+
+            set(payload) {
+                this.$store.commit(this.service.name + '/mutateSetFormField', {
+                    field: 'invitation_file',
+                    value: payload,
+                })
+                this.updateImageUrl(payload)
+            },
+        },
     },
 
     methods: {
@@ -463,10 +480,6 @@ export default {
 
             return items
         },
-    },
-
-    mounted() {
-        this.updateImageUrl(this.form.fields.invitation_file)
     },
 }
 </script>
