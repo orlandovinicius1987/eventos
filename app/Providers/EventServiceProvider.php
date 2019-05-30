@@ -39,12 +39,16 @@ class EventServiceProvider extends ServiceProvider
         ContactCreated::class => [SendNotificationsToContact::class],
         ContactUpdated::class => [SendNotificationsToContact::class],
         MessageSending::class => [SetMailNotificationMessageInfo::class],
-        InvitationUpdated::class =>
-            [NotifyInvitationsChanged::class, NotifySubEventsChanged::class],
+        InvitationUpdated::class => [
+            NotifyInvitationsChanged::class,
+            NotifySubEventsChanged::class,
+        ],
         InvitationCreated::class => [SendNotification::class],
         PersonUpdated::class => [NotifyPeopleChanged::class],
         NotificationSent::class => [NotifySubEventsChanged::class],
-        InviteeCheckedIn::class =>
-            [NotifyInviteesChanged::class, SendThankYouToInvitee::class],
+        InviteeCheckedIn::class => [
+            NotifyInviteesChanged::class,
+            SendThankYouToInvitee::class,
+        ],
     ];
 }

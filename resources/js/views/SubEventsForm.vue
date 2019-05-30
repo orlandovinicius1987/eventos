@@ -409,11 +409,19 @@ export default {
                             })
                     }
                 }, 200),
+<<<<<<< HEAD
                 found: false,
                 copyAlert: {
                     dismissSecs: 2,
                     dismissCountDown: 0,
                     show: true,
+=======
+                found: null,
+                copyAlert: {
+                    dismissSecs: 2,
+                    dismissCountDown: 0,
+                    show: false,
+>>>>>>> Image preview in subevents form
                 },
             },
         }
@@ -506,6 +514,13 @@ export default {
             return items
         },
     },
+<<<<<<< HEAD
+=======
+
+    mounted() {
+        this.updateImageUrl(this.form.fields.invitation_file)
+    },
+>>>>>>> Image preview in subevents form
 }
 </script>
 
