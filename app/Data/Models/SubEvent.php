@@ -88,7 +88,7 @@ class SubEvent extends BaseWithClient
         return $this->belongsTo(Costume::class);
     }
 
-    private function makeUrl($url)
+    public static function makeUrl($url)
     {
         return starts_with('http', lower($url)) ? $url : url($url);
     }
@@ -116,7 +116,7 @@ class SubEvent extends BaseWithClient
     public function getInvitationFileUrlAttribute()
     {
         return $this->invitation_file
-            ? $this->makeUrl($this->invitation_file)
+            ? $this::makeUrl($this->invitation_file)
             : '';
     }
 

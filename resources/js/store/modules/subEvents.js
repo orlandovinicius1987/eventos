@@ -54,6 +54,7 @@ const __emptyModel = {
     send_invitations: null,
     send_credentials: null,
     security_can_recept: null,
+    invitation_file: null,
 }
 
 const state = merge_objects(statesMixin.common, {
