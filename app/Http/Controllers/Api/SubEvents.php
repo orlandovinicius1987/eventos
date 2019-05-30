@@ -34,6 +34,18 @@ class SubEvents extends Controller
     }
 
     /**
+     * Get invitation image url
+     *
+     * @return \Illuminate\Http\Response|Collection
+     */
+    public function makeInvitationImageUrl(Request $request)
+    {
+        return app(SubEventsRepository::class)->makeInvitationImageUrl(
+            $request->get('link')
+        );
+    }
+
+    /**
      * Get all data
      *
      * @return \Illuminate\Http\Response|Collection
