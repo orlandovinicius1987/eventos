@@ -144,6 +144,11 @@ class SubEvents extends Repository
         return parent::transform($data);
     }
 
+    public function makeInvitationImageUrl($link)
+    {
+        return SubEvent::makeUrl($link);
+    }
+
     public function replicateCommonInfo($eventId, $subEventId)
     {
         $subEvent = $this->findById($subEventId);
