@@ -154,7 +154,7 @@ class Invitation extends BaseWithClient
     {
         return $this->extractEmailsFromContact(
             $this->personInstitution->contacts
-                ->where('contacts.is_active', true)
+                ->where('is_active', true)
                 ->where(
                     'contact_type_id',
                     app(ContactTypes::class)->findByCode('email')->id
