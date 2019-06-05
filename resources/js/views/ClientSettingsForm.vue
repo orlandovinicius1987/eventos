@@ -32,7 +32,7 @@
                             ></app-input>
 
                             <app-markdown-text-area
-                                @input="changeText($event)"
+                                @input="changeSignature($event)"
                                 :form="form"
                                 label="Assinatura para os e-mails"
                                 id="signature"
@@ -90,7 +90,7 @@ export default {
     },
 
     methods: {
-        changeText($event) {
+        changeSignature($event) {
             this.$store.commit('clients/mutateSetFormField', {
                 field: 'signature',
                 value: $event,
