@@ -833,9 +833,16 @@
                         </form>
                     </div>
                 </div>
+
             </div>
 
             <div slot="modal-footer" class="w-100">
+                <button
+                    class="float-left btn btn-outline-secondary mr-2"
+                    @click="exportAll()"
+                >
+                    <i class="fas fa-download"> Exportar tudo</i>
+                </button>
                 <button
                     class="float-right btn btn-success"
                     @click="showExport = false"
@@ -999,6 +1006,12 @@ export default {
 
             this.exportToFile(type).then(() => {
                 this.exporter.busy = false
+            })
+        },
+
+        exportAll(){
+            return post('api/v1/people/exportAll').then(response=>{
+                return this.downloadCsv(response)
             })
         },
 

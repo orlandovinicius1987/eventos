@@ -5,6 +5,8 @@ Route::group(['prefix' => '/people'], function () {
 
     Route::post('/export', 'People@export')->name('people.export');
 
+    Route::post('/exportAll', 'People@exportAll')->name('people.exportAll');
+
     Route::post('/validate-name', 'People@validateName')->name(
         'people.validate-name'
     );
