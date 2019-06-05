@@ -238,14 +238,75 @@
                                 :value="subEvents.form.fields.rejection_text"
                             ></app-markdown-text-area>
 
-                            <app-input
-                                name="invitation_file"
-                                label="Arquivo de imagem do convite"
-                                type="text"
-                                v-model="subEvents.form.fields.invitation_file"
-                                :form="form"
-                                inline="true"
-                            ></app-input>
+                            <div class="row mt-4">
+                                <div class="col-8">
+                                    <app-input
+                                        name="invitation_file"
+                                        label="Arquivo de imagem do convite"
+                                        type="text"
+                                        v-model="imageUrl"
+                                        :form="form"
+                                        @on-key-up="
+                                            typeKeyImage(
+                                                subEvents.form.fields
+                                                    .invitation_file,
+                                            )
+                                        "
+                                        :additional-error-message="
+                                            getImageNotFoundMessage()
+                                        "
+                                        inline="true"
+                                    ></app-input>
+
+                                    <div
+                                        v-show="
+                                            image.found &&
+                                                subEvents.form.fields
+                                                    .invitation_file
+                                        "
+                                        v-clipboard:copy="
+                                            fullInvitationImageUrl
+                                        "
+                                        v-clipboard:success="onCopy"
+                                        v-clipboard:error="onError"
+                                        class="cursor-pointer"
+                                    >
+                                        <small
+                                            v-if="
+                                                subEvents.form.fields
+                                                    .invitation_file
+                                            "
+                                        >
+                                            {{ fullInvitationImageUrl }}
+                                        </small>
+
+                                        <i class="fa fa-copy"></i>
+
+                                        <b-alert
+                                            :show="
+                                                image.copyAlert.dismissCountDown
+                                            "
+                                            dismissible
+                                            variant="warning"
+                                            @dismiss-count-down="
+                                                countDownChanged
+                                            "
+                                        >
+                                            URL copiada para a área de
+                                            transferência
+                                        </b-alert>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <img
+                                        height="150"
+                                        :src="fullInvitationImageUrl"
+                                        @error="errorImage"
+                                        @load="loadImage"
+                                    />
+                                </div>
+                            </div>
 
                             <div class="row" v-if="mode == 'create'">
                                 <div class="col-sm-12 col-md-12">
@@ -331,10 +392,87 @@ export default {
         this.$store.dispatch('environment/loadAddresses')
         return {
             service: service,
+            fullInvitationImageUrl: '',
+            image: {
+                updateImageUrlDebounced: _.debounce($value => {
+                    if ($value) {
+                        axios
+                            .get(
+                                '/api/v1/sub-events/invitation-image-url?link=' +
+                                    $value,
+                            )
+                            .then(response => {
+                                this.fullInvitationImageUrl = response.data
+                            })
+                            .catch(error => {
+                                console.log(error)
+                            })
+                    }
+                }, 200),
+
+                found: null,
+
+                copyAlert: {
+                    dismissSecs: 2,
+                    dismissCountDown: 0,
+                    show: false,
+                },
+            },
         }
     },
 
+    computed: {
+        imageUrl: {
+            get() {
+                this.updateImageUrl(this.form.fields.invitation_file)
+                return this.form.fields.invitation_file
+            },
+
+            set(payload) {
+                this.$store.commit(this.service.name + '/mutateSetFormField', {
+                    field: 'invitation_file',
+                    value: payload,
+                })
+                this.updateImageUrl(payload)
+            },
+        },
+    },
+
     methods: {
+        countDownChanged(dismissCountDown) {
+            this.image.copyAlert.dismissCountDown = dismissCountDown
+        },
+
+        onCopy: function(e) {
+            this.image.copyAlert.dismissCountDown = this.image.copyAlert.dismissSecs
+        },
+
+        onError: function(e) {
+            alert('Failed to copy texts')
+        },
+
+        getImageNotFoundMessage() {
+            return this.image.found && this.form.fields.invitation_file
+                ? ''
+                : 'Imagem não encontrada'
+        },
+
+        errorImage($event) {
+            this.image.found = false
+        },
+
+        loadImage($event) {
+            this.image.found = true
+        },
+
+        typeKeyImage($value) {
+            this.updateImageUrl($value)
+        },
+
+        updateImageUrl($value) {
+            this.image.updateImageUrlDebounced($value)
+        },
+
         changeText($event) {
             this.$store.commit('subEvents/mutateSetFormField', {
                 field: $event.field,
@@ -371,7 +509,9 @@ export default {
         },
     },
 
-    mounted() {},
+    mounted() {
+        this.updateImageUrl(this.form.fields.invitation_file)
+    },
 }
 </script>
 

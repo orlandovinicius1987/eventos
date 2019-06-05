@@ -1,6 +1,8 @@
 export function mutateSetData(state, payload) {
     state.data = payload
 
+    dd(payload)
+
     if (state.selected.id) {
         const found = _.find(
             state.data.rows,

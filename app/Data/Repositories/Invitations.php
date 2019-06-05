@@ -34,10 +34,9 @@ class Invitations extends Repository
             $invitation['pending'] = [
                 [
                     'type' => $invitation->hasEmail() ? 'success' : 'danger',
-                    'label' =>
-                        $invitation->hasEmail()
-                            ? 'nenhuma'
-                            : 'não possui e-mail',
+                    'label' => $invitation->hasEmail()
+                        ? 'nenhuma'
+                        : 'não possui e-mail',
                 ],
             ];
 
@@ -293,10 +292,8 @@ class Invitations extends Repository
     {
         $this->setCurrentClientId($invitation->id); /// &&&& hack /// resolver depois
 
-        return (
-            $invitation->subEvent->event->id == $eventId &&
-            $invitation->subEvent->id == $subEventId
-        );
+        return $invitation->subEvent->event->id == $eventId &&
+            $invitation->subEvent->id == $subEventId;
     }
 
     public function sendInvitation($eventId, $subEventId, $invitationId)
@@ -328,8 +325,7 @@ class Invitations extends Repository
 
     public function setCurrentClientId($invitationId)
     {
-        $invitation = Database
-            ::table('invitations')
+        $invitation = Database::table('invitations')
             ->join(
                 'person_institutions',
                 'invitations.person_institution_id',
@@ -350,8 +346,7 @@ class Invitations extends Repository
         $currentSubEventId,
         $invitees
     ) {
-        $invitations = InvitationModel
-            ::filterByPersonInstitutions($invitees)
+        $invitations = InvitationModel::filterByPersonInstitutions($invitees)
             ->filterBySubEvent($currentSubEventId)
             ->get();
 
@@ -375,12 +370,8 @@ class Invitations extends Repository
         return parent::transform($data);
     }
 
-    public function accept(
-        $eventId,
-        $subEventId,
-        $invitationId,
-        $cpf_confirmed
-    ) {
+    public function accept($eventId, $subEventId, $invitationId, $cpf_confirmed)
+    {
         $invitation = $this->findById($invitationId);
 
         if (
@@ -400,21 +391,15 @@ class Invitations extends Repository
             if ($this->markAsAccepted($eventId, $subEventId, $invitation->id)) {
                 return 'Muito obrigado por CONFIRMAR presença.<br>Em breve enviaremos a sua credencial para acesso ao evento.';
             } else {
-                return (
-                    'A sua presença já havia sido confirmada anteriormente.<br>' .
+                return 'A sua presença já havia sido confirmada anteriormente.<br>' .
                     'Em breve enviaremos a sua credencial para acesso ao evento.<br>' .
-                    'Caso esteja tendo dificuldades, por favor entre em contato com o Cerimonial Alerj.'
-                );
+                    'Caso esteja tendo dificuldades, por favor entre em contato com o Cerimonial Alerj.';
             }
         }
     }
 
-    public function reject(
-        $eventId,
-        $subEventId,
-        $invitationId,
-        $cpf_confirmed
-    ) {
+    public function reject($eventId, $subEventId, $invitationId, $cpf_confirmed)
+    {
         $invitation = $this->findById($invitationId);
 
         if (
@@ -447,10 +432,8 @@ class Invitations extends Repository
     {
         return collect(array_merge([$invitation], $invitation->related()))
             ->reject(function ($invitation) {
-                return (
-                    is_null($invitation->subEvent->confirmed_at) ||
-                    $invitation->subEvent->ended_at
-                );
+                return is_null($invitation->subEvent->confirmed_at) ||
+                    $invitation->subEvent->ended_at;
             })
             ->sortBy(function ($invitation) {
                 return is_null($invitation->subEvent->associated_subevent_id)
@@ -540,8 +523,7 @@ class Invitations extends Repository
 
     public function getStatistics($eventId)
     {
-        return Database
-            ::table('invitations')
+        return Database::table('invitations')
             ->select(
                 Database::raw(
                     'count(person_institution_id) as confirmed, count(checkin_at) totalcheckedin'

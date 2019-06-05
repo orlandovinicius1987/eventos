@@ -31,7 +31,19 @@ let state = merge_objects(
     statesMixin.common,
 )
 
-let actions = actionsMixin
+let actions = merge_objects(actionsMixin, {
+    setDataAfterLoad(context, payload) {
+        payload.filter.text = context.state.data.filter.text
+
+        context.commit('mutateSetData', payload)
+
+        dd(payload)
+        context.commit('mutateSetFormField', {
+            field: 'settings',
+            value: payload.rows[0].settings,
+        })
+    },
+})
 
 let mutations = mutationsMixin
 let getters = gettersMixin
