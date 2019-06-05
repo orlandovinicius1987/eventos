@@ -508,6 +508,7 @@ export default {
             return items
         },
     },
+
     mounted() {
         this.updateImageUrl(this.form.fields.invitation_file)
     },

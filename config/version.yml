@@ -12,7 +12,11 @@ cache:
     time: 525600
 build:
     mode: number
+<<<<<<< HEAD
     number: 016a88
+=======
+    number: b043cb
+>>>>>>> origin/production
     length: 6
     increment_by: 1
     git_absorb: git-local
