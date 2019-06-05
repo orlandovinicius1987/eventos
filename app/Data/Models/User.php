@@ -54,12 +54,12 @@ class User extends Authenticatable
     {
         return collect(config('roles'));
     }
-    
+
     private function filterPermissionsForCurrentClient($permissions)
     {
-        if($this->isSuperUser($this->makeProfilesList())){
+        if ($this->isSuperUser($this->makeProfilesList())) {
             return $this->getAllPermissions()->toArray();
-        }else {
+        } else {
             return collect(json_decode($permissions, true))
                 ->mapWithKeys(function ($value, $key) {
                     list($client, $permission) = extract_client_and_permission(
@@ -67,7 +67,10 @@ class User extends Authenticatable
                     );
 
                     return [
-                        $key => ['client' => $client, 'permission' => $permission],
+                        $key => [
+                            'client' => $client,
+                            'permission' => $permission,
+                        ],
                     ];
                 })
                 ->filter(function ($permission) {

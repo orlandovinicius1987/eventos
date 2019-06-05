@@ -13,9 +13,7 @@ class Kernel extends ConsoleKernel
      *
      * @var array
      */
-    protected $commands = [
-        CreateClient::class
-    ];
+    protected $commands = [CreateClient::class];
 
     /**
      * Define the application's command schedule.

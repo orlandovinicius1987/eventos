@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Providers;
 
 use App\Events\ContactCreated;
@@ -34,31 +33,19 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Registered::class => [SendEmailVerificationNotification::class],
-
         InvitationsChanged::class => [NotifySubEventsChanged::class],
-
         InvitationAccepted::class => [NotifySubEventsChanged::class],
-
         InvitationRejected::class => [SendRejection::class],
-
         ContactCreated::class => [SendNotificationsToContact::class],
-
         ContactUpdated::class => [SendNotificationsToContact::class],
-
         MessageSending::class => [SetMailNotificationMessageInfo::class],
-
         InvitationUpdated::class => [
             NotifyInvitationsChanged::class,
-
             NotifySubEventsChanged::class,
         ],
-
         InvitationCreated::class => [SendNotification::class],
-
         PersonUpdated::class => [NotifyPeopleChanged::class],
-
         NotificationSent::class => [NotifySubEventsChanged::class],
-
         InviteeCheckedIn::class => [
             NotifyInviteesChanged::class,
             SendThankYouToInvitee::class,

@@ -42,10 +42,12 @@
                         disabled: cannot('people:modify'),
                         dusk: 'create-people-button',
                     }"
+                    :export-button="true"
                     :per-page="peoplePerPage"
                     @set-per-page="peoplePerPage = $event"
                     :filter-text="peopleFilterText"
                     @input-filter-text="peopleFilterText = $event.target.value"
+                    @export="showExportModal()"
                 >
                     <template slot="selects">
                         <app-institution-filter-for-person
@@ -807,6 +809,56 @@
                 </div>
             </div>
         </div>
+
+        <b-modal
+            id="exportModal"
+            body-class="mx-auto"
+            v-model="showExport"
+            title="Selecione os campos a exportar"
+            centered
+        >
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <form action="do">
+                            <app-input
+                                v-for="option in exportableOptions"
+                                :key="option.code"
+                                :label="option.title"
+                                type="checkbox"
+                                :form="form"
+                                inline="true"
+                                @input="toggleExportOption(option, $event)"
+                            ></app-input>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div slot="modal-footer" class="w-100">
+                <button
+                    class="float-right btn btn-success"
+                    @click="showExport = false"
+                >
+                    Fechar
+                </button>
+
+                <button
+                    v-if="false"
+                    class="float-right btn btn-outline-secondary mr-2"
+                    @click="doExport('pdf')"
+                >
+                    <i class="fa fa-file-pdf"></i> PDF
+                </button>
+
+                <button
+                    class="float-right btn btn-outline-secondary mr-2"
+                    @click="doExport('csv')"
+                >
+                    <i class="fa fa-file-excel"></i> Excel
+                </button>
+            </div>
+        </b-modal>
     </div>
 </template>
 
@@ -824,6 +876,14 @@ export default {
     data() {
         return {
             service: service,
+
+            showExport: false,
+
+            exporter: {
+                selectedOptions: [],
+
+                busy: false,
+            },
         }
     },
 
@@ -920,6 +980,66 @@ export default {
 
         deletePersonTopic(personTopic) {
             return this.$store.dispatch('personTopics/unTopicize', personTopic)
+        },
+
+        showExportModal() {
+            this.showExport = true
+        },
+
+        toggleExportOption(option, event) {
+            if (event) {
+                return this.exporter.selectedOptions.push(option.code)
+            }
+
+            _.pull(this.exporter.selectedOptions, option.code)
+        },
+
+        doExport(type) {
+            this.exporter.busy = true
+
+            this.exportToFile(type).then(() => {
+                this.exporter.busy = false
+            })
+        },
+
+        exportToFile(fileType) {
+            return post('api/v1/people/export', {
+                query: this.$store.getters['people/getQueryFilter'],
+                fileType: fileType,
+                options: this.exporter.selectedOptions,
+            }).then(response => {
+                return fileType === 'pdf'
+                    ? this.downloadPdf(response)
+                    : this.downloadCsv(response)
+            })
+        },
+
+        downloadPdf(response) {
+            let blob = new Blob([response.data], {
+                type: 'application/pdf',
+            })
+
+            let link = document.createElement('a')
+
+            link.href = window.URL.createObjectURL(blob)
+
+            link.download = extractFileNameFromResponse(response)
+
+            link.click()
+        },
+
+        downloadCsv(response) {
+            let blob = new Blob([response.data], {
+                type: 'application/csv',
+            })
+
+            let link = document.createElement('a')
+
+            link.href = window.URL.createObjectURL(blob)
+
+            link.download = extractFileNameFromResponse(response)
+
+            link.click()
         },
     },
 
@@ -1149,6 +1269,10 @@ export default {
                     value: filter,
                 })
             },
+        },
+
+        exportableOptions() {
+            return this.environment.tables.exportable_data
         },
     },
 }

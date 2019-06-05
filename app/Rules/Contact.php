@@ -61,18 +61,34 @@ class Contact implements Rule
         switch ($type) {
             case 'mobile':
             case 'whatsapp':
-                preg_match('/\+\d\d\(\d\d\)\d\d\d\d\d-\d\d\d\d/', $phone, $out1);
+                preg_match(
+                    '/\+\d\d\(\d\d\)\d\d\d\d\d-\d\d\d\d/',
+                    $phone,
+                    $out1
+                );
                 preg_match('/\(\d\d\)\d\d\d\d\d-\d\d\d\d/', $phone, $out2);
                 return isset($out1[0]) || isset($out2[0]);
                 break;
             case 'phone':
                 preg_match('/ramal/', $phone, $out);
-                if(isset($out[0])){
-                    preg_match('/\(\d\d\)\d\d\d\d-\d\d\d\d ramal \d\d?\d?\d?$/', $phone, $out1);
-                    preg_match('/\+\d\d\(\d\d\)\d\d\d\d-\d\d\d\d ramal \d\d?\d?\d?$/', $phone, $out2);
+                if (isset($out[0])) {
+                    preg_match(
+                        '/\(\d\d\)\d\d\d\d-\d\d\d\d ramal \d\d?\d?\d?$/',
+                        $phone,
+                        $out1
+                    );
+                    preg_match(
+                        '/\+\d\d\(\d\d\)\d\d\d\d-\d\d\d\d ramal \d\d?\d?\d?$/',
+                        $phone,
+                        $out2
+                    );
                     return isset($out1[0]) || isset($out2[0]);
-                }else{
-                    preg_match('/\+\d\d\(\d\d\)\d\d\d\d-\d\d\d\d$/', $phone, $out1);
+                } else {
+                    preg_match(
+                        '/\+\d\d\(\d\d\)\d\d\d\d-\d\d\d\d$/',
+                        $phone,
+                        $out1
+                    );
                     preg_match('/\(\d\d\)\d\d\d\d-\d\d\d\d$/', $phone, $out2);
                     return isset($out1[0]) || isset($out2[0]);
                 }

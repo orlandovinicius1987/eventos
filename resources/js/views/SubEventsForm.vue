@@ -238,49 +238,74 @@
                                 :value="subEvents.form.fields.rejection_text"
                             ></app-markdown-text-area>
 
-                            <app-input
-                                name="invitation_file"
-                                label="Arquivo de imagem do convite"
-                                type="text"
-                                v-model="imageUrl"
-                                :form="form"
-                                @on-key-up="
-                                    typeKeyImage(
-                                        subEvents.form.fields.invitation_file,
-                                    )
-                                "
-                                :additional-error-message="
-                                    getImageNotFoundMessage()
-                                "
-                                inline="true"
-                            ></app-input>
-                            <div
-                                v-show="
-                                    image.found &&
-                                        subEvents.form.fields.invitation_file
-                                "
-                            >
-                                <small
-                                    v-clipboard:copy="fullInvitationImageUrl"
-                                    v-clipboard:success="onCopy"
-                                    v-clipboard:error="onError"
-                                    v-if="subEvents.form.fields.invitation_file"
-                                    >{{ fullInvitationImageUrl }}</small
-                                >
-                                <img
-                                    height="100"
-                                    :src="fullInvitationImageUrl"
-                                    @error="errorImage"
-                                    @load="loadImage"
-                                />
-                                <b-alert
-                                    :show="image.copyAlert.dismissCountDown"
-                                    dismissible
-                                    variant="warning"
-                                    @dismiss-count-down="countDownChanged"
-                                >
-                                    URL copiada para a área de transferência
-                                </b-alert>
+                            <div class="row mt-4">
+                                <div class="col-8">
+                                    <app-input
+                                        name="invitation_file"
+                                        label="Arquivo de imagem do convite"
+                                        type="text"
+                                        v-model="imageUrl"
+                                        :form="form"
+                                        @on-key-up="
+                                            typeKeyImage(
+                                                subEvents.form.fields
+                                                    .invitation_file,
+                                            )
+                                        "
+                                        :additional-error-message="
+                                            getImageNotFoundMessage()
+                                        "
+                                        inline="true"
+                                    ></app-input>
+
+                                    <div
+                                        v-show="
+                                            image.found &&
+                                                subEvents.form.fields
+                                                    .invitation_file
+                                        "
+                                        v-clipboard:copy="
+                                            fullInvitationImageUrl
+                                        "
+                                        v-clipboard:success="onCopy"
+                                        v-clipboard:error="onError"
+                                        class="cursor-pointer"
+                                    >
+                                        <small
+                                            v-if="
+                                                subEvents.form.fields
+                                                    .invitation_file
+                                            "
+                                        >
+                                            {{ fullInvitationImageUrl }}
+                                        </small>
+
+                                        <i class="fa fa-copy"></i>
+
+                                        <b-alert
+                                            :show="
+                                                image.copyAlert.dismissCountDown
+                                            "
+                                            dismissible
+                                            variant="warning"
+                                            @dismiss-count-down="
+                                                countDownChanged
+                                            "
+                                        >
+                                            URL copiada para a área de
+                                            transferência
+                                        </b-alert>
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <img
+                                        height="150"
+                                        :src="fullInvitationImageUrl"
+                                        @error="errorImage"
+                                        @load="loadImage"
+                                    />
+                                </div>
                             </div>
 
                             <div class="row" v-if="mode == 'create'">
@@ -384,11 +409,13 @@ export default {
                             })
                     }
                 }, 200),
-                found: false,
+
+                found: null,
+
                 copyAlert: {
                     dismissSecs: 2,
                     dismissCountDown: 0,
-                    show: true,
+                    show: false,
                 },
             },
         }
@@ -480,6 +507,10 @@ export default {
 
             return items
         },
+    },
+
+    mounted() {
+        this.updateImageUrl(this.form.fields.invitation_file)
     },
 }
 </script>

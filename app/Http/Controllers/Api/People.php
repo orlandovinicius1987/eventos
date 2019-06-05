@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Data\Repositories\People as PeopleRepository;
-use App\Http\Requests\NewPersonName;
 use App\Http\Requests\PersonStore;
 use App\Http\Requests\PersonUpdate;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\NewPersonName;
+use App\Data\Repositories\People as PeopleRepository;
 
 class People extends Controller
 {
@@ -66,5 +66,13 @@ class People extends Controller
     public function validateName(NewPersonName $request)
     {
         return $this->emptyResponse();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function export()
+    {
+        return app(PeopleRepository::class)->export();
     }
 }

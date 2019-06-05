@@ -2,7 +2,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-        <title>Eventos</title>
+        <title>{{ $heading }}</title>
 
         <style type="text/css">
             @page {
@@ -56,10 +56,10 @@
                         <td>
                             {{ $heading }}
 
-                            @if (isset($subHeading))
+                            @isset($subHeading)
                                 <br>
                                 {{ $subHeading }}
-                            @endif
+                            @endisset
                         </td>
 
                         <td style="text-align: right;">

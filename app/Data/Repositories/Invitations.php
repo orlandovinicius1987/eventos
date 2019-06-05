@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Data\Repositories;
 
 use DB as Database;
@@ -52,12 +51,14 @@ class Invitations extends Repository
     protected function filterCheckboxes($query, array $filter)
     {
         if (isset($filter['hasNoEmail']) && $filter['hasNoEmail']) {
-            $query->whereRaw('(
+            $query->whereRaw(
+                '(
                 select count(*) count
                     from contacts c
                     where person_institution_id = invitations.person_institution_id
                     and c.contact_type_id = (select id from contact_types where code = \'email\')
-                ) = 0');
+                ) = 0'
+            );
         }
 
         if (isset($filter['sent']) && $filter['sent']) {

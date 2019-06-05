@@ -24,5 +24,6 @@ Route::group(
         require __DIR__ . '/api/zip-code.php';
         require __DIR__ . '/api/topics.php';
         require __DIR__ . '/api/clients.php';
+        require __DIR__ . '/api/exportable.php';
     }
 );

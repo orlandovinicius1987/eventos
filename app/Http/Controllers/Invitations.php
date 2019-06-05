@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\InvitationsAcceptStore;
@@ -52,9 +51,7 @@ class Invitations extends Controller
             $request['cpf']
         );
 
-        return view('messages.common')->with([
-            'message' => $message,
-        ]);
+        return view('messages.common')->with(['message' => $message]);
     }
 
     /**
@@ -100,9 +97,7 @@ class Invitations extends Controller
             $request['cpf']
         );
 
-        return view('messages.common')->with([
-            'message' => $message,
-        ]);
+        return view('messages.common')->with(['message' => $message]);
     }
 
     /**
