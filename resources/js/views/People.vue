@@ -839,8 +839,10 @@
                 <button
                     class="float-left btn btn-outline-secondary mr-2"
                     @click="exportAll()"
+                    :disabled="exporter.busy.all"
                 >
-                    <i class="fas fa-download"></i>
+                    <i v-if="!exporter.busy.all" class="fas fa-download"></i>
+                    <i v-if="exporter.busy.all" class="fas fa-cog fa-spin"></i>
 
                     Exportar tudo
                 </button>
@@ -891,7 +893,10 @@ export default {
             exporter: {
                 selectedOptions: [],
 
-                busy: false,
+                busy: {
+                    single: false,
+                    all: false,
+                },
             },
         }
     },
@@ -1004,17 +1009,29 @@ export default {
         },
 
         doExport(type) {
-            this.exporter.busy = true
+            this.exporter.busy.single = true
 
-            this.exportToFile(type).then(() => {
-                this.exporter.busy = false
-            })
+            this.exportToFile(type)
+                .then(() => {
+                    this.exporter.busy.single = false
+                })
+                .catch(() => {
+                    this.exporter.busy.single = false
+                })
         },
 
         exportAll() {
-            return post('api/v1/people/export-all').then(response => {
-                return this.downloadCsv(response)
-            })
+            this.exporter.busy.all = true
+
+            return post('api/v1/people/export-all')
+                .then(response => {
+                    this.exporter.busy.all = false
+
+                    return this.downloadCsv(response)
+                })
+                .catch(() => {
+                    this.exporter.busy.all = false
+                })
         },
 
         exportToFile(fileType) {
