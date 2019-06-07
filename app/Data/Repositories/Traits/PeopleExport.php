@@ -2,17 +2,35 @@
 
 namespace App\Data\Repositories\Traits;
 
-use App\Data\Repositories\ExportableData;
 use App\Services\CSV;
+use Illuminate\Support\Str;
 use App\Services\PDF\Service as PDF;
+use App\Data\Models\PersonInstitution;
+use App\Data\Repositories\ExportableData;
 
 trait PeopleExport
 {
+    protected $allContactTypes = [];
+
+    protected $fieldTypes = [
+        'name' => '01_',
+        'institution' => '02_',
+        'role' => '03_',
+        'contact' => '04_',
+        'address' => '05_',
+        'advisor' => '06_',
+    ];
+
     public function export()
     {
         return request()->get('fileType') === 'pdf'
             ? $this->pdf()
             : $this->csv();
+    }
+
+    public function exportAll()
+    {
+        return $this->csvAll();
     }
 
     /**
@@ -94,6 +112,20 @@ trait PeopleExport
             ->deleteFileAfterSend(true);
     }
 
+    public function csvAll()
+    {
+        $fileName = tempnam(sys_get_temp_dir(), 'exporter_');
+
+        file_put_contents(
+            $fileName,
+            $this->exportToCsv($this->getAllExportableData())
+        );
+
+        return response()
+            ->download($fileName, make_filename('pessoas', 'csv'))
+            ->deleteFileAfterSend(true);
+    }
+
     public function generateHtml()
     {
         return view('pdf.people')
@@ -145,6 +177,13 @@ trait PeopleExport
             ->toArray();
     }
 
+    public function getAllExportableData()
+    {
+        return $this->createExportableData(
+            PersonInstitution::with('contacts')->get()
+        )->toArray();
+    }
+
     public function getExportableColumns()
     {
         return app(ExportableData::class)
@@ -174,5 +213,158 @@ trait PeopleExport
         });
 
         return $item;
+    }
+
+    private function createExportableData($data)
+    {
+        return $data
+            ->map(function ($item) {
+                $result =
+                    [
+                        $this->fieldTypes['name'] . 'nome' => $item->person
+                            ->name,
+
+                        $this->fieldTypes['institution'] .
+                        'instituicao' => $item->institution->name,
+
+                        $this->fieldTypes['role'] . 'cargo' => $item->role
+                            ->name,
+                    ] +
+                    $this->makeContactsArray($item->contacts) +
+                    $this->makeAddressesArray($item->addresses) +
+                    $this->makeAdvisorsArray($item->advisors);
+
+                $this->allContactTypes = collect($this->allContactTypes)
+                    ->merge(collect($result)->keys())
+                    ->unique();
+
+                return $result;
+            })
+            ->map(function ($item) {
+                return $this->allContactTypes
+                    ->sort()
+                    ->mapWithKeys(function ($column) use ($item) {
+                        return [
+                            $this->removeFieldType($column) =>
+                                $item[$column] ?? null,
+                        ];
+                    });
+            });
+    }
+
+    public function removeFieldType($column)
+    {
+        $column = substr($column, strlen($this->fieldTypes['name']));
+
+        if (($pos = strpos($column, 'XY')) !== false) {
+            $column = substr($column, 0, $pos) . substr($column, $pos + 4);
+        }
+
+        return $column;
+    }
+
+    public function makeContactsArray($contacts)
+    {
+        $types = [];
+
+        $contacts = $contacts
+            ->map(function ($contact) {
+                return [
+                    'type' => Str::slug($contact->contactType->name),
+                    'contact' => $contact->contact,
+                ];
+            })
+            ->sortBy('type')
+            ->mapWithKeys(function ($contact) use (&$types) {
+                $types[$contact['type']] = isset($types[$contact['type']])
+                    ? $types[$contact['type']] + 1
+                    : 1;
+
+                $contact['type'] = $contact['type'] . $types[$contact['type']];
+
+                return [
+                    $this->fieldTypes['contact'] . $contact['type'] => $contact[
+                        'contact'
+                    ],
+                ];
+            });
+
+        return $contacts->toArray();
+    }
+
+    public function makeAddressesArray($addresses)
+    {
+        return $addresses
+            ->map(function ($address) {
+                return collect([
+                    'XY1_cep' => $address->zipcode,
+                    'XY2_endereco' => $address->street,
+                    'XY3_numero' => $address->number,
+                    'XY4_complemento' => $address->complement,
+                    'XY5_bairro' => $address->neighbourhood,
+                    'XY6_cidade' => $address->city,
+                    'XY7_uf' => $address->state,
+                ]);
+            })
+            ->mapWithKeys(function ($address) use (&$types) {
+                $types['endereco'] = isset($types['endereco'])
+                    ? $types['endereco'] + 1
+                    : 1;
+
+                $address = $address->mapWithKeys(function ($value, $key) use (
+                    $types
+                ) {
+                    return [
+                        $this->fieldTypes['address'] .
+                        'endereco' .
+                        $types['endereco'] .
+                        '_' .
+                        $key => $value,
+                    ];
+                });
+
+                return $address;
+            })
+            ->toArray();
+    }
+
+    public function makeAdvisorsArray($advisors)
+    {
+        $types = [];
+
+        return $advisors
+            ->map(function ($advisor) {
+                return collect(
+                    [
+                        $this->fieldTypes['name'] . 'nome' => $advisor->person
+                            ->name,
+
+                        $this->fieldTypes['role'] . 'cargo' => $advisor->role
+                            ->name,
+                    ] +
+                        $this->makeContactsArray($advisor->contacts) +
+                        $this->makeAddressesArray($advisor->addresses)
+                );
+            })
+            ->mapWithKeys(function ($advisor) use (&$types) {
+                $order['assessor'] = isset($order['assessor'])
+                    ? $order['assessor'] + 1
+                    : 1;
+
+                $advisor = $advisor->mapWithKeys(function ($value, $key) use (
+                    $order
+                ) {
+                    return [
+                        $this->fieldTypes['advisor'] .
+                        'assessor' .
+                        $order['assessor'] .
+                        '_' .
+                        $key => $value,
+                    ];
+                });
+
+                return $advisor;
+            })
+            ->toArray();
     }
 }

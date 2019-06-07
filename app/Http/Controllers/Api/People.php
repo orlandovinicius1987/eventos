@@ -75,4 +75,9 @@ class People extends Controller
     {
         return app(PeopleRepository::class)->export();
     }
+
+    public function exportAll()
+    {
+        return app(PeopleRepository::class)->exportAll();
+    }
 }
