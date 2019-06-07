@@ -163,8 +163,6 @@ abstract class Repository
     {
         $queryFilter = $this->getQueryFilter();
 
-        info(request()->toArray());
-
         $this->filterText($queryFilter, $query);
 
         $this->order($query);

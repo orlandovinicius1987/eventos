@@ -833,7 +833,6 @@
                         </form>
                     </div>
                 </div>
-
             </div>
 
             <div slot="modal-footer" class="w-100">
@@ -841,8 +840,11 @@
                     class="float-left btn btn-outline-secondary mr-2"
                     @click="exportAll()"
                 >
-                    <i class="fas fa-download"> Exportar tudo</i>
+                    <i class="fas fa-download"></i>
+
+                    Exportar tudo
                 </button>
+
                 <button
                     class="float-right btn btn-success"
                     @click="showExport = false"
@@ -1009,8 +1011,8 @@ export default {
             })
         },
 
-        exportAll(){
-            return post('api/v1/people/exportAll').then(response=>{
+        exportAll() {
+            return post('api/v1/people/export-all').then(response => {
                 return this.downloadCsv(response)
             })
         },

@@ -2,13 +2,25 @@
 
 namespace App\Data\Repositories\Traits;
 
-use App\Data\Repositories\ExportableData;
 use App\Services\CSV;
+use Illuminate\Support\Str;
 use App\Services\PDF\Service as PDF;
-use Illuminate\Support\Facades\DB;
+use App\Data\Models\PersonInstitution;
+use App\Data\Repositories\ExportableData;
 
 trait PeopleExport
 {
+    protected $allContactTypes = [];
+
+    protected $fieldTypes = [
+        'name' => '01_',
+        'institution' => '02_',
+        'role' => '03_',
+        'contact' => '04_',
+        'address' => '05_',
+        'advisor' => '06_',
+    ];
+
     public function export()
     {
         return request()->get('fileType') === 'pdf'
@@ -106,7 +118,7 @@ trait PeopleExport
 
         file_put_contents(
             $fileName,
-            $this->exportToCsv($this->getExportableDataAll())
+            $this->exportToCsv($this->getAllExportableData())
         );
 
         return response()
@@ -165,39 +177,11 @@ trait PeopleExport
             ->toArray();
     }
 
-    public function getExportableDataAll()
+    public function getAllExportableData()
     {
-        $sql =
-            'select
-                    pi.id,
-                    pp.name as "pessoa", 
-                    inst.name as "institution", 
-                    r.name as "cargo"
-                           
-                from 
-                    people pp, 
-                    person_institutions pi, 
-                    institutions inst, 
-                    roles r, 
-                    clients cl
-                where 
-                    cl.id = ' .
-            request()
-                ->session()
-                ->get('current_client')->id .
-            '
-                    and
-                    pp.client_id = cl.id and
-                    pp.id = pi.person_id and 
-                    inst.id = pi.institution_id and 
-                    r.id = pi.role_id    
-                    order by pp.name';
-
-        return collect(
-            $this->createdata(\Illuminate\Support\Facades\DB::select($sql))
-        )
-            ->values()
-            ->toArray();
+        return $this->createExportableData(
+            PersonInstitution::with('contacts')->get()
+        )->toArray();
     }
 
     public function getExportableColumns()
@@ -231,93 +215,156 @@ trait PeopleExport
         return $item;
     }
 
-    /**
-     * @param array $data
-     */
-    private function createdata(array $data)
+    private function createExportableData($data)
     {
-        $array = [];
+        return $data
+            ->map(function ($item) {
+                $result =
+                    [
+                        $this->fieldTypes['name'] . 'nome' => $item->person
+                            ->name,
 
-        foreach ($data as $value) {
-            $array[$value->id] = [
-                'pessoa' => [
-                    'nome' => $value->pessoa,
-                    'instituicao' => $value->institution,
-                    'cargo' => $value->cargo,
-                ],
-                'contacts' => $this->getContactsByPersonInstitutionId(
-                    $value->id
-                ),
-                'endereco' => $this->getAddressesByPersonInstitutionId(
-                    $value->id
-                ),
-                'assessores' => $this->getAdvisedesByPersonInstitutionId(
-                    $value->id
-                ),
-            ];
+                        $this->fieldTypes['institution'] .
+                        'instituicao' => $item->institution->name,
+
+                        $this->fieldTypes['role'] . 'cargo' => $item->role
+                            ->name,
+                    ] +
+                    $this->makeContactsArray($item->contacts) +
+                    $this->makeAddressesArray($item->addresses) +
+                    $this->makeAdvisorsArray($item->advisors);
+
+                $this->allContactTypes = collect($this->allContactTypes)
+                    ->merge(collect($result)->keys())
+                    ->unique();
+
+                return $result;
+            })
+            ->map(function ($item) {
+                return $this->allContactTypes
+                    ->sort()
+                    ->mapWithKeys(function ($column) use ($item) {
+                        return [
+                            $this->removeFieldType($column) =>
+                                $item[$column] ?? null,
+                        ];
+                    });
+            });
+    }
+
+    public function removeFieldType($column)
+    {
+        $column = substr($column, strlen($this->fieldTypes['name']));
+
+        if (($pos = strpos($column, 'XY')) !== false) {
+            $column = substr($column, 0, $pos) . substr($column, $pos + 4);
         }
 
-        return $array;
+        return $column;
     }
 
-    public function getAdvisedesByPersonInstitutionId($person_institution_id)
+    public function makeContactsArray($contacts)
     {
-        $sql =
-            'select 
-                    pp.id,
-                    pp.name as "pessoa", 
-                    inst.name as "institution", 
-                    r.name as "cargo"
-                           
-                from 
-                    people pp, 
-                    person_institutions pi, 
-                    institutions inst, 
-                    roles r, 
-                    clients cl
-                where
-                    pp.client_id = cl.id and
-                    pp.id = pi.person_id and 
-                    inst.id = pi.institution_id and 
-                    r.id = pi.role_id and   
-                    pi.advised_id =' .
-            $person_institution_id .
-            ' order by pp.name';
+        $types = [];
 
-        return $this->createdata(\Illuminate\Support\Facades\DB::select($sql));
+        $contacts = $contacts
+            ->map(function ($contact) {
+                return [
+                    'type' => Str::slug($contact->contactType->name),
+                    'contact' => $contact->contact,
+                ];
+            })
+            ->sortBy('type')
+            ->mapWithKeys(function ($contact) use (&$types) {
+                $types[$contact['type']] = isset($types[$contact['type']])
+                    ? $types[$contact['type']] + 1
+                    : 1;
+
+                $contact['type'] = $contact['type'] . $types[$contact['type']];
+
+                return [
+                    $this->fieldTypes['contact'] . $contact['type'] => $contact[
+                        'contact'
+                    ],
+                ];
+            });
+
+        return $contacts->toArray();
     }
 
-    public function getContactsByPersonInstitutionId($person_institution_id)
+    public function makeAddressesArray($addresses)
     {
-        return DB::table('contacts')
-            ->select('contacts.contact', 'contact_types.name')
-            ->leftJoin(
-                'contact_types',
-                'contacts.contact_type_id',
-                '=',
-                'contact_types.id'
-            )
-            ->where('person_institution_id', $person_institution_id)
-            ->orderBy('contact_type_id')
-            ->get()
+        return $addresses
+            ->map(function ($address) {
+                return collect([
+                    'XY1_cep' => $address->zipcode,
+                    'XY2_endereco' => $address->street,
+                    'XY3_numero' => $address->number,
+                    'XY4_complemento' => $address->complement,
+                    'XY5_bairro' => $address->neighbourhood,
+                    'XY6_cidade' => $address->city,
+                    'XY7_uf' => $address->state,
+                ]);
+            })
+            ->mapWithKeys(function ($address) use (&$types) {
+                $types['endereco'] = isset($types['endereco'])
+                    ? $types['endereco'] + 1
+                    : 1;
+
+                $address = $address->mapWithKeys(function ($value, $key) use (
+                    $types
+                ) {
+                    return [
+                        $this->fieldTypes['address'] .
+                        'endereco' .
+                        $types['endereco'] .
+                        '_' .
+                        $key => $value,
+                    ];
+                });
+
+                return $address;
+            })
             ->toArray();
     }
 
-    public function getAddressesByPersonInstitutionId($person_institution_id)
+    public function makeAdvisorsArray($advisors)
     {
-        return DB::table('addresses')
-            ->select(
-                'street',
-                'number',
-                'complement',
-                'neighbourhood',
-                'city',
-                'state',
-                'zipcode'
-            )
-            ->where('addressable_id', $person_institution_id)
-            ->where('addressable_type', 'App\Data\Models\PersonInstitution')
-            ->get()
+        $types = [];
+
+        return $advisors
+            ->map(function ($advisor) {
+                return collect(
+                    [
+                        $this->fieldTypes['name'] . 'nome' => $advisor->person
+                            ->name,
+
+                        $this->fieldTypes['role'] . 'cargo' => $advisor->role
+                            ->name,
+                    ] +
+                        $this->makeContactsArray($advisor->contacts) +
+                        $this->makeAddressesArray($advisor->addresses)
+                );
+            })
+            ->mapWithKeys(function ($advisor) use (&$types) {
+                $order['assessor'] = isset($order['assessor'])
+                    ? $order['assessor'] + 1
+                    : 1;
+
+                $advisor = $advisor->mapWithKeys(function ($value, $key) use (
+                    $order
+                ) {
+                    return [
+                        $this->fieldTypes['advisor'] .
+                        'assessor' .
+                        $order['assessor'] .
+                        '_' .
+                        $key => $value,
+                    ];
+                });
+
+                return $advisor;
+            })
             ->toArray();
     }
 }
