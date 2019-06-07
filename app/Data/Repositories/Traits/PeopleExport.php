@@ -14,11 +14,18 @@ trait PeopleExport
 
     protected $fieldTypes = [
         'name' => '01_',
-        'institution' => '02_',
-        'role' => '03_',
-        'contact' => '04_',
-        'address' => '05_',
-        'advisor' => '06_',
+        'nickname' => '02_',
+        'birthdate' => '03_',
+        'title' => '04_',
+        'cpf' => '05_',
+        'notes' => '06_',
+        'party' => '07_',
+        'institution' => '08_',
+        'institution_title' => '09_',
+        'role' => '10_',
+        'contact' => '11_',
+        'address' => '12_',
+        'advisor' => '13_',
     ];
 
     public function export()
@@ -224,8 +231,28 @@ trait PeopleExport
                         $this->fieldTypes['name'] . 'nome' => $item->person
                             ->name,
 
+                        $this->fieldTypes['nickname'] . 'apelido' => $item
+                            ->person->nickname,
+
+                        $this->fieldTypes['birthdate'] . 'nascimento' => $item
+                            ->person->birthdate,
+
+                        $this->fieldTypes['title'] . 'tratamento' => $item
+                            ->person->title,
+
+                        $this->fieldTypes['cpf'] . 'cpf' => $item->person->cpf,
+
+                        $this->fieldTypes['notes'] . 'observacoes' => $item
+                            ->person->notes,
+
+                        $this->fieldTypes['party'] . 'partido' =>
+                            $item->person->party->name ?? null,
+
                         $this->fieldTypes['institution'] .
                         'instituicao' => $item->institution->name,
+
+                        $this->fieldTypes['institution_title'] .
+                        'instituicao_tratamento' => $item->institution->title,
 
                         $this->fieldTypes['role'] . 'cargo' => $item->role
                             ->name,

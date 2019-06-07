@@ -89,7 +89,7 @@ class Person extends BaseWithClient
      */
     public function scopePresentInInstitution($query, $institution_id)
     {
-        $query->whereIn('id', function ($query) use ($institution_id) {
+        $query->whereIn('people.id', function ($query) use ($institution_id) {
             $query->select('person_id')->from('person_institutions');
 
             $query->join(
