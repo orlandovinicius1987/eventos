@@ -113,7 +113,7 @@ class Person extends BaseWithClient
      */
     public function scopePresentInRole($query, $role_id)
     {
-        $query->whereIn('id', function ($query) use ($role_id) {
+        $query->whereIn('people.id', function ($query) use ($role_id) {
             $query->select('person_id')->from('person_institutions');
 
             $query->join('roles', 'roles.id', 'person_institutions.role_id');
@@ -133,7 +133,7 @@ class Person extends BaseWithClient
      */
     public function scopeHasCategory($query, $category_id)
     {
-        $query->whereIn('id', function ($query) use ($category_id) {
+        $query->whereIn('people.id', function ($query) use ($category_id) {
             $query->select('categorizable_id')->from('categorizables');
 
             $query->join(
@@ -162,7 +162,7 @@ class Person extends BaseWithClient
      */
     public function scopeHasTopic($query, $topic_id)
     {
-        $query->whereIn('id', function ($query) use ($topic_id) {
+        $query->whereIn('people.id', function ($query) use ($topic_id) {
             $query->select('person_id')->from('person_topics');
 
             $query->join('topics', 'topics.id', 'person_topics.topic_id');
