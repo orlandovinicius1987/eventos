@@ -65,6 +65,7 @@
                                 :additional-error-message="
                                     getNameDuplicateMessage()
                                 "
+                                dusk="people-name"
                             ></app-input>
 
                             <app-input
@@ -90,6 +91,7 @@
                                 v-model="form.fields.title"
                                 :required="true"
                                 :form="form"
+                                dusk="title"
                             ></app-input>
 
                             <app-input
@@ -115,7 +117,7 @@
                                 type="checkbox"
                                 :required="true"
                                 :form="form"
-                                dusk="ativo-dusk"
+                                dusk="active-dusk"
                             ></app-input>
                         </div>
                     </div>
@@ -126,7 +128,7 @@
                                 @click.prevent="savePerson()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
-                                dusk="gravar-people-button"
+                                dusk="record-people-button"
                                 :disabled="cannot('people:modify')"
                             >
                                 gravar
