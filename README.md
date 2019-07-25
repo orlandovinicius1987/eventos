@@ -21,6 +21,80 @@ php artisan horizon
 php artisan websockets:serve
 ```
 
+### Criar novo cliente
+- Run inside the project folder `php artisan eventos:create-client {upper_camel_case_client_name}`
+- Include roles
+```
+{upper_camel_case_client_name} - Administrador
+{upper_camel_case_client_name} - Funcionario
+{upper_camel_case_client_name} - Gestor de Eventos
+{upper_camel_case_client_name} - Mailing
+{upper_camel_case_client_name} - Recepcionista
+{upper_camel_case_client_name} - Seguranca
+```
+- Include permissions
+```
+{lower_cammel_case_client_name} - receptive
+{lower_cammel_case_client_name} - security
+{lower_cammel_case_client_name} - topics:modify
+{lower_cammel_case_client_name} - topics:read
+{lower_cammel_case_client_name} - institutions:modify
+{lower_cammel_case_client_name} - institutions:read
+{lower_cammel_case_client_name} - phonebook:modify
+{lower_cammel_case_client_name} - phonebook:read
+{lower_cammel_case_client_name} - people:modify
+{lower_cammel_case_client_name} - people:read
+{lower_cammel_case_client_name} - roles:modify
+{lower_cammel_case_client_name} - roles:read
+{lower_cammel_case_client_name} - costumes:modify
+{lower_cammel_case_client_name} - costumes:read
+{lower_cammel_case_client_name} - categories:modify
+{lower_cammel_case_client_name} - categories:read
+{lower_cammel_case_client_name} - sectors:modify
+{lower_cammel_case_client_name} - sectors:read
+{lower_cammel_case_client_name} - import:modify
+{lower_cammel_case_client_name} - events:modify
+{lower_cammel_case_client_name} - events:read
+{lower_cammel_case_client_name} - subevents:modify
+{lower_cammel_case_client_name} - subevents:read
+{lower_cammel_case_client_name} - subevents:invite
+{lower_cammel_case_client_name} - contacttypes:modify
+{lower_cammel_case_client_name} - contacttypes:read
+```
+- Assign permissions to role `{upper_camel_case_client_name} - Gestor de Eventos`
+```
+{lower_cammel_case_client_name} - topics:modify
+{lower_cammel_case_client_name} - institutions:modify
+{lower_cammel_case_client_name} - phonebook:modify
+{lower_cammel_case_client_name} - people:modify
+{lower_cammel_case_client_name} - roles:modify
+{lower_cammel_case_client_name} - costumes:modify
+{lower_cammel_case_client_name} - categories:modify
+{lower_cammel_case_client_name} - sectors:modify
+{lower_cammel_case_client_name} - events:modify
+{lower_cammel_case_client_name} - subevents:modify
+{lower_cammel_case_client_name} - subevents:invite
+{lower_cammel_case_client_name} - receptive
+```
+- Assign permissions to role `{upper_camel_case_client_name} - Administrador`
+```
+{lower_cammel_case_client_name} - topics:modify
+{lower_cammel_case_client_name} - institutions:modify
+{lower_cammel_case_client_name} - phonebook:modify
+{lower_cammel_case_client_name} - people:modify
+{lower_cammel_case_client_name} - roles:modify
+{lower_cammel_case_client_name} - costumes:modify
+{lower_cammel_case_client_name} - categories:modify
+{lower_cammel_case_client_name} - sectors:modify
+{lower_cammel_case_client_name} - events:modify
+{lower_cammel_case_client_name} - subevents:modify
+{lower_cammel_case_client_name} - subevents:invite
+{lower_cammel_case_client_name} - receptive
+{lower_cammel_case_client_name} - import:modify
+{lower_cammel_case_client_name} - contacttypes:modify
+{lower_cammel_case_client_name} - security
+```
+
 ### Broadcasting
 - Check if you are broadcasting (order.1) and listening (order.1) to the very same channel
 - Check if the event name (OrderUpdated) is correct, double check them
