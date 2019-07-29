@@ -61,5 +61,20 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+
+        'documents' => [
+            'driver' => 'local',
+
+            'sub_dir' => ($subDir = env(
+                'DOCUMENTS_FILESYSTEM_SUB_DIR',
+                'files'
+            )),
+
+            'root' => storage_path("app/public/{$subDir}"),
+
+            'url_prefix' => env('APP_URL') . '/storage/' . $subDir . '/',
+
+            'sharing_url_prefix' => '/storage/' . $subDir . '/',
+        ],
     ],
 ];

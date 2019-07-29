@@ -40,6 +40,7 @@ const CostumesForm = () => import('./views/CostumesForm.vue')
 const Topics = () => import('./views/Topics.vue')
 const TopicsForm = () => import('./views/TopicsForm.vue')
 const ClientSettingsForm = () => import('./views/ClientSettingsForm.vue')
+const UploadedFiles = () => import('./views/UploadedFiles.vue')
 
 let routes = [
     {
@@ -299,6 +300,11 @@ let routes = [
     {
         path: '/client-settings',
         component: ClientSettingsForm,
+        props: { mode: 'view' },
+    },
+    {
+        path: '/uploaded-files',
+        component: UploadedFiles,
         props: { mode: 'view' },
     },
 ]

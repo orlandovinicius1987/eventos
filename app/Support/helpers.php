@@ -284,6 +284,18 @@ function extract_client_and_permission($string)
     return [$data[0], $data[1]];
 }
 
+function make_deep_path($nameHash, $length = 4)
+{
+    $deepPath = '';
+
+    for ($i = 1; $i <= $length; $i++) {
+        $deepPath =
+            $deepPath . substr($nameHash, $i - 1, 1) . DIRECTORY_SEPARATOR;
+    }
+
+    return $deepPath;
+}
+
 class Timer
 {
     public static $starttime;
