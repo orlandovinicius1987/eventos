@@ -4,7 +4,7 @@ Route::group(
     [
         'prefix' => '/api/v1',
         'namespace' => 'Api',
-        'middleware' => ['auth', 'app.users'],
+        'middleware' => ['auth', 'app.users']
     ],
     function () {
         require __DIR__ . '/api/addresses.php';
@@ -24,6 +24,7 @@ Route::group(
         require __DIR__ . '/api/zip-code.php';
         require __DIR__ . '/api/topics.php';
         require __DIR__ . '/api/clients.php';
+        require __DIR__ . '/api/uploaded-files.php';
         require __DIR__ . '/api/exportable.php';
     }
 );

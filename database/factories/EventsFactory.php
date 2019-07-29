@@ -4,6 +4,7 @@ use Faker\Generator as Faker;
 
 use App\Data\Repositories\Users as UsersRepository;
 use App\Data\Repositories\Clients as ClientsRepository;
+use App\Data\Repositories\Events as EventsRepository;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,11 @@ use App\Data\Repositories\Clients as ClientsRepository;
 */
 
 $factory->define(App\Data\Models\Event::class, function (Faker $faker) {
+    $eventsRepository = app(EventsRepository::class);
     return [
         'name' => $faker->name,
         'confirmed_by' => app(UsersRepository::class)->randomElement()->id,
         'confirmed_at' => now(),
-        'client_id' => app(ClientsRepository::class)->randomElement()->id,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id
     ];
 });

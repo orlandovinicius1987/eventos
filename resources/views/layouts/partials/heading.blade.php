@@ -92,7 +92,7 @@
                                 <router-link id="events-menu" to="/events" tag="li" class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="vl_events"></i>
-                                        <span class="nav-link-text"> <i class="fas fa-calendar-alt"></i> Eventos</span>
+                                        <span class="nav-link-text" dusk="event-option"> <i class="fas fa-calendar-alt"></i> Eventos</span>
                                     </a>
                                 </router-link>
                             @endif
@@ -100,7 +100,7 @@
                                 <router-link id="events-menu" to="/people" tag="li" class="nav-item">
                                     <a href="#" class="nav-link">
                                         <i class="vl_events"></i>
-                                        <span class="nav-link-text"> <i class="fas fa-users"></i> Pessoas</span>
+                                        <span class="nav-link-text" dusk="people-option"> <i class="fas fa-users"></i> Pessoas</span>
                                     </a>
                                 </router-link>
                             @endif
@@ -125,7 +125,7 @@
                             || Gate::check('import:read') || Gate::check('import:modify')
                             || Gate::check('topics:read') || Gate::check('topics:modify')
                             )
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown" dusk="drop-menu">
                                     <a
                                         class="nav-link dropdown-toggle"
                                         href="#"
@@ -157,19 +157,19 @@
                                         @endif
 
                                         @if(Gate::check('institutions:read') || Gate::check('institutions:modify'))
-                                            <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item">
+                                            <router-link id="people-menu" to="/institutions" tag="a" class="dropdown-item" dusk="institution-option">
                                                 Instituições
                                             </router-link>
                                         @endif
 
                                         @if(Gate::check('categories:read') || Gate::check('categories:modify'))
-                                            <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item">
+                                            <router-link id="people-menu" to="/categories" tag="a" class="dropdown-item" dusk="categories-option">
                                                 Categorias
                                             </router-link>
                                         @endif
 
                                         @if(Gate::check('roles:read') || Gate::check('roles:modify'))
-                                            <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item">
+                                            <router-link id="people-menu" to="/roles" tag="a" class="dropdown-item" dusk="function-option">
                                                 Funções
                                             </router-link>
                                         @endif
@@ -201,6 +201,12 @@
                                         @if(Gate::check('events:modify'))
                                             <router-link id="client-settings-menu" to="/client-settings" tag="a" class="dropdown-item">
                                                 Configurações
+                                            </router-link>
+                                        @endif
+
+                                        @if(Gate::check('events:modify'))
+                                            <router-link id="uploaded-files-menu" to="/uploaded-files" tag="a" class="dropdown-item">
+                                                Imagens
                                             </router-link>
                                         @endif
 

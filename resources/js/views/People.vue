@@ -132,7 +132,7 @@
 
                             <td class="align-middle">{{ person.title }}</td>
 
-                            <td dusk="dusk-da-pessoa" class="align-middle">
+                            <td dusk="click-people" class="align-middle">
                                 {{ person.name }}
                             </td>
 

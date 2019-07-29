@@ -31,11 +31,16 @@ class SendEmailTest extends DuskTestCase
                     )
                     ->visit('/admin#')
                     ->waitForText('Painel')
-                    ->click('@opcao-eventos')
+                    ->click('@event-option')
+                    ->pause('5000')
+                    ->click('click-event')
+                    ->pause('5000')
+                    ->click('sub-event')
+                    ->pause('5000')
                     ->waitForText('Nome')
                     ->click('@enviar-convites')
                     ->press('sim')
-
+                    ->waitForText('convite enviado')
                     ->screenshot('teste de Criar evento');
             });
         });

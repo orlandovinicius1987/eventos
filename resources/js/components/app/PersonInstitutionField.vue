@@ -7,7 +7,7 @@
             :required="true"
             :form="form"
             :options="environment.tables.institutions"
-            dusk="institution-select-dusk"
+            dusk="select-institution"
             labelAttribute="composite_name"
         ></app-select>
 
@@ -18,7 +18,7 @@
             :required="true"
             :form="form"
             :options="environment.tables.roles"
-            dusk="function-select-dusk"
+            dusk="select-function"
         ></app-select>
 
         <app-input
@@ -27,7 +27,7 @@
             v-model="form.fields.title"
             :required="true"
             :form="form"
-            dusk="title-dusk"
+            dusk="title-name"
         ></app-input>
 
         <app-textarea
@@ -45,7 +45,7 @@
             type="checkbox"
             :required="true"
             :form="form"
-            dusk="ativo-dusk"
+            dusk="active-check"
         ></app-input>
     </div>
 </template>
