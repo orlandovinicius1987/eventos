@@ -24,7 +24,7 @@ class CreatNewCategoryTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-//                $category=factory(CategoryModel::class)->raw();
+                //                $category=factory(CategoryModel::class)->raw();
                 $browser
                     ->loginAs(
                         app(UsersRepository::class)->findUserByEmail(
@@ -38,16 +38,16 @@ class CreatNewCategoryTest extends DuskTestCase
                     ->waitForText('Importar')
                     ->pause('7000')
                     ->click('@categories-option')
-//                    ->waitForText('#')
+                    //                    ->waitForText('#')
                     ->pause('5000')
                     ->click('@create-category-button')
                     ->waitForText('Nova Categoria')
                     ->type('@category-name', 'nova categoria')
-//                        $category['name'])
+                    //                        $category['name'])
                     ->click('@record-category-button')
                     ->waitForText('#')
                     ->waitForText('nova categoria')
-//                    ->waitForText($category['name'])
+                    //                    ->waitForText($category['name'])
                     ->screenshot('teste de Criar Categoria');
             });
         });

@@ -20,33 +20,32 @@ class CreatEventTest extends DuskTestCase
 
     public function testCriarEvento()
     {
-                $this->artisan('migrate:fresh');
-                $this->seed(DatabaseSeeder::class);
-                $this->browse(function (Browser $browser) {
-                        $user=app(UsersRepository::class)->randomElement()->username;
-                        $this->browse(function (Browser $browser) use ($user) {
-                            $event=factory(EventModel::class)->raw();
-            $browser
-                ->loginAs(
-                    app(UsersRepository::class)->findUserByEmail(
-                        $user . '@alerj.rj.gov.br'
+        $this->artisan('migrate:fresh');
+        $this->seed(DatabaseSeeder::class);
+        $this->browse(function (Browser $browser) {
+            $user = app(UsersRepository::class)->randomElement()->username;
+            $this->browse(function (Browser $browser) use ($user) {
+                $event = factory(EventModel::class)->raw();
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
                     )
-
-                )
                     ->visit('/admin#')
                     ->click('@event-option')
                     ->pause('5000')
-//                    ->waitForText('undefined')
+                    //                    ->waitForText('undefined')
                     ->click('@create-event-button')
-//                    ->pause('8000')
+                    //                    ->pause('8000')
                     ->waitForText('Criar Evento')
                     ->type('@event-name', $event['name'])
-//                        app(EventsRepository::class)->randomElement()->name)
+                    //                        app(EventsRepository::class)->randomElement()->name)
                     ->click('@record-event-button')
-//                    ->pause('20000')
+                    //                    ->pause('20000')
                     ->waitForText('Eventos (1)')
                     ->waitForText($event['name'])
-//                    ->pause('4000')
+                    //                    ->pause('4000')
                     ->assertSee($event['name'])
                     ->screenshot('teste de Criar evento');
             });

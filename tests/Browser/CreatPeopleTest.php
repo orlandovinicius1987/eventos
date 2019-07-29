@@ -23,9 +23,9 @@ class CreatPeopleTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->screenshot('teste tela branca');
-            $user=app(UsersRepository::class)->randomElement()->username;
-            $person=factory(PersonModel::class)->raw();
-            $this->browse(function (Browser $browser) use ($user , $person)  {
+            $user = app(UsersRepository::class)->randomElement()->username;
+            $person = factory(PersonModel::class)->raw();
+            $this->browse(function (Browser $browser) use ($user, $person) {
                 $browser
                     ->loginAs(
                         app(UsersRepository::class)->findUserByEmail(
@@ -34,35 +34,33 @@ class CreatPeopleTest extends DuskTestCase
                     )
                     ->visit('/admin#')
                     ->click('@people-option')
-//                    ->waitForText('#')
+                    //                    ->waitForText('#')
                     ->pause('5000')
                     ->click('@create-people-button')
                     ->waitForText('Nova Pessoa')
-//                    ->pause('2000')
-                    ->type('@people-name',
-                        $person['name'])
+                    //                    ->pause('2000')
+                    ->type('@people-name', $person['name'])
                     ->click('@active-dusk')
                     ->type('@title', $person['title'])
-//                    ->pause('5000')
+                    //                    ->pause('5000')
                     ->click('@record-people-button')
                     ->waitForText('#')
                     ->waitForText($person['name'])
-//                    ->pause('12000')
-//                    ->click('@people-option')
-//                    ->pause('8000')
-//                    ->assertSee('zé')
+                    //                    ->pause('12000')
+                    //                    ->click('@people-option')
+                    //                    ->pause('8000')
+                    //                    ->assertSee('zé')
                     ->assertSee($person['name'])
 
                     ->screenshot('teste de pessoa');
-
             });
-//            $this ->assertDatabaseHas('')
+            //            $this ->assertDatabaseHas('')
         });
     }
     public function testAddFunction()
     {
         $this->browse(function (Browser $browser) {
-            $user=app(UsersRepository::class)->randomElement()->username;
+            $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
                 $browser
                     ->loginAs(
@@ -77,29 +75,31 @@ class CreatPeopleTest extends DuskTestCase
                     ->pause('10000')
                     ->waitForText('#')
                     ->click('@click-people')
-//                    ->pause('5000')
+                    //                    ->pause('5000')
                     ->waitForText('Categorias')
                     ->click('@add-function')
                     ->pause('5000')
                     ->waitForText('Instituição')
-                    ->script(["document.getElementById('institution_id').parentElement.__vue__.select(7)"]);
-//                    ->script(["document.getElementById('institution_id').parentElement.__vue__.select("+app(InstitutionsRepository::class)->randomElement()->id+")"]);
-                $browser
-                    ->script(["document.getElementById('role_id').parentElement.__vue__.select(1)",]);
+                    ->script([
+                        "document.getElementById('institution_id').parentElement.__vue__.select(7)"
+                    ]);
+                //                    ->script(["document.getElementById('institution_id').parentElement.__vue__.select("+app(InstitutionsRepository::class)->randomElement()->id+")"]);
+                $browser->script([
+                    "document.getElementById('role_id').parentElement.__vue__.select(1)"
+                ]);
                 $browser
                     ->click('@active-check')
                     ->type('@title-name', 'Titulo')
                     ->click('@record-people-function')
                     ->pause('6000')
                     ->screenshot('teste de função pessoa');
-
             });
         });
     }
     public function testAddCategory()
     {
         $this->browse(function (Browser $browser) {
-            $user=app(UsersRepository::class)->randomElement()->username;
+            $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
                 $browser
                     ->loginAs(
@@ -112,20 +112,19 @@ class CreatPeopleTest extends DuskTestCase
                     ->assertSee('Painel')
                     ->click('@people-option')
                     ->pause('13000')
-//                    ->assertSee('Herlandson')
+                    //                    ->assertSee('Herlandson')
                     ->click('@click-people')
                     ->waitForText('Categorias')
                     ->click('@add-category')
                     ->waitForText('Associar Categorias')
-//                    ->waitForText('nova categoria')
+                    //                    ->waitForText('nova categoria')
                     ->pause('5000')
                     ->click('@select-category')
                     ->click('@associate-category')
                     ->waitForText('Tratamento')
                     ->pause('7000')
-//                    ->waitForText('nova categoria')
+                    //                    ->waitForText('nova categoria')
                     ->screenshot('teste de categoria pessoa');
-
             });
         });
     }
@@ -133,7 +132,7 @@ class CreatPeopleTest extends DuskTestCase
     public function testAddContact()
     {
         $this->browse(function (Browser $browser) {
-            $user=app(UsersRepository::class)->randomElement()->username;
+            $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
                 $browser
                     ->loginAs(
@@ -153,19 +152,20 @@ class CreatPeopleTest extends DuskTestCase
                     ->waitForText('Contatos')
                     ->click('@add-contact')
                     ->waitForText('Criar Contato')
-//                    ->click('Criar Contato');
-                    ->script(["document.getElementById('contact_type_id').parentElement.__vue__.select(3)",]);
+                    //                    ->click('Criar Contato');
+                    ->script([
+                        "document.getElementById('contact_type_id').parentElement.__vue__.select(3)"
+                    ]);
                 $browser
                     ->screenshot('teste email')
-//                    ->click('@contact-email')
+                    //                    ->click('@contact-email')
                     ->type('@contact-email', 'contato@abc.net')
                     ->click('@contact-active')
                     ->click('@record-contact-button')
                     ->waitForText('contato@abc.net')
                     ->pause('3000')
-//                    ->assertSee('contato@abc.net')
+                    //                    ->assertSee('contato@abc.net')
                     ->screenshot('teste contato da pessoa');
-
             });
         });
     }
