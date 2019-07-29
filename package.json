@@ -24,7 +24,7 @@
         "jquery": "^3.4.1",
         "laravel-echo": "^1.5.3",
         "laravel-mix": "^4.0.15",
-        "lodash": "^4.17.5",
+        "lodash": "^4.17.15",
         "moment": "^2.24.0",
         "popper.js": "^1.14.7",
         "pusher-js": "^4.4.0",
