@@ -37,19 +37,19 @@ class LoginTest extends DuskTestCase
     public function testLogin()
     {
         $this->browse(function (Browser $browser) {
-            //                $this->artisan('migrate');
-            //                $this->seed(DatabaseSeeder::class);
-            //                        ->assertPathIs('admin#/dashboard')
-            $browser
-                ->visit('login#/')
-                ->type(
-                    'email',
-                    app(UsersRepository::class)->randomElement()->username
-                )
-                ->type('password', 'secret')
-                ->screenshot('teste usuario')
-                ->click('@login-button')
-                ->screenshot('teste de Login');
-        });
+            $user = app(UsersRepository::class)->randomElement()->username;
+            $this->browse(function (Browser $browser) use ($user) {
+                $browser
+                    ->loginAs(
+                        app(UsersRepository::class)->findUserByEmail(
+                            $user . '@alerj.rj.gov.br'
+                        )
+                    )
+                    ->visit('/admin#')
+                    ->assertSee('Painel de Controle')
+                    ->screenshot('teste de Login');
+
+            });
+            });
     }
 }

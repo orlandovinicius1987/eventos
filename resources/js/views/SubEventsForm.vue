@@ -64,18 +64,14 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-sm-12 col-md-12">
-                                    <app-input
-                                        name="name"
-                                        label="Nome"
-                                        v-model="subEvents.form.fields.name"
-                                        :required="true"
-                                        :form="form"
-                                        dusk="sub-nome"
-                                    ></app-input>
-                                </div>
-                            </div>
+                            <app-input
+                                name="name"
+                                label="Nome"
+                                v-model="subEvents.form.fields.name"
+                                :required="true"
+                                :form="form"
+                                dusk="sub-name"
+                            ></app-input>
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
@@ -86,7 +82,7 @@
                                         v-model="subEvents.form.fields.date"
                                         :required="true"
                                         :form="form"
-                                        dusk="sub-data"
+                                        dusk="sub-date"
                                     ></app-input>
                                 </div>
 
@@ -114,7 +110,7 @@
                                         v-model="subEvents.form.fields.time"
                                         :required="true"
                                         :form="form"
-                                        dusk="sub-hora"
+                                        dusk="sub-hour"
                                     ></app-input>
                                 </div>
                             </div>
@@ -129,7 +125,7 @@
                                         :form="form"
                                         rows="10"
                                         cols="100"
-                                        dusk="sub-local"
+                                        dusk="sub-adress"
                                     ></app-input>
                                 </div>
                             </div>
@@ -347,7 +343,7 @@
                                 @click.prevent="saveModel()"
                                 class="btn btn-outline-secondary"
                                 type="submit"
-                                dusk="sub-gravar"
+                                dusk="sub-record"
                                 :disabled="cannot('subevents:modify')"
                             >
                                 gravar

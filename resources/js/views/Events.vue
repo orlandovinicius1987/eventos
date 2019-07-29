@@ -58,10 +58,7 @@
                                 ),
                             }"
                         >
-                            <td
-                                class="align-middle text-left"
-                                dusk="dusk-do-evento"
-                            >
+                            <td class="align-middle text-left" dusk="click-event">
                                 {{ event.name }}
                             </td>
 
@@ -141,6 +138,7 @@
                             subEvents.event.id +
                             '/sub-events/create',
                         disabled: cannot('subevents:modify'),
+                        dusk: 'create-sub-event',
                     }"
                     :per-page="subEventsPerPage"
                     @set-per-page="subEventsPerPage = $event"
@@ -197,7 +195,7 @@
                                 {{ subEvent.invitations_count }}
                             </td>
 
-                            <td class="align-middle">{{ subEvent.date }}</td>
+                            <td class="align-middle" dusk="sub-event">{{ subEvent.date }}</td>
 
                             <td class="align-middle">{{ subEvent.time }}</td>
 
@@ -225,6 +223,7 @@
                                 <button
                                     v-if="!subEvent.confirmed_at"
                                     class="btn btn-success btn-sm btn-table-utility ml-1 pull-right"
+                                    dusk="confirm-subevent"
                                     @click="confirmSubEvent(subEvent)"
                                     :disabled="
                                         cannot('subevents:modify') ||
@@ -313,6 +312,7 @@
                             subEvents.selected.id +
                             '/invitations/create',
                         disabled: cannot('subevents:invite'),
+                        dusk:'add-guest'
                     }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"

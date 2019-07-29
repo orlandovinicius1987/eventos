@@ -95,7 +95,7 @@
                         <div
                             class="btn btn-primary btn-sm pull-right"
                             @click="invite()"
-                            dusk="dusk-invite-button"
+                            dusk="invite-button"
                             :disabled="cannot('subevents:invite')"
                         >
                             {{ recordButtonText }}
@@ -148,7 +148,7 @@
                                     v-if="!invitable.is_invited_to_sub_event"
                                     @input="toggleCheck(invitable)"
                                     type="checkbox"
-                                    dusk="dusk-invite"
+                                    dusk="click-invite"
                                 />
                             </td>
 
