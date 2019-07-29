@@ -128,7 +128,7 @@ function extract_info_from_mailgun_webhook($data)
         'message_id' => array_get(
             $data,
             'event-data.message.headers.message-id'
-        ),
+        )
     ];
 }
 
@@ -212,7 +212,7 @@ function unnacent($string)
         'þ' => 'b',
         'ÿ' => 'y',
         'Ŕ' => 'R',
-        'ŕ' => 'r',
+        'ŕ' => 'r'
     );
 
     return strtr($string, $table);

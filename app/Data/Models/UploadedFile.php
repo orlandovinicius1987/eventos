@@ -12,7 +12,7 @@ class UploadedFile extends BaseWithClient
         'drive',
         'path',
         'mime_type',
-        'client_id',
+        'client_id'
     ];
 
     protected $orderBy = ['uploaded_files.created_at' => 'asc'];
