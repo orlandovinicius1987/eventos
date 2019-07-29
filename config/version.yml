@@ -1,9 +1,12 @@
 version_source: config
 blade_directive: version
+repository: ''
+git_remote_repository1: 'https://laravel.com/docs/5.8/configuration#configuration-caching'
+git_remote_repository2: ''
 current:
     major: 0
     minor: 9
-    patch: 7
+    patch: 8
     format: '{$major}.{$minor}.{$patch}'
     git_absorb: git-local
 cache:
@@ -12,7 +15,7 @@ cache:
     time: 525600
 build:
     mode: number
-    number: d5722c
+    number: 710fd0
     length: 6
     increment_by: 1
     git_absorb: git-local
