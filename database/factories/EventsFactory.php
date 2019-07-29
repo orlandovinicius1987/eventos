@@ -23,6 +23,6 @@ $factory->define(App\Data\Models\Event::class, function (Faker $faker) {
         'name' => $faker->name,
         'confirmed_by' => app(UsersRepository::class)->randomElement()->id,
         'confirmed_at' => now(),
-        'client_id' => app(ClientsRepository::class)->randomElement()->id,
+        'client_id' => app(ClientsRepository::class)->randomElement()->id
     ];
 });

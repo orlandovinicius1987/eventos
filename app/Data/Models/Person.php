@@ -18,7 +18,7 @@ class Person extends BaseWithClient
         'cpf',
         'photo',
         'notes',
-        'is_active',
+        'is_active'
     ];
 
     protected $table = 'people';
@@ -37,7 +37,7 @@ class Person extends BaseWithClient
     protected $filterableColumns = [
         'people.name',
         'people.nickname',
-        'people.title',
+        'people.title'
     ];
 
     public function getSelectColumns()

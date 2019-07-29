@@ -24,7 +24,7 @@ class CreatFuncaoTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $user = app(UsersRepository::class)->randomElement()->username;
             $this->browse(function (Browser $browser) use ($user) {
-                $role=factory(RoleModel::class)->raw();
+                $role = factory(RoleModel::class)->raw();
                 $browser
                     ->loginAs(
                         app(UsersRepository::class)->findUserByEmail(
@@ -38,7 +38,7 @@ class CreatFuncaoTest extends DuskTestCase
                     ->pause('3000')
                     ->click('@function-option')
                     ->waitForText('#')
-//                    ->pause('7000')
+                    //                    ->pause('7000')
                     ->click('@create-roles-button')
                     ->waitForText('Nova Função')
                     ->type('@role-name', $role['name'])

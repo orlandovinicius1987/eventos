@@ -36,7 +36,7 @@ Route::group(['prefix' => '/people'], function () {
 
         Route::group(
             [
-                'prefix' => '{personInstitutionId}/contacts',
+                'prefix' => '{personInstitutionId}/contacts'
             ],
             function () {
                 Route::get('/', 'Contacts@allByPersonInstitution')->name(
@@ -54,7 +54,7 @@ Route::group(['prefix' => '/people'], function () {
 
         Route::group(
             [
-                'prefix' => '{personInstitutionId}/advisors',
+                'prefix' => '{personInstitutionId}/advisors'
             ],
             function () {
                 Route::get(
@@ -72,7 +72,7 @@ Route::group(['prefix' => '/people'], function () {
 
         Route::group(
             [
-                'prefix' => '{personInstitutionId}/addresses',
+                'prefix' => '{personInstitutionId}/addresses'
             ],
             function () {
                 Route::get('/', 'PersonInstitutionsAddresses@all')->name(

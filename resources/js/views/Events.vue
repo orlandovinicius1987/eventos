@@ -58,7 +58,10 @@
                                 ),
                             }"
                         >
-                            <td class="align-middle text-left" dusk="click-event">
+                            <td
+                                class="align-middle text-left"
+                                dusk="click-event"
+                            >
                                 {{ event.name }}
                             </td>
 
@@ -195,7 +198,9 @@
                                 {{ subEvent.invitations_count }}
                             </td>
 
-                            <td class="align-middle" dusk="sub-event">{{ subEvent.date }}</td>
+                            <td class="align-middle" dusk="sub-event">
+                                {{ subEvent.date }}
+                            </td>
 
                             <td class="align-middle">{{ subEvent.time }}</td>
 
@@ -312,7 +317,7 @@
                             subEvents.selected.id +
                             '/invitations/create',
                         disabled: cannot('subevents:invite'),
-                        dusk:'add-guest'
+                        dusk: 'add-guest',
                     }"
                     :per-page="invitationsPerPage"
                     @set-per-page="invitationsPerPage = $event"

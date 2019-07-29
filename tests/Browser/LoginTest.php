@@ -48,8 +48,7 @@ class LoginTest extends DuskTestCase
                     ->visit('/admin#')
                     ->assertSee('Painel de Controle')
                     ->screenshot('teste de Login');
-
             });
-            });
+        });
     }
 }
