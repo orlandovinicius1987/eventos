@@ -47,6 +47,7 @@ import costumes from './modules/costumes'
 import topics from './modules/topics'
 import topicsables from './modules/topicsables'
 import clients from './modules/clients'
+import uploadedFiles from './modules/uploaded-files'
 
 /**
  * State
@@ -92,6 +93,7 @@ let store = new Vuex.Store({
         topics,
         topicsables,
         clients,
+        uploadedFiles,
     },
 })
 

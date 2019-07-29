@@ -204,6 +204,12 @@
                                             </router-link>
                                         @endif
 
+                                        @if(Gate::check('events:modify'))
+                                            <router-link id="uploaded-files-menu" to="/uploaded-files" tag="a" class="dropdown-item">
+                                                Imagens
+                                            </router-link>
+                                        @endif
+
                                         @if(Gate::check('import:read') || Gate::check('import:modify'))
                                             <router-link id="import-menu" to="/import" tag="a" class="dropdown-item">
                                                 Importar dados
