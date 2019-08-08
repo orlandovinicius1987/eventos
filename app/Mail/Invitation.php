@@ -1,8 +1,12 @@
 <?php
 namespace App\Mail;
 
+use Exception;
+
 class Invitation extends Mailable
 {
+    protected $invalidAttachment;
+
     private function copy($file, $downloaded)
     {
         if (!file_exists($downloaded)) {
@@ -57,10 +61,15 @@ class Invitation extends Mailable
             ->markdown('emails.invitation');
 
         if ($this->hasAttachment()) {
-            $this->attach($filePath, [
-                'as' => 'convite.' . pathinfo($filePath, PATHINFO_EXTENSION),
-                'mime' => mime_content_type($filePath),
-            ]);
+            try {
+                $this->attach($filePath, [
+                    'as' =>
+                        'convite.' . pathinfo($filePath, PATHINFO_EXTENSION),
+                    'mime' => mime_content_type($filePath)
+                ]);
+            } catch (Exception $exception) {
+                info(['Invalid attachment', $filePath]);
+            }
         }
 
         return $this;
