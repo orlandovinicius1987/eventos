@@ -8,20 +8,26 @@
 sudo apt-get update
 sudo apt-get install php-imagick
 ```
-
-### Executar
+### Supervisors
 
 ```
-composer install
-composer migrate
-php artisan horizon:terminate
-php artisan config:cache
-php artisan route:cache
 php artisan horizon
-php artisan websockets:serve
 ```
 
-### Criar novo cliente
+### Instalar ou atualizar
+
+```
+composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+php artisan storage:link
+php artisan cache:clear
+php artisan config:cache
+php artisan horizon:terminate
+php artisan view:clear
+php artisan route:cache
+php artisan migrate --force
+```
+
+## Criar novo cliente
 - Run inside the project folder `php artisan eventos:create-client {upper_camel_case_client_name}`
 - Include roles
 ```
