@@ -2,6 +2,7 @@
 
 namespace App\Data\Repositories;
 
+use App\Data\Models\PersonInstitution;
 use App\Events\PersonInstitutionsGotChanged;
 use Illuminate\Database\Query\Builder;
 use App\Data\Models\PersonInstitution as PersonInstitutionModel;
@@ -63,5 +64,16 @@ class PersonInstitutions extends Repository
     public function fireEventsForRelationships($model)
     {
         event(new PersonInstitutionsGotChanged($model->person));
+    }
+
+    public function getActiveIdsIn($idsArray)
+    {
+        return PersonInstitution::select('id')
+            ->whereIn('id', $idsArray)
+            ->where('is_active', true)
+            ->get()
+            ->map(function ($item) {
+                return $item->id;
+            });
     }
 }
