@@ -69,6 +69,7 @@ class Invitables extends Repository
                             $subEventId .
                             ') as is_invited_to_sub_event'
                     )
+                    ->whereRaw('"person_institutions"."is_active" = true')
             )
         );
     }

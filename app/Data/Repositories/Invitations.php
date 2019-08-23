@@ -1,6 +1,7 @@
 <?php
 namespace App\Data\Repositories;
 
+use App\Data\Models\PersonInstitution;
 use DB as Database;
 use App\Data\Models\Invitation;
 use App\Events\InvitationUpdated;
@@ -273,12 +274,23 @@ class Invitations extends Repository
         return false;
     }
 
+    protected function transformInviteesIntoIds($invitees)
+    {
+        return collect($invitees)->map(function ($value, $key) {
+            return $value['id'];
+        });
+    }
+
     public function invite($eventId, $subEventId, $invitees)
     {
+        $invitees = app(PersonInstitutions::class)->getActiveIdsIn(
+            $this->transformInviteesIntoIds($invitees)
+        );
+
         foreach ($invitees as $invitee) {
             $invitation = Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
-                'person_institution_id' => $invitee['id'],
+                'person_institution_id' => $invitee,
             ]);
 
             event(new InvitationCreated($invitation));
