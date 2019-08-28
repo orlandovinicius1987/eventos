@@ -79,9 +79,7 @@ function get_current_client_id()
 
 function get_current_client_slug()
 {
-    if (!($current = Session::get('current_client'))) {
-        $current = set_current_client_id(get_current_client_id());
-    }
+    $current = get_current_client();
 
     return $current ? $current->slug : null;
 }
