@@ -41,14 +41,14 @@ class EventServiceProvider extends ServiceProvider
         MessageSending::class => [SetMailNotificationMessageInfo::class],
         InvitationUpdated::class => [
             NotifyInvitationsChanged::class,
-            NotifySubEventsChanged::class,
+            NotifySubEventsChanged::class
         ],
         InvitationCreated::class => [SendNotification::class],
         PersonUpdated::class => [NotifyPeopleChanged::class],
         NotificationSent::class => [NotifySubEventsChanged::class],
         InviteeCheckedIn::class => [
             NotifyInviteesChanged::class,
-            SendThankYouToInvitee::class,
-        ],
+            SendThankYouToInvitee::class
+        ]
     ];
 }

@@ -25,7 +25,7 @@ trait PeopleExport
         'role' => '10_',
         'contact' => '11_',
         'address' => '12_',
-        'advisor' => '13_',
+        'advisor' => '13_'
     ];
 
     public function export()
@@ -56,7 +56,7 @@ trait PeopleExport
             'institutions.name as institution_name',
             'contacts.contact as contact',
             'contact_types.name as contact_type_name',
-            'contact_types.code as contact_type_code',
+            'contact_types.code as contact_type_code'
         ];
     }
 
@@ -140,7 +140,7 @@ trait PeopleExport
                 'heading' => 'Mailing',
                 'subHeading' => '',
                 'date' => now()->format('m/d/Y H:i'),
-                'people' => $this->getExportableData(),
+                'people' => $this->getExportableData()
             ])
             ->render();
     }
@@ -254,8 +254,7 @@ trait PeopleExport
                         $this->fieldTypes['institution_title'] .
                         'instituicao_tratamento' => $item->institution->title,
 
-                        $this->fieldTypes['role'] . 'cargo' => $item->role
-                            ->name,
+                        $this->fieldTypes['role'] . 'cargo' => $item->role->name
                     ] +
                     $this->makeContactsArray($item->contacts) +
                     $this->makeAddressesArray($item->addresses) +
@@ -273,7 +272,7 @@ trait PeopleExport
                     ->mapWithKeys(function ($column) use ($item) {
                         return [
                             $this->removeFieldType($column) =>
-                                $item[$column] ?? null,
+                                $item[$column] ?? null
                         ];
                     });
             });
@@ -298,7 +297,7 @@ trait PeopleExport
             ->map(function ($contact) {
                 return [
                     'type' => Str::slug($contact->contactType->name),
-                    'contact' => $contact->contact,
+                    'contact' => $contact->contact
                 ];
             })
             ->sortBy('type')
@@ -312,7 +311,7 @@ trait PeopleExport
                 return [
                     $this->fieldTypes['contact'] . $contact['type'] => $contact[
                         'contact'
-                    ],
+                    ]
                 ];
             });
 
@@ -330,7 +329,7 @@ trait PeopleExport
                     'XY4_complemento' => $address->complement,
                     'XY5_bairro' => $address->neighbourhood,
                     'XY6_cidade' => $address->city,
-                    'XY7_uf' => $address->state,
+                    'XY7_uf' => $address->state
                 ]);
             })
             ->mapWithKeys(function ($address) use (&$types) {
@@ -346,7 +345,7 @@ trait PeopleExport
                         'endereco' .
                         $types['endereco'] .
                         '_' .
-                        $key => $value,
+                        $key => $value
                     ];
                 });
 
@@ -367,7 +366,7 @@ trait PeopleExport
                             ->name,
 
                         $this->fieldTypes['role'] . 'cargo' => $advisor->role
-                            ->name,
+                            ->name
                     ] +
                         $this->makeContactsArray($advisor->contacts) +
                         $this->makeAddressesArray($advisor->addresses)
@@ -386,7 +385,7 @@ trait PeopleExport
                         'assessor' .
                         $order['assessor'] .
                         '_' .
-                        $key => $value,
+                        $key => $value
                     ];
                 });
 

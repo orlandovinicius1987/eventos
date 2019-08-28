@@ -34,4 +34,17 @@ class Client extends Base
             $name
         );
     }
+
+    public function fixSettings()
+    {
+        if (gettype($this->settings) === 'string') {
+            $this->settings = json_decode($this->settings, true);
+
+            $this->save();
+
+            $this->refresh();
+        }
+
+        return $this;
+    }
 }

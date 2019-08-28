@@ -37,8 +37,8 @@ class Invitations extends Repository
                     'type' => $invitation->hasEmail() ? 'success' : 'danger',
                     'label' => $invitation->hasEmail()
                         ? 'nenhuma'
-                        : 'não possui e-mail',
-                ],
+                        : 'não possui e-mail'
+                ]
             ];
 
             $invitation['has_email'] = $invitation->hasEmail();
@@ -290,7 +290,7 @@ class Invitations extends Repository
         foreach ($invitees as $invitee) {
             $invitation = Invitation::firstOrCreate([
                 'sub_event_id' => $subEventId,
-                'person_institution_id' => $invitee,
+                'person_institution_id' => $invitee
             ]);
 
             event(new InvitationCreated($invitation));
