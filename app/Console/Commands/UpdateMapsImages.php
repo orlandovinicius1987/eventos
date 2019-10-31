@@ -38,10 +38,35 @@ class UpdateMapsImages extends Command
      */
     public function handle()
     {
-        Address::fromSubEvent()
-            ->get()
-            ->each(function (Address $address) {
-                $address->saveGoogleMapsStaticImage();
-            });
+        $query = Address::fromSubEvent();
+
+        if ($id = $this->argument('id')) {
+            $query->where('id', $id);
+        }
+
+        $query->get()->each(function (Address $address) {
+            dump(
+                'Downloading map image for address ' .
+                    '(' .
+                    ($address->latitude ?? '') .
+                    ',' .
+                    ($address->longitude ?? '') .
+                    ')' .
+                    '(id=' .
+                    $address->id .
+                    ')' .
+                    ' for subevent ' .
+                    $address->addressable->name .
+                    '(id=' .
+                    $address->addressable->id .
+                    ')' .
+                    ' for event ' .
+                    $address->addressable->event->name .
+                    '(id=' .
+                    $address->addressable->event->id .
+                    ')'
+            );
+            $address->saveGoogleMapsStaticImage();
+        });
     }
 }
