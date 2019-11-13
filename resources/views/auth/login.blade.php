@@ -11,16 +11,6 @@
             height: 100%;
         }
 
-        @media (min-width: 768px) {
-
-            body {
-                background-image: url("/images/alerj-logo-sotexto-op20.png") ;
-                background-repeat: no-repeat ;
-                background-position: bottom 100px center;
-                background-size: 300px;
-            }
-        }
-
         .container-fluid {
             display: none !important;
         }
