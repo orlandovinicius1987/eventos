@@ -21,6 +21,7 @@
                                 <div class="col-4 text-right">
                                     <app-input
                                         name="send_invitations"
+                                        dusk="send_invitations"
                                         label="pode enviar convites"
                                         type="checkbox"
                                         v-model="

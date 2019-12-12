@@ -767,7 +767,7 @@
                                     "
                                     title="Enviar convite"
                                 >
-                                    <i class="fa fa-mail-bulk"></i>
+                                    <i dusk="enviar-convite" class="fa fa-mail-bulk"></i>
                                 </button>
 
                                 <button
