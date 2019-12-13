@@ -46,6 +46,7 @@ class CreatSubEventTest extends DuskTestCase
                     ->keys('#date', '210219')
                     ->keys('#time', '00002315')
                     ->check('@send_invitations')
+                    ->check('@send_credentials')
                     ->type('@sub-adress', 'local qualquer')
                     ->script([
                         "document.getElementById('sector_id').parentElement.__vue__.select(3)"

@@ -37,6 +37,7 @@
                                 <div class="col-4">
                                     <app-input
                                         name="send_credentials"
+                                        dusk="send_credentials"
                                         label="pode enviar credenciais"
                                         type="checkbox"
                                         v-model="
