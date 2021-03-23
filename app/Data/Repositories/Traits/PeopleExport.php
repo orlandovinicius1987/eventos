@@ -25,14 +25,12 @@ trait PeopleExport
         'role' => '10_',
         'contact' => '11_',
         'address' => '12_',
-        'advisor' => '13_'
+        'advisor' => '13_',
     ];
 
     public function export()
     {
-        return request()->get('fileType') === 'pdf'
-            ? $this->pdf()
-            : $this->csv();
+        return request()->get('fileType') === 'pdf' ? $this->pdf() : $this->csv();
     }
 
     public function exportAll()
@@ -54,9 +52,10 @@ trait PeopleExport
             'people.cpf as person_cpf',
             'people.notes as person_notes',
             'institutions.name as institution_name',
+            'roles.name as role_name',
             'contacts.contact as contact',
             'contact_types.name as contact_type_name',
-            'contact_types.code as contact_type_code'
+            'contact_types.code as contact_type_code',
         ];
     }
 
@@ -66,36 +65,17 @@ trait PeopleExport
     protected function exportQueryAndJoins()
     {
         return $this->newQuery()
-            ->leftJoin(
-                'person_institutions',
-                'people.id',
-                '=',
-                'person_institutions.person_id'
-            )
-            ->leftJoin(
-                'institutions',
-                'person_institutions.institution_id',
-                '=',
-                'institutions.id'
-            )
+            ->leftJoin('person_institutions', 'people.id', '=', 'person_institutions.person_id')
+            ->leftJoin('institutions', 'person_institutions.institution_id', '=', 'institutions.id')
+            ->leftJoin('roles', 'person_institutions.role_id', '=', 'roles.id')
             ->leftJoin(
                 'person_institutions as advisors',
                 'advisors.advised_id',
                 '=',
                 'person_institutions.id'
             )
-            ->leftJoin(
-                'contacts',
-                'contacts.person_institution_id',
-                '=',
-                'person_institutions.id'
-            )
-            ->leftJoin(
-                'contact_types',
-                'contacts.contact_type_id',
-                '=',
-                'contact_types.id'
-            );
+            ->leftJoin('contacts', 'contacts.person_institution_id', '=', 'person_institutions.id')
+            ->leftJoin('contact_types', 'contacts.contact_type_id', '=', 'contact_types.id');
     }
 
     public function pdf()
@@ -109,10 +89,7 @@ trait PeopleExport
     {
         $fileName = tempnam(sys_get_temp_dir(), 'exporter_');
 
-        file_put_contents(
-            $fileName,
-            $this->exportToCsv($this->getExportableData())
-        );
+        file_put_contents($fileName, $this->exportToCsv($this->getExportableData()));
 
         return response()
             ->download($fileName, make_filename('pessoas', 'csv'))
@@ -123,10 +100,7 @@ trait PeopleExport
     {
         $fileName = tempnam(sys_get_temp_dir(), 'exporter_');
 
-        file_put_contents(
-            $fileName,
-            $this->exportToCsv($this->getAllExportableData())
-        );
+        file_put_contents($fileName, $this->exportToCsv($this->getAllExportableData()));
 
         return response()
             ->download($fileName, make_filename('pessoas', 'csv'))
@@ -140,7 +114,7 @@ trait PeopleExport
                 'heading' => 'Mailing',
                 'subHeading' => '',
                 'date' => now()->format('m/d/Y H:i'),
-                'people' => $this->getExportableData()
+                'people' => $this->getExportableData(),
             ])
             ->render();
     }
@@ -154,9 +128,7 @@ trait PeopleExport
     {
         set_time_limit(0);
 
-        $query = $this->exportQueryAndJoins()->select(
-            $this->exportGetSelectList()
-        );
+        $query = $this->exportQueryAndJoins()->select($this->exportGetSelectList());
 
         $this->filterText($this->getQueryFilter(), $query);
 
@@ -184,9 +156,7 @@ trait PeopleExport
                 return $person;
             })
             ->map(function ($person) {
-                return collect($person)->only(
-                    $this->getExportableColumns()->pluck('alias')
-                );
+                return collect($person)->only($this->getExportableColumns()->pluck('alias'));
             })
             ->values()
             ->toArray();
@@ -194,9 +164,7 @@ trait PeopleExport
 
     public function getAllExportableData()
     {
-        return $this->createExportableData(
-            PersonInstitution::with('contacts')->get()
-        )->toArray();
+        return $this->createExportableData(PersonInstitution::with('contacts')->get())->toArray();
     }
 
     public function getExportableColumns()
@@ -209,8 +177,7 @@ trait PeopleExport
     protected function exportFlattenPerson($person): array
     {
         $person = $person->map(function ($contact) {
-            $contact['contact_type_' . $contact['contact_type_code']] =
-                $contact['contact'];
+            $contact['contact_type_' . $contact['contact_type_code']] = $contact['contact'];
 
             unset($contact['contact']);
             unset($contact['contact_type_code']);
@@ -236,33 +203,28 @@ trait PeopleExport
             ->map(function ($item) {
                 $result =
                     [
-                        $this->fieldTypes['name'] . 'nome' => $item->person
-                            ->name,
+                        $this->fieldTypes['name'] . 'nome' => $item->person->name,
 
-                        $this->fieldTypes['nickname'] . 'apelido' => $item
-                            ->person->nickname,
+                        $this->fieldTypes['nickname'] . 'apelido' => $item->person->nickname,
 
-                        $this->fieldTypes['birthdate'] . 'nascimento' => $item
-                            ->person->birthdate,
+                        $this->fieldTypes['birthdate'] . 'nascimento' => $item->person->birthdate,
 
-                        $this->fieldTypes['title'] . 'tratamento' => $item
-                            ->person->title,
+                        $this->fieldTypes['title'] . 'tratamento' => $item->person->title,
 
                         $this->fieldTypes['cpf'] . 'cpf' => $item->person->cpf,
 
-                        $this->fieldTypes['notes'] . 'observacoes' => $item
-                            ->person->notes,
+                        $this->fieldTypes['notes'] . 'observacoes' => $item->person->notes,
 
                         $this->fieldTypes['party'] . 'partido' =>
                             $item->person->party->name ?? null,
 
-                        $this->fieldTypes['institution'] .
-                        'instituicao' => $item->institution->name,
+                        $this->fieldTypes['institution'] . 'instituicao' => $item->institution
+                            ->name,
 
-                        $this->fieldTypes['institution_title'] .
-                        'instituicao_tratamento' => $item->institution->title,
+                        $this->fieldTypes['institution_title'] . 'instituicao_tratamento' => $item
+                            ->institution->title,
 
-                        $this->fieldTypes['role'] . 'cargo' => $item->role->name
+                        $this->fieldTypes['role'] . 'cargo' => $item->role->name,
                     ] +
                     $this->makeContactsArray($item->contacts) +
                     $this->makeAddressesArray($item->addresses) +
@@ -275,14 +237,11 @@ trait PeopleExport
                 return $result;
             })
             ->map(function ($item) {
-                return $this->allContactTypes
-                    ->sort()
-                    ->mapWithKeys(function ($column) use ($item) {
-                        return [
-                            $this->removeFieldType($column) =>
-                                $item[$column] ?? null
-                        ];
-                    });
+                return $this->allContactTypes->sort()->mapWithKeys(function ($column) use ($item) {
+                    return [
+                        $this->removeFieldType($column) => $item[$column] ?? null,
+                    ];
+                });
             });
     }
 
@@ -305,7 +264,7 @@ trait PeopleExport
             ->map(function ($contact) {
                 return [
                     'type' => Str::slug($contact->contactType->name),
-                    'contact' => $contact->contact
+                    'contact' => $contact->contact,
                 ];
             })
             ->sortBy('type')
@@ -317,9 +276,7 @@ trait PeopleExport
                 $contact['type'] = $contact['type'] . $types[$contact['type']];
 
                 return [
-                    $this->fieldTypes['contact'] . $contact['type'] => $contact[
-                        'contact'
-                    ]
+                    $this->fieldTypes['contact'] . $contact['type'] => $contact['contact'],
                 ];
             });
 
@@ -337,23 +294,19 @@ trait PeopleExport
                     'XY4_complemento' => $address->complement,
                     'XY5_bairro' => $address->neighbourhood,
                     'XY6_cidade' => $address->city,
-                    'XY7_uf' => $address->state
+                    'XY7_uf' => $address->state,
                 ]);
             })
             ->mapWithKeys(function ($address) use (&$types) {
-                $types['endereco'] = isset($types['endereco'])
-                    ? $types['endereco'] + 1
-                    : 1;
+                $types['endereco'] = isset($types['endereco']) ? $types['endereco'] + 1 : 1;
 
-                $address = $address->mapWithKeys(function ($value, $key) use (
-                    $types
-                ) {
+                $address = $address->mapWithKeys(function ($value, $key) use ($types) {
                     return [
                         $this->fieldTypes['address'] .
                         'endereco' .
                         $types['endereco'] .
                         '_' .
-                        $key => $value
+                        $key => $value,
                     ];
                 });
 
@@ -370,30 +323,24 @@ trait PeopleExport
             ->map(function ($advisor) {
                 return collect(
                     [
-                        $this->fieldTypes['name'] . 'nome' => $advisor->person
-                            ->name,
+                        $this->fieldTypes['name'] . 'nome' => $advisor->person->name,
 
-                        $this->fieldTypes['role'] . 'cargo' => $advisor->role
-                            ->name
+                        $this->fieldTypes['role'] . 'cargo' => $advisor->role->name,
                     ] +
                         $this->makeContactsArray($advisor->contacts) +
                         $this->makeAddressesArray($advisor->addresses)
                 );
             })
             ->mapWithKeys(function ($advisor) use (&$types) {
-                $order['assessor'] = isset($order['assessor'])
-                    ? $order['assessor'] + 1
-                    : 1;
+                $order['assessor'] = isset($order['assessor']) ? $order['assessor'] + 1 : 1;
 
-                $advisor = $advisor->mapWithKeys(function ($value, $key) use (
-                    $order
-                ) {
+                $advisor = $advisor->mapWithKeys(function ($value, $key) use ($order) {
                     return [
                         $this->fieldTypes['advisor'] .
                         'assessor' .
                         $order['assessor'] .
                         '_' .
-                        $key => $value
+                        $key => $value,
                     ];
                 });
 

@@ -51,6 +51,12 @@ class ExportableData extends Repository
             'entity' => 'institutions.name',
             'alias' => 'institution_name',
         ],
+        [
+            'code' => 'person_institution:name',
+            'title' => 'Cargo: nome',
+            'entity' => 'roles.name',
+            'alias' => 'role_name',
+        ],
     ];
 
     public function all()
