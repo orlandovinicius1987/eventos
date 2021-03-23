@@ -52,7 +52,7 @@ class ExportableData extends Repository
             'alias' => 'institution_name',
         ],
         [
-            'code' => 'person_institution:name',
+            'code' => 'roles:name',
             'title' => 'Cargo: nome',
             'entity' => 'roles.name',
             'alias' => 'role_name',
