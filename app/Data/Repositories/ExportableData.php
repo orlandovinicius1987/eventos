@@ -71,12 +71,21 @@ class ExportableData extends Repository
 
     protected function getContactTypes($withEntity = false)
     {
-        return ContactType::all()->map(function ($row) use ($withEntity) {
-            return [
-                'code' => 'contact_type:' . $row->code,
-                'title' => 'Tipo de contato: ' . $row->name,
-                'alias' => 'contact_type_' . $row->code,
-            ];
+        $finalCollection = collect();
+
+        ContactType::all()->each(function ($row) use ($withEntity, $finalCollection) {
+            $finalCollection->push([
+                'code' => 'contact_inactive_type:' . $row->code,
+                'title' => 'Contatos inativos do tipo: ' . $row->name,
+                'alias' => 'contact_inactive_type_' . $row->code,
+            ]);
+            $finalCollection->push([
+                'code' => 'contact_active_type:' . $row->code,
+                'title' => 'Contatos ativos do tipo: ' . $row->name,
+                'alias' => 'contact_active_type_' . $row->code,
+            ]);
         });
+
+        return $finalCollection;
     }
 }

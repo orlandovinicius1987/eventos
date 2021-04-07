@@ -54,6 +54,7 @@ trait PeopleExport
             'institutions.name as institution_name',
             'roles.name as role_name',
             'contacts.contact as contact',
+            'contacts.is_active as contact_is_active',
             'contact_types.name as contact_type_name',
             'contact_types.code as contact_type_code',
         ];
@@ -152,7 +153,6 @@ trait PeopleExport
                             $person[$alias] = null;
                         }
                     });
-
                 return $person;
             })
             ->map(function ($person) {
@@ -177,7 +177,17 @@ trait PeopleExport
     protected function exportFlattenPerson($person): array
     {
         $person = $person->map(function ($contact) {
-            $contact['contact_type_' . $contact['contact_type_code']] = $contact['contact'];
+            $contact['contact_active_type_' . $contact['contact_type_code']] = $contact[
+                'contact_is_active'
+            ]
+                ? $contact['contact']
+                : null;
+
+            $contact['contact_inactive_type_' . $contact['contact_type_code']] = $contact[
+                'contact_is_active'
+            ]
+                ? null
+                : $contact['contact'];
 
             unset($contact['contact']);
             unset($contact['contact_type_code']);
@@ -190,7 +200,9 @@ trait PeopleExport
 
         $person->each(function ($columns) use (&$item) {
             collect($columns)->each(function ($column, $name) use (&$item) {
-                $item[$name] = $column;
+                if (!isset($item[$name]) || !$item[$name]) {
+                    $item[$name] = $column;
+                }
             });
         });
 
