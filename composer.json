@@ -12,6 +12,7 @@
         "bacon/bacon-qr-code": "^2.0",
         "barryvdh/laravel-dompdf": "^0.8",
         "beyondcode/laravel-websockets": "^1.0",
+        "bugsnag/bugsnag-laravel": "^2.0",
         "doctrine/dbal": "^2.8",
         "erusev/parsedown": "^1.7",
         "erusev/parsedown-extra": "^0.7.1",
